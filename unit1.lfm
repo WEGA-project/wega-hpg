@@ -75,6 +75,7 @@ object Koefficients: TKoefficients
     Increment = 0.01
     MaxValue = 999
     MinValue = 0
+    OnChange = MgChange
     TabOrder = 4
     Value = 50
   end
@@ -86,6 +87,7 @@ object Koefficients: TKoefficients
     Increment = 0.01
     MaxValue = 999
     MinValue = 0
+    OnChange = SChange
     TabOrder = 5
     Value = 80
   end
@@ -324,6 +326,7 @@ object Koefficients: TKoefficients
     Increment = 0.01
     MaxValue = 100
     MinValue = 0
+    OnChange = NKChange
     TabOrder = 10
     Value = 0
   end
