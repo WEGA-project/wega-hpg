@@ -159,7 +159,11 @@ end;
 
 procedure TKoefficients.CaChange(Sender: TObject);
 begin
-
+  CaN.value:=Ca.value/N.value;
+  CaP.value:=Ca.value/P.value;
+  CaK.value:=Ca.value/K.value;
+  CaMg.value:=Ca.value/Mg.value;
+  CaS.value:=Ca.Value/S.value;
 end;
 
 procedure TKoefficients.FormActivate(Sender: TObject);
@@ -184,6 +188,11 @@ begin
   KMg.value:=K.value/Mg.value;
   KS.value:=K.value/S.value;
 
+    CaN.value:=Ca.value/N.value;
+  CaP.value:=Ca.value/P.value;
+  CaK.value:=Ca.value/K.value;
+  CaMg.value:=Ca.value/Mg.value;
+  CaS.value:=Ca.Value/S.value;
 end;
 
 procedure TKoefficients.FormChangeBounds(Sender: TObject);
