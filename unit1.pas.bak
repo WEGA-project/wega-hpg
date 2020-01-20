@@ -84,6 +84,7 @@ type
       Shift: TShiftState; X, Y: Integer);
     procedure KChange(Sender: TObject);
     procedure KClick(Sender: TObject);
+    procedure KNClick(Sender: TObject);
     procedure Label1Click(Sender: TObject);
     procedure Label8Click(Sender: TObject);
     procedure MgChange(Sender: TObject);
@@ -100,6 +101,7 @@ type
     procedure NH4NO3Change(Sender: TObject);
     procedure NH4NO3Click(Sender: TObject);
     procedure NKChange(Sender: TObject);
+    procedure NKClick(Sender: TObject);
     procedure NKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure NO3Change(Sender: TObject);
     procedure NO3Click(Sender: TObject);
@@ -127,6 +129,8 @@ type
 
     procedure PChange(Sender: TObject);
     procedure PClick(Sender: TObject);
+    procedure PKClick(Sender: TObject);
+    procedure PNClick(Sender: TObject);
     procedure SChange(Sender: TObject);
     procedure SClick(Sender: TObject);
   private
@@ -195,7 +199,7 @@ begin
 
 
    Kf.NP.value:=Kf.N.value/Kf.P.Value;
-   Kf.NK.value:=Kf.N.value/Kf.P.value;
+   Kf.NK.value:=Kf.N.value/Kf.K.value;
    Kf.NCa.value:=Kf.N.value/Kf.Ca.value;
    Kf.NMg.value:=Kf.N.value/Kf.Mg.value;
    Kf.CaN.value:=Kf.Ca.value/Kf.N.value;
@@ -280,8 +284,16 @@ begin
   CalculateS;
 end;
 
+procedure TKf.KNClick(Sender: TObject);
+begin
+  K.value:=N.value*KN.value;
+  CalculateS;
+end;
+
 procedure TKf.Button1Click(Sender: TObject);
 begin
+
+  CalculateS;
   CalcKoef;
 end;
 
@@ -379,6 +391,12 @@ begin
 
 end;
 
+procedure TKf.NKClick(Sender: TObject);
+begin
+  N.value:=K.value*NK.value;
+  CalculateS;
+end;
+
 procedure TKf.NKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
@@ -415,7 +433,9 @@ end;
 
 procedure TKf.NPClick(Sender: TObject);
 begin
+  K.value:=P.value*KP.value;
 
+  CalculateS;
 end;
 
 procedure TKf.NPEditingDone(Sender: TObject);
@@ -494,6 +514,19 @@ end;
 
 procedure TKf.PClick(Sender: TObject);
 begin
+  CalculateS;
+end;
+
+procedure TKf.PKClick(Sender: TObject);
+begin
+  P.value:=K.value*PK.value;
+  CalculateS;
+end;
+
+procedure TKf.PNClick(Sender: TObject);
+begin
+
+  P.value:=N.value*PN.value;
   CalculateS;
 end;
 
