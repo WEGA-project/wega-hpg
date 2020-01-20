@@ -516,6 +516,7 @@ object Kf: TKf
     Height = 27
     Top = 192
     Width = 64
+    Color = clYellow
     Increment = 0.01
     MaxValue = 100
     MinValue = 0
