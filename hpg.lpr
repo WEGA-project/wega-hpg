@@ -15,7 +15,7 @@ uses
 begin
   RequireDerivedFormResource:=True;
   Application.Initialize;
-  Application.CreateForm(TKoefficients, Koefficients);
+  Application.CreateForm(TKf, Kf);
   Application.Run;
 end.
 

@@ -1,7 +1,7 @@
-object Koefficients: TKoefficients
-  Left = 498
+object Kf: TKf
+  Left = 840
   Height = 476
-  Top = 167
+  Top = 144
   Width = 600
   Caption = 'Koefficients'
   ClientHeight = 476
@@ -9,142 +9,154 @@ object Koefficients: TKoefficients
   OnActivate = FormActivate
   OnChangeBounds = FormChangeBounds
   OnClick = FormClick
+  OnMouseDown = FormMouseDown
   LCLVersion = '1.6.0.4'
   object Label1: TLabel
     Left = 22
-    Height = 17
+    Height = 18
     Top = 6
-    Width = 164
+    Width = 177
     Caption = 'Hydroponic Profile Generator'
     ParentColor = False
     OnClick = NChange
   end
   object N: TFloatSpinEdit
     Left = 40
-    Height = 27
+    Height = 28
     Top = 38
     Width = 65
-    Increment = 0.01
+    Increment = 1
     MaxValue = 999
     MinValue = 0
     OnChange = NChange
+    OnClick = NClick
+    OnEditingDone = NEditingDone
+    OnKeyDown = NKeyDown
     TabOrder = 0
     Value = 220
   end
   object P: TFloatSpinEdit
     Left = 112
-    Height = 27
+    Height = 28
     Top = 38
     Width = 65
-    Increment = 0.01
+    Increment = 1
     MaxValue = 999
     MinValue = 0
     OnChange = PChange
+    OnClick = PClick
     TabOrder = 1
     Value = 40
   end
   object K: TFloatSpinEdit
     Left = 185
-    Height = 27
+    Height = 28
     Top = 38
     Width = 65
-    Increment = 0.01
+    Increment = 1
     MaxValue = 999
     MinValue = 0
     OnChange = KChange
+    OnClick = KClick
     TabOrder = 2
     Value = 180
   end
   object Ca: TFloatSpinEdit
     Left = 257
-    Height = 27
+    Height = 28
     Top = 38
     Width = 65
-    Increment = 0.01
+    Increment = 1
     MaxValue = 999
     MinValue = 0
     OnChange = CaChange
+    OnClick = CaClick
     TabOrder = 3
-    Value = 100
+    Value = 200
   end
   object Mg: TFloatSpinEdit
     Left = 329
-    Height = 27
+    Height = 28
     Top = 38
     Width = 65
-    Increment = 0.01
+    Increment = 1
     MaxValue = 999
     MinValue = 0
     OnChange = MgChange
+    OnClick = MgClick
     TabOrder = 4
     Value = 50
   end
   object S: TFloatSpinEdit
     Left = 401
-    Height = 27
+    Height = 28
     Top = 38
     Width = 65
-    Increment = 0.01
+    Increment = 1
     MaxValue = 999
     MinValue = 0
     OnChange = SChange
+    OnClick = SClick
     TabOrder = 5
     Value = 80
   end
   object NO3: TFloatSpinEdit
     Left = 40
-    Height = 27
+    Height = 28
     Top = 65
     Width = 65
     Increment = 0.01
     MaxValue = 999
     MinValue = 0
     OnChange = NO3Change
+    OnClick = NO3Click
     OnExit = NO3Exit
     TabOrder = 6
     Value = 200
   end
   object NH4: TFloatSpinEdit
     Left = 40
-    Height = 27
+    Height = 28
     Top = 91
     Width = 65
     Increment = 0.01
     MaxValue = 999
     MinValue = 0
     OnChange = NH4Change
+    OnClick = NH4Click
     OnEditingDone = NH4EditingDone
     OnExit = NH4Exit
+    OnMouseDown = NH4MouseDown
     TabOrder = 7
     Value = 20
   end
   object Label2: TLabel
     Left = 52
-    Height = 17
+    Height = 18
     Top = 23
-    Width = 9
+    Width = 10
     Caption = 'N'
     ParentColor = False
   end
   object Label3: TLabel
     Left = 134
-    Height = 17
+    Height = 18
     Top = 23
-    Width = 7
+    Width = 8
     Caption = 'P'
     ParentColor = False
   end
   object Label4: TLabel
     Left = 196
-    Height = 17
+    Height = 18
     Top = 23
-    Width = 7
+    Width = 8
     Caption = 'K'
     ParentColor = False
   end
   object Label5: TLabel
     Left = 279
-    Height = 17
+    Height = 18
     Top = 23
     Width = 15
     Caption = 'Ca'
@@ -152,15 +164,15 @@ object Koefficients: TKoefficients
   end
   object Label6: TLabel
     Left = 351
-    Height = 17
+    Height = 18
     Top = 23
-    Width = 18
+    Width = 20
     Caption = 'Mg'
     ParentColor = False
   end
   object Label7: TLabel
     Left = 434
-    Height = 17
+    Height = 18
     Top = 23
     Width = 7
     Caption = 'S'
@@ -168,61 +180,62 @@ object Koefficients: TKoefficients
   end
   object Label8: TLabel
     Left = 4
-    Height = 17
+    Height = 18
     Top = 69
-    Width = 25
+    Width = 27
     Caption = 'NO3'
     ParentColor = False
     OnClick = Label8Click
   end
   object Label9: TLabel
     Left = 4
-    Height = 17
+    Height = 18
     Top = 99
-    Width = 25
+    Width = 27
     Caption = 'NH4'
     ParentColor = False
   end
   object NH4NO3: TFloatSpinEdit
     Left = 112
-    Height = 27
+    Height = 28
     Top = 80
     Width = 65
     DecimalPlaces = 3
-    Increment = 0.01
+    Increment = 0.001
     MaxValue = 9999999
     MinValue = 0
     OnChange = NH4NO3Change
+    OnClick = NH4NO3Click
     TabOrder = 8
     Value = 0.1
   end
   object Label10: TLabel
     Left = 63
-    Height = 17
+    Height = 18
     Top = 128
-    Width = 9
+    Width = 10
     Caption = 'N'
     ParentColor = False
   end
   object Label11: TLabel
     Left = 138
-    Height = 17
+    Height = 18
     Top = 128
-    Width = 7
+    Width = 8
     Caption = 'P'
     ParentColor = False
   end
   object Label12: TLabel
     Left = 200
-    Height = 17
+    Height = 18
     Top = 128
-    Width = 7
+    Width = 8
     Caption = 'K'
     ParentColor = False
   end
   object Label13: TLabel
     Left = 283
-    Height = 17
+    Height = 18
     Top = 128
     Width = 15
     Caption = 'Ca'
@@ -230,15 +243,15 @@ object Koefficients: TKoefficients
   end
   object Label14: TLabel
     Left = 355
-    Height = 17
+    Height = 18
     Top = 128
-    Width = 18
+    Width = 20
     Caption = 'Mg'
     ParentColor = False
   end
   object Label15: TLabel
     Left = 424
-    Height = 17
+    Height = 18
     Top = 128
     Width = 7
     Caption = 'S'
@@ -246,31 +259,31 @@ object Koefficients: TKoefficients
   end
   object Label16: TLabel
     Left = 8
-    Height = 17
+    Height = 18
     Top = 160
-    Width = 9
+    Width = 10
     Caption = 'N'
     ParentColor = False
   end
   object Label17: TLabel
     Left = 8
-    Height = 17
+    Height = 18
     Top = 193
-    Width = 7
+    Width = 8
     Caption = 'P'
     ParentColor = False
   end
   object Label18: TLabel
     Left = 8
-    Height = 17
+    Height = 18
     Top = 226
-    Width = 7
+    Width = 8
     Caption = 'K'
     ParentColor = False
   end
   object Label19: TLabel
     Left = 8
-    Height = 17
+    Height = 18
     Top = 259
     Width = 15
     Caption = 'Ca'
@@ -278,15 +291,15 @@ object Koefficients: TKoefficients
   end
   object Label20: TLabel
     Left = 8
-    Height = 17
+    Height = 18
     Top = 292
-    Width = 18
+    Width = 20
     Caption = 'Mg'
     ParentColor = False
   end
   object Label21: TLabel
     Left = 8
-    Height = 17
+    Height = 18
     Top = 325
     Width = 7
     Caption = 'S'
@@ -294,7 +307,7 @@ object Koefficients: TKoefficients
   end
   object NP: TFloatSpinEdit
     Left = 40
-    Height = 27
+    Height = 28
     Top = 192
     Width = 64
     Increment = 0.01
@@ -320,7 +333,7 @@ object Koefficients: TKoefficients
   end
   object NK: TFloatSpinEdit
     Left = 40
-    Height = 27
+    Height = 28
     Top = 224
     Width = 64
     Increment = 0.01
@@ -332,7 +345,7 @@ object Koefficients: TKoefficients
   end
   object NCa: TFloatSpinEdit
     Left = 40
-    Height = 27
+    Height = 28
     Top = 256
     Width = 64
     Increment = 0.01
@@ -358,7 +371,7 @@ object Koefficients: TKoefficients
   end
   object NMg: TFloatSpinEdit
     Left = 40
-    Height = 27
+    Height = 28
     Top = 288
     Width = 64
     Increment = 0.01
@@ -369,7 +382,7 @@ object Koefficients: TKoefficients
   end
   object NS: TFloatSpinEdit
     Left = 40
-    Height = 27
+    Height = 28
     Top = 320
     Width = 64
     Increment = 0.01
@@ -395,7 +408,7 @@ object Koefficients: TKoefficients
   end
   object PN: TFloatSpinEdit
     Left = 112
-    Height = 27
+    Height = 28
     Top = 160
     Width = 64
     Increment = 0.01
@@ -406,7 +419,7 @@ object Koefficients: TKoefficients
   end
   object PK: TFloatSpinEdit
     Left = 112
-    Height = 27
+    Height = 28
     Top = 224
     Width = 64
     Increment = 0.01
@@ -417,7 +430,7 @@ object Koefficients: TKoefficients
   end
   object PCa: TFloatSpinEdit
     Left = 112
-    Height = 27
+    Height = 28
     Top = 256
     Width = 64
     Increment = 0.01
@@ -443,7 +456,7 @@ object Koefficients: TKoefficients
   end
   object PMg: TFloatSpinEdit
     Left = 112
-    Height = 27
+    Height = 28
     Top = 288
     Width = 64
     Increment = 0.01
@@ -454,7 +467,7 @@ object Koefficients: TKoefficients
   end
   object PS: TFloatSpinEdit
     Left = 112
-    Height = 27
+    Height = 28
     Top = 320
     Width = 64
     Increment = 0.01
@@ -480,7 +493,7 @@ object Koefficients: TKoefficients
   end
   object KN: TFloatSpinEdit
     Left = 184
-    Height = 27
+    Height = 28
     Top = 160
     Width = 64
     Increment = 0.01
@@ -491,7 +504,7 @@ object Koefficients: TKoefficients
   end
   object KP: TFloatSpinEdit
     Left = 184
-    Height = 27
+    Height = 28
     Top = 192
     Width = 64
     Increment = 0.01
@@ -517,7 +530,7 @@ object Koefficients: TKoefficients
   end
   object KCa: TFloatSpinEdit
     Left = 184
-    Height = 27
+    Height = 28
     Top = 256
     Width = 64
     Increment = 0.01
@@ -543,7 +556,7 @@ object Koefficients: TKoefficients
   end
   object KMg: TFloatSpinEdit
     Left = 184
-    Height = 27
+    Height = 28
     Top = 288
     Width = 64
     Increment = 0.01
@@ -554,7 +567,7 @@ object Koefficients: TKoefficients
   end
   object KS: TFloatSpinEdit
     Left = 184
-    Height = 27
+    Height = 28
     Top = 320
     Width = 64
     Increment = 0.01
@@ -580,7 +593,7 @@ object Koefficients: TKoefficients
   end
   object CaN: TFloatSpinEdit
     Left = 256
-    Height = 27
+    Height = 28
     Top = 160
     Width = 64
     Increment = 0.01
@@ -591,7 +604,7 @@ object Koefficients: TKoefficients
   end
   object CaP: TFloatSpinEdit
     Left = 256
-    Height = 27
+    Height = 28
     Top = 192
     Width = 64
     Increment = 0.01
@@ -617,7 +630,7 @@ object Koefficients: TKoefficients
   end
   object CaK: TFloatSpinEdit
     Left = 256
-    Height = 27
+    Height = 28
     Top = 224
     Width = 64
     Increment = 0.01
@@ -628,7 +641,7 @@ object Koefficients: TKoefficients
   end
   object CaMg: TFloatSpinEdit
     Left = 256
-    Height = 27
+    Height = 28
     Top = 288
     Width = 64
     Increment = 0.01
@@ -639,7 +652,7 @@ object Koefficients: TKoefficients
   end
   object CaS: TFloatSpinEdit
     Left = 256
-    Height = 27
+    Height = 28
     Top = 320
     Width = 64
     Increment = 0.01
@@ -665,7 +678,7 @@ object Koefficients: TKoefficients
   end
   object MgN: TFloatSpinEdit
     Left = 328
-    Height = 27
+    Height = 28
     Top = 160
     Width = 64
     Increment = 0.01
@@ -676,7 +689,7 @@ object Koefficients: TKoefficients
   end
   object MgP: TFloatSpinEdit
     Left = 328
-    Height = 27
+    Height = 28
     Top = 192
     Width = 64
     Increment = 0.01
@@ -702,7 +715,7 @@ object Koefficients: TKoefficients
   end
   object MgK: TFloatSpinEdit
     Left = 328
-    Height = 27
+    Height = 28
     Top = 224
     Width = 64
     Increment = 0.01
@@ -713,7 +726,7 @@ object Koefficients: TKoefficients
   end
   object MgCa: TFloatSpinEdit
     Left = 328
-    Height = 27
+    Height = 28
     Top = 256
     Width = 64
     Increment = 0.01
@@ -739,7 +752,7 @@ object Koefficients: TKoefficients
   end
   object MgS: TFloatSpinEdit
     Left = 328
-    Height = 27
+    Height = 28
     Top = 320
     Width = 64
     Increment = 0.01
@@ -765,7 +778,7 @@ object Koefficients: TKoefficients
   end
   object SN: TFloatSpinEdit
     Left = 400
-    Height = 27
+    Height = 28
     Top = 160
     Width = 64
     Increment = 0.01
@@ -776,7 +789,7 @@ object Koefficients: TKoefficients
   end
   object SP: TFloatSpinEdit
     Left = 400
-    Height = 27
+    Height = 28
     Top = 192
     Width = 64
     Increment = 0.01
@@ -802,7 +815,7 @@ object Koefficients: TKoefficients
   end
   object SK: TFloatSpinEdit
     Left = 400
-    Height = 27
+    Height = 28
     Top = 224
     Width = 64
     Increment = 0.01
@@ -813,7 +826,7 @@ object Koefficients: TKoefficients
   end
   object SCa: TFloatSpinEdit
     Left = 400
-    Height = 27
+    Height = 28
     Top = 256
     Width = 64
     Increment = 0.01
@@ -839,7 +852,7 @@ object Koefficients: TKoefficients
   end
   object SMg: TFloatSpinEdit
     Left = 400
-    Height = 27
+    Height = 28
     Top = 288
     Width = 64
     Increment = 0.01

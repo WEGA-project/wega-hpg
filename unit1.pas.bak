@@ -10,9 +10,9 @@ uses
 
 type
 
-  { TKoefficients }
+  { TKf }
 
-  TKoefficients = class(TForm)
+  TKf = class(TForm)
     Button1: TButton;
     NK: TFloatSpinEdit;
     NMg: TFloatSpinEdit;
@@ -76,20 +76,33 @@ type
     Label9: TLabel;
     procedure Button1Click(Sender: TObject);
     procedure CaChange(Sender: TObject);
+    procedure CaClick(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormChangeBounds(Sender: TObject);
     procedure FormClick(Sender: TObject);
+    procedure FormMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
     procedure KChange(Sender: TObject);
+    procedure KClick(Sender: TObject);
     procedure Label1Click(Sender: TObject);
     procedure Label8Click(Sender: TObject);
     procedure MgChange(Sender: TObject);
+    procedure MgClick(Sender: TObject);
     procedure NChange(Sender: TObject);
+    procedure NClick(Sender: TObject);
+    procedure NEditingDone(Sender: TObject);
     procedure NH4Change(Sender: TObject);
+    procedure NH4Click(Sender: TObject);
     procedure NH4EditingDone(Sender: TObject);
     procedure NH4Exit(Sender: TObject);
+    procedure NH4MouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
     procedure NH4NO3Change(Sender: TObject);
+    procedure NH4NO3Click(Sender: TObject);
     procedure NKChange(Sender: TObject);
+    procedure NKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure NO3Change(Sender: TObject);
+    procedure NO3Click(Sender: TObject);
     procedure NO3Exit(Sender: TObject);
     procedure NPChange(Sender: TObject);
     procedure NPChangeBounds(Sender: TObject);
@@ -113,7 +126,9 @@ type
 
 
     procedure PChange(Sender: TObject);
+    procedure PClick(Sender: TObject);
     procedure SChange(Sender: TObject);
+    procedure SClick(Sender: TObject);
   private
     { private declarations }
   public
@@ -121,258 +136,348 @@ type
   end;
 
 var
-  Koefficients: TKoefficients;
-  vN:Double;
-
+  Kf: TKf;
+  vN,vNO3,vNH4,vP,vK,vCa,vMg,vS:Double;
+  mN,mP,mK,mCa,mMg,mS:Double;
 implementation
 
 {$R *.lfm}
 
-{ TKoefficients }
+{ TKf }
+
+
+procedure CalculateCa;
+begin
+  mN:=14.0067;
+  mP:=30.0983;
+  mK:=39.0983;
+  mCa:=40.078;
+  mMg:=24.305;
+  mS:=32.065;
+
+  vNO3:=Kf.NO3.value;
+  vNH4:=Kf.NH4.value;
+  vP:=Kf.P.value;
+  vK:=Kf.K.value;
+  vMg:=Kf.Mg.value;
+  vS:=Kf.S.value;
+
+ vCa:=-mCa*(vNH4*mP*mMg*mK*mS - vP*mN*mMg*mK*mS + 2*vMg*mN*mP*mK*mS + vK*mN*mP*mMg*mS - vNO3*mP*mMg*mK*mS - 2*vS*mN*mP*mMg*mK)/(2*(mN*mP*mMg*mK*mS));
+ Kf.Ca.value:=vCa;
+end;
+
+
+
+
+procedure CalculateS;
+begin
+  mN:=14.0067;
+  mP:=30.0983;
+  mK:=39.0983;
+  mCa:=40.078;
+  mMg:=24.305;
+  mS:=32.065;
+
+  vNO3:=Kf.NO3.value;
+  vNH4:=Kf.NH4.value;
+  vP:=Kf.P.value;
+  vK:=Kf.K.value;
+  vCa:=Kf.Ca.value;
+  vMg:=Kf.Mg.value;
+
+ vS:=(mS*(vNH4*mCa*mMg*mK*mP + 2*vCa*mN*mMg*mK*mP + 2*vMg*mN*mCa*mK*mP+ vK*mN*mCa*mMg*mP - vNO3*mCa*mMg*mK*mP - vP*mN*mCa*mMg*mK))/(2*(mN*mCa*mMg*mK*mP));
+ Kf.S.value:=vS;
+end;
 
 procedure CalcKoef;
 begin
 
 
-   Koefficients.NP.value:=Koefficients.N.value/Koefficients.P.Value;
-   Koefficients.NK.value:=Koefficients.N.value/Koefficients.P.value;
-   Koefficients.NCa.value:=Koefficients.N.value/Koefficients.Ca.value;
-   Koefficients.NMg.value:=Koefficients.N.value/Koefficients.Mg.value;
-   Koefficients.CaN.value:=Koefficients.Ca.value/Koefficients.N.value;
-   Koefficients.NS.value:=Koefficients.N.value/Koefficients.S.value;
 
-   Koefficients.PN.value:=Koefficients.P.value/Koefficients.N.value;
-   Koefficients.PK.value:=Koefficients.P.value/Koefficients.K.value;
-   Koefficients.PCa.value:=Koefficients.P.value/Koefficients.Ca.value;
-   Koefficients.PMg.value:=Koefficients.P.value/Koefficients.Mg.Value;
-   Koefficients.PS.Value:=Koefficients.P.value/Koefficients.S.value;
+   Kf.NP.value:=Kf.N.value/Kf.P.Value;
+   Kf.NK.value:=Kf.N.value/Kf.P.value;
+   Kf.NCa.value:=Kf.N.value/Kf.Ca.value;
+   Kf.NMg.value:=Kf.N.value/Kf.Mg.value;
+   Kf.CaN.value:=Kf.Ca.value/Kf.N.value;
+   Kf.NS.value:=Kf.N.value/Kf.S.value;
+
+   Kf.PN.value:=Kf.P.value/Kf.N.value;
+   Kf.PK.value:=Kf.P.value/Kf.K.value;
+   Kf.PCa.value:=Kf.P.value/Kf.Ca.value;
+   Kf.PMg.value:=Kf.P.value/Kf.Mg.Value;
+   Kf.PS.Value:=Kf.P.value/Kf.S.value;
 
 
-  Koefficients.KN.value:=Koefficients.K.value/Koefficients.N.value;
-  Koefficients.KP.Value:=Koefficients.K.value/Koefficients.P.value;
-  Koefficients.KCa.value:=Koefficients.K.value/Koefficients.Ca.value;
-  Koefficients.KMg.value:=Koefficients.K.value/Koefficients.Mg.value;
-  Koefficients.KS.value:=Koefficients.K.value/Koefficients.S.value;
+  Kf.KN.value:=Kf.K.value/Kf.N.value;
+  Kf.KP.Value:=Kf.K.value/Kf.P.value;
+  Kf.KCa.value:=Kf.K.value/Kf.Ca.value;
+  Kf.KMg.value:=Kf.K.value/Kf.Mg.value;
+  Kf.KS.value:=Kf.K.value/Kf.S.value;
 
-  Koefficients.CaN.value:=Koefficients.Ca.value/Koefficients.N.value;
-  Koefficients.CaP.value:=Koefficients.Ca.value/Koefficients.P.value;
-  Koefficients.CaK.value:=Koefficients.Ca.value/Koefficients.K.value;
-  Koefficients.CaMg.value:=Koefficients.Ca.value/Koefficients.Mg.value;
-  Koefficients.CaS.value:=Koefficients.Ca.Value/Koefficients.S.value;
+  Kf.CaN.value:=Kf.Ca.value/Kf.N.value;
+  Kf.CaP.value:=Kf.Ca.value/Kf.P.value;
+  Kf.CaK.value:=Kf.Ca.value/Kf.K.value;
+  Kf.CaMg.value:=Kf.Ca.value/Kf.Mg.value;
+  Kf.CaS.value:=Kf.Ca.Value/Kf.S.value;
 
-  Koefficients.MgN.value:=Koefficients.Mg.value/Koefficients.N.value;
-  Koefficients.MgP.value:=Koefficients.Mg.value/Koefficients.P.value;
-  Koefficients.MgK.value:=Koefficients.Mg.value/Koefficients.K.value;
-  Koefficients.MgCa.value:=Koefficients.Mg.value/Koefficients.Ca.value;
-  Koefficients.MgS.value:=Koefficients.Mg.Value/Koefficients.S.value;
+  Kf.MgN.value:=Kf.Mg.value/Kf.N.value;
+  Kf.MgP.value:=Kf.Mg.value/Kf.P.value;
+  Kf.MgK.value:=Kf.Mg.value/Kf.K.value;
+  Kf.MgCa.value:=Kf.Mg.value/Kf.Ca.value;
+  Kf.MgS.value:=Kf.Mg.Value/Kf.S.value;
+
+  Kf.SN.value:=Kf.S.value/Kf.N.value;
+  Kf.SP.value:=Kf.S.value/Kf.P.value;
+  Kf.SK.value:=Kf.S.value/Kf.K.value;
+  Kf.SCa.value:=Kf.S.value/Kf.Ca.value;
+  Kf.SMg.value:=Kf.S.Value/Kf.Mg.value;
+
+
+
 
 end;
 
-procedure TKoefficients.Label8Click(Sender: TObject);
+procedure TKf.Label8Click(Sender: TObject);
 begin
 
 end;
 
-procedure TKoefficients.MgChange(Sender: TObject);
+procedure TKf.MgChange(Sender: TObject);
 begin
   CalcKoef;
+
 end;
 
-procedure TKoefficients.Label1Click(Sender: TObject);
+procedure TKf.MgClick(Sender: TObject);
+begin
+  CalculateS;
+end;
+
+procedure TKf.Label1Click(Sender: TObject);
 begin
     NH4NO3.value := NH4.value/NO3.value;
 end;
 
-procedure TKoefficients.FormClick(Sender: TObject);
+procedure TKf.FormClick(Sender: TObject);
 begin
 
 end;
 
-procedure TKoefficients.KChange(Sender: TObject);
+procedure TKf.FormMouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+
+end;
+
+procedure TKf.KChange(Sender: TObject);
 begin
  CalcKoef;
+
 end;
 
-procedure TKoefficients.Button1Click(Sender: TObject);
+procedure TKf.KClick(Sender: TObject);
 begin
-
+  CalculateS;
 end;
 
-procedure TKoefficients.CaChange(Sender: TObject);
+procedure TKf.Button1Click(Sender: TObject);
 begin
   CalcKoef;
 end;
 
-procedure TKoefficients.FormActivate(Sender: TObject);
+procedure TKf.CaChange(Sender: TObject);
+begin
+  CalcKoef;
+
+end;
+
+procedure TKf.CaClick(Sender: TObject);
+begin
+  CalculateS;
+end;
+
+procedure TKf.FormActivate(Sender: TObject);
 begin
 
    CalcKoef;
 
-
-
-   //NP.value:=N.value/P.Value;
-   //NK.value:=N.value/P.value;
-   //NCa.value:=N.value/Ca.value;
-   //NMg.value:=N.value/Mg.value;
-   //CaN.value:=Ca.value/N.value;
-   //NS.value:=N.value/S.value;
-
-  // PN.value:=P.value/N.value;
-  // PK.value:=P.value/K.value;
-  // PCa.value:=P.value/Ca.value;
-  // PMg.value:=P.value/Mg.Value;
-  // PS.Value:=P.value/S.value;
-  //
-  //
-  //   KN.value:=K.value/N.value;
-  //KP.Value:=K.value/P.value;
-  //KCa.value:=K.value/Ca.value;
-  //KMg.value:=K.value/Mg.value;
-  //KS.value:=K.value/S.value;
-  //
-  //  CaN.value:=Ca.value/N.value;
-  //CaP.value:=Ca.value/P.value;
-  //CaK.value:=Ca.value/K.value;
-  //CaMg.value:=Ca.value/Mg.value;
-  //CaS.value:=Ca.Value/S.value;
 end;
 
-procedure TKoefficients.FormChangeBounds(Sender: TObject);
+procedure TKf.FormChangeBounds(Sender: TObject);
 begin
 
 end;
 
-procedure TKoefficients.NChange(Sender: TObject);
+procedure TKf.NChange(Sender: TObject);
 begin
   NO3.value := N.value/(NH4NO3.value+1);
   NH4.value := NH4NO3.value*N.value/(NH4NO3.value+1);
   CalcKoef;
 
-  //
-  //NP.value:=N.value/P.Value;
-  //NK.value:=N.value/K.value;
-  //NCa.value:=N.value/Ca.value;
-  //NMg.value:=N.value/Mg.value;
-  //CaN.value:=Ca.value/N.value;
-  //NS.value:=N.value/S.value;
-  //
-  //PN.value:=P.value/N.value;
-  // KN.value:=K.value/N.value;
+
+
+
 
 end;
 
-procedure TKoefficients.NH4Change(Sender: TObject);
+procedure TKf.NClick(Sender: TObject);
 begin
-  //NH4NO3.value := NH4.value / NO3.value
+  CalculateS;
 end;
 
-procedure TKoefficients.NH4EditingDone(Sender: TObject);
+procedure TKf.NEditingDone(Sender: TObject);
 begin
-      NH4NO3.value := NH4.value/NO3.value;
+
 end;
 
-procedure TKoefficients.NH4Exit(Sender: TObject);
+procedure TKf.NH4Change(Sender: TObject);
 begin
-//
+
 end;
 
-procedure TKoefficients.NH4NO3Change(Sender: TObject);
+
+procedure TKf.NH4Click(Sender: TObject);
+begin
+  NO3.Value := N.value - NH4.value;
+  NH4NO3.value := NH4.value / NO3.value ;
+  CalculateS;
+end;
+
+procedure TKf.NH4EditingDone(Sender: TObject);
+begin
+   //   NH4NO3.value := NH4.value/NO3.value;
+end;
+
+procedure TKf.NH4Exit(Sender: TObject);
+begin
+
+  //NO3.value := N.value - NH4.Value
+end;
+
+procedure TKf.NH4MouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+
+    NH4NO3.value := NH4.value / NO3.value
+
+end;
+
+procedure TKf.NH4NO3Change(Sender: TObject);
 begin
   NH4.value := N.value *(NH4NO3.value/(NH4NO3.value+1));
   NO3.value := N.value / ( NH4NO3.value+1 );
+  //CalculateS;
 end;
 
-procedure TKoefficients.NKChange(Sender: TObject);
+procedure TKf.NH4NO3Click(Sender: TObject);
+begin
+  CalculateS;
+end;
+
+procedure TKf.NKChange(Sender: TObject);
 begin
 
 end;
 
-procedure TKoefficients.NO3Change(Sender: TObject);
+procedure TKf.NKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+
+end;
+
+procedure TKf.NO3Change(Sender: TObject);
+begin
+
+
+end;
+
+procedure TKf.NO3Click(Sender: TObject);
 begin
   NH4.Value := N.value-NO3.value;
-
+  NH4NO3.value := NH4.value / NO3.value ;
+  CalculateS;
 end;
 
-procedure TKoefficients.NO3Exit(Sender: TObject);
+procedure TKf.NO3Exit(Sender: TObject);
 begin
   NH4NO3.value := NH4.value/NO3.value;
 end;
 
-procedure TKoefficients.NPChange(Sender: TObject);
+procedure TKf.NPChange(Sender: TObject);
 begin
 
 end;
 
-procedure TKoefficients.NPChangeBounds(Sender: TObject);
+procedure TKf.NPChangeBounds(Sender: TObject);
 begin
 
 end;
 
-procedure TKoefficients.NPClick(Sender: TObject);
+procedure TKf.NPClick(Sender: TObject);
 begin
 
 end;
 
-procedure TKoefficients.NPEditingDone(Sender: TObject);
+procedure TKf.NPEditingDone(Sender: TObject);
 begin
 
 end;
 
-procedure TKoefficients.NPEnter(Sender: TObject);
+procedure TKf.NPEnter(Sender: TObject);
 begin
 
 end;
 
-procedure TKoefficients.NPKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+procedure TKf.NPKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
 
 end;
 
-procedure TKoefficients.NPKeyPress(Sender: TObject; var Key: char);
+procedure TKf.NPKeyPress(Sender: TObject; var Key: char);
 begin
 
 end;
 
-procedure TKoefficients.NPKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+procedure TKf.NPKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
 
 end;
 
-procedure TKoefficients.NPMouseDown(Sender: TObject; Button: TMouseButton;
+procedure TKf.NPMouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
   P.Value:=N.value/NP.value;
 end;
 
-procedure TKoefficients.NPMouseEnter(Sender: TObject);
+procedure TKf.NPMouseEnter(Sender: TObject);
 begin
 
 end;
 
-procedure TKoefficients.NPMouseLeave(Sender: TObject);
+procedure TKf.NPMouseLeave(Sender: TObject);
 begin
 
 end;
 
-procedure TKoefficients.NPMouseUp(Sender: TObject; Button: TMouseButton;
+procedure TKf.NPMouseUp(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
 
 end;
 
-procedure TKoefficients.NPMouseWheel(Sender: TObject; Shift: TShiftState;
+procedure TKf.NPMouseWheel(Sender: TObject; Shift: TShiftState;
   WheelDelta: Integer; MousePos: TPoint; var Handled: Boolean);
 begin
 
 end;
 
-procedure TKoefficients.NPMouseWheelDown(Sender: TObject; Shift: TShiftState;
+procedure TKf.NPMouseWheelDown(Sender: TObject; Shift: TShiftState;
   MousePos: TPoint; var Handled: Boolean);
 begin
 
 end;
 
-procedure TKoefficients.NPResize(Sender: TObject);
+procedure TKf.NPResize(Sender: TObject);
 begin
 
 end;
@@ -381,14 +486,25 @@ end;
 
 
 
-procedure TKoefficients.PChange(Sender: TObject);
+procedure TKf.PChange(Sender: TObject);
+begin
+  CalcKoef;
+
+end;
+
+procedure TKf.PClick(Sender: TObject);
+begin
+  CalculateS;
+end;
+
+procedure TKf.SChange(Sender: TObject);
 begin
   CalcKoef;
 end;
 
-procedure TKoefficients.SChange(Sender: TObject);
+procedure TKf.SClick(Sender: TObject);
 begin
-  CalcKoef;
+  CalculateCa;
 end;
 
 end.
