@@ -14,6 +14,8 @@ type
 
   TKf = class(TForm)
     Button1: TButton;
+    EC: TFloatSpinEdit;
+    Label22: TLabel;
     NK: TFloatSpinEdit;
     NMg: TFloatSpinEdit;
     PN: TFloatSpinEdit;
@@ -77,6 +79,7 @@ type
     procedure Button1Click(Sender: TObject);
     procedure CaChange(Sender: TObject);
     procedure CaClick(Sender: TObject);
+    procedure ECChange(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormChangeBounds(Sender: TObject);
     procedure FormClick(Sender: TObject);
@@ -141,39 +144,17 @@ type
 
 var
   Kf: TKf;
-  vN,vNO3,vNH4,vP,vK,vCa,vMg,vS:Double;
+  vN,vNO3,vNH4,vP,vK,vCa,vMg,vS,vEC:Double;
   mN,mP,mK,mCa,mMg,mS:Double;
+
+
 implementation
 
 {$R *.lfm}
 
 { TKf }
 
-
-procedure CalculateCa;
-begin
-  mN:=14.0067;
-  mP:=30.0983;
-  mK:=39.0983;
-  mCa:=40.078;
-  mMg:=24.305;
-  mS:=32.065;
-
-  vNO3:=Kf.NO3.value;
-  vNH4:=Kf.NH4.value;
-  vP:=Kf.P.value;
-  vK:=Kf.K.value;
-  vMg:=Kf.Mg.value;
-  vS:=Kf.S.value;
-
- vCa:=-mCa*(vNH4*mP*mMg*mK*mS - vP*mN*mMg*mK*mS + 2*vMg*mN*mP*mK*mS + vK*mN*mP*mMg*mS - vNO3*mP*mMg*mK*mS - 2*vS*mN*mP*mMg*mK)/(2*(mN*mP*mMg*mK*mS));
- Kf.Ca.value:=vCa;
-end;
-
-
-
-
-procedure CalculateS;
+procedure getVar;
 begin
   mN:=14.0067;
   mP:=30.0983;
@@ -188,10 +169,42 @@ begin
   vK:=Kf.K.value;
   vCa:=Kf.Ca.value;
   vMg:=Kf.Mg.value;
+  vS:=Kf.S.value;
+end;
+
+
+procedure CalculateCa;
+begin
+  getVar;
+
+ vCa:=-mCa*(vNH4*mP*mMg*mK*mS - vP*mN*mMg*mK*mS + 2*vMg*mN*mP*mK*mS + vK*mN*mP*mMg*mS - vNO3*mP*mMg*mK*mS - 2*vS*mN*mP*mMg*mK)/(2*(mN*mP*mMg*mK*mS));
+ Kf.Ca.value:=vCa;
+end;
+
+procedure CalcEC;
+begin
+  getVar;
+  vEC:=0.095*(vNH4*mCa*mMg*mK + 2*vCa*mN*mMg*mK + 2*vMg*mN*mCa*mK + vK*mN*mCa*mMg + 2*mN*mCa*mMg*mK)/(mN*mCa*mMg*mK);
+  Kf.EC.Value:=vEC;
+end;
+
+
+
+procedure CalculateS;
+begin
+  getVar;
 
  vS:=(mS*(vNH4*mCa*mMg*mK*mP + 2*vCa*mN*mMg*mK*mP + 2*vMg*mN*mCa*mK*mP+ vK*mN*mCa*mMg*mP - vNO3*mCa*mMg*mK*mP - vP*mN*mCa*mMg*mK))/(2*(mN*mCa*mMg*mK*mP));
  Kf.S.value:=vS;
 end;
+
+procedure CalcAll;
+begin
+ CalculateS;
+ CalculateCa;
+ CalcEC;
+end;
+
 
 procedure CalcKoef;
 begin
@@ -254,7 +267,7 @@ end;
 
 procedure TKf.MgClick(Sender: TObject);
 begin
-  CalculateS;
+  CalcAll;
 end;
 
 procedure TKf.Label1Click(Sender: TObject);
@@ -281,7 +294,7 @@ end;
 
 procedure TKf.KClick(Sender: TObject);
 begin
-  CalculateS;
+  CalcAll;
 end;
 
 procedure TKf.KNClick(Sender: TObject);
@@ -305,14 +318,19 @@ end;
 
 procedure TKf.CaClick(Sender: TObject);
 begin
-  CalculateS;
+  CalcAll;
+end;
+
+procedure TKf.ECChange(Sender: TObject);
+begin
+
 end;
 
 procedure TKf.FormActivate(Sender: TObject);
 begin
 
    CalcKoef;
-
+   CalcAll;
 end;
 
 procedure TKf.FormChangeBounds(Sender: TObject);
@@ -334,7 +352,8 @@ end;
 
 procedure TKf.NClick(Sender: TObject);
 begin
-  CalculateS;
+  //CalculateS;
+  CalcAll;
 end;
 
 procedure TKf.NEditingDone(Sender: TObject);
@@ -352,7 +371,7 @@ procedure TKf.NH4Click(Sender: TObject);
 begin
   NO3.Value := N.value - NH4.value;
   NH4NO3.value := NH4.value / NO3.value ;
-  CalculateS;
+  CalcAll;
 end;
 
 procedure TKf.NH4EditingDone(Sender: TObject);
@@ -383,7 +402,7 @@ end;
 
 procedure TKf.NH4NO3Click(Sender: TObject);
 begin
-  CalculateS;
+  CalcAll;
 end;
 
 procedure TKf.NKChange(Sender: TObject);
@@ -413,7 +432,7 @@ procedure TKf.NO3Click(Sender: TObject);
 begin
   NH4.Value := N.value-NO3.value;
   NH4NO3.value := NH4.value / NO3.value ;
-  CalculateS;
+  CalcAll;
 end;
 
 procedure TKf.NO3Exit(Sender: TObject);
@@ -508,13 +527,13 @@ end;
 
 procedure TKf.PChange(Sender: TObject);
 begin
-  CalcKoef;
+  CalcAll;
 
 end;
 
 procedure TKf.PClick(Sender: TObject);
 begin
-  CalculateS;
+  CalcAll;
 end;
 
 procedure TKf.PKClick(Sender: TObject);
