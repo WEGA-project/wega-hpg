@@ -1,7 +1,7 @@
 object Kf: TKf
-  Left = 219
+  Left = 487
   Height = 476
-  Top = 116
+  Top = 393
   Width = 600
   Caption = 'Koefficients'
   ClientHeight = 476
@@ -12,9 +12,9 @@ object Kf: TKf
   OnMouseDown = FormMouseDown
   LCLVersion = '1.6.0.4'
   object Label1: TLabel
-    Left = 22
+    Left = 8
     Height = 18
-    Top = 6
+    Top = 0
     Width = 177
     Caption = 'Hydroponic Profile Generator'
     ParentColor = False
@@ -90,7 +90,7 @@ object Kf: TKf
   object S: TFloatSpinEdit
     Left = 401
     Height = 28
-    Top = 40
+    Top = 38
     Width = 65
     Increment = 1
     MaxValue = 999
@@ -132,41 +132,41 @@ object Kf: TKf
     Value = 20
   end
   object Label2: TLabel
-    Left = 52
+    Left = 63
     Height = 18
-    Top = 23
+    Top = 19
     Width = 10
     Caption = 'N'
     ParentColor = False
   end
   object Label3: TLabel
-    Left = 134
+    Left = 135
     Height = 18
-    Top = 23
+    Top = 19
     Width = 8
     Caption = 'P'
     ParentColor = False
   end
   object Label4: TLabel
-    Left = 196
+    Left = 205
     Height = 18
-    Top = 23
+    Top = 19
     Width = 8
     Caption = 'K'
     ParentColor = False
   end
   object Label5: TLabel
-    Left = 279
+    Left = 275
     Height = 18
-    Top = 23
+    Top = 19
     Width = 15
     Caption = 'Ca'
     ParentColor = False
   end
   object Label6: TLabel
-    Left = 351
+    Left = 352
     Height = 18
-    Top = 23
+    Top = 19
     Width = 20
     Caption = 'Mg'
     ParentColor = False
@@ -174,7 +174,7 @@ object Kf: TKf
   object Label7: TLabel
     Left = 434
     Height = 18
-    Top = 23
+    Top = 19
     Width = 7
     Caption = 'S'
     ParentColor = False
@@ -219,7 +219,7 @@ object Kf: TKf
     ParentColor = False
   end
   object Label11: TLabel
-    Left = 138
+    Left = 133
     Height = 18
     Top = 128
     Width = 8
@@ -227,7 +227,7 @@ object Kf: TKf
     ParentColor = False
   end
   object Label12: TLabel
-    Left = 200
+    Left = 201
     Height = 18
     Top = 128
     Width = 8
@@ -235,7 +235,7 @@ object Kf: TKf
     ParentColor = False
   end
   object Label13: TLabel
-    Left = 283
+    Left = 269
     Height = 18
     Top = 128
     Width = 15
@@ -243,7 +243,7 @@ object Kf: TKf
     ParentColor = False
   end
   object Label14: TLabel
-    Left = 355
+    Left = 344
     Height = 18
     Top = 128
     Width = 20
@@ -315,21 +315,7 @@ object Kf: TKf
     Increment = 0.01
     MaxValue = 100
     MinValue = 0
-    OnChange = NPChange
-    OnChangeBounds = NPChangeBounds
     OnClick = NPClick
-    OnEditingDone = NPEditingDone
-    OnEnter = NPEnter
-    OnKeyDown = NPKeyDown
-    OnKeyPress = NPKeyPress
-    OnKeyUp = NPKeyUp
-    OnMouseDown = NPMouseDown
-    OnMouseEnter = NPMouseEnter
-    OnMouseLeave = NPMouseLeave
-    OnMouseUp = NPMouseUp
-    OnMouseWheel = NPMouseWheel
-    OnMouseWheelDown = NPMouseWheelDown
-    OnResize = NPResize
     TabOrder = 9
     Value = 0
   end
@@ -347,41 +333,17 @@ object Kf: TKf
     TabOrder = 10
     Value = 0
   end
-  object NCa: TFloatSpinEdit
-    Left = 40
-    Height = 28
-    Top = 256
-    Width = 64
-    Increment = 0.01
-    MaxValue = 100
-    MinValue = 0
-    OnChange = NPChange
-    OnChangeBounds = NPChangeBounds
-    OnClick = NPClick
-    OnEditingDone = NPEditingDone
-    OnEnter = NPEnter
-    OnKeyDown = NPKeyDown
-    OnKeyPress = NPKeyPress
-    OnKeyUp = NPKeyUp
-    OnMouseDown = NPMouseDown
-    OnMouseEnter = NPMouseEnter
-    OnMouseLeave = NPMouseLeave
-    OnMouseUp = NPMouseUp
-    OnMouseWheel = NPMouseWheel
-    OnMouseWheelDown = NPMouseWheelDown
-    OnResize = NPResize
-    TabOrder = 11
-    Value = 0
-  end
   object NMg: TFloatSpinEdit
     Left = 40
     Height = 28
     Top = 288
     Width = 64
+    Color = clYellow
     Increment = 0.01
     MaxValue = 100
     MinValue = 0
-    TabOrder = 12
+    OnClick = NMgClick
+    TabOrder = 11
     Value = 0
   end
   object NS: TFloatSpinEdit
@@ -389,25 +351,12 @@ object Kf: TKf
     Height = 28
     Top = 320
     Width = 64
+    Color = clYellow
     Increment = 0.01
     MaxValue = 100
     MinValue = 0
-    OnChange = NPChange
-    OnChangeBounds = NPChangeBounds
-    OnClick = NPClick
-    OnEditingDone = NPEditingDone
-    OnEnter = NPEnter
-    OnKeyDown = NPKeyDown
-    OnKeyPress = NPKeyPress
-    OnKeyUp = NPKeyUp
-    OnMouseDown = NPMouseDown
-    OnMouseEnter = NPMouseEnter
-    OnMouseLeave = NPMouseLeave
-    OnMouseUp = NPMouseUp
-    OnMouseWheel = NPMouseWheel
-    OnMouseWheelDown = NPMouseWheelDown
-    OnResize = NPResize
-    TabOrder = 13
+    OnClick = NSClick
+    TabOrder = 12
     Value = 0
   end
   object PN: TFloatSpinEdit
@@ -420,7 +369,7 @@ object Kf: TKf
     MaxValue = 100
     MinValue = 0
     OnClick = PNClick
-    TabOrder = 14
+    TabOrder = 13
     Value = 0
   end
   object PK: TFloatSpinEdit
@@ -433,7 +382,7 @@ object Kf: TKf
     MaxValue = 100
     MinValue = 0
     OnClick = PKClick
-    TabOrder = 15
+    TabOrder = 14
     Value = 0
   end
   object PCa: TFloatSpinEdit
@@ -441,25 +390,12 @@ object Kf: TKf
     Height = 28
     Top = 256
     Width = 64
+    Color = clYellow
     Increment = 0.01
     MaxValue = 100
     MinValue = 0
-    OnChange = NPChange
-    OnChangeBounds = NPChangeBounds
-    OnClick = NPClick
-    OnEditingDone = NPEditingDone
-    OnEnter = NPEnter
-    OnKeyDown = NPKeyDown
-    OnKeyPress = NPKeyPress
-    OnKeyUp = NPKeyUp
-    OnMouseDown = NPMouseDown
-    OnMouseEnter = NPMouseEnter
-    OnMouseLeave = NPMouseLeave
-    OnMouseUp = NPMouseUp
-    OnMouseWheel = NPMouseWheel
-    OnMouseWheelDown = NPMouseWheelDown
-    OnResize = NPResize
-    TabOrder = 16
+    OnClick = PCaClick
+    TabOrder = 15
     Value = 0
   end
   object PMg: TFloatSpinEdit
@@ -467,10 +403,12 @@ object Kf: TKf
     Height = 28
     Top = 288
     Width = 64
+    Color = clYellow
     Increment = 0.01
     MaxValue = 100
     MinValue = 0
-    TabOrder = 17
+    OnClick = PMgClick
+    TabOrder = 16
     Value = 0
   end
   object PS: TFloatSpinEdit
@@ -478,25 +416,12 @@ object Kf: TKf
     Height = 28
     Top = 320
     Width = 64
+    Color = clYellow
     Increment = 0.01
     MaxValue = 100
     MinValue = 0
-    OnChange = NPChange
-    OnChangeBounds = NPChangeBounds
-    OnClick = NPClick
-    OnEditingDone = NPEditingDone
-    OnEnter = NPEnter
-    OnKeyDown = NPKeyDown
-    OnKeyPress = NPKeyPress
-    OnKeyUp = NPKeyUp
-    OnMouseDown = NPMouseDown
-    OnMouseEnter = NPMouseEnter
-    OnMouseLeave = NPMouseLeave
-    OnMouseUp = NPMouseUp
-    OnMouseWheel = NPMouseWheel
-    OnMouseWheelDown = NPMouseWheelDown
-    OnResize = NPResize
-    TabOrder = 18
+    OnClick = PSClick
+    TabOrder = 17
     Value = 0
   end
   object KN: TFloatSpinEdit
@@ -508,8 +433,9 @@ object Kf: TKf
     Increment = 0.01
     MaxValue = 100
     MinValue = 0
+    OnChange = KNChange
     OnClick = KNClick
-    TabOrder = 19
+    TabOrder = 18
     Value = 0
   end
   object KP: TFloatSpinEdit
@@ -521,22 +447,8 @@ object Kf: TKf
     Increment = 0.01
     MaxValue = 100
     MinValue = 0
-    OnChange = NPChange
-    OnChangeBounds = NPChangeBounds
-    OnClick = NPClick
-    OnEditingDone = NPEditingDone
-    OnEnter = NPEnter
-    OnKeyDown = NPKeyDown
-    OnKeyPress = NPKeyPress
-    OnKeyUp = NPKeyUp
-    OnMouseDown = NPMouseDown
-    OnMouseEnter = NPMouseEnter
-    OnMouseLeave = NPMouseLeave
-    OnMouseUp = NPMouseUp
-    OnMouseWheel = NPMouseWheel
-    OnMouseWheelDown = NPMouseWheelDown
-    OnResize = NPResize
-    TabOrder = 20
+    OnClick = KPClick
+    TabOrder = 19
     Value = 0
   end
   object KCa: TFloatSpinEdit
@@ -544,25 +456,12 @@ object Kf: TKf
     Height = 28
     Top = 256
     Width = 64
+    Color = clYellow
     Increment = 0.01
     MaxValue = 100
     MinValue = 0
-    OnChange = NPChange
-    OnChangeBounds = NPChangeBounds
-    OnClick = NPClick
-    OnEditingDone = NPEditingDone
-    OnEnter = NPEnter
-    OnKeyDown = NPKeyDown
-    OnKeyPress = NPKeyPress
-    OnKeyUp = NPKeyUp
-    OnMouseDown = NPMouseDown
-    OnMouseEnter = NPMouseEnter
-    OnMouseLeave = NPMouseLeave
-    OnMouseUp = NPMouseUp
-    OnMouseWheel = NPMouseWheel
-    OnMouseWheelDown = NPMouseWheelDown
-    OnResize = NPResize
-    TabOrder = 21
+    OnClick = KCaClick
+    TabOrder = 20
     Value = 0
   end
   object KMg: TFloatSpinEdit
@@ -570,10 +469,12 @@ object Kf: TKf
     Height = 28
     Top = 288
     Width = 64
+    Color = clYellow
     Increment = 0.01
     MaxValue = 100
     MinValue = 0
-    TabOrder = 22
+    OnClick = KMgClick
+    TabOrder = 21
     Value = 0
   end
   object KS: TFloatSpinEdit
@@ -581,25 +482,12 @@ object Kf: TKf
     Height = 28
     Top = 320
     Width = 64
+    Color = clYellow
     Increment = 0.01
     MaxValue = 100
     MinValue = 0
-    OnChange = NPChange
-    OnChangeBounds = NPChangeBounds
-    OnClick = NPClick
-    OnEditingDone = NPEditingDone
-    OnEnter = NPEnter
-    OnKeyDown = NPKeyDown
-    OnKeyPress = NPKeyPress
-    OnKeyUp = NPKeyUp
-    OnMouseDown = NPMouseDown
-    OnMouseEnter = NPMouseEnter
-    OnMouseLeave = NPMouseLeave
-    OnMouseUp = NPMouseUp
-    OnMouseWheel = NPMouseWheel
-    OnMouseWheelDown = NPMouseWheelDown
-    OnResize = NPResize
-    TabOrder = 23
+    OnClick = KSClick
+    TabOrder = 22
     Value = 0
   end
   object CaN: TFloatSpinEdit
@@ -607,10 +495,12 @@ object Kf: TKf
     Height = 28
     Top = 160
     Width = 64
+    Color = clYellow
     Increment = 0.01
     MaxValue = 100
     MinValue = 0
-    TabOrder = 24
+    OnClick = CaNClick
+    TabOrder = 23
     Value = 0
   end
   object CaP: TFloatSpinEdit
@@ -618,25 +508,12 @@ object Kf: TKf
     Height = 28
     Top = 192
     Width = 64
+    Color = clYellow
     Increment = 0.01
     MaxValue = 100
     MinValue = 0
-    OnChange = NPChange
-    OnChangeBounds = NPChangeBounds
-    OnClick = NPClick
-    OnEditingDone = NPEditingDone
-    OnEnter = NPEnter
-    OnKeyDown = NPKeyDown
-    OnKeyPress = NPKeyPress
-    OnKeyUp = NPKeyUp
-    OnMouseDown = NPMouseDown
-    OnMouseEnter = NPMouseEnter
-    OnMouseLeave = NPMouseLeave
-    OnMouseUp = NPMouseUp
-    OnMouseWheel = NPMouseWheel
-    OnMouseWheelDown = NPMouseWheelDown
-    OnResize = NPResize
-    TabOrder = 25
+    OnClick = CaPClick
+    TabOrder = 24
     Value = 0
   end
   object CaK: TFloatSpinEdit
@@ -644,10 +521,12 @@ object Kf: TKf
     Height = 28
     Top = 224
     Width = 64
+    Color = clYellow
     Increment = 0.01
     MaxValue = 100
     MinValue = 0
-    TabOrder = 26
+    OnClick = CaKClick
+    TabOrder = 25
     Value = 0
   end
   object CaMg: TFloatSpinEdit
@@ -655,10 +534,12 @@ object Kf: TKf
     Height = 28
     Top = 288
     Width = 64
+    Color = clYellow
     Increment = 0.01
     MaxValue = 100
     MinValue = 0
-    TabOrder = 27
+    OnClick = CaMgClick
+    TabOrder = 26
     Value = 0
   end
   object CaS: TFloatSpinEdit
@@ -666,25 +547,12 @@ object Kf: TKf
     Height = 28
     Top = 320
     Width = 64
+    Color = clYellow
     Increment = 0.01
     MaxValue = 100
     MinValue = 0
-    OnChange = NPChange
-    OnChangeBounds = NPChangeBounds
-    OnClick = NPClick
-    OnEditingDone = NPEditingDone
-    OnEnter = NPEnter
-    OnKeyDown = NPKeyDown
-    OnKeyPress = NPKeyPress
-    OnKeyUp = NPKeyUp
-    OnMouseDown = NPMouseDown
-    OnMouseEnter = NPMouseEnter
-    OnMouseLeave = NPMouseLeave
-    OnMouseUp = NPMouseUp
-    OnMouseWheel = NPMouseWheel
-    OnMouseWheelDown = NPMouseWheelDown
-    OnResize = NPResize
-    TabOrder = 28
+    OnClick = CaSClick
+    TabOrder = 27
     Value = 0
   end
   object MgN: TFloatSpinEdit
@@ -692,10 +560,12 @@ object Kf: TKf
     Height = 28
     Top = 160
     Width = 64
+    Color = clYellow
     Increment = 0.01
     MaxValue = 100
     MinValue = 0
-    TabOrder = 29
+    OnClick = MgNClick
+    TabOrder = 28
     Value = 0
   end
   object MgP: TFloatSpinEdit
@@ -703,25 +573,12 @@ object Kf: TKf
     Height = 28
     Top = 192
     Width = 64
+    Color = clYellow
     Increment = 0.01
     MaxValue = 100
     MinValue = 0
-    OnChange = NPChange
-    OnChangeBounds = NPChangeBounds
-    OnClick = NPClick
-    OnEditingDone = NPEditingDone
-    OnEnter = NPEnter
-    OnKeyDown = NPKeyDown
-    OnKeyPress = NPKeyPress
-    OnKeyUp = NPKeyUp
-    OnMouseDown = NPMouseDown
-    OnMouseEnter = NPMouseEnter
-    OnMouseLeave = NPMouseLeave
-    OnMouseUp = NPMouseUp
-    OnMouseWheel = NPMouseWheel
-    OnMouseWheelDown = NPMouseWheelDown
-    OnResize = NPResize
-    TabOrder = 30
+    OnClick = MgPClick
+    TabOrder = 29
     Value = 0
   end
   object MgK: TFloatSpinEdit
@@ -729,10 +586,12 @@ object Kf: TKf
     Height = 28
     Top = 224
     Width = 64
+    Color = clYellow
     Increment = 0.01
     MaxValue = 100
     MinValue = 0
-    TabOrder = 31
+    OnClick = MgKClick
+    TabOrder = 30
     Value = 0
   end
   object MgCa: TFloatSpinEdit
@@ -740,25 +599,12 @@ object Kf: TKf
     Height = 28
     Top = 256
     Width = 64
+    Color = clYellow
     Increment = 0.01
     MaxValue = 100
     MinValue = 0
-    OnChange = NPChange
-    OnChangeBounds = NPChangeBounds
-    OnClick = NPClick
-    OnEditingDone = NPEditingDone
-    OnEnter = NPEnter
-    OnKeyDown = NPKeyDown
-    OnKeyPress = NPKeyPress
-    OnKeyUp = NPKeyUp
-    OnMouseDown = NPMouseDown
-    OnMouseEnter = NPMouseEnter
-    OnMouseLeave = NPMouseLeave
-    OnMouseUp = NPMouseUp
-    OnMouseWheel = NPMouseWheel
-    OnMouseWheelDown = NPMouseWheelDown
-    OnResize = NPResize
-    TabOrder = 32
+    OnClick = MgCaClick
+    TabOrder = 31
     Value = 0
   end
   object MgS: TFloatSpinEdit
@@ -766,25 +612,12 @@ object Kf: TKf
     Height = 28
     Top = 320
     Width = 64
+    Color = clYellow
     Increment = 0.01
     MaxValue = 100
     MinValue = 0
-    OnChange = NPChange
-    OnChangeBounds = NPChangeBounds
-    OnClick = NPClick
-    OnEditingDone = NPEditingDone
-    OnEnter = NPEnter
-    OnKeyDown = NPKeyDown
-    OnKeyPress = NPKeyPress
-    OnKeyUp = NPKeyUp
-    OnMouseDown = NPMouseDown
-    OnMouseEnter = NPMouseEnter
-    OnMouseLeave = NPMouseLeave
-    OnMouseUp = NPMouseUp
-    OnMouseWheel = NPMouseWheel
-    OnMouseWheelDown = NPMouseWheelDown
-    OnResize = NPResize
-    TabOrder = 33
+    OnClick = MgSClick
+    TabOrder = 32
     Value = 0
   end
   object SN: TFloatSpinEdit
@@ -792,10 +625,12 @@ object Kf: TKf
     Height = 28
     Top = 160
     Width = 64
+    Color = clYellow
     Increment = 0.01
     MaxValue = 100
     MinValue = 0
-    TabOrder = 34
+    OnClick = SNClick
+    TabOrder = 33
     Value = 0
   end
   object SP: TFloatSpinEdit
@@ -803,25 +638,12 @@ object Kf: TKf
     Height = 28
     Top = 192
     Width = 64
+    Color = clYellow
     Increment = 0.01
     MaxValue = 100
     MinValue = 0
-    OnChange = NPChange
-    OnChangeBounds = NPChangeBounds
-    OnClick = NPClick
-    OnEditingDone = NPEditingDone
-    OnEnter = NPEnter
-    OnKeyDown = NPKeyDown
-    OnKeyPress = NPKeyPress
-    OnKeyUp = NPKeyUp
-    OnMouseDown = NPMouseDown
-    OnMouseEnter = NPMouseEnter
-    OnMouseLeave = NPMouseLeave
-    OnMouseUp = NPMouseUp
-    OnMouseWheel = NPMouseWheel
-    OnMouseWheelDown = NPMouseWheelDown
-    OnResize = NPResize
-    TabOrder = 35
+    OnClick = SPClick
+    TabOrder = 34
     Value = 0
   end
   object SK: TFloatSpinEdit
@@ -829,10 +651,12 @@ object Kf: TKf
     Height = 28
     Top = 224
     Width = 64
+    Color = clYellow
     Increment = 0.01
     MaxValue = 100
     MinValue = 0
-    TabOrder = 36
+    OnClick = SKClick
+    TabOrder = 35
     Value = 0
   end
   object SCa: TFloatSpinEdit
@@ -840,25 +664,12 @@ object Kf: TKf
     Height = 28
     Top = 256
     Width = 64
+    Color = clYellow
     Increment = 0.01
     MaxValue = 100
     MinValue = 0
-    OnChange = NPChange
-    OnChangeBounds = NPChangeBounds
-    OnClick = NPClick
-    OnEditingDone = NPEditingDone
-    OnEnter = NPEnter
-    OnKeyDown = NPKeyDown
-    OnKeyPress = NPKeyPress
-    OnKeyUp = NPKeyUp
-    OnMouseDown = NPMouseDown
-    OnMouseEnter = NPMouseEnter
-    OnMouseLeave = NPMouseLeave
-    OnMouseUp = NPMouseUp
-    OnMouseWheel = NPMouseWheel
-    OnMouseWheelDown = NPMouseWheelDown
-    OnResize = NPResize
-    TabOrder = 37
+    OnClick = SCaClick
+    TabOrder = 36
     Value = 0
   end
   object SMg: TFloatSpinEdit
@@ -866,10 +677,12 @@ object Kf: TKf
     Height = 28
     Top = 288
     Width = 64
+    Color = clYellow
     Increment = 0.01
     MaxValue = 100
     MinValue = 0
-    TabOrder = 38
+    OnClick = SMgClick
+    TabOrder = 37
     Value = 0
   end
   object EC: TFloatSpinEdit
@@ -882,15 +695,28 @@ object Kf: TKf
     MinValue = 0
     OnChange = ECChange
     OnClick = ECClick
-    TabOrder = 39
+    TabOrder = 38
     Value = 0
   end
   object Label22: TLabel
-    Left = 504
+    Left = 503
     Height = 18
-    Top = 23
+    Top = 19
     Width = 15
     Caption = 'EC'
     ParentColor = False
+  end
+  object NCa: TFloatSpinEdit
+    Left = 40
+    Height = 28
+    Top = 256
+    Width = 64
+    Color = clYellow
+    Increment = 0.01
+    MaxValue = 100
+    MinValue = 0
+    OnClick = NCaClick
+    TabOrder = 39
+    Value = 0
   end
 end
