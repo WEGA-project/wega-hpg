@@ -1,7 +1,7 @@
 object Kf: TKf
-  Left = 787
+  Left = 219
   Height = 476
-  Top = 268
+  Top = 116
   Width = 600
   Caption = 'Koefficients'
   ClientHeight = 476
@@ -872,26 +872,17 @@ object Kf: TKf
     TabOrder = 38
     Value = 0
   end
-  object Button1: TButton
-    Left = 204
-    Height = 25
-    Top = 395
-    Width = 75
-    Caption = 'Button1'
-    OnClick = Button1Click
-    TabOrder = 39
-  end
   object EC: TFloatSpinEdit
     Left = 480
     Height = 28
     Top = 38
     Width = 70
-    Increment = 1
+    Increment = 0.01
     MaxValue = 100
     MinValue = 0
     OnChange = ECChange
     OnClick = ECClick
-    TabOrder = 40
+    TabOrder = 39
     Value = 0
   end
   object Label22: TLabel

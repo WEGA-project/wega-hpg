@@ -13,7 +13,6 @@ type
   { TKf }
 
   TKf = class(TForm)
-    Button1: TButton;
     EC: TFloatSpinEdit;
     Label22: TLabel;
     NK: TFloatSpinEdit;
@@ -148,7 +147,8 @@ var
   Kf: TKf;
   vN,vNO3,vNH4,vP,vK,vCa,vMg,vS,vEC:Double;
   mN,mP,mK,mCa,mMg,mS:Double;
-
+  r,rN,rK,rCa,rMg,rNH4:Double;
+  vKMg,vKCa,vKN,vNH4NO3:Double;
 
 implementation
 
@@ -172,6 +172,11 @@ begin
   vCa:=Kf.Ca.value;
   vMg:=Kf.Mg.value;
   vS:=Kf.S.value;
+
+  vKMg:=Kf.KMg.value;
+  vKCa:=Kf.KCa.value;
+  vKN:=Kf.KN.value;
+  vNH4NO3:= Kf.NH4NO3.value;
 end;
 
 
@@ -198,6 +203,46 @@ begin
 
  vS:=(mS*(vNH4*mCa*mMg*mK*mP + 2*vCa*mN*mMg*mK*mP + 2*vMg*mN*mCa*mK*mP+ vK*mN*mCa*mMg*mP - vNO3*mCa*mMg*mK*mP - vP*mN*mCa*mMg*mK))/(2*(mN*mCa*mMg*mK*mP));
  Kf.S.value:=vS;
+end;
+
+
+procedure calcECtoVal;
+begin
+
+  getVar;
+
+  rN:=(vKMg*vKCa)/(vKCa*vKN + vKMg*vKN + vKMg*vKCa + vKMg*vKCa*vKN) ;
+  rK:=(vKN*vKMg*vKCa)/(vKCa*vKN+vKMg*vKN+vKMg*vKCa+vKMg*vKCa*vKN);
+  rCa:=(vKMg*vKN)/(vKCa*vKN + vKMg*vKN + vKMg*vKCa + vKMg*vKCa*vKN);
+  rMg:=(vKCa*vKN)/(vKCa*vKN+vKMg*vKN+vKMg*vKCa+vKMg*vKCa*vKN);
+  rNH4:=(rN*vNH4NO3)/(1+vNH4NO3);
+
+  vEC:= Kf.EC.Value;
+  r:= (0.10526315789473684211*mN*mCa*mMg*mK*(100*vEC-19)) /(rNH4*mCa*mMg*mK + 2*rCa*mN*mMg*mK + 2*rMg*mN*mCa*mK + rK*mN*mCa*mMg);
+
+
+  vN:=rN*r;
+  vK:=rK*r;
+  vCa:=rCa*r;
+  vMg:=rMg*r;
+  vNH4:=rNH4*r;
+
+  vNO3:=vN-vNH4;
+
+  vS:=(mS*(vNH4*mCa*mMg*mK*mP + 2*vCa*mN*mMg*mK*mP + 2*vMg*mN*mCa*mK*mP+ vK*mN*mCa*mMg*mP - vNO3*mCa*mMg*mK*mP - vP*mN*mCa*mMg*mK))/(2*(mN*mCa*mMg*mK*mP));
+
+  Kf.N.value:=vN;
+  Kf.NO3.value:=vNO3;
+  Kf.NH4.value:=vNH4;
+  Kf.P.value:=vP;
+  Kf.K.value:=vK;
+  Kf.Ca.value:=vCa;
+  Kf.Mg.value:=vMg;
+  Kf.S.value:=vS;
+
+
+  //vEC:=0.095*(vNH4*mCa*mMg*mK + 2*vCa*mN*mMg*mK + 2*vMg*mN*mCa*mK + vK*mN*mCa*mMg + 2*mN*mCa*mMg*mK)/(mN*mCa*mMg*mK);
+  //Kf.EC.Value:=vEC;
 end;
 
 
@@ -315,8 +360,8 @@ end;
 
 procedure TKf.Button1Click(Sender: TObject);
 begin
-
-  CalcAll;
+  calcECtoVal;
+  //CalcAll;
 end;
 
 procedure TKf.CaChange(Sender: TObject);
@@ -337,7 +382,8 @@ end;
 
 procedure TKf.ECClick(Sender: TObject);
 begin
-
+  calcECtoVal;
+  CalcAll;
 end;
 
 procedure TKf.FormActivate(Sender: TObject);
