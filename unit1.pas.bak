@@ -80,6 +80,7 @@ type
     procedure CaChange(Sender: TObject);
     procedure CaClick(Sender: TObject);
     procedure ECChange(Sender: TObject);
+    procedure ECClick(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormChangeBounds(Sender: TObject);
     procedure FormClick(Sender: TObject);
@@ -108,6 +109,7 @@ type
     procedure NKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure NO3Change(Sender: TObject);
     procedure NO3Click(Sender: TObject);
+    procedure NO3Enter(Sender: TObject);
     procedure NO3Exit(Sender: TObject);
     procedure NPChange(Sender: TObject);
     procedure NPChangeBounds(Sender: TObject);
@@ -198,13 +200,6 @@ begin
  Kf.S.value:=vS;
 end;
 
-procedure CalcAll;
-begin
- CalculateS;
- CalculateCa;
- CalcEC;
-end;
-
 
 procedure CalcKoef;
 begin
@@ -254,6 +249,20 @@ begin
 
 end;
 
+
+
+procedure CalcAll;
+begin
+ CalculateS;
+ CalculateCa;
+ CalcEC;
+ CalcKoef;
+end;
+
+
+
+
+
 procedure TKf.Label8Click(Sender: TObject);
 begin
 
@@ -273,6 +282,7 @@ end;
 procedure TKf.Label1Click(Sender: TObject);
 begin
     NH4NO3.value := NH4.value/NO3.value;
+    CalcAll;
 end;
 
 procedure TKf.FormClick(Sender: TObject);
@@ -326,11 +336,16 @@ begin
 
 end;
 
+procedure TKf.ECClick(Sender: TObject);
+begin
+
+end;
+
 procedure TKf.FormActivate(Sender: TObject);
 begin
 
    CalcKoef;
-
+   CalcAll;
 end;
 
 procedure TKf.FormChangeBounds(Sender: TObject);
@@ -395,13 +410,14 @@ end;
 
 procedure TKf.NH4NO3Change(Sender: TObject);
 begin
-  NH4.value := N.value *(NH4NO3.value/(NH4NO3.value+1));
-  NO3.value := N.value / ( NH4NO3.value+1 );
+
   //CalculateS;
 end;
 
 procedure TKf.NH4NO3Click(Sender: TObject);
 begin
+    NH4.value := N.value *(NH4NO3.value/(NH4NO3.value+1));
+  NO3.value := N.value / ( NH4NO3.value+1 );
   CalcAll;
 end;
 
@@ -424,7 +440,8 @@ end;
 
 procedure TKf.NO3Change(Sender: TObject);
 begin
-
+    NH4.value:=N.Value-NO3.value;
+    NH4NO3.value := NH4.value/NO3.value;
 
 end;
 
@@ -435,9 +452,14 @@ begin
   CalcAll;
 end;
 
+procedure TKf.NO3Enter(Sender: TObject);
+begin
+  NH4.value:=N.Value-NO3.value;
+end;
+
 procedure TKf.NO3Exit(Sender: TObject);
 begin
-  NH4NO3.value := NH4.value/NO3.value;
+
 end;
 
 procedure TKf.NPChange(Sender: TObject);
@@ -527,7 +549,7 @@ end;
 
 procedure TKf.PChange(Sender: TObject);
 begin
-  CalcAll;
+  CalcKoef;
 
 end;
 
@@ -539,24 +561,25 @@ end;
 procedure TKf.PKClick(Sender: TObject);
 begin
   P.value:=K.value*PK.value;
-  CalculateS;
+  CalcAll;
 end;
 
 procedure TKf.PNClick(Sender: TObject);
 begin
 
   P.value:=N.value*PN.value;
-  CalculateS;
+  CalcAll;
 end;
 
 procedure TKf.SChange(Sender: TObject);
 begin
-  CalcKoef;
+  CalculateCa;
+
 end;
 
 procedure TKf.SClick(Sender: TObject);
 begin
-  CalculateCa;
+    CalcAll;
 end;
 
 end.

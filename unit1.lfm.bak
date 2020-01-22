@@ -1,7 +1,7 @@
 object Kf: TKf
-  Left = 521
+  Left = 787
   Height = 476
-  Top = 226
+  Top = 268
   Width = 600
   Caption = 'Koefficients'
   ClientHeight = 476
@@ -110,6 +110,7 @@ object Kf: TKf
     MinValue = 0
     OnChange = NO3Change
     OnClick = NO3Click
+    OnEnter = NO3Enter
     OnExit = NO3Exit
     TabOrder = 6
     Value = 200
@@ -889,6 +890,7 @@ object Kf: TKf
     MaxValue = 100
     MinValue = 0
     OnChange = ECChange
+    OnClick = ECClick
     TabOrder = 40
     Value = 0
   end
