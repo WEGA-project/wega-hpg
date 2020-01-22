@@ -15,6 +15,12 @@ type
   TKf = class(TForm)
     EC: TFloatSpinEdit;
     Label22: TLabel;
+    Label23: TLabel;
+    Label24: TLabel;
+    Label25: TLabel;
+    Label26: TLabel;
+    Label27: TLabel;
+    Label28: TLabel;
     NK: TFloatSpinEdit;
     NMg: TFloatSpinEdit;
     PN: TFloatSpinEdit;
