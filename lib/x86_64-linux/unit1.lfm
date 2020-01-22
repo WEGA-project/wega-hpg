@@ -10,7 +10,7 @@ object Kf: TKf
   OnChangeBounds = FormChangeBounds
   OnClick = FormClick
   OnMouseDown = FormMouseDown
-  LCLVersion = '1.6.0.4'
+  LCLVersion = '2.0.6.0'
   object Label1: TLabel
     Left = 8
     Height = 17
@@ -25,7 +25,6 @@ object Kf: TKf
     Height = 27
     Top = 38
     Width = 65
-    Increment = 1
     MaxValue = 999
     MinValue = 0
     OnChange = NChange
@@ -40,7 +39,6 @@ object Kf: TKf
     Height = 27
     Top = 38
     Width = 65
-    Increment = 1
     MaxValue = 999
     MinValue = 0
     OnChange = PChange
@@ -53,7 +51,6 @@ object Kf: TKf
     Height = 27
     Top = 38
     Width = 65
-    Increment = 1
     MaxValue = 999
     MinValue = 0
     OnChange = KChange
@@ -66,7 +63,6 @@ object Kf: TKf
     Height = 27
     Top = 38
     Width = 65
-    Increment = 1
     MaxValue = 999
     MinValue = 0
     OnChange = CaChange
@@ -79,7 +75,6 @@ object Kf: TKf
     Height = 27
     Top = 38
     Width = 65
-    Increment = 1
     MaxValue = 999
     MinValue = 0
     OnChange = MgChange
@@ -92,7 +87,6 @@ object Kf: TKf
     Height = 27
     Top = 38
     Width = 65
-    Increment = 1
     MaxValue = 999
     MinValue = 0
     OnChange = SChange
@@ -314,10 +308,10 @@ object Kf: TKf
     Width = 76
     DecimalPlaces = 3
     Increment = 0.001
-    MaxValue = 100
     MinValue = 0
     OnClick = NPClick
     OnEditingDone = NPClick
+    OnKeyDown = NPClick
     TabOrder = 9
     Value = 0
   end
@@ -328,10 +322,10 @@ object Kf: TKf
     Width = 76
     DecimalPlaces = 3
     Increment = 0.001
-    MaxValue = 100
     MinValue = 0
     OnClick = NKClick
     OnEditingDone = NKClick
+    OnKeyDown = NKClick
     TabOrder = 10
     Value = 0
   end
@@ -342,10 +336,10 @@ object Kf: TKf
     Width = 76
     DecimalPlaces = 3
     Increment = 0.001
-    MaxValue = 100
     MinValue = 0
     OnClick = NMgClick
     OnEditingDone = NMgClick
+    OnKeyDown = NMgClick
     TabOrder = 11
     Value = 0
   end
@@ -356,10 +350,10 @@ object Kf: TKf
     Width = 76
     DecimalPlaces = 3
     Increment = 0.001
-    MaxValue = 100
     MinValue = 0
     OnClick = NSClick
     OnEditingDone = NSClick
+    OnKeyDown = NSClick
     TabOrder = 12
     Value = 0
   end
@@ -370,10 +364,10 @@ object Kf: TKf
     Width = 76
     DecimalPlaces = 3
     Increment = 0.001
-    MaxValue = 100
     MinValue = 0
     OnClick = PNClick
     OnEditingDone = PNClick
+    OnKeyDown = PNClick
     TabOrder = 13
     Value = 0
   end
@@ -384,10 +378,10 @@ object Kf: TKf
     Width = 76
     DecimalPlaces = 3
     Increment = 0.001
-    MaxValue = 100
     MinValue = 0
     OnClick = PKClick
     OnEditingDone = PKClick
+    OnKeyDown = PKClick
     TabOrder = 14
     Value = 0
   end
@@ -398,10 +392,10 @@ object Kf: TKf
     Width = 76
     DecimalPlaces = 3
     Increment = 0.001
-    MaxValue = 100
     MinValue = 0
     OnClick = PCaClick
     OnEditingDone = PCaClick
+    OnKeyDown = PCaClick
     TabOrder = 15
     Value = 0
   end
@@ -412,10 +406,10 @@ object Kf: TKf
     Width = 76
     DecimalPlaces = 3
     Increment = 0.001
-    MaxValue = 100
     MinValue = 0
     OnClick = PMgClick
     OnEditingDone = PMgClick
+    OnKeyDown = PMgClick
     TabOrder = 16
     Value = 0
   end
@@ -426,10 +420,10 @@ object Kf: TKf
     Width = 76
     DecimalPlaces = 3
     Increment = 0.001
-    MaxValue = 100
     MinValue = 0
     OnClick = PSClick
     OnEditingDone = PSClick
+    OnKeyDown = PSClick
     TabOrder = 17
     Value = 0
   end
@@ -440,10 +434,10 @@ object Kf: TKf
     Width = 76
     DecimalPlaces = 3
     Increment = 0.001
-    MaxValue = 100
     MinValue = 0
     OnClick = KNClick
     OnEditingDone = KNClick
+    OnKeyDown = KNClick
     TabOrder = 18
     Value = 0
   end
@@ -454,10 +448,10 @@ object Kf: TKf
     Width = 76
     DecimalPlaces = 3
     Increment = 0.001
-    MaxValue = 100
     MinValue = 0
     OnClick = KPClick
     OnEditingDone = KPClick
+    OnKeyDown = KPClick
     TabOrder = 19
     Value = 0
   end
@@ -469,10 +463,10 @@ object Kf: TKf
     Color = clYellow
     DecimalPlaces = 3
     Increment = 0.001
-    MaxValue = 100
     MinValue = 0
     OnClick = KCaClick
     OnEditingDone = KCaClick
+    OnKeyDown = KCaClick
     TabOrder = 20
     Value = 0
   end
@@ -484,24 +478,24 @@ object Kf: TKf
     Color = clYellow
     DecimalPlaces = 3
     Increment = 0.001
-    MaxValue = 100
     MinValue = 0
     OnClick = KMgClick
     OnEditingDone = KMgClick
+    OnKeyDown = KMgClick
     TabOrder = 21
     Value = 0
   end
   object KS: TFloatSpinEdit
-    Left = 217
+    Left = 216
     Height = 27
     Top = 339
     Width = 76
     DecimalPlaces = 3
     Increment = 0.001
-    MaxValue = 100
     MinValue = 0
     OnClick = KSClick
     OnEditingDone = KSClick
+    OnKeyDown = KSClick
     TabOrder = 22
     Value = 0
   end
@@ -513,10 +507,10 @@ object Kf: TKf
     Color = clYellow
     DecimalPlaces = 3
     Increment = 0.001
-    MaxValue = 100
     MinValue = 0
     OnClick = CaNClick
     OnEditingDone = CaNClick
+    OnKeyDown = CaNClick
     TabOrder = 23
     Value = 0
   end
@@ -527,10 +521,10 @@ object Kf: TKf
     Width = 76
     DecimalPlaces = 3
     Increment = 0.001
-    MaxValue = 100
     MinValue = 0
     OnClick = CaPClick
     OnEditingDone = CaPClick
+    OnKeyDown = CaPClick
     TabOrder = 24
     Value = 0
   end
@@ -542,10 +536,10 @@ object Kf: TKf
     Color = clYellow
     DecimalPlaces = 3
     Increment = 0.001
-    MaxValue = 100
     MinValue = 0
     OnClick = CaKClick
     OnEditingDone = CaKClick
+    OnKeyDown = CaKClick
     TabOrder = 25
     Value = 0
   end
@@ -557,10 +551,10 @@ object Kf: TKf
     Color = clYellow
     DecimalPlaces = 3
     Increment = 0.001
-    MaxValue = 100
     MinValue = 0
     OnClick = CaMgClick
     OnEditingDone = CaMgClick
+    OnKeyDown = CaMgClick
     TabOrder = 26
     Value = 0
   end
@@ -571,10 +565,10 @@ object Kf: TKf
     Width = 76
     DecimalPlaces = 3
     Increment = 0.001
-    MaxValue = 100
     MinValue = 0
     OnClick = CaSClick
     OnEditingDone = CaSClick
+    OnKeyDown = CaSClick
     TabOrder = 27
     Value = 0
   end
@@ -585,10 +579,10 @@ object Kf: TKf
     Width = 76
     DecimalPlaces = 3
     Increment = 0.001
-    MaxValue = 100
     MinValue = 0
     OnClick = MgNClick
     OnEditingDone = MgNClick
+    OnKeyDown = MgNClick
     TabOrder = 28
     Value = 0
   end
@@ -599,10 +593,10 @@ object Kf: TKf
     Width = 76
     DecimalPlaces = 3
     Increment = 0.001
-    MaxValue = 100
     MinValue = 0
     OnClick = MgPClick
     OnEditingDone = MgPClick
+    OnKeyDown = MgPClick
     TabOrder = 29
     Value = 0
   end
@@ -614,10 +608,10 @@ object Kf: TKf
     Color = clYellow
     DecimalPlaces = 3
     Increment = 0.001
-    MaxValue = 100
     MinValue = 0
     OnClick = MgKClick
     OnEditingDone = MgKClick
+    OnKeyDown = MgKClick
     TabOrder = 30
     Value = 0
   end
@@ -629,10 +623,10 @@ object Kf: TKf
     Color = clYellow
     DecimalPlaces = 3
     Increment = 0.001
-    MaxValue = 100
     MinValue = 0
     OnClick = MgCaClick
     OnEditingDone = MgCaClick
+    OnKeyDown = MgCaClick
     TabOrder = 31
     Value = 0
   end
@@ -643,10 +637,10 @@ object Kf: TKf
     Width = 76
     DecimalPlaces = 3
     Increment = 0.001
-    MaxValue = 100
     MinValue = 0
     OnClick = MgSClick
     OnEditingDone = MgSClick
+    OnKeyDown = MgSClick
     TabOrder = 32
     Value = 0
   end
@@ -657,10 +651,10 @@ object Kf: TKf
     Width = 76
     DecimalPlaces = 3
     Increment = 0.001
-    MaxValue = 100
     MinValue = 0
     OnClick = SNClick
     OnEditingDone = SNClick
+    OnKeyDown = SNClick
     TabOrder = 33
     Value = 0
   end
@@ -671,10 +665,10 @@ object Kf: TKf
     Width = 76
     DecimalPlaces = 3
     Increment = 0.001
-    MaxValue = 100
     MinValue = 0
     OnClick = SPClick
     OnEditingDone = SPClick
+    OnKeyDown = SPClick
     TabOrder = 34
     Value = 0
   end
@@ -685,10 +679,10 @@ object Kf: TKf
     Width = 76
     DecimalPlaces = 3
     Increment = 0.001
-    MaxValue = 100
     MinValue = 0
     OnClick = SKClick
     OnEditingDone = SKClick
+    OnKeyDown = SKClick
     TabOrder = 35
     Value = 0
   end
@@ -699,10 +693,10 @@ object Kf: TKf
     Width = 76
     DecimalPlaces = 3
     Increment = 0.001
-    MaxValue = 100
     MinValue = 0
     OnClick = SCaClick
     OnEditingDone = SCaClick
+    OnKeyDown = SCaClick
     TabOrder = 36
     Value = 0
   end
@@ -713,10 +707,10 @@ object Kf: TKf
     Width = 76
     DecimalPlaces = 3
     Increment = 0.001
-    MaxValue = 100
     MinValue = 0
     OnClick = SMgClick
     OnEditingDone = SMgClick
+    OnKeyDown = SMgClick
     TabOrder = 37
     Value = 0
   end
@@ -726,11 +720,11 @@ object Kf: TKf
     Top = 38
     Width = 70
     Increment = 0.01
-    MaxValue = 100
     MinValue = 0
     OnChange = ECChange
     OnClick = ECClick
     OnEditingDone = ECClick
+    OnKeyDown = ECClick
     TabOrder = 38
     Value = 0
   end
@@ -750,10 +744,10 @@ object Kf: TKf
     Color = clYellow
     DecimalPlaces = 3
     Increment = 0.001
-    MaxValue = 100
     MinValue = 0
     OnClick = NCaClick
     OnEditingDone = NCaClick
+    OnKeyDown = NCaClick
     TabOrder = 39
     Value = 0
   end

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectSession>
-    <Version Value="9"/>
+    <Version Value="11"/>
     <BuildModes Active="Default"/>
     <Units Count="4">
       <Unit0>
@@ -19,9 +19,9 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="467"/>
-        <CursorPos X="3" Y="467"/>
-        <FoldState Value=" T7E8{{!"/>
+        <TopLine Value="555"/>
+        <CursorPos X="3" Y="555"/>
+        <FoldState Value=" T7E8}Sq"/>
         <UsageCount Value="57"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -29,20 +29,18 @@
       <Unit2>
         <Filename Value="/usr/lib/lazarus/1.6/lcl/controls.pp"/>
         <UnitName Value="Controls"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="1623"/>
         <CursorPos X="54" Y="1637"/>
         <UsageCount Value="29"/>
-        <Loaded Value="True"/>
       </Unit2>
       <Unit3>
         <Filename Value="/usr/lib/lazarus/1.6/lcl/widgetset/wsproc.pp"/>
         <UnitName Value="WSProc"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="44"/>
         <CursorPos Y="62"/>
         <UsageCount Value="19"/>
-        <Loaded Value="True"/>
       </Unit3>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
@@ -167,5 +165,9 @@
         <Caret Line="467" Column="3" TopLine="467"/>
       </Position30>
     </JumpHistory>
+    <RunParams>
+      <FormatVersion Value="2"/>
+      <Modes Count="0" ActiveMode="default"/>
+    </RunParams>
   </ProjectSession>
 </CONFIG>
