@@ -8,7 +8,7 @@
         <Filename Value="hpg.lpr"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="3"/>
-        <UsageCount Value="67"/>
+        <UsageCount Value="68"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
@@ -20,8 +20,8 @@
         <UnitName Value="Unit1"/>
         <IsVisibleTab Value="True"/>
         <TopLine Value="586"/>
-        <CursorPos X="48" Y="600"/>
-        <UsageCount Value="67"/>
+        <CursorPos X="6" Y="605"/>
+        <UsageCount Value="68"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
@@ -47,7 +47,7 @@
         <EditorIndex Value="1"/>
         <TopLine Value="670"/>
         <CursorPos X="7" Y="685"/>
-        <UsageCount Value="14"/>
+        <UsageCount Value="15"/>
         <Loaded Value="True"/>
       </Unit4>
       <Unit5>
@@ -56,7 +56,7 @@
         <EditorIndex Value="2"/>
         <TopLine Value="3091"/>
         <CursorPos X="25" Y="3095"/>
-        <UsageCount Value="14"/>
+        <UsageCount Value="15"/>
         <Loaded Value="True"/>
       </Unit5>
     </Units>
