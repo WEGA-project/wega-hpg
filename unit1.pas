@@ -13,7 +13,11 @@ type
   { TKf }
 
   TKf = class(TForm)
+    CaNO3_NO4: TFloatSpinEdit;
     EC: TFloatSpinEdit;
+    K2SO4_S1: TFloatSpinEdit;
+    KH2PO4_P1: TFloatSpinEdit;
+    KNO3_NO4: TFloatSpinEdit;
     Label22: TLabel;
     Label23: TLabel;
     Label24: TLabel;
@@ -22,6 +26,8 @@ type
     Label27: TLabel;
     Label28: TLabel;
     Label29: TLabel;
+    MgSO4_S1: TFloatSpinEdit;
+    NH4NO3_NO4: TFloatSpinEdit;
     nKNO3: TLabel;
     nCaNO3: TLabel;
     nMgSO4: TLabel;
