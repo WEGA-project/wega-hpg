@@ -724,6 +724,7 @@ object Kf: TKf
     OnChange = ECChange
     OnClick = ECClick
     OnEditingDone = ECClick
+    OnKeyDown = ECClick
     TabOrder = 38
     Value = 0
   end

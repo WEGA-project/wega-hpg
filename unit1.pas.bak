@@ -96,6 +96,7 @@ type
     procedure CaSClick(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure ECChange(Sender: TObject);
     procedure ECClick(Sender: TObject);
+    procedure ECClick(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormActivate(Sender: TObject);
     procedure FormChangeBounds(Sender: TObject);
     procedure FormClick(Sender: TObject);
@@ -624,6 +625,11 @@ procedure TKf.ECClick(Sender: TObject);
 begin
   calcECtoVal;
   CalcAll;
+end;
+
+procedure TKf.ECClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+begin
+
 end;
 
 procedure TKf.FormActivate(Sender: TObject);
