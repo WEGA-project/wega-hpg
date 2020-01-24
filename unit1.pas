@@ -13,11 +13,11 @@ type
   { TKf }
 
   TKf = class(TForm)
-    CaNO3_NO4: TFloatSpinEdit;
+    gCaNO3: TFloatSpinEdit;
     EC: TFloatSpinEdit;
-    K2SO4_S1: TFloatSpinEdit;
-    KH2PO4_P1: TFloatSpinEdit;
-    KNO3_NO4: TFloatSpinEdit;
+    gK2SO4: TFloatSpinEdit;
+    gKH2PO4: TFloatSpinEdit;
+    gKNO3: TFloatSpinEdit;
     Label22: TLabel;
     Label23: TLabel;
     Label24: TLabel;
@@ -26,8 +26,9 @@ type
     Label27: TLabel;
     Label28: TLabel;
     Label29: TLabel;
-    MgSO4_S1: TFloatSpinEdit;
-    NH4NO3_NO4: TFloatSpinEdit;
+    Label53: TLabel;
+    gMgSO4: TFloatSpinEdit;
+    gNH4NO3: TFloatSpinEdit;
     nKNO3: TLabel;
     nCaNO3: TLabel;
     nMgSO4: TLabel;
@@ -54,7 +55,7 @@ type
     CaNO3_Ca: TFloatSpinEdit;
     NK: TFloatSpinEdit;
     KNO3_K: TFloatSpinEdit;
-    NK2: TFloatSpinEdit;
+    V: TFloatSpinEdit;
     NMg: TFloatSpinEdit;
     MgSO4_Mg: TFloatSpinEdit;
     K2SO4_K: TFloatSpinEdit;
@@ -128,6 +129,7 @@ type
     procedure Button1Click(Sender: TObject);
     procedure CaChange(Sender: TObject);
     procedure CaClick(Sender: TObject);
+    procedure CaClick(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure CaKClick(Sender: TObject);
     procedure CaKClick(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure CaMgClick(Sender: TObject);
@@ -163,6 +165,7 @@ type
     procedure KCaClick(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure KChange(Sender: TObject);
     procedure KClick(Sender: TObject);
+    procedure KClick(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure KH2PO4_KClick(Sender: TObject);
     procedure KH2PO4_KClick(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure KH2PO4_PClick(Sender: TObject);
@@ -181,9 +184,12 @@ type
     procedure KSClick(Sender: TObject);
     procedure KSClick(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure Label1Click(Sender: TObject);
+    procedure MgClick(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure MgSO4_MgClick(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure MgSO4_SClick(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure MgSO4_SClick(Sender: TObject);
+    procedure NClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure NH4Click(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure nKH2PO4Click(Sender: TObject);
     procedure nK2SO4Click(Sender: TObject);
     procedure Label8Click(Sender: TObject);
@@ -261,6 +267,7 @@ type
 
     procedure PChange(Sender: TObject);
     procedure PClick(Sender: TObject);
+    procedure PClick(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure PKClick(Sender: TObject);
     procedure PKClick(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure PMgClick(Sender: TObject);
@@ -274,6 +281,7 @@ type
     procedure SCaClick(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure SChange(Sender: TObject);
     procedure SClick(Sender: TObject);
+    procedure SClick(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure SKClick(Sender: TObject);
     procedure SKClick(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure SMgClick(Sender: TObject);
@@ -282,6 +290,8 @@ type
     procedure SNClick(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure SPClick(Sender: TObject);
     procedure SPClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure VClick(Sender: TObject);
+    procedure VClick(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     { private declarations }
   public
@@ -290,10 +300,15 @@ type
 
 var
   Kf: TKf;
-  vN,vNO3,vNH4,vP,vK,vCa,vMg,vS,vEC:Double;
+  vN,vNO3,vNH4,vP,vK,vCa,vMg,vS,vEC,V:Double;
   mN,mP,mK,mCa,mMg,mS:Double;
   r,rN,rK,rCa,rMg,rNH4:Double;
   vKMg,vKCa,vKN,vNH4NO3:Double;
+  sMgSO4,sKH2PO4,sCaNO3,sNH4NO3,sKNO3,sK2SO4:Double;
+  Mg_MgSO4,S_MgSO4,P_KH2PO4,K_KH2PO4,Ca_CaNO3,NO3_CaNO3,NH4_CaNO3,NH4_NH4NO3,NO3_NH4NO3,K_KNO3,NO3_KNO3,S_K2SO4,K_K2SO4:Double;
+  vMgSO4_Mg,vMgSO4_S,vKH2PO4_P,vKH2PO4_K,vCaNO3_Ca,vCaNO3_NO3,vCaNO3_NH4,vNH4NO3_NH4,vNH4NO3_NO3,vKNO3_K,vKNO3_NO3,vK2SO4_S,vK2SO4_K:Double;
+  xNH4, xNO3, xS: Double;
+
 
 implementation
 
@@ -439,7 +454,58 @@ begin
 
 end;
 
+   procedure CalcWeight ;
+ begin
+   vMgSO4_Mg:=Kf.MgSO4_Mg.value;
+   vMgSO4_S:=Kf.MgSO4_S.value;
 
+   vKH2PO4_P:=Kf.KH2PO4_P.value;
+   vKH2PO4_K:=Kf.KH2PO4_K.value;
+
+   vCaNO3_Ca:=Kf.CaNO3_Ca.value;
+   vCaNO3_NO3:=Kf.CaNO3_NO3.value;
+   vCaNO3_NH4:=Kf.CaNO3_NH4.value;
+
+   vNH4NO3_NH4:=Kf.NH4NO3_NH4.value;
+   vNH4NO3_NO3:=Kf.NH4NO3_NO3.value;
+
+   vKNO3_K:=Kf.KNO3_K.value;
+   vKNO3_NO3:=Kf.KNO3_NO3.value;
+
+   vK2SO4_S:=Kf.K2SO4_S.value;
+   vK2SO4_K:=Kf.K2SO4_K.value;
+
+   V:=kF.V.Value;
+
+
+   sMgSO4:=vMg/(vMgSO4_Mg*10);                    Kf.gMgSO4.value:= sMgSO4*V;
+     Mg_MgSO4:=sMgSO4*vMgSO4_Mg*10;
+     S_MgSO4:=sMgSO4*vMgSO4_S*10;
+
+   sKH2PO4:=vP/(vKH2PO4_P*10);                    Kf.gKH2PO4.value:= sKH2PO4*V;
+     P_KH2PO4:=sKH2PO4*vKH2PO4_P*10;
+     K_KH2PO4:=sKH2PO4*vKH2PO4_K*10;
+
+   sCaNO3:=vCa/(vCaNO3_Ca*10);                    Kf.gCaNO3.value:= sCaNO3*V;
+     NO3_CaNO3:=sCaNO3*vCaNO3_NO3*10;
+     NH4_CaNO3:=sCaNO3*vCaNO3_NH4*10;
+     Ca_CaNO3:=sCaNO3*vCaNO3_Ca*10;
+
+ xNH4:=vNH4 - NH4_CaNO3;
+
+   sNH4NO3:=xNH4/(vNH4NO3_NH4*10);                  Kf.gNH4NO3.value:= sNH4NO3*V;
+     NO3_NH4NO3:=sNH4NO3*vNH4NO3_NO3*10;
+     NH4_NH4NO3:=sNH4NO3*vNH4NO3_NH4*10;
+
+ xNO3:= vNO3 - NO3_CaNO3 - NO3_NH4NO3;
+
+   sKNO3:=xNO3/(vKNO3_NO3*10);                      Kf.gKNO3.value:=sKNO3*V;
+
+ xS:=vS-S_MgSO4;
+
+   sK2SO4:=xS/(vK2SO4_S*10);                        Kf.gK2SO4.value:=sK2SO4*V
+
+ end;
 
 procedure CalcAll;
 begin
@@ -447,8 +513,8 @@ begin
  CalculateCa;
  CalcEC;
  CalcKoef;
+ CalcWeight ;
 end;
-
 
 
 
@@ -472,6 +538,7 @@ end;
 procedure TKf.MgChange(Sender: TObject);
 begin
   CalcKoef;
+  CalcWeight ;
 
 end;
 
@@ -545,12 +612,18 @@ begin
     CalcAll;
 end;
 
+procedure TKf.MgClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+begin
+
+end;
+
 procedure TKf.MgSO4_MgClick(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
     MgSO4_S.value:= (MgSO4_Mg.value * mS)/mMg;
          nMgSO4.Caption:='Сульфат магния'
  + ' MgO-' +floattostr(Round((MgSO4_Mg.value/0.603036)*10)/10)+'%'
  + ' SO3-' +floattostr(Round((MgSO4_S.value/0.400496)*10)/10)+'%';
+         CalcWeight ;
 end;
 
 procedure TKf.MgSO4_SClick(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -560,12 +633,24 @@ begin
            nMgSO4.Caption:='Сульфат магния'
  + ' MgO-' +floattostr(Round((MgSO4_Mg.value/0.603036)*10)/10)+'%'
  + ' SO3-' +floattostr(Round((MgSO4_S.value/0.400496)*10)/10)+'%';
-
+    CalcWeight ;
 end;
 
 procedure TKf.MgSO4_SClick(Sender: TObject);
 begin
 
+end;
+
+procedure TKf.NClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+begin
+  CalcAll;
+end;
+
+procedure TKf.NH4Click(Sender: TObject; var Key: Word; Shift: TShiftState);
+begin
+  NO3.Value := N.value - NH4.value;
+  NH4NO3.value := NH4.value / NO3.value ;
+  CalcAll;
 end;
 
 procedure TKf.nKH2PO4Click(Sender: TObject);
@@ -596,6 +681,7 @@ begin
     nK2SO4.Caption:='Сульфат калия'
  + ' K2O-' +floattostr(Round((K2SO4_K.value/0.830148)*10)/10)+'%'
  + ' SO3-' +floattostr(Round((K2SO4_S.value/0.400496)*10)/10)+'%';
+    CalcWeight ;
 end;
 
 procedure TKf.K2SO4_KClick(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -610,6 +696,7 @@ begin
     nK2SO4.Caption:='Сульфат калия'
  + ' K2O-' +floattostr(Round((K2SO4_K.value/0.830148)*10)/10)+'%'
  + ' SO3-' +floattostr(Round((K2SO4_S.value/0.400496)*10)/10)+'%';
+    CalcWeight ;
 end;
 
 procedure TKf.K2SO4_SClick(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -631,12 +718,18 @@ end;
 procedure TKf.KChange(Sender: TObject);
 begin
  CalcKoef;
+ CalcWeight ;
 
 end;
 
 procedure TKf.KClick(Sender: TObject);
 begin
   CalcAll;
+end;
+
+procedure TKf.KClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+begin
+
 end;
 
 procedure TKf.KH2PO4_KClick(Sender: TObject);
@@ -646,6 +739,7 @@ begin
     nKH2PO4.Caption:='Монофосфат калия'
  + ' K2O-' +floattostr(Round((KH2PO4_K.value/0.830148)*10)/10)+'%'
  + ' P2O5-' +floattostr(Round((KH2PO4_P.value/0.436421)*10)/10)+'%';
+    CalcWeight ;
 end;
 
 procedure TKf.KH2PO4_KClick(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -660,6 +754,7 @@ begin
     nKH2PO4.Caption:='Монофосфат калия'
  + ' K2O-' +floattostr(Round((KH2PO4_K.value/0.830148)*10)/10)+'%'
  + ' P2O5-' +floattostr(Round((KH2PO4_P.value/0.436421)*10)/10)+'%';
+    CalcWeight ;
 end;
 
 procedure TKf.KH2PO4_PClick(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -701,6 +796,7 @@ begin
     nKNO3.Caption:='Селитра калиевая'
  + ' K2O-' +floattostr(Round((KNO3_K.value/0.830148)*10)/10)+'%'
  + ' N-' +floattostr(Round((KNO3_NO3.value)*10)/10)+'%';
+    CalcWeight ;
 end;
 
 procedure TKf.KNO3_KClick(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -714,6 +810,7 @@ begin
        nKNO3.Caption:='Селитра калиевая'
  + ' K2O-' +floattostr(Round((KNO3_K.value/0.830148)*10)/10)+'%'
  + ' N-' +floattostr(Round((KNO3_NO3.value)*10)/10)+'%';
+       CalcWeight ;
 end;
 
 procedure TKf.KNO3_NO3Click(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -752,12 +849,18 @@ end;
 procedure TKf.CaChange(Sender: TObject);
 begin
   CalcKoef;
+  CalcWeight ;
 
 end;
 
 procedure TKf.CaClick(Sender: TObject);
 begin
   CalcAll;
+end;
+
+procedure TKf.CaClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+begin
+
 end;
 
 procedure TKf.CaKClick(Sender: TObject);
@@ -799,6 +902,7 @@ begin
     nCaNO3.Caption:='Селитра кальциевая'
    + ' CaO-' +floattostr(Round((CaNO3_Ca.value/0.714691)*10)/10)+'%'
    + ' N-' +floattostr(Round((CaNO3_NH4.value+CaNO3_NO3.value)*10)/10)+'%';
+    CalcWeight ;
 end;
 
 procedure TKf.CaNO3_CaChange(Sender: TObject; var Key: Word; Shift: TShiftState
@@ -815,6 +919,7 @@ begin
   nCaNO3.Caption:='Селитра кальциевая'
  + ' CaO-' +floattostr(Round((CaNO3_Ca.value/0.714691)*10)/10)+'%'
  + ' N-' +floattostr(Round((CaNO3_NH4.value+CaNO3_NO3.value)*10)/10)+'%';
+        CalcWeight ;
 end;
 
 procedure TKf.CaNO3_NH4EditingDone(Sender: TObject; var Key: Word;
@@ -830,6 +935,7 @@ begin
     nCaNO3.Caption:='Селитра кальциевая'
    + ' CaO-' +floattostr(Round((CaNO3_Ca.value/0.714691)*10)/10)+'%'
    + ' N-' +floattostr(Round((CaNO3_NH4.value+CaNO3_NO3.value)*10)/10)+'%';
+    CalcWeight ;
 end;
 
 procedure TKf.CaNO3_NO3KeyDown(Sender: TObject);
@@ -892,6 +998,7 @@ begin
   NO3.value := N.value/(NH4NO3.value+1);
   NH4.value := NH4NO3.value*N.value/(NH4NO3.value+1);
   CalcKoef;
+  CalcWeight ;
 
 
 
@@ -965,6 +1072,7 @@ begin
   NH4NO3_NO3.value:=NH4NO3_NH4.value;
       nNH4NO3.Caption:='Селитра аммиачная'
    + ' N-' +floattostr(Round((NH4NO3_NH4.value+NH4NO3_NO3.value)*10)/10)+'%';
+      CalcWeight ;
 end;
 
 procedure TKf.NH4NO3_NH4Click(Sender: TObject; var Key: Word; Shift: TShiftState
@@ -978,6 +1086,7 @@ begin
   NH4NO3_NH4.value:=NH4NO3_NO3.value;
         nNH4NO3.Caption:='Селитра аммиачная'
    + ' N-' +floattostr(Round((NH4NO3_NH4.value+NH4NO3_NO3.value)*10)/10)+'%';
+        CalcWeight ;
 end;
 
 procedure TKf.NH4NO3_NO3Click(Sender: TObject; var Key: Word; Shift: TShiftState
@@ -1165,12 +1274,18 @@ end;
 procedure TKf.PChange(Sender: TObject);
 begin
   CalcKoef;
+  CalcWeight ;
 
 end;
 
 procedure TKf.PClick(Sender: TObject);
 begin
   CalcAll;
+end;
+
+procedure TKf.PClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+begin
+
 end;
 
 procedure TKf.PKClick(Sender: TObject);
@@ -1237,12 +1352,17 @@ end;
 procedure TKf.SChange(Sender: TObject);
 begin
   CalculateCa;
-
+   CalcWeight ;
 end;
 
 procedure TKf.SClick(Sender: TObject);
 begin
     CalcAll;
+end;
+
+procedure TKf.SClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+begin
+
 end;
 
 procedure TKf.SKClick(Sender: TObject);
@@ -1285,6 +1405,16 @@ begin
 end;
 
 procedure TKf.SPClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+begin
+
+end;
+
+procedure TKf.VClick(Sender: TObject);
+begin
+  CalcWeight ;
+end;
+
+procedure TKf.VClick(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
 
 end;
