@@ -26,6 +26,7 @@ type
     Label27: TLabel;
     Label28: TLabel;
     Label29: TLabel;
+    Label30: TLabel;
     Label53: TLabel;
     gMgSO4: TFloatSpinEdit;
     gNH4NO3: TFloatSpinEdit;
