@@ -129,7 +129,7 @@ type
     Label9: TLabel;
     procedure Button1Click(Sender: TObject);
     procedure CaChange(Sender: TObject);
-    procedure CaClick(Sender: TObject);
+    procedure C(Sender: TObject);
     procedure CaClick(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure CaKClick(Sender: TObject);
     procedure CaKClick(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -364,7 +364,7 @@ begin
 
  vS:=(mS*(vNH4*mCa*mMg*mK*mP + 2*vCa*mN*mMg*mK*mP + 2*vMg*mN*mCa*mK*mP+ vK*mN*mCa*mMg*mP - vNO3*mCa*mMg*mK*mP - vP*mN*mCa*mMg*mK))/(2*(mN*mCa*mMg*mK*mP));
 
- if ( Kf.S.Focused = True )    then  Kf.S.value:=vS;
+  Kf.S.value:=vS;
 end;
 
 
@@ -542,7 +542,7 @@ begin
    if ( Mg.Focused = True )    then begin
   CalcKoef;
   CalcWeight ;
-
+    CalcAll;
    end
 
 end;
@@ -653,9 +653,12 @@ end;
 
 procedure TKf.NH4Click(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
+  if ( NH4.Focused = True )    then begin
   NO3.Value := N.value - NH4.value;
   NH4NO3.value := NH4.value / NO3.value ;
   CalcAll;
+
+  end;
 end;
 
 procedure TKf.nKH2PO4Click(Sender: TObject);
@@ -725,7 +728,7 @@ begin
    if ( K.Focused = True )    then begin
  CalcKoef;
  CalcWeight ;
-
+   CalcAll;
 
    end
 end;
@@ -857,14 +860,16 @@ end;
 procedure TKf.CaChange(Sender: TObject);
 begin
    if ( Ca.Focused = True )    then begin
+   CalculateS;
   CalcKoef;
   CalcWeight ;
-
+  CalcEC;
+   //CalcAll;
    end
 
 end;
 
-procedure TKf.CaClick(Sender: TObject);
+procedure TKf.C(Sender: TObject);
 begin
   CalcAll;
 end;
@@ -978,7 +983,15 @@ end;
 
 procedure TKf.ECChange(Sender: TObject);
 begin
+  if ( EC.Focused = True )    then begin
+   calcECtoVal;
+ //  CalculateS;
+// CalculateCa;
+ //CalcEC;
+ CalcKoef;
+ CalcWeight ;
 
+  end;
 end;
 
 procedure TKf.ECClick(Sender: TObject);
@@ -1064,15 +1077,24 @@ end;
 
 procedure TKf.NH4NO3Change(Sender: TObject);
 begin
+    if ( NH4NO3.Focused = True )    then begin
+    NH4.value := N.value *(NH4NO3.value/(NH4NO3.value+1));
+  NO3.value := N.value / ( NH4NO3.value+1 );
+  CalculateS;
+  CalcAll;
 
+  end;
   //CalculateS;
 end;
 
 procedure TKf.NH4NO3Click(Sender: TObject);
 begin
+  if ( NH4NO3.Focused = True )    then begin
     NH4.value := N.value *(NH4NO3.value/(NH4NO3.value+1));
   NO3.value := N.value / ( NH4NO3.value+1 );
   CalcAll;
+
+  end;
 end;
 
 procedure TKf.NH4NO3Click(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -1146,7 +1168,7 @@ begin
    if ( NO3.Focused = True )    then begin
     NH4.value:=N.Value-NO3.value;
     NH4NO3.value := NH4.value/NO3.value;
-
+    CalculateS;
    end;
 
 end;
@@ -1297,7 +1319,7 @@ begin
    if ( P.Focused = True )    then begin
   CalcKoef;
   CalcWeight ;
-
+   CalcAll;
 
    end
 end;
@@ -1376,7 +1398,9 @@ end;
 procedure TKf.SChange(Sender: TObject);
 begin
     if ( S.Focused = True )    then begin
-
+   CalculateCa;
+   CalcWeight ;
+   CalcEC;
    end
 end;
 
