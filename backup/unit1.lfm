@@ -1,11 +1,11 @@
 object Kf: TKf
-  Left = 1207
-  Height = 695
-  Top = 317
-  Width = 662
+  Left = 609
+  Height = 665
+  Top = 334
+  Width = 743
   Caption = 'Koefficients'
-  ClientHeight = 695
-  ClientWidth = 662
+  ClientHeight = 665
+  ClientWidth = 743
   DesignTimePPI = 106
   OnActivate = FormActivate
   OnChangeBounds = FormChangeBounds
@@ -23,64 +23,67 @@ object Kf: TKf
     OnClick = NChange
   end
   object N: TFloatSpinEdit
-    Left = 44
+    Left = 55
     Height = 28
     Top = 42
-    Width = 72
+    Width = 92
     MaxValue = 999
     MinValue = 0
     OnChange = NChange
-    OnClick = NClick
-    OnEditingDone = NEditingDone
-    OnKeyDown = NKeyDown
     ParentFont = False
     TabOrder = 0
     Value = 220
   end
   object P: TFloatSpinEdit
-    Left = 124
+    Left = 151
     Height = 28
     Top = 42
-    Width = 72
+    Width = 92
     MaxValue = 999
     MinValue = 0
     OnChange = PChange
     OnClick = PClick
+    OnEditingDone = PClick
+    OnKeyDown = PClick
     ParentFont = False
     TabOrder = 1
     Value = 40
   end
   object K: TFloatSpinEdit
-    Left = 204
+    Left = 248
     Height = 28
     Top = 42
-    Width = 72
+    Width = 92
     MaxValue = 999
     MinValue = 0
     OnChange = KChange
     OnClick = KClick
+    OnEditingDone = KClick
+    OnKeyDown = KClick
     ParentFont = False
     TabOrder = 2
     Value = 180
   end
   object Ca: TFloatSpinEdit
-    Left = 284
+    Left = 344
     Height = 28
     Top = 42
-    Width = 72
+    Width = 92
     MaxValue = 999
     MinValue = 0
     OnChange = CaChange
     OnClick = CaClick
+    OnEditingDone = CaClick
+    OnKeyDown = CaClick
     ParentFont = False
     TabOrder = 3
     Value = 200
   end
   object Mg: TFloatSpinEdit
-    Left = 363
+    Left = 439
     Height = 28
     Top = 42
-    Width = 72
+    Width = 92
     MaxValue = 999
     MinValue = 0
     OnChange = MgChange
@@ -90,10 +93,10 @@ object Kf: TKf
     Value = 50
   end
   object S: TFloatSpinEdit
-    Left = 443
+    Left = 537
     Height = 28
     Top = 42
-    Width = 72
+    Width = 92
     MaxValue = 999
     MinValue = 0
     OnChange = SChange
@@ -103,117 +106,143 @@ object Kf: TKf
     Value = 80
   end
   object NO3: TFloatSpinEdit
-    Left = 44
+    Left = 55
     Height = 28
     Top = 72
-    Width = 72
+    Width = 92
     Increment = 0.01
     MaxValue = 999
     MinValue = 0
     OnChange = NO3Change
     OnClick = NO3Click
-    OnEnter = NO3Enter
-    OnExit = NO3Exit
+    OnEditingDone = NO3Click
+    OnKeyDown = NH4Click
     ParentFont = False
     TabOrder = 6
     Value = 200
   end
   object NH4: TFloatSpinEdit
-    Left = 44
+    Left = 55
     Height = 28
     Top = 100
-    Width = 72
+    Width = 92
     Increment = 0.01
     MaxValue = 999
     MinValue = 0
-    OnChange = NH4Change
     OnClick = NH4Click
-    OnEditingDone = NH4EditingDone
-    OnExit = NH4Exit
-    OnMouseDown = NH4MouseDown
+    OnEditingDone = NH4Click
+    OnKeyDown = NH4Click
     ParentFont = False
     TabOrder = 7
     Value = 20
   end
   object Label2: TLabel
-    Left = 70
-    Height = 18
+    Left = 86
+    Height = 16
     Top = 21
-    Width = 10
+    Width = 11
     Caption = 'N'
+    Font.Height = -14
+    Font.Name = 'Sans'
+    Font.Style = [fsBold]
     ParentColor = False
     ParentFont = False
   end
   object Label3: TLabel
-    Left = 149
-    Height = 18
+    Left = 188
+    Height = 16
     Top = 21
-    Width = 8
+    Width = 10
     Caption = 'P'
+    Font.Height = -14
+    Font.Name = 'Sans'
+    Font.Style = [fsBold]
     ParentColor = False
     ParentFont = False
   end
   object Label4: TLabel
-    Left = 226
-    Height = 18
+    Left = 285
+    Height = 16
     Top = 21
-    Width = 8
+    Width = 11
     Caption = 'K'
+    Font.Height = -14
+    Font.Name = 'Sans'
+    Font.Style = [fsBold]
     ParentColor = False
     ParentFont = False
   end
   object Label5: TLabel
-    Left = 304
-    Height = 18
+    Left = 383
+    Height = 16
     Top = 21
-    Width = 15
+    Width = 20
     Caption = 'Ca'
+    Font.Height = -14
+    Font.Name = 'Sans'
+    Font.Style = [fsBold]
     ParentColor = False
     ParentFont = False
   end
   object Label6: TLabel
-    Left = 389
-    Height = 18
+    Left = 489
+    Height = 16
     Top = 21
-    Width = 20
+    Width = 23
     Caption = 'Mg'
+    Font.Height = -14
+    Font.Name = 'Sans'
+    Font.Style = [fsBold]
     ParentColor = False
     ParentFont = False
   end
   object Label7: TLabel
-    Left = 479
-    Height = 18
+    Left = 571
+    Height = 16
     Top = 21
-    Width = 7
+    Width = 10
     Caption = 'S'
+    Font.Height = -14
+    Font.Name = 'Sans'
+    Font.Style = [fsBold]
     ParentColor = False
     ParentFont = False
   end
   object Label8: TLabel
     Left = 4
-    Height = 18
+    Height = 16
     Top = 76
-    Width = 27
+    Width = 33
     Caption = 'NO3'
+    Font.Height = -14
+    Font.Name = 'Sans'
+    Font.Style = [fsBold]
     ParentColor = False
     ParentFont = False
     OnClick = Label8Click
   end
   object Label9: TLabel
     Left = 4
-    Height = 18
+    Height = 16
     Top = 109
-    Width = 27
+    Width = 32
     Caption = 'NH4'
+    Font.Height = -14
+    Font.Name = 'Sans'
+    Font.Style = [fsBold]
     ParentColor = False
     ParentFont = False
   end
   object NH4NO3: TFloatSpinEdit
-    Left = 124
-    Height = 28
+    Left = 248
+    Height = 26
+    Hint = 'NH4:NO3'
     Top = 88
-    Width = 72
+    Width = 92
     DecimalPlaces = 3
+    Font.Height = -14
+    Font.Name = 'Sans'
+    Font.Style = [fsBold]
     Increment = 0.001
     MaxValue = 9999999
     MinValue = 0
@@ -222,130 +251,166 @@ object Kf: TKf
     OnEditingDone = NH4NO3Click
     OnKeyDown = NH4NO3Click
     ParentFont = False
+    ParentShowHint = False
+    ShowHint = True
     TabOrder = 8
     Value = 0.1
   end
   object Label10: TLabel
-    Left = 82
-    Height = 18
+    Left = 97
+    Height = 16
     Top = 141
-    Width = 10
+    Width = 11
     Caption = 'N'
+    Font.Height = -14
+    Font.Name = 'Sans'
+    Font.Style = [fsBold]
     ParentColor = False
     ParentFont = False
   end
   object Label11: TLabel
-    Left = 172
-    Height = 18
+    Left = 205
+    Height = 16
     Top = 141
-    Width = 8
+    Width = 10
     Caption = 'P'
+    Font.Height = -14
+    Font.Name = 'Sans'
+    Font.Style = [fsBold]
     ParentColor = False
     ParentFont = False
   end
   object Label12: TLabel
-    Left = 263
-    Height = 18
+    Left = 312
+    Height = 16
     Top = 141
-    Width = 8
+    Width = 11
     Caption = 'K'
+    Font.Height = -14
+    Font.Name = 'Sans'
+    Font.Style = [fsBold]
     ParentColor = False
     ParentFont = False
   end
   object Label13: TLabel
-    Left = 351
-    Height = 18
+    Left = 418
+    Height = 16
     Top = 141
-    Width = 15
+    Width = 20
     Caption = 'Ca'
+    Font.Height = -14
+    Font.Name = 'Sans'
+    Font.Style = [fsBold]
     ParentColor = False
     ParentFont = False
   end
   object Label14: TLabel
-    Left = 451
-    Height = 18
+    Left = 538
+    Height = 16
     Top = 141
-    Width = 20
+    Width = 23
     Caption = 'Mg'
+    Font.Height = -14
+    Font.Name = 'Sans'
+    Font.Style = [fsBold]
     ParentColor = False
     ParentFont = False
   end
   object Label15: TLabel
-    Left = 555
-    Height = 18
+    Left = 662
+    Height = 16
     Top = 141
-    Width = 7
+    Width = 10
     Caption = 'S'
+    Font.Height = -14
+    Font.Name = 'Sans'
+    Font.Style = [fsBold]
     ParentColor = False
     ParentFont = False
   end
   object Label16: TLabel
-    Left = 9
-    Height = 18
+    Left = 10
+    Height = 16
     Top = 180
-    Width = 10
+    Width = 11
     Caption = 'N'
+    Font.Height = -14
+    Font.Name = 'Sans'
+    Font.Style = [fsBold]
     ParentColor = False
     ParentFont = False
   end
   object Label17: TLabel
-    Left = 9
-    Height = 18
+    Left = 10
+    Height = 16
     Top = 221
-    Width = 8
+    Width = 10
     Caption = 'P'
+    Font.Height = -14
+    Font.Name = 'Sans'
+    Font.Style = [fsBold]
     ParentColor = False
     ParentFont = False
   end
   object Label18: TLabel
-    Left = 9
-    Height = 18
+    Left = 10
+    Height = 16
     Top = 261
-    Width = 8
+    Width = 11
     Caption = 'K'
+    Font.Height = -14
+    Font.Name = 'Sans'
+    Font.Style = [fsBold]
     ParentColor = False
     ParentFont = False
   end
   object Label19: TLabel
-    Left = 9
-    Height = 18
+    Left = 10
+    Height = 16
     Top = 300
-    Width = 15
+    Width = 20
     Caption = 'Ca'
+    Font.Height = -14
+    Font.Name = 'Sans'
+    Font.Style = [fsBold]
     ParentColor = False
     ParentFont = False
   end
   object Label20: TLabel
-    Left = 9
-    Height = 18
+    Left = 10
+    Height = 16
     Top = 340
-    Width = 20
+    Width = 23
     Caption = 'Mg'
+    Font.Height = -14
+    Font.Name = 'Sans'
+    Font.Style = [fsBold]
     ParentColor = False
     ParentFont = False
   end
   object Label21: TLabel
-    Left = 9
-    Height = 18
+    Left = 10
+    Height = 16
     Top = 381
-    Width = 7
+    Width = 10
     Caption = 'S'
+    Font.Height = -14
+    Font.Name = 'Sans'
+    Font.Style = [fsBold]
     ParentColor = False
     ParentFont = False
   end
   object NP: TFloatSpinEdit
-    Left = 51
+    Left = 60
     Height = 28
     Hint = 'N:P'
     Top = 219
-    Width = 84
+    Width = 100
     HelpType = htKeyword
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
-    OnClick = NPClick
-    OnEditingDone = NPClick
-    OnKeyDown = NPClick
+    OnClick = NPChange
     ParentFont = False
     ParentShowHint = False
     ShowHint = True
@@ -353,10 +418,10 @@ object Kf: TKf
     Value = 0
   end
   object NK: TFloatSpinEdit
-    Left = 51
+    Left = 60
     Height = 28
     Top = 258
-    Width = 84
+    Width = 100
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
@@ -368,10 +433,10 @@ object Kf: TKf
     Value = 0
   end
   object NMg: TFloatSpinEdit
-    Left = 51
+    Left = 60
     Height = 28
     Top = 336
-    Width = 84
+    Width = 100
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
@@ -383,10 +448,10 @@ object Kf: TKf
     Value = 0
   end
   object NS: TFloatSpinEdit
-    Left = 51
+    Left = 60
     Height = 28
     Top = 374
-    Width = 84
+    Width = 100
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
@@ -398,10 +463,10 @@ object Kf: TKf
     Value = 0
   end
   object PN: TFloatSpinEdit
-    Left = 146
+    Left = 173
     Height = 28
     Top = 180
-    Width = 84
+    Width = 100
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
@@ -413,10 +478,10 @@ object Kf: TKf
     Value = 0
   end
   object PK: TFloatSpinEdit
-    Left = 146
+    Left = 173
     Height = 28
     Top = 258
-    Width = 84
+    Width = 100
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
@@ -428,10 +493,10 @@ object Kf: TKf
     Value = 0
   end
   object PCa: TFloatSpinEdit
-    Left = 146
+    Left = 173
     Height = 28
     Top = 297
-    Width = 84
+    Width = 100
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
@@ -443,10 +508,10 @@ object Kf: TKf
     Value = 0
   end
   object PMg: TFloatSpinEdit
-    Left = 146
+    Left = 173
     Height = 28
     Top = 336
-    Width = 84
+    Width = 100
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
@@ -458,10 +523,10 @@ object Kf: TKf
     Value = 0
   end
   object PS: TFloatSpinEdit
-    Left = 146
+    Left = 173
     Height = 28
     Top = 374
-    Width = 84
+    Width = 100
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
@@ -473,11 +538,14 @@ object Kf: TKf
     Value = 0
   end
   object KN: TFloatSpinEdit
-    Left = 240
-    Height = 28
+    Left = 286
+    Height = 26
     Top = 180
-    Width = 84
+    Width = 100
     DecimalPlaces = 3
+    Font.Height = -14
+    Font.Name = 'Sans'
+    Font.Style = [fsBold]
     Increment = 0.001
     MinValue = 0
     OnClick = KNClick
@@ -488,10 +556,10 @@ object Kf: TKf
     Value = 0
   end
   object KP: TFloatSpinEdit
-    Left = 240
+    Left = 286
     Height = 28
     Top = 219
-    Width = 84
+    Width = 100
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
@@ -503,12 +571,16 @@ object Kf: TKf
     Value = 0
   end
   object KCa: TFloatSpinEdit
-    Left = 240
-    Height = 28
+    Left = 285
+    Height = 26
     Top = 297
-    Width = 84
+    Width = 100
     Color = clYellow
     DecimalPlaces = 3
+    Font.Color = clBlack
+    Font.Height = -14
+    Font.Name = 'Sans'
+    Font.Style = [fsBold]
     Increment = 0.001
     MinValue = 0
     OnClick = KCaClick
@@ -519,12 +591,16 @@ object Kf: TKf
     Value = 0
   end
   object KMg: TFloatSpinEdit
-    Left = 240
-    Height = 28
+    Left = 286
+    Height = 26
     Top = 336
-    Width = 84
+    Width = 100
     Color = clYellow
     DecimalPlaces = 3
+    Font.Color = clBlack
+    Font.Height = -14
+    Font.Name = 'Sans'
+    Font.Style = [fsBold]
     Increment = 0.001
     MinValue = 0
     OnClick = KMgClick
@@ -535,10 +611,10 @@ object Kf: TKf
     Value = 0
   end
   object KS: TFloatSpinEdit
-    Left = 239
+    Left = 285
     Height = 28
     Top = 374
-    Width = 84
+    Width = 100
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
@@ -550,12 +626,13 @@ object Kf: TKf
     Value = 0
   end
   object CaN: TFloatSpinEdit
-    Left = 335
+    Left = 398
     Height = 28
     Top = 180
-    Width = 84
+    Width = 100
     Color = clYellow
     DecimalPlaces = 3
+    Font.Color = clBlack
     Increment = 0.001
     MinValue = 0
     OnClick = CaNClick
@@ -566,10 +643,10 @@ object Kf: TKf
     Value = 0
   end
   object CaP: TFloatSpinEdit
-    Left = 335
+    Left = 398
     Height = 28
     Top = 219
-    Width = 84
+    Width = 100
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
@@ -581,12 +658,13 @@ object Kf: TKf
     Value = 0
   end
   object CaK: TFloatSpinEdit
-    Left = 335
+    Left = 398
     Height = 28
     Top = 258
-    Width = 84
+    Width = 100
     Color = clYellow
     DecimalPlaces = 3
+    Font.Color = clBlack
     Increment = 0.001
     MinValue = 0
     OnClick = CaKClick
@@ -597,12 +675,13 @@ object Kf: TKf
     Value = 0
   end
   object CaMg: TFloatSpinEdit
-    Left = 335
+    Left = 398
     Height = 28
     Top = 336
-    Width = 84
+    Width = 100
     Color = clYellow
     DecimalPlaces = 3
+    Font.Color = clBlack
     Increment = 0.001
     MinValue = 0
     OnClick = CaMgClick
@@ -613,10 +692,10 @@ object Kf: TKf
     Value = 0
   end
   object CaS: TFloatSpinEdit
-    Left = 335
+    Left = 398
     Height = 28
     Top = 374
-    Width = 84
+    Width = 100
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
@@ -628,10 +707,10 @@ object Kf: TKf
     Value = 0
   end
   object MgN: TFloatSpinEdit
-    Left = 428
+    Left = 512
     Height = 28
     Top = 180
-    Width = 84
+    Width = 100
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
@@ -643,10 +722,10 @@ object Kf: TKf
     Value = 0
   end
   object MgP: TFloatSpinEdit
-    Left = 428
+    Left = 512
     Height = 28
     Top = 219
-    Width = 84
+    Width = 100
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
@@ -658,12 +737,13 @@ object Kf: TKf
     Value = 0
   end
   object MgK: TFloatSpinEdit
-    Left = 428
+    Left = 512
     Height = 28
     Top = 258
-    Width = 84
+    Width = 100
     Color = clYellow
     DecimalPlaces = 3
+    Font.Color = clBlack
     Increment = 0.001
     MinValue = 0
     OnClick = MgKClick
@@ -674,12 +754,13 @@ object Kf: TKf
     Value = 0
   end
   object MgCa: TFloatSpinEdit
-    Left = 428
+    Left = 512
     Height = 28
     Top = 297
-    Width = 84
+    Width = 100
     Color = clYellow
     DecimalPlaces = 3
+    Font.Color = clBlack
     Increment = 0.001
     MinValue = 0
     OnClick = MgCaClick
@@ -690,10 +771,10 @@ object Kf: TKf
     Value = 0
   end
   object MgS: TFloatSpinEdit
-    Left = 428
+    Left = 512
     Height = 28
     Top = 374
-    Width = 84
+    Width = 100
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
@@ -705,10 +786,10 @@ object Kf: TKf
     Value = 0
   end
   object SN: TFloatSpinEdit
-    Left = 523
+    Left = 625
     Height = 28
     Top = 180
-    Width = 84
+    Width = 100
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
@@ -720,10 +801,10 @@ object Kf: TKf
     Value = 0
   end
   object SP: TFloatSpinEdit
-    Left = 523
+    Left = 625
     Height = 28
     Top = 219
-    Width = 84
+    Width = 100
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
@@ -735,10 +816,10 @@ object Kf: TKf
     Value = 0
   end
   object SK: TFloatSpinEdit
-    Left = 523
+    Left = 625
     Height = 28
     Top = 258
-    Width = 84
+    Width = 100
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
@@ -750,10 +831,10 @@ object Kf: TKf
     Value = 0
   end
   object SCa: TFloatSpinEdit
-    Left = 523
+    Left = 625
     Height = 28
     Top = 297
-    Width = 84
+    Width = 100
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
@@ -765,10 +846,10 @@ object Kf: TKf
     Value = 0
   end
   object SMg: TFloatSpinEdit
-    Left = 523
+    Left = 625
     Height = 28
     Top = 336
-    Width = 84
+    Width = 100
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
@@ -780,10 +861,10 @@ object Kf: TKf
     Value = 0
   end
   object EC: TFloatSpinEdit
-    Left = 530
+    Left = 633
     Height = 28
     Top = 42
-    Width = 77
+    Width = 93
     Increment = 0.01
     MinValue = 0
     OnChange = ECChange
@@ -795,21 +876,25 @@ object Kf: TKf
     Value = 0
   end
   object Label22: TLabel
-    Left = 555
-    Height = 18
+    Left = 662
+    Height = 16
     Top = 21
-    Width = 15
+    Width = 20
     Caption = 'EC'
+    Font.Height = -14
+    Font.Name = 'Sans'
+    Font.Style = [fsBold]
     ParentColor = False
     ParentFont = False
   end
   object NCa: TFloatSpinEdit
-    Left = 51
+    Left = 57
     Height = 28
     Top = 297
-    Width = 84
+    Width = 95
     Color = clYellow
     DecimalPlaces = 3
+    Font.Color = clBlack
     Increment = 0.001
     MinValue = 0
     OnClick = NCaClick
@@ -820,7 +905,7 @@ object Kf: TKf
     Value = 0
   end
   object Label23: TLabel
-    Left = 82
+    Left = 92
     Height = 18
     Top = 180
     Width = 7
@@ -829,7 +914,7 @@ object Kf: TKf
     ParentFont = False
   end
   object Label24: TLabel
-    Left = 172
+    Left = 194
     Height = 18
     Top = 221
     Width = 7
@@ -838,7 +923,7 @@ object Kf: TKf
     ParentFont = False
   end
   object Label25: TLabel
-    Left = 269
+    Left = 304
     Height = 18
     Top = 261
     Width = 7
@@ -847,7 +932,7 @@ object Kf: TKf
     ParentFont = False
   end
   object Label26: TLabel
-    Left = 360
+    Left = 409
     Height = 18
     Top = 301
     Width = 7
@@ -856,7 +941,7 @@ object Kf: TKf
     ParentFont = False
   end
   object Label27: TLabel
-    Left = 465
+    Left = 527
     Height = 18
     Top = 340
     Width = 7
@@ -865,7 +950,7 @@ object Kf: TKf
     ParentFont = False
   end
   object Label28: TLabel
-    Left = 555
+    Left = 629
     Height = 18
     Top = 381
     Width = 7
@@ -882,47 +967,47 @@ object Kf: TKf
     ParentFont = False
   end
   object nKNO3: TLabel
-    Left = 12
+    Left = 9
     Height = 18
     Top = 490
-    Width = 173
-    Caption = 'Селитра калиевая KNO3 (ч.)'
+    Width = 154
+    Caption = 'Калий азотнокислый (ч.)'
     ParentColor = False
     ParentFont = False
   end
   object nCaNO3: TLabel
-    Left = 12
+    Left = 9
     Height = 18
-    Top = 459
-    Width = 258
-    Caption = 'Селитра кальциевая Ca(NO3)2 * 4H2O (ч.)'
+    Top = 462
+    Width = 236
+    Caption = 'Кальций азотнокислый 4-водный  (ч.)'
     ParentColor = False
     ParentFont = False
   end
   object nMgSO4: TLabel
-    Left = 12
+    Left = 9
     Height = 18
     Top = 549
-    Width = 212
-    Caption = 'Сульфат магния MgSO4*7H2O (ч.)'
+    Width = 221
+    Caption = 'Магний сернокислый 7-водный (ч.)'
     ParentColor = False
     ParentFont = False
   end
   object nKH2PO4: TLabel
-    Left = 12
+    Left = 9
     Height = 18
-    Top = 578
-    Width = 196
-    Caption = 'Монофосфат калия KH2PO4 (ч.)'
+    Top = 581
+    Width = 272
+    Caption = 'Калий фосфорнокислый 1-замещенный (ч.)'
     ParentColor = False
     ParentFont = False
     OnClick = nKH2PO4Click
   end
   object KNO3_K: TFloatSpinEdit
-    Left = 334
+    Left = 339
     Height = 28
-    Top = 487
-    Width = 61
+    Top = 486
+    Width = 70
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
@@ -934,10 +1019,10 @@ object Kf: TKf
     Value = 38.672
   end
   object MgSO4_Mg: TFloatSpinEdit
-    Left = 334
+    Left = 339
     Height = 28
     Top = 545
-    Width = 61
+    Width = 70
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
@@ -949,10 +1034,10 @@ object Kf: TKf
     Value = 9.861
   end
   object KH2PO4_K: TFloatSpinEdit
-    Left = 334
+    Left = 339
     Height = 28
-    Top = 574
-    Width = 61
+    Top = 575
+    Width = 70
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
@@ -964,10 +1049,10 @@ object Kf: TKf
     Value = 28.731
   end
   object KNO3_NO3: TFloatSpinEdit
-    Left = 443
+    Left = 463
     Height = 28
-    Top = 487
-    Width = 61
+    Top = 486
+    Width = 70
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
@@ -979,10 +1064,10 @@ object Kf: TKf
     Value = 13.854
   end
   object CaNO3_NO3: TFloatSpinEdit
-    Left = 441
+    Left = 463
     Height = 28
     Top = 456
-    Width = 61
+    Width = 70
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
@@ -994,10 +1079,10 @@ object Kf: TKf
     Value = 11.863
   end
   object MgSO4_S: TFloatSpinEdit
-    Left = 441
+    Left = 463
     Height = 28
     Top = 545
-    Width = 61
+    Width = 70
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
@@ -1009,10 +1094,10 @@ object Kf: TKf
     Value = 13.01
   end
   object KH2PO4_P: TFloatSpinEdit
-    Left = 441
+    Left = 463
     Height = 28
-    Top = 574
-    Width = 61
+    Top = 575
+    Width = 70
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
@@ -1024,10 +1109,10 @@ object Kf: TKf
     Value = 22.761
   end
   object CaNO3_Ca: TFloatSpinEdit
-    Left = 334
+    Left = 339
     Height = 28
     Top = 456
-    Width = 61
+    Width = 70
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
@@ -1039,29 +1124,29 @@ object Kf: TKf
     Value = 16.972
   end
   object nK2SO4: TLabel
-    Left = 12
+    Left = 9
     Height = 18
-    Top = 606
-    Width = 157
-    Caption = 'Сульфат калия K2SO4 (ч.)'
+    Top = 612
+    Width = 221
+    Caption = 'Калий сернокислый безводный (ч.)'
     ParentColor = False
     ParentFont = False
     OnClick = nK2SO4Click
   end
   object nNH4NO3: TLabel
-    Left = 12
+    Left = 9
     Height = 18
-    Top = 523
-    Width = 206
-    Caption = 'Селитра аммиачная NH4NO3 (ч.)'
+    Top = 521
+    Width = 175
+    Caption = 'Аммоний азотнокислый (ч.)'
     ParentColor = False
     ParentFont = False
   end
   object K2SO4_K: TFloatSpinEdit
-    Left = 334
+    Left = 339
     Height = 28
-    Top = 602
-    Width = 61
+    Top = 605
+    Width = 70
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
@@ -1073,10 +1158,10 @@ object Kf: TKf
     Value = 44.874
   end
   object NH4NO3_NH4: TFloatSpinEdit
-    Left = 334
+    Left = 339
     Height = 28
     Top = 516
-    Width = 61
+    Width = 70
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
@@ -1088,10 +1173,10 @@ object Kf: TKf
     Value = 17.499
   end
   object K2SO4_S: TFloatSpinEdit
-    Left = 441
+    Left = 463
     Height = 28
-    Top = 602
-    Width = 61
+    Top = 605
+    Width = 70
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
@@ -1103,10 +1188,10 @@ object Kf: TKf
     Value = 18.401
   end
   object NH4NO3_NO3: TFloatSpinEdit
-    Left = 441
+    Left = 463
     Height = 28
     Top = 516
-    Width = 61
+    Width = 70
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
@@ -1126,23 +1211,24 @@ object Kf: TKf
     ParentColor = False
     ParentFont = False
   end
-  object NK2: TFloatSpinEdit
+  object V: TFloatSpinEdit
     Left = 146
     Height = 28
     Top = 415
     Width = 84
-    DecimalPlaces = 3
-    Increment = 0.001
+    DecimalPlaces = 1
+    Increment = 0.1
+    MaxValue = 99999999
     MinValue = 0
-    OnClick = NKClick
-    OnEditingDone = NKClick
-    OnKeyDown = NKClick
+    OnClick = VClick
+    OnEditingDone = VClick
+    OnKeyDown = VClick
     ParentFont = False
     TabOrder = 52
-    Value = 0
+    Value = 10
   end
   object Label37: TLabel
-    Left = 407
+    Left = 425
     Height = 18
     Top = 490
     Width = 27
@@ -1151,16 +1237,16 @@ object Kf: TKf
     ParentFont = False
   end
   object Label38: TLabel
-    Left = 407
+    Left = 425
     Height = 18
-    Top = 461
+    Top = 462
     Width = 27
     Caption = 'NО3'
     ParentColor = False
     ParentFont = False
   end
   object Label39: TLabel
-    Left = 407
+    Left = 425
     Height = 18
     Top = 521
     Width = 27
@@ -1169,27 +1255,27 @@ object Kf: TKf
     ParentFont = False
   end
   object Label40: TLabel
-    Left = 295
+    Left = 304
     Height = 18
-    Top = 524
+    Top = 521
     Width = 27
     Caption = 'NH4'
     ParentColor = False
     ParentFont = False
   end
   object Label41: TLabel
-    Left = 301
+    Left = 303
     Height = 18
-    Top = 464
+    Top = 462
     Width = 15
     Caption = 'Ca'
     ParentColor = False
     ParentFont = False
   end
   object Label42: TLabel
-    Left = 298
+    Left = 304
     Height = 18
-    Top = 552
+    Top = 549
     Width = 20
     Caption = 'Mg'
     ParentColor = False
@@ -1198,23 +1284,23 @@ object Kf: TKf
   object Label43: TLabel
     Left = 304
     Height = 18
-    Top = 493
+    Top = 490
     Width = 8
     Caption = 'K'
     ParentColor = False
     ParentFont = False
   end
   object Label44: TLabel
-    Left = 416
+    Left = 444
     Height = 18
-    Top = 576
+    Top = 581
     Width = 8
     Caption = 'P'
     ParentColor = False
     ParentFont = False
   end
   object Label45: TLabel
-    Left = 417
+    Left = 445
     Height = 18
     Top = 549
     Width = 7
@@ -1223,10 +1309,10 @@ object Kf: TKf
     ParentFont = False
   end
   object CaNO3_NH4: TFloatSpinEdit
-    Left = 546
+    Left = 577
     Height = 28
     Top = 456
-    Width = 61
+    Width = 70
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
@@ -1238,9 +1324,9 @@ object Kf: TKf
     Value = 0
   end
   object Label46: TLabel
-    Left = 515
+    Left = 548
     Height = 18
-    Top = 461
+    Top = 462
     Width = 27
     Caption = 'NH4'
     ParentColor = False
@@ -1249,7 +1335,7 @@ object Kf: TKf
   object Label47: TLabel
     Left = 304
     Height = 18
-    Top = 578
+    Top = 581
     Width = 8
     Caption = 'K'
     ParentColor = False
@@ -1265,16 +1351,16 @@ object Kf: TKf
     ParentFont = False
   end
   object Label49: TLabel
-    Left = 417
+    Left = 445
     Height = 18
-    Top = 608
+    Top = 612
     Width = 7
     Caption = 'S'
     ParentColor = False
     ParentFont = False
   end
   object Label50: TLabel
-    Left = 355
+    Left = 364
     Height = 18
     Top = 432
     Width = 11
@@ -1283,7 +1369,7 @@ object Kf: TKf
     ParentFont = False
   end
   object Label51: TLabel
-    Left = 464
+    Left = 489
     Height = 18
     Top = 432
     Width = 11
@@ -1292,11 +1378,104 @@ object Kf: TKf
     ParentFont = False
   end
   object Label52: TLabel
-    Left = 562
+    Left = 596
     Height = 18
     Top = 432
     Width = 11
     Caption = '%'
+    ParentColor = False
+    ParentFont = False
+  end
+  object gKNO3: TFloatSpinEdit
+    Left = 656
+    Height = 28
+    Top = 486
+    Width = 70
+    DecimalPlaces = 3
+    Increment = 0.001
+    MinValue = 0
+    ParentFont = False
+    TabOrder = 54
+    Value = 0
+  end
+  object gCaNO3: TFloatSpinEdit
+    Left = 656
+    Height = 28
+    Top = 456
+    Width = 70
+    DecimalPlaces = 3
+    Increment = 0.001
+    MinValue = 0
+    ParentFont = False
+    TabOrder = 55
+    Value = 0
+  end
+  object gMgSO4: TFloatSpinEdit
+    Left = 656
+    Height = 28
+    Top = 545
+    Width = 70
+    DecimalPlaces = 3
+    Increment = 0.001
+    MinValue = 0
+    ParentFont = False
+    TabOrder = 56
+    Value = 0
+  end
+  object gKH2PO4: TFloatSpinEdit
+    Left = 656
+    Height = 28
+    Top = 575
+    Width = 70
+    DecimalPlaces = 3
+    Increment = 0.001
+    MinValue = 0
+    ParentFont = False
+    TabOrder = 57
+    Value = 0
+  end
+  object gK2SO4: TFloatSpinEdit
+    Left = 656
+    Height = 28
+    Top = 605
+    Width = 70
+    DecimalPlaces = 3
+    Increment = 0.001
+    MinValue = 0
+    ParentFont = False
+    TabOrder = 58
+    Value = 0
+  end
+  object gNH4NO3: TFloatSpinEdit
+    Left = 656
+    Height = 28
+    Top = 516
+    Width = 70
+    DecimalPlaces = 3
+    Increment = 0.001
+    MinValue = 0
+    ParentFont = False
+    TabOrder = 59
+    Value = 0
+  end
+  object Label53: TLabel
+    Left = 668
+    Height = 18
+    Top = 432
+    Width = 41
+    Caption = 'грамм'
+    ParentColor = False
+    ParentFont = False
+  end
+  object Label30: TLabel
+    Left = 155
+    Height = 16
+    Top = 95
+    Width = 83
+    Caption = 'NH4:NO3='
+    Font.Height = -14
+    Font.Name = 'Sans'
+    Font.Style = [fsBold]
     ParentColor = False
     ParentFont = False
   end

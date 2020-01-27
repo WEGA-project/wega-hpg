@@ -363,7 +363,8 @@ begin
   getVar;
 
  vS:=(mS*(vNH4*mCa*mMg*mK*mP + 2*vCa*mN*mMg*mK*mP + 2*vMg*mN*mCa*mK*mP+ vK*mN*mCa*mMg*mP - vNO3*mCa*mMg*mK*mP - vP*mN*mCa*mMg*mK))/(2*(mN*mCa*mMg*mK*mP));
- Kf.S.value:=vS;
+
+ if ( Kf.S.Focused = True )    then  Kf.S.value:=vS;
 end;
 
 
@@ -538,8 +539,11 @@ end;
 
 procedure TKf.MgChange(Sender: TObject);
 begin
+   if ( Mg.Focused = True )    then begin
   CalcKoef;
   CalcWeight ;
+
+   end
 
 end;
 
@@ -718,9 +722,12 @@ end;
 
 procedure TKf.KChange(Sender: TObject);
 begin
+   if ( K.Focused = True )    then begin
  CalcKoef;
  CalcWeight ;
 
+
+   end
 end;
 
 procedure TKf.KClick(Sender: TObject);
@@ -849,8 +856,11 @@ end;
 
 procedure TKf.CaChange(Sender: TObject);
 begin
+   if ( Ca.Focused = True )    then begin
   CalcKoef;
   CalcWeight ;
+
+   end
 
 end;
 
@@ -996,11 +1006,13 @@ end;
 
 procedure TKf.NChange(Sender: TObject);
 begin
+   if ( N.Focused = True )    then begin
   NO3.value := N.value/(NH4NO3.value+1);
   NH4.value := NH4NO3.value*N.value/(NH4NO3.value+1);
   CalcKoef;
   CalcWeight ;
-
+    CalcAll;
+   end
 
 
 
@@ -1131,8 +1143,11 @@ end;
 
 procedure TKf.NO3Change(Sender: TObject);
 begin
+   if ( NO3.Focused = True )    then begin
     NH4.value:=N.Value-NO3.value;
     NH4NO3.value := NH4.value/NO3.value;
+
+   end;
 
 end;
 
@@ -1155,7 +1170,11 @@ end;
 
 procedure TKf.NPChange(Sender: TObject);
 begin
-
+    if ( NP.Focused = True )    then begin
+  N.value:=P.value*NP.value;
+  CalcAll;
+  CalculateS;
+     end
 end;
 
 procedure TKf.NPChangeBounds(Sender: TObject);
@@ -1165,10 +1184,11 @@ end;
 
 procedure TKf.NPClick(Sender: TObject);
 begin
-  //K.value:=P.value*KP.value;
+   if ( NP.Focused = True )    then begin
   N.value:=P.value*NP.value;
   CalcAll;
   CalculateS;
+     end
 end;
 
 procedure TKf.NPClick(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -1274,9 +1294,12 @@ end;
 
 procedure TKf.PChange(Sender: TObject);
 begin
+   if ( P.Focused = True )    then begin
   CalcKoef;
   CalcWeight ;
 
+
+   end
 end;
 
 procedure TKf.PClick(Sender: TObject);
@@ -1352,13 +1375,19 @@ end;
 
 procedure TKf.SChange(Sender: TObject);
 begin
-  CalculateCa;
-   CalcWeight ;
+    if ( S.Focused = True )    then begin
+
+   end
 end;
+
+
 
 procedure TKf.SClick(Sender: TObject);
 begin
+   CalculateCa;
+   CalcWeight ;
     CalcAll;
+    //CalcAll;
 end;
 
 procedure TKf.SClick(Sender: TObject; var Key: Word; Shift: TShiftState);
