@@ -1,7 +1,7 @@
 object Kf: TKf
-  Left = 230
+  Left = 592
   Height = 678
-  Top = 36
+  Top = 126
   Width = 743
   Caption = 'Koefficients'
   ClientHeight = 678
@@ -977,6 +977,7 @@ object Kf: TKf
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
+    OnChange = KNO3_NO3Change
     OnClick = KNO3_NO3Click
     OnEditingDone = KNO3_NO3Click
     OnKeyDown = KNO3_NO3Click
@@ -992,6 +993,7 @@ object Kf: TKf
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
+    OnChange = CaNO3_NO3Change
     OnClick = CaNO3_NO3KeyDown
     OnEditingDone = CaNO3_NO3KeyDown
     OnKeyDown = CaNO3_NO3KeyDown
@@ -1007,6 +1009,7 @@ object Kf: TKf
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
+    OnChange = MgSO4_SChange
     OnClick = MgSO4_SClick
     OnEditingDone = MgSO4_SClick
     OnKeyDown = MgSO4_SClick
@@ -1022,6 +1025,7 @@ object Kf: TKf
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
+    OnChange = KH2PO4_PChange
     OnClick = KH2PO4_PClick
     OnEditingDone = KH2PO4_PClick
     OnKeyDown = KH2PO4_PClick
@@ -1037,6 +1041,7 @@ object Kf: TKf
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
+    OnChange = CaNO3_CaChange
     OnClick = CaNO3_CaChange
     OnEditingDone = CaNO3_CaChange
     OnKeyDown = CaNO3_CaChange
@@ -1101,6 +1106,7 @@ object Kf: TKf
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
+    OnChange = K2SO4_SChange
     OnClick = K2SO4_SClick
     OnEditingDone = K2SO4_SClick
     OnKeyDown = K2SO4_SClick
@@ -1116,6 +1122,7 @@ object Kf: TKf
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
+    OnChange = NH4NO3_NO3Change
     OnClick = NH4NO3_NO3Click
     OnEditingDone = NH4NO3_NO3Click
     OnKeyDown = NH4NO3_NO3Click

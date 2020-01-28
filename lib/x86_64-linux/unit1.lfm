@@ -1,7 +1,7 @@
 object Kf: TKf
-  Left = 230
+  Left = 592
   Height = 678
-  Top = 36
+  Top = 126
   Width = 743
   Caption = 'Koefficients'
   ClientHeight = 678
@@ -932,9 +932,8 @@ object Kf: TKf
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
+    OnChange = KNO3_KChange
     OnClick = KNO3_KClick
-    OnEditingDone = KNO3_KClick
-    OnKeyDown = KNO3_KClick
     ParentFont = False
     TabOrder = 40
     Value = 38.672
@@ -947,8 +946,7 @@ object Kf: TKf
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
-    OnClick = MgSO4_MgClick
-    OnEditingDone = MgSO4_MgClick
+    OnChange = MgSO4_MgChange
     OnKeyDown = MgSO4_MgClick
     ParentFont = False
     TabOrder = 41
@@ -962,9 +960,8 @@ object Kf: TKf
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
+    OnChange = KH2PO4_KChange
     OnClick = KH2PO4_KClick
-    OnEditingDone = KH2PO4_KClick
-    OnKeyDown = KH2PO4_KClick
     ParentFont = False
     TabOrder = 42
     Value = 28.731
@@ -977,6 +974,7 @@ object Kf: TKf
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
+    OnChange = KNO3_NO3Change
     OnClick = KNO3_NO3Click
     OnEditingDone = KNO3_NO3Click
     OnKeyDown = KNO3_NO3Click
@@ -992,6 +990,7 @@ object Kf: TKf
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
+    OnChange = CaNO3_NO3Change
     OnClick = CaNO3_NO3KeyDown
     OnEditingDone = CaNO3_NO3KeyDown
     OnKeyDown = CaNO3_NO3KeyDown
@@ -1007,6 +1006,7 @@ object Kf: TKf
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
+    OnChange = MgSO4_SChange
     OnClick = MgSO4_SClick
     OnEditingDone = MgSO4_SClick
     OnKeyDown = MgSO4_SClick
@@ -1022,6 +1022,7 @@ object Kf: TKf
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
+    OnChange = KH2PO4_PChange
     OnClick = KH2PO4_PClick
     OnEditingDone = KH2PO4_PClick
     OnKeyDown = KH2PO4_PClick
@@ -1037,8 +1038,7 @@ object Kf: TKf
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
-    OnClick = CaNO3_CaChange
-    OnEditingDone = CaNO3_CaChange
+    OnChange = CaNO3_CaChange
     OnKeyDown = CaNO3_CaChange
     ParentFont = False
     TabOrder = 47
@@ -1071,9 +1071,7 @@ object Kf: TKf
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
-    OnClick = K2SO4_KClick
-    OnEditingDone = K2SO4_KClick
-    OnKeyDown = K2SO4_KClick
+    OnChange = K2SO4_KChange
     ParentFont = False
     TabOrder = 48
     Value = 44.874
@@ -1086,8 +1084,7 @@ object Kf: TKf
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
-    OnClick = NH4NO3_NH4Click
-    OnEditingDone = NH4NO3_NH4Click
+    OnChange = NH4NO3_NH4Change
     OnKeyDown = NH4NO3_NH4Click
     ParentFont = False
     TabOrder = 49
@@ -1101,6 +1098,7 @@ object Kf: TKf
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
+    OnChange = K2SO4_SChange
     OnClick = K2SO4_SClick
     OnEditingDone = K2SO4_SClick
     OnKeyDown = K2SO4_SClick
@@ -1116,6 +1114,7 @@ object Kf: TKf
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
+    OnChange = NH4NO3_NO3Change
     OnClick = NH4NO3_NO3Click
     OnEditingDone = NH4NO3_NO3Click
     OnKeyDown = NH4NO3_NO3Click
