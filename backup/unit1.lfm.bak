@@ -1,10 +1,10 @@
 object Kf: TKf
-  Left = 812
-  Height = 665
-  Top = 254
+  Left = 230
+  Height = 678
+  Top = 36
   Width = 743
   Caption = 'Koefficients'
-  ClientHeight = 665
+  ClientHeight = 678
   ClientWidth = 743
   DesignTimePPI = 106
   OnActivate = FormActivate
@@ -30,9 +30,6 @@ object Kf: TKf
     MaxValue = 999
     MinValue = 0
     OnChange = NChange
-    OnClick = NClick
-    OnEditingDone = NClick
-    OnKeyDown = NClick
     ParentFont = False
     TabOrder = 0
     Value = 220
@@ -45,9 +42,6 @@ object Kf: TKf
     MaxValue = 999
     MinValue = 0
     OnChange = PChange
-    OnClick = PClick
-    OnEditingDone = PClick
-    OnKeyDown = PClick
     ParentFont = False
     TabOrder = 1
     Value = 40
@@ -60,7 +54,6 @@ object Kf: TKf
     MaxValue = 999
     MinValue = 0
     OnChange = KChange
-    OnClick = KClick
     ParentFont = False
     TabOrder = 2
     Value = 180
@@ -73,20 +66,18 @@ object Kf: TKf
     MaxValue = 999
     MinValue = 0
     OnChange = CaChange
-    OnClick = CaClick
     ParentFont = False
     TabOrder = 3
     Value = 200
   end
   object Mg: TFloatSpinEdit
-    Left = 440
+    Left = 439
     Height = 28
     Top = 42
     Width = 92
     MaxValue = 999
     MinValue = 0
     OnChange = MgChange
-    OnClick = MgClick
     ParentFont = False
     TabOrder = 4
     Value = 50
@@ -99,7 +90,6 @@ object Kf: TKf
     MaxValue = 999
     MinValue = 0
     OnChange = SChange
-    OnClick = SClick
     ParentFont = False
     TabOrder = 5
     Value = 80
@@ -113,9 +103,6 @@ object Kf: TKf
     MaxValue = 999
     MinValue = 0
     OnChange = NO3Change
-    OnClick = NO3Click
-    OnEditingDone = NO3Click
-    OnKeyDown = NH4Click
     ParentFont = False
     TabOrder = 6
     Value = 200
@@ -128,93 +115,114 @@ object Kf: TKf
     Increment = 0.01
     MaxValue = 999
     MinValue = 0
-    OnChange = NH4Change
-    OnClick = NH4Click
-    OnEditingDone = NH4Click
-    OnKeyDown = NH4Click
+    OnChange = NH4Click
     ParentFont = False
     TabOrder = 7
     Value = 20
   end
   object Label2: TLabel
     Left = 86
-    Height = 18
+    Height = 16
     Top = 21
-    Width = 10
+    Width = 11
     Caption = 'N'
+    Font.Height = -14
+    Font.Name = 'Sans'
+    Font.Style = [fsBold]
     ParentColor = False
     ParentFont = False
   end
   object Label3: TLabel
     Left = 188
-    Height = 18
+    Height = 16
     Top = 21
-    Width = 8
+    Width = 10
     Caption = 'P'
+    Font.Height = -14
+    Font.Name = 'Sans'
+    Font.Style = [fsBold]
     ParentColor = False
     ParentFont = False
   end
   object Label4: TLabel
     Left = 285
-    Height = 18
+    Height = 16
     Top = 21
-    Width = 8
+    Width = 11
     Caption = 'K'
+    Font.Height = -14
+    Font.Name = 'Sans'
+    Font.Style = [fsBold]
     ParentColor = False
     ParentFont = False
   end
   object Label5: TLabel
     Left = 383
-    Height = 18
+    Height = 16
     Top = 21
-    Width = 15
+    Width = 20
     Caption = 'Ca'
+    Font.Height = -14
+    Font.Name = 'Sans'
+    Font.Style = [fsBold]
     ParentColor = False
     ParentFont = False
   end
   object Label6: TLabel
     Left = 489
-    Height = 18
+    Height = 16
     Top = 21
-    Width = 20
+    Width = 23
     Caption = 'Mg'
+    Font.Height = -14
+    Font.Name = 'Sans'
+    Font.Style = [fsBold]
     ParentColor = False
     ParentFont = False
   end
   object Label7: TLabel
-    Left = 602
-    Height = 18
+    Left = 571
+    Height = 16
     Top = 21
-    Width = 7
+    Width = 10
     Caption = 'S'
+    Font.Height = -14
+    Font.Name = 'Sans'
+    Font.Style = [fsBold]
     ParentColor = False
     ParentFont = False
   end
   object Label8: TLabel
     Left = 4
-    Height = 18
+    Height = 16
     Top = 76
-    Width = 27
+    Width = 33
     Caption = 'NO3'
+    Font.Height = -14
+    Font.Name = 'Sans'
+    Font.Style = [fsBold]
     ParentColor = False
     ParentFont = False
     OnClick = Label8Click
   end
   object Label9: TLabel
     Left = 4
-    Height = 18
+    Height = 16
     Top = 109
-    Width = 27
+    Width = 32
     Caption = 'NH4'
+    Font.Height = -14
+    Font.Name = 'Sans'
+    Font.Style = [fsBold]
     ParentColor = False
     ParentFont = False
   end
   object NH4NO3: TFloatSpinEdit
-    Left = 155
+    Left = 248
     Height = 26
     Hint = 'NH4:NO3'
     Top = 88
-    Width = 111
+    Width = 92
     DecimalPlaces = 3
     Font.Height = -14
     Font.Name = 'Sans'
@@ -223,9 +231,6 @@ object Kf: TKf
     MaxValue = 9999999
     MinValue = 0
     OnChange = NH4NO3Change
-    OnClick = NH4NO3Click
-    OnEditingDone = NH4NO3Click
-    OnKeyDown = NH4NO3Click
     ParentFont = False
     ParentShowHint = False
     ShowHint = True
@@ -234,109 +239,145 @@ object Kf: TKf
   end
   object Label10: TLabel
     Left = 97
-    Height = 18
+    Height = 16
     Top = 141
-    Width = 10
+    Width = 11
     Caption = 'N'
+    Font.Height = -14
+    Font.Name = 'Sans'
+    Font.Style = [fsBold]
     ParentColor = False
     ParentFont = False
   end
   object Label11: TLabel
     Left = 205
-    Height = 18
+    Height = 16
     Top = 141
-    Width = 8
+    Width = 10
     Caption = 'P'
+    Font.Height = -14
+    Font.Name = 'Sans'
+    Font.Style = [fsBold]
     ParentColor = False
     ParentFont = False
   end
   object Label12: TLabel
-    Left = 313
-    Height = 18
+    Left = 312
+    Height = 16
     Top = 141
-    Width = 8
+    Width = 11
     Caption = 'K'
+    Font.Height = -14
+    Font.Name = 'Sans'
+    Font.Style = [fsBold]
     ParentColor = False
     ParentFont = False
   end
   object Label13: TLabel
-    Left = 419
-    Height = 18
+    Left = 418
+    Height = 16
     Top = 141
-    Width = 15
+    Width = 20
     Caption = 'Ca'
+    Font.Height = -14
+    Font.Name = 'Sans'
+    Font.Style = [fsBold]
     ParentColor = False
     ParentFont = False
   end
   object Label14: TLabel
     Left = 538
-    Height = 18
+    Height = 16
     Top = 141
-    Width = 20
+    Width = 23
     Caption = 'Mg'
+    Font.Height = -14
+    Font.Name = 'Sans'
+    Font.Style = [fsBold]
     ParentColor = False
     ParentFont = False
   end
   object Label15: TLabel
-    Left = 663
-    Height = 18
+    Left = 662
+    Height = 16
     Top = 141
-    Width = 7
+    Width = 10
     Caption = 'S'
+    Font.Height = -14
+    Font.Name = 'Sans'
+    Font.Style = [fsBold]
     ParentColor = False
     ParentFont = False
   end
   object Label16: TLabel
     Left = 10
-    Height = 18
+    Height = 16
     Top = 180
-    Width = 10
+    Width = 11
     Caption = 'N'
+    Font.Height = -14
+    Font.Name = 'Sans'
+    Font.Style = [fsBold]
     ParentColor = False
     ParentFont = False
   end
   object Label17: TLabel
     Left = 10
-    Height = 18
+    Height = 16
     Top = 221
-    Width = 8
+    Width = 10
     Caption = 'P'
+    Font.Height = -14
+    Font.Name = 'Sans'
+    Font.Style = [fsBold]
     ParentColor = False
     ParentFont = False
   end
   object Label18: TLabel
     Left = 10
-    Height = 18
+    Height = 16
     Top = 261
-    Width = 8
+    Width = 11
     Caption = 'K'
+    Font.Height = -14
+    Font.Name = 'Sans'
+    Font.Style = [fsBold]
     ParentColor = False
     ParentFont = False
   end
   object Label19: TLabel
     Left = 10
-    Height = 18
+    Height = 16
     Top = 300
-    Width = 15
+    Width = 20
     Caption = 'Ca'
+    Font.Height = -14
+    Font.Name = 'Sans'
+    Font.Style = [fsBold]
     ParentColor = False
     ParentFont = False
   end
   object Label20: TLabel
     Left = 10
-    Height = 18
+    Height = 16
     Top = 340
-    Width = 20
+    Width = 23
     Caption = 'Mg'
+    Font.Height = -14
+    Font.Name = 'Sans'
+    Font.Style = [fsBold]
     ParentColor = False
     ParentFont = False
   end
   object Label21: TLabel
     Left = 10
-    Height = 18
+    Height = 16
     Top = 381
-    Width = 7
+    Width = 10
     Caption = 'S'
+    Font.Height = -14
+    Font.Name = 'Sans'
+    Font.Style = [fsBold]
     ParentColor = False
     ParentFont = False
   end
@@ -350,9 +391,7 @@ object Kf: TKf
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
-    OnClick = NPClick
-    OnEditingDone = NPClick
-    OnKeyDown = NPClick
+    OnChange = NPChange
     ParentFont = False
     ParentShowHint = False
     ShowHint = True
@@ -367,9 +406,7 @@ object Kf: TKf
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
-    OnClick = NKClick
-    OnEditingDone = NKClick
-    OnKeyDown = NKClick
+    OnChange = NKChange
     ParentFont = False
     TabOrder = 10
     Value = 0
@@ -382,9 +419,7 @@ object Kf: TKf
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
-    OnClick = NMgClick
-    OnEditingDone = NMgClick
-    OnKeyDown = NMgClick
+    OnChange = NMgChange
     ParentFont = False
     TabOrder = 11
     Value = 0
@@ -397,9 +432,7 @@ object Kf: TKf
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
-    OnClick = NSClick
-    OnEditingDone = NSClick
-    OnKeyDown = NSClick
+    OnChange = NSChange
     ParentFont = False
     TabOrder = 12
     Value = 0
@@ -412,9 +445,7 @@ object Kf: TKf
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
-    OnClick = PNClick
-    OnEditingDone = PNClick
-    OnKeyDown = PNClick
+    OnChange = PNChange
     ParentFont = False
     TabOrder = 13
     Value = 0
@@ -427,9 +458,7 @@ object Kf: TKf
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
-    OnClick = PKClick
-    OnEditingDone = PKClick
-    OnKeyDown = PKClick
+    OnChange = PKChange
     ParentFont = False
     TabOrder = 14
     Value = 0
@@ -442,9 +471,7 @@ object Kf: TKf
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
-    OnClick = PCaClick
-    OnEditingDone = PCaClick
-    OnKeyDown = PCaClick
+    OnChange = PCaChange
     ParentFont = False
     TabOrder = 15
     Value = 0
@@ -457,9 +484,7 @@ object Kf: TKf
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
-    OnClick = PMgClick
-    OnEditingDone = PMgClick
-    OnKeyDown = PMgClick
+    OnChange = PMgChange
     ParentFont = False
     TabOrder = 16
     Value = 0
@@ -472,9 +497,7 @@ object Kf: TKf
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
-    OnClick = PSClick
-    OnEditingDone = PSClick
-    OnKeyDown = PSClick
+    OnChange = PSChange
     ParentFont = False
     TabOrder = 17
     Value = 0
@@ -490,9 +513,7 @@ object Kf: TKf
     Font.Style = [fsBold]
     Increment = 0.001
     MinValue = 0
-    OnClick = KNClick
-    OnEditingDone = KNClick
-    OnKeyDown = KNClick
+    OnChange = KNChange
     ParentFont = False
     TabOrder = 18
     Value = 0
@@ -505,9 +526,7 @@ object Kf: TKf
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
-    OnClick = KPClick
-    OnEditingDone = KPClick
-    OnKeyDown = KPClick
+    OnChange = KPChange
     ParentFont = False
     TabOrder = 19
     Value = 0
@@ -525,9 +544,7 @@ object Kf: TKf
     Font.Style = [fsBold]
     Increment = 0.001
     MinValue = 0
-    OnClick = KCaClick
-    OnEditingDone = KCaClick
-    OnKeyDown = KCaClick
+    OnChange = KCaChange
     ParentFont = False
     TabOrder = 20
     Value = 0
@@ -545,9 +562,7 @@ object Kf: TKf
     Font.Style = [fsBold]
     Increment = 0.001
     MinValue = 0
-    OnClick = KMgClick
-    OnEditingDone = KMgClick
-    OnKeyDown = KMgClick
+    OnChange = KMgChange
     ParentFont = False
     TabOrder = 21
     Value = 0
@@ -560,9 +575,7 @@ object Kf: TKf
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
-    OnClick = KSClick
-    OnEditingDone = KSClick
-    OnKeyDown = KSClick
+    OnChange = KSChange
     ParentFont = False
     TabOrder = 22
     Value = 0
@@ -577,9 +590,7 @@ object Kf: TKf
     Font.Color = clBlack
     Increment = 0.001
     MinValue = 0
-    OnClick = CaNClick
-    OnEditingDone = CaNClick
-    OnKeyDown = CaNClick
+    OnChange = CaNChange
     ParentFont = False
     TabOrder = 23
     Value = 0
@@ -592,9 +603,7 @@ object Kf: TKf
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
-    OnClick = CaPClick
-    OnEditingDone = CaPClick
-    OnKeyDown = CaPClick
+    OnChange = CaPChange
     ParentFont = False
     TabOrder = 24
     Value = 0
@@ -609,9 +618,7 @@ object Kf: TKf
     Font.Color = clBlack
     Increment = 0.001
     MinValue = 0
-    OnClick = CaKClick
-    OnEditingDone = CaKClick
-    OnKeyDown = CaKClick
+    OnChange = CaKChange
     ParentFont = False
     TabOrder = 25
     Value = 0
@@ -626,9 +633,7 @@ object Kf: TKf
     Font.Color = clBlack
     Increment = 0.001
     MinValue = 0
-    OnClick = CaMgClick
-    OnEditingDone = CaMgClick
-    OnKeyDown = CaMgClick
+    OnChange = CaMgChange
     ParentFont = False
     TabOrder = 26
     Value = 0
@@ -641,9 +646,7 @@ object Kf: TKf
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
-    OnClick = CaSClick
-    OnEditingDone = CaSClick
-    OnKeyDown = CaSClick
+    OnChange = CaSChange
     ParentFont = False
     TabOrder = 27
     Value = 0
@@ -656,9 +659,7 @@ object Kf: TKf
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
-    OnClick = MgNClick
-    OnEditingDone = MgNClick
-    OnKeyDown = MgNClick
+    OnChange = MgNChange
     ParentFont = False
     TabOrder = 28
     Value = 0
@@ -671,9 +672,7 @@ object Kf: TKf
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
-    OnClick = MgPClick
-    OnEditingDone = MgPClick
-    OnKeyDown = MgPClick
+    OnChange = MgPChange
     ParentFont = False
     TabOrder = 29
     Value = 0
@@ -688,9 +687,7 @@ object Kf: TKf
     Font.Color = clBlack
     Increment = 0.001
     MinValue = 0
-    OnClick = MgKClick
-    OnEditingDone = MgKClick
-    OnKeyDown = MgKClick
+    OnChange = MgKChange
     ParentFont = False
     TabOrder = 30
     Value = 0
@@ -705,9 +702,7 @@ object Kf: TKf
     Font.Color = clBlack
     Increment = 0.001
     MinValue = 0
-    OnClick = MgCaClick
-    OnEditingDone = MgCaClick
-    OnKeyDown = MgCaClick
+    OnChange = MgCaChange
     ParentFont = False
     TabOrder = 31
     Value = 0
@@ -720,9 +715,7 @@ object Kf: TKf
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
-    OnClick = MgSClick
-    OnEditingDone = MgSClick
-    OnKeyDown = MgSClick
+    OnChange = MgSChange
     ParentFont = False
     TabOrder = 32
     Value = 0
@@ -735,9 +728,7 @@ object Kf: TKf
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
-    OnClick = SNClick
-    OnEditingDone = SNClick
-    OnKeyDown = SNClick
+    OnChange = SNChange
     ParentFont = False
     TabOrder = 33
     Value = 0
@@ -750,9 +741,7 @@ object Kf: TKf
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
-    OnClick = SPClick
-    OnEditingDone = SPClick
-    OnKeyDown = SPClick
+    OnChange = SPChange
     ParentFont = False
     TabOrder = 34
     Value = 0
@@ -765,9 +754,7 @@ object Kf: TKf
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
-    OnClick = SKClick
-    OnEditingDone = SKClick
-    OnKeyDown = SKClick
+    OnChange = SKChange
     ParentFont = False
     TabOrder = 35
     Value = 0
@@ -780,9 +767,7 @@ object Kf: TKf
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
-    OnClick = SCaClick
-    OnEditingDone = SCaClick
-    OnKeyDown = SCaClick
+    OnChange = SCaChange
     ParentFont = False
     TabOrder = 36
     Value = 0
@@ -795,9 +780,7 @@ object Kf: TKf
     DecimalPlaces = 3
     Increment = 0.001
     MinValue = 0
-    OnClick = SMgClick
-    OnEditingDone = SMgClick
-    OnKeyDown = SMgClick
+    OnChange = SMgChange
     ParentFont = False
     TabOrder = 37
     Value = 0
@@ -807,38 +790,37 @@ object Kf: TKf
     Height = 28
     Top = 42
     Width = 93
-    Increment = 0.01
+    DecimalPlaces = 3
+    Increment = 0.001
     MinValue = 0
     OnChange = ECChange
-    OnClick = ECClick
-    OnEditingDone = ECClick
-    OnKeyDown = ECClick
     ParentFont = False
     TabOrder = 38
     Value = 0
   end
   object Label22: TLabel
-    Left = 663
-    Height = 18
+    Left = 662
+    Height = 16
     Top = 21
-    Width = 15
+    Width = 20
     Caption = 'EC'
+    Font.Height = -14
+    Font.Name = 'Sans'
+    Font.Style = [fsBold]
     ParentColor = False
     ParentFont = False
   end
   object NCa: TFloatSpinEdit
-    Left = 57
+    Left = 60
     Height = 28
     Top = 297
-    Width = 95
+    Width = 100
     Color = clYellow
     DecimalPlaces = 3
     Font.Color = clBlack
     Increment = 0.001
     MinValue = 0
-    OnClick = NCaClick
-    OnEditingDone = NCaClick
-    OnKeyDown = NCaClick
+    OnChange = NCaChange
     ParentFont = False
     TabOrder = 39
     Value = 0
@@ -871,7 +853,7 @@ object Kf: TKf
     ParentFont = False
   end
   object Label26: TLabel
-    Left = 408
+    Left = 409
     Height = 18
     Top = 301
     Width = 7
@@ -909,8 +891,8 @@ object Kf: TKf
     Left = 9
     Height = 18
     Top = 490
-    Width = 173
-    Caption = 'Селитра калиевая KNO3 (ч.)'
+    Width = 154
+    Caption = 'Калий азотнокислый (ч.)'
     ParentColor = False
     ParentFont = False
   end
@@ -918,8 +900,8 @@ object Kf: TKf
     Left = 9
     Height = 18
     Top = 462
-    Width = 258
-    Caption = 'Селитра кальциевая Ca(NO3)2 * 4H2O (ч.)'
+    Width = 236
+    Caption = 'Кальций азотнокислый 4-водный  (ч.)'
     ParentColor = False
     ParentFont = False
   end
@@ -927,8 +909,8 @@ object Kf: TKf
     Left = 9
     Height = 18
     Top = 549
-    Width = 212
-    Caption = 'Сульфат магния MgSO4*7H2O (ч.)'
+    Width = 221
+    Caption = 'Магний сернокислый 7-водный (ч.)'
     ParentColor = False
     ParentFont = False
   end
@@ -936,8 +918,8 @@ object Kf: TKf
     Left = 9
     Height = 18
     Top = 581
-    Width = 196
-    Caption = 'Монофосфат калия KH2PO4 (ч.)'
+    Width = 272
+    Caption = 'Калий фосфорнокислый 1-замещенный (ч.)'
     ParentColor = False
     ParentFont = False
     OnClick = nKH2PO4Click
@@ -1066,8 +1048,8 @@ object Kf: TKf
     Left = 9
     Height = 18
     Top = 612
-    Width = 157
-    Caption = 'Сульфат калия K2SO4 (ч.)'
+    Width = 221
+    Caption = 'Калий сернокислый безводный (ч.)'
     ParentColor = False
     ParentFont = False
     OnClick = nK2SO4Click
@@ -1076,8 +1058,8 @@ object Kf: TKf
     Left = 9
     Height = 18
     Top = 521
-    Width = 206
-    Caption = 'Селитра аммиачная NH4NO3 (ч.)'
+    Width = 175
+    Caption = 'Аммоний азотнокислый (ч.)'
     ParentColor = False
     ParentFont = False
   end
@@ -1405,5 +1387,27 @@ object Kf: TKf
     Caption = 'грамм'
     ParentColor = False
     ParentFont = False
+  end
+  object Label30: TLabel
+    Left = 155
+    Height = 16
+    Top = 95
+    Width = 83
+    Caption = 'NH4:NO3='
+    Font.Height = -14
+    Font.Name = 'Sans'
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+  end
+  object Button1: TButton
+    Left = 568
+    Height = 28
+    Top = 544
+    Width = 83
+    Caption = 're-calc'
+    OnClick = Button1Click
+    ParentFont = False
+    TabOrder = 60
   end
 end
