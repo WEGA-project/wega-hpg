@@ -27,7 +27,7 @@ type
     Label27: TLabel;
     Label28: TLabel;
     Label29: TLabel;
-    Label30: TLabel;
+    nnNH4NO3: TLabel;
     Label53: TLabel;
     gMgSO4: TFloatSpinEdit;
     gNH4NO3: TFloatSpinEdit;
@@ -144,6 +144,7 @@ type
     procedure CaNO3_CaChange(Sender: TObject);
     procedure CaNO3_CaChange(Sender: TObject; var Key: Word; Shift: TShiftState
       );
+    procedure CaNO3_NH4Change(Sender: TObject);
     procedure CaNO3_NH4EditingDone(Sender: TObject);
     procedure CaNO3_NH4EditingDone(Sender: TObject; var Key: Word;
       Shift: TShiftState);
@@ -318,6 +319,7 @@ type
     procedure SPChange(Sender: TObject);
     procedure SPClick(Sender: TObject);
     procedure SPClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure VChange(Sender: TObject);
     procedure VClick(Sender: TObject);
     procedure VClick(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
@@ -1255,6 +1257,19 @@ begin
 
 end;
 
+procedure TKf.CaNO3_NH4Change(Sender: TObject);
+begin
+  if ( CaNO3_NH4.Focused = True )    then begin
+      CaNO3_NO3.value:= (2 * CaNO3_Ca.value *mN + CaNO3_NH4.value*mCa)/mCa  ;
+  CaNO3_Ca.value:= -mCa*( CaNO3_NH4.value - CaNO3_NO3.value)/(2*mN)  ;
+
+  nCaNO3.Caption:='Селитра кальциевая'
+ + ' CaO-' +floattostr(Round((CaNO3_Ca.value/0.714691)*10)/10)+'%'
+ + ' N-' +floattostr(Round((CaNO3_NH4.value+CaNO3_NO3.value)*10)/10)+'%';
+        CalcWeight ;
+  end;
+end;
+
 procedure TKf.CaNO3_NH4EditingDone(Sender: TObject);
 begin
   CaNO3_NO3.value:= (2 * CaNO3_Ca.value *mN + CaNO3_NH4.value*mCa)/mCa  ;
@@ -1449,8 +1464,25 @@ begin
     if ( NH4NO3.Focused = True )    then begin
     NH4.value := N.value *(NH4NO3.value/(NH4NO3.value+1));
   NO3.value := N.value / ( NH4NO3.value+1 );
-  CalcAll;
-  CalcWeight ;
+  //CalcAll;
+  //CalcWeight ;
+
+
+           vKCa0:=KCa.value;
+           vKMg0:=KMg.value;
+           vKN0:=KN.value;
+
+                    vEC0:=EC.value;
+
+                  CalcAll;
+           KCa.value:=vKCa0;
+           KMg.value:=vKMg0;
+           KN.value:=vKN0;
+                  EC.value:=vEC0;
+                  calcECtoVal;
+
+           nnNH4NO3.Caption:='NH4:NO3 1:'
+      +floattostr(Round((NO3.value/NH4.value)))+' ';
 
   end;
   //CalculateS;
@@ -1912,6 +1944,11 @@ end;
 procedure TKf.SPClick(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
 
+end;
+
+procedure TKf.VChange(Sender: TObject);
+begin
+  CalcWeight ;
 end;
 
 procedure TKf.VClick(Sender: TObject);
