@@ -167,6 +167,12 @@ type
     procedure FormClick(Sender: TObject);
     procedure FormMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
+    procedure gCaNO3Change(Sender: TObject);
+    procedure gK2SO4Change(Sender: TObject);
+    procedure gKH2PO4Change(Sender: TObject);
+    procedure gKNO3Change(Sender: TObject);
+    procedure gMgSO4Change(Sender: TObject);
+    procedure gNH4NO3Change(Sender: TObject);
     procedure K2SO4_KChange(Sender: TObject);
     procedure K2SO4_KClick(Sender: TObject);
     procedure K2SO4_KClick(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -540,6 +546,60 @@ end;
 
  end;
 
+   procedure GenNH4NO3event;
+   begin
+           if (Kf.NH4.value > 0 ) then begin
+           Kf.nnNH4NO3.Caption:='NH4:NO3 1:'  +floattostr(Round((Kf.NO3.value/Kf.NH4.value)))+' ';
+        end
+        else  begin
+          Kf.nnNH4NO3.Caption:='NO3=100%' ;
+
+        end;
+   end;
+
+procedure fromWeight ;
+begin
+   getVar;
+   vKH2PO4_P:=Kf.KH2PO4_P.value;         vKH2PO4_K:=Kf.KH2PO4_K.value;
+   vCaNO3_Ca:=Kf.CaNO3_Ca.value;         vCaNO3_NO3:=Kf.CaNO3_NO3.value;   vCaNO3_NH4:=Kf.CaNO3_NH4.value;
+   vNH4NO3_NH4:=Kf.NH4NO3_NH4.value;     vNH4NO3_NO3:=Kf.NH4NO3_NO3.value;
+   vKNO3_K:=Kf.KNO3_K.value;             vKNO3_NO3:=Kf.KNO3_NO3.value;
+   vK2SO4_S:=Kf.K2SO4_S.value;           vK2SO4_K:=Kf.K2SO4_K.value;
+
+   V:=kF.V.Value;
+
+
+   sCaNO3:=Kf.gCaNO3.value;
+   sKNO3:=Kf.gKNO3.value;
+   sNH4NO3:=Kf.gNH4NO3.value;
+   sMgSO4:=Kf.gMgSO4.value;
+   sKH2PO4:=Kf.gKH2PO4.value;
+   sK2SO4:=Kf.gK2SO4.value;
+
+   vNO3:=(sCaNO3*vCaNO3_NO3 + sNH4NO3*vNH4NO3_NO3 + sKNO3*vKNO3_NO3)/(0.1*V);
+   vNH4:=(sCaNO3*vCaNO3_NH4 + sNH4NO3*vNH4NO3_NH4)/(0.1*V);
+   vN:=vNH4+vNO3;
+   vP:=(sKH2PO4*vKH2PO4_P)/(0.1*V)  ;
+   vK:=(sKNO3*vKNO3_K + sKH2PO4*vKH2PO4_K + sK2SO4*vK2SO4_K)/(0.1*V)  ;
+   vCa:=(sCaNO3*vCaNO3_Ca)/(0.1*V)   ;
+   vMg:=(sMgSO4*vMgSO4_Mg)/(0.1*V)  ;
+   vNH4NO3:=vNH4/vNO3;
+
+    if ( Kf.NH4NO3.Focused = False ) then Kf.NH4NO3.value:=vNH4NO3;
+
+    if ( Kf.NH4.Focused = False ) then Kf.NH4.value:=vNH4;
+    if ( Kf.NO3.Focused = False ) then Kf.NO3.value:=vNO3;
+    if ( Kf.N.Focused = False ) then Kf.N.value:=vN;
+
+    if ( Kf.P.Focused = False ) then Kf.P.value:=vP;
+    if ( Kf.K.Focused = False ) then Kf.K.value:=vK;
+    if ( Kf.Ca.Focused = False ) then Kf.Ca.value:=vCa;
+    if ( Kf.Mg.Focused = False ) then Kf.Mg.value:=vMg;
+
+    GenNH4NO3event;
+end;
+
+
 procedure CalcAll;
 begin
  CalculateS;
@@ -781,6 +841,7 @@ begin
   NH4NO3.value := NH4.value / NO3.value ;
   CalcAll;
   CalcWeight ;
+  GenNH4NO3event;
   end;
 end;
 
@@ -823,6 +884,72 @@ procedure TKf.FormMouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
 
+end;
+
+procedure TKf.gCaNO3Change(Sender: TObject);
+begin
+ if ( gCaNO3.Focused = True )    then begin
+  fromWeight ;
+  CalculateS;
+  CalcKoef;
+  CalcEC;
+
+ end;
+end;
+
+procedure TKf.gK2SO4Change(Sender: TObject);
+begin
+  if ( gK2SO4.Focused = True )    then begin
+  fromWeight ;
+  CalculateS;
+  CalcKoef;
+  CalcEC;
+
+ end;
+end;
+
+procedure TKf.gKH2PO4Change(Sender: TObject);
+begin
+  if ( gKH2PO4.Focused = True )    then begin
+  fromWeight ;
+  CalculateS;
+  CalcKoef;
+  CalcEC;
+
+ end;
+end;
+
+procedure TKf.gKNO3Change(Sender: TObject);
+begin
+  if ( gKNO3.Focused = True )    then begin
+  fromWeight ;
+  CalculateS;
+  CalcKoef;
+  CalcEC;
+
+ end;
+end;
+
+procedure TKf.gMgSO4Change(Sender: TObject);
+begin
+    if ( gMgSO4.Focused = True )    then begin
+  fromWeight ;
+  CalculateS;
+  CalcKoef;
+  CalcEC;
+
+ end;
+end;
+
+procedure TKf.gNH4NO3Change(Sender: TObject);
+begin
+   if ( gNH4NO3.Focused = True )    then begin
+  fromWeight ;
+  CalculateS;
+  CalcKoef;
+  CalcEC;
+
+ end;
 end;
 
 procedure TKf.K2SO4_KChange(Sender: TObject);
@@ -1480,10 +1607,7 @@ begin
            KN.value:=vKN0;
                   EC.value:=vEC0;
                   calcECtoVal;
-
-           nnNH4NO3.Caption:='NH4:NO3 1:'
-      +floattostr(Round((NO3.value/NH4.value)))+' ';
-
+    GenNH4NO3event;
   end;
   //CalculateS;
 end;
@@ -1506,9 +1630,12 @@ end;
 procedure TKf.NH4NO3_NH4Click(Sender: TObject);
 begin
   NH4NO3_NO3.value:=NH4NO3_NH4.value;
+  if (NH4NO3_NO3.value/NH4NO3_NH4.value < 1000 ) then begin
       nNH4NO3.Caption:='Селитра аммиачная'
    + ' N-' +floattostr(Round((NH4NO3_NH4.value+NH4NO3_NO3.value)*10)/10)+'%';
       CalcWeight ;
+
+  end;
 end;
 
 procedure TKf.NH4NO3_NH4Click(Sender: TObject; var Key: Word; Shift: TShiftState
@@ -1593,6 +1720,7 @@ begin
     NH4NO3.value := NH4.value/NO3.value;
     CalcAll;
     CalcWeight ;
+    GenNH4NO3event;
    end;
 
 end;

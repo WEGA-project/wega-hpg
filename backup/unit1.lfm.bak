@@ -1,7 +1,7 @@
 object Kf: TKf
-  Left = 560
+  Left = 384
   Height = 678
-  Top = 162
+  Top = 201
   Width = 759
   Caption = 'Koefficients'
   ClientHeight = 678
@@ -854,6 +854,7 @@ object Kf: TKf
     Height = 27
     Top = 42
     Width = 95
+    Color = clMoneyGreen
     DecimalPlaces = 3
     Font.Height = -15
     Font.Name = 'Arial'
@@ -1464,91 +1465,103 @@ object Kf: TKf
     ParentFont = False
   end
   object gKNO3: TFloatSpinEdit
-    Left = 672
+    Left = 658
     Height = 27
     Top = 486
-    Width = 82
+    Width = 85
+    DecimalPlaces = 3
     Font.Height = -15
     Font.Name = 'Arial'
     Increment = 0.001
     MaxValue = 99999999
     MinValue = 0
+    OnChange = gKNO3Change
     ParentFont = False
     TabOrder = 54
     Value = 0
   end
   object gCaNO3: TFloatSpinEdit
-    Left = 672
+    Left = 658
     Height = 27
     Top = 456
-    Width = 82
+    Width = 85
+    DecimalPlaces = 3
     Font.Height = -15
     Font.Name = 'Arial'
     Increment = 0.001
     MaxValue = 99999999
     MinValue = 0
+    OnChange = gCaNO3Change
     ParentFont = False
     TabOrder = 55
     Value = 0
   end
   object gMgSO4: TFloatSpinEdit
-    Left = 672
+    Left = 658
     Height = 27
     Top = 545
-    Width = 82
+    Width = 85
+    DecimalPlaces = 3
     Font.Height = -15
     Font.Name = 'Arial'
     Increment = 0.001
     MaxValue = 99999999
     MinValue = 0
+    OnChange = gMgSO4Change
     ParentFont = False
     TabOrder = 56
     Value = 0
   end
   object gKH2PO4: TFloatSpinEdit
-    Left = 672
+    Left = 658
     Height = 27
     Top = 575
-    Width = 82
+    Width = 85
+    DecimalPlaces = 3
     Font.Height = -15
     Font.Name = 'Arial'
     Increment = 0.001
     MaxValue = 99999999
     MinValue = 0
+    OnChange = gKH2PO4Change
     ParentFont = False
     TabOrder = 57
     Value = 0
   end
   object gK2SO4: TFloatSpinEdit
-    Left = 672
+    Left = 658
     Height = 27
     Top = 605
-    Width = 82
+    Width = 85
+    DecimalPlaces = 3
     Font.Height = -15
     Font.Name = 'Arial'
     Increment = 0.001
     MaxValue = 99999999
     MinValue = 0
+    OnChange = gK2SO4Change
     ParentFont = False
     TabOrder = 58
     Value = 0
   end
   object gNH4NO3: TFloatSpinEdit
-    Left = 672
+    Left = 658
     Height = 27
     Top = 516
-    Width = 82
+    Width = 85
+    DecimalPlaces = 3
     Font.Height = -15
     Font.Name = 'Arial'
     Increment = 0.001
     MaxValue = 99999999
     MinValue = 0
+    OnChange = gNH4NO3Change
     ParentFont = False
     TabOrder = 59
     Value = 0
   end
   object Label53: TLabel
-    Left = 699
+    Left = 686
     Height = 17
     Top = 432
     Width = 41
@@ -1559,7 +1572,7 @@ object Kf: TKf
     ParentFont = False
   end
   object nnNH4NO3: TLabel
-    Left = 167
+    Left = 157
     Height = 17
     Top = 81
     Width = 62
@@ -1570,7 +1583,7 @@ object Kf: TKf
     ParentFont = False
   end
   object Button1: TButton
-    Left = 578
+    Left = 568
     Height = 28
     Top = 544
     Width = 83
