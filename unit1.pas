@@ -14,6 +14,7 @@ type
 
   TKf = class(TForm)
     Button1: TButton;
+    profile: TEdit;
     gCaNO3: TFloatSpinEdit;
     EC: TFloatSpinEdit;
     gK2SO4: TFloatSpinEdit;
@@ -487,7 +488,21 @@ begin
   if ( Kf.SCa.Focused = False ) then Kf.SCa.value:=Kf.S.value/Kf.Ca.value;
   if ( Kf.SMg.Focused = False ) then Kf.SMg.value:=Kf.S.Value/Kf.Mg.value;
 
-
+   vN:=kf.N.Value;
+   Kf.profile.text:='N:'+ FloatToStr(round(vN))+', '
+                    +'(NO3:'+FloatToStr(round(vNO3))+', '
+                    +'NH4:'+FloatToStr(round(vNH4))+'), '
+                    +'P:'+FloatToStr(round(vP))+', '
+                    +'K:'+FloatToStr(round(vK))+', '
+                    +'Ca:'+FloatToStr(round(vCa))+', '
+                    +'Mg:'+FloatToStr(round(vK))+', '
+                    +'S:'+FloatToStr(round(vS))+' '
+                    +'[ EC='+FloatToStr(round(vEC*1000)/1000)+', '
+                    +'K:N='+FloatToStr(round(vKN*1000)/1000)+', '
+                    +'K:Mg='+FloatToStr(round(vKMg*1000)/1000)+', '
+                    +'K:Ca='+FloatToStr(round(vKCa*1000)/1000)+', '
+                    +'NH4:NO3='+FloatToStr(round(vNH4NO3*1000)/1000)+']'
+                    ;
 
 
 end;
@@ -597,6 +612,7 @@ begin
     if ( Kf.Mg.Focused = False ) then Kf.Mg.value:=vMg;
 
     GenNH4NO3event;
+
 end;
 
 
@@ -607,6 +623,7 @@ begin
  CalcEC;
  CalcKoef;
  CalcWeight ;
+
 end;
 
 

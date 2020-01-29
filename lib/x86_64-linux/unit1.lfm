@@ -1,10 +1,10 @@
 object Kf: TKf
-  Left = 384
-  Height = 678
-  Top = 201
+  Left = 764
+  Height = 681
+  Top = 180
   Width = 759
   Caption = 'Koefficients'
-  ClientHeight = 678
+  ClientHeight = 681
   ClientWidth = 759
   DesignTimePPI = 106
   Font.Height = -15
@@ -1593,5 +1593,16 @@ object Kf: TKf
     OnClick = Button1Click
     ParentFont = False
     TabOrder = 60
+  end
+  object profile: TEdit
+    Left = 9
+    Height = 24
+    Top = 645
+    Width = 733
+    Font.Height = -12
+    Font.Name = 'Arial'
+    ParentFont = False
+    TabOrder = 61
+    Text = 'profile'
   end
 end
