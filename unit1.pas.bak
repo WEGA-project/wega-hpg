@@ -14,6 +14,7 @@ type
 
   TKf = class(TForm)
     Button1: TButton;
+    profile: TEdit;
     gCaNO3: TFloatSpinEdit;
     EC: TFloatSpinEdit;
     gK2SO4: TFloatSpinEdit;
@@ -27,7 +28,7 @@ type
     Label27: TLabel;
     Label28: TLabel;
     Label29: TLabel;
-    Label30: TLabel;
+    nnNH4NO3: TLabel;
     Label53: TLabel;
     gMgSO4: TFloatSpinEdit;
     gNH4NO3: TFloatSpinEdit;
@@ -144,9 +145,11 @@ type
     procedure CaNO3_CaChange(Sender: TObject);
     procedure CaNO3_CaChange(Sender: TObject; var Key: Word; Shift: TShiftState
       );
+    procedure CaNO3_NH4Change(Sender: TObject);
     procedure CaNO3_NH4EditingDone(Sender: TObject);
     procedure CaNO3_NH4EditingDone(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure CaNO3_NO3Change(Sender: TObject);
     procedure CaNO3_NO3KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure CaNO3_NO3KeyDown(Sender: TObject);
@@ -165,8 +168,16 @@ type
     procedure FormClick(Sender: TObject);
     procedure FormMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
+    procedure gCaNO3Change(Sender: TObject);
+    procedure gK2SO4Change(Sender: TObject);
+    procedure gKH2PO4Change(Sender: TObject);
+    procedure gKNO3Change(Sender: TObject);
+    procedure gMgSO4Change(Sender: TObject);
+    procedure gNH4NO3Change(Sender: TObject);
+    procedure K2SO4_KChange(Sender: TObject);
     procedure K2SO4_KClick(Sender: TObject);
     procedure K2SO4_KClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure K2SO4_SChange(Sender: TObject);
     procedure K2SO4_SClick(Sender: TObject);
     procedure K2SO4_SClick(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure KCaChange(Sender: TObject);
@@ -175,8 +186,10 @@ type
     procedure KChange(Sender: TObject);
     procedure KClick(Sender: TObject);
     procedure KClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure KH2PO4_KChange(Sender: TObject);
     procedure KH2PO4_KClick(Sender: TObject);
     procedure KH2PO4_KClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure KH2PO4_PChange(Sender: TObject);
     procedure KH2PO4_PClick(Sender: TObject);
     procedure KH2PO4_PClick(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure KMgChange(Sender: TObject);
@@ -185,8 +198,10 @@ type
     procedure KNChange(Sender: TObject);
     procedure KNClick(Sender: TObject);
     procedure KNClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure KNO3_KChange(Sender: TObject);
     procedure KNO3_KClick(Sender: TObject);
     procedure KNO3_KClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure KNO3_NO3Change(Sender: TObject);
     procedure KNO3_NO3Click(Sender: TObject);
     procedure KNO3_NO3Click(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure KPChange(Sender: TObject);
@@ -202,12 +217,16 @@ type
     procedure MgNChange(Sender: TObject);
     procedure MgPChange(Sender: TObject);
     procedure MgSChange(Sender: TObject);
+    procedure MgSO4_MgChange(Sender: TObject);
     procedure MgSO4_MgClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure MgSO4_SChange(Sender: TObject);
     procedure MgSO4_SClick(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure MgSO4_SClick(Sender: TObject);
     procedure NCaChange(Sender: TObject);
     procedure NClick(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure NH4Click(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure NH4NO3_NH4Change(Sender: TObject);
+    procedure NH4NO3_NO3Change(Sender: TObject);
     procedure nKH2PO4Click(Sender: TObject);
     procedure nK2SO4Click(Sender: TObject);
     procedure Label8Click(Sender: TObject);
@@ -307,6 +326,7 @@ type
     procedure SPChange(Sender: TObject);
     procedure SPClick(Sender: TObject);
     procedure SPClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure VChange(Sender: TObject);
     procedure VClick(Sender: TObject);
     procedure VClick(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
@@ -325,6 +345,7 @@ var
   Mg_MgSO4,S_MgSO4,P_KH2PO4,K_KH2PO4,Ca_CaNO3,NO3_CaNO3,NH4_CaNO3,NH4_NH4NO3,NO3_NH4NO3,K_KNO3,NO3_KNO3,S_K2SO4,K_K2SO4:Double;
   vMgSO4_Mg,vMgSO4_S,vKH2PO4_P,vKH2PO4_K,vCaNO3_Ca,vCaNO3_NO3,vCaNO3_NH4,vNH4NO3_NH4,vNH4NO3_NO3,vKNO3_K,vKNO3_NO3,vK2SO4_S,vK2SO4_K:Double;
   xNH4, xNO3, xS: Double;
+  vEC0,vKN0,vCaN0,vKP0,vKCa0,vKMg0:Double;
 
 
 implementation
@@ -409,7 +430,7 @@ begin
 
   vS:=(mS*(vNH4*mCa*mMg*mK*mP + 2*vCa*mN*mMg*mK*mP + 2*vMg*mN*mCa*mK*mP+ vK*mN*mCa*mMg*mP - vNO3*mCa*mMg*mK*mP - vP*mN*mCa*mMg*mK))/(2*(mN*mCa*mMg*mK*mP));
 
-  if ( Kf.N.Focused = False ) then Kf.N.value:=vN;
+
   if ( Kf.NO3.Focused = False ) then Kf.NO3.value:=vNO3;
   if ( Kf.NH4.Focused = False ) then Kf.NH4.value:=vNH4;
   if ( Kf.P.Focused = False ) then Kf.P.value:=vP;
@@ -417,7 +438,7 @@ begin
   if ( Kf.Ca.Focused = False ) then Kf.Ca.value:=vCa;
   if ( Kf.Mg.Focused = False ) then Kf.Mg.value:=vMg;
   if ( Kf.S.Focused = False ) then Kf.S.value:=vS;
-
+  if ( Kf.N.Focused = False ) then Kf.N.value:=vN;
 
   //vEC:=0.095*(vNH4*mCa*mMg*mK + 2*vCa*mN*mMg*mK + 2*vMg*mN*mCa*mK + vK*mN*mCa*mMg + 2*mN*mCa*mMg*mK)/(mN*mCa*mMg*mK);
   //Kf.EC.Value:=vEC;
@@ -467,13 +488,28 @@ begin
   if ( Kf.SCa.Focused = False ) then Kf.SCa.value:=Kf.S.value/Kf.Ca.value;
   if ( Kf.SMg.Focused = False ) then Kf.SMg.value:=Kf.S.Value/Kf.Mg.value;
 
-
+   vN:=kf.N.Value;
+   Kf.profile.text:='N:'+ FloatToStr(round(vN))+', '
+                    +'(NO3:'+FloatToStr(round(vNO3))+', '
+                    +'NH4:'+FloatToStr(round(vNH4))+'), '
+                    +'P:'+FloatToStr(round(vP))+', '
+                    +'K:'+FloatToStr(round(vK))+', '
+                    +'Ca:'+FloatToStr(round(vCa))+', '
+                    +'Mg:'+FloatToStr(round(vK))+', '
+                    +'S:'+FloatToStr(round(vS))+' '
+                    +'[ EC='+FloatToStr(round(vEC*1000)/1000)+', '
+                    +'K:N='+FloatToStr(round(vKN*1000)/1000)+', '
+                    +'K:Mg='+FloatToStr(round(vKMg*1000)/1000)+', '
+                    +'K:Ca='+FloatToStr(round(vKCa*1000)/1000)+', '
+                    +'NH4:NO3='+FloatToStr(round(vNH4NO3*1000)/1000)+']'
+                    ;
 
 
 end;
 
    procedure CalcWeight ;
  begin
+
    vMgSO4_Mg:=Kf.MgSO4_Mg.value;
    vMgSO4_S:=Kf.MgSO4_S.value;
 
@@ -494,7 +530,7 @@ end;
    vK2SO4_K:=Kf.K2SO4_K.value;
 
    V:=kF.V.Value;
-
+    getVar;
 
    sMgSO4:=vMg/(vMgSO4_Mg*10);                    Kf.gMgSO4.value:= sMgSO4*V;
      Mg_MgSO4:=sMgSO4*vMgSO4_Mg*10;
@@ -525,6 +561,61 @@ end;
 
  end;
 
+   procedure GenNH4NO3event;
+   begin
+           if (Kf.NH4.value > 0 ) then begin
+           Kf.nnNH4NO3.Caption:='NH4:NO3 1:'  +floattostr(Round((Kf.NO3.value/Kf.NH4.value)))+' ';
+        end
+        else  begin
+          Kf.nnNH4NO3.Caption:='NO3=100%' ;
+
+        end;
+   end;
+
+procedure fromWeight ;
+begin
+   getVar;
+   vKH2PO4_P:=Kf.KH2PO4_P.value;         vKH2PO4_K:=Kf.KH2PO4_K.value;
+   vCaNO3_Ca:=Kf.CaNO3_Ca.value;         vCaNO3_NO3:=Kf.CaNO3_NO3.value;   vCaNO3_NH4:=Kf.CaNO3_NH4.value;
+   vNH4NO3_NH4:=Kf.NH4NO3_NH4.value;     vNH4NO3_NO3:=Kf.NH4NO3_NO3.value;
+   vKNO3_K:=Kf.KNO3_K.value;             vKNO3_NO3:=Kf.KNO3_NO3.value;
+   vK2SO4_S:=Kf.K2SO4_S.value;           vK2SO4_K:=Kf.K2SO4_K.value;
+
+   V:=kF.V.Value;
+
+
+   sCaNO3:=Kf.gCaNO3.value;
+   sKNO3:=Kf.gKNO3.value;
+   sNH4NO3:=Kf.gNH4NO3.value;
+   sMgSO4:=Kf.gMgSO4.value;
+   sKH2PO4:=Kf.gKH2PO4.value;
+   sK2SO4:=Kf.gK2SO4.value;
+
+   vNO3:=(sCaNO3*vCaNO3_NO3 + sNH4NO3*vNH4NO3_NO3 + sKNO3*vKNO3_NO3)/(0.1*V);
+   vNH4:=(sCaNO3*vCaNO3_NH4 + sNH4NO3*vNH4NO3_NH4)/(0.1*V);
+   vN:=vNH4+vNO3;
+   vP:=(sKH2PO4*vKH2PO4_P)/(0.1*V)  ;
+   vK:=(sKNO3*vKNO3_K + sKH2PO4*vKH2PO4_K + sK2SO4*vK2SO4_K)/(0.1*V)  ;
+   vCa:=(sCaNO3*vCaNO3_Ca)/(0.1*V)   ;
+   vMg:=(sMgSO4*vMgSO4_Mg)/(0.1*V)  ;
+   vNH4NO3:=vNH4/vNO3;
+
+    if ( Kf.NH4NO3.Focused = False ) then Kf.NH4NO3.value:=vNH4NO3;
+
+    if ( Kf.NH4.Focused = False ) then Kf.NH4.value:=vNH4;
+    if ( Kf.NO3.Focused = False ) then Kf.NO3.value:=vNO3;
+    if ( Kf.N.Focused = False ) then Kf.N.value:=vN;
+
+    if ( Kf.P.Focused = False ) then Kf.P.value:=vP;
+    if ( Kf.K.Focused = False ) then Kf.K.value:=vK;
+    if ( Kf.Ca.Focused = False ) then Kf.Ca.value:=vCa;
+    if ( Kf.Mg.Focused = False ) then Kf.Mg.value:=vMg;
+
+    GenNH4NO3event;
+
+end;
+
+
 procedure CalcAll;
 begin
  CalculateS;
@@ -532,6 +623,7 @@ begin
  CalcEC;
  CalcKoef;
  CalcWeight ;
+
 end;
 
 
@@ -555,11 +647,11 @@ end;
 
 procedure TKf.MgChange(Sender: TObject);
 begin
-   //if ( Mg.Focused = True )    then begin
+   if ( Mg.Focused = True )    then begin
   //CalcKoef;
   CalcWeight ;
     CalcAll;
-   //end
+   end
 
 end;
 
@@ -637,7 +729,10 @@ procedure TKf.MgCaChange(Sender: TObject);
 begin
    if ( MgCa.Focused = True )    then begin
       Mg.value:=Ca.value*MgCa.value;
-  CalcAll;
+           vEC0:=EC.value;
+         CalcAll;
+         EC.value:=vEC0;
+         calcECtoVal;
   end;
 end;
 
@@ -650,7 +745,10 @@ procedure TKf.MgKChange(Sender: TObject);
 begin
   if ( MgK.Focused = True )    then begin
       Mg.value:=K.value*MgK.value;
-  CalcAll;
+           vEC0:=EC.value;
+         CalcAll;
+         EC.value:=vEC0;
+         calcECtoVal;
   end;
 end;
 
@@ -658,7 +756,10 @@ procedure TKf.MgNChange(Sender: TObject);
 begin
    if ( MgN.Focused = True )    then begin
       Mg.value:=N.value*MgN.value;
-  CalcAll;
+                    vEC0:=EC.value;
+         CalcAll;
+         EC.value:=vEC0;
+         calcECtoVal;
   end;
 end;
 
@@ -666,7 +767,10 @@ procedure TKf.MgPChange(Sender: TObject);
 begin
    if ( MgP.Focused = True )    then begin
      Mg.value:=P.value*MgP.value;
-  CalcAll;
+           vEC0:=EC.value;
+         CalcAll;
+         EC.value:=vEC0;
+         calcECtoVal;
   end;
 end;
 
@@ -674,8 +778,23 @@ procedure TKf.MgSChange(Sender: TObject);
 begin
    if ( MgS.Focused = True )    then begin
     Mg.value:=S.value*MgS.value;
-  CalcAll;
+    CalculateCa;
+          vEC0:=EC.value;
+         CalcAll;
+         EC.value:=vEC0;
+         calcECtoVal;
   end;
+end;
+
+procedure TKf.MgSO4_MgChange(Sender: TObject);
+begin
+   if ( MgSO4_Mg.Focused = True )    then begin
+          MgSO4_S.value:= (MgSO4_Mg.value * mS)/mMg;
+         nMgSO4.Caption:='Сульфат магния'
+ + ' MgO-' +floattostr(Round((MgSO4_Mg.value/0.603036)*10)/10)+'%'
+ + ' SO3-' +floattostr(Round((MgSO4_S.value/0.400496)*10)/10)+'%';
+         CalcWeight ;
+   end;
 end;
 
 procedure TKf.MgSO4_MgClick(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -685,6 +804,18 @@ begin
  + ' MgO-' +floattostr(Round((MgSO4_Mg.value/0.603036)*10)/10)+'%'
  + ' SO3-' +floattostr(Round((MgSO4_S.value/0.400496)*10)/10)+'%';
          CalcWeight ;
+end;
+
+procedure TKf.MgSO4_SChange(Sender: TObject);
+begin
+  if ( MgSO4_S.Focused = True )    then begin
+     
+  MgSO4_Mg.value:= (MgSO4_S.value * mMg)/mS;
+           nMgSO4.Caption:='Сульфат магния'
+ + ' MgO-' +floattostr(Round((MgSO4_Mg.value/0.603036)*10)/10)+'%'
+ + ' SO3-' +floattostr(Round((MgSO4_S.value/0.400496)*10)/10)+'%';
+    CalcWeight ;
+  end;
 end;
 
 procedure TKf.MgSO4_SClick(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -706,7 +837,12 @@ procedure TKf.NCaChange(Sender: TObject);
 begin
    if ( NCa.Focused = True )    then begin
     N.value:=Ca.value*NCa.value;
-  CalcAll;
+  NO3.value := N.value/(NH4NO3.value+1);
+        NH4.value := NH4NO3.value*N.value/(NH4NO3.value+1);
+         vEC0:=EC.value;
+     CalcAll;
+     EC.value:=vEC0;
+      calcECtoVal;
   end;
 end;
 
@@ -722,6 +858,27 @@ begin
   NH4NO3.value := NH4.value / NO3.value ;
   CalcAll;
   CalcWeight ;
+  GenNH4NO3event;
+  end;
+end;
+
+procedure TKf.NH4NO3_NH4Change(Sender: TObject);
+begin
+   if ( NH4NO3_NH4.Focused = True )    then begin
+       NH4NO3_NO3.value:=NH4NO3_NH4.value;
+      nNH4NO3.Caption:='Селитра аммиачная'
+   + ' N-' +floattostr(Round((NH4NO3_NH4.value+NH4NO3_NO3.value)*10)/10)+'%';
+      CalcWeight ;
+   end;
+end;
+
+procedure TKf.NH4NO3_NO3Change(Sender: TObject);
+begin
+  if ( NH4NO3_NO3.Focused = True )    then begin
+       NH4NO3_NH4.value:=NH4NO3_NO3.value;
+        nNH4NO3.Caption:='Селитра аммиачная'
+   + ' N-' +floattostr(Round((NH4NO3_NH4.value+NH4NO3_NO3.value)*10)/10)+'%';
+        CalcWeight ;
   end;
 end;
 
@@ -746,6 +903,84 @@ begin
 
 end;
 
+procedure TKf.gCaNO3Change(Sender: TObject);
+begin
+ if ( gCaNO3.Focused = True )    then begin
+  fromWeight ;
+  CalculateS;
+  CalcKoef;
+  CalcEC;
+
+ end;
+end;
+
+procedure TKf.gK2SO4Change(Sender: TObject);
+begin
+  if ( gK2SO4.Focused = True )    then begin
+  fromWeight ;
+  CalculateS;
+  CalcKoef;
+  CalcEC;
+
+ end;
+end;
+
+procedure TKf.gKH2PO4Change(Sender: TObject);
+begin
+  if ( gKH2PO4.Focused = True )    then begin
+  fromWeight ;
+  CalculateS;
+  CalcKoef;
+  CalcEC;
+
+ end;
+end;
+
+procedure TKf.gKNO3Change(Sender: TObject);
+begin
+  if ( gKNO3.Focused = True )    then begin
+  fromWeight ;
+  CalculateS;
+  CalcKoef;
+  CalcEC;
+
+ end;
+end;
+
+procedure TKf.gMgSO4Change(Sender: TObject);
+begin
+    if ( gMgSO4.Focused = True )    then begin
+  fromWeight ;
+  CalculateS;
+  CalcKoef;
+  CalcEC;
+
+ end;
+end;
+
+procedure TKf.gNH4NO3Change(Sender: TObject);
+begin
+   if ( gNH4NO3.Focused = True )    then begin
+  fromWeight ;
+  CalculateS;
+  CalcKoef;
+  CalcEC;
+
+ end;
+end;
+
+procedure TKf.K2SO4_KChange(Sender: TObject);
+begin
+  if ( K2SO4_K.Focused = True )    then begin
+          K2SO4_S.value:=(K2SO4_K.value*mS)/(2*mK);
+
+    nK2SO4.Caption:='Сульфат калия'
+ + ' K2O-' +floattostr(Round((K2SO4_K.value/0.830148)*10)/10)+'%'
+ + ' SO3-' +floattostr(Round((K2SO4_S.value/0.400496)*10)/10)+'%';
+    CalcWeight ;
+  end;
+end;
+
 procedure TKf.K2SO4_KClick(Sender: TObject);
 begin
       K2SO4_S.value:=(K2SO4_K.value*mS)/(2*mK);
@@ -759,6 +994,18 @@ end;
 procedure TKf.K2SO4_KClick(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
 
+end;
+
+procedure TKf.K2SO4_SChange(Sender: TObject);
+begin
+  if ( K2SO4_S.Focused = True )    then begin
+               K2SO4_K.value:=(K2SO4_S.value*2*mK)/(mS);
+
+    nK2SO4.Caption:='Сульфат калия'
+ + ' K2O-' +floattostr(Round((K2SO4_K.value/0.830148)*10)/10)+'%'
+ + ' SO3-' +floattostr(Round((K2SO4_S.value/0.400496)*10)/10)+'%';
+    CalcWeight ;
+  end;
 end;
 
 procedure TKf.K2SO4_SClick(Sender: TObject);
@@ -779,8 +1026,19 @@ end;
 procedure TKf.KCaChange(Sender: TObject);
 begin
    if ( KCa.Focused = True )    then begin
-      K.value:=Ca.value*KCa.value;
-  CalcAll;
+          K.value:=Ca.value*KCa.value;
+           //vKCa0:=KCa.value;
+           vKMg0:=KMg.value;
+           vKN0:=KN.value;
+
+                    vEC0:=EC.value;
+
+                  CalcAll;
+           //KCa.value:=vKCa0;
+           KMg.value:=vKMg0;
+           KN.value:=vKN0;
+                  EC.value:=vEC0;
+                  calcECtoVal;
   end;
 end;
 
@@ -797,13 +1055,13 @@ end;
 
 procedure TKf.KChange(Sender: TObject);
 begin
-   //if ( K.Focused = True )    then begin
+   if ( K.Focused = True )    then begin
  //CalcKoef;
  //CalcWeight ;
    CalcAll;
    CalcWeight ;
 
- //  end
+   end
 end;
 
 procedure TKf.KClick(Sender: TObject);
@@ -814,6 +1072,18 @@ end;
 procedure TKf.KClick(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
 
+end;
+
+procedure TKf.KH2PO4_KChange(Sender: TObject);
+begin
+  if ( KH2PO4_K.Focused = True )    then begin
+        KH2PO4_P.value:=(KH2PO4_K.value*mP)/mK;
+
+    nKH2PO4.Caption:='Монофосфат калия'
+ + ' K2O-' +floattostr(Round((KH2PO4_K.value/0.830148)*10)/10)+'%'
+ + ' P2O5-' +floattostr(Round((KH2PO4_P.value/0.436421)*10)/10)+'%';
+    CalcWeight ;
+  end;
 end;
 
 procedure TKf.KH2PO4_KClick(Sender: TObject);
@@ -829,6 +1099,18 @@ end;
 procedure TKf.KH2PO4_KClick(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
 
+end;
+
+procedure TKf.KH2PO4_PChange(Sender: TObject);
+begin
+  if ( KH2PO4_P.Focused = True )    then begin
+         KH2PO4_K.value:=(KH2PO4_P.value*mK)/mP;
+
+    nKH2PO4.Caption:='Монофосфат калия'
+ + ' K2O-' +floattostr(Round((KH2PO4_K.value/0.830148)*10)/10)+'%'
+ + ' P2O5-' +floattostr(Round((KH2PO4_P.value/0.436421)*10)/10)+'%';
+    CalcWeight ;
+  end;
 end;
 
 procedure TKf.KH2PO4_PClick(Sender: TObject);
@@ -850,8 +1132,18 @@ procedure TKf.KMgChange(Sender: TObject);
 begin
    if ( KMg.Focused = True )    then begin
        K.value:=Mg.value*KMg.value;
-  CalcAll;
-  CalcWeight ;
+       vKCa0:=KCa.value;
+        //vKMg0:=KMg.value;
+        vKN0:=KN.value;
+
+                 vEC0:=EC.value;
+
+               CalcAll;
+        KCa.value:=vKCa0;
+        //KMg.value:=vKMg0;
+        KN.value:=vKN0;
+               EC.value:=vEC0;
+               calcECtoVal;
   end;
 end;
 
@@ -869,8 +1161,21 @@ end;
 procedure TKf.KNChange(Sender: TObject);
 begin
   if ( KN.Focused = True )    then begin
-      K.value:=N.value*KN.value;
-  CalculateS;
+
+        K.value:=N.value*KN.value;
+  vKCa0:=KCa.value;
+  vKMg0:=KMg.value;
+  //vKN0:=KN.value;
+
+           vEC0:=EC.value;
+
+         CalcAll;
+  KCa.value:=vKCa0;
+  KMg.value:=vKMg0;
+  //KN.value:=vKN0;
+         EC.value:=vEC0;
+         calcECtoVal;
+
   end;
 end;
 
@@ -883,6 +1188,18 @@ end;
 procedure TKf.KNClick(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
 
+end;
+
+procedure TKf.KNO3_KChange(Sender: TObject);
+begin
+  if ( KNO3_K.Focused = True )    then begin
+     KNO3_NO3.value:=(KNO3_K.value*mN)/mK;
+
+    nKNO3.Caption:='Селитра калиевая'
+ + ' K2O-' +floattostr(Round((KNO3_K.value/0.830148)*10)/10)+'%'
+ + ' N-' +floattostr(Round((KNO3_NO3.value)*10)/10)+'%';
+    CalcWeight ;
+  end;
 end;
 
 procedure TKf.KNO3_KClick(Sender: TObject);
@@ -898,6 +1215,17 @@ end;
 procedure TKf.KNO3_KClick(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
 
+end;
+
+procedure TKf.KNO3_NO3Change(Sender: TObject);
+begin
+  if ( KNO3_NO3.Focused = True )    then begin
+      KNO3_K.value:=(KNO3_NO3.value*mK)/mN;
+       nKNO3.Caption:='Селитра калиевая'
+ + ' K2O-' +floattostr(Round((KNO3_K.value/0.830148)*10)/10)+'%'
+ + ' N-' +floattostr(Round((KNO3_NO3.value)*10)/10)+'%';
+       CalcWeight ;
+  end;
 end;
 
 procedure TKf.KNO3_NO3Click(Sender: TObject);
@@ -918,7 +1246,10 @@ procedure TKf.KPChange(Sender: TObject);
 begin
    if ( KP.Focused = True )    then begin
      K.value:=P.value*KP.value;
-  CalcAll;
+           vEC0:=EC.value;
+         CalcAll;
+         EC.value:=vEC0;
+         calcECtoVal;
   end;
 end;
 
@@ -937,7 +1268,11 @@ procedure TKf.KSChange(Sender: TObject);
 begin
    if ( KS.Focused = True )    then begin
      K.value:=S.value*KS.value;
-  CalcAll;
+    CalculateCa;
+          vEC0:=EC.value;
+         CalcAll;
+         EC.value:=vEC0;
+         calcECtoVal;
   end;
 end;
 
@@ -955,18 +1290,20 @@ end;
 procedure TKf.Button1Click(Sender: TObject);
 begin
   //calcECtoVal;
-  CalcAll;
+  CalcWeight ;
+  //CalcAll;
+  CalcWeight ;
 end;
 
 procedure TKf.CaChange(Sender: TObject);
 begin
- //  if ( Ca.Focused = True )    then begin
+   if ( Ca.Focused = True )    then begin
   CalculateS;
   CalcKoef;
   CalcWeight ;
   CalcEC;
   //CalcAll;
-   //end
+   end
 
 end;
 
@@ -984,10 +1321,10 @@ procedure TKf.CaKChange(Sender: TObject);
 begin
    if ( CaK.Focused = True )    then begin
      Ca.value:=K.value*CaK.value;
-    CalculateS;
-  CalcKoef;
-  CalcWeight ;
-  CalcEC;
+             vEC0:=EC.value;
+         CalcAll;
+         EC.value:=vEC0;
+         calcECtoVal;
   end;
 end;
 
@@ -1006,10 +1343,10 @@ procedure TKf.CaMgChange(Sender: TObject);
 begin
    if ( CaMg.Focused = True )    then begin
     Ca.value:=Mg.value*CaMg.value;
-    CalculateS;
-  CalcKoef;
-  CalcWeight ;
-  CalcEC;
+             vEC0:=EC.value;
+         CalcAll;
+         EC.value:=vEC0;
+         calcECtoVal;
   end;
 end;
 
@@ -1028,10 +1365,10 @@ procedure TKf.CaNChange(Sender: TObject);
 begin
    if ( CaN.Focused = True )    then begin
            Ca.value:=N.value*CaN.value;
-    CalculateS;
-  CalcKoef;
-  CalcWeight ;
-  CalcEC;
+           vEC0:=EC.value;
+         CalcAll;
+         EC.value:=vEC0;
+         calcECtoVal;
   end;
 end;
 
@@ -1048,17 +1385,33 @@ end;
 
 procedure TKf.CaNO3_CaChange(Sender: TObject);
 begin
+  if ( CaNO3_Ca.Focused = True )    then begin
   CaNO3_NO3.value:= (2 * CaNO3_Ca.value *mN + CaNO3_NH4.value*mCa)/mCa  ;
     nCaNO3.Caption:='Селитра кальциевая'
    + ' CaO-' +floattostr(Round((CaNO3_Ca.value/0.714691)*10)/10)+'%'
    + ' N-' +floattostr(Round((CaNO3_NH4.value+CaNO3_NO3.value)*10)/10)+'%';
     CalcWeight ;
+
+  end;
 end;
 
 procedure TKf.CaNO3_CaChange(Sender: TObject; var Key: Word; Shift: TShiftState
   );
 begin
 
+end;
+
+procedure TKf.CaNO3_NH4Change(Sender: TObject);
+begin
+  if ( CaNO3_NH4.Focused = True )    then begin
+      CaNO3_NO3.value:= (2 * CaNO3_Ca.value *mN + CaNO3_NH4.value*mCa)/mCa  ;
+  CaNO3_Ca.value:= -mCa*( CaNO3_NH4.value - CaNO3_NO3.value)/(2*mN)  ;
+
+  nCaNO3.Caption:='Селитра кальциевая'
+ + ' CaO-' +floattostr(Round((CaNO3_Ca.value/0.714691)*10)/10)+'%'
+ + ' N-' +floattostr(Round((CaNO3_NH4.value+CaNO3_NO3.value)*10)/10)+'%';
+        CalcWeight ;
+  end;
 end;
 
 procedure TKf.CaNO3_NH4EditingDone(Sender: TObject);
@@ -1076,6 +1429,17 @@ procedure TKf.CaNO3_NH4EditingDone(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
 
+end;
+
+procedure TKf.CaNO3_NO3Change(Sender: TObject);
+begin
+  if ( CaNO3_NO3.Focused = True )    then begin
+    CaNO3_Ca.value:= -mCa*( CaNO3_NH4.value - CaNO3_NO3.value)/(2*mN)  ;
+    nCaNO3.Caption:='Селитра кальциевая'
+   + ' CaO-' +floattostr(Round((CaNO3_Ca.value/0.714691)*10)/10)+'%'
+   + ' N-' +floattostr(Round((CaNO3_NH4.value+CaNO3_NO3.value)*10)/10)+'%';
+    CalcWeight ;
+  end;
 end;
 
 procedure TKf.CaNO3_NO3KeyDown(Sender: TObject; var Key: Word;
@@ -1097,10 +1461,10 @@ procedure TKf.CaPChange(Sender: TObject);
 begin
    if ( CaP.Focused = True )    then begin
       Ca.value:=P.value*CaP.value;
-    CalculateS;
-  CalcKoef;
-  CalcWeight ;
-  CalcEC;
+            vEC0:=EC.value;
+         CalcAll;
+         EC.value:=vEC0;
+         calcECtoVal;
   end;
 end;
 
@@ -1147,8 +1511,8 @@ begin
  //CalcEC;
  //CalcKoef;
  //CalcWeight ;
-   //CalcAll;
-   CalcWeight ;
+   CalcAll;
+   //CalcWeight ;
   end;
 end;
 
@@ -1182,14 +1546,14 @@ end;
 
 procedure TKf.NChange(Sender: TObject);
 begin
- //  if ( N.Focused = True )    then begin
+   if ( N.Focused = True )    then begin
   NO3.value := N.value/(NH4NO3.value+1);
   NH4.value := NH4NO3.value*N.value/(NH4NO3.value+1);
   //CalcKoef;
   //CalcWeight ;
     CalcAll;
     CalcWeight ;
-  // end
+   end
 
 
 
@@ -1244,9 +1608,23 @@ begin
     if ( NH4NO3.Focused = True )    then begin
     NH4.value := N.value *(NH4NO3.value/(NH4NO3.value+1));
   NO3.value := N.value / ( NH4NO3.value+1 );
-  CalcAll;
-  CalcWeight ;
+  //CalcAll;
+  //CalcWeight ;
 
+
+           vKCa0:=KCa.value;
+           vKMg0:=KMg.value;
+           vKN0:=KN.value;
+
+                    vEC0:=EC.value;
+
+                  CalcAll;
+           KCa.value:=vKCa0;
+           KMg.value:=vKMg0;
+           KN.value:=vKN0;
+                  EC.value:=vEC0;
+                  calcECtoVal;
+    GenNH4NO3event;
   end;
   //CalculateS;
 end;
@@ -1269,9 +1647,12 @@ end;
 procedure TKf.NH4NO3_NH4Click(Sender: TObject);
 begin
   NH4NO3_NO3.value:=NH4NO3_NH4.value;
+  if (NH4NO3_NO3.value/NH4NO3_NH4.value < 1000 ) then begin
       nNH4NO3.Caption:='Селитра аммиачная'
    + ' N-' +floattostr(Round((NH4NO3_NH4.value+NH4NO3_NO3.value)*10)/10)+'%';
       CalcWeight ;
+
+  end;
 end;
 
 procedure TKf.NH4NO3_NH4Click(Sender: TObject; var Key: Word; Shift: TShiftState
@@ -1298,7 +1679,12 @@ procedure TKf.NKChange(Sender: TObject);
 begin
   if ( NK.Focused = True )    then begin
      N.value:=K.value*NK.value;
-    CalcAll;
+    NO3.value := N.value/(NH4NO3.value+1);
+        NH4.value := NH4NO3.value*N.value/(NH4NO3.value+1);
+         vEC0:=EC.value;
+     CalcAll;
+     EC.value:=vEC0;
+      calcECtoVal;
 
   end;
 end;
@@ -1324,7 +1710,12 @@ procedure TKf.NMgChange(Sender: TObject);
 begin
    if ( NMg.Focused = True )    then begin
      N.value:=Mg.value*NMg.value;
-  CalcAll;
+  NO3.value := N.value/(NH4NO3.value+1);
+        NH4.value := NH4NO3.value*N.value/(NH4NO3.value+1);
+         vEC0:=EC.value;
+     CalcAll;
+     EC.value:=vEC0;
+      calcECtoVal;
   end;
 end;
 
@@ -1346,6 +1737,7 @@ begin
     NH4NO3.value := NH4.value/NO3.value;
     CalcAll;
     CalcWeight ;
+    GenNH4NO3event;
    end;
 
 end;
@@ -1372,7 +1764,14 @@ begin
      if ( NP.Focused = True )    then begin
 
      N.value:=P.value*NP.value;
+
+        NO3.value := N.value/(NH4NO3.value+1);
+        NH4.value := NH4NO3.value*N.value/(NH4NO3.value+1);
+     vEC0:=EC.value;
      CalcAll;
+     EC.value:=vEC0;
+      calcECtoVal;
+////    CalcWeight ;
    end;
 end;
 
@@ -1391,7 +1790,13 @@ procedure TKf.NSChange(Sender: TObject);
 begin
    if ( NS.Focused = True )    then begin
      N.value:=S.value*NS.value;
-  CalcAll;
+  NO3.value := N.value/(NH4NO3.value+1);
+        NH4.value := NH4NO3.value*N.value/(NH4NO3.value+1);
+        CalculateCa;
+         vEC0:=EC.value;
+         CalcAll;
+         EC.value:=vEC0;
+         calcECtoVal;
   end;
 end;
 
@@ -1410,7 +1815,10 @@ procedure TKf.PCaChange(Sender: TObject);
 begin
   if ( PCa.Focused = True )    then begin
      P.value:=Ca.value*PCa.value;
-  CalcAll;
+           vEC0:=EC.value;
+         CalcAll;
+         EC.value:=vEC0;
+         calcECtoVal;
   end;
 end;
 
@@ -1431,12 +1839,12 @@ end;
 
 procedure TKf.PChange(Sender: TObject);
 begin
-   //if ( P.Focused = True )    then begin
+   if ( P.Focused = True )    then begin
   //CalcKoef;
   //CalcWeight ;
    CalcAll;
    CalcWeight ;
-  // end
+   end
 end;
 
 procedure TKf.PClick(Sender: TObject);
@@ -1453,7 +1861,10 @@ procedure TKf.PKChange(Sender: TObject);
 begin
   if ( PK.Focused = True )    then begin
      P.value:=K.value*PK.value;
-  CalcAll;
+           vEC0:=EC.value;
+         CalcAll;
+         EC.value:=vEC0;
+         calcECtoVal;
   end;
 end;
 
@@ -1472,7 +1883,10 @@ procedure TKf.PMgChange(Sender: TObject);
 begin
   if ( PMg.Focused = True )    then begin
         P.value:=Mg.value*PMg.value;
-  CalcAll;
+           vEC0:=EC.value;
+                      CalcAll;
+           EC.value:=vEC0;
+           calcECtoVal;
   end;
 end;
 
@@ -1491,7 +1905,10 @@ procedure TKf.PNChange(Sender: TObject);
 begin
   if ( PN.Focused = True )    then begin
    P.value:=N.value*PN.value;
-  CalcAll;
+           vEC0:=EC.value;
+         CalcAll;
+         EC.value:=vEC0;
+         calcECtoVal;
 
      end;
 end;
@@ -1512,7 +1929,11 @@ procedure TKf.PSChange(Sender: TObject);
 begin
     if ( PS.Focused = True )    then begin
       P.value:=S.value*PS.value;
-  CalcAll;
+  CalculateCa;
+          vEC0:=EC.value;
+         CalcAll;
+         EC.value:=vEC0;
+         calcECtoVal;
   end;
 end;
 
@@ -1532,10 +1953,10 @@ begin
    if ( SCa.Focused = True )    then begin
      S.value:=Ca.value*SCa.value;
    CalculateCa;
-
-   CalcEC;
-    CalcKoef;
-    CalcWeight ;
+          vEC0:=EC.value;
+         CalcAll;
+         EC.value:=vEC0;
+         calcECtoVal; ;
   end;
 end;
 
@@ -1581,10 +2002,10 @@ begin
    if ( SK.Focused = True )    then begin
      S.value:=K.value*SK.value;
    CalculateCa;
-
-   CalcEC;
-    CalcKoef;
-    CalcWeight ;
+          vEC0:=EC.value;
+         CalcAll;
+         EC.value:=vEC0;
+         calcECtoVal;
   end;
 end;
 
@@ -1604,10 +2025,10 @@ begin
    if ( SMg.Focused = True )    then begin
         S.value:=Mg.value*SMg.value;
    CalculateCa;
-
-   CalcEC;
-    CalcKoef;
-    CalcWeight ;
+          vEC0:=EC.value;
+         CalcAll;
+         EC.value:=vEC0;
+         calcECtoVal;
   end;
 end;
 
@@ -1628,10 +2049,10 @@ begin
           CalcAll;
      S.value:=N.value*SN.value;
            CalculateCa;
-
-   CalcEC;
-    CalcKoef;
-    CalcWeight ;
+          vEC0:=EC.value;
+         CalcAll;
+         EC.value:=vEC0;
+         calcECtoVal;
   end;
 end;
 
@@ -1652,10 +2073,10 @@ begin
        S.value:=P.value*SP.value;
 
     CalculateCa;
-
-   CalcEC;
-    CalcKoef;
-    CalcWeight ;
+          vEC0:=EC.value;
+         CalcAll;
+         EC.value:=vEC0;
+         calcECtoVal;
   end;
 end;
 
@@ -1668,6 +2089,11 @@ end;
 procedure TKf.SPClick(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
 
+end;
+
+procedure TKf.VChange(Sender: TObject);
+begin
+  CalcWeight ;
 end;
 
 procedure TKf.VClick(Sender: TObject);

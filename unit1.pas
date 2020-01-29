@@ -495,7 +495,7 @@ begin
                     +'P:'+FloatToStr(round(vP))+', '
                     +'K:'+FloatToStr(round(vK))+', '
                     +'Ca:'+FloatToStr(round(vCa))+', '
-                    +'Mg:'+FloatToStr(round(vK))+', '
+                    +'Mg:'+FloatToStr(round(vMg))+', '
                     +'S:'+FloatToStr(round(vS))+' '
                     +'[ EC='+FloatToStr(round(vEC*1000)/1000)+', '
                     +'K:N='+FloatToStr(round(vKN*1000)/1000)+', '
