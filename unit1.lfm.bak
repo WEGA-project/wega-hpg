@@ -1,11 +1,12 @@
 object Kf: TKf
-  Left = 388
+  Left = 621
   Height = 617
-  Top = 280
+  Top = 260
   Width = 687
   Caption = 'Koefficients'
   ClientHeight = 617
   ClientWidth = 687
+  Font.Color = clMaroon
   Font.Height = -14
   Font.Name = 'Arial'
   OnActivate = FormActivate
@@ -244,7 +245,7 @@ object Kf: TKf
     Width = 85
     Color = clMoneyGreen
     DecimalPlaces = 3
-    Font.Color = clRed
+    Font.Color = clMaroon
     Font.Height = -14
     Font.Name = 'Arial'
     Increment = 0.001
@@ -547,7 +548,7 @@ object Kf: TKf
     Width = 92
     Color = clMoneyGreen
     DecimalPlaces = 3
-    Font.Color = clInfoBk
+    Font.Color = clMaroon
     Font.Height = -14
     Font.Name = 'Arial'
     Increment = 0.001
@@ -579,7 +580,7 @@ object Kf: TKf
     Width = 92
     Color = clMoneyGreen
     DecimalPlaces = 3
-    Font.Color = clInfoBk
+    Font.Color = clMaroon
     Font.Height = -14
     Font.Name = 'Arial'
     Increment = 0.001
@@ -596,7 +597,7 @@ object Kf: TKf
     Width = 92
     Color = clMoneyGreen
     DecimalPlaces = 3
-    Font.Color = clInfoBk
+    Font.Color = clMaroon
     Font.Height = -14
     Font.Name = 'Arial'
     Increment = 0.001
@@ -628,7 +629,7 @@ object Kf: TKf
     Width = 92
     Color = clYellow
     DecimalPlaces = 3
-    Font.Color = clInfoBk
+    Font.Color = clMaroon
     Font.Height = -14
     Font.Name = 'Arial'
     Increment = 0.001
@@ -660,7 +661,7 @@ object Kf: TKf
     Width = 92
     Color = clYellow
     DecimalPlaces = 3
-    Font.Color = clInfoBk
+    Font.Color = clMaroon
     Font.Height = -14
     Font.Name = 'Arial'
     Increment = 0.001
@@ -677,7 +678,7 @@ object Kf: TKf
     Width = 92
     Color = clYellow
     DecimalPlaces = 3
-    Font.Color = clInfoBk
+    Font.Color = clMaroon
     Font.Height = -14
     Font.Name = 'Arial'
     Increment = 0.001
@@ -739,7 +740,7 @@ object Kf: TKf
     Width = 92
     Color = clYellow
     DecimalPlaces = 3
-    Font.Color = clInfoBk
+    Font.Color = clMaroon
     Font.Height = -14
     Font.Name = 'Arial'
     Increment = 0.001
@@ -756,7 +757,7 @@ object Kf: TKf
     Width = 92
     Color = clYellow
     DecimalPlaces = 3
-    Font.Color = clInfoBk
+    Font.Color = clMaroon
     Font.Height = -14
     Font.Name = 'Arial'
     Increment = 0.001
@@ -863,7 +864,7 @@ object Kf: TKf
     Width = 86
     Color = clMoneyGreen
     DecimalPlaces = 3
-    Font.Color = clInfoBk
+    Font.Color = clMaroon
     Font.Height = -14
     Font.Name = 'Arial'
     Increment = 0.001
@@ -892,7 +893,7 @@ object Kf: TKf
     Width = 92
     Color = clYellow
     DecimalPlaces = 3
-    Font.Color = clInfoBk
+    Font.Color = clMaroon
     Font.Height = -14
     Font.Name = 'Arial'
     Increment = 0.001
