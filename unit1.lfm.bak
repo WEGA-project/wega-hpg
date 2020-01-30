@@ -1,7 +1,7 @@
 object Kf: TKf
-  Left = 764
+  Left = 388
   Height = 681
-  Top = 180
+  Top = 280
   Width = 759
   Caption = 'Koefficients'
   ClientHeight = 681
@@ -41,7 +41,7 @@ object Kf: TKf
     Value = 220
   end
   object P: TFloatSpinEdit
-    Left = 154
+    Left = 153
     Height = 27
     Top = 42
     Width = 94
@@ -165,7 +165,7 @@ object Kf: TKf
     ParentFont = False
   end
   object Label4: TLabel
-    Left = 291
+    Left = 292
     Height = 17
     Top = 21
     Width = 11
@@ -238,7 +238,7 @@ object Kf: TKf
     ParentFont = False
   end
   object NH4NO3: TFloatSpinEdit
-    Left = 154
+    Left = 153
     Height = 27
     Hint = 'NH4:NO3'
     Top = 100
@@ -573,7 +573,7 @@ object Kf: TKf
     Value = 0
   end
   object KCa: TFloatSpinEdit
-    Left = 291
+    Left = 292
     Height = 27
     Top = 297
     Width = 102
@@ -605,7 +605,7 @@ object Kf: TKf
     Value = 0
   end
   object KS: TFloatSpinEdit
-    Left = 291
+    Left = 292
     Height = 27
     Top = 374
     Width = 102
@@ -1015,7 +1015,7 @@ object Kf: TKf
     OnClick = nKH2PO4Click
   end
   object KNO3_K: TFloatSpinEdit
-    Left = 355
+    Left = 356
     Height = 27
     Top = 486
     Width = 77
@@ -1031,7 +1031,7 @@ object Kf: TKf
     Value = 38.672
   end
   object MgSO4_Mg: TFloatSpinEdit
-    Left = 355
+    Left = 356
     Height = 27
     Top = 545
     Width = 77
@@ -1047,7 +1047,7 @@ object Kf: TKf
     Value = 9.861
   end
   object KH2PO4_K: TFloatSpinEdit
-    Left = 355
+    Left = 356
     Height = 27
     Top = 575
     Width = 77
@@ -1066,7 +1066,7 @@ object Kf: TKf
     Left = 473
     Height = 27
     Top = 486
-    Width = 79
+    Width = 80
     DecimalPlaces = 3
     Font.Height = -15
     Font.Name = 'Arial'
@@ -1084,7 +1084,7 @@ object Kf: TKf
     Left = 473
     Height = 27
     Top = 456
-    Width = 79
+    Width = 80
     DecimalPlaces = 3
     Font.Height = -15
     Font.Name = 'Arial'
@@ -1102,7 +1102,7 @@ object Kf: TKf
     Left = 473
     Height = 27
     Top = 545
-    Width = 79
+    Width = 80
     DecimalPlaces = 3
     Font.Height = -15
     Font.Name = 'Arial'
@@ -1120,7 +1120,7 @@ object Kf: TKf
     Left = 473
     Height = 27
     Top = 575
-    Width = 79
+    Width = 80
     DecimalPlaces = 3
     Font.Height = -15
     Font.Name = 'Arial'
@@ -1135,7 +1135,7 @@ object Kf: TKf
     Value = 22.761
   end
   object CaNO3_Ca: TFloatSpinEdit
-    Left = 355
+    Left = 356
     Height = 27
     Top = 456
     Width = 77
@@ -1174,7 +1174,7 @@ object Kf: TKf
     ParentFont = False
   end
   object K2SO4_K: TFloatSpinEdit
-    Left = 355
+    Left = 356
     Height = 27
     Top = 605
     Width = 77
@@ -1189,7 +1189,7 @@ object Kf: TKf
     Value = 44.874
   end
   object NH4NO3_NH4: TFloatSpinEdit
-    Left = 355
+    Left = 356
     Height = 27
     Top = 516
     Width = 77
@@ -1208,7 +1208,7 @@ object Kf: TKf
     Left = 473
     Height = 27
     Top = 605
-    Width = 79
+    Width = 80
     DecimalPlaces = 3
     Font.Height = -15
     Font.Name = 'Arial'
@@ -1226,7 +1226,7 @@ object Kf: TKf
     Left = 473
     Height = 27
     Top = 516
-    Width = 79
+    Width = 80
     DecimalPlaces = 3
     Font.Height = -15
     Font.Name = 'Arial'
@@ -1598,11 +1598,21 @@ object Kf: TKf
     Left = 9
     Height = 24
     Top = 645
-    Width = 733
+    Width = 695
     Font.Height = -12
     Font.Name = 'Arial'
+    OnChange = profileChange
     ParentFont = False
     TabOrder = 61
     Text = 'profile'
+  end
+  object parse: TButton
+    Left = 709
+    Height = 24
+    Top = 645
+    Width = 33
+    Color = clMoneyGreen
+    OnClick = parseClick
+    TabOrder = 62
   end
 end
