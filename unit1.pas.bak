@@ -493,7 +493,7 @@ begin
   if ( Kf.SCa.Focused = False ) then Kf.SCa.value:=Kf.S.value/Kf.Ca.value;
   if ( Kf.SMg.Focused = False ) then Kf.SMg.value:=Kf.S.Value/Kf.Mg.value;
 
-  MyFormatSettings.DecimalSeparator := ',';
+  MyFormatSettings.DecimalSeparator := '.';
    vN:=kf.N.Value;
    ps:='N='+ FloatToStr(round(vN))+' '
                     +'NO3='+FloatToStr(round(vNO3))+' '
@@ -641,7 +641,7 @@ procedure LoadProfile ;
       curVar,curValue:string;
 
 begin
-  MyFormatSettings.DecimalSeparator := ',';
+  MyFormatSettings.DecimalSeparator := '.';
   ps:=Kf.profile.text;
   countVar:=WordCount( ps,[' ']);
 
