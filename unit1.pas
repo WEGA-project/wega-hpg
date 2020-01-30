@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  Spin, Types;
+  Spin, Types,strutils;
 
 type
 
@@ -14,6 +14,7 @@ type
 
   TKf = class(TForm)
     Button1: TButton;
+    parse: TButton;
     profile: TEdit;
     gCaNO3: TFloatSpinEdit;
     EC: TFloatSpinEdit;
@@ -288,6 +289,7 @@ type
     procedure NSChange(Sender: TObject);
     procedure NSClick(Sender: TObject);
     procedure NSClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure parseClick(Sender: TObject);
     procedure PCaChange(Sender: TObject);
     procedure PCaClick(Sender: TObject);
     procedure PCaClick(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -305,6 +307,7 @@ type
     procedure PNChange(Sender: TObject);
     procedure PNClick(Sender: TObject);
     procedure PNClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure profileChange(Sender: TObject);
     procedure PSChange(Sender: TObject);
     procedure PSClick(Sender: TObject);
     procedure PSClick(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -346,6 +349,7 @@ var
   vMgSO4_Mg,vMgSO4_S,vKH2PO4_P,vKH2PO4_K,vCaNO3_Ca,vCaNO3_NO3,vCaNO3_NH4,vNH4NO3_NH4,vNH4NO3_NO3,vKNO3_K,vKNO3_NO3,vK2SO4_S,vK2SO4_K:Double;
   xNH4, xNO3, xS: Double;
   vEC0,vKN0,vCaN0,vKP0,vKCa0,vKMg0:Double;
+  ps,s:string;
 
 
 implementation
@@ -489,23 +493,25 @@ begin
   if ( Kf.SMg.Focused = False ) then Kf.SMg.value:=Kf.S.Value/Kf.Mg.value;
 
    vN:=kf.N.Value;
-   Kf.profile.text:='N:'+ FloatToStr(round(vN))+', '
-                    +'(NO3:'+FloatToStr(round(vNO3))+', '
-                    +'NH4:'+FloatToStr(round(vNH4))+'), '
-                    +'P:'+FloatToStr(round(vP))+', '
-                    +'K:'+FloatToStr(round(vK))+', '
-                    +'Ca:'+FloatToStr(round(vCa))+', '
-                    +'Mg:'+FloatToStr(round(vMg))+', '
-                    +'S:'+FloatToStr(round(vS))+' '
-                    +'[ EC='+FloatToStr(round(vEC*1000)/1000)+', '
-                    +'K:N='+FloatToStr(round(vKN*1000)/1000)+', '
-                    +'K:Mg='+FloatToStr(round(vKMg*1000)/1000)+', '
-                    +'K:Ca='+FloatToStr(round(vKCa*1000)/1000)+', '
-                    +'NH4:NO3='+FloatToStr(round(vNH4NO3*1000)/1000)+']'
+   ps:='N='+ FloatToStr(round(vN))+' '
+                    +'NO3='+FloatToStr(round(vNO3))+' '
+                    +'NH4='+FloatToStr(round(vNH4))+' '
+                    +'P='+FloatToStr(round(vP))+' '
+                    +'K='+FloatToStr(round(vK))+' '
+                    +'Ca='+FloatToStr(round(vCa))+' '
+                    +'Mg='+FloatToStr(round(vMg))+' '
+                    +'S='+FloatToStr(round(vS))+' '
+                    +'[ EC='+FloatToStr(round(vEC*1000)/1000)+' '
+                    +'K:N='+FloatToStr(round(vKN*1000)/1000)+' '
+                    +'K:Mg='+FloatToStr(round(vKMg*1000)/1000)+' '
+                    +'K:Ca='+FloatToStr(round(vKCa*1000)/1000)+' '
+                    +'NH4:NO3='+FloatToStr(round(vNH4NO3*1000)/1000)+' ]'
                     ;
-
+   Kf.profile.text:=ps;
 
 end;
+
+
 
    procedure CalcWeight ;
  begin
@@ -627,6 +633,65 @@ begin
 end;
 
 
+procedure LoadProfile ;
+// N:220 NO3=200 NH4=20 P=40 K=180 Ca=200 Mg=50 S=72 [ EC=2.102 K:N=0.818 K:Mg=3.6 K:Ca=0.9 NH4:NO3=0.1]
+  var numVar,countVar : integer;
+      curVar,curValue:string;
+      FormatBr: TFormatSettings;
+begin
+  FormatBr.DecimalSeparator    := ',';
+  ps:=Kf.profile.text;
+  countVar:=WordCount( ps,[' ']);
+
+if(countVar=15) then
+begin
+    Kf.parse.Caption:='OK';
+    Kf.parse.Color:=clMoneyGreen;
+
+    for numVar := 1 to countVar do
+   begin
+     curVar:=ExtractWord(numVar,ps,[' ']);
+     curValue:=ExtractWord(2,curVar,['=']);
+     //ShowMessage(IntToStr(numVar) + ' ' + curVar + ' '+ curValue );
+//
+     //if (IsWordPresent('N',curVar, ['='] ) = true) then  Kf.N.value:=StrToFloat(curValue);
+     //if (IsWordPresent('NO3',curVar, ['='] ) = true) then  Kf.NO3.value:=StrToFloat(curValue);
+     //if (IsWordPresent('NH4',curVar, ['='] ) = true) then  Kf.NH4.value:=StrToFloat(curValue);
+     //if (IsWordPresent('P',curVar, ['='] ) = true) then  Kf.P.value:=StrToFloat(curValue);
+     //if (IsWordPresent('K',curVar, ['='] ) = true) then  Kf.K.value:=StrToFloat(curValue);
+     //if (IsWordPresent('Ca',curVar, ['='] ) = true) then  Kf.Ca.value:=StrToFloat(curValue);
+     //if (IsWordPresent('Mg',curVar, ['='] ) = true) then  Kf.Mg.value:=StrToFloat(curValue);
+     //if (IsWordPresent('S',curVar, ['='] ) = true) then  Kf.S.value:=StrToFloat(curValue);
+
+     if (IsWordPresent('EC',curVar, ['='] ) = true) then  Kf.EC.value:=StrToFloat(curValue);
+     if (IsWordPresent('K:N',curVar, ['='] ) = true) then  Kf.KN.value:=StrToFloat(curValue);
+     if (IsWordPresent('K:Mg',curVar, ['='] ) = true) then  Kf.KMg.value:=StrToFloat(curValue);
+     if (IsWordPresent('K:Ca',curVar, ['='] ) = true) then  Kf.KCa.value:=StrToFloat(curValue);
+     if (IsWordPresent('NH4:NO3',curVar, ['='] ) = true) then  Kf.NH4NO3.value:=StrToFloat(curValue);
+   end;
+    calcECtoVal;
+    //GenNH4NO3event;
+    CalcAll;
+     //ShowMessage(IntToStr(countVar));
+     //CalculateAll;
+      //CalcEC;
+     //CalcKoef;
+
+
+ //if (IsWordPresent('EC',ps, ['=',' ','[']) = true) then  ShowMessage( ExtractWord(3,ps,[' ']) );
+ //ShowMessage('aaaaa');
+
+   //ShowMessage( ExtractWord(2,ps,[' ']) );
+
+end
+else
+begin
+  Kf.parse.Caption:='NO';
+  Kf.parse.Color:=clRED;
+  end;
+
+  //then vA:=StrToFloat(ExtractWord(2,s,['=']));
+end;
 
 
 procedure TKf.Label8Click(Sender: TObject);
@@ -1811,6 +1876,15 @@ begin
 
 end;
 
+procedure TKf.parseClick(Sender: TObject);
+begin
+  LoadProfile;
+  //ps:=toStr(profile.text);
+  //if (IsWordPresent('N', profile.text, ['=']) = true) then ShowMessage('aaaaa');
+
+  //then vA:=StrToFloat(ExtractWord(2,s,['=']));
+end;
+
 procedure TKf.PCaChange(Sender: TObject);
 begin
   if ( PCa.Focused = True )    then begin
@@ -1921,6 +1995,12 @@ begin
 end;
 
 procedure TKf.PNClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+begin
+
+end;
+
+procedure TKf.profileChange(Sender: TObject);
+
 begin
 
 end;
