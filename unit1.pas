@@ -14,6 +14,12 @@ type
 
   TKf = class(TForm)
     Button1: TButton;
+    gMgNO3: TFloatSpinEdit;
+    MgNO3_Mg: TFloatSpinEdit;
+    MgNO3_NO3: TFloatSpinEdit;
+    Label54: TLabel;
+    Label55: TLabel;
+    nMgNO3: TLabel;
     parse: TButton;
     profile: TEdit;
     gCaNO3: TFloatSpinEdit;
@@ -212,10 +218,13 @@ type
     procedure KSClick(Sender: TObject);
     procedure KSClick(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure Label1Click(Sender: TObject);
+    procedure Label54Click(Sender: TObject);
     procedure MgCaChange(Sender: TObject);
     procedure MgClick(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure MgKChange(Sender: TObject);
     procedure MgNChange(Sender: TObject);
+    procedure MgNO3_MgChange(Sender: TObject);
+    procedure MgNO3_NO3Change(Sender: TObject);
     procedure MgPChange(Sender: TObject);
     procedure MgSChange(Sender: TObject);
     procedure MgSO4_MgChange(Sender: TObject);
@@ -236,7 +245,7 @@ type
     procedure MgChange(Sender: TObject);
     procedure MgClick(Sender: TObject);
     procedure MgKClick(Sender: TObject);
-    procedure MgKClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+
     procedure MgNClick(Sender: TObject);
     procedure MgNClick(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure MgPClick(Sender: TObject);
@@ -733,10 +742,7 @@ begin
   CalcAll;
 end;
 
-procedure TKf.MgKClick(Sender: TObject; var Key: Word; Shift: TShiftState);
-begin
 
-end;
 
 procedure TKf.MgNClick(Sender: TObject);
 begin
@@ -792,6 +798,11 @@ begin
     CalcAll;
 end;
 
+procedure TKf.Label54Click(Sender: TObject);
+begin
+
+end;
+
 procedure TKf.MgCaChange(Sender: TObject);
 begin
    if ( MgCa.Focused = True )    then begin
@@ -828,6 +839,31 @@ begin
          EC.value:=vEC0;
          calcECtoVal;
   end;
+end;
+
+procedure TKf.MgNO3_MgChange(Sender: TObject);
+begin
+    if ( MgNO3_Mg.Focused = True )    then begin
+          MgNO3_NO3.value:=(2*MgNO3_Mg.value*mN)/(mMg);
+
+    nMgNO3.Caption:='Селитра магниевая'
+ + ' MgO-' +floattostr(Round((MgNO3_Mg.value/0.603036)*10)/10)+'%'
+ + ' N-' +floattostr(Round((MgNO3_NO3.value)*10)/10)+'%';
+    CalcWeight ;
+  end;
+end;
+
+procedure TKf.MgNO3_NO3Change(Sender: TObject);
+begin
+      if ( MgNO3_NO3.Focused = True )    then begin
+          MgNO3_Mg.value:=((1/2)*(MgNO3_NO3.value/mN)*mMg);
+
+    nMgNO3.Caption:='Селитра магниевая'
+ + ' MgO-' +floattostr(Round((MgNO3_Mg.value/0.603036)*10)/10)+'%'
+ + ' N-' +floattostr(Round((MgNO3_NO3.value)*10)/10)+'%';
+    CalcWeight ;
+
+      end;
 end;
 
 procedure TKf.MgPChange(Sender: TObject);

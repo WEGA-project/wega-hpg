@@ -14,6 +14,12 @@ type
 
   TKf = class(TForm)
     Button1: TButton;
+    gMgNO3: TFloatSpinEdit;
+    MgNO3_Mg: TFloatSpinEdit;
+    MgNO3_NO3: TFloatSpinEdit;
+    Label54: TLabel;
+    Label55: TLabel;
+    nMgNO3: TLabel;
     parse: TButton;
     profile: TEdit;
     gCaNO3: TFloatSpinEdit;
@@ -212,10 +218,13 @@ type
     procedure KSClick(Sender: TObject);
     procedure KSClick(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure Label1Click(Sender: TObject);
+    procedure Label54Click(Sender: TObject);
     procedure MgCaChange(Sender: TObject);
     procedure MgClick(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure MgKChange(Sender: TObject);
     procedure MgNChange(Sender: TObject);
+    procedure MgNO3_MgChange(Sender: TObject);
+    procedure MgNO3_NO3Change(Sender: TObject);
     procedure MgPChange(Sender: TObject);
     procedure MgSChange(Sender: TObject);
     procedure MgSO4_MgChange(Sender: TObject);
@@ -350,7 +359,7 @@ var
   xNH4, xNO3, xS: Double;
   vEC0,vKN0,vCaN0,vKP0,vKCa0,vKMg0:Double;
   ps,s:string;
-
+  MyFormatSettings: TFormatSettings;
 
 implementation
 
@@ -450,6 +459,7 @@ end;
 
 
 procedure CalcKoef;
+
 begin
 
 
@@ -492,6 +502,7 @@ begin
   if ( Kf.SCa.Focused = False ) then Kf.SCa.value:=Kf.S.value/Kf.Ca.value;
   if ( Kf.SMg.Focused = False ) then Kf.SMg.value:=Kf.S.Value/Kf.Mg.value;
 
+  MyFormatSettings.DecimalSeparator := '.';
    vN:=kf.N.Value;
    ps:='N='+ FloatToStr(round(vN))+' '
                     +'NO3='+FloatToStr(round(vNO3))+' '
@@ -501,11 +512,11 @@ begin
                     +'Ca='+FloatToStr(round(vCa))+' '
                     +'Mg='+FloatToStr(round(vMg))+' '
                     +'S='+FloatToStr(round(vS))+' '
-                    +'[ EC='+FloatToStr(round(vEC*1000)/1000)+' '
-                    +'K:N='+FloatToStr(round(vKN*1000)/1000)+' '
-                    +'K:Mg='+FloatToStr(round(vKMg*1000)/1000)+' '
-                    +'K:Ca='+FloatToStr(round(vKCa*1000)/1000)+' '
-                    +'NH4:NO3='+FloatToStr(round(vNH4NO3*1000)/1000)+' ]'
+                    +'[ EC='+FloatToStr(round(vEC*1000)/1000, MyFormatSettings)+' '
+                    +'K:N='+FloatToStr(round(vKN*1000)/1000, MyFormatSettings)+' '
+                    +'K:Mg='+FloatToStr(round(vKMg*1000)/1000, MyFormatSettings)+' '
+                    +'K:Ca='+FloatToStr(round(vKCa*1000)/1000, MyFormatSettings)+' '
+                    +'NH4:NO3='+FloatToStr(round(vNH4NO3*1000)/1000, MyFormatSettings)+' ]'
                     ;
    Kf.profile.text:=ps;
 
@@ -637,16 +648,16 @@ procedure LoadProfile ;
 // N:220 NO3=200 NH4=20 P=40 K=180 Ca=200 Mg=50 S=72 [ EC=2.102 K:N=0.818 K:Mg=3.6 K:Ca=0.9 NH4:NO3=0.1]
   var numVar,countVar : integer;
       curVar,curValue:string;
-      FormatBr: TFormatSettings;
+
 begin
-  FormatBr.DecimalSeparator    := ',';
+  MyFormatSettings.DecimalSeparator := '.';
   ps:=Kf.profile.text;
   countVar:=WordCount( ps,[' ']);
 
 if(countVar=15) then
 begin
     Kf.parse.Caption:='OK';
-    Kf.parse.Color:=clGREEN;
+    Kf.parse.Color:=clMoneyGreen;
 
     for numVar := 1 to countVar do
    begin
@@ -663,11 +674,11 @@ begin
      //if (IsWordPresent('Mg',curVar, ['='] ) = true) then  Kf.Mg.value:=StrToFloat(curValue);
      //if (IsWordPresent('S',curVar, ['='] ) = true) then  Kf.S.value:=StrToFloat(curValue);
 
-     if (IsWordPresent('EC',curVar, ['='] ) = true) then  Kf.EC.value:=StrToFloat(curValue);
-     if (IsWordPresent('K:N',curVar, ['='] ) = true) then  Kf.KN.value:=StrToFloat(curValue);
-     if (IsWordPresent('K:Mg',curVar, ['='] ) = true) then  Kf.KMg.value:=StrToFloat(curValue);
-     if (IsWordPresent('K:Ca',curVar, ['='] ) = true) then  Kf.KCa.value:=StrToFloat(curValue);
-     if (IsWordPresent('NH4:NO3',curVar, ['='] ) = true) then  Kf.NH4NO3.value:=StrToFloat(curValue);
+     if (IsWordPresent('EC',curVar, ['='] ) = true) then  Kf.EC.value:=StrToFloat(curValue,MyFormatSettings);
+     if (IsWordPresent('K:N',curVar, ['='] ) = true) then  Kf.KN.value:=StrToFloat(curValue,MyFormatSettings);
+     if (IsWordPresent('K:Mg',curVar, ['='] ) = true) then  Kf.KMg.value:=StrToFloat(curValue,MyFormatSettings);
+     if (IsWordPresent('K:Ca',curVar, ['='] ) = true) then  Kf.KCa.value:=StrToFloat(curValue,MyFormatSettings);
+     if (IsWordPresent('NH4:NO3',curVar, ['='] ) = true) then  Kf.NH4NO3.value:=StrToFloat(curValue,MyFormatSettings);
    end;
     calcECtoVal;
     //GenNH4NO3event;
@@ -731,10 +742,7 @@ begin
   CalcAll;
 end;
 
-procedure TKf.MgKClick(Sender: TObject; var Key: Word; Shift: TShiftState);
-begin
 
-end;
 
 procedure TKf.MgNClick(Sender: TObject);
 begin
@@ -790,6 +798,11 @@ begin
     CalcAll;
 end;
 
+procedure TKf.Label54Click(Sender: TObject);
+begin
+
+end;
+
 procedure TKf.MgCaChange(Sender: TObject);
 begin
    if ( MgCa.Focused = True )    then begin
@@ -826,6 +839,31 @@ begin
          EC.value:=vEC0;
          calcECtoVal;
   end;
+end;
+
+procedure TKf.MgNO3_MgChange(Sender: TObject);
+begin
+    if ( MgNO3_Mg.Focused = True )    then begin
+          MgNO3_NO3.value:=(2*MgNO3_Mg.value*mN)/(mMg);
+
+    nMgNO3.Caption:='Селитра магниевая'
+ + ' MgO-' +floattostr(Round((MgNO3_Mg.value/0.603036)*10)/10)+'%'
+ + ' N-' +floattostr(Round((MgNO3_NO3.value)*10)/10)+'%';
+    CalcWeight ;
+  end;
+end;
+
+procedure TKf.MgNO3_NO3Change(Sender: TObject);
+begin
+      if ( MgNO3_NO3.Focused = True )    then begin
+          MgNO3_Mg.value:=((1/2)*(MgNO3_NO3.value/mN)*mMg);
+
+    nMgNO3.Caption:='Селитра магниевая'
+ + ' MgO-' +floattostr(Round((MgNO3_Mg.value/0.603036)*10)/10)+'%'
+ + ' N-' +floattostr(Round((MgNO3_NO3.value)*10)/10)+'%';
+    CalcWeight ;
+
+      end;
 end;
 
 procedure TKf.MgPChange(Sender: TObject);
