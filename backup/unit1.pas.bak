@@ -14,6 +14,8 @@ type
 
   TKf = class(TForm)
     Button1: TButton;
+    chK2SO4: TCheckBox;
+    chMgNO3: TCheckBox;
     gMgNO3: TFloatSpinEdit;
     MgNO3_Mg: TFloatSpinEdit;
     MgNO3_NO3: TFloatSpinEdit;
@@ -166,6 +168,8 @@ type
     procedure CaSChange(Sender: TObject);
     procedure CaSClick(Sender: TObject);
     procedure CaSClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure chK2SO4Change(Sender: TObject);
+    procedure chMgNO3Change(Sender: TObject);
     procedure ECChange(Sender: TObject);
     procedure ECChange(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure ECClick(Sender: TObject);
@@ -179,6 +183,7 @@ type
     procedure gK2SO4Change(Sender: TObject);
     procedure gKH2PO4Change(Sender: TObject);
     procedure gKNO3Change(Sender: TObject);
+    procedure gMgNO3Change(Sender: TObject);
     procedure gMgSO4Change(Sender: TObject);
     procedure gNH4NO3Change(Sender: TObject);
     procedure K2SO4_KChange(Sender: TObject);
@@ -245,7 +250,7 @@ type
     procedure MgChange(Sender: TObject);
     procedure MgClick(Sender: TObject);
     procedure MgKClick(Sender: TObject);
-    procedure MgKClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+
     procedure MgNClick(Sender: TObject);
     procedure MgNClick(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure MgPClick(Sender: TObject);
@@ -353,9 +358,9 @@ var
   mN,mP,mK,mCa,mMg,mS:Double;
   r,rN,rK,rCa,rMg,rNH4:Double;
   vKMg,vKCa,vKN,vNH4NO3:Double;
-  sMgSO4,sKH2PO4,sCaNO3,sNH4NO3,sKNO3,sK2SO4:Double;
+  sMgSO4,sKH2PO4,sCaNO3,sNH4NO3,sKNO3,sK2SO4,sMgNO3:Double;
   Mg_MgSO4,S_MgSO4,P_KH2PO4,K_KH2PO4,Ca_CaNO3,NO3_CaNO3,NH4_CaNO3,NH4_NH4NO3,NO3_NH4NO3,K_KNO3,NO3_KNO3,S_K2SO4,K_K2SO4:Double;
-  vMgSO4_Mg,vMgSO4_S,vKH2PO4_P,vKH2PO4_K,vCaNO3_Ca,vCaNO3_NO3,vCaNO3_NH4,vNH4NO3_NH4,vNH4NO3_NO3,vKNO3_K,vKNO3_NO3,vK2SO4_S,vK2SO4_K:Double;
+  vMgSO4_Mg,vMgSO4_S,vKH2PO4_P,vKH2PO4_K,vCaNO3_Ca,vCaNO3_NO3,vCaNO3_NH4,vNH4NO3_NH4,vNH4NO3_NO3,vKNO3_K,vKNO3_NO3,vK2SO4_S,vK2SO4_K,vMgNO3_Mg,vMgNO3_NO3:Double;
   xNH4, xNO3, xS: Double;
   vEC0,vKN0,vCaN0,vKP0,vKCa0,vKMg0:Double;
   ps,s:string;
@@ -546,8 +551,16 @@ end;
    vK2SO4_S:=Kf.K2SO4_S.value;
    vK2SO4_K:=Kf.K2SO4_K.value;
 
+   vMgNO3_Mg:=Kf.MgNO3_Mg.value;
+   vMgNO3_NO3:=Kf.MgNO3_NO3.value;
+
    V:=kF.V.Value;
     getVar;
+
+// Если флаг стоит на сульфате калия и не стоит на нитрате магния
+  if (kF.chK2SO4.Checked = True and  kF.chMgNO3.Checked = false ) then  begin
+
+   sMgNO3:=0; Kf.gMgNO3.value:=sgMgNO3*V;
 
    sMgSO4:=vMg/(vMgSO4_Mg*10);                    Kf.gMgSO4.value:= sMgSO4*V;
      Mg_MgSO4:=sMgSO4*vMgSO4_Mg*10;
@@ -574,7 +587,36 @@ end;
 
  xS:=vS-S_MgSO4;
 
-   sK2SO4:=xS/(vK2SO4_S*10);                        Kf.gK2SO4.value:=sK2SO4*V
+         sK2SO4:=xS/(vK2SO4_S*10);                Kf.gK2SO4.value:=sK2SO4*V;
+
+  end;
+
+ // Если сульфат калия не используем но используем нитрат магния
+  if (kF.chK2SO4.Checked = false and kF.chMgNO3.Checked = True) then  begin
+
+      sK2SO4:=0; Kf.gK2SO4.value:=sK2SO4*V;
+     //sK2SO4:= Kf.gK2SO4.value/V;
+
+     sKH2PO4:=vP/(vKH2PO4_P*10);
+      Kf.gKH2PO4.value:= sKH2PO4*V;
+
+     sKNO3:=-(-vK*vKH2PO4_P+vP*vKH2PO4_K+sK2SO4*vK2SO4_K*vKH2PO4_P)/(vKNO3_K*vKH2PO4_P*10);
+      Kf.gKNO3.value:=sKNO3*V;
+
+     sCaNO3:=vCa/(vCaNO3_Ca*10);
+      Kf.gCaNO3.value:= sCaNO3*V;
+
+     sMgSO4:=(vS-sK2SO4*vK2SO4_S) /(vMgSO4_S*10);
+      kF.gMgSO4.value:=sMgSO4*V;
+
+     sNH4NO3:=-(-vNH4*vCaNO3_Ca+vCa*vCaNO3_NH4)/(vNH4NO3_NH4*vCaNO3_Ca*10);
+      Kf.gNH4NO3.value:= sNH4NO3*V;
+
+     sMgNO3:=(vMg*vMgSO4_S-vMgSO4_Mg*vS+vMgSO4_Mg*sK2SO4*vK2SO4_S)/(vMgNO3_Mg*vMgSO4_S*10);
+      Kf.gMgNO3.value:=sMgNO3;
+  end;
+
+
 
  end;
 
@@ -1048,6 +1090,11 @@ begin
   CalcEC;
 
  end;
+end;
+
+procedure TKf.gMgNO3Change(Sender: TObject);
+begin
+  //CalcAll;
 end;
 
 procedure TKf.gMgSO4Change(Sender: TObject);
@@ -1601,6 +1648,28 @@ end;
 
 procedure TKf.CaSClick(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
+
+end;
+
+procedure TKf.chK2SO4Change(Sender: TObject);
+begin
+if ( chK2SO4.Focused = True )    then begin
+  if chK2SO4.Checked = true then chMgNO3.Checked:=false
+  else  chMgNO3.Checked:=true;
+
+  end;
+  CalcWeight ;
+
+end;
+
+procedure TKf.chMgNO3Change(Sender: TObject);
+begin
+  if ( chMgNO3.Focused = True )    then begin
+  if chMgNO3.Checked = true then chK2SO4.Checked:=false
+  else  chK2SO4.Checked:=true;
+
+  end;
+  CalcWeight ;
 
 end;
 

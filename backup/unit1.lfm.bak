@@ -1,7 +1,7 @@
 object Kf: TKf
-  Left = 722
+  Left = 600
   Height = 727
-  Top = 101
+  Top = 225
   Width = 759
   Caption = 'Koefficients'
   ClientHeight = 727
@@ -1711,9 +1711,27 @@ object Kf: TKf
     Increment = 0.001
     MaxValue = 99999999
     MinValue = -99999999
-    OnChange = gK2SO4Change
+    OnChange = gMgNO3Change
     ParentFont = False
     TabOrder = 65
     Value = 0
+  end
+  object chK2SO4: TCheckBox
+    Left = 638
+    Height = 21
+    Top = 609
+    Width = 21
+    Checked = True
+    OnChange = chK2SO4Change
+    State = cbChecked
+    TabOrder = 66
+  end
+  object chMgNO3: TCheckBox
+    Left = 638
+    Height = 21
+    Top = 640
+    Width = 21
+    OnChange = chMgNO3Change
+    TabOrder = 67
   end
 end
