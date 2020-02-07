@@ -649,14 +649,15 @@ begin
    sMgSO4:=Kf.gMgSO4.value;
    sKH2PO4:=Kf.gKH2PO4.value;
    sK2SO4:=Kf.gK2SO4.value;
+   sMgNO3:=Kf.gMgNO3.value;
 
-   vNO3:=(sCaNO3*vCaNO3_NO3 + sNH4NO3*vNH4NO3_NO3 + sKNO3*vKNO3_NO3)/(0.1*V);
+   vNO3:=(sCaNO3*vCaNO3_NO3 + sNH4NO3*vNH4NO3_NO3 + sKNO3*vKNO3_NO3 + sMgNO3*vMgNO3_NO3)/(0.1*V);
    vNH4:=(sCaNO3*vCaNO3_NH4 + sNH4NO3*vNH4NO3_NH4)/(0.1*V);
    vN:=vNH4+vNO3;
    vP:=(sKH2PO4*vKH2PO4_P)/(0.1*V)  ;
    vK:=(sKNO3*vKNO3_K + sKH2PO4*vKH2PO4_K + sK2SO4*vK2SO4_K)/(0.1*V)  ;
    vCa:=(sCaNO3*vCaNO3_Ca)/(0.1*V)   ;
-   vMg:=(sMgSO4*vMgSO4_Mg)/(0.1*V)  ;
+   vMg:=(sMgSO4*vMgSO4_Mg+sMgNO3*vMgNO3_Mg)/(0.1*V)  ;
    vNH4NO3:=vNH4/vNO3;
 
     if ( Kf.NH4NO3.Focused = False ) then Kf.NH4NO3.value:=vNH4NO3;
@@ -1094,7 +1095,13 @@ end;
 
 procedure TKf.gMgNO3Change(Sender: TObject);
 begin
-  //CalcAll;
+    if ( gMgNO3.Focused = True )    then begin
+  fromWeight ;
+  CalculateS;
+  CalcKoef;
+  CalcEC;
+
+ end;
 end;
 
 procedure TKf.gMgSO4Change(Sender: TObject);
