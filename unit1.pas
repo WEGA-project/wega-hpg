@@ -375,7 +375,7 @@ implementation
 procedure getVar;
 begin
   mN:=14.0067;
-  mP:=30.0983;
+  mP:=30.973762;
   mK:=39.0983;
   mCa:=40.078;
   mMg:=24.305;
@@ -462,6 +462,26 @@ begin
   //Kf.EC.Value:=vEC;
 end;
 
+procedure genProfile;
+begin
+    MyFormatSettings.DecimalSeparator := '.';
+   vN:=kf.N.Value;
+   ps:='N='+ FloatToStr(round(vN))+' '
+                    +'NO3='+FloatToStr(round(vNO3*100)/100, MyFormatSettings)+' '
+                    +'NH4='+FloatToStr(round(vNH4*100)/100, MyFormatSettings)+' '
+                    +'P='+FloatToStr(round(vP*100)/100, MyFormatSettings)+' '
+                    +'K='+FloatToStr(round(vK*100)/100, MyFormatSettings)+' '
+                    +'Ca='+FloatToStr(round(vCa*100)/100, MyFormatSettings)+' '
+                    +'Mg='+FloatToStr(round(vMg*100)/100, MyFormatSettings)+' '
+                    +'S='+FloatToStr(round(vS*10)/10, MyFormatSettings)+' '
+                    +'[ EC='+FloatToStr(round(vEC*10)/10, MyFormatSettings)+' '
+                    +'K:N='+FloatToStr(round(vKN*10)/10, MyFormatSettings)+' '
+                    +'K:Mg='+FloatToStr(round(vKMg*10)/10, MyFormatSettings)+' '
+                    +'K:Ca='+FloatToStr(round(vKCa*10)/10, MyFormatSettings)+' '
+                    +'NH4:NO3='+FloatToStr(round(vNH4NO3*100)/100, MyFormatSettings)+' ]'
+                    ;
+   Kf.profile.text:=ps;
+end;
 
 procedure CalcKoef;
 
@@ -507,23 +527,7 @@ begin
   if ( Kf.SCa.Focused = False ) then Kf.SCa.value:=Kf.S.value/Kf.Ca.value;
   if ( Kf.SMg.Focused = False ) then Kf.SMg.value:=Kf.S.Value/Kf.Mg.value;
 
-  MyFormatSettings.DecimalSeparator := '.';
-   vN:=kf.N.Value;
-   ps:='N='+ FloatToStr(round(vN))+' '
-                    +'NO3='+FloatToStr(round(vNO3))+' '
-                    +'NH4='+FloatToStr(round(vNH4))+' '
-                    +'P='+FloatToStr(round(vP))+' '
-                    +'K='+FloatToStr(round(vK))+' '
-                    +'Ca='+FloatToStr(round(vCa))+' '
-                    +'Mg='+FloatToStr(round(vMg))+' '
-                    +'S='+FloatToStr(round(vS))+' '
-                    +'[ EC='+FloatToStr(round(vEC*1000)/1000, MyFormatSettings)+' '
-                    +'K:N='+FloatToStr(round(vKN*1000)/1000, MyFormatSettings)+' '
-                    +'K:Mg='+FloatToStr(round(vKMg*1000)/1000, MyFormatSettings)+' '
-                    +'K:Ca='+FloatToStr(round(vKCa*1000)/1000, MyFormatSettings)+' '
-                    +'NH4:NO3='+FloatToStr(round(vNH4NO3*1000)/1000, MyFormatSettings)+' ]'
-                    ;
-   Kf.profile.text:=ps;
+
 
 end;
 
@@ -613,7 +617,7 @@ end;
       Kf.gNH4NO3.value:= sNH4NO3*V;
 
      sMgNO3:=(vMg*vMgSO4_S-vMgSO4_Mg*vS+vMgSO4_Mg*sK2SO4*vK2SO4_S)/(vMgNO3_Mg*vMgSO4_S*10);
-      Kf.gMgNO3.value:=sMgNO3;
+      Kf.gMgNO3.value:=sMgNO3*V;
   end;
 
 
@@ -639,6 +643,7 @@ begin
    vNH4NO3_NH4:=Kf.NH4NO3_NH4.value;     vNH4NO3_NO3:=Kf.NH4NO3_NO3.value;
    vKNO3_K:=Kf.KNO3_K.value;             vKNO3_NO3:=Kf.KNO3_NO3.value;
    vK2SO4_S:=Kf.K2SO4_S.value;           vK2SO4_K:=Kf.K2SO4_K.value;
+   vMgNO3_Mg:=Kf.MgNO3_Mg.value;           vMgNO3_NO3:=Kf.MgNO3_NO3.value;
 
    V:=kF.V.Value;
 
@@ -682,6 +687,7 @@ begin
  //CalculateCa;
  CalcEC;
  CalcKoef;
+ genProfile;
  CalcWeight ;
 
 end;
@@ -708,22 +714,25 @@ begin
      curValue:=ExtractWord(2,curVar,['=']);
      //ShowMessage(IntToStr(numVar) + ' ' + curVar + ' '+ curValue );
 //
-     //if (IsWordPresent('N',curVar, ['='] ) = true) then  Kf.N.value:=StrToFloat(curValue);
-     //if (IsWordPresent('NO3',curVar, ['='] ) = true) then  Kf.NO3.value:=StrToFloat(curValue);
-     //if (IsWordPresent('NH4',curVar, ['='] ) = true) then  Kf.NH4.value:=StrToFloat(curValue);
-     //if (IsWordPresent('P',curVar, ['='] ) = true) then  Kf.P.value:=StrToFloat(curValue);
-     //if (IsWordPresent('K',curVar, ['='] ) = true) then  Kf.K.value:=StrToFloat(curValue);
-     //if (IsWordPresent('Ca',curVar, ['='] ) = true) then  Kf.Ca.value:=StrToFloat(curValue);
-     //if (IsWordPresent('Mg',curVar, ['='] ) = true) then  Kf.Mg.value:=StrToFloat(curValue);
-     //if (IsWordPresent('S',curVar, ['='] ) = true) then  Kf.S.value:=StrToFloat(curValue);
+     //if (IsWordPresent('N',curVar, ['='] ) = true) then  Kf.N.value:=StrToFloat(curValue,MyFormatSettings);
+     if (IsWordPresent('NO3',curVar, ['='] ) = true) then  Kf.NO3.value:=StrToFloat(curValue,MyFormatSettings);
+     if (IsWordPresent('NH4',curVar, ['='] ) = true) then  Kf.NH4.value:=StrToFloat(curValue,MyFormatSettings);
+     if (IsWordPresent('P',curVar, ['='] ) = true) then  Kf.P.value:=StrToFloat(curValue,MyFormatSettings);
+     if (IsWordPresent('K',curVar, ['='] ) = true) then  Kf.K.value:=StrToFloat(curValue,MyFormatSettings);
+     if (IsWordPresent('Ca',curVar, ['='] ) = true) then  Kf.Ca.value:=StrToFloat(curValue,MyFormatSettings);
+     if (IsWordPresent('Mg',curVar, ['='] ) = true) then  Kf.Mg.value:=StrToFloat(curValue,MyFormatSettings);
+     //if (IsWordPresent('S',curVar, ['='] ) = true) then  Kf.S.value:=StrToFloat(curValue,MyFormatSettings);
 
-     if (IsWordPresent('EC',curVar, ['='] ) = true) then  Kf.EC.value:=StrToFloat(curValue,MyFormatSettings);
-     if (IsWordPresent('K:N',curVar, ['='] ) = true) then  Kf.KN.value:=StrToFloat(curValue,MyFormatSettings);
-     if (IsWordPresent('K:Mg',curVar, ['='] ) = true) then  Kf.KMg.value:=StrToFloat(curValue,MyFormatSettings);
-     if (IsWordPresent('K:Ca',curVar, ['='] ) = true) then  Kf.KCa.value:=StrToFloat(curValue,MyFormatSettings);
-     if (IsWordPresent('NH4:NO3',curVar, ['='] ) = true) then  Kf.NH4NO3.value:=StrToFloat(curValue,MyFormatSettings);
+     //if (IsWordPresent('EC',curVar, ['='] ) = true) then  Kf.EC.value:=StrToFloat(curValue,MyFormatSettings);
+     //if (IsWordPresent('K:N',curVar, ['='] ) = true) then  Kf.KN.value:=StrToFloat(curValue,MyFormatSettings);
+     //if (IsWordPresent('K:Mg',curVar, ['='] ) = true) then  Kf.KMg.value:=StrToFloat(curValue,MyFormatSettings);
+     //if (IsWordPresent('K:Ca',curVar, ['='] ) = true) then  Kf.KCa.value:=StrToFloat(curValue,MyFormatSettings);
+     //if (IsWordPresent('NH4:NO3',curVar, ['='] ) = true) then  Kf.NH4NO3.value:=StrToFloat(curValue,MyFormatSettings);
    end;
-    calcECtoVal;
+    Kf.N.value:=Kf.NO3.value+Kf.NH4.value;
+    calculateS;
+    CalcEC;
+    //calcECtoVal;
     //GenNH4NO3event;
     CalcAll;
      //ShowMessage(IntToStr(countVar));
@@ -1056,6 +1065,7 @@ begin
   CalculateS;
   CalcKoef;
   CalcEC;
+  genProfile;
 
  end;
 end;
@@ -1067,6 +1077,7 @@ begin
   CalculateS;
   CalcKoef;
   CalcEC;
+  genProfile;
 
  end;
 end;
@@ -1078,6 +1089,7 @@ begin
   CalculateS;
   CalcKoef;
   CalcEC;
+  genProfile;
 
  end;
 end;
@@ -1089,6 +1101,7 @@ begin
   CalculateS;
   CalcKoef;
   CalcEC;
+  genProfile;
 
  end;
 end;
@@ -1100,7 +1113,7 @@ begin
   CalculateS;
   CalcKoef;
   CalcEC;
-
+  genProfile;
  end;
 end;
 
@@ -1111,6 +1124,7 @@ begin
   CalculateS;
   CalcKoef;
   CalcEC;
+  genProfile;
 
  end;
 end;
@@ -1122,6 +1136,7 @@ begin
   CalculateS;
   CalcKoef;
   CalcEC;
+  genProfile;
 
  end;
 end;

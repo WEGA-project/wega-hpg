@@ -1,7 +1,7 @@
 object Kf: TKf
-  Left = 600
+  Left = 145
   Height = 727
-  Top = 225
+  Top = 208
   Width = 759
   Caption = 'Koefficients'
   ClientHeight = 727
@@ -1487,10 +1487,9 @@ object Kf: TKf
     Height = 27
     Top = 486
     Width = 85
-    DecimalPlaces = 3
     Font.Height = -15
     Font.Name = 'Arial'
-    Increment = 0.001
+    Increment = 0.01
     MaxValue = 99999999
     MinValue = -99999999
     OnChange = gKNO3Change
@@ -1503,10 +1502,9 @@ object Kf: TKf
     Height = 27
     Top = 456
     Width = 85
-    DecimalPlaces = 3
     Font.Height = -15
     Font.Name = 'Arial'
-    Increment = 0.001
+    Increment = 0.01
     MaxValue = 99999999
     MinValue = -99999999
     OnChange = gCaNO3Change
@@ -1519,10 +1517,9 @@ object Kf: TKf
     Height = 27
     Top = 545
     Width = 85
-    DecimalPlaces = 3
     Font.Height = -15
     Font.Name = 'Arial'
-    Increment = 0.001
+    Increment = 0.01
     MaxValue = 99999999
     MinValue = -99999999
     OnChange = gMgSO4Change
@@ -1535,10 +1532,9 @@ object Kf: TKf
     Height = 27
     Top = 575
     Width = 85
-    DecimalPlaces = 3
     Font.Height = -15
     Font.Name = 'Arial'
-    Increment = 0.001
+    Increment = 0.01
     MaxValue = 99999999
     MinValue = -99999999
     OnChange = gKH2PO4Change
@@ -1551,10 +1547,9 @@ object Kf: TKf
     Height = 27
     Top = 605
     Width = 85
-    DecimalPlaces = 3
     Font.Height = -15
     Font.Name = 'Arial'
-    Increment = 0.001
+    Increment = 0.01
     MaxValue = 99999999
     MinValue = -99999999
     OnChange = gK2SO4Change
@@ -1567,10 +1562,9 @@ object Kf: TKf
     Height = 27
     Top = 516
     Width = 85
-    DecimalPlaces = 3
     Font.Height = -15
     Font.Name = 'Arial'
-    Increment = 0.001
+    Increment = 0.01
     MaxValue = 99999999
     MinValue = -99999999
     OnChange = gNH4NO3Change
@@ -1705,10 +1699,9 @@ object Kf: TKf
     Height = 27
     Top = 636
     Width = 85
-    DecimalPlaces = 3
     Font.Height = -15
     Font.Name = 'Arial'
-    Increment = 0.001
+    Increment = 0.01
     MaxValue = 99999999
     MinValue = -99999999
     OnChange = gMgNO3Change
