@@ -17,6 +17,7 @@ type
     chK2SO4: TCheckBox;
     chMgNO3: TCheckBox;
     gMgNO3: TFloatSpinEdit;
+    pkf: TLabel;
     MgNO3_Mg: TFloatSpinEdit;
     MgNO3_NO3: TFloatSpinEdit;
     Label54: TLabel;
@@ -223,6 +224,7 @@ type
     procedure KSClick(Sender: TObject);
     procedure KSClick(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure Label1Click(Sender: TObject);
+    procedure pkfClick(Sender: TObject);
     procedure Label54Click(Sender: TObject);
     procedure MgCaChange(Sender: TObject);
     procedure MgClick(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -481,6 +483,9 @@ begin
                     +'NH4:NO3='+FloatToStr(round(vNH4NO3*100)/100, MyFormatSettings)+' ]'
                     ;
    Kf.profile.text:=ps;
+
+
+   ;
 end;
 
 procedure CalcKoef;
@@ -527,7 +532,11 @@ begin
   if ( Kf.SCa.Focused = False ) then Kf.SCa.value:=Kf.S.value/Kf.Ca.value;
   if ( Kf.SMg.Focused = False ) then Kf.SMg.value:=Kf.S.Value/Kf.Mg.value;
 
-
+     Kf.pkf.caption:='K:Mg='+ FloatToStr(round(vK/vMg*10)/10)+' '
+                  +'K:Ca='+FloatToStr(round(vK/vCa*10)/10, MyFormatSettings)+' '
+                  +'Ca:N='+FloatToStr(round(vCa/vN*10)/10, MyFormatSettings)+' '
+                  +'(N:K='+FloatToStr(round(vN/vK*10)/10, MyFormatSettings)+' '
+                  +'N:P='+FloatToStr(round(vN/vP*10)/10, MyFormatSettings)+')'
 
 end;
 
@@ -848,6 +857,11 @@ procedure TKf.Label1Click(Sender: TObject);
 begin
     NH4NO3.value := NH4.value/NO3.value;
     CalcAll;
+end;
+
+procedure TKf.pkfClick(Sender: TObject);
+begin
+
 end;
 
 procedure TKf.Label54Click(Sender: TObject);
