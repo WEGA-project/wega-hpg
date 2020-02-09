@@ -1,7 +1,7 @@
 object Kf: TKf
-  Left = 934
+  Left = 29
   Height = 658
-  Top = 325
+  Top = 348
   Width = 687
   Caption = 'Koefficients'
   ClientHeight = 658

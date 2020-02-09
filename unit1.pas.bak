@@ -1495,25 +1495,58 @@ begin
 end;
 
 procedure TKf.bloadClick(Sender: TObject);
+  var
+    tfIn: TextFile;
+    str: string;
 begin
-    s:='setting.txt';
+    //s:='setting.txt';
     AssignFile(tfIn, C_FNAME);
         // Открыть файл для чтения
       reset(tfIn);
-
+    //
       // Считываем строки, пока не закончится файл
           while not eof(tfIn) do
           begin
-          readln(tfIn, s);
-           if (IsWordPresent('CaNO3_Ca', s, ['=']) = true) then vCaNO3_Ca:=StrToFloat(ExtractWord(2,s,['=']));
-           if (IsWordPresent('CaNO3_NO3', s, ['=']) = true) then vCaNO3_NO3:=StrToFloat(ExtractWord(2,s,['=']));
+          readln(tfIn, str);
+           if (IsWordPresent('CaNO3_Ca', str, ['=']) = true) then CaNO3_Ca.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('CaNO3_NO3', str, ['=']) = true) then CaNO3_NO3.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('CaNO3_NH4', str, ['=']) = true) then CaNO3_NH4.value:=StrToFloat(ExtractWord(2,str,['=']));
+
+           if (IsWordPresent('KNO3_K', str, ['=']) = true) then KNO3_K.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('KNO3_NO3', str, ['=']) = true) then KNO3_NO3.value:=StrToFloat(ExtractWord(2,str,['=']));
+
+           if (IsWordPresent('NH4NO3_NH4', str, ['=']) = true) then NH4NO3_NH4.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('NH4NO3_NO3', str, ['=']) = true) then NH4NO3_NO3.value:=StrToFloat(ExtractWord(2,str,['=']));
+
+           if (IsWordPresent('MgSO4_Mg', str, ['=']) = true) then MgSO4_Mg.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('MgSO4_S', str, ['=']) = true) then MgSO4_S.value:=StrToFloat(ExtractWord(2,str,['=']));
+
+           if (IsWordPresent('KH2PO4_K', str, ['=']) = true) then KH2PO4_K.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('KH2PO4_P', str, ['=']) = true) then KH2PO4_P.value:=StrToFloat(ExtractWord(2,str,['=']));
+
+           if (IsWordPresent('K2SO4_K', str, ['=']) = true) then K2SO4_K.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('K2SO4_S', str, ['=']) = true) then K2SO4_S.value:=StrToFloat(ExtractWord(2,str,['=']));
+
+           if (IsWordPresent('MgNO3_Mg', str, ['=']) = true) then MgNO3_Mg.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('MgNO3_NO3', str, ['=']) = true) then MgNO3_NO3.value:=StrToFloat(ExtractWord(2,str,['=']));
 
           end;
-          memo1.Text:=s;
+
+
+    //      memo1.Text:=s;
           // Готово. Закрываем файл.
       CloseFile(tfIn);
-
-    CalcWeight ;
+   //   if   (CaNO3_Ca.value <> vCaNO3_Ca) then
+   //   begin
+   //     CaNO3_Ca.value:=  vCaNO3_Ca;
+   //     CaNO3_NO3.value:=  vCaNO3_NO3;
+   //     CaNO3_NH4.value:=  vCaNO3_NH4;
+   //       nCaNO3.Caption:='Селитра кальциевая'
+   //+ ' CaO-' +floattostr(Round((CaNO3_Ca.value/0.714691)*10)/10)+'%'
+   //+ ' N-' +floattostr(Round((CaNO3_NH4.value+CaNO3_NO3.value)*10)/10)+'%';
+   //// CalcWeight ;
+   //         end;
+   // CalcWeight ;
 end;
 
 procedure TKf.CaChange(Sender: TObject);
