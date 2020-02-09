@@ -7,13 +7,19 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
   Spin, Types,strutils;
+const
+  C_FNAME = 'settings.txt';
+  StdWordDelims = ['='] + Brackets;
 
 type
 
   { TKf }
 
   TKf = class(TForm)
+    bload: TButton;
     Button1: TButton;
+    OpenDialog1: TOpenDialog;
+    save: TButton;
     chK2SO4: TCheckBox;
     chMgNO3: TCheckBox;
     gMgNO3: TFloatSpinEdit;
@@ -139,6 +145,7 @@ type
     Label7: TLabel;
     Label8: TLabel;
     Label9: TLabel;
+    procedure bloadClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure CaChange(Sender: TObject);
     procedure C(Sender: TObject);
@@ -327,6 +334,7 @@ type
     procedure PSChange(Sender: TObject);
     procedure PSClick(Sender: TObject);
     procedure PSClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure saveClick(Sender: TObject);
     procedure SCaChange(Sender: TObject);
     procedure SCaClick(Sender: TObject);
     procedure SCaClick(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -367,6 +375,11 @@ var
   vEC0,vKN0,vCaN0,vKP0,vKCa0,vKMg0:Double;
   ps,s:string;
   MyFormatSettings: TFormatSettings;
+
+
+  tfOut: TextFile;
+  tfIn: TextFile;
+
 
 implementation
 
@@ -1481,6 +1494,28 @@ begin
   CalcWeight ;
 end;
 
+procedure TKf.bloadClick(Sender: TObject);
+begin
+    //s:='setting.txt';
+    //AssignFile(tfIn, C_FNAME);
+    //    // Открыть файл для чтения
+    //  reset(tfIn);
+    //
+    //  // Считываем строки, пока не закончится файл
+    //      while not eof(tfIn) do
+    //      begin
+    //      readln(tfIn, s);
+    //       if (IsWordPresent('CaNO3_Ca', s, ['=']) = true) then vCaNO3_Ca:=StrToFloat(ExtractWord(2,s,['=']));
+    //       if (IsWordPresent('CaNO3_NO3', s, ['=']) = true) then vCaNO3_NO3:=StrToFloat(ExtractWord(2,s,['=']));
+    //
+    //      end;
+    //      memo1.Text:=s;
+    //      // Готово. Закрываем файл.
+    //  CloseFile(tfIn);
+    //
+    //CalcWeight ;
+end;
+
 procedure TKf.CaChange(Sender: TObject);
 begin
    if ( Ca.Focused = True )    then begin
@@ -2169,6 +2204,40 @@ end;
 procedure TKf.PSClick(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
 
+end;
+
+procedure TKf.saveClick(Sender: TObject);
+begin
+  getVar;
+  //  vA:=A.value;
+  //vB:=B.value;
+  //vC:=C.value;
+
+  // Связываем имя файла с переменной
+  AssignFile(tfOut, C_FNAME);
+    rewrite(tfOut);
+    writeln(tfOut,'CaNO3_Ca=',FloatToStr(vCaNO3_Ca));
+    writeln(tfOut,'CaNO3_NO3=',FloatToStr(vCaNO3_NO3));
+
+    writeln(tfOut,'KNO3_K=',FloatToStr(vKNO3_K));
+    writeln(tfOut,'KNO3_NO3=',FloatToStr(vKNO3_NO3));
+
+    writeln(tfOut,'NH4NO3_NH4=',FloatToStr(vNH4NO3_NH4));
+    writeln(tfOut,'NH4NO3_NO3=',FloatToStr(vNH4NO3_NO3));
+
+    writeln(tfOut,'MgSO4_Mg=',FloatToStr(vMgSO4_Mg));
+    writeln(tfOut,'MgSO4_S=',FloatToStr(vMgSO4_S));
+
+    writeln(tfOut,'KH2PO4_K=',FloatToStr(vKH2PO4_K));
+    writeln(tfOut,'KH2PO4_P=',FloatToStr(vKH2PO4_P));
+
+    writeln(tfOut,'K2SO4_K=',FloatToStr(vK2SO4_K));
+    writeln(tfOut,'K2SO4_S=',FloatToStr(vK2SO4_S));
+
+    writeln(tfOut,'MgNO3_Mg=',FloatToStr(vMgNO3_Mg));
+    writeln(tfOut,'MgNO3_NO3=',FloatToStr(vMgNO3_NO3));
+
+    CloseFile(tfOut);
 end;
 
 procedure TKf.SCaChange(Sender: TObject);
