@@ -7,13 +7,19 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
   Spin, Types,strutils;
+const
+  C_FNAME = 'settings.txt';
+  StdWordDelims = ['='] + Brackets;
 
 type
 
   { TKf }
 
   TKf = class(TForm)
+    bload: TButton;
     Button1: TButton;
+    OpenDialog1: TOpenDialog;
+    save: TButton;
     chK2SO4: TCheckBox;
     chMgNO3: TCheckBox;
     gMgNO3: TFloatSpinEdit;
@@ -139,6 +145,7 @@ type
     Label7: TLabel;
     Label8: TLabel;
     Label9: TLabel;
+    procedure bloadClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure CaChange(Sender: TObject);
     procedure C(Sender: TObject);
@@ -327,6 +334,7 @@ type
     procedure PSChange(Sender: TObject);
     procedure PSClick(Sender: TObject);
     procedure PSClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure saveClick(Sender: TObject);
     procedure SCaChange(Sender: TObject);
     procedure SCaClick(Sender: TObject);
     procedure SCaClick(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -367,6 +375,11 @@ var
   vEC0,vKN0,vCaN0,vKP0,vKCa0,vKMg0:Double;
   ps,s:string;
   MyFormatSettings: TFormatSettings;
+
+
+  tfOut: TextFile;
+  tfIn: TextFile;
+
 
 implementation
 
@@ -484,11 +497,7 @@ begin
                     ;
    Kf.profile.text:=ps;
 
-   Kf.pkf.caption:='K:Mg='+ FloatToStr(round(vK/vMg*10)/10)+' '
-                  +'K:Ca='+FloatToStr(round(vK/vCa*10)/10, MyFormatSettings)+' '
-                  +'Ca:N='+FloatToStr(round(vCa/vN*10)/10, MyFormatSettings)+' '
-                  +'(N:K='+FloatToStr(round(vN/vK*10)/10, MyFormatSettings)+' '
-                  +'N:P='+FloatToStr(round(vN/vP*10)/10, MyFormatSettings)+')'
+
    ;
 end;
 
@@ -536,7 +545,11 @@ begin
   if ( Kf.SCa.Focused = False ) then Kf.SCa.value:=Kf.S.value/Kf.Ca.value;
   if ( Kf.SMg.Focused = False ) then Kf.SMg.value:=Kf.S.Value/Kf.Mg.value;
 
-
+     Kf.pkf.caption:='K:Mg='+ FloatToStr(round(vK/vMg*10)/10)+' '
+                  +'K:Ca='+FloatToStr(round(vK/vCa*10)/10)+' '
+                  +'Ca:N='+FloatToStr(round(vCa/vN*10)/10)+' '
+                  +'(N:K='+FloatToStr(round(vN/vK*10)/10)+' '
+                  +'N:P='+FloatToStr(round(vN/vP*10)/10)+')'
 
 end;
 
@@ -1481,6 +1494,61 @@ begin
   CalcWeight ;
 end;
 
+procedure TKf.bloadClick(Sender: TObject);
+  var
+    tfIn: TextFile;
+    str: string;
+begin
+    //s:='setting.txt';
+    AssignFile(tfIn, C_FNAME);
+        // Открыть файл для чтения
+      reset(tfIn);
+    //
+      // Считываем строки, пока не закончится файл
+          while not eof(tfIn) do
+          begin
+          readln(tfIn, str);
+           if (IsWordPresent('CaNO3_Ca', str, ['=']) = true) then CaNO3_Ca.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('CaNO3_NO3', str, ['=']) = true) then CaNO3_NO3.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('CaNO3_NH4', str, ['=']) = true) then CaNO3_NH4.value:=StrToFloat(ExtractWord(2,str,['=']));
+
+           if (IsWordPresent('KNO3_K', str, ['=']) = true) then KNO3_K.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('KNO3_NO3', str, ['=']) = true) then KNO3_NO3.value:=StrToFloat(ExtractWord(2,str,['=']));
+
+           if (IsWordPresent('NH4NO3_NH4', str, ['=']) = true) then NH4NO3_NH4.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('NH4NO3_NO3', str, ['=']) = true) then NH4NO3_NO3.value:=StrToFloat(ExtractWord(2,str,['=']));
+
+           if (IsWordPresent('MgSO4_Mg', str, ['=']) = true) then MgSO4_Mg.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('MgSO4_S', str, ['=']) = true) then MgSO4_S.value:=StrToFloat(ExtractWord(2,str,['=']));
+
+           if (IsWordPresent('KH2PO4_K', str, ['=']) = true) then KH2PO4_K.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('KH2PO4_P', str, ['=']) = true) then KH2PO4_P.value:=StrToFloat(ExtractWord(2,str,['=']));
+
+           if (IsWordPresent('K2SO4_K', str, ['=']) = true) then K2SO4_K.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('K2SO4_S', str, ['=']) = true) then K2SO4_S.value:=StrToFloat(ExtractWord(2,str,['=']));
+
+           if (IsWordPresent('MgNO3_Mg', str, ['=']) = true) then MgNO3_Mg.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('MgNO3_NO3', str, ['=']) = true) then MgNO3_NO3.value:=StrToFloat(ExtractWord(2,str,['=']));
+
+          end;
+
+
+    //      memo1.Text:=s;
+          // Готово. Закрываем файл.
+      CloseFile(tfIn);
+   //   if   (CaNO3_Ca.value <> vCaNO3_Ca) then
+   //   begin
+   //     CaNO3_Ca.value:=  vCaNO3_Ca;
+   //     CaNO3_NO3.value:=  vCaNO3_NO3;
+   //     CaNO3_NH4.value:=  vCaNO3_NH4;
+   //       nCaNO3.Caption:='Селитра кальциевая'
+   //+ ' CaO-' +floattostr(Round((CaNO3_Ca.value/0.714691)*10)/10)+'%'
+   //+ ' N-' +floattostr(Round((CaNO3_NH4.value+CaNO3_NO3.value)*10)/10)+'%';
+   //// CalcWeight ;
+   //         end;
+    CalcWeight ;
+end;
+
 procedure TKf.CaChange(Sender: TObject);
 begin
    if ( Ca.Focused = True )    then begin
@@ -1743,8 +1811,9 @@ end;
 procedure TKf.FormActivate(Sender: TObject);
 begin
 
-   CalcKoef;
+   //CalcKoef;
    CalcAll;
+   CalcKoef;
 end;
 
 procedure TKf.FormChangeBounds(Sender: TObject);
@@ -2169,6 +2238,40 @@ end;
 procedure TKf.PSClick(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
 
+end;
+
+procedure TKf.saveClick(Sender: TObject);
+begin
+  getVar;
+  //  vA:=A.value;
+  //vB:=B.value;
+  //vC:=C.value;
+
+  // Связываем имя файла с переменной
+  AssignFile(tfOut, C_FNAME);
+    rewrite(tfOut);
+    writeln(tfOut,'CaNO3_Ca=',FloatToStr(vCaNO3_Ca));
+    writeln(tfOut,'CaNO3_NO3=',FloatToStr(vCaNO3_NO3));
+
+    writeln(tfOut,'KNO3_K=',FloatToStr(vKNO3_K));
+    writeln(tfOut,'KNO3_NO3=',FloatToStr(vKNO3_NO3));
+
+    writeln(tfOut,'NH4NO3_NH4=',FloatToStr(vNH4NO3_NH4));
+    writeln(tfOut,'NH4NO3_NO3=',FloatToStr(vNH4NO3_NO3));
+
+    writeln(tfOut,'MgSO4_Mg=',FloatToStr(vMgSO4_Mg));
+    writeln(tfOut,'MgSO4_S=',FloatToStr(vMgSO4_S));
+
+    writeln(tfOut,'KH2PO4_K=',FloatToStr(vKH2PO4_K));
+    writeln(tfOut,'KH2PO4_P=',FloatToStr(vKH2PO4_P));
+
+    writeln(tfOut,'K2SO4_K=',FloatToStr(vK2SO4_K));
+    writeln(tfOut,'K2SO4_S=',FloatToStr(vK2SO4_S));
+
+    writeln(tfOut,'MgNO3_Mg=',FloatToStr(vMgNO3_Mg));
+    writeln(tfOut,'MgNO3_NO3=',FloatToStr(vMgNO3_NO3));
+
+    CloseFile(tfOut);
 end;
 
 procedure TKf.SCaChange(Sender: TObject);

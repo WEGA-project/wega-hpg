@@ -18,7 +18,6 @@ type
   TKf = class(TForm)
     bload: TButton;
     Button1: TButton;
-    OpenDialog1: TOpenDialog;
     save: TButton;
     chK2SO4: TCheckBox;
     chMgNO3: TCheckBox;
@@ -546,10 +545,10 @@ begin
   if ( Kf.SMg.Focused = False ) then Kf.SMg.value:=Kf.S.Value/Kf.Mg.value;
 
      Kf.pkf.caption:='K:Mg='+ FloatToStr(round(vK/vMg*10)/10)+' '
-                  +'K:Ca='+FloatToStr(round(vK/vCa*10)/10, MyFormatSettings)+' '
-                  +'Ca:N='+FloatToStr(round(vCa/vN*10)/10, MyFormatSettings)+' '
-                  +'(N:K='+FloatToStr(round(vN/vK*10)/10, MyFormatSettings)+' '
-                  +'N:P='+FloatToStr(round(vN/vP*10)/10, MyFormatSettings)+')'
+                  +'K:Ca='+FloatToStr(round(vK/vCa*10)/10)+' '
+                  +'Ca:N='+FloatToStr(round(vCa/vN*10)/10)+' '
+                  +'(N:K='+FloatToStr(round(vN/vK*10)/10)+' '
+                  +'N:P='+FloatToStr(round(vN/vP*10)/10)+')'
 
 end;
 
@@ -1811,8 +1810,9 @@ end;
 procedure TKf.FormActivate(Sender: TObject);
 begin
 
-   CalcKoef;
+   //CalcKoef;
    CalcAll;
+   CalcKoef;
 end;
 
 procedure TKf.FormChangeBounds(Sender: TObject);

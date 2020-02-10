@@ -1,7 +1,7 @@
 object Kf: TKf
-  Left = 638
+  Left = 500
   Height = 727
-  Top = 218
+  Top = 266
   Width = 759
   Caption = 'Koefficients'
   ClientHeight = 727
@@ -1705,10 +1705,14 @@ object Kf: TKf
   object chK2SO4: TCheckBox
     Left = 638
     Height = 21
-    Top = 609
+    Top = 610
     Width = 21
     Checked = True
+    Font.Color = clMaroon
+    Font.Height = -15
+    Font.Name = 'Arial'
     OnChange = chK2SO4Change
+    ParentFont = False
     State = cbChecked
     TabOrder = 66
   end
@@ -1717,16 +1721,53 @@ object Kf: TKf
     Height = 21
     Top = 640
     Width = 21
+    Font.Color = clMaroon
+    Font.Height = -15
+    Font.Name = 'Arial'
     OnChange = chMgNO3Change
+    ParentFont = False
     TabOrder = 67
   end
   object pkf: TLabel
-    Left = 352
+    Left = 256
     Height = 17
-    Top = 100
+    Top = 106
     Width = 135
     Caption = 'K/Mg K/Ca K/N Ca/N'
+    Font.Color = clMaroon
+    Font.Height = -15
+    Font.Name = 'Arial'
     ParentColor = False
-    OnClick = pkfClick
+    ParentFont = False
+  end
+  object save: TButton
+    Left = 247
+    Height = 28
+    Top = 416
+    Width = 52
+    Caption = 'save'
+    Font.Color = clMaroon
+    Font.Height = -15
+    Font.Name = 'Arial'
+    OnClick = saveClick
+    ParentFont = False
+    TabOrder = 68
+  end
+  object bload: TButton
+    Left = 304
+    Height = 28
+    Top = 416
+    Width = 52
+    Caption = 'load'
+    Font.Color = clMaroon
+    Font.Height = -15
+    Font.Name = 'Arial'
+    OnClick = bloadClick
+    ParentFont = False
+    TabOrder = 69
+  end
+  object OpenDialog1: TOpenDialog
+    left = 627
+    top = 88
   end
 end
