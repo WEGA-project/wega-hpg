@@ -548,7 +548,7 @@ begin
                   +'K:Ca='+FloatToStr(round(vK/vCa*10)/10)+' '
                   +'Ca:N='+FloatToStr(round(vCa/vN*10)/10)+' '
                   +'(N:K='+FloatToStr(round(vN/vK*10)/10)+' '
-                  +'N:P='+FloatToStr(round(vN/vP*10)/10)+')'
+                  +'N:P='+FloatToStr(round(vN/vP*10)/10)+')';
 
 end;
 
