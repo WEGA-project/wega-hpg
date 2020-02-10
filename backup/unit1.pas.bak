@@ -18,7 +18,6 @@ type
   TKf = class(TForm)
     bload: TButton;
     Button1: TButton;
-    OpenDialog1: TOpenDialog;
     save: TButton;
     chK2SO4: TCheckBox;
     chMgNO3: TCheckBox;

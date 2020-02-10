@@ -1766,8 +1766,4 @@ object Kf: TKf
     ParentFont = False
     TabOrder = 69
   end
-  object OpenDialog1: TOpenDialog
-    left = 627
-    top = 88
-  end
 end
