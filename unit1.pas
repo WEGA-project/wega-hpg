@@ -18,10 +18,26 @@ type
   TKf = class(TForm)
     bload: TButton;
     Button1: TButton;
+    gB: TFloatSpinEdit;
+    gCo: TFloatSpinEdit;
+    gCu: TFloatSpinEdit;
+    gFe: TFloatSpinEdit;
+    gMn: TFloatSpinEdit;
+    gMo: TFloatSpinEdit;
+    gSi: TFloatSpinEdit;
+    gZn: TFloatSpinEdit;
     Fe: TFloatSpinEdit;
     B: TFloatSpinEdit;
     Cu: TFloatSpinEdit;
     Co: TFloatSpinEdit;
+    dFe: TFloatSpinEdit;
+    dMn: TFloatSpinEdit;
+    dB: TFloatSpinEdit;
+    dZn: TFloatSpinEdit;
+    dCu: TFloatSpinEdit;
+    dMo: TFloatSpinEdit;
+    dCo: TFloatSpinEdit;
+    dSi: TFloatSpinEdit;
     Si: TFloatSpinEdit;
     Mo: TFloatSpinEdit;
     Zn: TFloatSpinEdit;
