@@ -1,11 +1,11 @@
 object Kf: TKf
-  Left = 660
-  Height = 705
-  Top = 217
-  Width = 705
+  Left = 467
+  Height = 709
+  Top = 146
+  Width = 690
   Caption = 'Koefficients'
-  ClientHeight = 705
-  ClientWidth = 705
+  ClientHeight = 709
+  ClientWidth = 690
   Font.Color = clMaroon
   Font.Height = -14
   Font.Name = 'Arial'
@@ -15,9 +15,9 @@ object Kf: TKf
   OnMouseDown = FormMouseDown
   LCLVersion = '2.0.6.0'
   object Label1: TLabel
-    Left = 8
+    Left = 456
     Height = 16
-    Top = 0
+    Top = 686
     Width = 224
     Caption = 'Hydroponic Profile Generator v0.02'
     Font.Height = -14
@@ -27,15 +27,15 @@ object Kf: TKf
     OnClick = NChange
   end
   object PageControl1: TPageControl
-    Left = 7
+    Left = 0
     Height = 674
-    Top = 22
+    Top = 0
     Width = 689
-    ActivePage = TabSheet2
+    ActivePage = TabSheet1
     Font.Height = -14
     Font.Name = 'Arial'
     ParentFont = False
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'Макро'
@@ -1268,33 +1268,6 @@ object Kf: TKf
         TabOrder = 51
         Value = 17.499
       end
-      object Label36: TLabel
-        Left = 11
-        Height = 16
-        Top = 382
-        Width = 106
-        Caption = 'Объем в литрах'
-        Font.Height = -14
-        Font.Name = 'Arial'
-        ParentColor = False
-        ParentFont = False
-      end
-      object V: TFloatSpinEdit
-        Left = 135
-        Height = 26
-        Top = 376
-        Width = 78
-        DecimalPlaces = 1
-        Font.Height = -14
-        Font.Name = 'Arial'
-        Increment = 0.1
-        MaxValue = 99999999
-        MinValue = 0
-        OnChange = VChange
-        ParentFont = False
-        TabOrder = 52
-        Value = 10
-      end
       object Label37: TLabel
         Left = 403
         Height = 16
@@ -1409,7 +1382,7 @@ object Kf: TKf
         OnEditingDone = CaNO3_NH4EditingDone
         OnKeyDown = CaNO3_NH4EditingDone
         ParentFont = False
-        TabOrder = 53
+        TabOrder = 52
         Value = 0
       end
       object Label46: TLabel
@@ -1501,7 +1474,7 @@ object Kf: TKf
         MinValue = -99999999
         OnChange = gKNO3Change
         ParentFont = False
-        TabOrder = 54
+        TabOrder = 53
         Value = 0
       end
       object gCaNO3: TFloatSpinEdit
@@ -1516,7 +1489,7 @@ object Kf: TKf
         MinValue = -99999999
         OnChange = gCaNO3Change
         ParentFont = False
-        TabOrder = 55
+        TabOrder = 54
         Value = 0
       end
       object gMgSO4: TFloatSpinEdit
@@ -1531,7 +1504,7 @@ object Kf: TKf
         MinValue = -99999999
         OnChange = gMgSO4Change
         ParentFont = False
-        TabOrder = 56
+        TabOrder = 55
         Value = 0
       end
       object gKH2PO4: TFloatSpinEdit
@@ -1546,7 +1519,7 @@ object Kf: TKf
         MinValue = -99999999
         OnChange = gKH2PO4Change
         ParentFont = False
-        TabOrder = 57
+        TabOrder = 56
         Value = 0
       end
       object gK2SO4: TFloatSpinEdit
@@ -1561,7 +1534,7 @@ object Kf: TKf
         MinValue = -99999999
         OnChange = gK2SO4Change
         ParentFont = False
-        TabOrder = 58
+        TabOrder = 57
         Value = 0
       end
       object gNH4NO3: TFloatSpinEdit
@@ -1576,7 +1549,7 @@ object Kf: TKf
         MinValue = -99999999
         OnChange = gNH4NO3Change
         ParentFont = False
-        TabOrder = 59
+        TabOrder = 58
         Value = 0
       end
       object Label53: TLabel
@@ -1610,7 +1583,7 @@ object Kf: TKf
         Font.Name = 'Arial'
         OnClick = Button1Click
         ParentFont = False
-        TabOrder = 60
+        TabOrder = 59
       end
       object profile: TEdit
         Left = 8
@@ -1622,7 +1595,7 @@ object Kf: TKf
         OnChange = profileChange
         OnEditingDone = parseClick
         ParentFont = False
-        TabOrder = 61
+        TabOrder = 60
         Text = 'profile'
       end
       object parse: TButton
@@ -1635,7 +1608,7 @@ object Kf: TKf
         Font.Name = 'Arial'
         OnClick = parseClick
         ParentFont = False
-        TabOrder = 62
+        TabOrder = 61
       end
       object nMgNO3: TLabel
         Left = 4
@@ -1660,7 +1633,7 @@ object Kf: TKf
         MinValue = 0
         OnChange = MgNO3_MgChange
         ParentFont = False
-        TabOrder = 63
+        TabOrder = 62
         Value = 9.479
       end
       object MgNO3_NO3: TFloatSpinEdit
@@ -1675,7 +1648,7 @@ object Kf: TKf
         MinValue = 0
         OnChange = MgNO3_NO3Change
         ParentFont = False
-        TabOrder = 64
+        TabOrder = 63
         Value = 10.925
       end
       object Label54: TLabel
@@ -1713,7 +1686,7 @@ object Kf: TKf
         MinValue = -99999999
         OnChange = gMgNO3Change
         ParentFont = False
-        TabOrder = 65
+        TabOrder = 64
         Value = 0
       end
       object chK2SO4: TCheckBox
@@ -1728,7 +1701,7 @@ object Kf: TKf
         OnChange = chK2SO4Change
         ParentFont = False
         State = cbChecked
-        TabOrder = 66
+        TabOrder = 65
       end
       object chMgNO3: TCheckBox
         Left = 578
@@ -1740,12 +1713,12 @@ object Kf: TKf
         Font.Name = 'Arial'
         OnChange = chMgNO3Change
         ParentFont = False
-        TabOrder = 67
+        TabOrder = 66
       end
       object pkf: TLabel
-        Left = 232
+        Left = 264
         Height = 16
-        Top = 96
+        Top = 72
         Width = 131
         Caption = 'K/Mg K/Ca K/N Ca/N'
         Font.Color = clMaroon
@@ -1753,32 +1726,6 @@ object Kf: TKf
         Font.Name = 'Arial'
         ParentColor = False
         ParentFont = False
-      end
-      object save: TButton
-        Left = 224
-        Height = 25
-        Top = 377
-        Width = 47
-        Caption = 'save'
-        Font.Color = clMaroon
-        Font.Height = -14
-        Font.Name = 'Arial'
-        OnClick = saveClick
-        ParentFont = False
-        TabOrder = 68
-      end
-      object bload: TButton
-        Left = 275
-        Height = 25
-        Top = 377
-        Width = 47
-        Caption = 'load'
-        Font.Color = clMaroon
-        Font.Height = -14
-        Font.Name = 'Arial'
-        OnClick = bloadClick
-        ParentFont = False
-        TabOrder = 69
       end
     end
     object TabSheet2: TTabSheet
@@ -2292,5 +2239,58 @@ object Kf: TKf
         ParentFont = False
       end
     end
+  end
+  object Label36: TLabel
+    Left = 8
+    Height = 16
+    Top = 686
+    Width = 106
+    Caption = 'Объем в литрах'
+    Font.Height = -14
+    Font.Name = 'Arial'
+    ParentColor = False
+    ParentFont = False
+  end
+  object V: TFloatSpinEdit
+    Left = 132
+    Height = 26
+    Top = 680
+    Width = 78
+    DecimalPlaces = 1
+    Font.Height = -14
+    Font.Name = 'Arial'
+    Increment = 0.1
+    MaxValue = 99999999
+    MinValue = 0
+    OnChange = VChange
+    ParentFont = False
+    TabOrder = 1
+    Value = 10
+  end
+  object save: TButton
+    Left = 221
+    Height = 25
+    Top = 681
+    Width = 47
+    Caption = 'save'
+    Font.Color = clMaroon
+    Font.Height = -14
+    Font.Name = 'Arial'
+    OnClick = saveClick
+    ParentFont = False
+    TabOrder = 2
+  end
+  object bload: TButton
+    Left = 272
+    Height = 25
+    Top = 681
+    Width = 47
+    Caption = 'load'
+    Font.Color = clMaroon
+    Font.Height = -14
+    Font.Name = 'Arial'
+    OnClick = bloadClick
+    ParentFont = False
+    TabOrder = 3
   end
 end

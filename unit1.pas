@@ -2486,6 +2486,7 @@ end;
 procedure TKf.VChange(Sender: TObject);
 begin
   CalcWeight ;
+  microToWeght;
 end;
 
 procedure TKf.ZnChange(Sender: TObject);
