@@ -38,6 +38,8 @@ type
     dMo: TFloatSpinEdit;
     dCo: TFloatSpinEdit;
     dSi: TFloatSpinEdit;
+    Label68: TLabel;
+    Label69: TLabel;
     Si: TFloatSpinEdit;
     Mo: TFloatSpinEdit;
     Zn: TFloatSpinEdit;

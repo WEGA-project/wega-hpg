@@ -1,5 +1,5 @@
 object Kf: TKf
-  Left = 317
+  Left = 660
   Height = 705
   Top = 217
   Width = 705
@@ -1797,6 +1797,7 @@ object Kf: TKf
         Caption = 'Fe'
         Font.Height = -14
         Font.Name = 'Arial'
+        Font.Style = [fsBold]
         ParentColor = False
         ParentFont = False
       end
@@ -1804,10 +1805,11 @@ object Kf: TKf
         Left = 101
         Height = 16
         Top = 29
-        Width = 20
+        Width = 21
         Caption = 'Mn'
         Font.Height = -14
         Font.Name = 'Arial'
+        Font.Style = [fsBold]
         ParentColor = False
         ParentFont = False
       end
@@ -1815,10 +1817,11 @@ object Kf: TKf
         Left = 181
         Height = 16
         Top = 29
-        Width = 9
+        Width = 10
         Caption = 'B'
         Font.Height = -14
         Font.Name = 'Arial'
+        Font.Style = [fsBold]
         ParentColor = False
         ParentFont = False
       end
@@ -1826,10 +1829,11 @@ object Kf: TKf
         Left = 267
         Height = 16
         Top = 29
-        Width = 17
+        Width = 18
         Caption = 'Zn'
         Font.Height = -14
         Font.Name = 'Arial'
+        Font.Style = [fsBold]
         ParentColor = False
         ParentFont = False
       end
@@ -1837,10 +1841,11 @@ object Kf: TKf
         Left = 349
         Height = 16
         Top = 29
-        Width = 18
+        Width = 19
         Caption = 'Cu'
         Font.Height = -14
         Font.Name = 'Arial'
+        Font.Style = [fsBold]
         ParentColor = False
         ParentFont = False
       end
@@ -1848,10 +1853,11 @@ object Kf: TKf
         Left = 432
         Height = 16
         Top = 29
-        Width = 20
+        Width = 21
         Caption = 'Mo'
         Font.Height = -14
         Font.Name = 'Arial'
+        Font.Style = [fsBold]
         ParentColor = False
         ParentFont = False
       end
@@ -1859,10 +1865,11 @@ object Kf: TKf
         Left = 514
         Height = 16
         Top = 29
-        Width = 18
+        Width = 19
         Caption = 'Co'
         Font.Height = -14
         Font.Name = 'Arial'
+        Font.Style = [fsBold]
         ParentColor = False
         ParentFont = False
       end
@@ -1870,10 +1877,11 @@ object Kf: TKf
         Left = 601
         Height = 16
         Top = 29
-        Width = 12
+        Width = 13
         Caption = 'Si'
         Font.Height = -14
         Font.Name = 'Arial'
+        Font.Style = [fsBold]
         ParentColor = False
         ParentFont = False
       end
@@ -2260,6 +2268,28 @@ object Kf: TKf
         MinValue = 0
         TabOrder = 23
         Value = 0
+      end
+      object Label68: TLabel
+        Left = 140
+        Height = 16
+        Top = 104
+        Width = 58
+        Caption = 'доля (%)'
+        Font.Height = -14
+        Font.Name = 'Arial'
+        ParentColor = False
+        ParentFont = False
+      end
+      object Label69: TLabel
+        Left = 234
+        Height = 16
+        Top = 103
+        Width = 51
+        Caption = 'граммы'
+        Font.Height = -14
+        Font.Name = 'Arial'
+        ParentColor = False
+        ParentFont = False
       end
     end
   end
