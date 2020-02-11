@@ -1,7 +1,7 @@
 object Kf: TKf
-  Left = 628
+  Left = 317
   Height = 705
-  Top = 233
+  Top = 217
   Width = 705
   Caption = 'Koefficients'
   ClientHeight = 705
@@ -1787,6 +1787,7 @@ object Kf: TKf
       ClientWidth = 683
       Font.Height = -14
       Font.Name = 'Arial'
+      OnShow = TabSheet2Show
       ParentFont = False
       object Label31: TLabel
         Left = 26
@@ -1969,81 +1970,102 @@ object Kf: TKf
         Height = 26
         Top = 58
         Width = 80
+        DecimalPlaces = 0
         Font.Height = -14
         Font.Name = 'Arial'
+        MaxValue = 999999
         MinValue = 0
+        OnChange = FeChange
         ParentFont = False
         TabOrder = 0
-        Value = 0
+        Value = 2000
       end
       object Mn: TFloatSpinEdit
         Left = 95
         Height = 26
         Top = 58
         Width = 80
+        DecimalPlaces = 0
         Font.Height = -14
         Font.Name = 'Arial'
+        MaxValue = 999999
         MinValue = 0
+        OnChange = MnChange
         ParentFont = False
         TabOrder = 1
-        Value = 0
+        Value = 550
       end
       object B: TFloatSpinEdit
         Left = 176
         Height = 26
         Top = 58
         Width = 80
+        DecimalPlaces = 0
         Font.Height = -14
         Font.Name = 'Arial'
+        MaxValue = 999999
         MinValue = 0
+        OnChange = BChange
         ParentFont = False
         TabOrder = 2
-        Value = 0
+        Value = 500
       end
       object Zn: TFloatSpinEdit
         Left = 257
         Height = 26
         Top = 58
         Width = 80
+        DecimalPlaces = 0
         Font.Height = -14
         Font.Name = 'Arial'
+        MaxValue = 999999
         MinValue = 0
+        OnChange = ZnChange
         ParentFont = False
         TabOrder = 3
-        Value = 0
+        Value = 330
       end
       object Cu: TFloatSpinEdit
         Left = 338
         Height = 26
         Top = 58
         Width = 80
+        DecimalPlaces = 0
         Font.Height = -14
         Font.Name = 'Arial'
+        MaxValue = 999999
         MinValue = 0
+        OnChange = CuChange
         ParentFont = False
         TabOrder = 4
-        Value = 0
+        Value = 63
       end
       object Mo: TFloatSpinEdit
         Left = 418
         Height = 26
         Top = 58
         Width = 80
+        DecimalPlaces = 0
         Font.Height = -14
         Font.Name = 'Arial'
+        MaxValue = 999999
         MinValue = 0
+        OnChange = MoChange
         ParentFont = False
         TabOrder = 5
-        Value = 0
+        Value = 63
       end
       object Co: TFloatSpinEdit
         Left = 499
         Height = 26
         Top = 58
         Width = 80
+        DecimalPlaces = 0
         Font.Height = -14
         Font.Name = 'Arial'
+        MaxValue = 999999
         MinValue = 0
+        OnChange = CoChange
         ParentFont = False
         TabOrder = 6
         Value = 0
@@ -2053,9 +2075,12 @@ object Kf: TKf
         Height = 26
         Top = 58
         Width = 80
+        DecimalPlaces = 0
         Font.Height = -14
         Font.Name = 'Arial'
+        MaxValue = 999999
         MinValue = 0
+        OnChange = SiChange
         ParentFont = False
         TabOrder = 7
         Value = 0
@@ -2065,61 +2090,75 @@ object Kf: TKf
         Height = 26
         Top = 120
         Width = 88
+        Increment = 0.01
         MinValue = 0
+        OnChange = dFeChange
         TabOrder = 8
-        Value = 0
+        Value = 20.1
       end
       object dMn: TFloatSpinEdit
         Left = 136
         Height = 26
         Top = 149
         Width = 88
+        Increment = 0.01
         MinValue = 0
+        OnChange = dMnChange
         TabOrder = 9
-        Value = 0
+        Value = 36.4
       end
       object dB: TFloatSpinEdit
         Left = 136
         Height = 26
         Top = 178
         Width = 88
+        Increment = 0.01
         MinValue = 0
+        OnChange = dBChange
         TabOrder = 10
-        Value = 0
+        Value = 17.5
       end
       object dZn: TFloatSpinEdit
         Left = 136
         Height = 26
         Top = 207
         Width = 88
+        Increment = 0.01
         MinValue = 0
+        OnChange = dZnChange
         TabOrder = 11
-        Value = 0
+        Value = 22.7
       end
       object dCu: TFloatSpinEdit
         Left = 136
         Height = 26
         Top = 236
         Width = 88
+        Increment = 0.01
         MinValue = 0
+        OnChange = dCuChange
         TabOrder = 12
-        Value = 0
+        Value = 25.5
       end
       object dMo: TFloatSpinEdit
         Left = 136
         Height = 26
         Top = 265
         Width = 88
+        Increment = 0.01
         MinValue = 0
+        OnChange = dMoChange
         TabOrder = 13
-        Value = 0
+        Value = 54.3
       end
       object dCo: TFloatSpinEdit
         Left = 136
         Height = 26
         Top = 294
         Width = 88
+        Increment = 0.01
         MinValue = 0
+        OnChange = dCoChange
         TabOrder = 14
         Value = 0
       end
@@ -2128,7 +2167,9 @@ object Kf: TKf
         Height = 26
         Top = 323
         Width = 88
+        Increment = 0.01
         MinValue = 0
+        OnChange = dSiChange
         TabOrder = 15
         Value = 0
       end
@@ -2137,6 +2178,8 @@ object Kf: TKf
         Height = 26
         Top = 120
         Width = 88
+        Increment = 0.01
+        MaxValue = 999999999
         MinValue = 0
         TabOrder = 16
         Value = 0
@@ -2146,6 +2189,8 @@ object Kf: TKf
         Height = 26
         Top = 149
         Width = 88
+        Increment = 0.01
+        MaxValue = 999999999
         MinValue = 0
         TabOrder = 17
         Value = 0
@@ -2155,6 +2200,8 @@ object Kf: TKf
         Height = 26
         Top = 178
         Width = 88
+        Increment = 0.01
+        MaxValue = 999999999
         MinValue = 0
         TabOrder = 18
         Value = 0
@@ -2164,6 +2211,8 @@ object Kf: TKf
         Height = 26
         Top = 207
         Width = 88
+        Increment = 0.01
+        MaxValue = 999999999
         MinValue = 0
         TabOrder = 19
         Value = 0
@@ -2173,6 +2222,8 @@ object Kf: TKf
         Height = 26
         Top = 236
         Width = 88
+        Increment = 0.01
+        MaxValue = 999999999
         MinValue = 0
         TabOrder = 20
         Value = 0
@@ -2182,6 +2233,8 @@ object Kf: TKf
         Height = 26
         Top = 265
         Width = 88
+        Increment = 0.01
+        MaxValue = 999999999
         MinValue = 0
         TabOrder = 21
         Value = 0
@@ -2191,6 +2244,8 @@ object Kf: TKf
         Height = 26
         Top = 294
         Width = 88
+        Increment = 0.01
+        MaxValue = 999999999
         MinValue = 0
         TabOrder = 22
         Value = 0
@@ -2200,6 +2255,8 @@ object Kf: TKf
         Height = 26
         Top = 323
         Width = 88
+        Increment = 0.01
+        MaxValue = 999999999
         MinValue = 0
         TabOrder = 23
         Value = 0

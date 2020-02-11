@@ -187,6 +187,7 @@ type
     Label7: TLabel;
     Label8: TLabel;
     Label9: TLabel;
+    procedure BChange(Sender: TObject);
     procedure bloadClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure CaChange(Sender: TObject);
@@ -219,10 +220,22 @@ type
     procedure CaSClick(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure chK2SO4Change(Sender: TObject);
     procedure chMgNO3Change(Sender: TObject);
+    procedure CoChange(Sender: TObject);
+    procedure CuChange(Sender: TObject);
+    procedure dBChange(Sender: TObject);
+    procedure dCoChange(Sender: TObject);
+    procedure dCuChange(Sender: TObject);
+    procedure dFeChange(Sender: TObject);
+    procedure dMnChange(Sender: TObject);
+    procedure dMoChange(Sender: TObject);
+    procedure dSiChange(Sender: TObject);
+    procedure dZnChange(Sender: TObject);
+
     procedure ECChange(Sender: TObject);
     procedure ECChange(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure ECClick(Sender: TObject);
     procedure ECClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure FeChange(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormChangeBounds(Sender: TObject);
     procedure FormClick(Sender: TObject);
@@ -272,6 +285,8 @@ type
     procedure KSClick(Sender: TObject);
     procedure KSClick(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure Label1Click(Sender: TObject);
+    procedure MnChange(Sender: TObject);
+    procedure MoChange(Sender: TObject);
     procedure pkfClick(Sender: TObject);
     procedure Label54Click(Sender: TObject);
     procedure MgCaChange(Sender: TObject);
@@ -380,6 +395,7 @@ type
 
 
     procedure SChange(Sender: TObject);
+    procedure SiChange(Sender: TObject);
 
 
     procedure SKChange(Sender: TObject);
@@ -392,9 +408,11 @@ type
 
 
     procedure SPChange(Sender: TObject);
+    procedure TabSheet2Show(Sender: TObject);
 
 
     procedure VChange(Sender: TObject);
+    procedure ZnChange(Sender: TObject);
 
 
   private
@@ -818,7 +836,16 @@ begin
 
   //then vA:=StrToFloat(ExtractWord(2,s,['=']));
 end;
-
+procedure microToWeght; begin
+ Kf.gFe.value:=Kf.Fe.value/Kf.dFe.value*Kf.V.value/1000;
+ Kf.gMn.value:=Kf.Mn.value/Kf.dMn.value*Kf.V.value/1000;
+ Kf.gB.value:=Kf.B.value/Kf.dB.value*Kf.V.value/1000;
+ Kf.gZn.value:=Kf.Zn.value/Kf.dZn.value*Kf.V.value/1000;
+ Kf.gCu.value:=Kf.Cu.value/Kf.dCu.value*Kf.V.value/1000;
+ Kf.gMo.value:=Kf.Mo.value/Kf.dMo.value*Kf.V.value/1000;
+ Kf.gCo.value:=Kf.Co.value/Kf.dCo.value*Kf.V.value/1000;
+ Kf.gSi.value:=Kf.Si.value/Kf.dSi.value*Kf.V.value/1000;
+end;
 
 procedure TKf.Label8Click(Sender: TObject);
 begin
@@ -911,6 +938,16 @@ procedure TKf.Label1Click(Sender: TObject);
 begin
     NH4NO3.value := NH4.value/NO3.value;
     CalcAll;
+end;
+
+procedure TKf.MnChange(Sender: TObject);
+begin
+  microToWeght;
+end;
+
+procedure TKf.MoChange(Sender: TObject);
+begin
+  microToWeght;
 end;
 
 procedure TKf.pkfClick(Sender: TObject);
@@ -1590,6 +1627,11 @@ begin
     CalcWeight ;
 end;
 
+procedure TKf.BChange(Sender: TObject);
+begin
+  microToWeght;
+end;
+
 procedure TKf.CaChange(Sender: TObject);
 begin
    if ( Ca.Focused = True )    then begin
@@ -1810,6 +1852,59 @@ begin
 
 end;
 
+procedure TKf.CoChange(Sender: TObject);
+begin
+  microToWeght;
+end;
+
+procedure TKf.CuChange(Sender: TObject);
+begin
+  microToWeght;
+end;
+
+procedure TKf.dBChange(Sender: TObject);
+begin
+  microToWeght;
+end;
+
+procedure TKf.dCoChange(Sender: TObject);
+begin
+  microToWeght;
+end;
+
+procedure TKf.dCuChange(Sender: TObject);
+begin
+  microToWeght;
+end;
+
+procedure TKf.dFeChange(Sender: TObject);
+begin
+
+  microToWeght;
+end;
+
+procedure TKf.dMnChange(Sender: TObject);
+begin
+  microToWeght;
+end;
+
+procedure TKf.dMoChange(Sender: TObject);
+begin
+  microToWeght;
+end;
+
+procedure TKf.dSiChange(Sender: TObject);
+begin
+  microToWeght;
+end;
+
+procedure TKf.dZnChange(Sender: TObject);
+begin
+  microToWeght;
+end;
+
+
+
 procedure TKf.ECChange(Sender: TObject);
 begin
   if ( EC.Focused = True )    then begin
@@ -1839,6 +1934,11 @@ end;
 procedure TKf.ECClick(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
 
+end;
+
+procedure TKf.FeChange(Sender: TObject);
+begin
+  microToWeght;
 end;
 
 procedure TKf.FormActivate(Sender: TObject);
@@ -2302,6 +2402,11 @@ begin
    end
 end;
 
+procedure TKf.SiChange(Sender: TObject);
+begin
+  microToWeght;
+end;
+
 
 
 
@@ -2368,12 +2473,22 @@ begin
   end;
 end;
 
+procedure TKf.TabSheet2Show(Sender: TObject);
+begin
+  microToWeght;
+end;
+
 
 
 
 procedure TKf.VChange(Sender: TObject);
 begin
   CalcWeight ;
+end;
+
+procedure TKf.ZnChange(Sender: TObject);
+begin
+  microToWeght;
 end;
 
 
