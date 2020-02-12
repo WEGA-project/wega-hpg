@@ -194,32 +194,31 @@ type
     procedure Button1Click(Sender: TObject);
     procedure CaChange(Sender: TObject);
     procedure C(Sender: TObject);
-    procedure CaClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+
     procedure CaKChange(Sender: TObject);
     procedure CaKClick(Sender: TObject);
-    procedure CaKClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+
     procedure CaMgChange(Sender: TObject);
     procedure CaMgClick(Sender: TObject);
-    procedure CaMgClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+
     procedure CaNChange(Sender: TObject);
     procedure CaNClick(Sender: TObject);
-    procedure CaNClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+
     procedure CaNO3_CaChange(Sender: TObject);
-    procedure CaNO3_CaChange(Sender: TObject; var Key: Word; Shift: TShiftState
-      );
+
     procedure CaNO3_NH4Change(Sender: TObject);
     procedure CaNO3_NH4EditingDone(Sender: TObject);
-    procedure CaNO3_NH4EditingDone(Sender: TObject; var Key: Word;
-      Shift: TShiftState);
+
+
     procedure CaNO3_NO3Change(Sender: TObject);
 
     procedure CaNO3_NO3KeyDown(Sender: TObject);
     procedure CaPChange(Sender: TObject);
     procedure CaPClick(Sender: TObject);
-    procedure CaPClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+
     procedure CaSChange(Sender: TObject);
     procedure CaSClick(Sender: TObject);
-    procedure CaSClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+
     procedure chK2SO4Change(Sender: TObject);
     procedure chMgNO3Change(Sender: TObject);
     procedure CoChange(Sender: TObject);
@@ -234,15 +233,14 @@ type
     procedure dZnChange(Sender: TObject);
 
     procedure ECChange(Sender: TObject);
-    procedure ECChange(Sender: TObject; var Key: Word; Shift: TShiftState);
+
     procedure ECClick(Sender: TObject);
-    procedure ECClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+
     procedure FeChange(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormChangeBounds(Sender: TObject);
     procedure FormClick(Sender: TObject);
-    procedure FormMouseDown(Sender: TObject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: Integer);
+
     procedure gCaNO3Change(Sender: TObject);
     procedure gK2SO4Change(Sender: TObject);
     procedure gKH2PO4Change(Sender: TObject);
@@ -252,47 +250,47 @@ type
     procedure gNH4NO3Change(Sender: TObject);
     procedure K2SO4_KChange(Sender: TObject);
     procedure K2SO4_KClick(Sender: TObject);
-    procedure K2SO4_KClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+
     procedure K2SO4_SChange(Sender: TObject);
     procedure K2SO4_SClick(Sender: TObject);
-    procedure K2SO4_SClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+
     procedure KCaChange(Sender: TObject);
     procedure KCaClick(Sender: TObject);
-    procedure KCaClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+
     procedure KChange(Sender: TObject);
     procedure KClick(Sender: TObject);
-    procedure KClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+
     procedure KH2PO4_KChange(Sender: TObject);
     procedure KH2PO4_KClick(Sender: TObject);
-    procedure KH2PO4_KClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+
     procedure KH2PO4_PChange(Sender: TObject);
     procedure KH2PO4_PClick(Sender: TObject);
-    procedure KH2PO4_PClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+
     procedure KMgChange(Sender: TObject);
     procedure KMgClick(Sender: TObject);
-    procedure KMgClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+
     procedure KNChange(Sender: TObject);
     procedure KNClick(Sender: TObject);
-    procedure KNClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+
     procedure KNO3_KChange(Sender: TObject);
     procedure KNO3_KClick(Sender: TObject);
-    procedure KNO3_KClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+
     procedure KNO3_NO3Change(Sender: TObject);
     procedure KNO3_NO3Click(Sender: TObject);
-    procedure KNO3_NO3Click(Sender: TObject; var Key: Word; Shift: TShiftState);
+
     procedure KPChange(Sender: TObject);
     procedure KPClick(Sender: TObject);
-    procedure KPClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+
     procedure KSChange(Sender: TObject);
     procedure KSClick(Sender: TObject);
-    procedure KSClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+
     procedure Label1Click(Sender: TObject);
     procedure MnChange(Sender: TObject);
     procedure MoChange(Sender: TObject);
     procedure pkfClick(Sender: TObject);
     procedure Label54Click(Sender: TObject);
     procedure MgCaChange(Sender: TObject);
-    procedure MgClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+
     procedure MgKChange(Sender: TObject);
     procedure MgNChange(Sender: TObject);
     procedure MgNO3_MgChange(Sender: TObject);
@@ -300,34 +298,34 @@ type
     procedure MgPChange(Sender: TObject);
     procedure MgSChange(Sender: TObject);
     procedure MgSO4_MgChange(Sender: TObject);
-    procedure MgSO4_MgClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+
     procedure MgSO4_SChange(Sender: TObject);
-    procedure MgSO4_SClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+
     procedure MgSO4_SClick(Sender: TObject);
     procedure NCaChange(Sender: TObject);
-    procedure NClick(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure NH4Click(Sender: TObject; var Key: Word; Shift: TShiftState);
+
+
     procedure NH4NO3_NH4Change(Sender: TObject);
     procedure NH4NO3_NO3Change(Sender: TObject);
     procedure nKH2PO4Click(Sender: TObject);
     procedure nK2SO4Click(Sender: TObject);
     procedure Label8Click(Sender: TObject);
     procedure MgCaClick(Sender: TObject);
-    procedure MgCaClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+
     procedure MgChange(Sender: TObject);
     procedure MgClick(Sender: TObject);
     procedure MgKClick(Sender: TObject);
 
     procedure MgNClick(Sender: TObject);
-    procedure MgNClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+
     procedure MgPClick(Sender: TObject);
-    procedure MgPClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+
     procedure MgSClick(Sender: TObject);
-    procedure MgSClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+
 
 
     procedure NCaClick(Sender: TObject);
-    procedure NCaClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+
     procedure NChange(Sender: TObject);
     procedure NClick(Sender: TObject);
     procedure NEditingDone(Sender: TObject);
@@ -335,24 +333,21 @@ type
     procedure NH4Click(Sender: TObject);
     procedure NH4EditingDone(Sender: TObject);
     procedure NH4Exit(Sender: TObject);
-    procedure NH4MouseDown(Sender: TObject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: Integer);
+
     procedure NH4NO3Change(Sender: TObject);
     procedure NH4NO3Click(Sender: TObject);
-    procedure NH4NO3Click(Sender: TObject; var Key: Word; Shift: TShiftState);
+
     procedure NH4NO3_NH4Click(Sender: TObject);
-    procedure NH4NO3_NH4Click(Sender: TObject; var Key: Word; Shift: TShiftState
-      );
+
     procedure NH4NO3_NO3Click(Sender: TObject);
-    procedure NH4NO3_NO3Click(Sender: TObject; var Key: Word; Shift: TShiftState
-      );
+
     procedure NKChange(Sender: TObject);
     procedure NKClick(Sender: TObject);
 
-    procedure NKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+
     procedure NMgChange(Sender: TObject);
     procedure NMgClick(Sender: TObject);
-    procedure NMgClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+
     procedure NO3Change(Sender: TObject);
     procedure NO3Click(Sender: TObject);
     procedure NO3Enter(Sender: TObject);
@@ -369,16 +364,16 @@ type
 
     procedure NSChange(Sender: TObject);
     procedure NSClick(Sender: TObject);
-    procedure NSClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+
     procedure parseClick(Sender: TObject);
     procedure PCaChange(Sender: TObject);
     procedure PCaClick(Sender: TObject);
-    procedure PCaClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+
 
 
     procedure PChange(Sender: TObject);
     procedure PClick(Sender: TObject);
-    procedure PClick(Sender: TObject; var Key: Word; Shift: TShiftState);
+
     procedure PKChange(Sender: TObject);
 
 
@@ -759,7 +754,7 @@ begin
     if ( Kf.Ca.Focused = False ) then Kf.Ca.value:=vCa;
     if ( Kf.Mg.Focused = False ) then Kf.Mg.value:=vMg;
 
-    GenNH4NO3event;
+    //GenNH4NO3event;
 
 end;
 
@@ -772,7 +767,7 @@ begin
  CalcKoef;
  genProfile;
  CalcWeight ;
-
+ GenNH4NO3event;
 end;
 
 
@@ -860,10 +855,7 @@ begin
   CalcAll;
 end;
 
-procedure TKf.MgCaClick(Sender: TObject; var Key: Word; Shift: TShiftState);
-begin
 
-end;
 
 procedure TKf.MgChange(Sender: TObject);
 begin
@@ -894,10 +886,7 @@ begin
   CalcAll;
 end;
 
-procedure TKf.MgNClick(Sender: TObject; var Key: Word; Shift: TShiftState);
-begin
 
-end;
 
 procedure TKf.MgPClick(Sender: TObject);
 begin
@@ -905,10 +894,7 @@ begin
   CalcAll;
 end;
 
-procedure TKf.MgPClick(Sender: TObject; var Key: Word; Shift: TShiftState);
-begin
 
-end;
 
 procedure TKf.MgSClick(Sender: TObject);
 begin
@@ -916,10 +902,7 @@ begin
   CalcAll;
 end;
 
-procedure TKf.MgSClick(Sender: TObject; var Key: Word; Shift: TShiftState);
-begin
 
-end;
 
 
 
@@ -931,10 +914,7 @@ begin
   CalcAll;
 end;
 
-procedure TKf.NCaClick(Sender: TObject; var Key: Word; Shift: TShiftState);
-begin
 
-end;
 
 procedure TKf.Label1Click(Sender: TObject);
 begin
@@ -973,10 +953,7 @@ begin
   end;
 end;
 
-procedure TKf.MgClick(Sender: TObject; var Key: Word; Shift: TShiftState);
-begin
 
-end;
 
 procedure TKf.MgKChange(Sender: TObject);
 begin
@@ -1059,14 +1036,7 @@ begin
    end;
 end;
 
-procedure TKf.MgSO4_MgClick(Sender: TObject; var Key: Word; Shift: TShiftState);
-begin
-    MgSO4_S.value:= (MgSO4_Mg.value * mS)/mMg;
-         nMgSO4.Caption:='Сульфат магния'
- + ' MgO-' +floattostr(Round((MgSO4_Mg.value/0.603036)*10)/10)+'%'
- + ' SO3-' +floattostr(Round((MgSO4_S.value/0.400496)*10)/10)+'%';
-         CalcWeight ;
-end;
+
 
 procedure TKf.MgSO4_SChange(Sender: TObject);
 begin
@@ -1080,15 +1050,7 @@ begin
   end;
 end;
 
-procedure TKf.MgSO4_SClick(Sender: TObject; var Key: Word; Shift: TShiftState);
-begin
 
-  MgSO4_Mg.value:= (MgSO4_S.value * mMg)/mS;
-           nMgSO4.Caption:='Сульфат магния'
- + ' MgO-' +floattostr(Round((MgSO4_Mg.value/0.603036)*10)/10)+'%'
- + ' SO3-' +floattostr(Round((MgSO4_S.value/0.400496)*10)/10)+'%';
-    CalcWeight ;
-end;
 
 procedure TKf.MgSO4_SClick(Sender: TObject);
 begin
@@ -1108,21 +1070,9 @@ begin
   end;
 end;
 
-procedure TKf.NClick(Sender: TObject; var Key: Word; Shift: TShiftState);
-begin
-  CalcAll;
-end;
 
-procedure TKf.NH4Click(Sender: TObject; var Key: Word; Shift: TShiftState);
-begin
-  if ( NH4.Focused = True )    then begin
-  NO3.Value := N.value - NH4.value;
-  NH4NO3.value := NH4.value / NO3.value ;
-  CalcAll;
-  CalcWeight ;
-  GenNH4NO3event;
-  end;
-end;
+
+
 
 procedure TKf.NH4NO3_NH4Change(Sender: TObject);
 begin
@@ -1159,11 +1109,7 @@ begin
 
 end;
 
-procedure TKf.FormMouseDown(Sender: TObject; Button: TMouseButton;
-  Shift: TShiftState; X, Y: Integer);
-begin
 
-end;
 
 procedure TKf.gCaNO3Change(Sender: TObject);
 begin
@@ -1270,10 +1216,7 @@ begin
     CalcWeight ;
 end;
 
-procedure TKf.K2SO4_KClick(Sender: TObject; var Key: Word; Shift: TShiftState);
-begin
 
-end;
 
 procedure TKf.K2SO4_SChange(Sender: TObject);
 begin
@@ -1297,10 +1240,7 @@ begin
     CalcWeight ;
 end;
 
-procedure TKf.K2SO4_SClick(Sender: TObject; var Key: Word; Shift: TShiftState);
-begin
 
-end;
 
 procedure TKf.KCaChange(Sender: TObject);
 begin
@@ -1327,10 +1267,7 @@ begin
   CalcAll;
 end;
 
-procedure TKf.KCaClick(Sender: TObject; var Key: Word; Shift: TShiftState);
-begin
 
-end;
 
 procedure TKf.KChange(Sender: TObject);
 begin
@@ -1348,10 +1285,7 @@ begin
   CalcAll;
 end;
 
-procedure TKf.KClick(Sender: TObject; var Key: Word; Shift: TShiftState);
-begin
 
-end;
 
 procedure TKf.KH2PO4_KChange(Sender: TObject);
 begin
@@ -1375,10 +1309,7 @@ begin
     CalcWeight ;
 end;
 
-procedure TKf.KH2PO4_KClick(Sender: TObject; var Key: Word; Shift: TShiftState);
-begin
 
-end;
 
 procedure TKf.KH2PO4_PChange(Sender: TObject);
 begin
@@ -1402,10 +1333,7 @@ begin
     CalcWeight ;
 end;
 
-procedure TKf.KH2PO4_PClick(Sender: TObject; var Key: Word; Shift: TShiftState);
-begin
 
-end;
 
 procedure TKf.KMgChange(Sender: TObject);
 begin
@@ -1432,10 +1360,7 @@ begin
   CalcAll;
 end;
 
-procedure TKf.KMgClick(Sender: TObject; var Key: Word; Shift: TShiftState);
-begin
 
-end;
 
 procedure TKf.KNChange(Sender: TObject);
 begin
@@ -1464,10 +1389,7 @@ begin
   CalculateS;
 end;
 
-procedure TKf.KNClick(Sender: TObject; var Key: Word; Shift: TShiftState);
-begin
 
-end;
 
 procedure TKf.KNO3_KChange(Sender: TObject);
 begin
@@ -1491,10 +1413,7 @@ begin
     CalcWeight ;
 end;
 
-procedure TKf.KNO3_KClick(Sender: TObject; var Key: Word; Shift: TShiftState);
-begin
 
-end;
 
 procedure TKf.KNO3_NO3Change(Sender: TObject);
 begin
@@ -1516,10 +1435,7 @@ begin
        CalcWeight ;
 end;
 
-procedure TKf.KNO3_NO3Click(Sender: TObject; var Key: Word; Shift: TShiftState);
-begin
 
-end;
 
 procedure TKf.KPChange(Sender: TObject);
 begin
@@ -1538,10 +1454,7 @@ begin
   CalcAll;
 end;
 
-procedure TKf.KPClick(Sender: TObject; var Key: Word; Shift: TShiftState);
-begin
 
-end;
 
 procedure TKf.KSChange(Sender: TObject);
 begin
@@ -1561,10 +1474,7 @@ begin
   CalcAll;
 end;
 
-procedure TKf.KSClick(Sender: TObject; var Key: Word; Shift: TShiftState);
-begin
 
-end;
 
 procedure TKf.Button1Click(Sender: TObject);
 begin
@@ -1651,10 +1561,7 @@ begin
   CalcAll;
 end;
 
-procedure TKf.CaClick(Sender: TObject; var Key: Word; Shift: TShiftState);
-begin
 
-end;
 
 procedure TKf.CaKChange(Sender: TObject);
 begin
@@ -1673,10 +1580,7 @@ begin
   CalcAll;
 end;
 
-procedure TKf.CaKClick(Sender: TObject; var Key: Word; Shift: TShiftState);
-begin
 
-end;
 
 procedure TKf.CaMgChange(Sender: TObject);
 begin
@@ -1695,10 +1599,7 @@ begin
   CalcAll;
 end;
 
-procedure TKf.CaMgClick(Sender: TObject; var Key: Word; Shift: TShiftState);
-begin
 
-end;
 
 procedure TKf.CaNChange(Sender: TObject);
 begin
@@ -1717,10 +1618,7 @@ begin
   CalcAll;
 end;
 
-procedure TKf.CaNClick(Sender: TObject; var Key: Word; Shift: TShiftState);
-begin
 
-end;
 
 procedure TKf.CaNO3_CaChange(Sender: TObject);
 begin
@@ -1734,11 +1632,7 @@ begin
   end;
 end;
 
-procedure TKf.CaNO3_CaChange(Sender: TObject; var Key: Word; Shift: TShiftState
-  );
-begin
 
-end;
 
 procedure TKf.CaNO3_NH4Change(Sender: TObject);
 begin
@@ -1764,11 +1658,7 @@ begin
         CalcWeight ;
 end;
 
-procedure TKf.CaNO3_NH4EditingDone(Sender: TObject; var Key: Word;
-  Shift: TShiftState);
-begin
 
-end;
 
 procedure TKf.CaNO3_NO3Change(Sender: TObject);
 begin
@@ -1805,10 +1695,7 @@ begin
   CalcAll;
 end;
 
-procedure TKf.CaPClick(Sender: TObject; var Key: Word; Shift: TShiftState);
-begin
 
-end;
 
 procedure TKf.CaSChange(Sender: TObject);
 begin
@@ -1827,10 +1714,7 @@ begin
   CalcAll;
 end;
 
-procedure TKf.CaSClick(Sender: TObject; var Key: Word; Shift: TShiftState);
-begin
 
-end;
 
 procedure TKf.chK2SO4Change(Sender: TObject);
 begin
@@ -1910,22 +1794,14 @@ end;
 procedure TKf.ECChange(Sender: TObject);
 begin
   if ( EC.Focused = True )    then begin
-  //CalcAll;
-   //CalculateS;
- //CalculateCa;
+
  calcECtoVal;
- //CalcEC;
- //CalcKoef;
- //CalcWeight ;
    CalcAll;
-   //CalcWeight ;
+
   end;
 end;
 
-procedure TKf.ECChange(Sender: TObject; var Key: Word; Shift: TShiftState);
-begin
 
-end;
 
 procedure TKf.ECClick(Sender: TObject);
 begin
@@ -1933,10 +1809,7 @@ begin
   CalcAll;
 end;
 
-procedure TKf.ECClick(Sender: TObject; var Key: Word; Shift: TShiftState);
-begin
 
-end;
 
 procedure TKf.FeChange(Sender: TObject);
 begin
@@ -1991,9 +1864,12 @@ end;
 
 procedure TKf.NH4Click(Sender: TObject);
 begin
+ if ( NH4.Focused = True )    then begin
   NO3.Value := N.value - NH4.value;
   NH4NO3.value := NH4.value / NO3.value ;
   CalcAll;
+
+ end;
 end;
 
 procedure TKf.NH4EditingDone(Sender: TObject);
@@ -2007,19 +1883,15 @@ begin
   //NO3.value := N.value - NH4.Value
 end;
 
-procedure TKf.NH4MouseDown(Sender: TObject; Button: TMouseButton;
-  Shift: TShiftState; X, Y: Integer);
-begin
 
-    NH4NO3.value := NH4.value / NO3.value
-
-end;
 
 procedure TKf.NH4NO3Change(Sender: TObject);
 begin
     if ( NH4NO3.Focused = True )    then begin
+    //CalcAll;
     NH4.value := N.value *(NH4NO3.value/(NH4NO3.value+1));
   NO3.value := N.value / ( NH4NO3.value+1 );
+      GenNH4NO3event;
   //CalcAll;
   //CalcWeight ;
 
@@ -2036,7 +1908,7 @@ begin
            KN.value:=vKN0;
                   EC.value:=vEC0;
                   calcECtoVal;
-    GenNH4NO3event;
+
   end;
   //CalculateS;
 end;
@@ -2051,10 +1923,7 @@ begin
   end;
 end;
 
-procedure TKf.NH4NO3Click(Sender: TObject; var Key: Word; Shift: TShiftState);
-begin
 
-end;
 
 procedure TKf.NH4NO3_NH4Click(Sender: TObject);
 begin
@@ -2067,11 +1936,7 @@ begin
   end;
 end;
 
-procedure TKf.NH4NO3_NH4Click(Sender: TObject; var Key: Word; Shift: TShiftState
-  );
-begin
 
-end;
 
 procedure TKf.NH4NO3_NO3Click(Sender: TObject);
 begin
@@ -2081,11 +1946,7 @@ begin
         CalcWeight ;
 end;
 
-procedure TKf.NH4NO3_NO3Click(Sender: TObject; var Key: Word; Shift: TShiftState
-  );
-begin
 
-end;
 
 procedure TKf.NKChange(Sender: TObject);
 begin
@@ -2109,11 +1970,7 @@ end;
 
 
 
-procedure TKf.NKeyDown(Sender: TObject; var Key: Word;
-  Shift: TShiftState);
-begin
 
-end;
 
 procedure TKf.NMgChange(Sender: TObject);
 begin
@@ -2134,10 +1991,7 @@ begin
   CalcAll;
 end;
 
-procedure TKf.NMgClick(Sender: TObject; var Key: Word; Shift: TShiftState);
-begin
 
-end;
 
 procedure TKf.NO3Change(Sender: TObject);
 begin
@@ -2145,8 +1999,8 @@ begin
     NH4.value:=N.Value-NO3.value;
     NH4NO3.value := NH4.value/NO3.value;
     CalcAll;
-    CalcWeight ;
-    GenNH4NO3event;
+    //CalcWeight ;
+    //GenNH4NO3event;
    end;
 
 end;
@@ -2215,10 +2069,7 @@ begin
   CalcAll;
 end;
 
-procedure TKf.NSClick(Sender: TObject; var Key: Word; Shift: TShiftState);
-begin
 
-end;
 
 procedure TKf.parseClick(Sender: TObject);
 begin
@@ -2246,10 +2097,7 @@ begin
   CalcAll;
 end;
 
-procedure TKf.PCaClick(Sender: TObject; var Key: Word; Shift: TShiftState);
-begin
 
-end;
 
 
 
@@ -2270,10 +2118,7 @@ begin
   CalcAll;
 end;
 
-procedure TKf.PClick(Sender: TObject; var Key: Word; Shift: TShiftState);
-begin
 
-end;
 
 procedure TKf.PKChange(Sender: TObject);
 begin
