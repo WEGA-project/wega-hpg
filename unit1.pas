@@ -844,7 +844,7 @@ begin
   //then vA:=StrToFloat(ExtractWord(2,s,['=']));
 end;
 procedure microToWeght; begin
-
+ if (kF.chKComplex.Checked = False) then  begin
  Kf.gFe.value:=Kf.Fe.value/Kf.dFe.value*Kf.V.value/1000;
  Kf.gMn.value:=Kf.Mn.value/Kf.dMn.value*Kf.V.value/1000;
  Kf.gB.value:=Kf.B.value/Kf.dB.value*Kf.V.value/1000;
@@ -853,7 +853,18 @@ procedure microToWeght; begin
  Kf.gMo.value:=Kf.Mo.value/Kf.dMo.value*Kf.V.value/1000;
  Kf.gCo.value:=Kf.Co.value/Kf.dCo.value*Kf.V.value/1000;
  Kf.gSi.value:=Kf.Si.value/Kf.dSi.value*Kf.V.value/1000;
- end ;
+ end
+ else begin
+   Kf.gFe.value:=Kf.Fe.value/Kf.dFe.value*Kf.V.value/1000;
+ Kf.gMn.value:=Kf.Mn.value/Kf.dMn.value*Kf.V.value/1000;
+ Kf.gB.value:=Kf.B.value/Kf.dB.value*Kf.V.value/1000;
+ Kf.gZn.value:=Kf.Zn.value/Kf.dZn.value*Kf.V.value/1000;
+ Kf.gCu.value:=Kf.Cu.value/Kf.dCu.value*Kf.V.value/1000;
+ Kf.gMo.value:=Kf.Mo.value/Kf.dMo.value*Kf.V.value/1000;
+ Kf.gCo.value:=Kf.Co.value/Kf.dCo.value*Kf.V.value/1000;
+ Kf.gSi.value:=Kf.Si.value/Kf.dSi.value*Kf.V.value/1000;
+ end;
+end ;
 
 
 
@@ -862,6 +873,15 @@ procedure microToWeght; begin
 procedure WeghtTomicro; begin
 
 if (kF.chKComplex.Checked = False) then  begin
+
+ Kf.gFe.ReadOnly:=false;
+ Kf.gMn.ReadOnly:=false;
+ Kf.gZn.ReadOnly:=false;
+ Kf.gCu.ReadOnly:=false;
+ Kf.gMo.ReadOnly:=false;
+ Kf.gMo.ReadOnly:=false;
+ Kf.gCo.ReadOnly:=false;
+ Kf.gSi.ReadOnly:=false;
 
 
  Kf.Fe.value:=1000*Kf.gFe.value* (Kf.dFe.value/Kf.V.value);
@@ -874,6 +894,15 @@ if (kF.chKComplex.Checked = False) then  begin
  Kf.Si.value:=1000*Kf.gSi.value* (Kf.dSi.value/Kf.V.value);
  end
 else begin
+
+ Kf.gFe.ReadOnly:=true;
+ Kf.gMn.ReadOnly:=true;
+ Kf.gZn.ReadOnly:=true;
+ Kf.gCu.ReadOnly:=true;
+ Kf.gMo.ReadOnly:=true;
+ Kf.gMo.ReadOnly:=true;
+ Kf.gCo.ReadOnly:=true;
+ Kf.gSi.ReadOnly:=true;
 
 Kf.Fe.value:=1000*Kf.gB.value* (Kf.dFe.value/Kf.V.value);
 Kf.Mn.value:=1000*Kf.gB.value* (Kf.dMn.value/Kf.V.value);
@@ -1851,7 +1880,7 @@ end;
 
 procedure TKf.chkComplexChange(Sender: TObject);
 begin
-
+  WeghtTomicro;
 end;
 
 procedure TKf.chMgNO3Change(Sender: TObject);
@@ -1950,6 +1979,7 @@ end;
 procedure TKf.FeChange(Sender: TObject);
 begin
   if ( Fe.Focused = True )    then begin
+
   microToWeght;
 
   end;

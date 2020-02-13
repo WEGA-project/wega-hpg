@@ -1,7 +1,7 @@
 object Kf: TKf
-  Left = 151
+  Left = 468
   Height = 783
-  Top = 265
+  Top = 237
   Width = 762
   Caption = 'Koefficients'
   ClientHeight = 783
@@ -31,11 +31,11 @@ object Kf: TKf
     Height = 744
     Top = 0
     Width = 761
-    ActivePage = TabSheet2
+    ActivePage = TabSheet1
     Font.Height = -15
     Font.Name = 'Arial'
     ParentFont = False
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'Макро'
