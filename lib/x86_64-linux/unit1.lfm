@@ -1,7 +1,7 @@
 object Kf: TKf
-  Left = 743
+  Left = 151
   Height = 783
-  Top = 175
+  Top = 265
   Width = 762
   Caption = 'Koefficients'
   ClientHeight = 783
@@ -247,7 +247,6 @@ object Kf: TKf
         Font.Style = [fsBold]
         ParentColor = False
         ParentFont = False
-        OnClick = Label8Click
       end
       object Label9: TLabel
         Left = 4
@@ -2292,6 +2291,15 @@ object Kf: TKf
         Font.Name = 'Arial'
         ParentColor = False
         ParentFont = False
+      end
+      object chkComplex: TCheckBox
+        Left = 258
+        Height = 21
+        Top = 392
+        Width = 89
+        Caption = 'Комплекс'
+        OnChange = chkComplexChange
+        TabOrder = 24
       end
     end
   end

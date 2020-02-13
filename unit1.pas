@@ -18,6 +18,7 @@ type
   TKf = class(TForm)
     bload: TButton;
     Button1: TButton;
+    chkComplex: TCheckBox;
     gB: TFloatSpinEdit;
     gCo: TFloatSpinEdit;
     gCu: TFloatSpinEdit;
@@ -220,6 +221,7 @@ type
     procedure CaSClick(Sender: TObject);
 
     procedure chK2SO4Change(Sender: TObject);
+    procedure chkComplexChange(Sender: TObject);
     procedure chMgNO3Change(Sender: TObject);
     procedure CoChange(Sender: TObject);
     procedure CuChange(Sender: TObject);
@@ -317,7 +319,7 @@ type
     procedure NH4NO3_NO3Change(Sender: TObject);
     procedure nKH2PO4Click(Sender: TObject);
     procedure nK2SO4Click(Sender: TObject);
-    procedure Label8Click(Sender: TObject);
+
     procedure MgCaClick(Sender: TObject);
 
     procedure MgChange(Sender: TObject);
@@ -842,6 +844,7 @@ begin
   //then vA:=StrToFloat(ExtractWord(2,s,['=']));
 end;
 procedure microToWeght; begin
+
  Kf.gFe.value:=Kf.Fe.value/Kf.dFe.value*Kf.V.value/1000;
  Kf.gMn.value:=Kf.Mn.value/Kf.dMn.value*Kf.V.value/1000;
  Kf.gB.value:=Kf.B.value/Kf.dB.value*Kf.V.value/1000;
@@ -850,9 +853,17 @@ procedure microToWeght; begin
  Kf.gMo.value:=Kf.Mo.value/Kf.dMo.value*Kf.V.value/1000;
  Kf.gCo.value:=Kf.Co.value/Kf.dCo.value*Kf.V.value/1000;
  Kf.gSi.value:=Kf.Si.value/Kf.dSi.value*Kf.V.value/1000;
-end;
+ end ;
+
+
+
+
 
 procedure WeghtTomicro; begin
+
+if (kF.chKComplex.Checked = False) then  begin
+
+
  Kf.Fe.value:=1000*Kf.gFe.value* (Kf.dFe.value/Kf.V.value);
  Kf.Mn.value:=1000*Kf.gMn.value* (Kf.dMn.value/Kf.V.value);
  Kf.B.value:=1000*Kf.gB.value*   (Kf.dB.value/Kf.V.value);
@@ -861,14 +872,31 @@ procedure WeghtTomicro; begin
  Kf.Mo.value:=1000*Kf.gMo.value* (Kf.dMo.value/Kf.V.value);
  Kf.Co.value:=1000*Kf.gCo.value* (Kf.dCo.value/Kf.V.value);
  Kf.Si.value:=1000*Kf.gSi.value* (Kf.dSi.value/Kf.V.value);
+ end
+else begin
 
+Kf.Fe.value:=1000*Kf.gB.value* (Kf.dFe.value/Kf.V.value);
+Kf.Mn.value:=1000*Kf.gB.value* (Kf.dMn.value/Kf.V.value);
+Kf.B.value:=1000*Kf.gB.value*   (Kf.dB.value/Kf.V.value);
+Kf.Zn.value:=1000*Kf.gB.value* (Kf.dZn.value/Kf.V.value);
+Kf.Cu.value:=1000*Kf.gB.value* (Kf.dCu.value/Kf.V.value);
+Kf.Mo.value:=1000*Kf.gB.value* (Kf.dMo.value/Kf.V.value);
+Kf.Co.value:=1000*Kf.gB.value* (Kf.dCo.value/Kf.V.value);
+Kf.Si.value:=1000*Kf.gB.value* (Kf.dSi.value/Kf.V.value);
+
+Kf.gFe.value:=Kf.gB.value;
+Kf.gMn.value:=Kf.gB.value;
+
+Kf.gZn.value:=Kf.gB.value;
+Kf.gCu.value:=Kf.gB.value;
+Kf.gMo.value:=Kf.gB.value;
+Kf.gCo.value:=Kf.gB.value;
+Kf.gSi.value:=Kf.gB.value;
 
 end;
 
-procedure TKf.Label8Click(Sender: TObject);
-begin
-
 end;
+
 
 procedure TKf.MgCaClick(Sender: TObject);
 begin
@@ -1818,6 +1846,11 @@ if ( chK2SO4.Focused = True )    then begin
 
   end;
   CalcWeight ;
+
+end;
+
+procedure TKf.chkComplexChange(Sender: TObject);
+begin
 
 end;
 
