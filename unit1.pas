@@ -845,6 +845,9 @@ begin
 end;
 procedure microToWeght; begin
  if (kF.chKComplex.Checked = False) then  begin
+
+
+
  Kf.gFe.value:=Kf.Fe.value/Kf.dFe.value*Kf.V.value/1000;
  Kf.gMn.value:=Kf.Mn.value/Kf.dMn.value*Kf.V.value/1000;
  Kf.gB.value:=Kf.B.value/Kf.dB.value*Kf.V.value/1000;
@@ -855,14 +858,17 @@ procedure microToWeght; begin
  Kf.gSi.value:=Kf.Si.value/Kf.dSi.value*Kf.V.value/1000;
  end
  else begin
-   Kf.gFe.value:=Kf.Fe.value/Kf.dFe.value*Kf.V.value/1000;
- Kf.gMn.value:=Kf.Mn.value/Kf.dMn.value*Kf.V.value/1000;
- Kf.gB.value:=Kf.B.value/Kf.dB.value*Kf.V.value/1000;
- Kf.gZn.value:=Kf.Zn.value/Kf.dZn.value*Kf.V.value/1000;
- Kf.gCu.value:=Kf.Cu.value/Kf.dCu.value*Kf.V.value/1000;
- Kf.gMo.value:=Kf.Mo.value/Kf.dMo.value*Kf.V.value/1000;
- Kf.gCo.value:=Kf.Co.value/Kf.dCo.value*Kf.V.value/1000;
- Kf.gSi.value:=Kf.Si.value/Kf.dSi.value*Kf.V.value/1000;
+
+
+
+ Kf.Fe.value:=1000*Kf.gFe.value* (Kf.dFe.value/Kf.V.value);
+ Kf.Mn.value:=1000*Kf.gMn.value* (Kf.dMn.value/Kf.V.value);
+ Kf.B.value:=1000*Kf.gB.value*   (Kf.dB.value/Kf.V.value);
+ Kf.Zn.value:=1000*Kf.gZn.value* (Kf.dZn.value/Kf.V.value);
+ Kf.Cu.value:=1000*Kf.gCu.value* (Kf.dCu.value/Kf.V.value);
+ Kf.Mo.value:=1000*Kf.gMo.value* (Kf.dMo.value/Kf.V.value);
+ Kf.Co.value:=1000*Kf.gCo.value* (Kf.dCo.value/Kf.V.value);
+ Kf.Si.value:=1000*Kf.gSi.value* (Kf.dSi.value/Kf.V.value);
  end;
 end ;
 
@@ -874,14 +880,24 @@ procedure WeghtTomicro; begin
 
 if (kF.chKComplex.Checked = False) then  begin
 
- Kf.gFe.ReadOnly:=false;
- Kf.gMn.ReadOnly:=false;
- Kf.gZn.ReadOnly:=false;
- Kf.gCu.ReadOnly:=false;
- Kf.gMo.ReadOnly:=false;
- Kf.gMo.ReadOnly:=false;
- Kf.gCo.ReadOnly:=false;
- Kf.gSi.ReadOnly:=false;
+ Kf.gFe.Visible:=true;
+ Kf.gMn.Visible:=true;
+ Kf.gZn.Visible:=true;
+ Kf.gCu.Visible:=true;
+ Kf.gMo.Visible:=true;
+ Kf.gMo.Visible:=true;
+ Kf.gCo.Visible:=true;
+ Kf.gSi.Visible:=true;
+
+ Kf.Fe.ReadOnly :=false;
+Kf.Mn.ReadOnly:=false;
+Kf.B.ReadOnly:=false;
+Kf.Zn.ReadOnly:=false;
+Kf.Cu.ReadOnly:=false;
+Kf.Mo.ReadOnly:=false;
+Kf.Mo.ReadOnly:=false;
+Kf.Co.ReadOnly:=false;
+Kf.Si.ReadOnly:=false;
 
 
  Kf.Fe.value:=1000*Kf.gFe.value* (Kf.dFe.value/Kf.V.value);
@@ -895,14 +911,26 @@ if (kF.chKComplex.Checked = False) then  begin
  end
 else begin
 
- Kf.gFe.ReadOnly:=true;
- Kf.gMn.ReadOnly:=true;
- Kf.gZn.ReadOnly:=true;
- Kf.gCu.ReadOnly:=true;
- Kf.gMo.ReadOnly:=true;
- Kf.gMo.ReadOnly:=true;
- Kf.gCo.ReadOnly:=true;
- Kf.gSi.ReadOnly:=true;
+
+
+ Kf.gFe.Visible :=false;
+ Kf.gMn.Visible:=false;
+ Kf.gZn.Visible:=false;
+  Kf.gCu.Visible:=false;
+ Kf.gMo.Visible:=false;
+ Kf.gMo.Visible:=false;
+ Kf.gCo.Visible:=false;
+ Kf.gSi.Visible:=false;
+
+ Kf.Fe.ReadOnly :=true;
+ Kf.Mn.ReadOnly:=true;
+ Kf.B.ReadOnly:=true;
+ Kf.Zn.ReadOnly:=true;
+ Kf.Cu.ReadOnly:=true;
+ Kf.Mo.ReadOnly:=true;
+ Kf.Mo.ReadOnly:=true;
+ Kf.Co.ReadOnly:=true;
+ Kf.Si.ReadOnly:=true;
 
 Kf.Fe.value:=1000*Kf.gB.value* (Kf.dFe.value/Kf.V.value);
 Kf.Mn.value:=1000*Kf.gB.value* (Kf.dMn.value/Kf.V.value);
@@ -925,6 +953,7 @@ Kf.gSi.value:=Kf.gB.value;
 end;
 
 end;
+
 
 
 procedure TKf.MgCaClick(Sender: TObject);
@@ -2504,6 +2533,12 @@ procedure TKf.VChange(Sender: TObject);
 begin
   CalcWeight ;
   microToWeght;
+  //WeghtTomicro
+  //VtoMicrot;
+   //microToWeght;
+
+
+
 end;
 
 procedure TKf.ZnChange(Sender: TObject);

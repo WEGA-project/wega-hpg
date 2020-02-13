@@ -1,7 +1,7 @@
 object Kf: TKf
-  Left = 467
+  Left = 195
   Height = 709
-  Top = 146
+  Top = 249
   Width = 690
   Caption = 'Koefficients'
   ClientHeight = 709
@@ -12,7 +12,6 @@ object Kf: TKf
   OnActivate = FormActivate
   OnChangeBounds = FormChangeBounds
   OnClick = FormClick
-  OnMouseDown = FormMouseDown
   LCLVersion = '2.0.6.0'
   object Label1: TLabel
     Left = 456
@@ -31,11 +30,11 @@ object Kf: TKf
     Height = 674
     Top = 0
     Width = 689
-    ActivePage = TabSheet1
+    ActivePage = TabSheet2
     Font.Height = -14
     Font.Name = 'Arial'
     ParentFont = False
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'Макро'
@@ -53,7 +52,7 @@ object Kf: TKf
         Font.Name = 'Arial'
         Increment = 0.01
         MaxValue = 999
-        MinValue = 0
+        MinValue = -999
         OnChange = NChange
         ParentFont = False
         TabOrder = 0
@@ -68,7 +67,7 @@ object Kf: TKf
         Font.Name = 'Arial'
         Increment = 0.01
         MaxValue = 999
-        MinValue = 0
+        MinValue = -999
         OnChange = PChange
         ParentFont = False
         TabOrder = 1
@@ -83,7 +82,7 @@ object Kf: TKf
         Font.Name = 'Arial'
         Increment = 0.01
         MaxValue = 999
-        MinValue = 0
+        MinValue = -999
         OnChange = KChange
         ParentFont = False
         TabOrder = 2
@@ -98,7 +97,7 @@ object Kf: TKf
         Font.Name = 'Arial'
         Increment = 0.01
         MaxValue = 999
-        MinValue = 0
+        MinValue = -999
         OnChange = CaChange
         ParentFont = False
         TabOrder = 3
@@ -113,7 +112,7 @@ object Kf: TKf
         Font.Name = 'Arial'
         Increment = 0.01
         MaxValue = 999
-        MinValue = 0
+        MinValue = -999
         OnChange = MgChange
         ParentFont = False
         TabOrder = 4
@@ -128,7 +127,7 @@ object Kf: TKf
         Font.Name = 'Arial'
         Increment = 0.01
         MaxValue = 999
-        MinValue = 0
+        MinValue = -999
         OnChange = SChange
         ParentFont = False
         TabOrder = 5
@@ -247,7 +246,6 @@ object Kf: TKf
         Font.Style = [fsBold]
         ParentColor = False
         ParentFont = False
-        OnClick = Label8Click
       end
       object Label9: TLabel
         Left = 4
@@ -1069,7 +1067,6 @@ object Kf: TKf
         Increment = 0.001
         MinValue = 0
         OnChange = MgSO4_MgChange
-        OnKeyDown = MgSO4_MgClick
         ParentFont = False
         TabOrder = 41
         Value = 9.861
@@ -1716,9 +1713,9 @@ object Kf: TKf
         TabOrder = 66
       end
       object pkf: TLabel
-        Left = 9
+        Left = 264
         Height = 16
-        Top = 384
+        Top = 72
         Width = 131
         Caption = 'K/Mg K/Ca K/N Ca/N'
         Font.Color = clMaroon
@@ -2045,9 +2042,12 @@ object Kf: TKf
         Height = 26
         Top = 120
         Width = 88
+        Font.Height = -14
+        Font.Name = 'Arial'
         Increment = 0.01
         MinValue = 0
         OnChange = dFeChange
+        ParentFont = False
         TabOrder = 8
         Value = 20.1
       end
@@ -2056,9 +2056,12 @@ object Kf: TKf
         Height = 26
         Top = 149
         Width = 88
+        Font.Height = -14
+        Font.Name = 'Arial'
         Increment = 0.01
         MinValue = 0
         OnChange = dMnChange
+        ParentFont = False
         TabOrder = 9
         Value = 36.4
       end
@@ -2067,9 +2070,12 @@ object Kf: TKf
         Height = 26
         Top = 178
         Width = 88
+        Font.Height = -14
+        Font.Name = 'Arial'
         Increment = 0.01
         MinValue = 0
         OnChange = dBChange
+        ParentFont = False
         TabOrder = 10
         Value = 17.5
       end
@@ -2078,9 +2084,12 @@ object Kf: TKf
         Height = 26
         Top = 207
         Width = 88
+        Font.Height = -14
+        Font.Name = 'Arial'
         Increment = 0.01
         MinValue = 0
         OnChange = dZnChange
+        ParentFont = False
         TabOrder = 11
         Value = 22.7
       end
@@ -2089,9 +2098,12 @@ object Kf: TKf
         Height = 26
         Top = 236
         Width = 88
+        Font.Height = -14
+        Font.Name = 'Arial'
         Increment = 0.01
         MinValue = 0
         OnChange = dCuChange
+        ParentFont = False
         TabOrder = 12
         Value = 25.5
       end
@@ -2100,9 +2112,12 @@ object Kf: TKf
         Height = 26
         Top = 265
         Width = 88
+        Font.Height = -14
+        Font.Name = 'Arial'
         Increment = 0.01
         MinValue = 0
         OnChange = dMoChange
+        ParentFont = False
         TabOrder = 13
         Value = 54.3
       end
@@ -2111,31 +2126,41 @@ object Kf: TKf
         Height = 26
         Top = 294
         Width = 88
+        Font.Height = -14
+        Font.Name = 'Arial'
         Increment = 0.01
         MinValue = 0
         OnChange = dCoChange
+        ParentFont = False
         TabOrder = 14
-        Value = 0
+        Value = 13
       end
       object dSi: TFloatSpinEdit
         Left = 136
         Height = 26
         Top = 323
         Width = 88
+        Font.Height = -14
+        Font.Name = 'Arial'
         Increment = 0.01
         MinValue = 0
         OnChange = dSiChange
+        ParentFont = False
         TabOrder = 15
-        Value = 0
+        Value = 7
       end
       object gFe: TFloatSpinEdit
         Left = 232
         Height = 26
         Top = 120
         Width = 88
+        Font.Height = -14
+        Font.Name = 'Arial'
         Increment = 0.01
         MaxValue = 999999999
         MinValue = 0
+        OnChange = gFeChange
+        ParentFont = False
         TabOrder = 16
         Value = 0
       end
@@ -2144,9 +2169,13 @@ object Kf: TKf
         Height = 26
         Top = 149
         Width = 88
+        Font.Height = -14
+        Font.Name = 'Arial'
         Increment = 0.01
         MaxValue = 999999999
         MinValue = 0
+        OnChange = gMnChange
+        ParentFont = False
         TabOrder = 17
         Value = 0
       end
@@ -2155,9 +2184,13 @@ object Kf: TKf
         Height = 26
         Top = 178
         Width = 88
+        Font.Height = -14
+        Font.Name = 'Arial'
         Increment = 0.01
         MaxValue = 999999999
         MinValue = 0
+        OnChange = gBChange
+        ParentFont = False
         TabOrder = 18
         Value = 0
       end
@@ -2166,9 +2199,13 @@ object Kf: TKf
         Height = 26
         Top = 207
         Width = 88
+        Font.Height = -14
+        Font.Name = 'Arial'
         Increment = 0.01
         MaxValue = 999999999
         MinValue = 0
+        OnChange = gZnChange
+        ParentFont = False
         TabOrder = 19
         Value = 0
       end
@@ -2177,9 +2214,13 @@ object Kf: TKf
         Height = 26
         Top = 236
         Width = 88
+        Font.Height = -14
+        Font.Name = 'Arial'
         Increment = 0.01
         MaxValue = 999999999
         MinValue = 0
+        OnChange = gCuChange
+        ParentFont = False
         TabOrder = 20
         Value = 0
       end
@@ -2188,9 +2229,13 @@ object Kf: TKf
         Height = 26
         Top = 265
         Width = 88
+        Font.Height = -14
+        Font.Name = 'Arial'
         Increment = 0.01
         MaxValue = 999999999
         MinValue = 0
+        OnChange = gMoChange
+        ParentFont = False
         TabOrder = 21
         Value = 0
       end
@@ -2199,9 +2244,13 @@ object Kf: TKf
         Height = 26
         Top = 294
         Width = 88
+        Font.Height = -14
+        Font.Name = 'Arial'
         Increment = 0.01
         MaxValue = 999999999
         MinValue = 0
+        OnChange = gCoChange
+        ParentFont = False
         TabOrder = 22
         Value = 0
       end
@@ -2210,9 +2259,13 @@ object Kf: TKf
         Height = 26
         Top = 323
         Width = 88
+        Font.Height = -14
+        Font.Name = 'Arial'
         Increment = 0.01
         MaxValue = 999999999
         MinValue = 0
+        OnChange = gSiChange
+        ParentFont = False
         TabOrder = 23
         Value = 0
       end
@@ -2237,6 +2290,18 @@ object Kf: TKf
         Font.Name = 'Arial'
         ParentColor = False
         ParentFont = False
+      end
+      object chkComplex: TCheckBox
+        Left = 328
+        Height = 21
+        Top = 183
+        Width = 141
+        Caption = 'Комплекс по бору'
+        Font.Height = -14
+        Font.Name = 'Arial'
+        OnChange = chkComplexChange
+        ParentFont = False
+        TabOrder = 24
       end
     end
   end
