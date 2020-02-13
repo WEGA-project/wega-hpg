@@ -1,7 +1,7 @@
 object Kf: TKf
-  Left = 467
+  Left = 743
   Height = 783
-  Top = 146
+  Top = 175
   Width = 762
   Caption = 'Koefficients'
   ClientHeight = 783
@@ -31,11 +31,11 @@ object Kf: TKf
     Height = 744
     Top = 0
     Width = 761
-    ActivePage = TabSheet1
+    ActivePage = TabSheet2
     Font.Height = -15
     Font.Name = 'Arial'
     ParentFont = False
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'Макро'
@@ -2135,7 +2135,7 @@ object Kf: TKf
         OnChange = dCoChange
         ParentFont = False
         TabOrder = 14
-        Value = 0
+        Value = 13
       end
       object dSi: TFloatSpinEdit
         Left = 150
@@ -2149,7 +2149,7 @@ object Kf: TKf
         OnChange = dSiChange
         ParentFont = False
         TabOrder = 15
-        Value = 0
+        Value = 7
       end
       object gFe: TFloatSpinEdit
         Left = 256
@@ -2161,6 +2161,7 @@ object Kf: TKf
         Increment = 0.01
         MaxValue = 999999999
         MinValue = 0
+        OnChange = gFeChange
         ParentFont = False
         TabOrder = 16
         Value = 0
@@ -2175,6 +2176,7 @@ object Kf: TKf
         Increment = 0.01
         MaxValue = 999999999
         MinValue = 0
+        OnChange = gMnChange
         ParentFont = False
         TabOrder = 17
         Value = 0
@@ -2189,6 +2191,7 @@ object Kf: TKf
         Increment = 0.01
         MaxValue = 999999999
         MinValue = 0
+        OnChange = gBChange
         ParentFont = False
         TabOrder = 18
         Value = 0
@@ -2203,6 +2206,7 @@ object Kf: TKf
         Increment = 0.01
         MaxValue = 999999999
         MinValue = 0
+        OnChange = gZnChange
         ParentFont = False
         TabOrder = 19
         Value = 0
@@ -2217,6 +2221,7 @@ object Kf: TKf
         Increment = 0.01
         MaxValue = 999999999
         MinValue = 0
+        OnChange = gCuChange
         ParentFont = False
         TabOrder = 20
         Value = 0
@@ -2231,6 +2236,7 @@ object Kf: TKf
         Increment = 0.01
         MaxValue = 999999999
         MinValue = 0
+        OnChange = gMoChange
         ParentFont = False
         TabOrder = 21
         Value = 0
@@ -2245,6 +2251,7 @@ object Kf: TKf
         Increment = 0.01
         MaxValue = 999999999
         MinValue = 0
+        OnChange = gCoChange
         ParentFont = False
         TabOrder = 22
         Value = 0
@@ -2259,6 +2266,7 @@ object Kf: TKf
         Increment = 0.01
         MaxValue = 999999999
         MinValue = 0
+        OnChange = gSiChange
         ParentFont = False
         TabOrder = 23
         Value = 0

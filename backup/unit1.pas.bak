@@ -240,14 +240,22 @@ type
     procedure FormActivate(Sender: TObject);
     procedure FormChangeBounds(Sender: TObject);
     procedure FormClick(Sender: TObject);
+    procedure gBChange(Sender: TObject);
 
     procedure gCaNO3Change(Sender: TObject);
+    procedure gCoChange(Sender: TObject);
+    procedure gCuChange(Sender: TObject);
+    procedure gFeChange(Sender: TObject);
     procedure gK2SO4Change(Sender: TObject);
     procedure gKH2PO4Change(Sender: TObject);
     procedure gKNO3Change(Sender: TObject);
     procedure gMgNO3Change(Sender: TObject);
     procedure gMgSO4Change(Sender: TObject);
+    procedure gMnChange(Sender: TObject);
+    procedure gMoChange(Sender: TObject);
     procedure gNH4NO3Change(Sender: TObject);
+    procedure gSiChange(Sender: TObject);
+    procedure gZnChange(Sender: TObject);
     procedure K2SO4_KChange(Sender: TObject);
     procedure K2SO4_KClick(Sender: TObject);
 
@@ -844,6 +852,19 @@ procedure microToWeght; begin
  Kf.gSi.value:=Kf.Si.value/Kf.dSi.value*Kf.V.value/1000;
 end;
 
+procedure WeghtTomicro; begin
+ Kf.Fe.value:=1000*Kf.gFe.value* (Kf.dFe.value/Kf.V.value);
+ Kf.Mn.value:=1000*Kf.gMn.value* (Kf.dMn.value/Kf.V.value);
+ Kf.B.value:=1000*Kf.gB.value*   (Kf.dB.value/Kf.V.value);
+ Kf.Zn.value:=1000*Kf.gZn.value* (Kf.dZn.value/Kf.V.value);
+ Kf.Cu.value:=1000*Kf.gCu.value* (Kf.dCu.value/Kf.V.value);
+ Kf.Mo.value:=1000*Kf.gMo.value* (Kf.dMo.value/Kf.V.value);
+ Kf.Co.value:=1000*Kf.gCo.value* (Kf.dCo.value/Kf.V.value);
+ Kf.Si.value:=1000*Kf.gSi.value* (Kf.dSi.value/Kf.V.value);
+
+
+end;
+
 procedure TKf.Label8Click(Sender: TObject);
 begin
 
@@ -924,12 +945,18 @@ end;
 
 procedure TKf.MnChange(Sender: TObject);
 begin
+   if ( Mn.Focused = True )    then begin
   microToWeght;
+
+   end;
 end;
 
 procedure TKf.MoChange(Sender: TObject);
 begin
+   if ( Mo.Focused = True )    then begin
   microToWeght;
+
+   end;
 end;
 
 procedure TKf.pkfClick(Sender: TObject);
@@ -1109,6 +1136,14 @@ begin
 
 end;
 
+procedure TKf.gBChange(Sender: TObject);
+begin
+    if ( gB.Focused = True )    then begin
+  WeghtTomicro;
+
+  end;
+end;
+
 
 
 procedure TKf.gCaNO3Change(Sender: TObject);
@@ -1121,6 +1156,30 @@ begin
   genProfile;
 
  end;
+end;
+
+procedure TKf.gCoChange(Sender: TObject);
+begin
+    if ( gCo.Focused = True )    then begin
+  WeghtTomicro;
+
+  end;
+end;
+
+procedure TKf.gCuChange(Sender: TObject);
+begin
+    if ( gCu.Focused = True )    then begin
+  WeghtTomicro;
+
+  end;
+end;
+
+procedure TKf.gFeChange(Sender: TObject);
+begin
+  if ( gFe.Focused = True )    then begin
+  WeghtTomicro;
+
+  end;
 end;
 
 procedure TKf.gK2SO4Change(Sender: TObject);
@@ -1182,6 +1241,22 @@ begin
  end;
 end;
 
+procedure TKf.gMnChange(Sender: TObject);
+begin
+    if ( gMn.Focused = True )    then begin
+  WeghtTomicro;
+
+  end;
+end;
+
+procedure TKf.gMoChange(Sender: TObject);
+begin
+    if ( gMo.Focused = True )    then begin
+  WeghtTomicro;
+
+  end;
+end;
+
 procedure TKf.gNH4NO3Change(Sender: TObject);
 begin
    if ( gNH4NO3.Focused = True )    then begin
@@ -1192,6 +1267,22 @@ begin
   genProfile;
 
  end;
+end;
+
+procedure TKf.gSiChange(Sender: TObject);
+begin
+    if ( gSi.Focused = True )    then begin
+  WeghtTomicro;
+
+  end;
+end;
+
+procedure TKf.gZnChange(Sender: TObject);
+begin
+    if ( gZn.Focused = True )    then begin
+  WeghtTomicro;
+
+  end;
 end;
 
 procedure TKf.K2SO4_KChange(Sender: TObject);
@@ -1541,7 +1632,10 @@ end;
 
 procedure TKf.BChange(Sender: TObject);
 begin
+   if ( B.Focused = True )    then begin
   microToWeght;
+
+   end;
 end;
 
 procedure TKf.CaChange(Sender: TObject);
@@ -1740,12 +1834,18 @@ end;
 
 procedure TKf.CoChange(Sender: TObject);
 begin
+  if ( Co.Focused = True )    then begin
   microToWeght;
+
+  end;
 end;
 
 procedure TKf.CuChange(Sender: TObject);
 begin
+  if ( Cu.Focused = True )    then begin
   microToWeght;
+
+  end;
 end;
 
 procedure TKf.dBChange(Sender: TObject);
@@ -1765,8 +1865,11 @@ end;
 
 procedure TKf.dFeChange(Sender: TObject);
 begin
+  if ( dFe.Focused = True )    then begin
 
   microToWeght;
+
+  end;
 end;
 
 procedure TKf.dMnChange(Sender: TObject);
@@ -1813,7 +1916,10 @@ end;
 
 procedure TKf.FeChange(Sender: TObject);
 begin
+  if ( Fe.Focused = True )    then begin
   microToWeght;
+
+  end;
 end;
 
 procedure TKf.FormActivate(Sender: TObject);
@@ -2251,7 +2357,10 @@ end;
 
 procedure TKf.SiChange(Sender: TObject);
 begin
+    if ( Si.Focused = True )    then begin
   microToWeght;
+
+    end;
 end;
 
 
@@ -2336,7 +2445,10 @@ end;
 
 procedure TKf.ZnChange(Sender: TObject);
 begin
+   if ( Zn.Focused = True )    then begin
   microToWeght;
+
+   end;
 end;
 
 
