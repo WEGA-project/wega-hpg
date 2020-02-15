@@ -19,6 +19,7 @@ type
     bload: TButton;
     Button1: TButton;
     chkComplex: TCheckBox;
+    gCmplx: TFloatSpinEdit;
     gB: TFloatSpinEdit;
     gCo: TFloatSpinEdit;
     gCu: TFloatSpinEdit;
@@ -245,6 +246,7 @@ type
     procedure gBChange(Sender: TObject);
 
     procedure gCaNO3Change(Sender: TObject);
+    procedure gCmplxChange(Sender: TObject);
     procedure gCoChange(Sender: TObject);
     procedure gCuChange(Sender: TObject);
     procedure gFeChange(Sender: TObject);
@@ -861,14 +863,6 @@ procedure microToWeght; begin
 
 
 
- Kf.Fe.value:=1000*Kf.gFe.value* (Kf.dFe.value/Kf.V.value);
- Kf.Mn.value:=1000*Kf.gMn.value* (Kf.dMn.value/Kf.V.value);
- Kf.B.value:=1000*Kf.gB.value*   (Kf.dB.value/Kf.V.value);
- Kf.Zn.value:=1000*Kf.gZn.value* (Kf.dZn.value/Kf.V.value);
- Kf.Cu.value:=1000*Kf.gCu.value* (Kf.dCu.value/Kf.V.value);
- Kf.Mo.value:=1000*Kf.gMo.value* (Kf.dMo.value/Kf.V.value);
- Kf.Co.value:=1000*Kf.gCo.value* (Kf.dCo.value/Kf.V.value);
- Kf.Si.value:=1000*Kf.gSi.value* (Kf.dSi.value/Kf.V.value);
  end;
 end ;
 
@@ -882,6 +876,7 @@ if (kF.chKComplex.Checked = False) then  begin
 
  Kf.gFe.Visible:=true;
  Kf.gMn.Visible:=true;
+ Kf.gB.Visible:=true;
  Kf.gZn.Visible:=true;
  Kf.gCu.Visible:=true;
  Kf.gMo.Visible:=true;
@@ -915,6 +910,7 @@ else begin
 
  Kf.gFe.Visible :=false;
  Kf.gMn.Visible:=false;
+ Kf.gB.Visible:=false;
  Kf.gZn.Visible:=false;
   Kf.gCu.Visible:=false;
  Kf.gMo.Visible:=false;
@@ -922,33 +918,15 @@ else begin
  Kf.gCo.Visible:=false;
  Kf.gSi.Visible:=false;
 
- Kf.Fe.ReadOnly :=true;
- Kf.Mn.ReadOnly:=true;
- Kf.B.ReadOnly:=true;
- Kf.Zn.ReadOnly:=true;
- Kf.Cu.ReadOnly:=true;
- Kf.Mo.ReadOnly:=true;
- Kf.Mo.ReadOnly:=true;
- Kf.Co.ReadOnly:=true;
- Kf.Si.ReadOnly:=true;
-
-Kf.Fe.value:=1000*Kf.gB.value* (Kf.dFe.value/Kf.V.value);
-Kf.Mn.value:=1000*Kf.gB.value* (Kf.dMn.value/Kf.V.value);
-Kf.B.value:=1000*Kf.gB.value*   (Kf.dB.value/Kf.V.value);
-Kf.Zn.value:=1000*Kf.gB.value* (Kf.dZn.value/Kf.V.value);
-Kf.Cu.value:=1000*Kf.gB.value* (Kf.dCu.value/Kf.V.value);
-Kf.Mo.value:=1000*Kf.gB.value* (Kf.dMo.value/Kf.V.value);
-Kf.Co.value:=1000*Kf.gB.value* (Kf.dCo.value/Kf.V.value);
-Kf.Si.value:=1000*Kf.gB.value* (Kf.dSi.value/Kf.V.value);
-
-Kf.gFe.value:=Kf.gB.value;
-Kf.gMn.value:=Kf.gB.value;
-
-Kf.gZn.value:=Kf.gB.value;
-Kf.gCu.value:=Kf.gB.value;
-Kf.gMo.value:=Kf.gB.value;
-Kf.gCo.value:=Kf.gB.value;
-Kf.gSi.value:=Kf.gB.value;
+    Kf.gCmplx.value:=Kf.B.value/Kf.dB.value*Kf.V.value/1000;
+    Kf.Fe.value:=1000*Kf.gCmplx.value* (Kf.dFe.value/Kf.V.value);
+    Kf.Mn.value:=1000*Kf.gCmplx.value* (Kf.dMn.value/Kf.V.value);
+    Kf.B.value:=1000*Kf.gCmplx.value*   (Kf.dB.value/Kf.V.value);
+    Kf.Zn.value:=1000*Kf.gCmplx.value* (Kf.dZn.value/Kf.V.value);
+    Kf.Cu.value:=1000*Kf.gCmplx.value* (Kf.dCu.value/Kf.V.value);
+    Kf.Mo.value:=1000*Kf.gCmplx.value* (Kf.dMo.value/Kf.V.value);
+    Kf.Co.value:=1000*Kf.gCmplx.value* (Kf.dCo.value/Kf.V.value);
+    Kf.Si.value:=1000*Kf.gCmplx.value* (Kf.dSi.value/Kf.V.value);
 
 end;
 
@@ -1242,6 +1220,11 @@ begin
   genProfile;
 
  end;
+end;
+
+procedure TKf.gCmplxChange(Sender: TObject);
+begin
+
 end;
 
 procedure TKf.gCoChange(Sender: TObject);
@@ -1721,6 +1704,7 @@ begin
    if ( B.Focused = True )    then begin
   microToWeght;
 
+
    end;
 end;
 
@@ -1909,7 +1893,8 @@ end;
 
 procedure TKf.chkComplexChange(Sender: TObject);
 begin
-  WeghtTomicro;
+  microToWeght;
+
 end;
 
 procedure TKf.chMgNO3Change(Sender: TObject);
@@ -2533,6 +2518,7 @@ procedure TKf.VChange(Sender: TObject);
 begin
   CalcWeight ;
   microToWeght;
+
   //WeghtTomicro
   //VtoMicrot;
    //microToWeght;
