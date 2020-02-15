@@ -867,17 +867,28 @@ procedure microToWeght; begin
  Kf.gMo.value:=Kf.Mo.value/Kf.dMo.value*Kf.V.value/1000;
  Kf.gCo.value:=Kf.Co.value/Kf.dCo.value*Kf.V.value/1000;
  Kf.gSi.value:=Kf.Si.value/Kf.dSi.value*Kf.V.value/1000;
+
+  Kf.Fe.ReadOnly :=false;
+Kf.Mn.ReadOnly:=false;
+//Kf.B.ReadOnly:=false;
+Kf.Zn.ReadOnly:=false;
+Kf.Cu.ReadOnly:=false;
+Kf.Mo.ReadOnly:=false;
+Kf.Mo.ReadOnly:=false;
+Kf.Co.ReadOnly:=false;
+Kf.Si.ReadOnly:=false;
+
  end
  else begin
-//Kf.Fe.ReadOnly :=false;
-//Kf.Mn.ReadOnly:=false;
+ Kf.Fe.ReadOnly :=true;
+Kf.Mn.ReadOnly:=true;
 //Kf.B.ReadOnly:=false;
-//Kf.Zn.ReadOnly:=false;
-//Kf.Cu.ReadOnly:=false;
-//Kf.Mo.ReadOnly:=false;
-//Kf.Mo.ReadOnly:=false;
-//Kf.Co.ReadOnly:=false;
-//Kf.Si.ReadOnly:=false;
+Kf.Zn.ReadOnly:=true;
+Kf.Cu.ReadOnly:=true;
+Kf.Mo.ReadOnly:=true;
+Kf.Mo.ReadOnly:=true;
+Kf.Co.ReadOnly:=true;
+Kf.Si.ReadOnly:=true;
 
 Kf.gFe.Visible :=false;
 Kf.gMn.Visible:=false;
@@ -891,14 +902,14 @@ Kf.gSi.Visible:=false;
 Kf.gCmplx.Visible:=true;
 
 Kf.gCmplx.value:=Kf.B.value/Kf.dB.value*Kf.V.value/1000;
-//Kf.Fe.value:=1000*Kf.gCmplx.value* (Kf.dFe.value/Kf.V.value);
-//Kf.Mn.value:=1000*Kf.gCmplx.value* (Kf.dMn.value/Kf.V.value);
+Kf.Fe.value:=1000*Kf.gCmplx.value* (Kf.dFe.value/Kf.V.value);
+Kf.Mn.value:=1000*Kf.gCmplx.value* (Kf.dMn.value/Kf.V.value);
 //Kf.B.value:=1000*Kf.gCmplx.value*   (Kf.dB.value/Kf.V.value);
-//Kf.Zn.value:=1000*Kf.gCmplx.value* (Kf.dZn.value/Kf.V.value);
-//Kf.Cu.value:=1000*Kf.gCmplx.value* (Kf.dCu.value/Kf.V.value);
-//Kf.Mo.value:=1000*Kf.gCmplx.value* (Kf.dMo.value/Kf.V.value);
-//Kf.Co.value:=1000*Kf.gCmplx.value* (Kf.dCo.value/Kf.V.value);
-//Kf.Si.value:=1000*Kf.gCmplx.value* (Kf.dSi.value/Kf.V.value);
+Kf.Zn.value:=1000*Kf.gCmplx.value* (Kf.dZn.value/Kf.V.value);
+Kf.Cu.value:=1000*Kf.gCmplx.value* (Kf.dCu.value/Kf.V.value);
+Kf.Mo.value:=1000*Kf.gCmplx.value* (Kf.dMo.value/Kf.V.value);
+Kf.Co.value:=1000*Kf.gCmplx.value* (Kf.dCo.value/Kf.V.value);
+Kf.Si.value:=1000*Kf.gCmplx.value* (Kf.dSi.value/Kf.V.value);
  end;
 end ;
 
@@ -1693,6 +1704,15 @@ begin
 
            if (IsWordPresent('MgNO3_Mg', str, ['=']) = true) then MgNO3_Mg.value:=StrToFloat(ExtractWord(2,str,['=']));
            if (IsWordPresent('MgNO3_NO3', str, ['=']) = true) then MgNO3_NO3.value:=StrToFloat(ExtractWord(2,str,['=']));
+           //Micro
+           if (IsWordPresent('dFe', str, ['=']) = true) then dFe.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('dMn', str, ['=']) = true) then dMn.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('dB', str, ['=']) = true) then  dB.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('dZn', str, ['=']) = true) then dZn.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('dCu', str, ['=']) = true) then dCu.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('dMo', str, ['=']) = true) then dMo.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('dCo', str, ['=']) = true) then dCo.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('dSi', str, ['=']) = true) then dSi.value:=StrToFloat(ExtractWord(2,str,['=']));
 
           end;
 
@@ -2417,6 +2437,18 @@ begin
 
     writeln(tfOut,'MgNO3_Mg=',FloatToStr(vMgNO3_Mg));
     writeln(tfOut,'MgNO3_NO3=',FloatToStr(vMgNO3_NO3));
+
+
+    //Micro
+     writeln(tfOut,'dFe=',FloatToStr(dFe.Value));
+     writeln(tfOut,'dMn=',FloatToStr(dMn.Value));
+     writeln(tfOut,'dB=',FloatToStr(dB.Value));
+     writeln(tfOut,'dZn=',FloatToStr(dZn.Value));
+     writeln(tfOut,'dCu=',FloatToStr(dCu.Value));
+     writeln(tfOut,'dMo=',FloatToStr(dMo.Value));
+     writeln(tfOut,'dCo=',FloatToStr(dCo.Value));
+     writeln(tfOut,'dSi=',FloatToStr(dSi.Value));
+
 
     CloseFile(tfOut);
 end;
