@@ -848,7 +848,16 @@ end;
 procedure microToWeght; begin
  if (kF.chKComplex.Checked = False) then  begin
 
-
+ Kf.gFe.Visible:=true;
+ Kf.gMn.Visible:=true;
+ Kf.gB.Visible:=true;
+ Kf.gZn.Visible:=true;
+ Kf.gCu.Visible:=true;
+ Kf.gMo.Visible:=true;
+ Kf.gMo.Visible:=true;
+ Kf.gCo.Visible:=true;
+ Kf.gSi.Visible:=true;
+ Kf.gCmplx.Visible:=false;
 
  Kf.gFe.value:=Kf.Fe.value/Kf.dFe.value*Kf.V.value/1000;
  Kf.gMn.value:=Kf.Mn.value/Kf.dMn.value*Kf.V.value/1000;
@@ -860,9 +869,36 @@ procedure microToWeght; begin
  Kf.gSi.value:=Kf.Si.value/Kf.dSi.value*Kf.V.value/1000;
  end
  else begin
+//Kf.Fe.ReadOnly :=false;
+//Kf.Mn.ReadOnly:=false;
+//Kf.B.ReadOnly:=false;
+//Kf.Zn.ReadOnly:=false;
+//Kf.Cu.ReadOnly:=false;
+//Kf.Mo.ReadOnly:=false;
+//Kf.Mo.ReadOnly:=false;
+//Kf.Co.ReadOnly:=false;
+//Kf.Si.ReadOnly:=false;
 
+Kf.gFe.Visible :=false;
+Kf.gMn.Visible:=false;
+Kf.gB.Visible:=false;
+Kf.gZn.Visible:=false;
+ Kf.gCu.Visible:=false;
+Kf.gMo.Visible:=false;
+Kf.gMo.Visible:=false;
+Kf.gCo.Visible:=false;
+Kf.gSi.Visible:=false;
+Kf.gCmplx.Visible:=true;
 
-
+Kf.gCmplx.value:=Kf.B.value/Kf.dB.value*Kf.V.value/1000;
+//Kf.Fe.value:=1000*Kf.gCmplx.value* (Kf.dFe.value/Kf.V.value);
+//Kf.Mn.value:=1000*Kf.gCmplx.value* (Kf.dMn.value/Kf.V.value);
+//Kf.B.value:=1000*Kf.gCmplx.value*   (Kf.dB.value/Kf.V.value);
+//Kf.Zn.value:=1000*Kf.gCmplx.value* (Kf.dZn.value/Kf.V.value);
+//Kf.Cu.value:=1000*Kf.gCmplx.value* (Kf.dCu.value/Kf.V.value);
+//Kf.Mo.value:=1000*Kf.gCmplx.value* (Kf.dMo.value/Kf.V.value);
+//Kf.Co.value:=1000*Kf.gCmplx.value* (Kf.dCo.value/Kf.V.value);
+//Kf.Si.value:=1000*Kf.gCmplx.value* (Kf.dSi.value/Kf.V.value);
  end;
 end ;
 
@@ -874,25 +910,9 @@ procedure WeghtTomicro; begin
 
 if (kF.chKComplex.Checked = False) then  begin
 
- Kf.gFe.Visible:=true;
- Kf.gMn.Visible:=true;
- Kf.gB.Visible:=true;
- Kf.gZn.Visible:=true;
- Kf.gCu.Visible:=true;
- Kf.gMo.Visible:=true;
- Kf.gMo.Visible:=true;
- Kf.gCo.Visible:=true;
- Kf.gSi.Visible:=true;
 
- Kf.Fe.ReadOnly :=false;
-Kf.Mn.ReadOnly:=false;
-Kf.B.ReadOnly:=false;
-Kf.Zn.ReadOnly:=false;
-Kf.Cu.ReadOnly:=false;
-Kf.Mo.ReadOnly:=false;
-Kf.Mo.ReadOnly:=false;
-Kf.Co.ReadOnly:=false;
-Kf.Si.ReadOnly:=false;
+
+
 
 
  Kf.Fe.value:=1000*Kf.gFe.value* (Kf.dFe.value/Kf.V.value);
@@ -906,27 +926,18 @@ Kf.Si.ReadOnly:=false;
  end
 else begin
 
+ Kf.Fe.value:=1000*Kf.gCmplx.value* (Kf.dFe.value/Kf.V.value);
+ Kf.Mn.value:=1000*Kf.gCmplx.value* (Kf.dMn.value/Kf.V.value);
+ Kf.B.value:=1000*Kf.gCmplx.value*  (Kf.dB.value/Kf.V.value);
+ Kf.Zn.value:=1000*Kf.gCmplx.value* (Kf.dZn.value/Kf.V.value);
+ Kf.Cu.value:=1000*Kf.gCmplx.value* (Kf.dCu.value/Kf.V.value);
+ Kf.Mo.value:=1000*Kf.gCmplx.value* (Kf.dMo.value/Kf.V.value);
+ Kf.Co.value:=1000*Kf.gCmplx.value* (Kf.dCo.value/Kf.V.value);
+ Kf.Si.value:=1000*Kf.gCmplx.value* (Kf.dSi.value/Kf.V.value);
 
 
- Kf.gFe.Visible :=false;
- Kf.gMn.Visible:=false;
- Kf.gB.Visible:=false;
- Kf.gZn.Visible:=false;
-  Kf.gCu.Visible:=false;
- Kf.gMo.Visible:=false;
- Kf.gMo.Visible:=false;
- Kf.gCo.Visible:=false;
- Kf.gSi.Visible:=false;
 
-    Kf.gCmplx.value:=Kf.B.value/Kf.dB.value*Kf.V.value/1000;
-    Kf.Fe.value:=1000*Kf.gCmplx.value* (Kf.dFe.value/Kf.V.value);
-    Kf.Mn.value:=1000*Kf.gCmplx.value* (Kf.dMn.value/Kf.V.value);
-    Kf.B.value:=1000*Kf.gCmplx.value*   (Kf.dB.value/Kf.V.value);
-    Kf.Zn.value:=1000*Kf.gCmplx.value* (Kf.dZn.value/Kf.V.value);
-    Kf.Cu.value:=1000*Kf.gCmplx.value* (Kf.dCu.value/Kf.V.value);
-    Kf.Mo.value:=1000*Kf.gCmplx.value* (Kf.dMo.value/Kf.V.value);
-    Kf.Co.value:=1000*Kf.gCmplx.value* (Kf.dCo.value/Kf.V.value);
-    Kf.Si.value:=1000*Kf.gCmplx.value* (Kf.dSi.value/Kf.V.value);
+
 
 end;
 
@@ -1224,7 +1235,10 @@ end;
 
 procedure TKf.gCmplxChange(Sender: TObject);
 begin
+ if ( gCmplx.Focused = True )    then begin
+  WeghtTomicro;
 
+ end;
 end;
 
 procedure TKf.gCoChange(Sender: TObject);
@@ -2383,9 +2397,11 @@ begin
     rewrite(tfOut);
     writeln(tfOut,'CaNO3_Ca=',FloatToStr(vCaNO3_Ca));
     writeln(tfOut,'CaNO3_NO3=',FloatToStr(vCaNO3_NO3));
+    writeln(tfOut,'CaNO3_NH4=',FloatToStr(vCaNO3_NH4));
 
     writeln(tfOut,'KNO3_K=',FloatToStr(vKNO3_K));
     writeln(tfOut,'KNO3_NO3=',FloatToStr(vKNO3_NO3));
+
 
     writeln(tfOut,'NH4NO3_NH4=',FloatToStr(vNH4NO3_NH4));
     writeln(tfOut,'NH4NO3_NO3=',FloatToStr(vNH4NO3_NO3));
