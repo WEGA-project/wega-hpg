@@ -1,5 +1,6 @@
 Версия для Liniux:
 https://github.com/siv237/HPG/raw/master/hpg
+
 Как собрать калькулятор под свою систему:
 1. Качаем свежие исходники (тут всегда последняя версия) https://github.com/siv237/HPG/archive/master.zip распаковываем папку с проектом в удобное место. 
 2. Качаем lazarus https://www.lazarus-ide.org/index.php?page=downloads для своей системы и устанавливаем (все три компоненты).
