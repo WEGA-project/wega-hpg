@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  Spin, ComCtrls,strutils;
+  Spin, ComCtrls,strutils,LCLIntf ;
 const
   C_FNAME = 'settings.txt';
   StdWordDelims = ['='] + Brackets;
@@ -848,7 +848,16 @@ end;
 procedure microToWeght; begin
  if (kF.chKComplex.Checked = False) then  begin
 
-
+ Kf.gFe.Visible:=true;
+ Kf.gMn.Visible:=true;
+ Kf.gB.Visible:=true;
+ Kf.gZn.Visible:=true;
+ Kf.gCu.Visible:=true;
+ Kf.gMo.Visible:=true;
+ Kf.gMo.Visible:=true;
+ Kf.gCo.Visible:=true;
+ Kf.gSi.Visible:=true;
+ Kf.gCmplx.Visible:=false;
 
  Kf.gFe.value:=Kf.Fe.value/Kf.dFe.value*Kf.V.value/1000;
  Kf.gMn.value:=Kf.Mn.value/Kf.dMn.value*Kf.V.value/1000;
@@ -858,11 +867,49 @@ procedure microToWeght; begin
  Kf.gMo.value:=Kf.Mo.value/Kf.dMo.value*Kf.V.value/1000;
  Kf.gCo.value:=Kf.Co.value/Kf.dCo.value*Kf.V.value/1000;
  Kf.gSi.value:=Kf.Si.value/Kf.dSi.value*Kf.V.value/1000;
+
+  Kf.Fe.ReadOnly :=false;
+Kf.Mn.ReadOnly:=false;
+//Kf.B.ReadOnly:=false;
+Kf.Zn.ReadOnly:=false;
+Kf.Cu.ReadOnly:=false;
+Kf.Mo.ReadOnly:=false;
+Kf.Mo.ReadOnly:=false;
+Kf.Co.ReadOnly:=false;
+Kf.Si.ReadOnly:=false;
+
  end
  else begin
+ Kf.Fe.ReadOnly :=true;
+Kf.Mn.ReadOnly:=true;
+//Kf.B.ReadOnly:=false;
+Kf.Zn.ReadOnly:=true;
+Kf.Cu.ReadOnly:=true;
+Kf.Mo.ReadOnly:=true;
+Kf.Mo.ReadOnly:=true;
+Kf.Co.ReadOnly:=true;
+Kf.Si.ReadOnly:=true;
 
+Kf.gFe.Visible :=false;
+Kf.gMn.Visible:=false;
+Kf.gB.Visible:=false;
+Kf.gZn.Visible:=false;
+ Kf.gCu.Visible:=false;
+Kf.gMo.Visible:=false;
+Kf.gMo.Visible:=false;
+Kf.gCo.Visible:=false;
+Kf.gSi.Visible:=false;
+Kf.gCmplx.Visible:=true;
 
-
+Kf.gCmplx.value:=Kf.B.value/Kf.dB.value*Kf.V.value/1000;
+Kf.Fe.value:=1000*Kf.gCmplx.value* (Kf.dFe.value/Kf.V.value);
+Kf.Mn.value:=1000*Kf.gCmplx.value* (Kf.dMn.value/Kf.V.value);
+//Kf.B.value:=1000*Kf.gCmplx.value*   (Kf.dB.value/Kf.V.value);
+Kf.Zn.value:=1000*Kf.gCmplx.value* (Kf.dZn.value/Kf.V.value);
+Kf.Cu.value:=1000*Kf.gCmplx.value* (Kf.dCu.value/Kf.V.value);
+Kf.Mo.value:=1000*Kf.gCmplx.value* (Kf.dMo.value/Kf.V.value);
+Kf.Co.value:=1000*Kf.gCmplx.value* (Kf.dCo.value/Kf.V.value);
+Kf.Si.value:=1000*Kf.gCmplx.value* (Kf.dSi.value/Kf.V.value);
  end;
 end ;
 
@@ -874,25 +921,9 @@ procedure WeghtTomicro; begin
 
 if (kF.chKComplex.Checked = False) then  begin
 
- Kf.gFe.Visible:=true;
- Kf.gMn.Visible:=true;
- Kf.gB.Visible:=true;
- Kf.gZn.Visible:=true;
- Kf.gCu.Visible:=true;
- Kf.gMo.Visible:=true;
- Kf.gMo.Visible:=true;
- Kf.gCo.Visible:=true;
- Kf.gSi.Visible:=true;
 
- Kf.Fe.ReadOnly :=false;
-Kf.Mn.ReadOnly:=false;
-Kf.B.ReadOnly:=false;
-Kf.Zn.ReadOnly:=false;
-Kf.Cu.ReadOnly:=false;
-Kf.Mo.ReadOnly:=false;
-Kf.Mo.ReadOnly:=false;
-Kf.Co.ReadOnly:=false;
-Kf.Si.ReadOnly:=false;
+
+
 
 
  Kf.Fe.value:=1000*Kf.gFe.value* (Kf.dFe.value/Kf.V.value);
@@ -906,27 +937,18 @@ Kf.Si.ReadOnly:=false;
  end
 else begin
 
+ Kf.Fe.value:=1000*Kf.gCmplx.value* (Kf.dFe.value/Kf.V.value);
+ Kf.Mn.value:=1000*Kf.gCmplx.value* (Kf.dMn.value/Kf.V.value);
+ Kf.B.value:=1000*Kf.gCmplx.value*  (Kf.dB.value/Kf.V.value);
+ Kf.Zn.value:=1000*Kf.gCmplx.value* (Kf.dZn.value/Kf.V.value);
+ Kf.Cu.value:=1000*Kf.gCmplx.value* (Kf.dCu.value/Kf.V.value);
+ Kf.Mo.value:=1000*Kf.gCmplx.value* (Kf.dMo.value/Kf.V.value);
+ Kf.Co.value:=1000*Kf.gCmplx.value* (Kf.dCo.value/Kf.V.value);
+ Kf.Si.value:=1000*Kf.gCmplx.value* (Kf.dSi.value/Kf.V.value);
 
 
- Kf.gFe.Visible :=false;
- Kf.gMn.Visible:=false;
- Kf.gB.Visible:=false;
- Kf.gZn.Visible:=false;
-  Kf.gCu.Visible:=false;
- Kf.gMo.Visible:=false;
- Kf.gMo.Visible:=false;
- Kf.gCo.Visible:=false;
- Kf.gSi.Visible:=false;
 
-    Kf.gCmplx.value:=Kf.B.value/Kf.dB.value*Kf.V.value/1000;
-    Kf.Fe.value:=1000*Kf.gCmplx.value* (Kf.dFe.value/Kf.V.value);
-    Kf.Mn.value:=1000*Kf.gCmplx.value* (Kf.dMn.value/Kf.V.value);
-    Kf.B.value:=1000*Kf.gCmplx.value*   (Kf.dB.value/Kf.V.value);
-    Kf.Zn.value:=1000*Kf.gCmplx.value* (Kf.dZn.value/Kf.V.value);
-    Kf.Cu.value:=1000*Kf.gCmplx.value* (Kf.dCu.value/Kf.V.value);
-    Kf.Mo.value:=1000*Kf.gCmplx.value* (Kf.dMo.value/Kf.V.value);
-    Kf.Co.value:=1000*Kf.gCmplx.value* (Kf.dCo.value/Kf.V.value);
-    Kf.Si.value:=1000*Kf.gCmplx.value* (Kf.dSi.value/Kf.V.value);
+
 
 end;
 
@@ -1003,8 +1025,7 @@ end;
 
 procedure TKf.Label1Click(Sender: TObject);
 begin
-    NH4NO3.value := NH4.value/NO3.value;
-    CalcAll;
+    OpenURL('http://www.lazarus.freepascal.org');
 end;
 
 procedure TKf.MnChange(Sender: TObject);
@@ -1224,7 +1245,10 @@ end;
 
 procedure TKf.gCmplxChange(Sender: TObject);
 begin
+ if ( gCmplx.Focused = True )    then begin
+  WeghtTomicro;
 
+ end;
 end;
 
 procedure TKf.gCoChange(Sender: TObject);
@@ -1679,6 +1703,15 @@ begin
 
            if (IsWordPresent('MgNO3_Mg', str, ['=']) = true) then MgNO3_Mg.value:=StrToFloat(ExtractWord(2,str,['=']));
            if (IsWordPresent('MgNO3_NO3', str, ['=']) = true) then MgNO3_NO3.value:=StrToFloat(ExtractWord(2,str,['=']));
+           //Micro
+           if (IsWordPresent('dFe', str, ['=']) = true) then dFe.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('dMn', str, ['=']) = true) then dMn.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('dB', str, ['=']) = true) then  dB.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('dZn', str, ['=']) = true) then dZn.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('dCu', str, ['=']) = true) then dCu.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('dMo', str, ['=']) = true) then dMo.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('dCo', str, ['=']) = true) then dCo.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('dSi', str, ['=']) = true) then dSi.value:=StrToFloat(ExtractWord(2,str,['=']));
 
           end;
 
@@ -1894,7 +1927,7 @@ end;
 procedure TKf.chkComplexChange(Sender: TObject);
 begin
   microToWeght;
-  WeghtTomicro;
+
 end;
 
 procedure TKf.chMgNO3Change(Sender: TObject);
@@ -2381,11 +2414,25 @@ begin
   // Связываем имя файла с переменной
   AssignFile(tfOut, C_FNAME);
     rewrite(tfOut);
+    // Macro Profile
+    writeln(tfOut,'N=',FloatToStr(N.value));
+    writeln(tfOut,'NH4=',FloatToStr(NH4.value));
+    writeln(tfOut,'NO3=',FloatToStr(NO3.value));
+    writeln(tfOut,'P=',FloatToStr(P.value));
+    writeln(tfOut,'K=',FloatToStr(K.value));
+    writeln(tfOut,'Ca=',FloatToStr(Ca.value));
+    writeln(tfOut,'Mg=',FloatToStr(Mg.value));
+    writeln(tfOut,'S=',FloatToStr(S.value));
+
+
+    //Macro %
     writeln(tfOut,'CaNO3_Ca=',FloatToStr(vCaNO3_Ca));
     writeln(tfOut,'CaNO3_NO3=',FloatToStr(vCaNO3_NO3));
+    writeln(tfOut,'CaNO3_NH4=',FloatToStr(vCaNO3_NH4));
 
     writeln(tfOut,'KNO3_K=',FloatToStr(vKNO3_K));
     writeln(tfOut,'KNO3_NO3=',FloatToStr(vKNO3_NO3));
+
 
     writeln(tfOut,'NH4NO3_NH4=',FloatToStr(vNH4NO3_NH4));
     writeln(tfOut,'NH4NO3_NO3=',FloatToStr(vNH4NO3_NO3));
@@ -2401,6 +2448,28 @@ begin
 
     writeln(tfOut,'MgNO3_Mg=',FloatToStr(vMgNO3_Mg));
     writeln(tfOut,'MgNO3_NO3=',FloatToStr(vMgNO3_NO3));
+
+
+    // Micro Profile
+    writeln(tfOut,'Fe=',FloatToStr(Fe.value));
+    writeln(tfOut,'Mn=',FloatToStr(Mn.value));
+    writeln(tfOut,'B=',FloatToStr(B.value));
+    writeln(tfOut,'Zn=',FloatToStr(Zn.value));
+    writeln(tfOut,'Cu=',FloatToStr(Cu.value));
+    writeln(tfOut,'Mo=',FloatToStr(Mo.value));
+    writeln(tfOut,'Co=',FloatToStr(Co.value));
+    writeln(tfOut,'Si=',FloatToStr(Si.value));
+
+    //Micro %
+     writeln(tfOut,'dFe=',FloatToStr(dFe.Value));
+     writeln(tfOut,'dMn=',FloatToStr(dMn.Value));
+     writeln(tfOut,'dB=',FloatToStr(dB.Value));
+     writeln(tfOut,'dZn=',FloatToStr(dZn.Value));
+     writeln(tfOut,'dCu=',FloatToStr(dCu.Value));
+     writeln(tfOut,'dMo=',FloatToStr(dMo.Value));
+     writeln(tfOut,'dCo=',FloatToStr(dCo.Value));
+     writeln(tfOut,'dSi=',FloatToStr(dSi.Value));
+
 
     CloseFile(tfOut);
 end;

@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  Spin, ComCtrls,strutils;
+  Spin, ComCtrls,strutils,LCLIntf ;
 const
   C_FNAME = 'settings.txt';
   StdWordDelims = ['='] + Brackets;
@@ -1025,8 +1025,7 @@ end;
 
 procedure TKf.Label1Click(Sender: TObject);
 begin
-    NH4NO3.value := NH4.value/NO3.value;
-    CalcAll;
+    OpenURL('https://github.com/siv237/HPG');
 end;
 
 procedure TKf.MnChange(Sender: TObject);
@@ -2415,6 +2414,18 @@ begin
   // Связываем имя файла с переменной
   AssignFile(tfOut, C_FNAME);
     rewrite(tfOut);
+    // Macro Profile
+    writeln(tfOut,'N=',FloatToStr(N.value));
+    writeln(tfOut,'NH4=',FloatToStr(NH4.value));
+    writeln(tfOut,'NO3=',FloatToStr(NO3.value));
+    writeln(tfOut,'P=',FloatToStr(P.value));
+    writeln(tfOut,'K=',FloatToStr(K.value));
+    writeln(tfOut,'Ca=',FloatToStr(Ca.value));
+    writeln(tfOut,'Mg=',FloatToStr(Mg.value));
+    writeln(tfOut,'S=',FloatToStr(S.value));
+
+
+    //Macro %
     writeln(tfOut,'CaNO3_Ca=',FloatToStr(vCaNO3_Ca));
     writeln(tfOut,'CaNO3_NO3=',FloatToStr(vCaNO3_NO3));
     writeln(tfOut,'CaNO3_NH4=',FloatToStr(vCaNO3_NH4));
@@ -2439,7 +2450,17 @@ begin
     writeln(tfOut,'MgNO3_NO3=',FloatToStr(vMgNO3_NO3));
 
 
-    //Micro
+    // Micro Profile
+    writeln(tfOut,'Fe=',FloatToStr(Fe.value));
+    writeln(tfOut,'Mn=',FloatToStr(Mn.value));
+    writeln(tfOut,'B=',FloatToStr(B.value));
+    writeln(tfOut,'Zn=',FloatToStr(Zn.value));
+    writeln(tfOut,'Cu=',FloatToStr(Cu.value));
+    writeln(tfOut,'Mo=',FloatToStr(Mo.value));
+    writeln(tfOut,'Co=',FloatToStr(Co.value));
+    writeln(tfOut,'Si=',FloatToStr(Si.value));
+
+    //Micro %
      writeln(tfOut,'dFe=',FloatToStr(dFe.Value));
      writeln(tfOut,'dMn=',FloatToStr(dMn.Value));
      writeln(tfOut,'dB=',FloatToStr(dB.Value));
