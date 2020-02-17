@@ -17,6 +17,7 @@ type
 
   TKf = class(TForm)
     bload: TButton;
+    bloadpf: TButton;
     Button1: TButton;
     chkComplex: TCheckBox;
     gCmplx: TFloatSpinEdit;
@@ -193,6 +194,7 @@ type
     Label9: TLabel;
     procedure BChange(Sender: TObject);
     procedure bloadClick(Sender: TObject);
+    procedure bloadpfClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure CaChange(Sender: TObject);
     procedure C(Sender: TObject);
@@ -448,6 +450,7 @@ var
   tfOut: TextFile;
   tfIn: TextFile;
 
+ str: string;
 
 implementation
 
@@ -1669,9 +1672,9 @@ begin
 end;
 
 procedure TKf.bloadClick(Sender: TObject);
-  var
-    tfIn: TextFile;
-    str: string;
+  //var
+    //tfIn: TextFile;
+    //str: string;
 begin
     //s:='setting.txt';
     AssignFile(tfIn, C_FNAME);
@@ -1730,6 +1733,45 @@ begin
    //// CalcWeight ;
    //         end;
     CalcWeight ;
+end;
+
+procedure TKf.bloadpfClick(Sender: TObject);
+
+begin
+  //s:='setting.txt';
+    AssignFile(tfIn, C_FNAME);
+        // Открыть файл для чтения
+      reset(tfIn);
+    //
+      // Считываем строки, пока не закончится файл
+          while not eof(tfIn) do
+          begin
+          readln(tfIn, str);
+          //Macro Profile
+           if (IsWordPresent('N', str, ['=']) = true) then N.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('NH4', str, ['=']) = true) then NH4.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('NO3', str, ['=']) = true) then NO3.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('P', str, ['=']) = true)   then P.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('K', str, ['=']) = true)   then K.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('Ca', str, ['=']) = true)  then Ca.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('Mg', str, ['=']) = true)  then Mg.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('S', str, ['=']) = true)   then S.value:=StrToFloat(ExtractWord(2,str,['=']));
+          //Micro Profile
+           if (IsWordPresent('Fe', str, ['=']) = true) then Fe.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('Mn', str, ['=']) = true) then Mn.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('B', str, ['=']) = true) then  B.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('Zn', str, ['=']) = true) then Zn.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('Cu', str, ['=']) = true) then Cu.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('Mo', str, ['=']) = true) then Mo.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('Co', str, ['=']) = true) then Co.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('Si', str, ['=']) = true) then Si.value:=StrToFloat(ExtractWord(2,str,['=']));
+          end;
+
+      CloseFile(tfIn);
+
+    CalcAll;
+    CalcWeight ;
+    microToWeght;
 end;
 
 procedure TKf.BChange(Sender: TObject);
