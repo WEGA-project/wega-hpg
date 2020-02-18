@@ -335,13 +335,21 @@ type
     procedure gK2SO4Change(Sender: TObject);
     procedure gKH2PO4Change(Sender: TObject);
     procedure gKNO3Change(Sender: TObject);
+    procedure glBChange(Sender: TObject);
     procedure glCaNO3Change(Sender: TObject);
+    procedure glCoChange(Sender: TObject);
+    procedure glCuChange(Sender: TObject);
+    procedure glFeChange(Sender: TObject);
     procedure glK2SO4Change(Sender: TObject);
     procedure glKH2PO4Change(Sender: TObject);
     procedure glKNO3Change(Sender: TObject);
     procedure glMgNO3Change(Sender: TObject);
     procedure glMgSO4Change(Sender: TObject);
+    procedure glMnChange(Sender: TObject);
+    procedure glMoChange(Sender: TObject);
     procedure glNH4NO3Change(Sender: TObject);
+    procedure glSiChange(Sender: TObject);
+    procedure glZnChange(Sender: TObject);
     procedure gMgNO3Change(Sender: TObject);
     procedure gMgSO4Change(Sender: TObject);
     procedure gMnChange(Sender: TObject);
@@ -507,6 +515,7 @@ type
 
     procedure SPChange(Sender: TObject);
     procedure TabSheet2Show(Sender: TObject);
+    procedure TabSheet3Show(Sender: TObject);
 
 
     procedure VChange(Sender: TObject);
@@ -869,6 +878,15 @@ begin
    Kf.mlMgSO4.Value:=Kf.gMgSO4.value/Kf.glMgSO4.value*1000;
    Kf.mlKH2PO4.Value:=Kf.gKH2PO4.value/Kf.glKH2PO4.value*1000;
    Kf.mlK2SO4.Value:=Kf.gK2SO4.value/Kf.glK2SO4.value*1000;
+
+   Kf.mlFe.Value:=Kf.gFe.value/Kf.glFe.value*100;
+   Kf.mlMn.Value:=Kf.gMn.value/Kf.glMn.value*100;
+   Kf.mlB.Value:= Kf.gB.value/Kf.glB.value*100;
+   Kf.mlZn.Value:=Kf.gZn.value/Kf.glZn.value*100;
+   Kf.mlCu.Value:=Kf.gCu.value/Kf.glCu.value*100;
+   Kf.mlMo.Value:=Kf.gMo.value/Kf.glMo.value*100;
+   Kf.mlCo.Value:=Kf.gCo.value/Kf.glCo.value*100;
+   Kf.mlSi.Value:=Kf.gSi.value/Kf.glSi.value*100;
 end;
 
 procedure CalcAll;
@@ -1411,7 +1429,27 @@ begin
  end;
 end;
 
+procedure TKf.glBChange(Sender: TObject);
+begin
+  CalcConc;
+end;
+
 procedure TKf.glCaNO3Change(Sender: TObject);
+begin
+  CalcConc;
+end;
+
+procedure TKf.glCoChange(Sender: TObject);
+begin
+  CalcConc;
+end;
+
+procedure TKf.glCuChange(Sender: TObject);
+begin
+  CalcConc;
+end;
+
+procedure TKf.glFeChange(Sender: TObject);
 begin
   CalcConc;
 end;
@@ -1441,7 +1479,27 @@ begin
   CalcConc;
 end;
 
+procedure TKf.glMnChange(Sender: TObject);
+begin
+  CalcConc;
+end;
+
+procedure TKf.glMoChange(Sender: TObject);
+begin
+  CalcConc;
+end;
+
 procedure TKf.glNH4NO3Change(Sender: TObject);
+begin
+  CalcConc;
+end;
+
+procedure TKf.glSiChange(Sender: TObject);
+begin
+  CalcConc;
+end;
+
+procedure TKf.glZnChange(Sender: TObject);
 begin
   CalcConc;
 end;
@@ -2754,6 +2812,11 @@ begin
   microToWeght;
 end;
 
+procedure TKf.TabSheet3Show(Sender: TObject);
+begin
+  CalcConc;
+end;
+
 
 
 
@@ -2761,7 +2824,7 @@ procedure TKf.VChange(Sender: TObject);
 begin
   CalcWeight ;
   microToWeght;
-
+  CalcConc;
   //WeghtTomicro
   //VtoMicrot;
    //microToWeght;

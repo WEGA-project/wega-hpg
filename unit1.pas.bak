@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  Spin, ComCtrls,strutils;
+  Spin, ComCtrls,strutils,LCLIntf, ExtCtrls ;
 const
   C_FNAME = 'settings.txt';
   StdWordDelims = ['='] + Brackets;
@@ -17,15 +17,76 @@ type
 
   TKf = class(TForm)
     bload: TButton;
+    bloadpf: TButton;
     Button1: TButton;
     chkComplex: TCheckBox;
+    glB: TFloatSpinEdit;
+    gmlB: TFloatSpinEdit;
+    mlB: TFloatSpinEdit;
+    ggB: TFloatSpinEdit;
+    glCo: TFloatSpinEdit;
+    gmlCo: TFloatSpinEdit;
+    mlCo: TFloatSpinEdit;
+    ggCo: TFloatSpinEdit;
+    glCu: TFloatSpinEdit;
+    gmlCu: TFloatSpinEdit;
+    mlCu: TFloatSpinEdit;
+    ggCu: TFloatSpinEdit;
+    glFe: TFloatSpinEdit;
+    gmlFe: TFloatSpinEdit;
+    mlFe: TFloatSpinEdit;
+    ggFe: TFloatSpinEdit;
+    glMn: TFloatSpinEdit;
+    gmlMn: TFloatSpinEdit;
+    mlMn: TFloatSpinEdit;
+    ggMn: TFloatSpinEdit;
+    glMo: TFloatSpinEdit;
+    gmlMo: TFloatSpinEdit;
+    mlMo: TFloatSpinEdit;
+    ggMo: TFloatSpinEdit;
+    glSi: TFloatSpinEdit;
+    gmlSi: TFloatSpinEdit;
+    mlSi: TFloatSpinEdit;
+    ggSi: TFloatSpinEdit;
+    glZn: TFloatSpinEdit;
+    gmlZn: TFloatSpinEdit;
+    mlZn: TFloatSpinEdit;
+    ggZn: TFloatSpinEdit;
+    glCaNO3: TFloatSpinEdit;
+    gmlCaNO3: TFloatSpinEdit;
+    mlCaNO3: TFloatSpinEdit;
+    ggCaNO3: TFloatSpinEdit;
     gCmplx: TFloatSpinEdit;
     gB: TFloatSpinEdit;
     gCo: TFloatSpinEdit;
     gCu: TFloatSpinEdit;
     gFe: TFloatSpinEdit;
+    glK2SO4: TFloatSpinEdit;
+    gmlK2SO4: TFloatSpinEdit;
+    mlK2SO4: TFloatSpinEdit;
+    ggK2SO4: TFloatSpinEdit;
+    glKH2PO4: TFloatSpinEdit;
+    gmlKH2PO4: TFloatSpinEdit;
+    mlKH2PO4: TFloatSpinEdit;
+    ggKH2PO4: TFloatSpinEdit;
+    glKNO3: TFloatSpinEdit;
+    gmlKNO3: TFloatSpinEdit;
+    mlKNO3: TFloatSpinEdit;
+    ggKNO3: TFloatSpinEdit;
+    glMgNO3: TFloatSpinEdit;
+    gmlMgNO3: TFloatSpinEdit;
+    mlMgNO3: TFloatSpinEdit;
+    ggMgNO3: TFloatSpinEdit;
+    glMgSO4: TFloatSpinEdit;
+    gmlMgSO4: TFloatSpinEdit;
+    mlMgSO4: TFloatSpinEdit;
+    ggMgSO4: TFloatSpinEdit;
     gMn: TFloatSpinEdit;
     gMo: TFloatSpinEdit;
+    glNH4NO3: TFloatSpinEdit;
+    gmlNH4NO3: TFloatSpinEdit;
+    mlNH4NO3: TFloatSpinEdit;
+    ggNH4NO3: TFloatSpinEdit;
     gSi: TFloatSpinEdit;
     gZn: TFloatSpinEdit;
     Fe: TFloatSpinEdit;
@@ -42,8 +103,28 @@ type
     dSi: TFloatSpinEdit;
     Label68: TLabel;
     Label69: TLabel;
+    Label70: TLabel;
+    Label71: TLabel;
+    Label72: TLabel;
+    Label73: TLabel;
+    Label74: TLabel;
+    Label75: TLabel;
+    Label76: TLabel;
+    Label77: TLabel;
+    nCaNO4: TLabel;
+    nK2SO5: TLabel;
+    nKH2PO5: TLabel;
+    nKNO4: TLabel;
+    nMgNO4: TLabel;
+    nMgSO5: TLabel;
+    nNH4NO4: TLabel;
     Si: TFloatSpinEdit;
     Mo: TFloatSpinEdit;
+    StaticText1: TStaticText;
+    StaticText2: TStaticText;
+    StaticText3: TStaticText;
+    StaticText4: TStaticText;
+    TabSheet3: TTabSheet;
     Zn: TFloatSpinEdit;
     Mn: TFloatSpinEdit;
     Label31: TLabel;
@@ -193,6 +274,7 @@ type
     Label9: TLabel;
     procedure BChange(Sender: TObject);
     procedure bloadClick(Sender: TObject);
+    procedure bloadpfClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure CaChange(Sender: TObject);
     procedure C(Sender: TObject);
@@ -253,6 +335,21 @@ type
     procedure gK2SO4Change(Sender: TObject);
     procedure gKH2PO4Change(Sender: TObject);
     procedure gKNO3Change(Sender: TObject);
+    procedure glBChange(Sender: TObject);
+    procedure glCaNO3Change(Sender: TObject);
+    procedure glCoChange(Sender: TObject);
+    procedure glCuChange(Sender: TObject);
+    procedure glFeChange(Sender: TObject);
+    procedure glK2SO4Change(Sender: TObject);
+    procedure glKH2PO4Change(Sender: TObject);
+    procedure glKNO3Change(Sender: TObject);
+    procedure glMgNO3Change(Sender: TObject);
+    procedure glMgSO4Change(Sender: TObject);
+    procedure glMnChange(Sender: TObject);
+    procedure glMoChange(Sender: TObject);
+    procedure glNH4NO3Change(Sender: TObject);
+    procedure glSiChange(Sender: TObject);
+    procedure glZnChange(Sender: TObject);
     procedure gMgNO3Change(Sender: TObject);
     procedure gMgSO4Change(Sender: TObject);
     procedure gMnChange(Sender: TObject);
@@ -418,6 +515,7 @@ type
 
     procedure SPChange(Sender: TObject);
     procedure TabSheet2Show(Sender: TObject);
+    procedure TabSheet3Show(Sender: TObject);
 
 
     procedure VChange(Sender: TObject);
@@ -448,6 +546,7 @@ var
   tfOut: TextFile;
   tfIn: TextFile;
 
+ str: string;
 
 implementation
 
@@ -770,6 +869,25 @@ begin
 
 end;
 
+procedure CalcConc;
+begin
+   Kf.mlCaNO3.Value:=Kf.gCaNO3.value/Kf.glCaNO3.value*1000;
+   Kf.mlKNO3.Value:=Kf.gKNO3.value/Kf.glKNO3.value*1000;
+   Kf.mlNH4NO3.Value:=Kf.gNH4NO3.value/Kf.glNH4NO3.value*1000;
+   Kf.mlMgNO3.Value:=Kf.gMgNO3.value/Kf.glMgNO3.value*1000;
+   Kf.mlMgSO4.Value:=Kf.gMgSO4.value/Kf.glMgSO4.value*1000;
+   Kf.mlKH2PO4.Value:=Kf.gKH2PO4.value/Kf.glKH2PO4.value*1000;
+   Kf.mlK2SO4.Value:=Kf.gK2SO4.value/Kf.glK2SO4.value*1000;
+
+   Kf.mlFe.Value:=Kf.gFe.value/Kf.glFe.value*100;
+   Kf.mlMn.Value:=Kf.gMn.value/Kf.glMn.value*100;
+   Kf.mlB.Value:= Kf.gB.value/Kf.glB.value*100;
+   Kf.mlZn.Value:=Kf.gZn.value/Kf.glZn.value*100;
+   Kf.mlCu.Value:=Kf.gCu.value/Kf.glCu.value*100;
+   Kf.mlMo.Value:=Kf.gMo.value/Kf.glMo.value*100;
+   Kf.mlCo.Value:=Kf.gCo.value/Kf.glCo.value*100;
+   Kf.mlSi.Value:=Kf.gSi.value/Kf.glSi.value*100;
+end;
 
 procedure CalcAll;
 begin
@@ -1025,8 +1143,7 @@ end;
 
 procedure TKf.Label1Click(Sender: TObject);
 begin
-    NH4NO3.value := NH4.value/NO3.value;
-    CalcAll;
+    OpenURL('https://github.com/siv237/HPG');
 end;
 
 procedure TKf.MnChange(Sender: TObject);
@@ -1310,6 +1427,81 @@ begin
   genProfile;
 
  end;
+end;
+
+procedure TKf.glBChange(Sender: TObject);
+begin
+  CalcConc;
+end;
+
+procedure TKf.glCaNO3Change(Sender: TObject);
+begin
+  CalcConc;
+end;
+
+procedure TKf.glCoChange(Sender: TObject);
+begin
+  CalcConc;
+end;
+
+procedure TKf.glCuChange(Sender: TObject);
+begin
+  CalcConc;
+end;
+
+procedure TKf.glFeChange(Sender: TObject);
+begin
+  CalcConc;
+end;
+
+procedure TKf.glK2SO4Change(Sender: TObject);
+begin
+  CalcConc;
+end;
+
+procedure TKf.glKH2PO4Change(Sender: TObject);
+begin
+  CalcConc;
+end;
+
+procedure TKf.glKNO3Change(Sender: TObject);
+begin
+  CalcConc;
+end;
+
+procedure TKf.glMgNO3Change(Sender: TObject);
+begin
+  CalcConc;
+end;
+
+procedure TKf.glMgSO4Change(Sender: TObject);
+begin
+  CalcConc;
+end;
+
+procedure TKf.glMnChange(Sender: TObject);
+begin
+  CalcConc;
+end;
+
+procedure TKf.glMoChange(Sender: TObject);
+begin
+  CalcConc;
+end;
+
+procedure TKf.glNH4NO3Change(Sender: TObject);
+begin
+  CalcConc;
+end;
+
+procedure TKf.glSiChange(Sender: TObject);
+begin
+  CalcConc;
+end;
+
+procedure TKf.glZnChange(Sender: TObject);
+begin
+  CalcConc;
 end;
 
 procedure TKf.gMgNO3Change(Sender: TObject);
@@ -1670,9 +1862,9 @@ begin
 end;
 
 procedure TKf.bloadClick(Sender: TObject);
-  var
-    tfIn: TextFile;
-    str: string;
+  //var
+    //tfIn: TextFile;
+    //str: string;
 begin
     //s:='setting.txt';
     AssignFile(tfIn, C_FNAME);
@@ -1731,6 +1923,45 @@ begin
    //// CalcWeight ;
    //         end;
     CalcWeight ;
+end;
+
+procedure TKf.bloadpfClick(Sender: TObject);
+
+begin
+  //s:='setting.txt';
+    AssignFile(tfIn, C_FNAME);
+        // Открыть файл для чтения
+      reset(tfIn);
+    //
+      // Считываем строки, пока не закончится файл
+          while not eof(tfIn) do
+          begin
+          readln(tfIn, str);
+          //Macro Profile
+           if (IsWordPresent('N', str, ['=']) = true) then N.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('NH4', str, ['=']) = true) then NH4.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('NO3', str, ['=']) = true) then NO3.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('P', str, ['=']) = true)   then P.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('K', str, ['=']) = true)   then K.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('Ca', str, ['=']) = true)  then Ca.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('Mg', str, ['=']) = true)  then Mg.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('S', str, ['=']) = true)   then S.value:=StrToFloat(ExtractWord(2,str,['=']));
+          //Micro Profile
+           if (IsWordPresent('Fe', str, ['=']) = true) then Fe.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('Mn', str, ['=']) = true) then Mn.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('B', str, ['=']) = true) then  B.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('Zn', str, ['=']) = true) then Zn.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('Cu', str, ['=']) = true) then Cu.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('Mo', str, ['=']) = true) then Mo.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('Co', str, ['=']) = true) then Co.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('Si', str, ['=']) = true) then Si.value:=StrToFloat(ExtractWord(2,str,['=']));
+          end;
+
+      CloseFile(tfIn);
+
+    CalcAll;
+    CalcWeight ;
+    microToWeght;
 end;
 
 procedure TKf.BChange(Sender: TObject);
@@ -2415,6 +2646,18 @@ begin
   // Связываем имя файла с переменной
   AssignFile(tfOut, C_FNAME);
     rewrite(tfOut);
+    // Macro Profile
+    writeln(tfOut,'N=',FloatToStr(N.value));
+    writeln(tfOut,'NH4=',FloatToStr(NH4.value));
+    writeln(tfOut,'NO3=',FloatToStr(NO3.value));
+    writeln(tfOut,'P=',FloatToStr(P.value));
+    writeln(tfOut,'K=',FloatToStr(K.value));
+    writeln(tfOut,'Ca=',FloatToStr(Ca.value));
+    writeln(tfOut,'Mg=',FloatToStr(Mg.value));
+    writeln(tfOut,'S=',FloatToStr(S.value));
+
+
+    //Macro %
     writeln(tfOut,'CaNO3_Ca=',FloatToStr(vCaNO3_Ca));
     writeln(tfOut,'CaNO3_NO3=',FloatToStr(vCaNO3_NO3));
     writeln(tfOut,'CaNO3_NH4=',FloatToStr(vCaNO3_NH4));
@@ -2439,7 +2682,17 @@ begin
     writeln(tfOut,'MgNO3_NO3=',FloatToStr(vMgNO3_NO3));
 
 
-    //Micro
+    // Micro Profile
+    writeln(tfOut,'Fe=',FloatToStr(Fe.value));
+    writeln(tfOut,'Mn=',FloatToStr(Mn.value));
+    writeln(tfOut,'B=',FloatToStr(B.value));
+    writeln(tfOut,'Zn=',FloatToStr(Zn.value));
+    writeln(tfOut,'Cu=',FloatToStr(Cu.value));
+    writeln(tfOut,'Mo=',FloatToStr(Mo.value));
+    writeln(tfOut,'Co=',FloatToStr(Co.value));
+    writeln(tfOut,'Si=',FloatToStr(Si.value));
+
+    //Micro %
      writeln(tfOut,'dFe=',FloatToStr(dFe.Value));
      writeln(tfOut,'dMn=',FloatToStr(dMn.Value));
      writeln(tfOut,'dB=',FloatToStr(dB.Value));
@@ -2559,6 +2812,11 @@ begin
   microToWeght;
 end;
 
+procedure TKf.TabSheet3Show(Sender: TObject);
+begin
+  CalcConc;
+end;
+
 
 
 
@@ -2566,7 +2824,7 @@ procedure TKf.VChange(Sender: TObject);
 begin
   CalcWeight ;
   microToWeght;
-
+  CalcConc;
   //WeghtTomicro
   //VtoMicrot;
    //microToWeght;
