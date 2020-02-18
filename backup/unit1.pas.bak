@@ -335,6 +335,13 @@ type
     procedure gK2SO4Change(Sender: TObject);
     procedure gKH2PO4Change(Sender: TObject);
     procedure gKNO3Change(Sender: TObject);
+    procedure glCaNO3Change(Sender: TObject);
+    procedure glK2SO4Change(Sender: TObject);
+    procedure glKH2PO4Change(Sender: TObject);
+    procedure glKNO3Change(Sender: TObject);
+    procedure glMgNO3Change(Sender: TObject);
+    procedure glMgSO4Change(Sender: TObject);
+    procedure glNH4NO3Change(Sender: TObject);
     procedure gMgNO3Change(Sender: TObject);
     procedure gMgSO4Change(Sender: TObject);
     procedure gMnChange(Sender: TObject);
@@ -853,6 +860,16 @@ begin
 
 end;
 
+procedure CalcConc;
+begin
+   Kf.mlCaNO3.Value:=Kf.gCaNO3.value/Kf.glCaNO3.value*1000;
+   Kf.mlKNO3.Value:=Kf.gKNO3.value/Kf.glKNO3.value*1000;
+   Kf.mlNH4NO3.Value:=Kf.gNH4NO3.value/Kf.glNH4NO3.value*1000;
+   Kf.mlMgNO3.Value:=Kf.gMgNO3.value/Kf.glMgNO3.value*1000;
+   Kf.mlMgSO4.Value:=Kf.gMgSO4.value/Kf.glMgSO4.value*1000;
+   Kf.mlKH2PO4.Value:=Kf.gKH2PO4.value/Kf.glKH2PO4.value*1000;
+   Kf.mlK2SO4.Value:=Kf.gK2SO4.value/Kf.glK2SO4.value*1000;
+end;
 
 procedure CalcAll;
 begin
@@ -1392,6 +1409,41 @@ begin
   genProfile;
 
  end;
+end;
+
+procedure TKf.glCaNO3Change(Sender: TObject);
+begin
+  CalcConc;
+end;
+
+procedure TKf.glK2SO4Change(Sender: TObject);
+begin
+  CalcConc;
+end;
+
+procedure TKf.glKH2PO4Change(Sender: TObject);
+begin
+  CalcConc;
+end;
+
+procedure TKf.glKNO3Change(Sender: TObject);
+begin
+  CalcConc;
+end;
+
+procedure TKf.glMgNO3Change(Sender: TObject);
+begin
+  CalcConc;
+end;
+
+procedure TKf.glMgSO4Change(Sender: TObject);
+begin
+  CalcConc;
+end;
+
+procedure TKf.glNH4NO3Change(Sender: TObject);
+begin
+  CalcConc;
 end;
 
 procedure TKf.gMgNO3Change(Sender: TObject);
