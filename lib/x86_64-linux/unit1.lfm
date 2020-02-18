@@ -2404,7 +2404,7 @@ object Kf: TKf
         ParentColor = False
         ParentFont = False
       end
-      object gCaNO4: TFloatSpinEdit
+      object glCaNO3: TFloatSpinEdit
         Left = 312
         Height = 27
         Top = 24
@@ -2419,7 +2419,7 @@ object Kf: TKf
         TabOrder = 0
         Value = 600
       end
-      object gKNO4: TFloatSpinEdit
+      object glKNO3: TFloatSpinEdit
         Left = 312
         Height = 27
         Top = 54
@@ -2434,7 +2434,7 @@ object Kf: TKf
         TabOrder = 1
         Value = 400
       end
-      object gNH4NO4: TFloatSpinEdit
+      object glNH4NO3: TFloatSpinEdit
         Left = 312
         Height = 27
         Top = 84
@@ -2449,7 +2449,7 @@ object Kf: TKf
         TabOrder = 2
         Value = 600
       end
-      object gMgSO5: TFloatSpinEdit
+      object glMgSO4: TFloatSpinEdit
         Left = 312
         Height = 27
         Top = 240
@@ -2464,7 +2464,7 @@ object Kf: TKf
         TabOrder = 3
         Value = 400
       end
-      object gKH2PO5: TFloatSpinEdit
+      object glKH2PO4: TFloatSpinEdit
         Left = 312
         Height = 27
         Top = 270
@@ -2479,7 +2479,7 @@ object Kf: TKf
         TabOrder = 4
         Value = 300
       end
-      object gK2SO5: TFloatSpinEdit
+      object glK2SO4: TFloatSpinEdit
         Left = 312
         Height = 27
         Top = 300
@@ -2494,7 +2494,7 @@ object Kf: TKf
         TabOrder = 5
         Value = 100
       end
-      object gMgNO4: TFloatSpinEdit
+      object glMgNO3: TFloatSpinEdit
         Left = 312
         Height = 27
         Top = 112
@@ -2509,7 +2509,7 @@ object Kf: TKf
         TabOrder = 6
         Value = 400
       end
-      object gCaNO5: TFloatSpinEdit
+      object gmlCaNO3: TFloatSpinEdit
         Left = 408
         Height = 27
         Top = 24
@@ -2524,7 +2524,7 @@ object Kf: TKf
         TabOrder = 7
         Value = 0
       end
-      object gKNO5: TFloatSpinEdit
+      object gmlKNO3: TFloatSpinEdit
         Left = 408
         Height = 27
         Top = 54
@@ -2539,7 +2539,7 @@ object Kf: TKf
         TabOrder = 8
         Value = 0
       end
-      object gNH4NO5: TFloatSpinEdit
+      object gmlNH4NO3: TFloatSpinEdit
         Left = 408
         Height = 27
         Top = 84
@@ -2554,7 +2554,7 @@ object Kf: TKf
         TabOrder = 9
         Value = 0
       end
-      object gMgSO6: TFloatSpinEdit
+      object gmlMgSO4: TFloatSpinEdit
         Left = 408
         Height = 27
         Top = 240
@@ -2569,7 +2569,7 @@ object Kf: TKf
         TabOrder = 10
         Value = 1
       end
-      object gKH2PO6: TFloatSpinEdit
+      object gmlKH2PO4: TFloatSpinEdit
         Left = 408
         Height = 27
         Top = 270
@@ -2584,7 +2584,7 @@ object Kf: TKf
         TabOrder = 11
         Value = 1
       end
-      object gK2SO6: TFloatSpinEdit
+      object gmlK2SO4: TFloatSpinEdit
         Left = 408
         Height = 27
         Top = 300
@@ -2599,7 +2599,7 @@ object Kf: TKf
         TabOrder = 12
         Value = 1
       end
-      object gMgNO5: TFloatSpinEdit
+      object gmlMgNO3: TFloatSpinEdit
         Left = 408
         Height = 27
         Top = 112
@@ -2702,7 +2702,7 @@ object Kf: TKf
         ParentColor = False
         ParentFont = False
       end
-      object dFe1: TFloatSpinEdit
+      object glFe: TFloatSpinEdit
         Left = 312
         Height = 27
         Top = 336
@@ -2717,7 +2717,7 @@ object Kf: TKf
         TabOrder = 14
         Value = 10
       end
-      object dMn1: TFloatSpinEdit
+      object glMn: TFloatSpinEdit
         Left = 312
         Height = 27
         Top = 369
@@ -2732,7 +2732,7 @@ object Kf: TKf
         TabOrder = 15
         Value = 10
       end
-      object dB1: TFloatSpinEdit
+      object glB: TFloatSpinEdit
         Left = 312
         Height = 27
         Top = 401
@@ -2747,10 +2747,10 @@ object Kf: TKf
         TabOrder = 16
         Value = 10
       end
-      object dZn1: TFloatSpinEdit
+      object glZn: TFloatSpinEdit
         Left = 312
         Height = 27
-        Top = 433
+        Top = 432
         Width = 85
         Font.Height = -15
         Font.Name = 'Arial'
@@ -2762,7 +2762,7 @@ object Kf: TKf
         TabOrder = 17
         Value = 10
       end
-      object dCu1: TFloatSpinEdit
+      object glCu: TFloatSpinEdit
         Left = 312
         Height = 27
         Top = 465
@@ -2777,7 +2777,7 @@ object Kf: TKf
         TabOrder = 18
         Value = 10
       end
-      object dMo1: TFloatSpinEdit
+      object glMo: TFloatSpinEdit
         Left = 312
         Height = 27
         Top = 497
@@ -2792,7 +2792,7 @@ object Kf: TKf
         TabOrder = 19
         Value = 10
       end
-      object dCo1: TFloatSpinEdit
+      object glCo: TFloatSpinEdit
         Left = 312
         Height = 27
         Top = 529
@@ -2807,7 +2807,7 @@ object Kf: TKf
         TabOrder = 20
         Value = 10
       end
-      object dSi1: TFloatSpinEdit
+      object glSi: TFloatSpinEdit
         Left = 312
         Height = 27
         Top = 561
@@ -2822,7 +2822,7 @@ object Kf: TKf
         TabOrder = 21
         Value = 10
       end
-      object dSi2: TFloatSpinEdit
+      object gmlSi: TFloatSpinEdit
         Left = 408
         Height = 27
         Top = 561
@@ -2836,7 +2836,7 @@ object Kf: TKf
         TabOrder = 22
         Value = 1
       end
-      object dCo2: TFloatSpinEdit
+      object gmlCo: TFloatSpinEdit
         Left = 408
         Height = 27
         Top = 529
@@ -2850,7 +2850,7 @@ object Kf: TKf
         TabOrder = 23
         Value = 1
       end
-      object dMo2: TFloatSpinEdit
+      object gmlMo: TFloatSpinEdit
         Left = 408
         Height = 27
         Top = 497
@@ -2864,7 +2864,7 @@ object Kf: TKf
         TabOrder = 24
         Value = 1
       end
-      object dCu2: TFloatSpinEdit
+      object gmlCu: TFloatSpinEdit
         Left = 408
         Height = 27
         Top = 465
@@ -2878,7 +2878,7 @@ object Kf: TKf
         TabOrder = 25
         Value = 1
       end
-      object dZn2: TFloatSpinEdit
+      object gmlZn: TFloatSpinEdit
         Left = 408
         Height = 27
         Top = 433
@@ -2892,7 +2892,7 @@ object Kf: TKf
         TabOrder = 26
         Value = 1
       end
-      object dB2: TFloatSpinEdit
+      object gmlB: TFloatSpinEdit
         Left = 408
         Height = 27
         Top = 401
@@ -2906,7 +2906,7 @@ object Kf: TKf
         TabOrder = 27
         Value = 1
       end
-      object dMn2: TFloatSpinEdit
+      object gmlMn: TFloatSpinEdit
         Left = 408
         Height = 27
         Top = 369
@@ -2920,7 +2920,7 @@ object Kf: TKf
         TabOrder = 28
         Value = 1
       end
-      object dFe2: TFloatSpinEdit
+      object gmlFe: TFloatSpinEdit
         Left = 408
         Height = 27
         Top = 336
@@ -2966,7 +2966,7 @@ object Kf: TKf
         Caption = 'гр.'
         TabOrder = 33
       end
-      object gCaNO6: TFloatSpinEdit
+      object mlCaNO3: TFloatSpinEdit
         Left = 488
         Height = 27
         Top = 24
@@ -2981,7 +2981,7 @@ object Kf: TKf
         TabOrder = 34
         Value = 0
       end
-      object gKNO6: TFloatSpinEdit
+      object mlKNO3: TFloatSpinEdit
         Left = 488
         Height = 27
         Top = 54
@@ -2996,7 +2996,7 @@ object Kf: TKf
         TabOrder = 35
         Value = 0
       end
-      object gNH4NO6: TFloatSpinEdit
+      object mlNH4NO3: TFloatSpinEdit
         Left = 488
         Height = 27
         Top = 84
@@ -3011,7 +3011,7 @@ object Kf: TKf
         TabOrder = 36
         Value = 0
       end
-      object gMgNO6: TFloatSpinEdit
+      object mlMgNO3: TFloatSpinEdit
         Left = 488
         Height = 27
         Top = 112
@@ -3026,7 +3026,7 @@ object Kf: TKf
         TabOrder = 37
         Value = 0
       end
-      object gMgSO7: TFloatSpinEdit
+      object mlMgSO4: TFloatSpinEdit
         Left = 488
         Height = 27
         Top = 240
@@ -3041,7 +3041,7 @@ object Kf: TKf
         TabOrder = 38
         Value = 0
       end
-      object gKH2PO7: TFloatSpinEdit
+      object mlKH2PO4: TFloatSpinEdit
         Left = 488
         Height = 27
         Top = 270
@@ -3056,7 +3056,7 @@ object Kf: TKf
         TabOrder = 39
         Value = 0
       end
-      object gK2SO7: TFloatSpinEdit
+      object mlK2SO4: TFloatSpinEdit
         Left = 488
         Height = 27
         Top = 300
@@ -3071,7 +3071,7 @@ object Kf: TKf
         TabOrder = 40
         Value = 0
       end
-      object dFe3: TFloatSpinEdit
+      object mlFe: TFloatSpinEdit
         Left = 488
         Height = 27
         Top = 336
@@ -3085,7 +3085,7 @@ object Kf: TKf
         TabOrder = 41
         Value = 0
       end
-      object dMn3: TFloatSpinEdit
+      object mlMn: TFloatSpinEdit
         Left = 488
         Height = 27
         Top = 369
@@ -3099,7 +3099,7 @@ object Kf: TKf
         TabOrder = 42
         Value = 0
       end
-      object dB3: TFloatSpinEdit
+      object mlB: TFloatSpinEdit
         Left = 488
         Height = 27
         Top = 401
@@ -3113,7 +3113,7 @@ object Kf: TKf
         TabOrder = 43
         Value = 0
       end
-      object dZn3: TFloatSpinEdit
+      object mlZn: TFloatSpinEdit
         Left = 488
         Height = 27
         Top = 433
@@ -3127,7 +3127,7 @@ object Kf: TKf
         TabOrder = 44
         Value = 0
       end
-      object dCu3: TFloatSpinEdit
+      object mlCu: TFloatSpinEdit
         Left = 488
         Height = 27
         Top = 465
@@ -3141,7 +3141,7 @@ object Kf: TKf
         TabOrder = 45
         Value = 0
       end
-      object dMo3: TFloatSpinEdit
+      object mlMo: TFloatSpinEdit
         Left = 488
         Height = 27
         Top = 497
@@ -3155,7 +3155,7 @@ object Kf: TKf
         TabOrder = 46
         Value = 0
       end
-      object dCo3: TFloatSpinEdit
+      object mlCo: TFloatSpinEdit
         Left = 488
         Height = 27
         Top = 529
@@ -3169,7 +3169,7 @@ object Kf: TKf
         TabOrder = 47
         Value = 0
       end
-      object dSi3: TFloatSpinEdit
+      object mlSi: TFloatSpinEdit
         Left = 488
         Height = 27
         Top = 561
@@ -3183,7 +3183,7 @@ object Kf: TKf
         TabOrder = 48
         Value = 0
       end
-      object gCaNO7: TFloatSpinEdit
+      object ggCaNO3: TFloatSpinEdit
         Left = 568
         Height = 27
         Top = 24
@@ -3198,7 +3198,7 @@ object Kf: TKf
         TabOrder = 49
         Value = 0
       end
-      object gKNO7: TFloatSpinEdit
+      object ggKNO3: TFloatSpinEdit
         Left = 568
         Height = 27
         Top = 54
@@ -3213,7 +3213,7 @@ object Kf: TKf
         TabOrder = 50
         Value = 0
       end
-      object gNH4NO7: TFloatSpinEdit
+      object ggNH4NO3: TFloatSpinEdit
         Left = 568
         Height = 27
         Top = 84
@@ -3228,7 +3228,7 @@ object Kf: TKf
         TabOrder = 51
         Value = 0
       end
-      object gMgNO7: TFloatSpinEdit
+      object ggMgNO3: TFloatSpinEdit
         Left = 568
         Height = 27
         Top = 112
@@ -3243,7 +3243,7 @@ object Kf: TKf
         TabOrder = 52
         Value = 0
       end
-      object gMgSO8: TFloatSpinEdit
+      object ggMgSO4: TFloatSpinEdit
         Left = 568
         Height = 27
         Top = 240
@@ -3258,7 +3258,7 @@ object Kf: TKf
         TabOrder = 53
         Value = 0
       end
-      object gKH2PO8: TFloatSpinEdit
+      object ggKH2PO4: TFloatSpinEdit
         Left = 568
         Height = 27
         Top = 270
@@ -3273,7 +3273,7 @@ object Kf: TKf
         TabOrder = 54
         Value = 0
       end
-      object gK2SO8: TFloatSpinEdit
+      object ggK2SO4: TFloatSpinEdit
         Left = 568
         Height = 27
         Top = 300
@@ -3288,7 +3288,7 @@ object Kf: TKf
         TabOrder = 55
         Value = 0
       end
-      object dFe4: TFloatSpinEdit
+      object ggFe: TFloatSpinEdit
         Left = 568
         Height = 27
         Top = 336
@@ -3302,7 +3302,7 @@ object Kf: TKf
         TabOrder = 56
         Value = 0
       end
-      object dMn4: TFloatSpinEdit
+      object ggMn: TFloatSpinEdit
         Left = 568
         Height = 27
         Top = 369
@@ -3316,7 +3316,7 @@ object Kf: TKf
         TabOrder = 57
         Value = 0
       end
-      object dB4: TFloatSpinEdit
+      object ggB: TFloatSpinEdit
         Left = 568
         Height = 27
         Top = 401
@@ -3330,7 +3330,7 @@ object Kf: TKf
         TabOrder = 58
         Value = 0
       end
-      object dZn4: TFloatSpinEdit
+      object ggZn: TFloatSpinEdit
         Left = 568
         Height = 27
         Top = 433
@@ -3344,7 +3344,7 @@ object Kf: TKf
         TabOrder = 59
         Value = 0
       end
-      object dCu4: TFloatSpinEdit
+      object ggCu: TFloatSpinEdit
         Left = 568
         Height = 27
         Top = 465
@@ -3358,7 +3358,7 @@ object Kf: TKf
         TabOrder = 60
         Value = 0
       end
-      object dMo4: TFloatSpinEdit
+      object ggMo: TFloatSpinEdit
         Left = 568
         Height = 27
         Top = 497
@@ -3372,7 +3372,7 @@ object Kf: TKf
         TabOrder = 61
         Value = 0
       end
-      object dCo4: TFloatSpinEdit
+      object ggCo: TFloatSpinEdit
         Left = 568
         Height = 27
         Top = 529
@@ -3386,7 +3386,7 @@ object Kf: TKf
         TabOrder = 62
         Value = 0
       end
-      object dSi4: TFloatSpinEdit
+      object ggSi: TFloatSpinEdit
         Left = 568
         Height = 27
         Top = 561
