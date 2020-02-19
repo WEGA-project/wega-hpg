@@ -2735,6 +2735,24 @@ begin
      writeln(tfOut,'dCo=',FloatToStr(dCo.Value));
      writeln(tfOut,'dSi=',FloatToStr(dSi.Value));
 
+     // Концентрации
+     writeln(tfOut,'glCaNO3=',FloatToStr(glCaNO3.Value));
+     writeln(tfOut,'glKO3=',FloatToStr(glKNO3.Value));
+     writeln(tfOut,'glNH4NO3=',FloatToStr(glNH4NO3.Value));
+     writeln(tfOut,'glMgNO3=',FloatToStr(glMgNO3.Value));
+     writeln(tfOut,'glMgSO4=',FloatToStr(glMgSO4.Value));
+     writeln(tfOut,'glK2SO4=',FloatToStr(glK2SO4.Value));
+     writeln(tfOut,'glKH2PO4=',FloatToStr(glKH2PO4.Value));
+
+     writeln(tfOut,'glCmplx=',FloatToStr(glCmplx.Value));
+     writeln(tfOut,'glFe=',FloatToStr(glFe.Value));
+     writeln(tfOut,'glMn=',FloatToStr(glMn.Value));
+     writeln(tfOut,'glB=',FloatToStr(glB.Value));
+     writeln(tfOut,'glZn=',FloatToStr(glZn.Value));
+     writeln(tfOut,'glCu=',FloatToStr(glCu.Value));
+     writeln(tfOut,'glMo=',FloatToStr(glMo.Value));
+     writeln(tfOut,'glCo=',FloatToStr(glCo.Value));
+     writeln(tfOut,'glSi=',FloatToStr(glSi.Value));
 
     CloseFile(tfOut);
 end;

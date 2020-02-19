@@ -2735,6 +2735,43 @@ begin
      writeln(tfOut,'dCo=',FloatToStr(dCo.Value));
      writeln(tfOut,'dSi=',FloatToStr(dSi.Value));
 
+     // Концентрации
+     writeln(tfOut,'glCaNO3=',FloatToStr(glCaNO3.Value));
+     writeln(tfOut,'glKO3=',FloatToStr(glKNO3.Value));
+     writeln(tfOut,'glNH4NO3=',FloatToStr(glNH4NO3.Value));
+     writeln(tfOut,'glMgNO3=',FloatToStr(glMgNO3.Value));
+     writeln(tfOut,'glMgSO4=',FloatToStr(glMgSO4.Value));
+     writeln(tfOut,'glK2SO4=',FloatToStr(glK2SO4.Value));
+     writeln(tfOut,'glKH2PO4=',FloatToStr(glKH2PO4.Value));
+
+     writeln(tfOut,'glCmplx=',FloatToStr(glCmplx.Value));
+     writeln(tfOut,'glFe=',FloatToStr(glFe.Value));
+     writeln(tfOut,'glMn=',FloatToStr(glMn.Value));
+     writeln(tfOut,'glB=',FloatToStr(glB.Value));
+     writeln(tfOut,'glZn=',FloatToStr(glZn.Value));
+     writeln(tfOut,'glCu=',FloatToStr(glCu.Value));
+     writeln(tfOut,'glMo=',FloatToStr(glMo.Value));
+     writeln(tfOut,'glCo=',FloatToStr(glCo.Value));
+     writeln(tfOut,'glSi=',FloatToStr(glSi.Value));
+
+     // Плотности
+     writeln(tfOut,'gmlCaNO3=',FloatToStr(gmlCaNO3.Value));
+     writeln(tfOut,'gmlKO3=',FloatToStr(gmlKNO3.Value));
+     writeln(tfOut,'gmlNH4NO3=',FloatToStr(gmlNH4NO3.Value));
+     writeln(tfOut,'gmlMgNO3=',FloatToStr(gmlMgNO3.Value));
+     writeln(tfOut,'gmlMgSO4=',FloatToStr(gmlMgSO4.Value));
+     writeln(tfOut,'gmlK2SO4=',FloatToStr(gmlK2SO4.Value));
+     writeln(tfOut,'gmlKH2PO4=',FloatToStr(gmlKH2PO4.Value));
+
+     writeln(tfOut,'gmlCmplx=',FloatToStr(gmlCmplx.Value));
+     writeln(tfOut,'gmlFe=',FloatToStr(gmlFe.Value));
+     writeln(tfOut,'gmlMn=',FloatToStr(gmlMn.Value));
+     writeln(tfOut,'gmlB=',FloatToStr(gmlB.Value));
+     writeln(tfOut,'gmlZn=',FloatToStr(gmlZn.Value));
+     writeln(tfOut,'gmlCu=',FloatToStr(gmlCu.Value));
+     writeln(tfOut,'gmlMo=',FloatToStr(gmlMo.Value));
+     writeln(tfOut,'gmlCo=',FloatToStr(gmlCo.Value));
+     writeln(tfOut,'gmlSi=',FloatToStr(gmlSi.Value));
 
     CloseFile(tfOut);
 end;
