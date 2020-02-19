@@ -110,14 +110,14 @@ type
     dSi: TFloatSpinEdit;
     Label68: TLabel;
     Label69: TLabel;
-    Label70: TLabel;
-    Label71: TLabel;
-    Label72: TLabel;
-    Label73: TLabel;
-    Label74: TLabel;
-    Label75: TLabel;
-    Label76: TLabel;
-    Label77: TLabel;
+    lSi: TLabel;
+    lCo: TLabel;
+    lMo: TLabel;
+    lCu: TLabel;
+    lZn: TLabel;
+    lB: TLabel;
+    lMn: TLabel;
+    lFe: TLabel;
     nCaNO4: TLabel;
     nK2SO5: TLabel;
     nKH2PO5: TLabel;
@@ -887,6 +887,7 @@ begin
    Kf.mlKH2PO4.Value:=Kf.gKH2PO4.value/Kf.glKH2PO4.value*1000;
    Kf.mlK2SO4.Value:=Kf.gK2SO4.value/Kf.glK2SO4.value*1000;
 
+   Kf.mlCmplx.Value:=Kf.gCmplx.value/Kf.glCmplx.value*100;
    Kf.mlFe.Value:=Kf.gFe.value/Kf.glFe.value*100;
    Kf.mlMn.Value:=Kf.gMn.value/Kf.glMn.value*100;
    Kf.mlB.Value:= Kf.gB.value/Kf.glB.value*100;
@@ -904,6 +905,7 @@ begin
    Kf.ggKH2PO4.value:=Kf.gmlKH2PO4.value*Kf.mlKH2PO4.value;
    Kf.ggK2SO4.value:=Kf.gmlK2SO4.value*Kf.mlK2SO4.value;
 
+   Kf.ggCmplx.value:=Kf.gmlCmplx.value*Kf.mlCmplx.value;
    Kf.ggFe.value:=Kf.gmlFe.value*Kf.mlFe.value;
    Kf.ggB.value:=Kf.gmlB.value*Kf.mlB.value;
    Kf.ggMn.value:=Kf.gmlMn.value*Kf.mlMn.value;
@@ -912,6 +914,36 @@ begin
    Kf.ggMo.value:=Kf.gmlMo.value*Kf.mlMo.value;
    Kf.ggCo.value:=Kf.gmlCo.value*Kf.mlCo.value;
    Kf.ggSi.value:=Kf.gmlSi.value*Kf.mlSi.value;
+
+
+    if (kF.chKComplex.Checked = False) then  begin
+    Kf.lCmplx.Visible:=false; Kf.glCmplx.Visible:=false;  Kf.gmlCmplx.Visible:=false;  Kf.mlCmplx.Visible:=false;  Kf.ggCmplx.Visible:=false;
+
+    Kf.lFe.Visible:=true; Kf.glFe.Visible:=true;  Kf.gmlFe.Visible:=true;  Kf.mlFe.Visible:=true;  Kf.ggFe.Visible:=true;
+    Kf.lMn.Visible:=true; Kf.glMn.Visible:=true;  Kf.gmlMn.Visible:=true;  Kf.mlMn.Visible:=true;  Kf.ggMn.Visible:=true;
+    Kf.lB.Visible:=true;  Kf.glB.Visible:=true;   Kf.gmlB.Visible:=true;   Kf.mlB.Visible:=true;   Kf.ggB.Visible:=true;
+    Kf.lZn.Visible:=true; Kf.glZn.Visible:=true;  Kf.gmlZn.Visible:=true;  Kf.mlZn.Visible:=true;  Kf.ggZn.Visible:=true;
+    Kf.lCu.Visible:=true; Kf.glCu.Visible:=true;  Kf.gmlCu.Visible:=true;  Kf.mlCu.Visible:=true;  Kf.ggCu.Visible:=true;
+    Kf.lMo.Visible:=true; Kf.glMo.Visible:=true;  Kf.gmlMo.Visible:=true;  Kf.mlMo.Visible:=true;  Kf.ggMo.Visible:=true;
+    Kf.lCo.Visible:=true; Kf.glCo.Visible:=true;  Kf.gmlCo.Visible:=true;  Kf.mlCo.Visible:=true;  Kf.ggCo.Visible:=true;
+    Kf.lSi.Visible:=true; Kf.glSi.Visible:=true;  Kf.gmlSi.Visible:=true;  Kf.mlSi.Visible:=true;  Kf.ggSi.Visible:=true;
+
+    end
+    else begin
+    Kf.lCmplx.Visible:=true; Kf.glCmplx.Visible:=true;  Kf.gmlCmplx.Visible:=true;  Kf.mlCmplx.Visible:=true;  Kf.ggCmplx.Visible:=true;
+
+    Kf.lFe.Visible:=false; Kf.glFe.Visible:=false;  Kf.gmlFe.Visible:=false;  Kf.mlFe.Visible:=false;  Kf.ggFe.Visible:=false;
+    Kf.lMn.Visible:=false; Kf.glMn.Visible:=false;  Kf.gmlMn.Visible:=false;  Kf.mlMn.Visible:=false;  Kf.ggMn.Visible:=false;
+    Kf.lB.Visible:=false;  Kf.glB.Visible:=false;   Kf.gmlB.Visible:=false;   Kf.mlB.Visible:=false;   Kf.ggB.Visible:=false;
+    Kf.lZn.Visible:=false; Kf.glZn.Visible:=false;  Kf.gmlZn.Visible:=false;  Kf.mlZn.Visible:=false;  Kf.ggZn.Visible:=false;
+    Kf.lCu.Visible:=false; Kf.glCu.Visible:=false;  Kf.gmlCu.Visible:=false;  Kf.mlCu.Visible:=false;  Kf.ggCu.Visible:=false;
+    Kf.lMo.Visible:=false; Kf.glMo.Visible:=false;  Kf.gmlMo.Visible:=false;  Kf.mlMo.Visible:=false;  Kf.ggMo.Visible:=false;
+    Kf.lCo.Visible:=false; Kf.glCo.Visible:=false;  Kf.gmlCo.Visible:=false;  Kf.mlCo.Visible:=false;  Kf.ggCo.Visible:=false;
+    Kf.lSi.Visible:=false; Kf.glSi.Visible:=false;  Kf.gmlSi.Visible:=false;  Kf.mlSi.Visible:=false;  Kf.ggSi.Visible:=false;
+    end;
+
+
+
 
 end;
 

@@ -1,7 +1,7 @@
 object Kf: TKf
-  Left = 161
+  Left = 886
   Height = 788
-  Top = 175
+  Top = 161
   Width = 762
   Caption = 'Koefficients'
   ClientHeight = 788
@@ -33,11 +33,11 @@ object Kf: TKf
     Height = 744
     Top = 0
     Width = 761
-    ActivePage = TabSheet3
+    ActivePage = TabSheet2
     Font.Height = -15
     Font.Name = 'Arial'
     ParentFont = False
-    TabIndex = 2
+    TabIndex = 1
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'Макро'
@@ -2614,7 +2614,7 @@ object Kf: TKf
         TabOrder = 13
         Value = 1
       end
-      object Label70: TLabel
+      object lSi: TLabel
         Left = 8
         Height = 17
         Top = 590
@@ -2625,7 +2625,7 @@ object Kf: TKf
         ParentColor = False
         ParentFont = False
       end
-      object Label71: TLabel
+      object lCo: TLabel
         Left = 8
         Height = 17
         Top = 560
@@ -2636,7 +2636,7 @@ object Kf: TKf
         ParentColor = False
         ParentFont = False
       end
-      object Label72: TLabel
+      object lMo: TLabel
         Left = 8
         Height = 17
         Top = 526
@@ -2647,7 +2647,7 @@ object Kf: TKf
         ParentColor = False
         ParentFont = False
       end
-      object Label73: TLabel
+      object lCu: TLabel
         Left = 8
         Height = 17
         Top = 494
@@ -2658,7 +2658,7 @@ object Kf: TKf
         ParentColor = False
         ParentFont = False
       end
-      object Label74: TLabel
+      object lZn: TLabel
         Left = 8
         Height = 17
         Top = 462
@@ -2669,7 +2669,7 @@ object Kf: TKf
         ParentColor = False
         ParentFont = False
       end
-      object Label75: TLabel
+      object lB: TLabel
         Left = 8
         Height = 17
         Top = 430
@@ -2680,7 +2680,7 @@ object Kf: TKf
         ParentColor = False
         ParentFont = False
       end
-      object Label76: TLabel
+      object lMn: TLabel
         Left = 8
         Height = 17
         Top = 398
@@ -2691,7 +2691,7 @@ object Kf: TKf
         ParentColor = False
         ParentFont = False
       end
-      object Label77: TLabel
+      object lFe: TLabel
         Left = 8
         Height = 17
         Top = 365
