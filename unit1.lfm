@@ -2617,7 +2617,7 @@ object Kf: TKf
       object Label70: TLabel
         Left = 8
         Height = 17
-        Top = 566
+        Top = 590
         Width = 86
         Caption = 'Кремний (%)'
         Font.Height = -15
@@ -2628,7 +2628,7 @@ object Kf: TKf
       object Label71: TLabel
         Left = 8
         Height = 17
-        Top = 536
+        Top = 560
         Width = 84
         Caption = 'Кобальт (%)'
         Font.Height = -15
@@ -2639,7 +2639,7 @@ object Kf: TKf
       object Label72: TLabel
         Left = 8
         Height = 17
-        Top = 502
+        Top = 526
         Width = 96
         Caption = 'Молибден (%)'
         Font.Height = -15
@@ -2650,7 +2650,7 @@ object Kf: TKf
       object Label73: TLabel
         Left = 8
         Height = 17
-        Top = 470
+        Top = 494
         Width = 63
         Caption = 'Медь (%)'
         Font.Height = -15
@@ -2661,7 +2661,7 @@ object Kf: TKf
       object Label74: TLabel
         Left = 8
         Height = 17
-        Top = 438
+        Top = 462
         Width = 61
         Caption = 'Цинк (%)'
         Font.Height = -15
@@ -2672,7 +2672,7 @@ object Kf: TKf
       object Label75: TLabel
         Left = 8
         Height = 17
-        Top = 406
+        Top = 430
         Width = 53
         Caption = 'Бор (%)'
         Font.Height = -15
@@ -2683,7 +2683,7 @@ object Kf: TKf
       object Label76: TLabel
         Left = 8
         Height = 17
-        Top = 374
+        Top = 398
         Width = 92
         Caption = 'Марганец (%)'
         Font.Height = -15
@@ -2694,7 +2694,7 @@ object Kf: TKf
       object Label77: TLabel
         Left = 8
         Height = 17
-        Top = 341
+        Top = 365
         Width = 80
         Caption = 'Железо (%)'
         Font.Height = -15
@@ -2705,7 +2705,7 @@ object Kf: TKf
       object glFe: TFloatSpinEdit
         Left = 312
         Height = 27
-        Top = 336
+        Top = 360
         Width = 85
         Font.Height = -15
         Font.Name = 'Arial'
@@ -2720,7 +2720,7 @@ object Kf: TKf
       object glMn: TFloatSpinEdit
         Left = 312
         Height = 27
-        Top = 369
+        Top = 393
         Width = 85
         Font.Height = -15
         Font.Name = 'Arial'
@@ -2735,7 +2735,7 @@ object Kf: TKf
       object glB: TFloatSpinEdit
         Left = 312
         Height = 27
-        Top = 401
+        Top = 425
         Width = 85
         Font.Height = -15
         Font.Name = 'Arial'
@@ -2750,7 +2750,7 @@ object Kf: TKf
       object glZn: TFloatSpinEdit
         Left = 312
         Height = 27
-        Top = 432
+        Top = 456
         Width = 85
         Font.Height = -15
         Font.Name = 'Arial'
@@ -2765,7 +2765,7 @@ object Kf: TKf
       object glCu: TFloatSpinEdit
         Left = 312
         Height = 27
-        Top = 465
+        Top = 489
         Width = 85
         Font.Height = -15
         Font.Name = 'Arial'
@@ -2780,7 +2780,7 @@ object Kf: TKf
       object glMo: TFloatSpinEdit
         Left = 312
         Height = 27
-        Top = 497
+        Top = 521
         Width = 85
         Font.Height = -15
         Font.Name = 'Arial'
@@ -2795,7 +2795,7 @@ object Kf: TKf
       object glCo: TFloatSpinEdit
         Left = 312
         Height = 27
-        Top = 529
+        Top = 553
         Width = 85
         Font.Height = -15
         Font.Name = 'Arial'
@@ -2810,7 +2810,7 @@ object Kf: TKf
       object glSi: TFloatSpinEdit
         Left = 312
         Height = 27
-        Top = 561
+        Top = 585
         Width = 85
         Font.Height = -15
         Font.Name = 'Arial'
@@ -2825,7 +2825,7 @@ object Kf: TKf
       object gmlSi: TFloatSpinEdit
         Left = 409
         Height = 27
-        Top = 561
+        Top = 585
         Width = 72
         Font.Height = -15
         Font.Name = 'Arial'
@@ -2839,7 +2839,7 @@ object Kf: TKf
       object gmlCo: TFloatSpinEdit
         Left = 409
         Height = 27
-        Top = 529
+        Top = 553
         Width = 72
         Font.Height = -15
         Font.Name = 'Arial'
@@ -2853,7 +2853,7 @@ object Kf: TKf
       object gmlMo: TFloatSpinEdit
         Left = 409
         Height = 27
-        Top = 497
+        Top = 521
         Width = 72
         Font.Height = -15
         Font.Name = 'Arial'
@@ -2867,7 +2867,7 @@ object Kf: TKf
       object gmlCu: TFloatSpinEdit
         Left = 409
         Height = 27
-        Top = 465
+        Top = 489
         Width = 72
         Font.Height = -15
         Font.Name = 'Arial'
@@ -2881,7 +2881,7 @@ object Kf: TKf
       object gmlZn: TFloatSpinEdit
         Left = 409
         Height = 27
-        Top = 433
+        Top = 457
         Width = 72
         Font.Height = -15
         Font.Name = 'Arial'
@@ -2895,7 +2895,7 @@ object Kf: TKf
       object gmlB: TFloatSpinEdit
         Left = 409
         Height = 27
-        Top = 401
+        Top = 425
         Width = 72
         Font.Height = -15
         Font.Name = 'Arial'
@@ -2909,7 +2909,7 @@ object Kf: TKf
       object gmlMn: TFloatSpinEdit
         Left = 409
         Height = 27
-        Top = 369
+        Top = 393
         Width = 72
         Font.Height = -15
         Font.Name = 'Arial'
@@ -2923,7 +2923,7 @@ object Kf: TKf
       object gmlFe: TFloatSpinEdit
         Left = 409
         Height = 27
-        Top = 336
+        Top = 360
         Width = 72
         Font.Height = -15
         Font.Name = 'Arial'
@@ -3093,7 +3093,7 @@ object Kf: TKf
       object mlFe: TFloatSpinEdit
         Left = 488
         Height = 27
-        Top = 336
+        Top = 360
         Width = 72
         Font.Height = -15
         Font.Name = 'Arial'
@@ -3102,13 +3102,14 @@ object Kf: TKf
         MinValue = -99999999999
         OnChange = dFeChange
         ParentFont = False
+        ReadOnly = True
         TabOrder = 41
         Value = 0
       end
       object mlMn: TFloatSpinEdit
         Left = 488
         Height = 27
-        Top = 369
+        Top = 393
         Width = 72
         Font.Height = -15
         Font.Name = 'Arial'
@@ -3117,13 +3118,14 @@ object Kf: TKf
         MinValue = -99999999999
         OnChange = dMnChange
         ParentFont = False
+        ReadOnly = True
         TabOrder = 42
         Value = 0
       end
       object mlB: TFloatSpinEdit
         Left = 488
         Height = 27
-        Top = 401
+        Top = 425
         Width = 72
         Font.Height = -15
         Font.Name = 'Arial'
@@ -3132,13 +3134,14 @@ object Kf: TKf
         MinValue = -99999999999
         OnChange = dBChange
         ParentFont = False
+        ReadOnly = True
         TabOrder = 43
         Value = 0
       end
       object mlZn: TFloatSpinEdit
         Left = 488
         Height = 27
-        Top = 433
+        Top = 457
         Width = 72
         Font.Height = -15
         Font.Name = 'Arial'
@@ -3147,13 +3150,14 @@ object Kf: TKf
         MinValue = -99999999999
         OnChange = dZnChange
         ParentFont = False
+        ReadOnly = True
         TabOrder = 44
         Value = 0
       end
       object mlCu: TFloatSpinEdit
         Left = 488
         Height = 27
-        Top = 465
+        Top = 489
         Width = 72
         Font.Height = -15
         Font.Name = 'Arial'
@@ -3162,13 +3166,14 @@ object Kf: TKf
         MinValue = -99999999999
         OnChange = dCuChange
         ParentFont = False
+        ReadOnly = True
         TabOrder = 45
         Value = 0
       end
       object mlMo: TFloatSpinEdit
         Left = 488
         Height = 27
-        Top = 497
+        Top = 521
         Width = 72
         Font.Height = -15
         Font.Name = 'Arial'
@@ -3177,13 +3182,14 @@ object Kf: TKf
         MinValue = -99999999999
         OnChange = dMoChange
         ParentFont = False
+        ReadOnly = True
         TabOrder = 46
         Value = 0
       end
       object mlCo: TFloatSpinEdit
         Left = 488
         Height = 27
-        Top = 529
+        Top = 553
         Width = 72
         Font.Height = -15
         Font.Name = 'Arial'
@@ -3192,13 +3198,14 @@ object Kf: TKf
         MinValue = -99999999999
         OnChange = dCoChange
         ParentFont = False
+        ReadOnly = True
         TabOrder = 47
         Value = 0
       end
       object mlSi: TFloatSpinEdit
         Left = 488
         Height = 27
-        Top = 561
+        Top = 585
         Width = 72
         Font.Height = -15
         Font.Name = 'Arial'
@@ -3207,6 +3214,7 @@ object Kf: TKf
         MinValue = -99999999999
         OnChange = dSiChange
         ParentFont = False
+        ReadOnly = True
         TabOrder = 48
         Value = 0
       end
@@ -3321,7 +3329,7 @@ object Kf: TKf
       object ggFe: TFloatSpinEdit
         Left = 568
         Height = 27
-        Top = 336
+        Top = 360
         Width = 72
         Font.Height = -15
         Font.Name = 'Arial'
@@ -3329,13 +3337,14 @@ object Kf: TKf
         MinValue = 0
         OnChange = dFeChange
         ParentFont = False
+        ReadOnly = True
         TabOrder = 56
         Value = 0
       end
       object ggMn: TFloatSpinEdit
         Left = 568
         Height = 27
-        Top = 369
+        Top = 393
         Width = 72
         Font.Height = -15
         Font.Name = 'Arial'
@@ -3343,13 +3352,14 @@ object Kf: TKf
         MinValue = 0
         OnChange = dMnChange
         ParentFont = False
+        ReadOnly = True
         TabOrder = 57
         Value = 0
       end
       object ggB: TFloatSpinEdit
         Left = 568
         Height = 27
-        Top = 401
+        Top = 425
         Width = 72
         Font.Height = -15
         Font.Name = 'Arial'
@@ -3357,13 +3367,14 @@ object Kf: TKf
         MinValue = 0
         OnChange = dBChange
         ParentFont = False
+        ReadOnly = True
         TabOrder = 58
         Value = 0
       end
       object ggZn: TFloatSpinEdit
         Left = 568
         Height = 27
-        Top = 433
+        Top = 457
         Width = 72
         Font.Height = -15
         Font.Name = 'Arial'
@@ -3371,13 +3382,14 @@ object Kf: TKf
         MinValue = 0
         OnChange = dZnChange
         ParentFont = False
+        ReadOnly = True
         TabOrder = 59
         Value = 0
       end
       object ggCu: TFloatSpinEdit
         Left = 568
         Height = 27
-        Top = 465
+        Top = 489
         Width = 72
         Font.Height = -15
         Font.Name = 'Arial'
@@ -3385,13 +3397,14 @@ object Kf: TKf
         MinValue = 0
         OnChange = dCuChange
         ParentFont = False
+        ReadOnly = True
         TabOrder = 60
         Value = 0
       end
       object ggMo: TFloatSpinEdit
         Left = 568
         Height = 27
-        Top = 497
+        Top = 521
         Width = 72
         Font.Height = -15
         Font.Name = 'Arial'
@@ -3399,13 +3412,14 @@ object Kf: TKf
         MinValue = 0
         OnChange = dMoChange
         ParentFont = False
+        ReadOnly = True
         TabOrder = 61
         Value = 0
       end
       object ggCo: TFloatSpinEdit
         Left = 568
         Height = 27
-        Top = 529
+        Top = 553
         Width = 72
         Font.Height = -15
         Font.Name = 'Arial'
@@ -3413,13 +3427,14 @@ object Kf: TKf
         MinValue = 0
         OnChange = dCoChange
         ParentFont = False
+        ReadOnly = True
         TabOrder = 62
         Value = 0
       end
       object ggSi: TFloatSpinEdit
         Left = 568
         Height = 27
-        Top = 561
+        Top = 585
         Width = 72
         Font.Height = -15
         Font.Name = 'Arial'
@@ -3427,32 +3442,109 @@ object Kf: TKf
         MinValue = 0
         OnChange = dSiChange
         ParentFont = False
+        ReadOnly = True
         TabOrder = 63
         Value = 0
       end
       object Label30: TLabel
         Left = 8
-        Height = 36
+        Height = 27
         Top = 16
-        Width = 160
+        Width = 122
         Caption = 'Раствор А'
-        Font.Height = -32
+        Font.Height = -24
         Font.Name = 'Arial'
         Font.Style = [fsBold]
         ParentColor = False
         ParentFont = False
       end
       object Label59: TLabel
-        Left = 480
-        Height = 36
+        Left = 518
+        Height = 27
         Top = 200
-        Width = 159
+        Width = 122
         Caption = 'Раствор B'
-        Font.Height = -32
+        Font.Height = -24
         Font.Name = 'Arial'
         Font.Style = [fsBold]
         ParentColor = False
         ParentFont = False
+      end
+      object lCmplx: TLabel
+        Left = 8
+        Height = 17
+        Top = 335
+        Width = 184
+        Caption = 'Комплекс микроэлементов'
+        Font.Height = -15
+        Font.Name = 'Arial'
+        ParentColor = False
+        ParentFont = False
+        Visible = False
+      end
+      object glCmplx: TFloatSpinEdit
+        Left = 312
+        Height = 27
+        Top = 330
+        Width = 85
+        Font.Height = -15
+        Font.Name = 'Arial'
+        Increment = 0.01
+        MaxValue = 1000
+        MinValue = 0
+        OnChange = glFeChange
+        ParentFont = False
+        TabOrder = 64
+        Value = 10
+        Visible = False
+      end
+      object gmlCmplx: TFloatSpinEdit
+        Left = 409
+        Height = 27
+        Top = 330
+        Width = 72
+        Font.Height = -15
+        Font.Name = 'Arial'
+        Increment = 0.01
+        MinValue = 0
+        OnChange = CalcConcChange
+        ParentFont = False
+        TabOrder = 65
+        Value = 1
+        Visible = False
+      end
+      object mlCmplx: TFloatSpinEdit
+        Left = 488
+        Height = 27
+        Top = 330
+        Width = 72
+        Font.Height = -15
+        Font.Name = 'Arial'
+        Increment = 0.01
+        MaxValue = 99999999999
+        MinValue = -99999999999
+        OnChange = dFeChange
+        ParentFont = False
+        ReadOnly = True
+        TabOrder = 66
+        Value = 0
+        Visible = False
+      end
+      object ggCmplx: TFloatSpinEdit
+        Left = 568
+        Height = 27
+        Top = 330
+        Width = 72
+        Font.Height = -15
+        Font.Name = 'Arial'
+        Increment = 0.01
+        MinValue = 0
+        OnChange = dFeChange
+        ParentFont = False
+        ReadOnly = True
+        TabOrder = 67
+        Value = 0
+        Visible = False
       end
     end
   end

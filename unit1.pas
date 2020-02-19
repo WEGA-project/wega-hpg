@@ -20,10 +20,14 @@ type
     bloadpf: TButton;
     Button1: TButton;
     chkComplex: TCheckBox;
+    ggCmplx: TFloatSpinEdit;
     glB: TFloatSpinEdit;
+    glCmplx: TFloatSpinEdit;
     gmlB: TFloatSpinEdit;
+    gmlCmplx: TFloatSpinEdit;
     Label30: TLabel;
     Label59: TLabel;
+    lCmplx: TLabel;
     mlB: TFloatSpinEdit;
     ggB: TFloatSpinEdit;
     glCo: TFloatSpinEdit;
@@ -40,6 +44,7 @@ type
     ggFe: TFloatSpinEdit;
     glMn: TFloatSpinEdit;
     gmlMn: TFloatSpinEdit;
+    mlCmplx: TFloatSpinEdit;
     mlMn: TFloatSpinEdit;
     ggMn: TFloatSpinEdit;
     glMo: TFloatSpinEdit;
