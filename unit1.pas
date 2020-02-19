@@ -22,6 +22,8 @@ type
     chkComplex: TCheckBox;
     glB: TFloatSpinEdit;
     gmlB: TFloatSpinEdit;
+    Label30: TLabel;
+    Label59: TLabel;
     mlB: TFloatSpinEdit;
     ggB: TFloatSpinEdit;
     glCo: TFloatSpinEdit;
@@ -352,6 +354,7 @@ type
     procedure glZnChange(Sender: TObject);
     procedure gMgNO3Change(Sender: TObject);
     procedure gMgSO4Change(Sender: TObject);
+    procedure CalcConcChange(Sender: TObject);
     procedure gMnChange(Sender: TObject);
     procedure gMoChange(Sender: TObject);
     procedure gNH4NO3Change(Sender: TObject);
@@ -887,6 +890,24 @@ begin
    Kf.mlMo.Value:=Kf.gMo.value/Kf.glMo.value*100;
    Kf.mlCo.Value:=Kf.gCo.value/Kf.glCo.value*100;
    Kf.mlSi.Value:=Kf.gSi.value/Kf.glSi.value*100;
+
+   Kf.ggCaNO3.value:=Kf.gmlCaNO3.value*Kf.mlCaNO3.value;
+   Kf.ggKNO3.value:=Kf.gmlKNO3.value*Kf.mlKNO3.value;
+   Kf.ggNH4NO3.value:=Kf.gmlNH4NO3.value*Kf.mlNH4NO3.value;
+   Kf.ggMgNO3.value:=Kf.gmlMgNO3.value*Kf.mlMgNO3.value;
+   Kf.ggMgSO4.value:=Kf.gmlMgSO4.value*Kf.mlMgSO4.value;
+   Kf.ggKH2PO4.value:=Kf.gmlKH2PO4.value*Kf.mlKH2PO4.value;
+   Kf.ggK2SO4.value:=Kf.gmlK2SO4.value*Kf.mlK2SO4.value;
+
+   Kf.ggFe.value:=Kf.gmlFe.value*Kf.mlFe.value;
+   Kf.ggB.value:=Kf.gmlB.value*Kf.mlB.value;
+   Kf.ggMn.value:=Kf.gmlMn.value*Kf.mlMn.value;
+   Kf.ggZn.value:=Kf.gmlZn.value*Kf.mlZn.value;
+   Kf.ggCu.value:=Kf.gmlCu.value*Kf.mlCu.value;
+   Kf.ggMo.value:=Kf.gmlMo.value*Kf.mlMo.value;
+   Kf.ggCo.value:=Kf.gmlCo.value*Kf.mlCo.value;
+   Kf.ggSi.value:=Kf.gmlSi.value*Kf.mlSi.value;
+
 end;
 
 procedure CalcAll;
@@ -1527,6 +1548,11 @@ begin
  end;
 end;
 
+procedure TKf.CalcConcChange(Sender: TObject);
+begin
+  CalcConc;
+end;
+
 procedure TKf.gMnChange(Sender: TObject);
 begin
     if ( gMn.Focused = True )    then begin
@@ -1923,6 +1949,7 @@ begin
    //// CalcWeight ;
    //         end;
     CalcWeight ;
+    CalcConc;
 end;
 
 procedure TKf.bloadpfClick(Sender: TObject);
@@ -1962,6 +1989,7 @@ begin
     CalcAll;
     CalcWeight ;
     microToWeght;
+    CalcConc;
 end;
 
 procedure TKf.BChange(Sender: TObject);
@@ -2814,6 +2842,8 @@ end;
 
 procedure TKf.TabSheet3Show(Sender: TObject);
 begin
+    CalcWeight ;
+    microToWeght;
   CalcConc;
 end;
 
