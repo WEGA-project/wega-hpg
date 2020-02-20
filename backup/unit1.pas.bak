@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
   Spin, ComCtrls,strutils,LCLIntf, ExtCtrls ;
 const
-  C_FNAME = 'settings.txt';
+
   StdWordDelims = ['='] + Brackets;
 
 type
@@ -20,6 +20,8 @@ type
     bloadpf: TButton;
     Button1: TButton;
     chkComplex: TCheckBox;
+    eComment: TEdit;
+    eFileName: TEdit;
     ggCmplx: TFloatSpinEdit;
     glB: TFloatSpinEdit;
     glCmplx: TFloatSpinEdit;
@@ -132,6 +134,7 @@ type
     StaticText3: TStaticText;
     StaticText4: TStaticText;
     TabSheet3: TTabSheet;
+    TabSheet4: TTabSheet;
     Zn: TFloatSpinEdit;
     Mn: TFloatSpinEdit;
     Label31: TLabel;
@@ -327,11 +330,13 @@ type
     procedure ECChange(Sender: TObject);
 
     procedure ECClick(Sender: TObject);
+    procedure eFileNameChange(Sender: TObject);
 
     procedure FeChange(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormChangeBounds(Sender: TObject);
     procedure FormClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
     procedure gBChange(Sender: TObject);
 
     procedure gCaNO3Change(Sender: TObject);
@@ -555,7 +560,8 @@ var
   tfIn: TextFile;
 
  str: string;
-
+ C_FNAME: string;
+  //C_FNAME := 'settings.txt';
 implementation
 
 {$R *.lfm}
@@ -1397,6 +1403,11 @@ begin
 
 end;
 
+procedure TKf.FormCreate(Sender: TObject);
+begin
+
+end;
+
 procedure TKf.gBChange(Sender: TObject);
 begin
     if ( gB.Focused = True )    then begin
@@ -1929,7 +1940,8 @@ procedure TKf.bloadClick(Sender: TObject);
     //tfIn: TextFile;
     //str: string;
 begin
-    //s:='setting.txt';
+    //C_FNAME:='setting.txt';
+    eFileName.Caption:=C_FNAME;
     AssignFile(tfIn, C_FNAME);
         // Открыть файл для чтения
       reset(tfIn);
@@ -2047,8 +2059,10 @@ begin
           while not eof(tfIn) do
           begin
           readln(tfIn, str);
+          //writeln(tfOut,'Comment=',eComment.Caption);
+          if (IsWordPresent('Comment', str, ['=']) = true) then eComment.Caption:=ExtractWord(2,str,['=']);
           //Macro Profile
-           if (IsWordPresent('N', str, ['=']) = true) then N.value:=StrToFloat(ExtractWord(2,str,['=']));
+                     if (IsWordPresent('N', str, ['=']) = true) then N.value:=StrToFloat(ExtractWord(2,str,['=']));
            if (IsWordPresent('NH4', str, ['=']) = true) then NH4.value:=StrToFloat(ExtractWord(2,str,['=']));
            if (IsWordPresent('NO3', str, ['=']) = true) then NO3.value:=StrToFloat(ExtractWord(2,str,['=']));
            if (IsWordPresent('P', str, ['=']) = true)   then P.value:=StrToFloat(ExtractWord(2,str,['=']));
@@ -2364,6 +2378,11 @@ begin
   CalcAll;
 end;
 
+procedure TKf.eFileNameChange(Sender: TObject);
+begin
+  C_FNAME:=eFileName.Caption;
+end;
+
 
 
 procedure TKf.FeChange(Sender: TObject);
@@ -2377,7 +2396,8 @@ end;
 
 procedure TKf.FormActivate(Sender: TObject);
 begin
-
+  C_FNAME:='setting.txt';
+  eFileName.Caption:=C_FNAME;
    //CalcKoef;
    CalcAll;
    CalcKoef;
@@ -2757,6 +2777,8 @@ begin
   // Связываем имя файла с переменной
   AssignFile(tfOut, C_FNAME);
     rewrite(tfOut);
+
+    writeln(tfOut,'Comment=',eComment.Caption);
     // Macro Profile
     writeln(tfOut,'N=',FloatToStr(N.value));
     writeln(tfOut,'NH4=',FloatToStr(NH4.value));
