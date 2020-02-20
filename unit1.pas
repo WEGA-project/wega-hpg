@@ -894,14 +894,15 @@ begin
    Kf.mlK2SO4.Value:=Kf.gK2SO4.value/Kf.glK2SO4.value*1000;
 
    Kf.mlCmplx.Value:=Kf.gCmplx.value/Kf.glCmplx.value*100;
-   Kf.mlFe.Value:=Kf.gFe.value/Kf.glFe.value*100;
-   Kf.mlMn.Value:=Kf.gMn.value/Kf.glMn.value*100;
-   Kf.mlB.Value:= Kf.gB.value/Kf.glB.value*100;
-   Kf.mlZn.Value:=Kf.gZn.value/Kf.glZn.value*100;
-   Kf.mlCu.Value:=Kf.gCu.value/Kf.glCu.value*100;
-   Kf.mlMo.Value:=Kf.gMo.value/Kf.glMo.value*100;
-   Kf.mlCo.Value:=Kf.gCo.value/Kf.glCo.value*100;
-   Kf.mlSi.Value:=Kf.gSi.value/Kf.glSi.value*100;
+   //Kf.mlCmplx.Value:=(Kf.Cmplx.value/Kf.dCmplx.value*Kf.V.value/10)/Kf.glCmplx.value;
+   Kf.mlFe.Value:=(Kf.Fe.value/Kf.dFe.value*Kf.V.value/10)/Kf.glFe.value;
+   Kf.mlMn.Value:=(Kf.Mn.value/Kf.dMn.value*Kf.V.value/10)/Kf.glMn.value;
+   Kf.mlB.Value:= (Kf.B.value/Kf.dB.value*Kf.V.value/10)/Kf.glB.value;
+   Kf.mlZn.Value:=(Kf.Zn.value/Kf.dZn.value*Kf.V.value/10)/Kf.glZn.value;
+   Kf.mlCu.Value:=(Kf.Cu.value/Kf.dCu.value*Kf.V.value/10)/Kf.glCu.value;
+   Kf.mlMo.Value:=(Kf.Mo.value/Kf.dMo.value*Kf.V.value/10)/Kf.glMo.value;
+   Kf.mlCo.Value:=(Kf.Co.value/Kf.dCo.value*Kf.V.value/10)/Kf.glCo.value;
+   Kf.mlSi.Value:=(Kf.Si.value/Kf.dSi.value*Kf.V.value/10)/Kf.glSi.value;
 
    Kf.ggCaNO3.value:=Kf.gmlCaNO3.value*Kf.mlCaNO3.value;
    Kf.ggKNO3.value:=Kf.gmlKNO3.value*Kf.mlKNO3.value;
@@ -1041,14 +1042,14 @@ procedure microToWeght; begin
  Kf.gSi.Visible:=true;
  Kf.gCmplx.Visible:=false;
 
- Kf.gFe.value:=Kf.Fe.value/Kf.dFe.value*Kf.V.value/1000;
- Kf.gMn.value:=Kf.Mn.value/Kf.dMn.value*Kf.V.value/1000;
- Kf.gB.value:=Kf.B.value/Kf.dB.value*Kf.V.value/1000;
- Kf.gZn.value:=Kf.Zn.value/Kf.dZn.value*Kf.V.value/1000;
- Kf.gCu.value:=Kf.Cu.value/Kf.dCu.value*Kf.V.value/1000;
- Kf.gMo.value:=Kf.Mo.value/Kf.dMo.value*Kf.V.value/1000;
- Kf.gCo.value:=Kf.Co.value/Kf.dCo.value*Kf.V.value/1000;
- Kf.gSi.value:=Kf.Si.value/Kf.dSi.value*Kf.V.value/1000;
+ Kf.gFe.value:=Kf.Fe.value/Kf.dFe.value*Kf.V.value/10000;
+ Kf.gMn.value:=Kf.Mn.value/Kf.dMn.value*Kf.V.value/10000;
+ Kf.gB.value:=Kf.B.value/Kf.dB.value*Kf.V.value/10000;
+ Kf.gZn.value:=Kf.Zn.value/Kf.dZn.value*Kf.V.value/10000;
+ Kf.gCu.value:=Kf.Cu.value/Kf.dCu.value*Kf.V.value/10000;
+ Kf.gMo.value:=Kf.Mo.value/Kf.dMo.value*Kf.V.value/10000;
+ Kf.gCo.value:=Kf.Co.value/Kf.dCo.value*Kf.V.value/10000;
+ Kf.gSi.value:=Kf.Si.value/Kf.dSi.value*Kf.V.value/10000;
 
   Kf.Fe.ReadOnly :=false;
 Kf.Mn.ReadOnly:=false;
