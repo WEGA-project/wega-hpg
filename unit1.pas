@@ -731,7 +731,7 @@ begin
   if ( Kf.SMg.Focused = False ) then Kf.SMg.value:=Kf.S.Value/Kf.Mg.value;
 
 
-
+  if ( Kf.NH4NO3.Focused = False ) then Kf.NH4NO3.value:=Kf.NH4.Value/Kf.NO3.value;
 end;
 
 

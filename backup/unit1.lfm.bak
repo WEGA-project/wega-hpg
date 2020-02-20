@@ -34,11 +34,11 @@ object Kf: TKf
     Height = 744
     Top = 0
     Width = 761
-    ActivePage = TabSheet3
+    ActivePage = TabSheet1
     Font.Height = -15
     Font.Name = 'Arial'
     ParentFont = False
-    TabIndex = 2
+    TabIndex = 0
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'Макро'
