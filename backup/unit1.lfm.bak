@@ -16,7 +16,7 @@ object Kf: TKf
   OnCreate = FormCreate
   LCLVersion = '2.0.6.0'
   object Label1: TLabel
-    Left = 511
+    Left = 506
     Height = 17
     Top = 773
     Width = 250
@@ -3562,7 +3562,7 @@ object Kf: TKf
     ParentFont = False
   end
   object V: TFloatSpinEdit
-    Left = 130
+    Left = 134
     Height = 27
     Top = 738
     Width = 82
