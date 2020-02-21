@@ -120,13 +120,13 @@ type
     lB: TLabel;
     lMn: TLabel;
     lFe: TLabel;
-    nCaNO4: TLabel;
-    nK2SO5: TLabel;
-    nKH2PO5: TLabel;
-    nKNO4: TLabel;
-    nMgNO4: TLabel;
-    nMgSO5: TLabel;
-    nNH4NO4: TLabel;
+    knCaNO3: TLabel;
+    knK2SO4: TLabel;
+    knKH2PO4: TLabel;
+    knKNO3: TLabel;
+    knMgNO3: TLabel;
+    knMgSO4: TLabel;
+    knNH4NO3: TLabel;
     Si: TFloatSpinEdit;
     Mo: TFloatSpinEdit;
     StaticText1: TStaticText;
@@ -949,8 +949,13 @@ begin
     Kf.lSi.Visible:=false; Kf.glSi.Visible:=false;  Kf.gmlSi.Visible:=false;  Kf.mlSi.Visible:=false;  Kf.ggSi.Visible:=false;
     end;
 
-
-
+    Kf.knCaNO3.caption:= Kf.nCaNO3.caption;
+    Kf.knKNO3.caption:= Kf.nKNO3.caption;
+    Kf.knNH4NO3.caption:= Kf.nNH4NO3.caption;
+    Kf.knMgNO3.caption:= Kf.nMgNO3.caption;
+    Kf.knMgSO4.caption:= Kf.nMgSO4.caption;
+    Kf.knK2SO4.caption:= Kf.nK2SO4.caption;
+    Kf.knKH2PO4.caption:= Kf.nKH2PO4.caption;
 
 end;
 
@@ -2096,6 +2101,7 @@ begin
    //         end;
     CalcWeight ;
     CalcConc;
+    SoilName;
 end;
 
 procedure TKf.bloadpfClick(Sender: TObject);
@@ -2138,6 +2144,7 @@ begin
     CalcWeight ;
     microToWeght;
     CalcConc;
+    SoilName;
 end;
 
 procedure TKf.BChange(Sender: TObject);
