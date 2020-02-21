@@ -1,7 +1,7 @@
 object Kf: TKf
-  Left = 857
+  Left = 1070
   Height = 793
-  Top = 86
+  Top = 77
   Width = 762
   Caption = 'Koefficients'
   ClientHeight = 793
@@ -2296,7 +2296,7 @@ object Kf: TKf
       object knCaNO3: TLabel
         Left = 8
         Height = 17
-        Top = 64
+        Top = 70
         Width = 257
         Caption = 'Кальций азотнокислый 4-водный  (ч.)'
         Font.Height = -15
@@ -2307,7 +2307,7 @@ object Kf: TKf
       object knKNO3: TLabel
         Left = 8
         Height = 17
-        Top = 92
+        Top = 100
         Width = 167
         Caption = 'Калий азотнокислый (ч.)'
         Font.Height = -15
@@ -2318,7 +2318,7 @@ object Kf: TKf
       object knNH4NO3: TLabel
         Left = 8
         Height = 17
-        Top = 123
+        Top = 130
         Width = 187
         Caption = 'Аммоний азотнокислый (ч.)'
         Font.Height = -15
@@ -2329,7 +2329,7 @@ object Kf: TKf
       object knMgSO4: TLabel
         Left = 8
         Height = 17
-        Top = 239
+        Top = 246
         Width = 237
         Caption = 'Магний сернокислый 7-водный (ч.)'
         Font.Height = -15
@@ -2340,7 +2340,7 @@ object Kf: TKf
       object knKH2PO4: TLabel
         Left = 8
         Height = 17
-        Top = 271
+        Top = 277
         Width = 295
         Caption = 'Калий фосфорнокислый 1-замещенный (ч.)'
         Font.Height = -15
@@ -2352,7 +2352,7 @@ object Kf: TKf
       object knK2SO4: TLabel
         Left = 8
         Height = 17
-        Top = 301
+        Top = 306
         Width = 241
         Caption = 'Калий сернокислый безводный (ч.)'
         Font.Height = -15
@@ -2364,7 +2364,7 @@ object Kf: TKf
       object knMgNO3: TLabel
         Left = 8
         Height = 17
-        Top = 153
+        Top = 158
         Width = 243
         Caption = 'Магний азотнокислый 6-водный (ч.)'
         Font.Height = -15
@@ -2588,7 +2588,7 @@ object Kf: TKf
       object lSi: TLabel
         Left = 8
         Height = 17
-        Top = 590
+        Top = 591
         Width = 86
         Caption = 'Кремний (%)'
         Font.Height = -15
@@ -2599,7 +2599,7 @@ object Kf: TKf
       object lCo: TLabel
         Left = 8
         Height = 17
-        Top = 560
+        Top = 559
         Width = 84
         Caption = 'Кобальт (%)'
         Font.Height = -15
@@ -2610,7 +2610,7 @@ object Kf: TKf
       object lMo: TLabel
         Left = 8
         Height = 17
-        Top = 526
+        Top = 527
         Width = 96
         Caption = 'Молибден (%)'
         Font.Height = -15
@@ -2621,7 +2621,7 @@ object Kf: TKf
       object lCu: TLabel
         Left = 8
         Height = 17
-        Top = 494
+        Top = 495
         Width = 63
         Caption = 'Медь (%)'
         Font.Height = -15
@@ -2643,7 +2643,7 @@ object Kf: TKf
       object lB: TLabel
         Left = 8
         Height = 17
-        Top = 430
+        Top = 431
         Width = 53
         Caption = 'Бор (%)'
         Font.Height = -15
@@ -2654,7 +2654,7 @@ object Kf: TKf
       object lMn: TLabel
         Left = 8
         Height = 17
-        Top = 398
+        Top = 399
         Width = 92
         Caption = 'Марганец (%)'
         Font.Height = -15
@@ -2665,7 +2665,7 @@ object Kf: TKf
       object lFe: TLabel
         Left = 8
         Height = 17
-        Top = 365
+        Top = 366
         Width = 80
         Caption = 'Железо (%)'
         Font.Height = -15
@@ -3452,7 +3452,7 @@ object Kf: TKf
       object lCmplx: TLabel
         Left = 8
         Height = 17
-        Top = 335
+        Top = 336
         Width = 184
         Caption = 'Комплекс микроэлементов'
         Font.Height = -15

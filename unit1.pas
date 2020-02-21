@@ -957,6 +957,14 @@ begin
     Kf.knK2SO4.caption:= Kf.nK2SO4.caption;
     Kf.knKH2PO4.caption:= Kf.nKH2PO4.caption;
 
+    Kf.lFe.Caption:='Железо Fe='+FloatToStr(Kf.dFe.value)+'%';
+    Kf.lMn.Caption:='Марганец Mn='+FloatToStr(Kf.dMn.value)+'%';
+    Kf.lB.Caption:='Бор B='+FloatToStr(Kf.dB.value)+'%';
+    Kf.lZn.Caption:='Цинк Zn='+FloatToStr(Kf.dZn.value)+'%';
+    Kf.lCu.Caption:='Медь Cu='+FloatToStr(Kf.dCu.value)+'%';
+    Kf.lMo.Caption:='Молибден Mo='+FloatToStr(Kf.dMo.value)+'%';
+    Kf.lCo.Caption:='Кобальт Co='+FloatToStr(Kf.dCo.value)+'%';
+    Kf.lSi.Caption:='Кремний Si='+FloatToStr(Kf.dSi.value)+'%';
 end;
 
 procedure CalcAll;
@@ -2100,8 +2108,8 @@ begin
    //// CalcWeight ;
    //         end;
     CalcWeight ;
-    CalcConc;
     SoilName;
+    CalcConc;
 end;
 
 procedure TKf.bloadpfClick(Sender: TObject);
