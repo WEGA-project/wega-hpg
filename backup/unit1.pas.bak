@@ -1138,6 +1138,79 @@ end;
 end;
 
 
+procedure SoilName;
+begin
+// Селитра кальциевая
+if (Kf.CaNO3_NH4.value = 0) then begin
+
+    case FloatToStr(round(Kf.CaNO3_Ca.value*10)/10) of
+      '17':  Kf.nCaNO3.Caption:='Кальций азотнокислый Са(NО3)2*4H2O';
+      '20':  Kf.nCaNO3.Caption:='Кальций азотнокислый Ca(NO3)2*2H2O';
+      '24.4':  Kf.nCaNO3.Caption:='Кальций азотнокислый Ca(NO3)2';
+    else       Kf.nCaNO3.Caption:='Селитра кальциевая'
+       + ' CaO-' +floattostr(Round((Kf.CaNO3_Ca.value/0.714691)*10)/10)+'%'
+       + ' N-' +floattostr(Round((Kf.CaNO3_NH4.value+Kf.CaNO3_NO3.value)*10)/10)+'%';
+    end;
+end
+else begin
+      Kf.nCaNO3.Caption:='Селитра кальциевая'
+       + ' CaO-' +floattostr(Round((Kf.CaNO3_Ca.value/0.714691)*10)/10)+'%'
+       + ' N-' +floattostr(Round((Kf.CaNO3_NH4.value+Kf.CaNO3_NO3.value)*10)/10)+'%';
+      end;
+
+// Селитра калиевая
+case FloatToStr(round(Kf.KNO3_K.value*10)/10) of
+   '38.7':  Kf.nKNO3.Caption:='Калий азотнокислый KNO3';
+ else
+   Kf.nKNO3.Caption:='Селитра калиевая'
+   + ' K2O-' +floattostr(Round((Kf.KNO3_K.value/0.830148)*10)/10)+'%'
+   + ' N-' +floattostr(Round((Kf.KNO3_NO3.value)*10)/10)+'%';
+ end;
+
+// Селитра аммиачная
+case FloatToStr(round(Kf.NH4NO3_NO3.value*10)/10) of
+   '17.5':  Kf.nNH4NO3.Caption:='Аммоний азотнокислый NH4NO3';
+ else
+   Kf.nNH4NO3.Caption:='Селитра аммиачная'
++ ' N-' +floattostr(Round((Kf.NH4NO3_NH4.value+Kf.NH4NO3_NO3.value)*10)/10)+'%';
+ end;
+// Сульфат магния
+case FloatToStr(round(Kf.MgSO4_Mg.value*10)/10) of
+   '9.9':  Kf.nMgSO4.Caption:='Магний сернокислый MgSO4*7H2O';
+   '20.2':  Kf.nMgSO4.Caption:='Магний сернокислый MgSO4';
+ else
+   Kf.nMgSO4.Caption:='Сульфат магния'
+   + ' MgO-' +floattostr(Round((Kf.MgSO4_Mg.value/0.603036)*10)/10)+'%'
+   + ' SO3-' +floattostr(Round((Kf.MgSO4_S.value/0.400496)*10)/10)+'%';
+ end;
+// Монофосфат калия
+case FloatToStr(round(Kf.KH2PO4_K.value*10)/10) of
+   '28.7':  Kf.nKH2PO4.Caption:='Калий Фосфорнокислый KH2PO4';
+ else
+   Kf.nKH2PO4.Caption:='Монофосфат калия'
+   + ' K2O-' +floattostr(Round((Kf.KH2PO4_K.value/0.830148)*10)/10)+'%'
+   + ' P2O5-' +floattostr(Round((Kf.KH2PO4_P.value/0.436421)*10)/10)+'%';
+ end;
+// Сульфат калия
+case FloatToStr(round(Kf.K2SO4_K.value*10)/10) of
+   '44.9':  Kf.nK2SO4.Caption:='Калий сернокислый K2SO4';
+ else
+   Kf.nK2SO4.Caption:='Сульфат калия'
+   + ' K2O-' +floattostr(Round((Kf.K2SO4_K.value/0.830148)*10)/10)+'%'
+   + ' SO3-' +floattostr(Round((Kf.K2SO4_S.value/0.400496)*10)/10)+'%';
+ end;
+// Селитра магниевая
+case FloatToStr(round(Kf.MgNO3_Mg.value*10)/10) of
+   '9.5':  Kf.nMgNO3.Caption:='Магний азотнокислый Mg(NO3)2*6H2O';
+   '16.4':  Kf.nMgNO3.Caption:='Магний азотнокислый Mg(NO3)2';
+ else
+   Kf.nMgNO3.Caption:='Селитра магниевая'
+    + ' MgO-' +floattostr(Round((Kf.MgNO3_Mg.value/0.603036)*10)/10)+'%'
+    + ' N-' +floattostr(Round((Kf.MgNO3_NO3.value)*10)/10)+'%';
+ end;
+
+  end;
+
 
 procedure TKf.MgCaClick(Sender: TObject);
 begin
@@ -1277,9 +1350,7 @@ begin
     if ( MgNO3_Mg.Focused = True )    then begin
           MgNO3_NO3.value:=(2*MgNO3_Mg.value*FloatSpinEdit2)/(mMg);
 
-    nMgNO3.Caption:='Селитра магниевая'
- + ' MgO-' +floattostr(Round((MgNO3_Mg.value/0.603036)*10)/10)+'%'
- + ' N-' +floattostr(Round((MgNO3_NO3.value)*10)/10)+'%';
+    SoilName;
     CalcWeight ;
   end;
 end;
@@ -1289,9 +1360,7 @@ begin
       if ( MgNO3_NO3.Focused = True )    then begin
           MgNO3_Mg.value:=((1/2)*(MgNO3_NO3.value/FloatSpinEdit2)*mMg);
 
-    nMgNO3.Caption:='Селитра магниевая'
- + ' MgO-' +floattostr(Round((MgNO3_Mg.value/0.603036)*10)/10)+'%'
- + ' N-' +floattostr(Round((MgNO3_NO3.value)*10)/10)+'%';
+    SoilName;
     CalcWeight ;
 
       end;
@@ -1324,9 +1393,7 @@ procedure TKf.MgSO4_MgChange(Sender: TObject);
 begin
    if ( MgSO4_Mg.Focused = True )    then begin
           MgSO4_S.value:= (MgSO4_Mg.value * mS)/mMg;
-         nMgSO4.Caption:='Сульфат магния'
- + ' MgO-' +floattostr(Round((MgSO4_Mg.value/0.603036)*10)/10)+'%'
- + ' SO3-' +floattostr(Round((MgSO4_S.value/0.400496)*10)/10)+'%';
+         SoilName;
          CalcWeight ;
    end;
 end;
@@ -1338,9 +1405,7 @@ begin
   if ( MgSO4_S.Focused = True )    then begin
      
   MgSO4_Mg.value:= (MgSO4_S.value * mMg)/mS;
-           nMgSO4.Caption:='Сульфат магния'
- + ' MgO-' +floattostr(Round((MgSO4_Mg.value/0.603036)*10)/10)+'%'
- + ' SO3-' +floattostr(Round((MgSO4_S.value/0.400496)*10)/10)+'%';
+    SoilName;
     CalcWeight ;
   end;
 end;
@@ -1373,8 +1438,7 @@ procedure TKf.NH4NO3_NH4Change(Sender: TObject);
 begin
    if ( NH4NO3_NH4.Focused = True )    then begin
        NH4NO3_NO3.value:=NH4NO3_NH4.value;
-      nNH4NO3.Caption:='Селитра аммиачная'
-   + ' N-' +floattostr(Round((NH4NO3_NH4.value+NH4NO3_NO3.value)*10)/10)+'%';
+      SoilName;
       CalcWeight ;
    end;
 end;
@@ -1383,8 +1447,7 @@ procedure TKf.NH4NO3_NO3Change(Sender: TObject);
 begin
   if ( NH4NO3_NO3.Focused = True )    then begin
        NH4NO3_NH4.value:=NH4NO3_NO3.value;
-        nNH4NO3.Caption:='Селитра аммиачная'
-   + ' N-' +floattostr(Round((NH4NO3_NH4.value+NH4NO3_NO3.value)*10)/10)+'%';
+        SoilName;
         CalcWeight ;
   end;
 end;
@@ -1651,9 +1714,7 @@ begin
   if ( K2SO4_K.Focused = True )    then begin
           K2SO4_S.value:=(K2SO4_K.value*mS)/(2*mK);
 
-    nK2SO4.Caption:='Сульфат калия'
- + ' K2O-' +floattostr(Round((K2SO4_K.value/0.830148)*10)/10)+'%'
- + ' SO3-' +floattostr(Round((K2SO4_S.value/0.400496)*10)/10)+'%';
+    SoilName;
     CalcWeight ;
   end;
 end;
@@ -1662,9 +1723,7 @@ procedure TKf.K2SO4_KClick(Sender: TObject);
 begin
       K2SO4_S.value:=(K2SO4_K.value*mS)/(2*mK);
 
-    nK2SO4.Caption:='Сульфат калия'
- + ' K2O-' +floattostr(Round((K2SO4_K.value/0.830148)*10)/10)+'%'
- + ' SO3-' +floattostr(Round((K2SO4_S.value/0.400496)*10)/10)+'%';
+    SoilName;
     CalcWeight ;
 end;
 
@@ -1675,9 +1734,7 @@ begin
   if ( K2SO4_S.Focused = True )    then begin
                K2SO4_K.value:=(K2SO4_S.value*2*mK)/(mS);
 
-    nK2SO4.Caption:='Сульфат калия'
- + ' K2O-' +floattostr(Round((K2SO4_K.value/0.830148)*10)/10)+'%'
- + ' SO3-' +floattostr(Round((K2SO4_S.value/0.400496)*10)/10)+'%';
+    SoilName;
     CalcWeight ;
   end;
 end;
@@ -1744,9 +1801,7 @@ begin
   if ( KH2PO4_K.Focused = True )    then begin
         KH2PO4_P.value:=(KH2PO4_K.value*mP)/mK;
 
-    nKH2PO4.Caption:='Монофосфат калия'
- + ' K2O-' +floattostr(Round((KH2PO4_K.value/0.830148)*10)/10)+'%'
- + ' P2O5-' +floattostr(Round((KH2PO4_P.value/0.436421)*10)/10)+'%';
+    SoilName;
     CalcWeight ;
   end;
 end;
@@ -1768,9 +1823,7 @@ begin
   if ( KH2PO4_P.Focused = True )    then begin
          KH2PO4_K.value:=(KH2PO4_P.value*mK)/mP;
 
-    nKH2PO4.Caption:='Монофосфат калия'
- + ' K2O-' +floattostr(Round((KH2PO4_K.value/0.830148)*10)/10)+'%'
- + ' P2O5-' +floattostr(Round((KH2PO4_P.value/0.436421)*10)/10)+'%';
+    SoilName;
     CalcWeight ;
   end;
 end;
@@ -1848,9 +1901,10 @@ begin
   if ( KNO3_K.Focused = True )    then begin
      KNO3_NO3.value:=(KNO3_K.value*FloatSpinEdit2)/mK;
 
-    nKNO3.Caption:='Селитра калиевая'
- + ' K2O-' +floattostr(Round((KNO3_K.value/0.830148)*10)/10)+'%'
- + ' N-' +floattostr(Round((KNO3_NO3.value)*10)/10)+'%';
+ //   nKNO3.Caption:='Селитра калиевая'
+ //+ ' K2O-' +floattostr(Round((KNO3_K.value/0.830148)*10)/10)+'%'
+ //+ ' N-' +floattostr(Round((KNO3_NO3.value)*10)/10)+'%';
+    SoilName;
     CalcWeight ;
   end;
 end;
@@ -1859,9 +1913,7 @@ procedure TKf.KNO3_KClick(Sender: TObject);
 begin
   KNO3_NO3.value:=(KNO3_K.value*FloatSpinEdit2)/mK;
 
-    nKNO3.Caption:='Селитра калиевая'
- + ' K2O-' +floattostr(Round((KNO3_K.value/0.830148)*10)/10)+'%'
- + ' N-' +floattostr(Round((KNO3_NO3.value)*10)/10)+'%';
+    SoilName;
     CalcWeight ;
 end;
 
@@ -1871,9 +1923,7 @@ procedure TKf.KNO3_NO3Change(Sender: TObject);
 begin
   if ( KNO3_NO3.Focused = True )    then begin
       KNO3_K.value:=(KNO3_NO3.value*mK)/FloatSpinEdit2;
-       nKNO3.Caption:='Селитра калиевая'
- + ' K2O-' +floattostr(Round((KNO3_K.value/0.830148)*10)/10)+'%'
- + ' N-' +floattostr(Round((KNO3_NO3.value)*10)/10)+'%';
+      SoilName;
        CalcWeight ;
   end;
 end;
@@ -2179,9 +2229,10 @@ procedure TKf.CaNO3_CaChange(Sender: TObject);
 begin
   if ( CaNO3_Ca.Focused = True )    then begin
   CaNO3_NO3.value:= (2 * CaNO3_Ca.value *FloatSpinEdit2 + CaNO3_NH4.value*mCa)/mCa  ;
-    nCaNO3.Caption:='Селитра кальциевая'
-   + ' CaO-' +floattostr(Round((CaNO3_Ca.value/0.714691)*10)/10)+'%'
-   + ' N-' +floattostr(Round((CaNO3_NH4.value+CaNO3_NO3.value)*10)/10)+'%';
+   // nCaNO3.Caption:='Селитра кальциевая'
+   //+ ' CaO-' +floattostr(Round((CaNO3_Ca.value/0.714691)*10)/10)+'%'
+   //+ ' N-' +floattostr(Round((CaNO3_NH4.value+CaNO3_NO3.value)*10)/10)+'%';
+    SoilName;
     CalcWeight ;
 
   end;
@@ -2195,10 +2246,8 @@ begin
       CaNO3_NO3.value:= (2 * CaNO3_Ca.value *FloatSpinEdit2 + CaNO3_NH4.value*mCa)/mCa  ;
   CaNO3_Ca.value:= -mCa*( CaNO3_NH4.value - CaNO3_NO3.value)/(2*FloatSpinEdit2)  ;
 
-  nCaNO3.Caption:='Селитра кальциевая'
- + ' CaO-' +floattostr(Round((CaNO3_Ca.value/0.714691)*10)/10)+'%'
- + ' N-' +floattostr(Round((CaNO3_NH4.value+CaNO3_NO3.value)*10)/10)+'%';
-        CalcWeight ;
+  SoilName;
+  CalcWeight ;
   end;
 end;
 
@@ -2219,9 +2268,7 @@ procedure TKf.CaNO3_NO3Change(Sender: TObject);
 begin
   if ( CaNO3_NO3.Focused = True )    then begin
     CaNO3_Ca.value:= -mCa*( CaNO3_NH4.value - CaNO3_NO3.value)/(2*FloatSpinEdit2)  ;
-    nCaNO3.Caption:='Селитра кальциевая'
-   + ' CaO-' +floattostr(Round((CaNO3_Ca.value/0.714691)*10)/10)+'%'
-   + ' N-' +floattostr(Round((CaNO3_NH4.value+CaNO3_NO3.value)*10)/10)+'%';
+    SoilName;
     CalcWeight ;
   end;
 end;
@@ -2255,27 +2302,11 @@ end;
 procedure TKf.CaSChange(Sender: TObject);
 begin
    if ( CaS.Focused = True )    then begin
-      //Ca.value:=S.value*CaS.value;
-      S.value:= Ca.value/CaS.value;
-      //CalcEC;
-      CalculateCa;
-      //CalculateS;
-      //CalculateCa;
-      //CalcKoef;
-      CalcAll;
-      //calcECtoVal;
-      //CalculateS;
-      //CalculateS;
-      //CalculateCa;
 
-    //CalculateS;
-  //   CalcEC;
-  //   CalculateS;
-  //CalcKoef;
-  //CalcWeight ;
-  //CalcEC;
-  //CalcAll;
-  //calcECtoVal;
+      S.value:= Ca.value/CaS.value;
+      CalculateCa;
+      CalcAll;
+
 
   end;
 end;

@@ -1,7 +1,7 @@
 object Kf: TKf
-  Left = 786
+  Left = 857
   Height = 787
-  Top = 153
+  Top = 150
   Width = 762
   Caption = 'Koefficients'
   ClientHeight = 787
@@ -1102,9 +1102,6 @@ object Kf: TKf
         Increment = 0.001
         MinValue = 0
         OnChange = KNO3_NO3Change
-        OnClick = KNO3_NO3Click
-        OnEditingDone = KNO3_NO3Click
-        OnKeyDown = KNO3_NO3Click
         ParentFont = False
         TabOrder = 43
         Value = 13.854
@@ -1120,9 +1117,6 @@ object Kf: TKf
         Increment = 0.001
         MinValue = 0
         OnChange = CaNO3_NO3Change
-        OnClick = CaNO3_NO3KeyDown
-        OnEditingDone = CaNO3_NO3KeyDown
-        OnKeyDown = CaNO3_NO3KeyDown
         ParentFont = False
         TabOrder = 44
         Value = 11.863
@@ -1138,9 +1132,6 @@ object Kf: TKf
         Increment = 0.001
         MinValue = 0
         OnChange = MgSO4_SChange
-        OnClick = MgSO4_SClick
-        OnEditingDone = MgSO4_SClick
-        OnKeyDown = MgSO4_SClick
         ParentFont = False
         TabOrder = 45
         Value = 13.01
@@ -1156,9 +1147,6 @@ object Kf: TKf
         Increment = 0.001
         MinValue = 0
         OnChange = KH2PO4_PChange
-        OnClick = KH2PO4_PClick
-        OnEditingDone = KH2PO4_PClick
-        OnKeyDown = KH2PO4_PClick
         ParentFont = False
         TabOrder = 46
         Value = 22.761
@@ -1244,9 +1232,6 @@ object Kf: TKf
         Increment = 0.001
         MinValue = 0
         OnChange = K2SO4_SChange
-        OnClick = K2SO4_SClick
-        OnEditingDone = K2SO4_SClick
-        OnKeyDown = K2SO4_SClick
         ParentFont = False
         TabOrder = 50
         Value = 18.401
@@ -1262,9 +1247,6 @@ object Kf: TKf
         Increment = 0.001
         MinValue = 0
         OnChange = NH4NO3_NO3Change
-        OnClick = NH4NO3_NO3Click
-        OnEditingDone = NH4NO3_NO3Click
-        OnKeyDown = NH4NO3_NO3Click
         ParentFont = False
         TabOrder = 51
         Value = 17.499
@@ -1379,9 +1361,6 @@ object Kf: TKf
         Increment = 0.001
         MinValue = 0
         OnChange = CaNO3_NH4Change
-        OnClick = CaNO3_NH4EditingDone
-        OnEditingDone = CaNO3_NH4EditingDone
-        OnKeyDown = CaNO3_NH4EditingDone
         ParentFont = False
         TabOrder = 52
         Value = 0
