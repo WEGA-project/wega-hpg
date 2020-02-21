@@ -893,8 +893,8 @@ begin
    Kf.mlKH2PO4.Value:=Kf.gKH2PO4.value/Kf.glKH2PO4.value*1000;
    Kf.mlK2SO4.Value:=Kf.gK2SO4.value/Kf.glK2SO4.value*1000;
 
-   Kf.mlCmplx.Value:=Kf.gCmplx.value/Kf.glCmplx.value*100;
-   //Kf.mlCmplx.Value:=(Kf.Cmplx.value/Kf.dCmplx.value*Kf.V.value/10)/Kf.glCmplx.value;
+   //Kf.mlCmplx.Value:=Kf.gCmplx.value/Kf.glCmplx.value*100;
+   Kf.mlCmplx.Value:=(Kf.B.value/Kf.dB.value*Kf.V.value/10)/Kf.glCmplx.value;
    Kf.mlFe.Value:=(Kf.Fe.value/Kf.dFe.value*Kf.V.value/10)/Kf.glFe.value;
    Kf.mlMn.Value:=(Kf.Mn.value/Kf.dMn.value*Kf.V.value/10)/Kf.glMn.value;
    Kf.mlB.Value:= (Kf.B.value/Kf.dB.value*Kf.V.value/10)/Kf.glB.value;
@@ -1097,15 +1097,15 @@ Kf.gCo.Visible:=false;
 Kf.gSi.Visible:=false;
 Kf.gCmplx.Visible:=true;
 
-Kf.gCmplx.value:=Kf.B.value/Kf.dB.value*Kf.V.value/1000;
-Kf.Fe.value:=1000*Kf.gCmplx.value* (Kf.dFe.value/Kf.V.value);
-Kf.Mn.value:=1000*Kf.gCmplx.value* (Kf.dMn.value/Kf.V.value);
+Kf.gCmplx.value:=Kf.B.value/Kf.dB.value*Kf.V.value/10000;
+Kf.Fe.value:=10000*Kf.gCmplx.value* (Kf.dFe.value/Kf.V.value);
+Kf.Mn.value:=10000*Kf.gCmplx.value* (Kf.dMn.value/Kf.V.value);
 //Kf.B.value:=1000*Kf.gCmplx.value*   (Kf.dB.value/Kf.V.value);
-Kf.Zn.value:=1000*Kf.gCmplx.value* (Kf.dZn.value/Kf.V.value);
-Kf.Cu.value:=1000*Kf.gCmplx.value* (Kf.dCu.value/Kf.V.value);
-Kf.Mo.value:=1000*Kf.gCmplx.value* (Kf.dMo.value/Kf.V.value);
-Kf.Co.value:=1000*Kf.gCmplx.value* (Kf.dCo.value/Kf.V.value);
-Kf.Si.value:=1000*Kf.gCmplx.value* (Kf.dSi.value/Kf.V.value);
+Kf.Zn.value:=10000*Kf.gCmplx.value* (Kf.dZn.value/Kf.V.value);
+Kf.Cu.value:=10000*Kf.gCmplx.value* (Kf.dCu.value/Kf.V.value);
+Kf.Mo.value:=10000*Kf.gCmplx.value* (Kf.dMo.value/Kf.V.value);
+Kf.Co.value:=10000*Kf.gCmplx.value* (Kf.dCo.value/Kf.V.value);
+Kf.Si.value:=10000*Kf.gCmplx.value* (Kf.dSi.value/Kf.V.value);
  end;
 end ;
 
@@ -1122,25 +1122,25 @@ if (kF.chKComplex.Checked = False) then  begin
 
 
 
- Kf.Fe.value:=1000*Kf.gFe.value* (Kf.dFe.value/Kf.V.value);
- Kf.Mn.value:=1000*Kf.gMn.value* (Kf.dMn.value/Kf.V.value);
- Kf.B.value:=1000*Kf.gB.value*   (Kf.dB.value/Kf.V.value);
- Kf.Zn.value:=1000*Kf.gZn.value* (Kf.dZn.value/Kf.V.value);
- Kf.Cu.value:=1000*Kf.gCu.value* (Kf.dCu.value/Kf.V.value);
- Kf.Mo.value:=1000*Kf.gMo.value* (Kf.dMo.value/Kf.V.value);
- Kf.Co.value:=1000*Kf.gCo.value* (Kf.dCo.value/Kf.V.value);
- Kf.Si.value:=1000*Kf.gSi.value* (Kf.dSi.value/Kf.V.value);
+ Kf.Fe.value:=10000*Kf.gFe.value* (Kf.dFe.value/Kf.V.value);
+ Kf.Mn.value:=10000*Kf.gMn.value* (Kf.dMn.value/Kf.V.value);
+ Kf.B.value:=10000*Kf.gB.value*   (Kf.dB.value/Kf.V.value);
+ Kf.Zn.value:=10000*Kf.gZn.value* (Kf.dZn.value/Kf.V.value);
+ Kf.Cu.value:=10000*Kf.gCu.value* (Kf.dCu.value/Kf.V.value);
+ Kf.Mo.value:=10000*Kf.gMo.value* (Kf.dMo.value/Kf.V.value);
+ Kf.Co.value:=10000*Kf.gCo.value* (Kf.dCo.value/Kf.V.value);
+ Kf.Si.value:=10000*Kf.gSi.value* (Kf.dSi.value/Kf.V.value);
  end
 else begin
 
- Kf.Fe.value:=1000*Kf.gCmplx.value* (Kf.dFe.value/Kf.V.value);
- Kf.Mn.value:=1000*Kf.gCmplx.value* (Kf.dMn.value/Kf.V.value);
- Kf.B.value:=1000*Kf.gCmplx.value*  (Kf.dB.value/Kf.V.value);
- Kf.Zn.value:=1000*Kf.gCmplx.value* (Kf.dZn.value/Kf.V.value);
- Kf.Cu.value:=1000*Kf.gCmplx.value* (Kf.dCu.value/Kf.V.value);
- Kf.Mo.value:=1000*Kf.gCmplx.value* (Kf.dMo.value/Kf.V.value);
- Kf.Co.value:=1000*Kf.gCmplx.value* (Kf.dCo.value/Kf.V.value);
- Kf.Si.value:=1000*Kf.gCmplx.value* (Kf.dSi.value/Kf.V.value);
+ Kf.Fe.value:=10000*Kf.gCmplx.value* (Kf.dFe.value/Kf.V.value);
+ Kf.Mn.value:=10000*Kf.gCmplx.value* (Kf.dMn.value/Kf.V.value);
+ Kf.B.value:= 10000*Kf.gCmplx.value*  (Kf.dB.value/Kf.V.value);
+ Kf.Zn.value:=10000*Kf.gCmplx.value* (Kf.dZn.value/Kf.V.value);
+ Kf.Cu.value:=10000*Kf.gCmplx.value* (Kf.dCu.value/Kf.V.value);
+ Kf.Mo.value:=10000*Kf.gCmplx.value* (Kf.dMo.value/Kf.V.value);
+ Kf.Co.value:=10000*Kf.gCmplx.value* (Kf.dCo.value/Kf.V.value);
+ Kf.Si.value:=10000*Kf.gCmplx.value* (Kf.dSi.value/Kf.V.value);
 
 
 

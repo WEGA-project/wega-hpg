@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
   Spin, ComCtrls,strutils,LCLIntf, ExtCtrls ;
 const
-  C_FNAME = 'settings.txt';
+
   StdWordDelims = ['='] + Brackets;
 
 type
@@ -20,8 +20,16 @@ type
     bloadpf: TButton;
     Button1: TButton;
     chkComplex: TCheckBox;
+    eComment: TEdit;
+    eFileName: TEdit;
+    ggCmplx: TFloatSpinEdit;
     glB: TFloatSpinEdit;
+    glCmplx: TFloatSpinEdit;
     gmlB: TFloatSpinEdit;
+    gmlCmplx: TFloatSpinEdit;
+    Label30: TLabel;
+    Label59: TLabel;
+    lCmplx: TLabel;
     mlB: TFloatSpinEdit;
     ggB: TFloatSpinEdit;
     glCo: TFloatSpinEdit;
@@ -38,6 +46,7 @@ type
     ggFe: TFloatSpinEdit;
     glMn: TFloatSpinEdit;
     gmlMn: TFloatSpinEdit;
+    mlCmplx: TFloatSpinEdit;
     mlMn: TFloatSpinEdit;
     ggMn: TFloatSpinEdit;
     glMo: TFloatSpinEdit;
@@ -103,21 +112,21 @@ type
     dSi: TFloatSpinEdit;
     Label68: TLabel;
     Label69: TLabel;
-    Label70: TLabel;
-    Label71: TLabel;
-    Label72: TLabel;
-    Label73: TLabel;
-    Label74: TLabel;
-    Label75: TLabel;
-    Label76: TLabel;
-    Label77: TLabel;
-    nCaNO4: TLabel;
-    nK2SO5: TLabel;
-    nKH2PO5: TLabel;
-    nKNO4: TLabel;
-    nMgNO4: TLabel;
-    nMgSO5: TLabel;
-    nNH4NO4: TLabel;
+    lSi: TLabel;
+    lCo: TLabel;
+    lMo: TLabel;
+    lCu: TLabel;
+    lZn: TLabel;
+    lB: TLabel;
+    lMn: TLabel;
+    lFe: TLabel;
+    knCaNO3: TLabel;
+    knK2SO4: TLabel;
+    knKH2PO4: TLabel;
+    knKNO3: TLabel;
+    knMgNO3: TLabel;
+    knMgSO4: TLabel;
+    knNH4NO3: TLabel;
     Si: TFloatSpinEdit;
     Mo: TFloatSpinEdit;
     StaticText1: TStaticText;
@@ -125,6 +134,7 @@ type
     StaticText3: TStaticText;
     StaticText4: TStaticText;
     TabSheet3: TTabSheet;
+    TabSheet4: TTabSheet;
     Zn: TFloatSpinEdit;
     Mn: TFloatSpinEdit;
     Label31: TLabel;
@@ -320,11 +330,13 @@ type
     procedure ECChange(Sender: TObject);
 
     procedure ECClick(Sender: TObject);
+    procedure eFileNameChange(Sender: TObject);
 
     procedure FeChange(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormChangeBounds(Sender: TObject);
     procedure FormClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
     procedure gBChange(Sender: TObject);
 
     procedure gCaNO3Change(Sender: TObject);
@@ -352,6 +364,7 @@ type
     procedure glZnChange(Sender: TObject);
     procedure gMgNO3Change(Sender: TObject);
     procedure gMgSO4Change(Sender: TObject);
+    procedure CalcConcChange(Sender: TObject);
     procedure gMnChange(Sender: TObject);
     procedure gMoChange(Sender: TObject);
     procedure gNH4NO3Change(Sender: TObject);
@@ -547,7 +560,8 @@ var
   tfIn: TextFile;
 
  str: string;
-
+ C_FNAME: string;
+  //C_FNAME := 'settings.txt';
 implementation
 
 {$R *.lfm}
@@ -717,7 +731,7 @@ begin
   if ( Kf.SMg.Focused = False ) then Kf.SMg.value:=Kf.S.Value/Kf.Mg.value;
 
 
-
+  if ( Kf.NH4NO3.Focused = False ) then Kf.NH4NO3.value:=Kf.NH4.Value/Kf.NO3.value;
 end;
 
 
@@ -879,14 +893,78 @@ begin
    Kf.mlKH2PO4.Value:=Kf.gKH2PO4.value/Kf.glKH2PO4.value*1000;
    Kf.mlK2SO4.Value:=Kf.gK2SO4.value/Kf.glK2SO4.value*1000;
 
-   Kf.mlFe.Value:=Kf.gFe.value/Kf.glFe.value*100;
-   Kf.mlMn.Value:=Kf.gMn.value/Kf.glMn.value*100;
-   Kf.mlB.Value:= Kf.gB.value/Kf.glB.value*100;
-   Kf.mlZn.Value:=Kf.gZn.value/Kf.glZn.value*100;
-   Kf.mlCu.Value:=Kf.gCu.value/Kf.glCu.value*100;
-   Kf.mlMo.Value:=Kf.gMo.value/Kf.glMo.value*100;
-   Kf.mlCo.Value:=Kf.gCo.value/Kf.glCo.value*100;
-   Kf.mlSi.Value:=Kf.gSi.value/Kf.glSi.value*100;
+   //Kf.mlCmplx.Value:=Kf.gCmplx.value/Kf.glCmplx.value*100;
+   Kf.mlCmplx.Value:=(Kf.B.value/Kf.dB.value*Kf.V.value/10)/Kf.glCmplx.value;
+   Kf.mlFe.Value:=(Kf.Fe.value/Kf.dFe.value*Kf.V.value/10)/Kf.glFe.value;
+   Kf.mlMn.Value:=(Kf.Mn.value/Kf.dMn.value*Kf.V.value/10)/Kf.glMn.value;
+   Kf.mlB.Value:= (Kf.B.value/Kf.dB.value*Kf.V.value/10)/Kf.glB.value;
+   Kf.mlZn.Value:=(Kf.Zn.value/Kf.dZn.value*Kf.V.value/10)/Kf.glZn.value;
+   Kf.mlCu.Value:=(Kf.Cu.value/Kf.dCu.value*Kf.V.value/10)/Kf.glCu.value;
+   Kf.mlMo.Value:=(Kf.Mo.value/Kf.dMo.value*Kf.V.value/10)/Kf.glMo.value;
+   Kf.mlCo.Value:=(Kf.Co.value/Kf.dCo.value*Kf.V.value/10)/Kf.glCo.value;
+   Kf.mlSi.Value:=(Kf.Si.value/Kf.dSi.value*Kf.V.value/10)/Kf.glSi.value;
+
+   Kf.ggCaNO3.value:=Kf.gmlCaNO3.value*Kf.mlCaNO3.value;
+   Kf.ggKNO3.value:=Kf.gmlKNO3.value*Kf.mlKNO3.value;
+   Kf.ggNH4NO3.value:=Kf.gmlNH4NO3.value*Kf.mlNH4NO3.value;
+   Kf.ggMgNO3.value:=Kf.gmlMgNO3.value*Kf.mlMgNO3.value;
+   Kf.ggMgSO4.value:=Kf.gmlMgSO4.value*Kf.mlMgSO4.value;
+   Kf.ggKH2PO4.value:=Kf.gmlKH2PO4.value*Kf.mlKH2PO4.value;
+   Kf.ggK2SO4.value:=Kf.gmlK2SO4.value*Kf.mlK2SO4.value;
+
+   Kf.ggCmplx.value:=Kf.gmlCmplx.value*Kf.mlCmplx.value;
+   Kf.ggFe.value:=Kf.gmlFe.value*Kf.mlFe.value;
+   Kf.ggB.value:=Kf.gmlB.value*Kf.mlB.value;
+   Kf.ggMn.value:=Kf.gmlMn.value*Kf.mlMn.value;
+   Kf.ggZn.value:=Kf.gmlZn.value*Kf.mlZn.value;
+   Kf.ggCu.value:=Kf.gmlCu.value*Kf.mlCu.value;
+   Kf.ggMo.value:=Kf.gmlMo.value*Kf.mlMo.value;
+   Kf.ggCo.value:=Kf.gmlCo.value*Kf.mlCo.value;
+   Kf.ggSi.value:=Kf.gmlSi.value*Kf.mlSi.value;
+
+
+    if (kF.chKComplex.Checked = False) then  begin
+    Kf.lCmplx.Visible:=false; Kf.glCmplx.Visible:=false;  Kf.gmlCmplx.Visible:=false;  Kf.mlCmplx.Visible:=false;  Kf.ggCmplx.Visible:=false;
+
+    Kf.lFe.Visible:=true; Kf.glFe.Visible:=true;  Kf.gmlFe.Visible:=true;  Kf.mlFe.Visible:=true;  Kf.ggFe.Visible:=true;
+    Kf.lMn.Visible:=true; Kf.glMn.Visible:=true;  Kf.gmlMn.Visible:=true;  Kf.mlMn.Visible:=true;  Kf.ggMn.Visible:=true;
+    Kf.lB.Visible:=true;  Kf.glB.Visible:=true;   Kf.gmlB.Visible:=true;   Kf.mlB.Visible:=true;   Kf.ggB.Visible:=true;
+    Kf.lZn.Visible:=true; Kf.glZn.Visible:=true;  Kf.gmlZn.Visible:=true;  Kf.mlZn.Visible:=true;  Kf.ggZn.Visible:=true;
+    Kf.lCu.Visible:=true; Kf.glCu.Visible:=true;  Kf.gmlCu.Visible:=true;  Kf.mlCu.Visible:=true;  Kf.ggCu.Visible:=true;
+    Kf.lMo.Visible:=true; Kf.glMo.Visible:=true;  Kf.gmlMo.Visible:=true;  Kf.mlMo.Visible:=true;  Kf.ggMo.Visible:=true;
+    Kf.lCo.Visible:=true; Kf.glCo.Visible:=true;  Kf.gmlCo.Visible:=true;  Kf.mlCo.Visible:=true;  Kf.ggCo.Visible:=true;
+    Kf.lSi.Visible:=true; Kf.glSi.Visible:=true;  Kf.gmlSi.Visible:=true;  Kf.mlSi.Visible:=true;  Kf.ggSi.Visible:=true;
+
+    end
+    else begin
+    Kf.lCmplx.Visible:=true; Kf.glCmplx.Visible:=true;  Kf.gmlCmplx.Visible:=true;  Kf.mlCmplx.Visible:=true;  Kf.ggCmplx.Visible:=true;
+
+    Kf.lFe.Visible:=false; Kf.glFe.Visible:=false;  Kf.gmlFe.Visible:=false;  Kf.mlFe.Visible:=false;  Kf.ggFe.Visible:=false;
+    Kf.lMn.Visible:=false; Kf.glMn.Visible:=false;  Kf.gmlMn.Visible:=false;  Kf.mlMn.Visible:=false;  Kf.ggMn.Visible:=false;
+    Kf.lB.Visible:=false;  Kf.glB.Visible:=false;   Kf.gmlB.Visible:=false;   Kf.mlB.Visible:=false;   Kf.ggB.Visible:=false;
+    Kf.lZn.Visible:=false; Kf.glZn.Visible:=false;  Kf.gmlZn.Visible:=false;  Kf.mlZn.Visible:=false;  Kf.ggZn.Visible:=false;
+    Kf.lCu.Visible:=false; Kf.glCu.Visible:=false;  Kf.gmlCu.Visible:=false;  Kf.mlCu.Visible:=false;  Kf.ggCu.Visible:=false;
+    Kf.lMo.Visible:=false; Kf.glMo.Visible:=false;  Kf.gmlMo.Visible:=false;  Kf.mlMo.Visible:=false;  Kf.ggMo.Visible:=false;
+    Kf.lCo.Visible:=false; Kf.glCo.Visible:=false;  Kf.gmlCo.Visible:=false;  Kf.mlCo.Visible:=false;  Kf.ggCo.Visible:=false;
+    Kf.lSi.Visible:=false; Kf.glSi.Visible:=false;  Kf.gmlSi.Visible:=false;  Kf.mlSi.Visible:=false;  Kf.ggSi.Visible:=false;
+    end;
+
+    Kf.knCaNO3.caption:= Kf.nCaNO3.caption;
+    Kf.knKNO3.caption:= Kf.nKNO3.caption;
+    Kf.knNH4NO3.caption:= Kf.nNH4NO3.caption;
+    Kf.knMgNO3.caption:= Kf.nMgNO3.caption;
+    Kf.knMgSO4.caption:= Kf.nMgSO4.caption;
+    Kf.knK2SO4.caption:= Kf.nK2SO4.caption;
+    Kf.knKH2PO4.caption:= Kf.nKH2PO4.caption;
+
+    Kf.lFe.Caption:='Железо Fe='+FloatToStr(Kf.dFe.value)+'%';
+    Kf.lMn.Caption:='Марганец Mn='+FloatToStr(Kf.dMn.value)+'%';
+    Kf.lB.Caption:='Бор B='+FloatToStr(Kf.dB.value)+'%';
+    Kf.lZn.Caption:='Цинк Zn='+FloatToStr(Kf.dZn.value)+'%';
+    Kf.lCu.Caption:='Медь Cu='+FloatToStr(Kf.dCu.value)+'%';
+    Kf.lMo.Caption:='Молибден Mo='+FloatToStr(Kf.dMo.value)+'%';
+    Kf.lCo.Caption:='Кобальт Co='+FloatToStr(Kf.dCo.value)+'%';
+    Kf.lSi.Caption:='Кремний Si='+FloatToStr(Kf.dSi.value)+'%';
 end;
 
 procedure CalcAll;
@@ -977,14 +1055,14 @@ procedure microToWeght; begin
  Kf.gSi.Visible:=true;
  Kf.gCmplx.Visible:=false;
 
- Kf.gFe.value:=Kf.Fe.value/Kf.dFe.value*Kf.V.value/1000;
- Kf.gMn.value:=Kf.Mn.value/Kf.dMn.value*Kf.V.value/1000;
- Kf.gB.value:=Kf.B.value/Kf.dB.value*Kf.V.value/1000;
- Kf.gZn.value:=Kf.Zn.value/Kf.dZn.value*Kf.V.value/1000;
- Kf.gCu.value:=Kf.Cu.value/Kf.dCu.value*Kf.V.value/1000;
- Kf.gMo.value:=Kf.Mo.value/Kf.dMo.value*Kf.V.value/1000;
- Kf.gCo.value:=Kf.Co.value/Kf.dCo.value*Kf.V.value/1000;
- Kf.gSi.value:=Kf.Si.value/Kf.dSi.value*Kf.V.value/1000;
+ Kf.gFe.value:=Kf.Fe.value/Kf.dFe.value*Kf.V.value/10000;
+ Kf.gMn.value:=Kf.Mn.value/Kf.dMn.value*Kf.V.value/10000;
+ Kf.gB.value:=Kf.B.value/Kf.dB.value*Kf.V.value/10000;
+ Kf.gZn.value:=Kf.Zn.value/Kf.dZn.value*Kf.V.value/10000;
+ Kf.gCu.value:=Kf.Cu.value/Kf.dCu.value*Kf.V.value/10000;
+ Kf.gMo.value:=Kf.Mo.value/Kf.dMo.value*Kf.V.value/10000;
+ Kf.gCo.value:=Kf.Co.value/Kf.dCo.value*Kf.V.value/10000;
+ Kf.gSi.value:=Kf.Si.value/Kf.dSi.value*Kf.V.value/10000;
 
   Kf.Fe.ReadOnly :=false;
 Kf.Mn.ReadOnly:=false;
@@ -1019,15 +1097,15 @@ Kf.gCo.Visible:=false;
 Kf.gSi.Visible:=false;
 Kf.gCmplx.Visible:=true;
 
-Kf.gCmplx.value:=Kf.B.value/Kf.dB.value*Kf.V.value/1000;
-Kf.Fe.value:=1000*Kf.gCmplx.value* (Kf.dFe.value/Kf.V.value);
-Kf.Mn.value:=1000*Kf.gCmplx.value* (Kf.dMn.value/Kf.V.value);
+Kf.gCmplx.value:=Kf.B.value/Kf.dB.value*Kf.V.value/10000;
+Kf.Fe.value:=10000*Kf.gCmplx.value* (Kf.dFe.value/Kf.V.value);
+Kf.Mn.value:=10000*Kf.gCmplx.value* (Kf.dMn.value/Kf.V.value);
 //Kf.B.value:=1000*Kf.gCmplx.value*   (Kf.dB.value/Kf.V.value);
-Kf.Zn.value:=1000*Kf.gCmplx.value* (Kf.dZn.value/Kf.V.value);
-Kf.Cu.value:=1000*Kf.gCmplx.value* (Kf.dCu.value/Kf.V.value);
-Kf.Mo.value:=1000*Kf.gCmplx.value* (Kf.dMo.value/Kf.V.value);
-Kf.Co.value:=1000*Kf.gCmplx.value* (Kf.dCo.value/Kf.V.value);
-Kf.Si.value:=1000*Kf.gCmplx.value* (Kf.dSi.value/Kf.V.value);
+Kf.Zn.value:=10000*Kf.gCmplx.value* (Kf.dZn.value/Kf.V.value);
+Kf.Cu.value:=10000*Kf.gCmplx.value* (Kf.dCu.value/Kf.V.value);
+Kf.Mo.value:=10000*Kf.gCmplx.value* (Kf.dMo.value/Kf.V.value);
+Kf.Co.value:=10000*Kf.gCmplx.value* (Kf.dCo.value/Kf.V.value);
+Kf.Si.value:=10000*Kf.gCmplx.value* (Kf.dSi.value/Kf.V.value);
  end;
 end ;
 
@@ -1044,25 +1122,25 @@ if (kF.chKComplex.Checked = False) then  begin
 
 
 
- Kf.Fe.value:=1000*Kf.gFe.value* (Kf.dFe.value/Kf.V.value);
- Kf.Mn.value:=1000*Kf.gMn.value* (Kf.dMn.value/Kf.V.value);
- Kf.B.value:=1000*Kf.gB.value*   (Kf.dB.value/Kf.V.value);
- Kf.Zn.value:=1000*Kf.gZn.value* (Kf.dZn.value/Kf.V.value);
- Kf.Cu.value:=1000*Kf.gCu.value* (Kf.dCu.value/Kf.V.value);
- Kf.Mo.value:=1000*Kf.gMo.value* (Kf.dMo.value/Kf.V.value);
- Kf.Co.value:=1000*Kf.gCo.value* (Kf.dCo.value/Kf.V.value);
- Kf.Si.value:=1000*Kf.gSi.value* (Kf.dSi.value/Kf.V.value);
+ Kf.Fe.value:=10000*Kf.gFe.value* (Kf.dFe.value/Kf.V.value);
+ Kf.Mn.value:=10000*Kf.gMn.value* (Kf.dMn.value/Kf.V.value);
+ Kf.B.value:=10000*Kf.gB.value*   (Kf.dB.value/Kf.V.value);
+ Kf.Zn.value:=10000*Kf.gZn.value* (Kf.dZn.value/Kf.V.value);
+ Kf.Cu.value:=10000*Kf.gCu.value* (Kf.dCu.value/Kf.V.value);
+ Kf.Mo.value:=10000*Kf.gMo.value* (Kf.dMo.value/Kf.V.value);
+ Kf.Co.value:=10000*Kf.gCo.value* (Kf.dCo.value/Kf.V.value);
+ Kf.Si.value:=10000*Kf.gSi.value* (Kf.dSi.value/Kf.V.value);
  end
 else begin
 
- Kf.Fe.value:=1000*Kf.gCmplx.value* (Kf.dFe.value/Kf.V.value);
- Kf.Mn.value:=1000*Kf.gCmplx.value* (Kf.dMn.value/Kf.V.value);
- Kf.B.value:=1000*Kf.gCmplx.value*  (Kf.dB.value/Kf.V.value);
- Kf.Zn.value:=1000*Kf.gCmplx.value* (Kf.dZn.value/Kf.V.value);
- Kf.Cu.value:=1000*Kf.gCmplx.value* (Kf.dCu.value/Kf.V.value);
- Kf.Mo.value:=1000*Kf.gCmplx.value* (Kf.dMo.value/Kf.V.value);
- Kf.Co.value:=1000*Kf.gCmplx.value* (Kf.dCo.value/Kf.V.value);
- Kf.Si.value:=1000*Kf.gCmplx.value* (Kf.dSi.value/Kf.V.value);
+ Kf.Fe.value:=10000*Kf.gCmplx.value* (Kf.dFe.value/Kf.V.value);
+ Kf.Mn.value:=10000*Kf.gCmplx.value* (Kf.dMn.value/Kf.V.value);
+ Kf.B.value:= 10000*Kf.gCmplx.value*  (Kf.dB.value/Kf.V.value);
+ Kf.Zn.value:=10000*Kf.gCmplx.value* (Kf.dZn.value/Kf.V.value);
+ Kf.Cu.value:=10000*Kf.gCmplx.value* (Kf.dCu.value/Kf.V.value);
+ Kf.Mo.value:=10000*Kf.gCmplx.value* (Kf.dMo.value/Kf.V.value);
+ Kf.Co.value:=10000*Kf.gCmplx.value* (Kf.dCo.value/Kf.V.value);
+ Kf.Si.value:=10000*Kf.gCmplx.value* (Kf.dSi.value/Kf.V.value);
 
 
 
@@ -1072,6 +1150,79 @@ end;
 
 end;
 
+
+procedure SoilName;
+begin
+// Селитра кальциевая
+if (Kf.CaNO3_NH4.value = 0) then begin
+
+    case FloatToStr(round(Kf.CaNO3_Ca.value*10)/10) of
+      '17':  Kf.nCaNO3.Caption:='Кальций азотнокислый Са(NО3)2*4H2O';
+      '20':  Kf.nCaNO3.Caption:='Кальций азотнокислый Ca(NO3)2*2H2O';
+      '24.4':  Kf.nCaNO3.Caption:='Кальций азотнокислый Ca(NO3)2';
+    else       Kf.nCaNO3.Caption:='Селитра кальциевая'
+       + ' CaO-' +floattostr(Round((Kf.CaNO3_Ca.value/0.714691)*10)/10)+'%'
+       + ' N-' +floattostr(Round((Kf.CaNO3_NH4.value+Kf.CaNO3_NO3.value)*10)/10)+'%';
+    end;
+end
+else begin
+      Kf.nCaNO3.Caption:='Селитра кальциевая'
+       + ' CaO-' +floattostr(Round((Kf.CaNO3_Ca.value/0.714691)*10)/10)+'%'
+       + ' N-' +floattostr(Round((Kf.CaNO3_NH4.value+Kf.CaNO3_NO3.value)*10)/10)+'%';
+      end;
+
+// Селитра калиевая
+case FloatToStr(round(Kf.KNO3_K.value*10)/10) of
+   '38.7':  Kf.nKNO3.Caption:='Калий азотнокислый KNO3';
+ else
+   Kf.nKNO3.Caption:='Селитра калиевая'
+   + ' K2O-' +floattostr(Round((Kf.KNO3_K.value/0.830148)*10)/10)+'%'
+   + ' N-' +floattostr(Round((Kf.KNO3_NO3.value)*10)/10)+'%';
+ end;
+
+// Селитра аммиачная
+case FloatToStr(round(Kf.NH4NO3_NO3.value*10)/10) of
+   '17.5':  Kf.nNH4NO3.Caption:='Аммоний азотнокислый NH4NO3';
+ else
+   Kf.nNH4NO3.Caption:='Селитра аммиачная'
++ ' N-' +floattostr(Round((Kf.NH4NO3_NH4.value+Kf.NH4NO3_NO3.value)*10)/10)+'%';
+ end;
+// Сульфат магния
+case FloatToStr(round(Kf.MgSO4_Mg.value*10)/10) of
+   '9.9':  Kf.nMgSO4.Caption:='Магний сернокислый MgSO4*7H2O';
+   '20.2':  Kf.nMgSO4.Caption:='Магний сернокислый MgSO4';
+ else
+   Kf.nMgSO4.Caption:='Сульфат магния'
+   + ' MgO-' +floattostr(Round((Kf.MgSO4_Mg.value/0.603036)*10)/10)+'%'
+   + ' SO3-' +floattostr(Round((Kf.MgSO4_S.value/0.400496)*10)/10)+'%';
+ end;
+// Монофосфат калия
+case FloatToStr(round(Kf.KH2PO4_K.value*10)/10) of
+   '28.7':  Kf.nKH2PO4.Caption:='Калий фосфорнокислый KH2PO4';
+ else
+   Kf.nKH2PO4.Caption:='Монофосфат калия'
+   + ' K2O-' +floattostr(Round((Kf.KH2PO4_K.value/0.830148)*10)/10)+'%'
+   + ' P2O5-' +floattostr(Round((Kf.KH2PO4_P.value/0.436421)*10)/10)+'%';
+ end;
+// Сульфат калия
+case FloatToStr(round(Kf.K2SO4_K.value*10)/10) of
+   '44.9':  Kf.nK2SO4.Caption:='Калий сернокислый K2SO4';
+ else
+   Kf.nK2SO4.Caption:='Сульфат калия'
+   + ' K2O-' +floattostr(Round((Kf.K2SO4_K.value/0.830148)*10)/10)+'%'
+   + ' SO3-' +floattostr(Round((Kf.K2SO4_S.value/0.400496)*10)/10)+'%';
+ end;
+// Селитра магниевая
+case FloatToStr(round(Kf.MgNO3_Mg.value*10)/10) of
+   '9.5':  Kf.nMgNO3.Caption:='Магний азотнокислый Mg(NO3)2*6H2O';
+   '16.4':  Kf.nMgNO3.Caption:='Магний азотнокислый Mg(NO3)2';
+ else
+   Kf.nMgNO3.Caption:='Селитра магниевая'
+    + ' MgO-' +floattostr(Round((Kf.MgNO3_Mg.value/0.603036)*10)/10)+'%'
+    + ' N-' +floattostr(Round((Kf.MgNO3_NO3.value)*10)/10)+'%';
+ end;
+
+  end;
 
 
 procedure TKf.MgCaClick(Sender: TObject);
@@ -1212,9 +1363,7 @@ begin
     if ( MgNO3_Mg.Focused = True )    then begin
           MgNO3_NO3.value:=(2*MgNO3_Mg.value*FloatSpinEdit2)/(mMg);
 
-    nMgNO3.Caption:='Селитра магниевая'
- + ' MgO-' +floattostr(Round((MgNO3_Mg.value/0.603036)*10)/10)+'%'
- + ' N-' +floattostr(Round((MgNO3_NO3.value)*10)/10)+'%';
+    SoilName;
     CalcWeight ;
   end;
 end;
@@ -1224,9 +1373,7 @@ begin
       if ( MgNO3_NO3.Focused = True )    then begin
           MgNO3_Mg.value:=((1/2)*(MgNO3_NO3.value/FloatSpinEdit2)*mMg);
 
-    nMgNO3.Caption:='Селитра магниевая'
- + ' MgO-' +floattostr(Round((MgNO3_Mg.value/0.603036)*10)/10)+'%'
- + ' N-' +floattostr(Round((MgNO3_NO3.value)*10)/10)+'%';
+    SoilName;
     CalcWeight ;
 
       end;
@@ -1259,9 +1406,7 @@ procedure TKf.MgSO4_MgChange(Sender: TObject);
 begin
    if ( MgSO4_Mg.Focused = True )    then begin
           MgSO4_S.value:= (MgSO4_Mg.value * mS)/mMg;
-         nMgSO4.Caption:='Сульфат магния'
- + ' MgO-' +floattostr(Round((MgSO4_Mg.value/0.603036)*10)/10)+'%'
- + ' SO3-' +floattostr(Round((MgSO4_S.value/0.400496)*10)/10)+'%';
+         SoilName;
          CalcWeight ;
    end;
 end;
@@ -1273,9 +1418,7 @@ begin
   if ( MgSO4_S.Focused = True )    then begin
      
   MgSO4_Mg.value:= (MgSO4_S.value * mMg)/mS;
-           nMgSO4.Caption:='Сульфат магния'
- + ' MgO-' +floattostr(Round((MgSO4_Mg.value/0.603036)*10)/10)+'%'
- + ' SO3-' +floattostr(Round((MgSO4_S.value/0.400496)*10)/10)+'%';
+    SoilName;
     CalcWeight ;
   end;
 end;
@@ -1308,8 +1451,7 @@ procedure TKf.NH4NO3_NH4Change(Sender: TObject);
 begin
    if ( NH4NO3_NH4.Focused = True )    then begin
        NH4NO3_NO3.value:=NH4NO3_NH4.value;
-      nNH4NO3.Caption:='Селитра аммиачная'
-   + ' N-' +floattostr(Round((NH4NO3_NH4.value+NH4NO3_NO3.value)*10)/10)+'%';
+      SoilName;
       CalcWeight ;
    end;
 end;
@@ -1318,8 +1460,7 @@ procedure TKf.NH4NO3_NO3Change(Sender: TObject);
 begin
   if ( NH4NO3_NO3.Focused = True )    then begin
        NH4NO3_NH4.value:=NH4NO3_NO3.value;
-        nNH4NO3.Caption:='Селитра аммиачная'
-   + ' N-' +floattostr(Round((NH4NO3_NH4.value+NH4NO3_NO3.value)*10)/10)+'%';
+        SoilName;
         CalcWeight ;
   end;
 end;
@@ -1335,6 +1476,11 @@ begin
 end;
 
 procedure TKf.FormClick(Sender: TObject);
+begin
+
+end;
+
+procedure TKf.FormCreate(Sender: TObject);
 begin
 
 end;
@@ -1527,6 +1673,11 @@ begin
  end;
 end;
 
+procedure TKf.CalcConcChange(Sender: TObject);
+begin
+  CalcConc;
+end;
+
 procedure TKf.gMnChange(Sender: TObject);
 begin
     if ( gMn.Focused = True )    then begin
@@ -1576,9 +1727,7 @@ begin
   if ( K2SO4_K.Focused = True )    then begin
           K2SO4_S.value:=(K2SO4_K.value*mS)/(2*mK);
 
-    nK2SO4.Caption:='Сульфат калия'
- + ' K2O-' +floattostr(Round((K2SO4_K.value/0.830148)*10)/10)+'%'
- + ' SO3-' +floattostr(Round((K2SO4_S.value/0.400496)*10)/10)+'%';
+    SoilName;
     CalcWeight ;
   end;
 end;
@@ -1587,9 +1736,7 @@ procedure TKf.K2SO4_KClick(Sender: TObject);
 begin
       K2SO4_S.value:=(K2SO4_K.value*mS)/(2*mK);
 
-    nK2SO4.Caption:='Сульфат калия'
- + ' K2O-' +floattostr(Round((K2SO4_K.value/0.830148)*10)/10)+'%'
- + ' SO3-' +floattostr(Round((K2SO4_S.value/0.400496)*10)/10)+'%';
+    SoilName;
     CalcWeight ;
 end;
 
@@ -1600,9 +1747,7 @@ begin
   if ( K2SO4_S.Focused = True )    then begin
                K2SO4_K.value:=(K2SO4_S.value*2*mK)/(mS);
 
-    nK2SO4.Caption:='Сульфат калия'
- + ' K2O-' +floattostr(Round((K2SO4_K.value/0.830148)*10)/10)+'%'
- + ' SO3-' +floattostr(Round((K2SO4_S.value/0.400496)*10)/10)+'%';
+    SoilName;
     CalcWeight ;
   end;
 end;
@@ -1669,9 +1814,7 @@ begin
   if ( KH2PO4_K.Focused = True )    then begin
         KH2PO4_P.value:=(KH2PO4_K.value*mP)/mK;
 
-    nKH2PO4.Caption:='Монофосфат калия'
- + ' K2O-' +floattostr(Round((KH2PO4_K.value/0.830148)*10)/10)+'%'
- + ' P2O5-' +floattostr(Round((KH2PO4_P.value/0.436421)*10)/10)+'%';
+    SoilName;
     CalcWeight ;
   end;
 end;
@@ -1693,9 +1836,7 @@ begin
   if ( KH2PO4_P.Focused = True )    then begin
          KH2PO4_K.value:=(KH2PO4_P.value*mK)/mP;
 
-    nKH2PO4.Caption:='Монофосфат калия'
- + ' K2O-' +floattostr(Round((KH2PO4_K.value/0.830148)*10)/10)+'%'
- + ' P2O5-' +floattostr(Round((KH2PO4_P.value/0.436421)*10)/10)+'%';
+    SoilName;
     CalcWeight ;
   end;
 end;
@@ -1773,9 +1914,10 @@ begin
   if ( KNO3_K.Focused = True )    then begin
      KNO3_NO3.value:=(KNO3_K.value*FloatSpinEdit2)/mK;
 
-    nKNO3.Caption:='Селитра калиевая'
- + ' K2O-' +floattostr(Round((KNO3_K.value/0.830148)*10)/10)+'%'
- + ' N-' +floattostr(Round((KNO3_NO3.value)*10)/10)+'%';
+ //   nKNO3.Caption:='Селитра калиевая'
+ //+ ' K2O-' +floattostr(Round((KNO3_K.value/0.830148)*10)/10)+'%'
+ //+ ' N-' +floattostr(Round((KNO3_NO3.value)*10)/10)+'%';
+    SoilName;
     CalcWeight ;
   end;
 end;
@@ -1784,9 +1926,7 @@ procedure TKf.KNO3_KClick(Sender: TObject);
 begin
   KNO3_NO3.value:=(KNO3_K.value*FloatSpinEdit2)/mK;
 
-    nKNO3.Caption:='Селитра калиевая'
- + ' K2O-' +floattostr(Round((KNO3_K.value/0.830148)*10)/10)+'%'
- + ' N-' +floattostr(Round((KNO3_NO3.value)*10)/10)+'%';
+    SoilName;
     CalcWeight ;
 end;
 
@@ -1796,9 +1936,7 @@ procedure TKf.KNO3_NO3Change(Sender: TObject);
 begin
   if ( KNO3_NO3.Focused = True )    then begin
       KNO3_K.value:=(KNO3_NO3.value*mK)/FloatSpinEdit2;
-       nKNO3.Caption:='Селитра калиевая'
- + ' K2O-' +floattostr(Round((KNO3_K.value/0.830148)*10)/10)+'%'
- + ' N-' +floattostr(Round((KNO3_NO3.value)*10)/10)+'%';
+      SoilName;
        CalcWeight ;
   end;
 end;
@@ -1866,7 +2004,8 @@ procedure TKf.bloadClick(Sender: TObject);
     //tfIn: TextFile;
     //str: string;
 begin
-    //s:='setting.txt';
+    //C_FNAME:='setting.txt';
+    eFileName.Caption:=C_FNAME;
     AssignFile(tfIn, C_FNAME);
         // Открыть файл для чтения
       reset(tfIn);
@@ -1906,6 +2045,52 @@ begin
            if (IsWordPresent('dCo', str, ['=']) = true) then dCo.value:=StrToFloat(ExtractWord(2,str,['=']));
            if (IsWordPresent('dSi', str, ['=']) = true) then dSi.value:=StrToFloat(ExtractWord(2,str,['=']));
 
+
+
+                // Концентрации
+           if (IsWordPresent('glCaNO3', str, ['=']) = true) then glCaNO3.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('glKNO3', str, ['=']) = true) then glKNO3.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('glNH4NO3', str, ['=']) = true) then glNH4NO3.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('glMgNO3', str, ['=']) = true) then glMgNO3.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('glMgSO4', str, ['=']) = true) then glMgSO4.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('glK2SO4', str, ['=']) = true) then glK2SO4.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('glKH2PO4', str, ['=']) = true) then glKH2PO4.value:=StrToFloat(ExtractWord(2,str,['=']));
+
+           if (IsWordPresent('glCmplx', str, ['=']) = true) then glCmplx.value:=StrToFloat(ExtractWord(2,str,['=']));
+
+           if (IsWordPresent('glFe', str, ['=']) = true) then glFe.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('glMn', str, ['=']) = true) then glMn.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('glB', str, ['=']) = true) then glB.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('glZn', str, ['=']) = true) then glZn.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('glCu', str, ['=']) = true) then glCu.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('glMo', str, ['=']) = true) then glMo.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('glCo', str, ['=']) = true) then glCo.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('glSi', str, ['=']) = true) then glSi.value:=StrToFloat(ExtractWord(2,str,['=']));
+
+
+
+     //// Плотности
+           if (IsWordPresent('gmlCaNO3', str, ['=']) = true) then gmlCaNO3.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('gmlKNO3', str, ['=']) = true) then gmlKNO3.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('gmlNH4NO3', str, ['=']) = true) then gmlNH4NO3.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('gmlMgNO3', str, ['=']) = true) then gmlMgNO3.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('gmlMgSO4', str, ['=']) = true) then gmlMgSO4.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('gmlK2SO4', str, ['=']) = true) then gmlK2SO4.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('gmlKH2PO4', str, ['=']) = true) then gmlKH2PO4.value:=StrToFloat(ExtractWord(2,str,['=']));
+
+           if (IsWordPresent('gmlCmplx', str, ['=']) = true) then gmlCmplx.value:=StrToFloat(ExtractWord(2,str,['=']));
+
+           if (IsWordPresent('gmlFe', str, ['=']) = true) then gmlFe.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('gmlMn', str, ['=']) = true) then gmlMn.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('gmlB', str, ['=']) = true) then gmlB.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('gmlZn', str, ['=']) = true) then gmlZn.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('gmlCu', str, ['=']) = true) then gmlCu.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('gmlMo', str, ['=']) = true) then gmlMo.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('gmlCo', str, ['=']) = true) then gmlCo.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('gmlSi', str, ['=']) = true) then gmlSi.value:=StrToFloat(ExtractWord(2,str,['=']));
+
+
+
           end;
 
 
@@ -1923,6 +2108,8 @@ begin
    //// CalcWeight ;
    //         end;
     CalcWeight ;
+    SoilName;
+    CalcConc;
 end;
 
 procedure TKf.bloadpfClick(Sender: TObject);
@@ -1937,8 +2124,10 @@ begin
           while not eof(tfIn) do
           begin
           readln(tfIn, str);
+          //writeln(tfOut,'Comment=',eComment.Caption);
+          if (IsWordPresent('Comment', str, ['=']) = true) then eComment.Caption:=ExtractWord(2,str,['=']);
           //Macro Profile
-           if (IsWordPresent('N', str, ['=']) = true) then N.value:=StrToFloat(ExtractWord(2,str,['=']));
+                     if (IsWordPresent('N', str, ['=']) = true) then N.value:=StrToFloat(ExtractWord(2,str,['=']));
            if (IsWordPresent('NH4', str, ['=']) = true) then NH4.value:=StrToFloat(ExtractWord(2,str,['=']));
            if (IsWordPresent('NO3', str, ['=']) = true) then NO3.value:=StrToFloat(ExtractWord(2,str,['=']));
            if (IsWordPresent('P', str, ['=']) = true)   then P.value:=StrToFloat(ExtractWord(2,str,['=']));
@@ -1962,6 +2151,8 @@ begin
     CalcAll;
     CalcWeight ;
     microToWeght;
+    CalcConc;
+    SoilName;
 end;
 
 procedure TKf.BChange(Sender: TObject);
@@ -2053,9 +2244,10 @@ procedure TKf.CaNO3_CaChange(Sender: TObject);
 begin
   if ( CaNO3_Ca.Focused = True )    then begin
   CaNO3_NO3.value:= (2 * CaNO3_Ca.value *FloatSpinEdit2 + CaNO3_NH4.value*mCa)/mCa  ;
-    nCaNO3.Caption:='Селитра кальциевая'
-   + ' CaO-' +floattostr(Round((CaNO3_Ca.value/0.714691)*10)/10)+'%'
-   + ' N-' +floattostr(Round((CaNO3_NH4.value+CaNO3_NO3.value)*10)/10)+'%';
+   // nCaNO3.Caption:='Селитра кальциевая'
+   //+ ' CaO-' +floattostr(Round((CaNO3_Ca.value/0.714691)*10)/10)+'%'
+   //+ ' N-' +floattostr(Round((CaNO3_NH4.value+CaNO3_NO3.value)*10)/10)+'%';
+    SoilName;
     CalcWeight ;
 
   end;
@@ -2069,10 +2261,8 @@ begin
       CaNO3_NO3.value:= (2 * CaNO3_Ca.value *FloatSpinEdit2 + CaNO3_NH4.value*mCa)/mCa  ;
   CaNO3_Ca.value:= -mCa*( CaNO3_NH4.value - CaNO3_NO3.value)/(2*FloatSpinEdit2)  ;
 
-  nCaNO3.Caption:='Селитра кальциевая'
- + ' CaO-' +floattostr(Round((CaNO3_Ca.value/0.714691)*10)/10)+'%'
- + ' N-' +floattostr(Round((CaNO3_NH4.value+CaNO3_NO3.value)*10)/10)+'%';
-        CalcWeight ;
+  SoilName;
+  CalcWeight ;
   end;
 end;
 
@@ -2093,9 +2283,7 @@ procedure TKf.CaNO3_NO3Change(Sender: TObject);
 begin
   if ( CaNO3_NO3.Focused = True )    then begin
     CaNO3_Ca.value:= -mCa*( CaNO3_NH4.value - CaNO3_NO3.value)/(2*FloatSpinEdit2)  ;
-    nCaNO3.Caption:='Селитра кальциевая'
-   + ' CaO-' +floattostr(Round((CaNO3_Ca.value/0.714691)*10)/10)+'%'
-   + ' N-' +floattostr(Round((CaNO3_NH4.value+CaNO3_NO3.value)*10)/10)+'%';
+    SoilName;
     CalcWeight ;
   end;
 end;
@@ -2129,11 +2317,12 @@ end;
 procedure TKf.CaSChange(Sender: TObject);
 begin
    if ( CaS.Focused = True )    then begin
-      Ca.value:=S.value*CaS.value;
-    CalculateS;
-  CalcKoef;
-  CalcWeight ;
-  CalcEC;
+
+      S.value:= Ca.value/CaS.value;
+      CalculateCa;
+      CalcAll;
+
+
   end;
 end;
 
@@ -2253,6 +2442,11 @@ begin
   CalcAll;
 end;
 
+procedure TKf.eFileNameChange(Sender: TObject);
+begin
+  C_FNAME:=eFileName.Caption;
+end;
+
 
 
 procedure TKf.FeChange(Sender: TObject);
@@ -2266,10 +2460,12 @@ end;
 
 procedure TKf.FormActivate(Sender: TObject);
 begin
-
+  C_FNAME:='setting.txt';
+  eFileName.Caption:=C_FNAME;
    //CalcKoef;
    CalcAll;
    CalcKoef;
+   SoilName;
 end;
 
 procedure TKf.FormChangeBounds(Sender: TObject);
@@ -2646,6 +2842,8 @@ begin
   // Связываем имя файла с переменной
   AssignFile(tfOut, C_FNAME);
     rewrite(tfOut);
+
+    writeln(tfOut,'Comment=',eComment.Caption);
     // Macro Profile
     writeln(tfOut,'N=',FloatToStr(N.value));
     writeln(tfOut,'NH4=',FloatToStr(NH4.value));
@@ -2702,6 +2900,43 @@ begin
      writeln(tfOut,'dCo=',FloatToStr(dCo.Value));
      writeln(tfOut,'dSi=',FloatToStr(dSi.Value));
 
+     // Концентрации
+     writeln(tfOut,'glCaNO3=',FloatToStr(glCaNO3.Value));
+     writeln(tfOut,'glKNO3=',FloatToStr(glKNO3.Value));
+     writeln(tfOut,'glNH4NO3=',FloatToStr(glNH4NO3.Value));
+     writeln(tfOut,'glMgNO3=',FloatToStr(glMgNO3.Value));
+     writeln(tfOut,'glMgSO4=',FloatToStr(glMgSO4.Value));
+     writeln(tfOut,'glK2SO4=',FloatToStr(glK2SO4.Value));
+     writeln(tfOut,'glKH2PO4=',FloatToStr(glKH2PO4.Value));
+
+     writeln(tfOut,'glCmplx=',FloatToStr(glCmplx.Value));
+     writeln(tfOut,'glFe=',FloatToStr(glFe.Value));
+     writeln(tfOut,'glMn=',FloatToStr(glMn.Value));
+     writeln(tfOut,'glB=',FloatToStr(glB.Value));
+     writeln(tfOut,'glZn=',FloatToStr(glZn.Value));
+     writeln(tfOut,'glCu=',FloatToStr(glCu.Value));
+     writeln(tfOut,'glMo=',FloatToStr(glMo.Value));
+     writeln(tfOut,'glCo=',FloatToStr(glCo.Value));
+     writeln(tfOut,'glSi=',FloatToStr(glSi.Value));
+
+     // Плотности
+     writeln(tfOut,'gmlCaNO3=',FloatToStr(gmlCaNO3.Value));
+     writeln(tfOut,'gmlKNO3=',FloatToStr(gmlKNO3.Value));
+     writeln(tfOut,'gmlNH4NO3=',FloatToStr(gmlNH4NO3.Value));
+     writeln(tfOut,'gmlMgNO3=',FloatToStr(gmlMgNO3.Value));
+     writeln(tfOut,'gmlMgSO4=',FloatToStr(gmlMgSO4.Value));
+     writeln(tfOut,'gmlK2SO4=',FloatToStr(gmlK2SO4.Value));
+     writeln(tfOut,'gmlKH2PO4=',FloatToStr(gmlKH2PO4.Value));
+
+     writeln(tfOut,'gmlCmplx=',FloatToStr(gmlCmplx.Value));
+     writeln(tfOut,'gmlFe=',FloatToStr(gmlFe.Value));
+     writeln(tfOut,'gmlMn=',FloatToStr(gmlMn.Value));
+     writeln(tfOut,'gmlB=',FloatToStr(gmlB.Value));
+     writeln(tfOut,'gmlZn=',FloatToStr(gmlZn.Value));
+     writeln(tfOut,'gmlCu=',FloatToStr(gmlCu.Value));
+     writeln(tfOut,'gmlMo=',FloatToStr(gmlMo.Value));
+     writeln(tfOut,'gmlCo=',FloatToStr(gmlCo.Value));
+     writeln(tfOut,'gmlSi=',FloatToStr(gmlSi.Value));
 
     CloseFile(tfOut);
 end;
@@ -2814,6 +3049,8 @@ end;
 
 procedure TKf.TabSheet3Show(Sender: TObject);
 begin
+    CalcWeight ;
+    microToWeght;
   CalcConc;
 end;
 
