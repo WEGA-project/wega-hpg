@@ -33,11 +33,11 @@ object Kf: TKf
     Height = 667
     Top = 0
     Width = 689
-    ActivePage = TabSheet3
+    ActivePage = TabSheet1
     Font.Height = -14
     Font.Name = 'Arial'
     ParentFont = False
-    TabIndex = 2
+    TabIndex = 0
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'Макро'
@@ -3204,7 +3204,8 @@ object Kf: TKf
         Font.Height = -14
         Font.Name = 'Arial'
         Increment = 0.01
-        MinValue = 0
+        MaxValue = 9999999999
+        MinValue = -999999999
         OnChange = gCaNO3Change
         ParentFont = False
         ReadOnly = True
@@ -3219,7 +3220,8 @@ object Kf: TKf
         Font.Height = -14
         Font.Name = 'Arial'
         Increment = 0.01
-        MinValue = 0
+        MaxValue = 9999999999
+        MinValue = -999999999
         OnChange = gKNO3Change
         ParentFont = False
         ReadOnly = True
@@ -3234,7 +3236,8 @@ object Kf: TKf
         Font.Height = -14
         Font.Name = 'Arial'
         Increment = 0.01
-        MinValue = 0
+        MaxValue = 9999999999
+        MinValue = -999999999
         OnChange = gNH4NO3Change
         ParentFont = False
         ReadOnly = True
@@ -3249,7 +3252,8 @@ object Kf: TKf
         Font.Height = -14
         Font.Name = 'Arial'
         Increment = 0.01
-        MinValue = 0
+        MaxValue = 9999999999
+        MinValue = -999999999
         OnChange = gMgNO3Change
         ParentFont = False
         ReadOnly = True
@@ -3264,8 +3268,8 @@ object Kf: TKf
         Font.Height = -14
         Font.Name = 'Arial'
         Increment = 0.01
-        MaxValue = 99999999
-        MinValue = -99999999
+        MaxValue = 9999999999
+        MinValue = -999999999
         OnChange = gMgSO4Change
         ParentFont = False
         ReadOnly = True
@@ -3280,8 +3284,8 @@ object Kf: TKf
         Font.Height = -14
         Font.Name = 'Arial'
         Increment = 0.01
-        MaxValue = 99999999
-        MinValue = -99999999
+        MaxValue = 9999999999
+        MinValue = -999999999
         OnChange = gKH2PO4Change
         ParentFont = False
         ReadOnly = True
@@ -3296,8 +3300,8 @@ object Kf: TKf
         Font.Height = -14
         Font.Name = 'Arial'
         Increment = 0.01
-        MaxValue = 99999999
-        MinValue = -99999999
+        MaxValue = 9999999999
+        MinValue = -999999999
         OnChange = gK2SO4Change
         ParentFont = False
         ReadOnly = True
@@ -3312,7 +3316,8 @@ object Kf: TKf
         Font.Height = -14
         Font.Name = 'Arial'
         Increment = 0.01
-        MinValue = 0
+        MaxValue = 9999999999
+        MinValue = -999999999
         OnChange = dFeChange
         ParentFont = False
         ReadOnly = True
@@ -3327,7 +3332,8 @@ object Kf: TKf
         Font.Height = -14
         Font.Name = 'Arial'
         Increment = 0.01
-        MinValue = 0
+        MaxValue = 9999999999
+        MinValue = -999999999
         OnChange = dMnChange
         ParentFont = False
         ReadOnly = True
@@ -3342,7 +3348,8 @@ object Kf: TKf
         Font.Height = -14
         Font.Name = 'Arial'
         Increment = 0.01
-        MinValue = 0
+        MaxValue = 9999999999
+        MinValue = -999999999
         OnChange = dBChange
         ParentFont = False
         ReadOnly = True
@@ -3357,7 +3364,8 @@ object Kf: TKf
         Font.Height = -14
         Font.Name = 'Arial'
         Increment = 0.01
-        MinValue = 0
+        MaxValue = 9999999999
+        MinValue = -999999999
         OnChange = dZnChange
         ParentFont = False
         ReadOnly = True
@@ -3372,7 +3380,8 @@ object Kf: TKf
         Font.Height = -14
         Font.Name = 'Arial'
         Increment = 0.01
-        MinValue = 0
+        MaxValue = 9999999999
+        MinValue = -999999999
         OnChange = dCuChange
         ParentFont = False
         ReadOnly = True
@@ -3387,7 +3396,8 @@ object Kf: TKf
         Font.Height = -14
         Font.Name = 'Arial'
         Increment = 0.01
-        MinValue = 0
+        MaxValue = 9999999999
+        MinValue = -999999999
         OnChange = dMoChange
         ParentFont = False
         ReadOnly = True
@@ -3402,7 +3412,8 @@ object Kf: TKf
         Font.Height = -14
         Font.Name = 'Arial'
         Increment = 0.01
-        MinValue = 0
+        MaxValue = 9999999999
+        MinValue = -999999999
         OnChange = dCoChange
         ParentFont = False
         ReadOnly = True
@@ -3417,7 +3428,8 @@ object Kf: TKf
         Font.Height = -14
         Font.Name = 'Arial'
         Increment = 0.01
-        MinValue = 0
+        MaxValue = 9999999999
+        MinValue = -999999999
         OnChange = dSiChange
         ParentFont = False
         ReadOnly = True
@@ -3517,7 +3529,8 @@ object Kf: TKf
         Font.Height = -14
         Font.Name = 'Arial'
         Increment = 0.01
-        MinValue = 0
+        MaxValue = 9999999999
+        MinValue = -999999999
         OnChange = dFeChange
         ParentFont = False
         ReadOnly = True
