@@ -15,13 +15,13 @@ object Kf: TKf
   OnCreate = FormCreate
   LCLVersion = '2.0.6.0'
   object Label1: TLabel
-    Left = 454
-    Height = 16
+    Left = 471
+    Height = 14
     Top = 700
-    Width = 248
+    Width = 208
     Caption = 'Hydroponic Profile Generator v0.041'
     Font.Color = clActiveCaption
-    Font.Height = -14
+    Font.Height = -12
     Font.Name = 'Arial'
     Font.Style = [fsBold]
     ParentColor = False

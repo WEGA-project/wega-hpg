@@ -19,7 +19,7 @@ object Kf: TKf
     Height = 14
     Top = 700
     Width = 208
-    Caption = 'Hydroponic Profile Generator v0.041'
+    Caption = 'Hydroponic Profile Generator v0.042'
     Font.Color = clActiveCaption
     Font.Height = -12
     Font.Name = 'Arial'
