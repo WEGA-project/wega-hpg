@@ -731,7 +731,7 @@ begin
   if ( Kf.SMg.Focused = False ) then Kf.SMg.value:=Kf.S.Value/Kf.Mg.value;
 
 
-
+  if ( Kf.NH4NO3.Focused = False ) then Kf.NH4NO3.value:=Kf.NH4.Value/Kf.NO3.value;
 end;
 
 
@@ -2255,11 +2255,28 @@ end;
 procedure TKf.CaSChange(Sender: TObject);
 begin
    if ( CaS.Focused = True )    then begin
-      Ca.value:=S.value*CaS.value;
-    CalculateS;
-  CalcKoef;
-  CalcWeight ;
-  CalcEC;
+      //Ca.value:=S.value*CaS.value;
+      S.value:= Ca.value/CaS.value;
+      //CalcEC;
+      CalculateCa;
+      //CalculateS;
+      //CalculateCa;
+      //CalcKoef;
+      CalcAll;
+      //calcECtoVal;
+      //CalculateS;
+      //CalculateS;
+      //CalculateCa;
+
+    //CalculateS;
+  //   CalcEC;
+  //   CalculateS;
+  //CalcKoef;
+  //CalcWeight ;
+  //CalcEC;
+  //CalcAll;
+  //calcECtoVal;
+
   end;
 end;
 

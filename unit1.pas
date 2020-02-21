@@ -2255,11 +2255,12 @@ end;
 procedure TKf.CaSChange(Sender: TObject);
 begin
    if ( CaS.Focused = True )    then begin
-      Ca.value:=S.value*CaS.value;
-    CalculateS;
-  CalcKoef;
-  CalcWeight ;
-  CalcEC;
+
+      S.value:= Ca.value/CaS.value;
+      CalculateCa;
+      CalcAll;
+
+
   end;
 end;
 
