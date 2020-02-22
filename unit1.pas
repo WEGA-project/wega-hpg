@@ -1055,14 +1055,14 @@ procedure microToWeght; begin
  Kf.gSi.Visible:=true;
  Kf.gCmplx.Visible:=false;
 
- Kf.gFe.value:=Kf.Fe.value/Kf.dFe.value*Kf.V.value/10000;
- Kf.gMn.value:=Kf.Mn.value/Kf.dMn.value*Kf.V.value/10000;
- Kf.gB.value:=Kf.B.value/Kf.dB.value*Kf.V.value/10000;
- Kf.gZn.value:=Kf.Zn.value/Kf.dZn.value*Kf.V.value/10000;
- Kf.gCu.value:=Kf.Cu.value/Kf.dCu.value*Kf.V.value/10000;
- Kf.gMo.value:=Kf.Mo.value/Kf.dMo.value*Kf.V.value/10000;
- Kf.gCo.value:=Kf.Co.value/Kf.dCo.value*Kf.V.value/10000;
- Kf.gSi.value:=Kf.Si.value/Kf.dSi.value*Kf.V.value/10000;
+ if Kf.dFe.value >0 then Kf.gFe.value:=Kf.Fe.value/Kf.dFe.value*Kf.V.value/10000 else Kf.gFe.value:=0;
+ if Kf.dMn.value >0 then Kf.gMn.value:=Kf.Mn.value/Kf.dMn.value*Kf.V.value/10000 else Kf.gMn.value:=0;
+ if Kf.dB.value >0 then Kf.gB.value:=Kf.B.value/Kf.dB.value*Kf.V.value/10000 else Kf.gB.value:=0;
+ if Kf.dZn.value >0 then Kf.gZn.value:=Kf.Zn.value/Kf.dZn.value*Kf.V.value/10000 else Kf.gZn.value:=0;
+ if Kf.dCu.value >0 then Kf.gCu.value:=Kf.Cu.value/Kf.dCu.value*Kf.V.value/10000 else Kf.gCu.value:=0;
+ if Kf.dMo.value >0 then Kf.gMo.value:=Kf.Mo.value/Kf.dMo.value*Kf.V.value/10000 else Kf.gMo.value:=0;
+ if Kf.dCo.value >0 then Kf.gCo.value:=Kf.Co.value/Kf.dCo.value*Kf.V.value/10000 else Kf.gCo.value:=0;
+ if Kf.dSi.value >0 then Kf.gSi.value:=Kf.Si.value/Kf.dSi.value*Kf.V.value/10000 else Kf.gSi.value:=0;
 
   Kf.Fe.ReadOnly :=false;
 Kf.Mn.ReadOnly:=false;

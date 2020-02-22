@@ -3548,7 +3548,7 @@ object Kf: TKf
       ParentFont = False
       object eComment: TEdit
         Left = 14
-        Height = 27
+        Height = 26
         Top = 43
         Width = 551
         Font.Height = -14
@@ -3559,7 +3559,7 @@ object Kf: TKf
       end
       object eFileName: TEdit
         Left = 14
-        Height = 27
+        Height = 26
         Top = 14
         Width = 123
         Font.Height = -14
