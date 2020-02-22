@@ -1007,7 +1007,7 @@ begin
      if (IsWordPresent('K',curVar, ['='] ) = true) then  Kf.K.value:=StrToFloat(curValue,MyFormatSettings);
      if (IsWordPresent('Ca',curVar, ['='] ) = true) then  Kf.Ca.value:=StrToFloat(curValue,MyFormatSettings);
      if (IsWordPresent('Mg',curVar, ['='] ) = true) then  Kf.Mg.value:=StrToFloat(curValue,MyFormatSettings);
-     //if (IsWordPresent('S',curVar, ['='] ) = true) then  Kf.S.value:=StrToFloat(curValue,MyFormatSettings);
+     //if (IsWordPresent('S',curVar, ['='] ) = true) then  Kf.S.value:=StrToFloat(curValue,MyFormatSettings); MyFormatSettings.DecimalSeparator := '.';
 
      //if (IsWordPresent('EC',curVar, ['='] ) = true) then  Kf.EC.value:=StrToFloat(curValue,MyFormatSettings);
      //if (IsWordPresent('K:N',curVar, ['='] ) = true) then  Kf.KN.value:=StrToFloat(curValue,MyFormatSettings);
@@ -1152,11 +1152,15 @@ end;
 
 
 procedure SoilName;
+
+
 begin
+    //StrToFloat(curValue,MyFormatSettings);
+
 // Селитра кальциевая
 if (Kf.CaNO3_NH4.value = 0) then begin
 
-    case FloatToStr(round(Kf.CaNO3_Ca.value*10)/10) of
+    case FloatToStr(round(Kf.CaNO3_Ca.value*10)/10,MyFormatSettings) of
       '17':  Kf.nCaNO3.Caption:='Кальций азотнокислый Са(NО3)2*4H2O';
       '20':  Kf.nCaNO3.Caption:='Кальций азотнокислый Ca(NO3)2*2H2O';
       '24.4':  Kf.nCaNO3.Caption:='Кальций азотнокислый Ca(NO3)2';
@@ -2045,7 +2049,8 @@ begin
            if (IsWordPresent('dCo', str, ['=']) = true) then dCo.value:=StrToFloat(ExtractWord(2,str,['=']));
            if (IsWordPresent('dSi', str, ['=']) = true) then dSi.value:=StrToFloat(ExtractWord(2,str,['=']));
 
-
+           if (IsWordPresent('chkComplex', str, ['=']) = true) then chkComplex.Checked:=StrToBool(ExtractWord(2,str,['=']));
+           //writeln(tfOut,'chkComplex=',chkComplex.Checked);
 
                 // Концентрации
            if (IsWordPresent('glCaNO3', str, ['=']) = true) then glCaNO3.value:=StrToFloat(ExtractWord(2,str,['=']));
@@ -2937,6 +2942,8 @@ begin
      writeln(tfOut,'gmlMo=',FloatToStr(gmlMo.Value));
      writeln(tfOut,'gmlCo=',FloatToStr(gmlCo.Value));
      writeln(tfOut,'gmlSi=',FloatToStr(gmlSi.Value));
+
+     writeln(tfOut,'chkComplex=',chkComplex.Checked);
 
     CloseFile(tfOut);
 end;

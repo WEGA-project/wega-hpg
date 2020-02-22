@@ -1007,7 +1007,7 @@ begin
      if (IsWordPresent('K',curVar, ['='] ) = true) then  Kf.K.value:=StrToFloat(curValue,MyFormatSettings);
      if (IsWordPresent('Ca',curVar, ['='] ) = true) then  Kf.Ca.value:=StrToFloat(curValue,MyFormatSettings);
      if (IsWordPresent('Mg',curVar, ['='] ) = true) then  Kf.Mg.value:=StrToFloat(curValue,MyFormatSettings);
-     //if (IsWordPresent('S',curVar, ['='] ) = true) then  Kf.S.value:=StrToFloat(curValue,MyFormatSettings);
+     //if (IsWordPresent('S',curVar, ['='] ) = true) then  Kf.S.value:=StrToFloat(curValue,MyFormatSettings); MyFormatSettings.DecimalSeparator := '.';
 
      //if (IsWordPresent('EC',curVar, ['='] ) = true) then  Kf.EC.value:=StrToFloat(curValue,MyFormatSettings);
      //if (IsWordPresent('K:N',curVar, ['='] ) = true) then  Kf.KN.value:=StrToFloat(curValue,MyFormatSettings);
@@ -1152,11 +1152,15 @@ end;
 
 
 procedure SoilName;
+
+
 begin
+    //StrToFloat(curValue,MyFormatSettings);
+
 // Селитра кальциевая
 if (Kf.CaNO3_NH4.value = 0) then begin
 
-    case FloatToStr(round(Kf.CaNO3_Ca.value*10)/10) of
+    case FloatToStr(round(Kf.CaNO3_Ca.value*10)/10,MyFormatSettings) of
       '17':  Kf.nCaNO3.Caption:='Кальций азотнокислый Са(NО3)2*4H2O';
       '20':  Kf.nCaNO3.Caption:='Кальций азотнокислый Ca(NO3)2*2H2O';
       '24.4':  Kf.nCaNO3.Caption:='Кальций азотнокислый Ca(NO3)2';
@@ -1172,7 +1176,7 @@ else begin
       end;
 
 // Селитра калиевая
-case FloatToStr(round(Kf.KNO3_K.value*10)/10) of
+case FloatToStr(round(Kf.KNO3_K.value*10)/10,MyFormatSettings) of
    '38.7':  Kf.nKNO3.Caption:='Калий азотнокислый KNO3';
  else
    Kf.nKNO3.Caption:='Селитра калиевая'
@@ -1181,14 +1185,14 @@ case FloatToStr(round(Kf.KNO3_K.value*10)/10) of
  end;
 
 // Селитра аммиачная
-case FloatToStr(round(Kf.NH4NO3_NO3.value*10)/10) of
+case FloatToStr(round(Kf.NH4NO3_NO3.value*10)/10,MyFormatSettings) of
    '17.5':  Kf.nNH4NO3.Caption:='Аммоний азотнокислый NH4NO3';
  else
    Kf.nNH4NO3.Caption:='Селитра аммиачная'
 + ' N-' +floattostr(Round((Kf.NH4NO3_NH4.value+Kf.NH4NO3_NO3.value)*10)/10)+'%';
  end;
 // Сульфат магния
-case FloatToStr(round(Kf.MgSO4_Mg.value*10)/10) of
+case FloatToStr(round(Kf.MgSO4_Mg.value*10)/10,MyFormatSettings) of
    '9.9':  Kf.nMgSO4.Caption:='Магний сернокислый MgSO4*7H2O';
    '20.2':  Kf.nMgSO4.Caption:='Магний сернокислый MgSO4';
  else
@@ -1197,7 +1201,7 @@ case FloatToStr(round(Kf.MgSO4_Mg.value*10)/10) of
    + ' SO3-' +floattostr(Round((Kf.MgSO4_S.value/0.400496)*10)/10)+'%';
  end;
 // Монофосфат калия
-case FloatToStr(round(Kf.KH2PO4_K.value*10)/10) of
+case FloatToStr(round(Kf.KH2PO4_K.value*10)/10,MyFormatSettings) of
    '28.7':  Kf.nKH2PO4.Caption:='Калий фосфорнокислый KH2PO4';
  else
    Kf.nKH2PO4.Caption:='Монофосфат калия'
@@ -1205,7 +1209,7 @@ case FloatToStr(round(Kf.KH2PO4_K.value*10)/10) of
    + ' P2O5-' +floattostr(Round((Kf.KH2PO4_P.value/0.436421)*10)/10)+'%';
  end;
 // Сульфат калия
-case FloatToStr(round(Kf.K2SO4_K.value*10)/10) of
+case FloatToStr(round(Kf.K2SO4_K.value*10)/10,MyFormatSettings) of
    '44.9':  Kf.nK2SO4.Caption:='Калий сернокислый K2SO4';
  else
    Kf.nK2SO4.Caption:='Сульфат калия'
@@ -1213,7 +1217,7 @@ case FloatToStr(round(Kf.K2SO4_K.value*10)/10) of
    + ' SO3-' +floattostr(Round((Kf.K2SO4_S.value/0.400496)*10)/10)+'%';
  end;
 // Селитра магниевая
-case FloatToStr(round(Kf.MgNO3_Mg.value*10)/10) of
+case FloatToStr(round(Kf.MgNO3_Mg.value*10)/10,MyFormatSettings) of
    '9.5':  Kf.nMgNO3.Caption:='Магний азотнокислый Mg(NO3)2*6H2O';
    '16.4':  Kf.nMgNO3.Caption:='Магний азотнокислый Mg(NO3)2';
  else
@@ -2045,7 +2049,8 @@ begin
            if (IsWordPresent('dCo', str, ['=']) = true) then dCo.value:=StrToFloat(ExtractWord(2,str,['=']));
            if (IsWordPresent('dSi', str, ['=']) = true) then dSi.value:=StrToFloat(ExtractWord(2,str,['=']));
 
-
+           if (IsWordPresent('chkComplex', str, ['=']) = true) then chkComplex.Checked:=StrToBool(ExtractWord(2,str,['=']));
+           //writeln(tfOut,'chkComplex=',chkComplex.Checked);
 
                 // Концентрации
            if (IsWordPresent('glCaNO3', str, ['=']) = true) then glCaNO3.value:=StrToFloat(ExtractWord(2,str,['=']));
@@ -2937,6 +2942,8 @@ begin
      writeln(tfOut,'gmlMo=',FloatToStr(gmlMo.Value));
      writeln(tfOut,'gmlCo=',FloatToStr(gmlCo.Value));
      writeln(tfOut,'gmlSi=',FloatToStr(gmlSi.Value));
+
+     writeln(tfOut,'chkComplex=',chkComplex.Checked);
 
     CloseFile(tfOut);
 end;
