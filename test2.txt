@@ -70,3 +70,4 @@ gmlCu=1
 gmlMo=1
 gmlCo=1
 gmlSi=1
+chkComplex=TRUE
