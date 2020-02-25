@@ -5,8 +5,8 @@ unit Unit1;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  Spin, ComCtrls,strutils,LCLIntf, ExtCtrls ;
+  Classes, SysUtils, FileUtil, DateTimePicker, Forms, Controls, Graphics,
+  Dialogs, StdCtrls, Spin, ComCtrls, strutils, LCLIntf, ExtCtrls, Menus ;
 const
 
   StdWordDelims = ['='] + Brackets;
@@ -19,17 +19,66 @@ type
     bload: TButton;
     bloadpf: TButton;
     Button1: TButton;
+    CheckBox1: TCheckBox;
+    CheckBox10: TCheckBox;
+    CheckBox11: TCheckBox;
+    CheckBox12: TCheckBox;
+    CheckBox13: TCheckBox;
+    CheckBox14: TCheckBox;
+    CheckBox15: TCheckBox;
+    CheckBox16: TCheckBox;
+    CheckBox2: TCheckBox;
+    CheckBox3: TCheckBox;
+    CheckBox4: TCheckBox;
+    CheckBox5: TCheckBox;
+    CheckBox6: TCheckBox;
+    CheckBox7: TCheckBox;
+    CheckBox8: TCheckBox;
+    CheckBox9: TCheckBox;
     chkComplex: TCheckBox;
+    DateTimePicker1: TDateTimePicker;
     eComment: TEdit;
+    mCaNO10: TEdit;
+    mCaNO11: TEdit;
+    mCaNO12: TEdit;
+    mCaNO13: TEdit;
+    mCaNO14: TEdit;
+    mCaNO15: TEdit;
+    mCaNO16: TEdit;
+    mCaNO17: TEdit;
+    mCaNO18: TEdit;
+    mCaNO3: TEdit;
     eFileName: TEdit;
     ggCmplx: TFloatSpinEdit;
     glB: TFloatSpinEdit;
     glCmplx: TFloatSpinEdit;
     gmlB: TFloatSpinEdit;
     gmlCmplx: TFloatSpinEdit;
+    knCaNO4: TLabel;
+    knK2SO5: TLabel;
+    knKH2PO5: TLabel;
+    knKNO4: TLabel;
+    knMgNO4: TLabel;
+    knMgSO5: TLabel;
+    knNH4NO4: TLabel;
     Label30: TLabel;
     Label59: TLabel;
+    lB1: TLabel;
     lCmplx: TLabel;
+    lCmplx1: TLabel;
+    lCo1: TLabel;
+    lCu1: TLabel;
+    lFe1: TLabel;
+    lMn1: TLabel;
+    lMo1: TLabel;
+    lSi1: TLabel;
+    lZn1: TLabel;
+    mCaNO4: TEdit;
+    mCaNO5: TEdit;
+    mCaNO6: TEdit;
+    mCaNO7: TEdit;
+    mCaNO8: TEdit;
+    mCaNO9: TEdit;
     mlB: TFloatSpinEdit;
     ggB: TFloatSpinEdit;
     glCo: TFloatSpinEdit;
@@ -127,6 +176,7 @@ type
     knMgNO3: TLabel;
     knMgSO4: TLabel;
     knNH4NO3: TLabel;
+    PageControl2: TPageControl;
     Si: TFloatSpinEdit;
     Mo: TFloatSpinEdit;
     StaticText1: TStaticText;
@@ -135,6 +185,8 @@ type
     StaticText4: TStaticText;
     TabSheet3: TTabSheet;
     TabSheet4: TTabSheet;
+    TabSheet5: TTabSheet;
+    TabSheet6: TTabSheet;
     Zn: TFloatSpinEdit;
     Mn: TFloatSpinEdit;
     Label31: TLabel;
@@ -330,6 +382,7 @@ type
     procedure ECChange(Sender: TObject);
 
     procedure ECClick(Sender: TObject);
+    procedure e1Change(Sender: TObject);
     procedure eFileNameChange(Sender: TObject);
 
     procedure FeChange(Sender: TObject);
@@ -2445,6 +2498,11 @@ procedure TKf.ECClick(Sender: TObject);
 begin
   calcECtoVal;
   CalcAll;
+end;
+
+procedure TKf.e1Change(Sender: TObject);
+begin
+
 end;
 
 procedure TKf.eFileNameChange(Sender: TObject);
