@@ -21,21 +21,21 @@ type
     Button1: TButton;
     Button2: TButton;
     CheckBox1: TCheckBox;
-    CheckBox10: TCheckBox;
-    CheckBox11: TCheckBox;
-    CheckBox12: TCheckBox;
-    CheckBox13: TCheckBox;
-    CheckBox14: TCheckBox;
-    CheckBox15: TCheckBox;
-    CheckBox16: TCheckBox;
+    cbCmplx: TCheckBox;
+    cbCu: TCheckBox;
+    cbZn: TCheckBox;
+    cbB: TCheckBox;
+    cbSi: TCheckBox;
+    cbCo: TCheckBox;
+    cbMo: TCheckBox;
     CheckBox2: TCheckBox;
     CheckBox3: TCheckBox;
     CheckBox4: TCheckBox;
     CheckBox5: TCheckBox;
     CheckBox6: TCheckBox;
     CheckBox7: TCheckBox;
-    CheckBox8: TCheckBox;
-    CheckBox9: TCheckBox;
+    cbMn: TCheckBox;
+    cbFe: TCheckBox;
     chkComplex: TCheckBox;
     DateTimePicker1: TDateTimePicker;
     eComment: TEdit;
@@ -54,6 +54,7 @@ type
     g2gSi: TEdit;
     g2gCaNO3: TEdit;
     Label73: TLabel;
+    l2Cmplx: TLabel;
     mCmplx: TEdit;
     mFe: TEdit;
     mMn: TEdit;
@@ -81,7 +82,6 @@ type
     Label59: TLabel;
     l2B: TLabel;
     lCmplx: TLabel;
-    l2Cmplx: TLabel;
     l2Co: TLabel;
     l2Cu: TLabel;
     l2Fe: TLabel;
@@ -1072,14 +1072,15 @@ begin
     Kf.k2nKH2PO4.Caption:= Kf.knKH2PO4.caption + ' (' + FloatToStr(Kf.glKH2PO4.Value)+ ' г/л, '+FloatToStr(Kf.gmlKH2PO4.Value)+ ' г/мл)';
     Kf.k2nK2SO4.Caption:= Kf.knK2SO4.caption + ' (' + FloatToStr(Kf.glK2SO4.Value)+ ' г/л, '+FloatToStr(Kf.gmlK2SO4.Value)+ ' г/мл)';
 
+    Kf.l2Cmplx.Caption:= Kf.lCmplx.caption + ' (' + FloatToStr(Kf.glCmplx.Value)+ ' г/л, '+FloatToStr(Kf.gmlCmplx.Value)+ ' г/мл)';
     Kf.l2Fe.Caption:= Kf.lFe.caption + ' (' + FloatToStr(Kf.glFe.Value)+ ' г/л, '+FloatToStr(Kf.gmlFe.Value)+ ' г/мл)';
-    Kf.l2Mn.Caption:= Kf.lFe.caption + ' (' + FloatToStr(Kf.glMn.Value)+ ' г/л, '+FloatToStr(Kf.gmlMn.Value)+ ' г/мл)';
-    Kf.l2Fe.Caption:= Kf.lB.caption + ' (' + FloatToStr(Kf.glB.Value)+ ' г/л, '+FloatToStr(Kf.gmlB.Value)+ ' г/мл)';
-    Kf.l2Fe.Caption:= Kf.lZn.caption + ' (' + FloatToStr(Kf.glZn.Value)+ ' г/л, '+FloatToStr(Kf.gmlZn.Value)+ ' г/мл)';
-    Kf.l2Fe.Caption:= Kf.lCu.caption + ' (' + FloatToStr(Kf.glCu.Value)+ ' г/л, '+FloatToStr(Kf.gmlCu.Value)+ ' г/мл)';
-    Kf.l2Fe.Caption:= Kf.lMo.caption + ' (' + FloatToStr(Kf.glMo.Value)+ ' г/л, '+FloatToStr(Kf.gmlMo.Value)+ ' г/мл)';
-    Kf.l2Fe.Caption:= Kf.lCo.caption + ' (' + FloatToStr(Kf.glCo.Value)+ ' г/л, '+FloatToStr(Kf.gmlCo.Value)+ ' г/мл)';
-    Kf.l2Fe.Caption:= Kf.lSi.caption + ' (' + FloatToStr(Kf.glSi.Value)+ ' г/л, '+FloatToStr(Kf.gmlSi.Value)+ ' г/мл)';
+    Kf.l2Mn.Caption:= Kf.lMn.caption + ' (' + FloatToStr(Kf.glMn.Value)+ ' г/л, '+FloatToStr(Kf.gmlMn.Value)+ ' г/мл)';
+    Kf.l2B.Caption:= Kf.lB.caption + ' (' + FloatToStr(Kf.glB.Value)+ ' г/л, '+FloatToStr(Kf.gmlB.Value)+ ' г/мл)';
+    Kf.l2Zn.Caption:= Kf.lZn.caption + ' (' + FloatToStr(Kf.glZn.Value)+ ' г/л, '+FloatToStr(Kf.gmlZn.Value)+ ' г/мл)';
+    Kf.l2Cu.Caption:= Kf.lCu.caption + ' (' + FloatToStr(Kf.glCu.Value)+ ' г/л, '+FloatToStr(Kf.gmlCu.Value)+ ' г/мл)';
+    Kf.l2Mo.Caption:= Kf.lMo.caption + ' (' + FloatToStr(Kf.glMo.Value)+ ' г/л, '+FloatToStr(Kf.gmlMo.Value)+ ' г/мл)';
+    Kf.l2Co.Caption:= Kf.lCo.caption + ' (' + FloatToStr(Kf.glCo.Value)+ ' г/л, '+FloatToStr(Kf.gmlCo.Value)+ ' г/мл)';
+    Kf.l2Si.Caption:= Kf.lSi.caption + ' (' + FloatToStr(Kf.glSi.Value)+ ' г/л, '+FloatToStr(Kf.gmlSi.Value)+ ' г/мл)';
     //
 end;
 
@@ -1148,10 +1149,22 @@ procedure microToWeght; begin
  Kf.gZn.Visible:=true;
  Kf.gCu.Visible:=true;
  Kf.gMo.Visible:=true;
- Kf.gMo.Visible:=true;
  Kf.gCo.Visible:=true;
  Kf.gSi.Visible:=true;
  Kf.gCmplx.Visible:=false;
+// На форме изготовление
+ Kf.g2gFe.Visible:=true; Kf.cbFe.Visible:=true; Kf.mFe.Visible:=true;  Kf.l2Fe.Visible:=true;
+ Kf.g2gMn.Visible:=true; Kf.cbMn.Visible:=true; Kf.mMn.Visible:=true;  Kf.l2Mn.Visible:=true;
+ Kf.g2gB.Visible:=true;  Kf.cbB.Visible:=true; Kf.mB.Visible:=true;  Kf.l2B.Visible:=true;
+ Kf.g2gZn.Visible:=true; Kf.cbZn.Visible:=true; Kf.mZn.Visible:=true;  Kf.l2Zn.Visible:=true;
+ Kf.g2gCu.Visible:=true; Kf.cbCu.Visible:=true; Kf.mCu.Visible:=true;  Kf.l2Cu.Visible:=true;
+ Kf.g2gMo.Visible:=true; Kf.cbMo.Visible:=true; Kf.mMo.Visible:=true;  Kf.l2Mo.Visible:=true;
+ Kf.g2gCo.Visible:=true; Kf.cbCo.Visible:=true; Kf.mCo.Visible:=true;  Kf.l2Co.Visible:=true;
+ Kf.g2gSi.Visible:=true; Kf.cbSi.Visible:=true; Kf.mSi.Visible:=true;  Kf.l2Si.Visible:=true;
+ Kf.g2gCmplx.Visible:=false; Kf.cbCmplx.Visible:=false; Kf.mCmplx.Visible:=false;  Kf.l2Cmplx.Visible:=false;
+
+
+
 
  if Kf.dFe.value >0 then Kf.gFe.value:=Kf.Fe.value/Kf.dFe.value*Kf.V.value/10000 else Kf.gFe.value:=0;
  if Kf.dMn.value >0 then Kf.gMn.value:=Kf.Mn.value/Kf.dMn.value*Kf.V.value/10000 else Kf.gMn.value:=0;
@@ -1194,6 +1207,17 @@ Kf.gMo.Visible:=false;
 Kf.gCo.Visible:=false;
 Kf.gSi.Visible:=false;
 Kf.gCmplx.Visible:=true;
+// На форме изготовление
+Kf.g2gFe.Visible :=false; Kf.cbFe.Visible:=false; Kf.mFe.Visible:=false;  Kf.l2Fe.Visible:=false;
+Kf.g2gMn.Visible:=false;  Kf.cbMn.Visible:=false; Kf.mMn.Visible:=false;  Kf.l2Mn.Visible:=false;
+Kf.g2gB.Visible:=false;   Kf.cbB.Visible:=false; Kf.mB.Visible:=false;  Kf.l2B.Visible:=false;
+Kf.g2gZn.Visible:=false;  Kf.cbZn.Visible:=false; Kf.mZn.Visible:=false;  Kf.l2Zn.Visible:=false;
+Kf.g2gCu.Visible:=false;  Kf.cbCu.Visible:=false; Kf.mCu.Visible:=false;  Kf.l2Cu.Visible:=false;
+Kf.g2gMo.Visible:=false;  Kf.cbMo.Visible:=false; Kf.mMo.Visible:=false;  Kf.l2Mo.Visible:=false;
+Kf.g2gCo.Visible:=false;  Kf.cbCo.Visible:=false; Kf.mCo.Visible:=false;  Kf.l2Co.Visible:=false;
+Kf.g2gSi.Visible:=false;  Kf.cbSi.Visible:=false; Kf.mSi.Visible:=false;  Kf.l2Si.Visible:=false;
+Kf.g2gCmplx.Visible:=true; Kf.cbCmplx.Visible:=true; Kf.mCmplx.Visible:=true;  Kf.l2Cmplx.Visible:=true;
+
 
 Kf.gCmplx.value:=Kf.B.value/Kf.dB.value*Kf.V.value/10000;
 Kf.Fe.value:=10000*Kf.gCmplx.value* (Kf.dFe.value/Kf.V.value);

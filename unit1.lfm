@@ -1,7 +1,7 @@
 object Kf: TKf
-  Left = 161
+  Left = 680
   Height = 793
-  Top = 115
+  Top = 165
   Width = 762
   Caption = 'Koefficients'
   ClientHeight = 793
@@ -34,11 +34,11 @@ object Kf: TKf
     Height = 736
     Top = 0
     Width = 761
-    ActivePage = TabSheet3
+    ActivePage = TabSheet1
     Font.Height = -15
     Font.Name = 'Arial'
     ParentFont = False
-    TabIndex = 2
+    TabIndex = 0
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'Макро'
@@ -2291,9 +2291,10 @@ object Kf: TKf
         Height = 27
         Top = 392
         Width = 97
+        DecimalPlaces = 4
         Font.Height = -15
         Font.Name = 'Arial'
-        Increment = 0.01
+        Increment = 0.001
         MinValue = 0
         OnChange = gCmplxChange
         ParentFont = False
@@ -3915,63 +3916,63 @@ object Kf: TKf
             Width = 21
             TabOrder = 22
           end
-          object CheckBox8: TCheckBox
+          object cbMn: TCheckBox
             Left = 80
             Height = 21
             Top = 363
             Width = 21
             TabOrder = 23
           end
-          object CheckBox9: TCheckBox
+          object cbFe: TCheckBox
             Left = 80
             Height = 21
             Top = 332
             Width = 21
             TabOrder = 24
           end
-          object CheckBox10: TCheckBox
+          object cbCmplx: TCheckBox
             Left = 80
             Height = 21
             Top = 301
             Width = 21
             TabOrder = 25
           end
-          object CheckBox11: TCheckBox
+          object cbCu: TCheckBox
             Left = 80
             Height = 21
             Top = 456
             Width = 21
             TabOrder = 26
           end
-          object CheckBox12: TCheckBox
+          object cbZn: TCheckBox
             Left = 80
             Height = 21
             Top = 425
             Width = 21
             TabOrder = 27
           end
-          object CheckBox13: TCheckBox
+          object cbB: TCheckBox
             Left = 80
             Height = 21
             Top = 394
             Width = 21
             TabOrder = 28
           end
-          object CheckBox14: TCheckBox
+          object cbSi: TCheckBox
             Left = 80
             Height = 21
             Top = 549
             Width = 21
             TabOrder = 29
           end
-          object CheckBox15: TCheckBox
+          object cbCo: TCheckBox
             Left = 80
             Height = 21
             Top = 518
             Width = 21
             TabOrder = 30
           end
-          object CheckBox16: TCheckBox
+          object cbMo: TCheckBox
             Left = 80
             Height = 21
             Top = 487
@@ -4136,11 +4137,7 @@ object Kf: TKf
             Top = 305
             Width = 184
             Caption = 'Комплекс микроэлементов'
-            Font.Height = -15
-            Font.Name = 'Arial'
             ParentColor = False
-            ParentFont = False
-            Visible = False
           end
         end
       end
