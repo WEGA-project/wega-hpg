@@ -1,7 +1,7 @@
 object Kf: TKf
-  Left = 799
+  Left = 773
   Height = 793
-  Top = 202
+  Top = 125
   Width = 762
   Caption = 'Koefficients'
   ClientHeight = 793
@@ -15,30 +15,30 @@ object Kf: TKf
   OnClick = FormClick
   OnCreate = FormCreate
   LCLVersion = '2.0.6.0'
-  object Label1: TLabel
+  object version: TLabel
     Left = 520
     Height = 15
     Top = 773
-    Width = 229
-    Caption = 'Hydroponic Profile Generator v0.043'
+    Width = 222
+    Caption = 'Hydroponic Profile Generator 0.044'
     Font.Color = clActiveCaption
     Font.Height = -13
     Font.Name = 'Arial'
     Font.Style = [fsBold]
     ParentColor = False
     ParentFont = False
-    OnClick = Label1Click
+    OnClick = versionClick
   end
   object PageControl1: TPageControl
     Left = 0
     Height = 736
     Top = 0
     Width = 761
-    ActivePage = TabSheet4
+    ActivePage = TabSheet1
     Font.Height = -15
     Font.Name = 'Arial'
     ParentFont = False
-    TabIndex = 3
+    TabIndex = 0
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'Макро'
@@ -2306,8 +2306,8 @@ object Kf: TKf
         Height = 696
         Top = 0
         Width = 752
-        ActivePage = TabSheet6
-        TabIndex = 1
+        ActivePage = TabSheet5
+        TabIndex = 0
         TabOrder = 0
         object TabSheet5: TTabSheet
           Caption = 'Расчет'
