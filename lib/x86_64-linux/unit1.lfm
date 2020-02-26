@@ -20,7 +20,7 @@ object Kf: TKf
     Height = 15
     Top = 773
     Width = 229
-    Caption = 'Hydroponic Profile Generator v0.042'
+    Caption = 'Hydroponic Profile Generator v0.043'
     Font.Color = clActiveCaption
     Font.Height = -13
     Font.Name = 'Arial'
@@ -30,15 +30,15 @@ object Kf: TKf
     OnClick = Label1Click
   end
   object PageControl1: TPageControl
-    Left = 1
+    Left = 0
     Height = 736
     Top = 0
     Width = 761
-    ActivePage = TabSheet1
+    ActivePage = TabSheet3
     Font.Height = -15
     Font.Name = 'Arial'
     ParentFont = False
-    TabIndex = 0
+    TabIndex = 2
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'Макро'
@@ -2306,8 +2306,8 @@ object Kf: TKf
         Height = 696
         Top = 0
         Width = 752
-        ActivePage = TabSheet5
-        TabIndex = 0
+        ActivePage = TabSheet6
+        TabIndex = 1
         TabOrder = 0
         object TabSheet5: TTabSheet
           Caption = 'Расчет'
@@ -3561,11 +3561,11 @@ object Kf: TKf
           end
         end
         object TabSheet6: TTabSheet
-          Caption = 'Иготовление'
+          Caption = 'Изготовление'
           ClientHeight = 661
           ClientWidth = 746
           object knCaNO4: TLabel
-            Left = 124
+            Left = 187
             Height = 17
             Top = 32
             Width = 257
@@ -3576,7 +3576,7 @@ object Kf: TKf
             ParentFont = False
           end
           object knKNO4: TLabel
-            Left = 124
+            Left = 187
             Height = 17
             Top = 62
             Width = 167
@@ -3587,7 +3587,7 @@ object Kf: TKf
             ParentFont = False
           end
           object knNH4NO4: TLabel
-            Left = 124
+            Left = 187
             Height = 17
             Top = 92
             Width = 187
@@ -3598,7 +3598,7 @@ object Kf: TKf
             ParentFont = False
           end
           object knMgNO4: TLabel
-            Left = 124
+            Left = 187
             Height = 17
             Top = 120
             Width = 243
@@ -3609,7 +3609,7 @@ object Kf: TKf
             ParentFont = False
           end
           object knMgSO5: TLabel
-            Left = 124
+            Left = 187
             Height = 17
             Top = 208
             Width = 237
@@ -3620,7 +3620,7 @@ object Kf: TKf
             ParentFont = False
           end
           object knKH2PO5: TLabel
-            Left = 124
+            Left = 187
             Height = 17
             Top = 239
             Width = 295
@@ -3632,7 +3632,7 @@ object Kf: TKf
             OnClick = nKH2PO4Click
           end
           object knK2SO5: TLabel
-            Left = 124
+            Left = 187
             Height = 17
             Top = 268
             Width = 241
@@ -3644,7 +3644,7 @@ object Kf: TKf
             OnClick = nK2SO4Click
           end
           object lCmplx1: TLabel
-            Left = 124
+            Left = 187
             Height = 17
             Top = 298
             Width = 184
@@ -3656,7 +3656,7 @@ object Kf: TKf
             Visible = False
           end
           object lFe1: TLabel
-            Left = 124
+            Left = 187
             Height = 17
             Top = 327
             Width = 80
@@ -3667,7 +3667,7 @@ object Kf: TKf
             ParentFont = False
           end
           object lMn1: TLabel
-            Left = 124
+            Left = 187
             Height = 17
             Top = 361
             Width = 92
@@ -3678,7 +3678,7 @@ object Kf: TKf
             ParentFont = False
           end
           object lB1: TLabel
-            Left = 124
+            Left = 187
             Height = 17
             Top = 393
             Width = 53
@@ -3689,7 +3689,7 @@ object Kf: TKf
             ParentFont = False
           end
           object lZn1: TLabel
-            Left = 124
+            Left = 187
             Height = 17
             Top = 424
             Width = 61
@@ -3700,7 +3700,7 @@ object Kf: TKf
             ParentFont = False
           end
           object lCu1: TLabel
-            Left = 124
+            Left = 187
             Height = 17
             Top = 457
             Width = 63
@@ -3711,7 +3711,7 @@ object Kf: TKf
             ParentFont = False
           end
           object lMo1: TLabel
-            Left = 124
+            Left = 187
             Height = 17
             Top = 489
             Width = 96
@@ -3722,7 +3722,7 @@ object Kf: TKf
             ParentFont = False
           end
           object lCo1: TLabel
-            Left = 124
+            Left = 187
             Height = 17
             Top = 521
             Width = 84
@@ -3733,7 +3733,7 @@ object Kf: TKf
             ParentFont = False
           end
           object lSi1: TLabel
-            Left = 124
+            Left = 187
             Height = 17
             Top = 553
             Width = 86
@@ -3749,109 +3749,116 @@ object Kf: TKf
             Top = 28
             Width = 54
             TabOrder = 0
+            Text = 'p1'
           end
-          object mCaNO4: TEdit
+          object mKNO3: TEdit
             Left = 8
             Height = 27
             Top = 59
             Width = 54
             TabOrder = 1
+            Text = 'p2'
           end
-          object mCaNO5: TEdit
+          object mNH4NO3: TEdit
             Left = 8
             Height = 27
             Top = 88
             Width = 54
             TabOrder = 2
+            Text = 'p3'
           end
-          object mCaNO6: TEdit
+          object mMgNO3: TEdit
             Left = 8
             Height = 27
             Top = 120
             Width = 54
             TabOrder = 3
           end
-          object mCaNO7: TEdit
+          object mMgSO4: TEdit
             Left = 8
             Height = 27
             Top = 205
             Width = 54
             TabOrder = 4
+            Text = 'p4'
           end
-          object mCaNO8: TEdit
+          object mKH2PO4: TEdit
             Left = 8
             Height = 27
             Top = 236
             Width = 54
             TabOrder = 5
+            Text = 'p5'
           end
-          object mCaNO9: TEdit
+          object mK2SO4: TEdit
             Left = 8
             Height = 27
-            Top = 266
+            Top = 267
             Width = 54
             TabOrder = 6
+            Text = 'p6'
           end
-          object mCaNO10: TEdit
+          object mCmplx: TEdit
             Left = 8
             Height = 27
-            Top = 295
+            Top = 298
             Width = 54
             TabOrder = 7
+            Text = 'p7'
           end
           object mCaNO11: TEdit
             Left = 8
             Height = 27
-            Top = 323
+            Top = 329
             Width = 54
             TabOrder = 8
           end
           object mCaNO12: TEdit
             Left = 8
             Height = 27
-            Top = 352
+            Top = 360
             Width = 54
             TabOrder = 9
           end
           object mCaNO13: TEdit
             Left = 8
             Height = 27
-            Top = 383
+            Top = 391
             Width = 54
             TabOrder = 10
           end
           object mCaNO14: TEdit
             Left = 8
             Height = 27
-            Top = 416
+            Top = 422
             Width = 54
             TabOrder = 11
           end
           object mCaNO15: TEdit
             Left = 8
             Height = 27
-            Top = 448
+            Top = 453
             Width = 54
             TabOrder = 12
           end
           object mCaNO16: TEdit
             Left = 8
             Height = 27
-            Top = 480
+            Top = 484
             Width = 54
             TabOrder = 13
           end
           object mCaNO17: TEdit
             Left = 8
             Height = 27
-            Top = 516
+            Top = 515
             Width = 54
             TabOrder = 14
           end
           object mCaNO18: TEdit
             Left = 8
             Height = 27
-            Top = 548
+            Top = 546
             Width = 54
             TabOrder = 15
           end
@@ -3966,6 +3973,158 @@ object Kf: TKf
             Top = 489
             Width = 21
             TabOrder = 31
+          end
+          object mCaNO4: TEdit
+            Left = 120
+            Height = 27
+            Top = 28
+            Width = 54
+            TabOrder = 32
+          end
+          object mKNO4: TEdit
+            Left = 120
+            Height = 27
+            Top = 59
+            Width = 54
+            TabOrder = 33
+          end
+          object mNH4NO4: TEdit
+            Left = 120
+            Height = 27
+            Top = 88
+            Width = 54
+            TabOrder = 34
+          end
+          object mMgNO4: TEdit
+            Left = 120
+            Height = 27
+            Top = 120
+            Width = 54
+            TabOrder = 35
+          end
+          object mMgSO5: TEdit
+            Left = 120
+            Height = 27
+            Top = 205
+            Width = 54
+            TabOrder = 36
+          end
+          object mKH2PO5: TEdit
+            Left = 120
+            Height = 27
+            Top = 236
+            Width = 54
+            TabOrder = 37
+          end
+          object mK2SO5: TEdit
+            Left = 120
+            Height = 27
+            Top = 267
+            Width = 54
+            TabOrder = 38
+          end
+          object mCmplx1: TEdit
+            Left = 120
+            Height = 27
+            Top = 298
+            Width = 54
+            TabOrder = 39
+          end
+          object mCaNO19: TEdit
+            Left = 120
+            Height = 27
+            Top = 329
+            Width = 54
+            TabOrder = 40
+          end
+          object mCaNO20: TEdit
+            Left = 120
+            Height = 27
+            Top = 360
+            Width = 54
+            TabOrder = 41
+          end
+          object mCaNO21: TEdit
+            Left = 120
+            Height = 27
+            Top = 391
+            Width = 54
+            TabOrder = 42
+          end
+          object mCaNO22: TEdit
+            Left = 120
+            Height = 27
+            Top = 422
+            Width = 54
+            TabOrder = 43
+          end
+          object mCaNO23: TEdit
+            Left = 120
+            Height = 27
+            Top = 453
+            Width = 54
+            TabOrder = 44
+          end
+          object mCaNO24: TEdit
+            Left = 120
+            Height = 27
+            Top = 484
+            Width = 54
+            TabOrder = 45
+          end
+          object mCaNO25: TEdit
+            Left = 120
+            Height = 27
+            Top = 515
+            Width = 54
+            TabOrder = 46
+          end
+          object mCaNO26: TEdit
+            Left = 120
+            Height = 27
+            Top = 546
+            Width = 54
+            TabOrder = 47
+          end
+          object Label70: TLabel
+            Left = 13
+            Height = 17
+            Top = 6
+            Width = 44
+            Caption = 'Помпа'
+            ParentColor = False
+          end
+          object Label71: TLabel
+            Left = 74
+            Height = 17
+            Top = 6
+            Width = 37
+            Caption = 'Ручн.'
+            ParentColor = False
+          end
+          object Label72: TLabel
+            Left = 125
+            Height = 17
+            Top = 6
+            Width = 43
+            Caption = 'Вес ж.'
+            ParentColor = False
+          end
+          object Button2: TButton
+            Left = 288
+            Height = 28
+            Top = 628
+            Width = 96
+            Caption = 'Изготовить'
+            TabOrder = 48
+          end
+          object addrMixer: TEdit
+            Left = 5
+            Height = 27
+            Top = 629
+            Width = 275
+            TabOrder = 49
+            Text = '192.168.237.185'
           end
         end
       end

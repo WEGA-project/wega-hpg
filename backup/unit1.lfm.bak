@@ -2306,8 +2306,8 @@ object Kf: TKf
         Height = 696
         Top = 0
         Width = 752
-        ActivePage = TabSheet6
-        TabIndex = 1
+        ActivePage = TabSheet5
+        TabIndex = 0
         TabOrder = 0
         object TabSheet5: TTabSheet
           Caption = 'Расчет'
