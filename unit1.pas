@@ -2092,81 +2092,81 @@ begin
           while not eof(tfIn) do
           begin
           readln(tfIn, str);
-           if (IsWordPresent('CaNO3_Ca', str, ['=']) = true) then CaNO3_Ca.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('CaNO3_NO3', str, ['=']) = true) then CaNO3_NO3.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('CaNO3_NH4', str, ['=']) = true) then CaNO3_NH4.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('CaNO3_Ca', str, ['=']) = true) then CaNO3_Ca.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('CaNO3_NO3', str, ['=']) = true) then CaNO3_NO3.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('CaNO3_NH4', str, ['=']) = true) then CaNO3_NH4.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
 
-           if (IsWordPresent('KNO3_K', str, ['=']) = true) then KNO3_K.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('KNO3_NO3', str, ['=']) = true) then KNO3_NO3.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('KNO3_K', str, ['=']) = true) then KNO3_K.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('KNO3_NO3', str, ['=']) = true) then KNO3_NO3.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
 
-           if (IsWordPresent('NH4NO3_NH4', str, ['=']) = true) then NH4NO3_NH4.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('NH4NO3_NO3', str, ['=']) = true) then NH4NO3_NO3.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('NH4NO3_NH4', str, ['=']) = true) then NH4NO3_NH4.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('NH4NO3_NO3', str, ['=']) = true) then NH4NO3_NO3.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
 
-           if (IsWordPresent('MgSO4_Mg', str, ['=']) = true) then MgSO4_Mg.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('MgSO4_S', str, ['=']) = true) then MgSO4_S.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('MgSO4_Mg', str, ['=']) = true) then MgSO4_Mg.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('MgSO4_S', str, ['=']) = true) then MgSO4_S.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
 
-           if (IsWordPresent('KH2PO4_K', str, ['=']) = true) then KH2PO4_K.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('KH2PO4_P', str, ['=']) = true) then KH2PO4_P.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('KH2PO4_K', str, ['=']) = true) then KH2PO4_K.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('KH2PO4_P', str, ['=']) = true) then KH2PO4_P.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
 
-           if (IsWordPresent('K2SO4_K', str, ['=']) = true) then K2SO4_K.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('K2SO4_S', str, ['=']) = true) then K2SO4_S.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('K2SO4_K', str, ['=']) = true) then K2SO4_K.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('K2SO4_S', str, ['=']) = true) then K2SO4_S.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
 
-           if (IsWordPresent('MgNO3_Mg', str, ['=']) = true) then MgNO3_Mg.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('MgNO3_NO3', str, ['=']) = true) then MgNO3_NO3.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('MgNO3_Mg', str, ['=']) = true) then MgNO3_Mg.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('MgNO3_NO3', str, ['=']) = true) then MgNO3_NO3.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
            //Micro
-           if (IsWordPresent('dFe', str, ['=']) = true) then dFe.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('dMn', str, ['=']) = true) then dMn.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('dB', str, ['=']) = true) then  dB.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('dZn', str, ['=']) = true) then dZn.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('dCu', str, ['=']) = true) then dCu.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('dMo', str, ['=']) = true) then dMo.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('dCo', str, ['=']) = true) then dCo.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('dSi', str, ['=']) = true) then dSi.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('dFe', str, ['=']) = true) then dFe.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('dMn', str, ['=']) = true) then dMn.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('dB', str, ['=']) = true) then  dB.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('dZn', str, ['=']) = true) then dZn.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('dCu', str, ['=']) = true) then dCu.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('dMo', str, ['=']) = true) then dMo.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('dCo', str, ['=']) = true) then dCo.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('dSi', str, ['=']) = true) then dSi.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
 
            if (IsWordPresent('chkComplex', str, ['=']) = true) then chkComplex.Checked:=StrToBool(ExtractWord(2,str,['=']));
            //writeln(tfOut,'chkComplex=',chkComplex.Checked);
 
                 // Концентрации
-           if (IsWordPresent('glCaNO3', str, ['=']) = true) then glCaNO3.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('glKNO3', str, ['=']) = true) then glKNO3.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('glNH4NO3', str, ['=']) = true) then glNH4NO3.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('glMgNO3', str, ['=']) = true) then glMgNO3.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('glMgSO4', str, ['=']) = true) then glMgSO4.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('glK2SO4', str, ['=']) = true) then glK2SO4.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('glKH2PO4', str, ['=']) = true) then glKH2PO4.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('glCaNO3', str, ['=']) = true) then glCaNO3.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('glKNO3', str, ['=']) = true) then glKNO3.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('glNH4NO3', str, ['=']) = true) then glNH4NO3.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('glMgNO3', str, ['=']) = true) then glMgNO3.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('glMgSO4', str, ['=']) = true) then glMgSO4.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('glK2SO4', str, ['=']) = true) then glK2SO4.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('glKH2PO4', str, ['=']) = true) then glKH2PO4.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
 
-           if (IsWordPresent('glCmplx', str, ['=']) = true) then glCmplx.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('glCmplx', str, ['=']) = true) then glCmplx.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
 
-           if (IsWordPresent('glFe', str, ['=']) = true) then glFe.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('glMn', str, ['=']) = true) then glMn.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('glB', str, ['=']) = true) then glB.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('glZn', str, ['=']) = true) then glZn.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('glCu', str, ['=']) = true) then glCu.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('glMo', str, ['=']) = true) then glMo.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('glCo', str, ['=']) = true) then glCo.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('glSi', str, ['=']) = true) then glSi.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('glFe', str, ['=']) = true) then glFe.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('glMn', str, ['=']) = true) then glMn.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('glB', str, ['=']) = true) then glB.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('glZn', str, ['=']) = true) then glZn.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('glCu', str, ['=']) = true) then glCu.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('glMo', str, ['=']) = true) then glMo.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('glCo', str, ['=']) = true) then glCo.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('glSi', str, ['=']) = true) then glSi.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
 
 
 
      //// Плотности
-           if (IsWordPresent('gmlCaNO3', str, ['=']) = true) then gmlCaNO3.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('gmlKNO3', str, ['=']) = true) then gmlKNO3.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('gmlNH4NO3', str, ['=']) = true) then gmlNH4NO3.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('gmlMgNO3', str, ['=']) = true) then gmlMgNO3.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('gmlMgSO4', str, ['=']) = true) then gmlMgSO4.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('gmlK2SO4', str, ['=']) = true) then gmlK2SO4.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('gmlKH2PO4', str, ['=']) = true) then gmlKH2PO4.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('gmlCaNO3', str, ['=']) = true) then gmlCaNO3.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('gmlKNO3', str, ['=']) = true) then gmlKNO3.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('gmlNH4NO3', str, ['=']) = true) then gmlNH4NO3.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('gmlMgNO3', str, ['=']) = true) then gmlMgNO3.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('gmlMgSO4', str, ['=']) = true) then gmlMgSO4.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('gmlK2SO4', str, ['=']) = true) then gmlK2SO4.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('gmlKH2PO4', str, ['=']) = true) then gmlKH2PO4.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
 
-           if (IsWordPresent('gmlCmplx', str, ['=']) = true) then gmlCmplx.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('gmlCmplx', str, ['=']) = true) then gmlCmplx.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
 
-           if (IsWordPresent('gmlFe', str, ['=']) = true) then gmlFe.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('gmlMn', str, ['=']) = true) then gmlMn.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('gmlB', str, ['=']) = true) then gmlB.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('gmlZn', str, ['=']) = true) then gmlZn.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('gmlCu', str, ['=']) = true) then gmlCu.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('gmlMo', str, ['=']) = true) then gmlMo.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('gmlCo', str, ['=']) = true) then gmlCo.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('gmlSi', str, ['=']) = true) then gmlSi.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('gmlFe', str, ['=']) = true) then gmlFe.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('gmlMn', str, ['=']) = true) then gmlMn.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('gmlB', str, ['=']) = true) then gmlB.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('gmlZn', str, ['=']) = true) then gmlZn.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('gmlCu', str, ['=']) = true) then gmlCu.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('gmlMo', str, ['=']) = true) then gmlMo.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('gmlCo', str, ['=']) = true) then gmlCo.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('gmlSi', str, ['=']) = true) then gmlSi.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
 
 
 
@@ -2206,23 +2206,23 @@ begin
           //writeln(tfOut,'Comment=',eComment.Caption);
           if (IsWordPresent('Comment', str, ['=']) = true) then eComment.Caption:=ExtractWord(2,str,['=']);
           //Macro Profile
-                     if (IsWordPresent('N', str, ['=']) = true) then N.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('NH4', str, ['=']) = true) then NH4.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('NO3', str, ['=']) = true) then NO3.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('P', str, ['=']) = true)   then P.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('K', str, ['=']) = true)   then K.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('Ca', str, ['=']) = true)  then Ca.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('Mg', str, ['=']) = true)  then Mg.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('S', str, ['=']) = true)   then S.value:=StrToFloat(ExtractWord(2,str,['=']));
+                     if (IsWordPresent('N', str, ['=']) = true) then N.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('NH4', str, ['=']) = true) then NH4.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('NO3', str, ['=']) = true) then NO3.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('P', str, ['=']) = true)   then P.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('K', str, ['=']) = true)   then K.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('Ca', str, ['=']) = true)  then Ca.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('Mg', str, ['=']) = true)  then Mg.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('S', str, ['=']) = true)   then S.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
           //Micro Profile
-           if (IsWordPresent('Fe', str, ['=']) = true) then Fe.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('Mn', str, ['=']) = true) then Mn.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('B', str, ['=']) = true) then  B.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('Zn', str, ['=']) = true) then Zn.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('Cu', str, ['=']) = true) then Cu.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('Mo', str, ['=']) = true) then Mo.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('Co', str, ['=']) = true) then Co.value:=StrToFloat(ExtractWord(2,str,['=']));
-           if (IsWordPresent('Si', str, ['=']) = true) then Si.value:=StrToFloat(ExtractWord(2,str,['=']));
+           if (IsWordPresent('Fe', str, ['=']) = true) then Fe.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('Mn', str, ['=']) = true) then Mn.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('B', str, ['=']) = true) then  B.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('Zn', str, ['=']) = true) then Zn.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('Cu', str, ['=']) = true) then Cu.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('Mo', str, ['=']) = true) then Mo.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('Co', str, ['=']) = true) then Co.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('Si', str, ['=']) = true) then Si.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
           end;
 
       CloseFile(tfIn);
