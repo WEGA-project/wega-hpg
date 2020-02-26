@@ -1,7 +1,7 @@
 object Kf: TKf
-  Left = 211
+  Left = 161
   Height = 793
-  Top = 142
+  Top = 115
   Width = 762
   Caption = 'Koefficients'
   ClientHeight = 793
@@ -34,11 +34,11 @@ object Kf: TKf
     Height = 736
     Top = 0
     Width = 761
-    ActivePage = TabSheet1
+    ActivePage = TabSheet3
     Font.Height = -15
     Font.Name = 'Arial'
     ParentFont = False
-    TabIndex = 0
+    TabIndex = 2
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'Макро'
@@ -1691,6 +1691,14 @@ object Kf: TKf
         ParentColor = False
         ParentFont = False
       end
+      object Label1: TLabel
+        Left = 4
+        Height = 17
+        Top = 2
+        Width = 187
+        Caption = 'Макропрофиль в мг/л (ppm)'
+        ParentColor = False
+      end
     end
     object TabSheet2: TTabSheet
       Caption = 'Микро'
@@ -2292,6 +2300,14 @@ object Kf: TKf
         TabOrder = 25
         Value = 0
       end
+      object Label73: TLabel
+        Left = 4
+        Height = 17
+        Top = 2
+        Width = 151
+        Caption = 'Микропрофиль в мкг/л'
+        ParentColor = False
+      end
     end
     object TabSheet3: TTabSheet
       Caption = 'Концентраты'
@@ -2306,8 +2322,8 @@ object Kf: TKf
         Height = 696
         Top = -8
         Width = 752
-        ActivePage = TabSheet6
-        TabIndex = 1
+        ActivePage = TabSheet5
+        TabIndex = 0
         TabOrder = 0
         object TabSheet5: TTabSheet
           Caption = 'Расчет'
@@ -3564,10 +3580,10 @@ object Kf: TKf
           Caption = 'Изготовление'
           ClientHeight = 661
           ClientWidth = 746
-          object knCaNO4: TLabel
+          object k2nCaNO3: TLabel
             Left = 187
             Height = 17
-            Top = 32
+            Top = 36
             Width = 257
             Caption = 'Кальций азотнокислый 4-водный  (ч.)'
             Font.Height = -15
@@ -3575,10 +3591,10 @@ object Kf: TKf
             ParentColor = False
             ParentFont = False
           end
-          object knKNO4: TLabel
+          object k2nKNO3: TLabel
             Left = 187
             Height = 17
-            Top = 62
+            Top = 65
             Width = 167
             Caption = 'Калий азотнокислый (ч.)'
             Font.Height = -15
@@ -3586,10 +3602,10 @@ object Kf: TKf
             ParentColor = False
             ParentFont = False
           end
-          object knNH4NO4: TLabel
+          object k2nNH4NO3: TLabel
             Left = 187
             Height = 17
-            Top = 92
+            Top = 94
             Width = 187
             Caption = 'Аммоний азотнокислый (ч.)'
             Font.Height = -15
@@ -3597,10 +3613,10 @@ object Kf: TKf
             ParentColor = False
             ParentFont = False
           end
-          object knMgNO4: TLabel
+          object k2nMgNO3: TLabel
             Left = 187
             Height = 17
-            Top = 120
+            Top = 123
             Width = 243
             Caption = 'Магний азотнокислый 6-водный (ч.)'
             Font.Height = -15
@@ -3608,10 +3624,10 @@ object Kf: TKf
             ParentColor = False
             ParentFont = False
           end
-          object knMgSO5: TLabel
+          object k2nMgSO4: TLabel
             Left = 187
             Height = 17
-            Top = 208
+            Top = 212
             Width = 237
             Caption = 'Магний сернокислый 7-водный (ч.)'
             Font.Height = -15
@@ -3619,10 +3635,10 @@ object Kf: TKf
             ParentColor = False
             ParentFont = False
           end
-          object knKH2PO5: TLabel
+          object k2nKH2PO4: TLabel
             Left = 187
             Height = 17
-            Top = 239
+            Top = 243
             Width = 295
             Caption = 'Калий фосфорнокислый 1-замещенный (ч.)'
             Font.Height = -15
@@ -3631,10 +3647,10 @@ object Kf: TKf
             ParentFont = False
             OnClick = nKH2PO4Click
           end
-          object knK2SO5: TLabel
+          object k2nK2SO4: TLabel
             Left = 187
             Height = 17
-            Top = 268
+            Top = 274
             Width = 241
             Caption = 'Калий сернокислый безводный (ч.)'
             Font.Height = -15
@@ -3643,10 +3659,10 @@ object Kf: TKf
             ParentFont = False
             OnClick = nK2SO4Click
           end
-          object lFe1: TLabel
+          object l2Fe: TLabel
             Left = 187
             Height = 17
-            Top = 327
+            Top = 336
             Width = 80
             Caption = 'Железо (%)'
             Font.Height = -15
@@ -3654,10 +3670,10 @@ object Kf: TKf
             ParentColor = False
             ParentFont = False
           end
-          object lMn1: TLabel
+          object l2Mn: TLabel
             Left = 187
             Height = 17
-            Top = 361
+            Top = 367
             Width = 92
             Caption = 'Марганец (%)'
             Font.Height = -15
@@ -3665,10 +3681,10 @@ object Kf: TKf
             ParentColor = False
             ParentFont = False
           end
-          object lB1: TLabel
+          object l2B: TLabel
             Left = 187
             Height = 17
-            Top = 393
+            Top = 398
             Width = 53
             Caption = 'Бор (%)'
             Font.Height = -15
@@ -3676,10 +3692,10 @@ object Kf: TKf
             ParentColor = False
             ParentFont = False
           end
-          object lZn1: TLabel
+          object l2Zn: TLabel
             Left = 187
             Height = 17
-            Top = 424
+            Top = 429
             Width = 61
             Caption = 'Цинк (%)'
             Font.Height = -15
@@ -3687,10 +3703,10 @@ object Kf: TKf
             ParentColor = False
             ParentFont = False
           end
-          object lCu1: TLabel
+          object l2Cu: TLabel
             Left = 187
             Height = 17
-            Top = 457
+            Top = 460
             Width = 63
             Caption = 'Медь (%)'
             Font.Height = -15
@@ -3698,10 +3714,10 @@ object Kf: TKf
             ParentColor = False
             ParentFont = False
           end
-          object lMo1: TLabel
+          object l2Mo: TLabel
             Left = 187
             Height = 17
-            Top = 489
+            Top = 491
             Width = 96
             Caption = 'Молибден (%)'
             Font.Height = -15
@@ -3709,10 +3725,10 @@ object Kf: TKf
             ParentColor = False
             ParentFont = False
           end
-          object lCo1: TLabel
+          object l2Co: TLabel
             Left = 187
             Height = 17
-            Top = 521
+            Top = 522
             Width = 84
             Caption = 'Кобальт (%)'
             Font.Height = -15
@@ -3720,7 +3736,7 @@ object Kf: TKf
             ParentColor = False
             ParentFont = False
           end
-          object lSi1: TLabel
+          object l2Si: TLabel
             Left = 187
             Height = 17
             Top = 553
@@ -3860,14 +3876,14 @@ object Kf: TKf
           object CheckBox2: TCheckBox
             Left = 80
             Height = 21
-            Top = 62
+            Top = 61
             Width = 21
             TabOrder = 17
           end
           object CheckBox3: TCheckBox
             Left = 80
             Height = 21
-            Top = 92
+            Top = 90
             Width = 21
             TabOrder = 18
           end
@@ -3881,63 +3897,63 @@ object Kf: TKf
           object CheckBox5: TCheckBox
             Left = 80
             Height = 21
-            Top = 238
+            Top = 239
             Width = 21
             TabOrder = 20
           end
           object CheckBox6: TCheckBox
             Left = 80
             Height = 21
-            Top = 268
+            Top = 270
             Width = 21
             TabOrder = 21
           end
           object CheckBox7: TCheckBox
             Left = 80
             Height = 21
-            Top = 120
+            Top = 119
             Width = 21
             TabOrder = 22
           end
           object CheckBox8: TCheckBox
             Left = 80
             Height = 21
-            Top = 358
+            Top = 363
             Width = 21
             TabOrder = 23
           end
           object CheckBox9: TCheckBox
             Left = 80
             Height = 21
-            Top = 328
+            Top = 332
             Width = 21
             TabOrder = 24
           end
           object CheckBox10: TCheckBox
             Left = 80
             Height = 21
-            Top = 298
+            Top = 301
             Width = 21
             TabOrder = 25
           end
           object CheckBox11: TCheckBox
             Left = 80
             Height = 21
-            Top = 453
+            Top = 456
             Width = 21
             TabOrder = 26
           end
           object CheckBox12: TCheckBox
             Left = 80
             Height = 21
-            Top = 423
+            Top = 425
             Width = 21
             TabOrder = 27
           end
           object CheckBox13: TCheckBox
             Left = 80
             Height = 21
-            Top = 393
+            Top = 394
             Width = 21
             TabOrder = 28
           end
@@ -3951,14 +3967,14 @@ object Kf: TKf
           object CheckBox15: TCheckBox
             Left = 80
             Height = 21
-            Top = 519
+            Top = 518
             Width = 21
             TabOrder = 30
           end
           object CheckBox16: TCheckBox
             Left = 80
             Height = 21
-            Top = 489
+            Top = 487
             Width = 21
             TabOrder = 31
           end
@@ -4114,10 +4130,10 @@ object Kf: TKf
             TabOrder = 49
             Text = '192.168.237.185'
           end
-          object lCmplx1: TLabel
+          object l2Cmplx: TLabel
             Left = 187
             Height = 17
-            Top = 298
+            Top = 305
             Width = 184
             Caption = 'Комплекс микроэлементов'
             Font.Height = -15

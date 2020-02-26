@@ -40,6 +40,7 @@ type
     DateTimePicker1: TDateTimePicker;
     eComment: TEdit;
     addrMixer: TEdit;
+    Label1: TLabel;
     Label70: TLabel;
     Label71: TLabel;
     Label72: TLabel;
@@ -52,6 +53,7 @@ type
     g2gCo: TEdit;
     g2gSi: TEdit;
     g2gCaNO3: TEdit;
+    Label73: TLabel;
     mCmplx: TEdit;
     mFe: TEdit;
     mMn: TEdit;
@@ -68,25 +70,25 @@ type
     glCmplx: TFloatSpinEdit;
     gmlB: TFloatSpinEdit;
     gmlCmplx: TFloatSpinEdit;
-    knCaNO4: TLabel;
-    knK2SO5: TLabel;
-    knKH2PO5: TLabel;
-    knKNO4: TLabel;
-    knMgNO4: TLabel;
-    knMgSO5: TLabel;
-    knNH4NO4: TLabel;
+    k2nCaNO3: TLabel;
+    k2nK2SO4: TLabel;
+    k2nKH2PO4: TLabel;
+    k2nKNO3: TLabel;
+    k2nMgNO3: TLabel;
+    k2nMgSO4: TLabel;
+    k2nNH4NO3: TLabel;
     Label30: TLabel;
     Label59: TLabel;
-    lB1: TLabel;
+    l2B: TLabel;
     lCmplx: TLabel;
-    lCmplx1: TLabel;
-    lCo1: TLabel;
-    lCu1: TLabel;
-    lFe1: TLabel;
-    lMn1: TLabel;
-    lMo1: TLabel;
-    lSi1: TLabel;
-    lZn1: TLabel;
+    l2Cmplx: TLabel;
+    l2Co: TLabel;
+    l2Cu: TLabel;
+    l2Fe: TLabel;
+    l2Mn: TLabel;
+    l2Mo: TLabel;
+    l2Si: TLabel;
+    l2Zn: TLabel;
     g2gCmplx: TEdit;
     g2gK2SO4: TEdit;
     g2gKH2PO4: TEdit;
@@ -1052,6 +1054,32 @@ begin
     Kf.g2gKH2PO4.caption:=FloatToStr(round(Kf.ggKH2PO4.value*100)/100,MyFormatSettings);
     Kf.g2gK2SO4.caption:=FloatToStr(round(Kf.ggK2SO4.value*100)/100,MyFormatSettings);
     Kf.g2gCmplx.caption:=FloatToStr(round(Kf.ggCmplx.value*100)/100,MyFormatSettings);
+
+    Kf.g2gFe.caption:=FloatToStr(round(Kf.ggFe.value*100)/100,MyFormatSettings);
+    Kf.g2gMn.caption:=FloatToStr(round(Kf.ggMn.value*100)/100,MyFormatSettings);
+    Kf.g2gB.caption:=FloatToStr(round(Kf.ggB.value*100)/100,MyFormatSettings);
+    Kf.g2gZn.caption:=FloatToStr(round(Kf.ggZn.value*100)/100,MyFormatSettings);
+    Kf.g2gCu.caption:=FloatToStr(round(Kf.ggCu.value*100)/100,MyFormatSettings);
+    Kf.g2gMo.caption:=FloatToStr(round(Kf.ggMo.value*100)/100,MyFormatSettings);
+    Kf.g2gCo.caption:=FloatToStr(round(Kf.ggCo.value*100)/100,MyFormatSettings);
+    Kf.g2gSi.caption:=FloatToStr(round(Kf.ggSi.value*100)/100,MyFormatSettings);
+
+    Kf.k2nCaNO3.Caption:= Kf.knCaNO3.caption + ' (' + FloatToStr(Kf.glCaNO3.Value)+ ' г/л, '+FloatToStr(Kf.gmlCaNO3.Value)+ ' г/мл)';
+    Kf.k2nKNO3.Caption:= Kf.knKNO3.caption + ' (' + FloatToStr(Kf.glKNO3.Value)+ ' г/л, '+FloatToStr(Kf.gmlKNO3.Value)+ ' г/мл)';
+    Kf.k2nNH4NO3.Caption:= Kf.knNH4NO3.caption + ' (' + FloatToStr(Kf.glNH4NO3.Value)+ ' г/л, '+FloatToStr(Kf.gmlNH4NO3.Value)+ ' г/мл)';
+    Kf.k2nMgNO3.Caption:= Kf.knMgNO3.caption + ' (' + FloatToStr(Kf.glMgNO3.Value)+ ' г/л, '+FloatToStr(Kf.gmlMgNO3.Value)+ ' г/мл)';
+    Kf.k2nMgSO4.Caption:= Kf.knMgSO4.caption + ' (' + FloatToStr(Kf.glMgSO4.Value)+ ' г/л, '+FloatToStr(Kf.gmlMgSO4.Value)+ ' г/мл)';
+    Kf.k2nKH2PO4.Caption:= Kf.knKH2PO4.caption + ' (' + FloatToStr(Kf.glKH2PO4.Value)+ ' г/л, '+FloatToStr(Kf.gmlKH2PO4.Value)+ ' г/мл)';
+    Kf.k2nK2SO4.Caption:= Kf.knK2SO4.caption + ' (' + FloatToStr(Kf.glK2SO4.Value)+ ' г/л, '+FloatToStr(Kf.gmlK2SO4.Value)+ ' г/мл)';
+
+    Kf.l2Fe.Caption:= Kf.lFe.caption + ' (' + FloatToStr(Kf.glFe.Value)+ ' г/л, '+FloatToStr(Kf.gmlFe.Value)+ ' г/мл)';
+    Kf.l2Mn.Caption:= Kf.lFe.caption + ' (' + FloatToStr(Kf.glMn.Value)+ ' г/л, '+FloatToStr(Kf.gmlMn.Value)+ ' г/мл)';
+    Kf.l2Fe.Caption:= Kf.lB.caption + ' (' + FloatToStr(Kf.glB.Value)+ ' г/л, '+FloatToStr(Kf.gmlB.Value)+ ' г/мл)';
+    Kf.l2Fe.Caption:= Kf.lZn.caption + ' (' + FloatToStr(Kf.glZn.Value)+ ' г/л, '+FloatToStr(Kf.gmlZn.Value)+ ' г/мл)';
+    Kf.l2Fe.Caption:= Kf.lCu.caption + ' (' + FloatToStr(Kf.glCu.Value)+ ' г/л, '+FloatToStr(Kf.gmlCu.Value)+ ' г/мл)';
+    Kf.l2Fe.Caption:= Kf.lMo.caption + ' (' + FloatToStr(Kf.glMo.Value)+ ' г/л, '+FloatToStr(Kf.gmlMo.Value)+ ' г/мл)';
+    Kf.l2Fe.Caption:= Kf.lCo.caption + ' (' + FloatToStr(Kf.glCo.Value)+ ' г/л, '+FloatToStr(Kf.gmlCo.Value)+ ' г/мл)';
+    Kf.l2Fe.Caption:= Kf.lSi.caption + ' (' + FloatToStr(Kf.glSi.Value)+ ' г/л, '+FloatToStr(Kf.gmlSi.Value)+ ' г/мл)';
     //
 end;
 
