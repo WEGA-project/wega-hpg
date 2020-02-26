@@ -1,7 +1,7 @@
 object Kf: TKf
-  Left = 773
+  Left = 637
   Height = 793
-  Top = 125
+  Top = 142
   Width = 762
   Caption = 'Koefficients'
   ClientHeight = 793
@@ -30,7 +30,7 @@ object Kf: TKf
     OnClick = versionClick
   end
   object PageControl1: TPageControl
-    Left = 0
+    Left = 1
     Height = 736
     Top = 0
     Width = 761
@@ -1691,6 +1691,14 @@ object Kf: TKf
         ParentColor = False
         ParentFont = False
       end
+      object Label1: TLabel
+        Left = 4
+        Height = 17
+        Top = 2
+        Width = 187
+        Caption = 'Макропрофиль в мг/л (ppm)'
+        ParentColor = False
+      end
     end
     object TabSheet2: TTabSheet
       Caption = 'Микро'
@@ -2292,6 +2300,14 @@ object Kf: TKf
         TabOrder = 25
         Value = 0
       end
+      object Label73: TLabel
+        Left = 4
+        Height = 17
+        Top = 2
+        Width = 151
+        Caption = 'Микропрофиль в мкг/л'
+        ParentColor = False
+      end
     end
     object TabSheet3: TTabSheet
       Caption = 'Концентраты'
@@ -2304,7 +2320,7 @@ object Kf: TKf
       object PageControl2: TPageControl
         Left = 0
         Height = 696
-        Top = 0
+        Top = -8
         Width = 752
         ActivePage = TabSheet5
         TabIndex = 0
@@ -3643,18 +3659,6 @@ object Kf: TKf
             ParentFont = False
             OnClick = nK2SO4Click
           end
-          object lCmplx1: TLabel
-            Left = 187
-            Height = 17
-            Top = 298
-            Width = 184
-            Caption = 'Комплекс микроэлементов'
-            Font.Height = -15
-            Font.Name = 'Arial'
-            ParentColor = False
-            ParentFont = False
-            Visible = False
-          end
           object lFe1: TLabel
             Left = 187
             Height = 17
@@ -4023,7 +4027,7 @@ object Kf: TKf
             Width = 54
             TabOrder = 38
           end
-          object g2gCmplx1: TEdit
+          object g2gCmplx: TEdit
             Left = 120
             Height = 27
             Top = 298
@@ -4125,6 +4129,18 @@ object Kf: TKf
             Width = 275
             TabOrder = 49
             Text = '192.168.237.185'
+          end
+          object lCmplx1: TLabel
+            Left = 187
+            Height = 17
+            Top = 298
+            Width = 184
+            Caption = 'Комплекс микроэлементов'
+            Font.Height = -15
+            Font.Name = 'Arial'
+            ParentColor = False
+            ParentFont = False
+            Visible = False
           end
         end
       end

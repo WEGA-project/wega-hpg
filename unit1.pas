@@ -40,6 +40,7 @@ type
     DateTimePicker1: TDateTimePicker;
     eComment: TEdit;
     addrMixer: TEdit;
+    Label1: TLabel;
     Label70: TLabel;
     Label71: TLabel;
     Label72: TLabel;
@@ -52,6 +53,7 @@ type
     g2gCo: TEdit;
     g2gSi: TEdit;
     g2gCaNO3: TEdit;
+    Label73: TLabel;
     mCmplx: TEdit;
     mFe: TEdit;
     mMn: TEdit;
@@ -87,7 +89,7 @@ type
     lMo1: TLabel;
     lSi1: TLabel;
     lZn1: TLabel;
-    g2gCmplx1: TEdit;
+    g2gCmplx: TEdit;
     g2gK2SO4: TEdit;
     g2gKH2PO4: TEdit;
     mKNO3: TEdit;
@@ -960,6 +962,8 @@ end;
 
 procedure CalcConc;
 begin
+   MyFormatSettings.DecimalSeparator := '.';
+
    Kf.mlCaNO3.Value:=Kf.gCaNO3.value/Kf.glCaNO3.value*1000;
    Kf.mlKNO3.Value:=Kf.gKNO3.value/Kf.glKNO3.value*1000;
    Kf.mlNH4NO3.Value:=Kf.gNH4NO3.value/Kf.glNH4NO3.value*1000;
@@ -1040,6 +1044,17 @@ begin
     Kf.lMo.Caption:='Молибден Mo='+FloatToStr(Kf.dMo.value)+'%';
     Kf.lCo.Caption:='Кобальт Co='+FloatToStr(Kf.dCo.value)+'%';
     Kf.lSi.Caption:='Кремний Si='+FloatToStr(Kf.dSi.value)+'%';
+
+    Kf.g2gCaNO3.caption:=FloatToStr(round(Kf.ggCaNO3.value*100)/100,MyFormatSettings);
+    Kf.g2gKNO3.caption:=FloatToStr(round(Kf.ggKNO3.value*100)/100,MyFormatSettings);
+    Kf.g2gNH4NO3.caption:=FloatToStr(round(Kf.ggNH4NO3.value*100)/100,MyFormatSettings);
+    Kf.g2gMgNO3.caption:=FloatToStr(round(Kf.ggMgNO3.value*100)/100,MyFormatSettings);
+
+    Kf.g2gMgSO4.caption:=FloatToStr(round(Kf.ggMgSO4.value*100)/100,MyFormatSettings);
+    Kf.g2gKH2PO4.caption:=FloatToStr(round(Kf.ggKH2PO4.value*100)/100,MyFormatSettings);
+    Kf.g2gK2SO4.caption:=FloatToStr(round(Kf.ggK2SO4.value*100)/100,MyFormatSettings);
+    Kf.g2gCmplx.caption:=FloatToStr(round(Kf.ggCmplx.value*100)/100,MyFormatSettings);
+    //
 end;
 
 procedure CalcAll;
@@ -1060,7 +1075,7 @@ procedure LoadProfile ;
       curVar,curValue:string;
 
 begin
-  //MyFormatSettings.DecimalSeparator := '.';
+  MyFormatSettings.DecimalSeparator := '.';
   ps:=Kf.profile.text;
   countVar:=WordCount( ps,[' ']);
 
@@ -1073,8 +1088,7 @@ begin
    begin
      curVar:=ExtractWord(numVar,ps,[' ']);
      curValue:=ExtractWord(2,curVar,['=']);
-     //ShowMessage(IntToStr(numVar) + ' ' + curVar + ' '+ curValue );
-//
+
      if (IsWordPresent('N',curVar, ['='] ) = true) then  Kf.N.value:=StrToFloat(curValue,MyFormatSettings);
      if (IsWordPresent('NO3',curVar, ['='] ) = true) then  Kf.NO3.value:=StrToFloat(curValue,MyFormatSettings);
      if (IsWordPresent('NH4',curVar, ['='] ) = true) then  Kf.NH4.value:=StrToFloat(curValue,MyFormatSettings);
@@ -1082,30 +1096,13 @@ begin
      if (IsWordPresent('K',curVar, ['='] ) = true) then  Kf.K.value:=StrToFloat(curValue,MyFormatSettings);
      if (IsWordPresent('Ca',curVar, ['='] ) = true) then  Kf.Ca.value:=StrToFloat(curValue,MyFormatSettings);
      if (IsWordPresent('Mg',curVar, ['='] ) = true) then  Kf.Mg.value:=StrToFloat(curValue,MyFormatSettings);
-     //if (IsWordPresent('S',curVar, ['='] ) = true) then  Kf.S.value:=StrToFloat(curValue,MyFormatSettings); MyFormatSettings.DecimalSeparator := '.';
 
-     //if (IsWordPresent('EC',curVar, ['='] ) = true) then  Kf.EC.value:=StrToFloat(curValue,MyFormatSettings);
-     //if (IsWordPresent('K:N',curVar, ['='] ) = true) then  Kf.KN.value:=StrToFloat(curValue,MyFormatSettings);
-     //if (IsWordPresent('K:Mg',curVar, ['='] ) = true) then  Kf.KMg.value:=StrToFloat(curValue,MyFormatSettings);
-     //if (IsWordPresent('K:Ca',curVar, ['='] ) = true) then  Kf.KCa.value:=StrToFloat(curValue,MyFormatSettings);
-     //if (IsWordPresent('NH4:NO3',curVar, ['='] ) = true) then  Kf.NH4NO3.value:=StrToFloat(curValue,MyFormatSettings);
    end;
     Kf.N.value:=Kf.NO3.value+Kf.NH4.value;
     calculateS;
     CalcEC;
-    //calcECtoVal;
-    //GenNH4NO3event;
     CalcAll;
-     //ShowMessage(IntToStr(countVar));
-     //CalculateAll;
-      //CalcEC;
-     //CalcKoef;
 
-
- //if (IsWordPresent('EC',ps, ['=',' ','[']) = true) then  ShowMessage( ExtractWord(3,ps,[' ']) );
- //ShowMessage('aaaaa');
-
-   //ShowMessage( ExtractWord(2,ps,[' ']) );
 
 end
 else
@@ -2217,10 +2214,11 @@ end;
 
 procedure TKf.Button1Click(Sender: TObject);
 begin
-  //calcECtoVal;
-  CalcWeight ;
-  //CalcAll;
-  CalcWeight ;
+   CalcAll;
+   CalcWeight ;
+   microToWeght;
+   CalcConc;
+   SoilName;
 end;
 
 procedure TKf.bloadClick(Sender: TObject);
@@ -2555,17 +2553,23 @@ begin
     eFileName.Caption:=C_FNAME;
     loadPrf;
     LoadFirt;
+
+
   end
 
   else
   begin
     C_FNAME:='default.hpg';
     eFileName.Caption:=C_FNAME;
-    CalcAll;
-    CalcKoef;
-    SoilName;
+
+
   end;
-   //CalcKoef;
+         CalcAll;
+   CalcWeight ;
+   microToWeght;
+   CalcConc;
+   SoilName;
+   genProfile;
 
 
 end;
