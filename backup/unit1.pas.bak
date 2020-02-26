@@ -43,24 +43,24 @@ type
     Label70: TLabel;
     Label71: TLabel;
     Label72: TLabel;
-    mCaNO19: TEdit;
-    mCaNO20: TEdit;
-    mCaNO21: TEdit;
-    mCaNO22: TEdit;
-    mCaNO23: TEdit;
-    mCaNO24: TEdit;
-    mCaNO25: TEdit;
-    mCaNO26: TEdit;
-    mCaNO4: TEdit;
+    g2gFe: TEdit;
+    g2gMn: TEdit;
+    g2gB: TEdit;
+    g2gZn: TEdit;
+    g2gCu: TEdit;
+    g2gMo: TEdit;
+    g2gCo: TEdit;
+    g2gSi: TEdit;
+    g2gCaNO3: TEdit;
     mCmplx: TEdit;
-    mCaNO11: TEdit;
-    mCaNO12: TEdit;
-    mCaNO13: TEdit;
-    mCaNO14: TEdit;
-    mCaNO15: TEdit;
-    mCaNO16: TEdit;
-    mCaNO17: TEdit;
-    mCaNO18: TEdit;
+    mFe: TEdit;
+    mMn: TEdit;
+    mB: TEdit;
+    mZn: TEdit;
+    mCu: TEdit;
+    mMo: TEdit;
+    mCo: TEdit;
+    mSi: TEdit;
     mCaNO3: TEdit;
     eFileName: TEdit;
     ggCmplx: TFloatSpinEdit;
@@ -87,13 +87,13 @@ type
     lMo1: TLabel;
     lSi1: TLabel;
     lZn1: TLabel;
-    mCmplx1: TEdit;
-    mK2SO5: TEdit;
-    mKH2PO5: TEdit;
+    g2gCmplx1: TEdit;
+    g2gK2SO4: TEdit;
+    g2gKH2PO4: TEdit;
     mKNO3: TEdit;
-    mKNO4: TEdit;
-    mMgNO4: TEdit;
-    mMgSO5: TEdit;
+    g2gKNO3: TEdit;
+    g2gMgNO3: TEdit;
+    g2gMgSO4: TEdit;
     mNH4NO3: TEdit;
     mMgNO3: TEdit;
     mMgSO4: TEdit;
@@ -196,7 +196,7 @@ type
     knMgNO3: TLabel;
     knMgSO4: TLabel;
     knNH4NO3: TLabel;
-    mNH4NO4: TEdit;
+    g2gNH4NO3: TEdit;
     PageControl2: TPageControl;
     Si: TFloatSpinEdit;
     Mo: TFloatSpinEdit;
@@ -2082,7 +2082,7 @@ procedure TKf.bloadClick(Sender: TObject);
     //tfIn: TextFile;
     //str: string;
 begin
-    //C_FNAME:='setting.txt';
+
     eFileName.Caption:=C_FNAME;
     AssignFile(tfIn, C_FNAME);
         // Открыть файл для чтения
@@ -2194,8 +2194,8 @@ end;
 procedure TKf.bloadpfClick(Sender: TObject);
 
 begin
-  //s:='setting.txt';
-    AssignFile(tfIn, C_FNAME);
+  //C_FNAME
+        AssignFile(tfIn, C_FNAME);
         // Открыть файл для чтения
       reset(tfIn);
     //
@@ -2204,7 +2204,7 @@ begin
           begin
           readln(tfIn, str);
           //writeln(tfOut,'Comment=',eComment.Caption);
-          if (IsWordPresent('Comment', str, ['=']) = true) then eComment.Caption:=ExtractWord(2,str,['='],MyFormatSettings);
+          if (IsWordPresent('Comment', str, ['=']) = true) then eComment.Caption:=ExtractWord(2,str,['=']);
           //Macro Profile
                      if (IsWordPresent('N', str, ['=']) = true) then N.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
            if (IsWordPresent('NH4', str, ['=']) = true) then NH4.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
@@ -2232,6 +2232,8 @@ begin
     microToWeght;
     CalcConc;
     SoilName;
+
+    Kf.Caption:='HPG ' + C_FNAME + ' (' + eComment.Caption +')' ;
 end;
 
 procedure TKf.BChange(Sender: TObject);
@@ -2544,7 +2546,7 @@ end;
 
 procedure TKf.FormActivate(Sender: TObject);
 begin
-  C_FNAME:='setting.txt';
+  C_FNAME:='default.hpg';
   eFileName.Caption:=C_FNAME;
    //CalcKoef;
    CalcAll;
@@ -2929,102 +2931,104 @@ begin
 
     writeln(tfOut,'Comment=',eComment.Caption);
     // Macro Profile
-    writeln(tfOut,'N=',FloatToStr(N.value));
-    writeln(tfOut,'NH4=',FloatToStr(NH4.value));
-    writeln(tfOut,'NO3=',FloatToStr(NO3.value));
-    writeln(tfOut,'P=',FloatToStr(P.value));
-    writeln(tfOut,'K=',FloatToStr(K.value));
-    writeln(tfOut,'Ca=',FloatToStr(Ca.value));
-    writeln(tfOut,'Mg=',FloatToStr(Mg.value));
-    writeln(tfOut,'S=',FloatToStr(S.value));
+    writeln(tfOut,'N=',FloatToStr(N.value,MyFormatSettings));
+    writeln(tfOut,'NH4=',FloatToStr(NH4.value,MyFormatSettings));
+    writeln(tfOut,'NO3=',FloatToStr(NO3.value,MyFormatSettings));
+    writeln(tfOut,'P=',FloatToStr(P.value,MyFormatSettings));
+    writeln(tfOut,'K=',FloatToStr(K.value,MyFormatSettings));
+    writeln(tfOut,'Ca=',FloatToStr(Ca.value,MyFormatSettings));
+    writeln(tfOut,'Mg=',FloatToStr(Mg.value,MyFormatSettings));
+    writeln(tfOut,'S=',FloatToStr(S.value,MyFormatSettings));
 
 
     //Macro %
-    writeln(tfOut,'CaNO3_Ca=',FloatToStr(vCaNO3_Ca));
-    writeln(tfOut,'CaNO3_NO3=',FloatToStr(vCaNO3_NO3));
-    writeln(tfOut,'CaNO3_NH4=',FloatToStr(vCaNO3_NH4));
+    writeln(tfOut,'CaNO3_Ca=',FloatToStr(vCaNO3_Ca,MyFormatSettings));
+    writeln(tfOut,'CaNO3_NO3=',FloatToStr(vCaNO3_NO3,MyFormatSettings));
+    writeln(tfOut,'CaNO3_NH4=',FloatToStr(vCaNO3_NH4,MyFormatSettings));
 
-    writeln(tfOut,'KNO3_K=',FloatToStr(vKNO3_K));
-    writeln(tfOut,'KNO3_NO3=',FloatToStr(vKNO3_NO3));
+    writeln(tfOut,'KNO3_K=',FloatToStr(vKNO3_K,MyFormatSettings));
+    writeln(tfOut,'KNO3_NO3=',FloatToStr(vKNO3_NO3,MyFormatSettings));
 
 
-    writeln(tfOut,'NH4NO3_NH4=',FloatToStr(vNH4NO3_NH4));
-    writeln(tfOut,'NH4NO3_NO3=',FloatToStr(vNH4NO3_NO3));
+    writeln(tfOut,'NH4NO3_NH4=',FloatToStr(vNH4NO3_NH4,MyFormatSettings));
+    writeln(tfOut,'NH4NO3_NO3=',FloatToStr(vNH4NO3_NO3,MyFormatSettings));
 
-    writeln(tfOut,'MgSO4_Mg=',FloatToStr(vMgSO4_Mg));
-    writeln(tfOut,'MgSO4_S=',FloatToStr(vMgSO4_S));
+    writeln(tfOut,'MgSO4_Mg=',FloatToStr(vMgSO4_Mg,MyFormatSettings));
+    writeln(tfOut,'MgSO4_S=',FloatToStr(vMgSO4_S,MyFormatSettings));
 
-    writeln(tfOut,'KH2PO4_K=',FloatToStr(vKH2PO4_K));
-    writeln(tfOut,'KH2PO4_P=',FloatToStr(vKH2PO4_P));
+    writeln(tfOut,'KH2PO4_K=',FloatToStr(vKH2PO4_K,MyFormatSettings));
+    writeln(tfOut,'KH2PO4_P=',FloatToStr(vKH2PO4_P,MyFormatSettings));
 
-    writeln(tfOut,'K2SO4_K=',FloatToStr(vK2SO4_K));
-    writeln(tfOut,'K2SO4_S=',FloatToStr(vK2SO4_S));
+    writeln(tfOut,'K2SO4_K=',FloatToStr(vK2SO4_K,MyFormatSettings));
+    writeln(tfOut,'K2SO4_S=',FloatToStr(vK2SO4_S,MyFormatSettings));
 
-    writeln(tfOut,'MgNO3_Mg=',FloatToStr(vMgNO3_Mg));
-    writeln(tfOut,'MgNO3_NO3=',FloatToStr(vMgNO3_NO3));
+    writeln(tfOut,'MgNO3_Mg=',FloatToStr(vMgNO3_Mg,MyFormatSettings));
+    writeln(tfOut,'MgNO3_NO3=',FloatToStr(vMgNO3_NO3,MyFormatSettings));
 
 
     // Micro Profile
-    writeln(tfOut,'Fe=',FloatToStr(Fe.value));
-    writeln(tfOut,'Mn=',FloatToStr(Mn.value));
-    writeln(tfOut,'B=',FloatToStr(B.value));
-    writeln(tfOut,'Zn=',FloatToStr(Zn.value));
-    writeln(tfOut,'Cu=',FloatToStr(Cu.value));
-    writeln(tfOut,'Mo=',FloatToStr(Mo.value));
-    writeln(tfOut,'Co=',FloatToStr(Co.value));
-    writeln(tfOut,'Si=',FloatToStr(Si.value));
+    writeln(tfOut,'Fe=',FloatToStr(Fe.value,MyFormatSettings));
+    writeln(tfOut,'Mn=',FloatToStr(Mn.value,MyFormatSettings));
+    writeln(tfOut,'B=',FloatToStr(B.value,MyFormatSettings));
+    writeln(tfOut,'Zn=',FloatToStr(Zn.value,MyFormatSettings));
+    writeln(tfOut,'Cu=',FloatToStr(Cu.value,MyFormatSettings));
+    writeln(tfOut,'Mo=',FloatToStr(Mo.value,MyFormatSettings));
+    writeln(tfOut,'Co=',FloatToStr(Co.value,MyFormatSettings));
+    writeln(tfOut,'Si=',FloatToStr(Si.value,MyFormatSettings));
 
     //Micro %
-     writeln(tfOut,'dFe=',FloatToStr(dFe.Value));
-     writeln(tfOut,'dMn=',FloatToStr(dMn.Value));
-     writeln(tfOut,'dB=',FloatToStr(dB.Value));
-     writeln(tfOut,'dZn=',FloatToStr(dZn.Value));
-     writeln(tfOut,'dCu=',FloatToStr(dCu.Value));
-     writeln(tfOut,'dMo=',FloatToStr(dMo.Value));
-     writeln(tfOut,'dCo=',FloatToStr(dCo.Value));
-     writeln(tfOut,'dSi=',FloatToStr(dSi.Value));
+     writeln(tfOut,'dFe=',FloatToStr(dFe.Value,MyFormatSettings));
+     writeln(tfOut,'dMn=',FloatToStr(dMn.Value,MyFormatSettings));
+     writeln(tfOut,'dB=',FloatToStr(dB.Value,MyFormatSettings));
+     writeln(tfOut,'dZn=',FloatToStr(dZn.Value,MyFormatSettings));
+     writeln(tfOut,'dCu=',FloatToStr(dCu.Value,MyFormatSettings));
+     writeln(tfOut,'dMo=',FloatToStr(dMo.Value,MyFormatSettings));
+     writeln(tfOut,'dCo=',FloatToStr(dCo.Value,MyFormatSettings));
+     writeln(tfOut,'dSi=',FloatToStr(dSi.Value,MyFormatSettings));
 
      // Концентрации
-     writeln(tfOut,'glCaNO3=',FloatToStr(glCaNO3.Value));
-     writeln(tfOut,'glKNO3=',FloatToStr(glKNO3.Value));
-     writeln(tfOut,'glNH4NO3=',FloatToStr(glNH4NO3.Value));
-     writeln(tfOut,'glMgNO3=',FloatToStr(glMgNO3.Value));
-     writeln(tfOut,'glMgSO4=',FloatToStr(glMgSO4.Value));
-     writeln(tfOut,'glK2SO4=',FloatToStr(glK2SO4.Value));
-     writeln(tfOut,'glKH2PO4=',FloatToStr(glKH2PO4.Value));
+     writeln(tfOut,'glCaNO3=',FloatToStr(glCaNO3.Value,MyFormatSettings));
+     writeln(tfOut,'glKNO3=',FloatToStr(glKNO3.Value,MyFormatSettings));
+     writeln(tfOut,'glNH4NO3=',FloatToStr(glNH4NO3.Value,MyFormatSettings));
+     writeln(tfOut,'glMgNO3=',FloatToStr(glMgNO3.Value,MyFormatSettings));
+     writeln(tfOut,'glMgSO4=',FloatToStr(glMgSO4.Value,MyFormatSettings));
+     writeln(tfOut,'glK2SO4=',FloatToStr(glK2SO4.Value,MyFormatSettings));
+     writeln(tfOut,'glKH2PO4=',FloatToStr(glKH2PO4.Value,MyFormatSettings));
 
-     writeln(tfOut,'glCmplx=',FloatToStr(glCmplx.Value));
-     writeln(tfOut,'glFe=',FloatToStr(glFe.Value));
-     writeln(tfOut,'glMn=',FloatToStr(glMn.Value));
-     writeln(tfOut,'glB=',FloatToStr(glB.Value));
-     writeln(tfOut,'glZn=',FloatToStr(glZn.Value));
-     writeln(tfOut,'glCu=',FloatToStr(glCu.Value));
-     writeln(tfOut,'glMo=',FloatToStr(glMo.Value));
-     writeln(tfOut,'glCo=',FloatToStr(glCo.Value));
-     writeln(tfOut,'glSi=',FloatToStr(glSi.Value));
+     writeln(tfOut,'glCmplx=',FloatToStr(glCmplx.Value,MyFormatSettings));
+     writeln(tfOut,'glFe=',FloatToStr(glFe.Value,MyFormatSettings));
+     writeln(tfOut,'glMn=',FloatToStr(glMn.Value,MyFormatSettings));
+     writeln(tfOut,'glB=',FloatToStr(glB.Value,MyFormatSettings));
+     writeln(tfOut,'glZn=',FloatToStr(glZn.Value,MyFormatSettings));
+     writeln(tfOut,'glCu=',FloatToStr(glCu.Value,MyFormatSettings));
+     writeln(tfOut,'glMo=',FloatToStr(glMo.Value,MyFormatSettings));
+     writeln(tfOut,'glCo=',FloatToStr(glCo.Value,MyFormatSettings));
+     writeln(tfOut,'glSi=',FloatToStr(glSi.Value,MyFormatSettings));
 
      // Плотности
-     writeln(tfOut,'gmlCaNO3=',FloatToStr(gmlCaNO3.Value));
-     writeln(tfOut,'gmlKNO3=',FloatToStr(gmlKNO3.Value));
-     writeln(tfOut,'gmlNH4NO3=',FloatToStr(gmlNH4NO3.Value));
-     writeln(tfOut,'gmlMgNO3=',FloatToStr(gmlMgNO3.Value));
-     writeln(tfOut,'gmlMgSO4=',FloatToStr(gmlMgSO4.Value));
-     writeln(tfOut,'gmlK2SO4=',FloatToStr(gmlK2SO4.Value));
-     writeln(tfOut,'gmlKH2PO4=',FloatToStr(gmlKH2PO4.Value));
+     writeln(tfOut,'gmlCaNO3=',FloatToStr(gmlCaNO3.Value,MyFormatSettings));
+     writeln(tfOut,'gmlKNO3=',FloatToStr(gmlKNO3.Value,MyFormatSettings));
+     writeln(tfOut,'gmlNH4NO3=',FloatToStr(gmlNH4NO3.Value,MyFormatSettings));
+     writeln(tfOut,'gmlMgNO3=',FloatToStr(gmlMgNO3.Value,MyFormatSettings));
+     writeln(tfOut,'gmlMgSO4=',FloatToStr(gmlMgSO4.Value,MyFormatSettings));
+     writeln(tfOut,'gmlK2SO4=',FloatToStr(gmlK2SO4.Value,MyFormatSettings));
+     writeln(tfOut,'gmlKH2PO4=',FloatToStr(gmlKH2PO4.Value,MyFormatSettings));
 
-     writeln(tfOut,'gmlCmplx=',FloatToStr(gmlCmplx.Value));
-     writeln(tfOut,'gmlFe=',FloatToStr(gmlFe.Value));
-     writeln(tfOut,'gmlMn=',FloatToStr(gmlMn.Value));
-     writeln(tfOut,'gmlB=',FloatToStr(gmlB.Value));
-     writeln(tfOut,'gmlZn=',FloatToStr(gmlZn.Value));
-     writeln(tfOut,'gmlCu=',FloatToStr(gmlCu.Value));
-     writeln(tfOut,'gmlMo=',FloatToStr(gmlMo.Value));
-     writeln(tfOut,'gmlCo=',FloatToStr(gmlCo.Value));
-     writeln(tfOut,'gmlSi=',FloatToStr(gmlSi.Value));
+     writeln(tfOut,'gmlCmplx=',FloatToStr(gmlCmplx.Value,MyFormatSettings));
+     writeln(tfOut,'gmlFe=',FloatToStr(gmlFe.Value,MyFormatSettings));
+     writeln(tfOut,'gmlMn=',FloatToStr(gmlMn.Value,MyFormatSettings));
+     writeln(tfOut,'gmlB=',FloatToStr(gmlB.Value,MyFormatSettings));
+     writeln(tfOut,'gmlZn=',FloatToStr(gmlZn.Value,MyFormatSettings));
+     writeln(tfOut,'gmlCu=',FloatToStr(gmlCu.Value,MyFormatSettings));
+     writeln(tfOut,'gmlMo=',FloatToStr(gmlMo.Value,MyFormatSettings));
+     writeln(tfOut,'gmlCo=',FloatToStr(gmlCo.Value,MyFormatSettings));
+     writeln(tfOut,'gmlSi=',FloatToStr(gmlSi.Value,MyFormatSettings));
 
      writeln(tfOut,'chkComplex=',chkComplex.Checked);
 
     CloseFile(tfOut);
+
+    Kf.Caption:='HPG ' + C_FNAME + ' (' + eComment.Caption +')' ;
 end;
 
 procedure TKf.SCaChange(Sender: TObject);

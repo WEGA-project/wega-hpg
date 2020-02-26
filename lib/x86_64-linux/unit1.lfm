@@ -1,7 +1,7 @@
 object Kf: TKf
-  Left = 812
+  Left = 799
   Height = 793
-  Top = 129
+  Top = 202
   Width = 762
   Caption = 'Koefficients'
   ClientHeight = 793
@@ -2306,8 +2306,8 @@ object Kf: TKf
         Height = 696
         Top = 0
         Width = 752
-        ActivePage = TabSheet6
-        TabIndex = 1
+        ActivePage = TabSheet5
+        TabIndex = 0
         TabOrder = 0
         object TabSheet5: TTabSheet
           Caption = 'Расчет'
@@ -3806,56 +3806,56 @@ object Kf: TKf
             TabOrder = 7
             Text = 'p7'
           end
-          object mCaNO11: TEdit
+          object mFe: TEdit
             Left = 8
             Height = 27
             Top = 329
             Width = 54
             TabOrder = 8
           end
-          object mCaNO12: TEdit
+          object mMn: TEdit
             Left = 8
             Height = 27
             Top = 360
             Width = 54
             TabOrder = 9
           end
-          object mCaNO13: TEdit
+          object mB: TEdit
             Left = 8
             Height = 27
             Top = 391
             Width = 54
             TabOrder = 10
           end
-          object mCaNO14: TEdit
+          object mZn: TEdit
             Left = 8
             Height = 27
             Top = 422
             Width = 54
             TabOrder = 11
           end
-          object mCaNO15: TEdit
+          object mCu: TEdit
             Left = 8
             Height = 27
             Top = 453
             Width = 54
             TabOrder = 12
           end
-          object mCaNO16: TEdit
+          object mMo: TEdit
             Left = 8
             Height = 27
             Top = 484
             Width = 54
             TabOrder = 13
           end
-          object mCaNO17: TEdit
+          object mCo: TEdit
             Left = 8
             Height = 27
             Top = 515
             Width = 54
             TabOrder = 14
           end
-          object mCaNO18: TEdit
+          object mSi: TEdit
             Left = 8
             Height = 27
             Top = 546
@@ -3974,112 +3974,112 @@ object Kf: TKf
             Width = 21
             TabOrder = 31
           end
-          object mCaNO4: TEdit
+          object g2gCaNO3: TEdit
             Left = 120
             Height = 27
             Top = 28
             Width = 54
             TabOrder = 32
           end
-          object mKNO4: TEdit
+          object g2gKNO3: TEdit
             Left = 120
             Height = 27
             Top = 59
             Width = 54
             TabOrder = 33
           end
-          object mNH4NO4: TEdit
+          object g2gNH4NO3: TEdit
             Left = 120
             Height = 27
             Top = 88
             Width = 54
             TabOrder = 34
           end
-          object mMgNO4: TEdit
+          object g2gMgNO3: TEdit
             Left = 120
             Height = 27
             Top = 120
             Width = 54
             TabOrder = 35
           end
-          object mMgSO5: TEdit
+          object g2gMgSO4: TEdit
             Left = 120
             Height = 27
             Top = 205
             Width = 54
             TabOrder = 36
           end
-          object mKH2PO5: TEdit
+          object g2gKH2PO4: TEdit
             Left = 120
             Height = 27
             Top = 236
             Width = 54
             TabOrder = 37
           end
-          object mK2SO5: TEdit
+          object g2gK2SO4: TEdit
             Left = 120
             Height = 27
             Top = 267
             Width = 54
             TabOrder = 38
           end
-          object mCmplx1: TEdit
+          object g2gCmplx1: TEdit
             Left = 120
             Height = 27
             Top = 298
             Width = 54
             TabOrder = 39
           end
-          object mCaNO19: TEdit
+          object g2gFe: TEdit
             Left = 120
             Height = 27
             Top = 329
             Width = 54
             TabOrder = 40
           end
-          object mCaNO20: TEdit
+          object g2gMn: TEdit
             Left = 120
             Height = 27
             Top = 360
             Width = 54
             TabOrder = 41
           end
-          object mCaNO21: TEdit
+          object g2gB: TEdit
             Left = 120
             Height = 27
             Top = 391
             Width = 54
             TabOrder = 42
           end
-          object mCaNO22: TEdit
+          object g2gZn: TEdit
             Left = 120
             Height = 27
             Top = 422
             Width = 54
             TabOrder = 43
           end
-          object mCaNO23: TEdit
+          object g2gCu: TEdit
             Left = 120
             Height = 27
             Top = 453
             Width = 54
             TabOrder = 44
           end
-          object mCaNO24: TEdit
+          object g2gMo: TEdit
             Left = 120
             Height = 27
             Top = 484
             Width = 54
             TabOrder = 45
           end
-          object mCaNO25: TEdit
+          object g2gCo: TEdit
             Left = 120
             Height = 27
             Top = 515
             Width = 54
             TabOrder = 46
           end
-          object mCaNO26: TEdit
+          object g2gSi: TEdit
             Left = 120
             Height = 27
             Top = 546
