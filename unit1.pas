@@ -23,6 +23,7 @@ type
     Button3: TButton;
     Button4: TButton;
     Button5: TButton;
+    Button6: TButton;
     CheckBox1: TCheckBox;
     cbCmplx: TCheckBox;
     cbCu: TCheckBox;
@@ -208,6 +209,7 @@ type
     g2gNH4NO3: TEdit;
     od1: TOpenDialog;
     PageControl2: TPageControl;
+    sd1: TSaveDialog;
     Si: TFloatSpinEdit;
     Mo: TFloatSpinEdit;
     StaticText1: TStaticText;
@@ -373,6 +375,7 @@ type
     procedure Button3Click(Sender: TObject);
     procedure Button4Click(Sender: TObject);
     procedure Button5Click(Sender: TObject);
+    procedure Button6Click(Sender: TObject);
     procedure CaChange(Sender: TObject);
     procedure C(Sender: TObject);
 
@@ -1508,6 +1511,123 @@ begin
     CalcConc;
 end;
 
+procedure SaveFile;
+begin
+   MyFormatSettings.DecimalSeparator := '.';
+  getVar;
+  //  vA:=A.value;
+  //vB:=FloatSpinEdit3.value;
+  //vC:=C.value;
+
+  // Связываем имя файла с переменной
+  AssignFile(tfOut, C_FNAME);
+    rewrite(tfOut);
+
+    writeln(tfOut,'version=',Kf.version.Caption + ' https://github.com/siv237/HPG');
+    writeln(tfOut,'Comment=',Kf.eComment.Caption);
+
+    // Macro Profile
+    writeln(tfOut,'N=',FloatToStr(Kf.N.value,MyFormatSettings));
+    writeln(tfOut,'NH4=',FloatToStr(Kf.NH4.value,MyFormatSettings));
+    writeln(tfOut,'NO3=',FloatToStr(Kf.NO3.value,MyFormatSettings));
+    writeln(tfOut,'P=',FloatToStr(Kf.P.value,MyFormatSettings));
+    writeln(tfOut,'K=',FloatToStr(Kf.K.value,MyFormatSettings));
+    writeln(tfOut,'Ca=',FloatToStr(Kf.Ca.value,MyFormatSettings));
+    writeln(tfOut,'Mg=',FloatToStr(Kf.Mg.value,MyFormatSettings));
+    writeln(tfOut,'S=',FloatToStr(Kf.S.value,MyFormatSettings));
+
+
+    //Macro %
+    writeln(tfOut,'CaNO3_Ca=',FloatToStr(vCaNO3_Ca,MyFormatSettings));
+    writeln(tfOut,'CaNO3_NO3=',FloatToStr(vCaNO3_NO3,MyFormatSettings));
+    writeln(tfOut,'CaNO3_NH4=',FloatToStr(vCaNO3_NH4,MyFormatSettings));
+
+    writeln(tfOut,'KNO3_K=',FloatToStr(vKNO3_K,MyFormatSettings));
+    writeln(tfOut,'KNO3_NO3=',FloatToStr(vKNO3_NO3,MyFormatSettings));
+
+
+    writeln(tfOut,'NH4NO3_NH4=',FloatToStr(vNH4NO3_NH4,MyFormatSettings));
+    writeln(tfOut,'NH4NO3_NO3=',FloatToStr(vNH4NO3_NO3,MyFormatSettings));
+
+    writeln(tfOut,'MgSO4_Mg=',FloatToStr(vMgSO4_Mg,MyFormatSettings));
+    writeln(tfOut,'MgSO4_S=',FloatToStr(vMgSO4_S,MyFormatSettings));
+
+    writeln(tfOut,'KH2PO4_K=',FloatToStr(vKH2PO4_K,MyFormatSettings));
+    writeln(tfOut,'KH2PO4_P=',FloatToStr(vKH2PO4_P,MyFormatSettings));
+
+    writeln(tfOut,'K2SO4_K=',FloatToStr(vK2SO4_K,MyFormatSettings));
+    writeln(tfOut,'K2SO4_S=',FloatToStr(vK2SO4_S,MyFormatSettings));
+
+    writeln(tfOut,'MgNO3_Mg=',FloatToStr(vMgNO3_Mg,MyFormatSettings));
+    writeln(tfOut,'MgNO3_NO3=',FloatToStr(vMgNO3_NO3,MyFormatSettings));
+
+
+    // Micro Profile
+    writeln(tfOut,'Fe=',FloatToStr(Kf.Fe.value,MyFormatSettings));
+    writeln(tfOut,'Mn=',FloatToStr(Kf.Mn.value,MyFormatSettings));
+    writeln(tfOut,'B=',FloatToStr(Kf.B.value,MyFormatSettings));
+    writeln(tfOut,'Zn=',FloatToStr(Kf.Zn.value,MyFormatSettings));
+    writeln(tfOut,'Cu=',FloatToStr(Kf.Cu.value,MyFormatSettings));
+    writeln(tfOut,'Mo=',FloatToStr(Kf.Mo.value,MyFormatSettings));
+    writeln(tfOut,'Co=',FloatToStr(Kf.Co.value,MyFormatSettings));
+    writeln(tfOut,'Si=',FloatToStr(Kf.Si.value,MyFormatSettings));
+
+    //Micro %
+     writeln(tfOut,'dFe=',FloatToStr(Kf.dFe.Value,MyFormatSettings));
+     writeln(tfOut,'dMn=',FloatToStr(Kf.dMn.Value,MyFormatSettings));
+     writeln(tfOut,'dB=',FloatToStr(Kf.dB.Value,MyFormatSettings));
+     writeln(tfOut,'dZn=',FloatToStr(Kf.dZn.Value,MyFormatSettings));
+     writeln(tfOut,'dCu=',FloatToStr(Kf.dCu.Value,MyFormatSettings));
+     writeln(tfOut,'dMo=',FloatToStr(Kf.dMo.Value,MyFormatSettings));
+     writeln(tfOut,'dCo=',FloatToStr(Kf.dCo.Value,MyFormatSettings));
+     writeln(tfOut,'dSi=',FloatToStr(Kf.dSi.Value,MyFormatSettings));
+
+     // Концентрации
+     writeln(tfOut,'glCaNO3=',FloatToStr(Kf.glCaNO3.Value,MyFormatSettings));
+     writeln(tfOut,'glKNO3=',FloatToStr(Kf.glKNO3.Value,MyFormatSettings));
+     writeln(tfOut,'glNH4NO3=',FloatToStr(Kf.glNH4NO3.Value,MyFormatSettings));
+     writeln(tfOut,'glMgNO3=',FloatToStr(Kf.glMgNO3.Value,MyFormatSettings));
+     writeln(tfOut,'glMgSO4=',FloatToStr(Kf.glMgSO4.Value,MyFormatSettings));
+     writeln(tfOut,'glK2SO4=',FloatToStr(Kf.glK2SO4.Value,MyFormatSettings));
+     writeln(tfOut,'glKH2PO4=',FloatToStr(Kf.glKH2PO4.Value,MyFormatSettings));
+
+     writeln(tfOut,'glCmplx=',FloatToStr(Kf.glCmplx.Value,MyFormatSettings));
+     writeln(tfOut,'glFe=',FloatToStr(Kf.glFe.Value,MyFormatSettings));
+     writeln(tfOut,'glMn=',FloatToStr(Kf.glMn.Value,MyFormatSettings));
+     writeln(tfOut,'glB=',FloatToStr(Kf.glB.Value,MyFormatSettings));
+     writeln(tfOut,'glZn=',FloatToStr(Kf.glZn.Value,MyFormatSettings));
+     writeln(tfOut,'glCu=',FloatToStr(Kf.glCu.Value,MyFormatSettings));
+     writeln(tfOut,'glMo=',FloatToStr(Kf.glMo.Value,MyFormatSettings));
+     writeln(tfOut,'glCo=',FloatToStr(Kf.glCo.Value,MyFormatSettings));
+     writeln(tfOut,'glSi=',FloatToStr(Kf.glSi.Value,MyFormatSettings));
+
+     // Плотности
+     writeln(tfOut,'gmlCaNO3=',FloatToStr(Kf.gmlCaNO3.Value,MyFormatSettings));
+     writeln(tfOut,'gmlKNO3=',FloatToStr(Kf.gmlKNO3.Value,MyFormatSettings));
+     writeln(tfOut,'gmlNH4NO3=',FloatToStr(Kf.gmlNH4NO3.Value,MyFormatSettings));
+     writeln(tfOut,'gmlMgNO3=',FloatToStr(Kf.gmlMgNO3.Value,MyFormatSettings));
+     writeln(tfOut,'gmlMgSO4=',FloatToStr(Kf.gmlMgSO4.Value,MyFormatSettings));
+     writeln(tfOut,'gmlK2SO4=',FloatToStr(Kf.gmlK2SO4.Value,MyFormatSettings));
+     writeln(tfOut,'gmlKH2PO4=',FloatToStr(Kf.gmlKH2PO4.Value,MyFormatSettings));
+
+     writeln(tfOut,'gmlCmplx=',FloatToStr(Kf.gmlCmplx.Value,MyFormatSettings));
+     writeln(tfOut,'gmlFe=',FloatToStr(Kf.gmlFe.Value,MyFormatSettings));
+     writeln(tfOut,'gmlMn=',FloatToStr(Kf.gmlMn.Value,MyFormatSettings));
+     writeln(tfOut,'gmlB=',FloatToStr(Kf.gmlB.Value,MyFormatSettings));
+     writeln(tfOut,'gmlZn=',FloatToStr(Kf.gmlZn.Value,MyFormatSettings));
+     writeln(tfOut,'gmlCu=',FloatToStr(Kf.gmlCu.Value,MyFormatSettings));
+     writeln(tfOut,'gmlMo=',FloatToStr(Kf.gmlMo.Value,MyFormatSettings));
+     writeln(tfOut,'gmlCo=',FloatToStr(Kf.gmlCo.Value,MyFormatSettings));
+     writeln(tfOut,'gmlSi=',FloatToStr(Kf.gmlSi.Value,MyFormatSettings));
+
+     writeln(tfOut,'chkComplex=',Kf.chkComplex.Checked);
+
+    CloseFile(tfOut);
+
+    Kf.Caption:='HPG ' + C_FNAME + ' (' + Kf.eComment.Caption +')' ;
+
+end;
+
 procedure TKf.MgCaClick(Sender: TObject);
 begin
   Mg.value:=Ca.value*MgCa.value;
@@ -2355,6 +2475,16 @@ begin
          end;
 end;
 
+procedure TKf.Button6Click(Sender: TObject);
+begin
+           if sd1.Execute then begin;
+            C_FNAME:= sd1.FileName;
+            //LoadFirt;
+            //loadPrf;
+         end;
+           SaveFile;
+end;
+
 procedure TKf.bloadClick(Sender: TObject);
   //var
     //tfIn: TextFile;
@@ -3074,118 +3204,7 @@ end;
 
 procedure TKf.saveClick(Sender: TObject);
 begin
-   MyFormatSettings.DecimalSeparator := '.';
-  getVar;
-  //  vA:=A.value;
-  //vB:=FloatSpinEdit3.value;
-  //vC:=C.value;
-
-  // Связываем имя файла с переменной
-  AssignFile(tfOut, C_FNAME);
-    rewrite(tfOut);
-
-    writeln(tfOut,'version=',version.Caption + ' https://github.com/siv237/HPG');
-    writeln(tfOut,'Comment=',eComment.Caption);
-
-    // Macro Profile
-    writeln(tfOut,'N=',FloatToStr(N.value,MyFormatSettings));
-    writeln(tfOut,'NH4=',FloatToStr(NH4.value,MyFormatSettings));
-    writeln(tfOut,'NO3=',FloatToStr(NO3.value,MyFormatSettings));
-    writeln(tfOut,'P=',FloatToStr(P.value,MyFormatSettings));
-    writeln(tfOut,'K=',FloatToStr(K.value,MyFormatSettings));
-    writeln(tfOut,'Ca=',FloatToStr(Ca.value,MyFormatSettings));
-    writeln(tfOut,'Mg=',FloatToStr(Mg.value,MyFormatSettings));
-    writeln(tfOut,'S=',FloatToStr(S.value,MyFormatSettings));
-
-
-    //Macro %
-    writeln(tfOut,'CaNO3_Ca=',FloatToStr(vCaNO3_Ca,MyFormatSettings));
-    writeln(tfOut,'CaNO3_NO3=',FloatToStr(vCaNO3_NO3,MyFormatSettings));
-    writeln(tfOut,'CaNO3_NH4=',FloatToStr(vCaNO3_NH4,MyFormatSettings));
-
-    writeln(tfOut,'KNO3_K=',FloatToStr(vKNO3_K,MyFormatSettings));
-    writeln(tfOut,'KNO3_NO3=',FloatToStr(vKNO3_NO3,MyFormatSettings));
-
-
-    writeln(tfOut,'NH4NO3_NH4=',FloatToStr(vNH4NO3_NH4,MyFormatSettings));
-    writeln(tfOut,'NH4NO3_NO3=',FloatToStr(vNH4NO3_NO3,MyFormatSettings));
-
-    writeln(tfOut,'MgSO4_Mg=',FloatToStr(vMgSO4_Mg,MyFormatSettings));
-    writeln(tfOut,'MgSO4_S=',FloatToStr(vMgSO4_S,MyFormatSettings));
-
-    writeln(tfOut,'KH2PO4_K=',FloatToStr(vKH2PO4_K,MyFormatSettings));
-    writeln(tfOut,'KH2PO4_P=',FloatToStr(vKH2PO4_P,MyFormatSettings));
-
-    writeln(tfOut,'K2SO4_K=',FloatToStr(vK2SO4_K,MyFormatSettings));
-    writeln(tfOut,'K2SO4_S=',FloatToStr(vK2SO4_S,MyFormatSettings));
-
-    writeln(tfOut,'MgNO3_Mg=',FloatToStr(vMgNO3_Mg,MyFormatSettings));
-    writeln(tfOut,'MgNO3_NO3=',FloatToStr(vMgNO3_NO3,MyFormatSettings));
-
-
-    // Micro Profile
-    writeln(tfOut,'Fe=',FloatToStr(Fe.value,MyFormatSettings));
-    writeln(tfOut,'Mn=',FloatToStr(Mn.value,MyFormatSettings));
-    writeln(tfOut,'B=',FloatToStr(B.value,MyFormatSettings));
-    writeln(tfOut,'Zn=',FloatToStr(Zn.value,MyFormatSettings));
-    writeln(tfOut,'Cu=',FloatToStr(Cu.value,MyFormatSettings));
-    writeln(tfOut,'Mo=',FloatToStr(Mo.value,MyFormatSettings));
-    writeln(tfOut,'Co=',FloatToStr(Co.value,MyFormatSettings));
-    writeln(tfOut,'Si=',FloatToStr(Si.value,MyFormatSettings));
-
-    //Micro %
-     writeln(tfOut,'dFe=',FloatToStr(dFe.Value,MyFormatSettings));
-     writeln(tfOut,'dMn=',FloatToStr(dMn.Value,MyFormatSettings));
-     writeln(tfOut,'dB=',FloatToStr(dB.Value,MyFormatSettings));
-     writeln(tfOut,'dZn=',FloatToStr(dZn.Value,MyFormatSettings));
-     writeln(tfOut,'dCu=',FloatToStr(dCu.Value,MyFormatSettings));
-     writeln(tfOut,'dMo=',FloatToStr(dMo.Value,MyFormatSettings));
-     writeln(tfOut,'dCo=',FloatToStr(dCo.Value,MyFormatSettings));
-     writeln(tfOut,'dSi=',FloatToStr(dSi.Value,MyFormatSettings));
-
-     // Концентрации
-     writeln(tfOut,'glCaNO3=',FloatToStr(glCaNO3.Value,MyFormatSettings));
-     writeln(tfOut,'glKNO3=',FloatToStr(glKNO3.Value,MyFormatSettings));
-     writeln(tfOut,'glNH4NO3=',FloatToStr(glNH4NO3.Value,MyFormatSettings));
-     writeln(tfOut,'glMgNO3=',FloatToStr(glMgNO3.Value,MyFormatSettings));
-     writeln(tfOut,'glMgSO4=',FloatToStr(glMgSO4.Value,MyFormatSettings));
-     writeln(tfOut,'glK2SO4=',FloatToStr(glK2SO4.Value,MyFormatSettings));
-     writeln(tfOut,'glKH2PO4=',FloatToStr(glKH2PO4.Value,MyFormatSettings));
-
-     writeln(tfOut,'glCmplx=',FloatToStr(glCmplx.Value,MyFormatSettings));
-     writeln(tfOut,'glFe=',FloatToStr(glFe.Value,MyFormatSettings));
-     writeln(tfOut,'glMn=',FloatToStr(glMn.Value,MyFormatSettings));
-     writeln(tfOut,'glB=',FloatToStr(glB.Value,MyFormatSettings));
-     writeln(tfOut,'glZn=',FloatToStr(glZn.Value,MyFormatSettings));
-     writeln(tfOut,'glCu=',FloatToStr(glCu.Value,MyFormatSettings));
-     writeln(tfOut,'glMo=',FloatToStr(glMo.Value,MyFormatSettings));
-     writeln(tfOut,'glCo=',FloatToStr(glCo.Value,MyFormatSettings));
-     writeln(tfOut,'glSi=',FloatToStr(glSi.Value,MyFormatSettings));
-
-     // Плотности
-     writeln(tfOut,'gmlCaNO3=',FloatToStr(gmlCaNO3.Value,MyFormatSettings));
-     writeln(tfOut,'gmlKNO3=',FloatToStr(gmlKNO3.Value,MyFormatSettings));
-     writeln(tfOut,'gmlNH4NO3=',FloatToStr(gmlNH4NO3.Value,MyFormatSettings));
-     writeln(tfOut,'gmlMgNO3=',FloatToStr(gmlMgNO3.Value,MyFormatSettings));
-     writeln(tfOut,'gmlMgSO4=',FloatToStr(gmlMgSO4.Value,MyFormatSettings));
-     writeln(tfOut,'gmlK2SO4=',FloatToStr(gmlK2SO4.Value,MyFormatSettings));
-     writeln(tfOut,'gmlKH2PO4=',FloatToStr(gmlKH2PO4.Value,MyFormatSettings));
-
-     writeln(tfOut,'gmlCmplx=',FloatToStr(gmlCmplx.Value,MyFormatSettings));
-     writeln(tfOut,'gmlFe=',FloatToStr(gmlFe.Value,MyFormatSettings));
-     writeln(tfOut,'gmlMn=',FloatToStr(gmlMn.Value,MyFormatSettings));
-     writeln(tfOut,'gmlB=',FloatToStr(gmlB.Value,MyFormatSettings));
-     writeln(tfOut,'gmlZn=',FloatToStr(gmlZn.Value,MyFormatSettings));
-     writeln(tfOut,'gmlCu=',FloatToStr(gmlCu.Value,MyFormatSettings));
-     writeln(tfOut,'gmlMo=',FloatToStr(gmlMo.Value,MyFormatSettings));
-     writeln(tfOut,'gmlCo=',FloatToStr(gmlCo.Value,MyFormatSettings));
-     writeln(tfOut,'gmlSi=',FloatToStr(gmlSi.Value,MyFormatSettings));
-
-     writeln(tfOut,'chkComplex=',chkComplex.Checked);
-
-    CloseFile(tfOut);
-
-    Kf.Caption:='HPG ' + C_FNAME + ' (' + eComment.Caption +')' ;
+ SaveFile;
 end;
 
 procedure TKf.SCaChange(Sender: TObject);
