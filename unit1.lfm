@@ -1,7 +1,7 @@
 object Kf: TKf
-  Left = 680
+  Left = 626
   Height = 793
-  Top = 165
+  Top = 210
   Width = 762
   Caption = 'Koefficients'
   ClientHeight = 793
@@ -19,8 +19,8 @@ object Kf: TKf
     Left = 520
     Height = 15
     Top = 773
-    Width = 222
-    Caption = 'Hydroponic Profile Generator 0.044'
+    Width = 215
+    Caption = 'Hydroponic Profile Generator 0.05'
     Font.Color = clActiveCaption
     Font.Height = -13
     Font.Name = 'Arial'
@@ -216,7 +216,7 @@ object Kf: TKf
         ParentFont = False
       end
       object Label6: TLabel
-        Left = 500
+        Left = 479
         Height = 17
         Top = 21
         Width = 22
@@ -1699,6 +1699,18 @@ object Kf: TKf
         Caption = 'Макропрофиль в мг/л (ppm)'
         ParentColor = False
       end
+      object Label77: TLabel
+        Left = 454
+        Height = 17
+        Top = 0
+        Width = 294
+        Caption = 'Расчет макропрофиля и навесок солей'
+        Font.Height = -15
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+      end
     end
     object TabSheet2: TTabSheet
       Caption = 'Микро'
@@ -2308,6 +2320,18 @@ object Kf: TKf
         Width = 151
         Caption = 'Микропрофиль в мкг/л'
         ParentColor = False
+      end
+      object Label76: TLabel
+        Left = 456
+        Height = 17
+        Top = 0
+        Width = 244
+        Caption = 'Расчет навесок микроэлементов'
+        Font.Height = -15
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
       end
     end
     object TabSheet3: TTabSheet
@@ -3576,6 +3600,18 @@ object Kf: TKf
             ParentColor = False
             ParentFont = False
           end
+          object Label75: TLabel
+            Left = 448
+            Height = 17
+            Top = 0
+            Width = 285
+            Caption = 'Расчет монорастворов и концентратов'
+            Font.Height = -15
+            Font.Name = 'Arial'
+            Font.Style = [fsBold]
+            ParentColor = False
+            ParentFont = False
+          end
         end
         object TabSheet6: TTabSheet
           Caption = 'Изготовление'
@@ -4111,8 +4147,8 @@ object Kf: TKf
             Left = 125
             Height = 17
             Top = 6
-            Width = 43
-            Caption = 'Вес ж.'
+            Width = 47
+            Caption = 'Вес гр.'
             ParentColor = False
           end
           object Button2: TButton
@@ -4121,6 +4157,7 @@ object Kf: TKf
             Top = 628
             Width = 96
             Caption = 'Изготовить'
+            OnClick = Button2Click
             TabOrder = 48
           end
           object addrMixer: TEdit
@@ -4138,6 +4175,18 @@ object Kf: TKf
             Width = 184
             Caption = 'Комплекс микроэлементов'
             ParentColor = False
+          end
+          object Label74: TLabel
+            Left = 392
+            Height = 17
+            Top = 0
+            Width = 341
+            Caption = 'План изготовления жидкими монорастворами'
+            Font.Height = -15
+            Font.Name = 'Arial'
+            Font.Style = [fsBold]
+            ParentColor = False
+            ParentFont = False
           end
         end
       end

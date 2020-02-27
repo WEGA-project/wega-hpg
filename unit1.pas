@@ -55,6 +55,10 @@ type
     g2gCaNO3: TEdit;
     Label73: TLabel;
     l2Cmplx: TLabel;
+    Label74: TLabel;
+    Label75: TLabel;
+    Label76: TLabel;
+    Label77: TLabel;
     mCmplx: TEdit;
     mFe: TEdit;
     mMn: TEdit;
@@ -361,6 +365,7 @@ type
     procedure bloadClick(Sender: TObject);
     procedure bloadpfClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
     procedure CaChange(Sender: TObject);
     procedure C(Sender: TObject);
 
@@ -2269,6 +2274,46 @@ begin
    microToWeght;
    CalcConc;
    SoilName;
+end;
+
+procedure TKf.Button2Click(Sender: TObject);
+var
+    mixlink:string;
+begin
+  mixlink:='http://' + addrMixer.text + '/?';
+
+    if (mCaNO3.Text <> '') then mixlink:=mixlink + mCaNO3.Text + '=' + g2gCaNO3.Text + '&';
+  if (mKNO3.Text <> '') then mixlink:=mixlink + mKNO3.Text + '=' + g2gKNO3.Text + '&';
+  if (mNH4NO3.Text <> '') then mixlink:=mixlink + mNH4NO3.Text + '=' + g2gNH4NO3.Text + '&';
+  if (mMgNO3.Text <> '') then mixlink:=mixlink + mMgNO3.Text + '=' + g2gMgNO3.Text + '&';
+
+  if (mMgSO4.Text <> '') then mixlink:=mixlink + mMgSO4.Text + '=' + g2gMgSO4.Text + '&';
+  if (mKH2PO4.Text <> '') then mixlink:=mixlink + mKH2PO4.Text + '=' + g2gKH2PO4.Text + '&';
+  if (mK2SO4.Text <> '') then mixlink:=mixlink + mK2SO4.Text + '=' + g2gK2SO4.Text + '&';
+
+
+
+if (kF.chKComplex.Checked = True) then
+begin
+  if (mCmplx.Text <> '') then mixlink:=mixlink + mCmplx.Text + '=' + g2gCmplx.Text + '&';
+end
+else
+begin
+ if (mFe.Text <> '') then mixlink:=mixlink + mFe.Text + '=' + g2gFe.Text + '&';
+ if (mMn.Text <> '') then mixlink:=mixlink + mMn.Text + '=' + g2gMn.Text + '&';
+ if (mB.Text <> '')  then mixlink:=mixlink + mB.Text + '=' +  g2gB.Text +  '&';
+ if (mZn.Text <> '') then mixlink:=mixlink + mZn.Text + '=' + g2gZn.Text + '&';
+ if (mCu.Text <> '') then mixlink:=mixlink + mCu.Text + '=' + g2gCu.Text + '&';
+ if (mMo.Text <> '') then mixlink:=mixlink + mMo.Text + '=' + g2gMo.Text + '&';
+ if (mCo.Text <> '') then mixlink:=mixlink + mCo.Text + '=' + g2gCo.Text + '&';
+ if (mSi.Text <> '') then mixlink:=mixlink + mSi.Text + '=' + g2gSi.Text + '&';
+
+end;
+
+
+  delete(mixlink, length(mixlink)-0, 1);
+  //lMixlink.Caption:=mixlink;
+  OpenURL(mixlink);
 end;
 
 procedure TKf.bloadClick(Sender: TObject);
