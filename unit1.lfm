@@ -1,7 +1,7 @@
 object Kf: TKf
-  Left = 626
+  Left = 859
   Height = 793
-  Top = 210
+  Top = 201
   Width = 762
   Caption = 'Koefficients'
   ClientHeight = 793
@@ -34,11 +34,11 @@ object Kf: TKf
     Height = 736
     Top = 0
     Width = 761
-    ActivePage = TabSheet1
+    ActivePage = TabSheet4
     Font.Height = -15
     Font.Name = 'Arial'
     ParentFont = False
-    TabIndex = 0
+    TabIndex = 3
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'Макро'
@@ -4243,6 +4243,33 @@ object Kf: TKf
         HideDateTimeParts = []
         MonthNames = 'Long'
       end
+      object Button3: TButton
+        Left = 16
+        Height = 28
+        Top = 88
+        Width = 112
+        Caption = 'Открыть'
+        OnClick = Button3Click
+        TabOrder = 3
+      end
+      object Button4: TButton
+        Left = 16
+        Height = 32
+        Top = 120
+        Width = 208
+        Caption = 'Подгрузить удобрения'
+        OnClick = Button4Click
+        TabOrder = 4
+      end
+      object Button5: TButton
+        Left = 16
+        Height = 28
+        Top = 152
+        Width = 208
+        Caption = 'Подгрузить профиль'
+        OnClick = Button5Click
+        TabOrder = 5
+      end
     end
   end
   object Label36: TLabel
@@ -4319,5 +4346,9 @@ object Kf: TKf
     OnClick = Button1Click
     ParentFont = False
     TabOrder = 5
+  end
+  object od1: TOpenDialog
+    left = 728
+    top = 736
   end
 end
