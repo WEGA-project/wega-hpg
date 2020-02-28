@@ -1400,6 +1400,8 @@ begin
            if (IsWordPresent('Mo', str, ['=']) = true) then Kf.Mo.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
            if (IsWordPresent('Co', str, ['=']) = true) then Kf.Co.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
            if (IsWordPresent('Si', str, ['=']) = true) then Kf.Si.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+
+           if (IsWordPresent('V', str, ['=']) = true) then Kf.V.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
           end;
 
       CloseFile(tfIn);
@@ -1457,7 +1459,10 @@ begin
            if (IsWordPresent('dSi', str, ['=']) = true) then Kf.dSi.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
 
            if (IsWordPresent('chkComplex', str, ['=']) = true) then Kf.chkComplex.Checked:=StrToBool(ExtractWord(2,str,['=']));
-           //writeln(tfOut,'chkComplex=',chkComplex.Checked);
+           if (IsWordPresent('chK2SO4', str, ['=']) = true) then Kf.chK2SO4.Checked:=StrToBool(ExtractWord(2,str,['=']));
+           if (IsWordPresent('chMgNO3', str, ['=']) = true) then Kf.chMgNO3.Checked:=StrToBool(ExtractWord(2,str,['=']));
+
+
 
                 // Концентрации
            if (IsWordPresent('glCaNO3', str, ['=']) = true) then Kf.glCaNO3.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
@@ -1500,6 +1505,23 @@ begin
            if (IsWordPresent('gmlMo', str, ['=']) = true) then Kf.gmlMo.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
            if (IsWordPresent('gmlCo', str, ['=']) = true) then Kf.gmlCo.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
            if (IsWordPresent('gmlSi', str, ['=']) = true) then Kf.gmlSi.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+
+           //    Помпы
+
+           if (IsWordPresent('mCaNO3', str, ['=']) = true) then Kf.mCaNO3.text:=ExtractWord(2,str,['=']);
+           if (IsWordPresent('mKNO3', str, ['=']) = true) then Kf.mKNO3.text:=ExtractWord(2,str,['=']);
+           if (IsWordPresent('mNH4NO3', str, ['=']) = true) then Kf.mNH4NO3.text:=ExtractWord(2,str,['=']);
+           if (IsWordPresent('mMgNO3', str, ['=']) = true) then Kf.mMgNO3.text:=ExtractWord(2,str,['=']);
+           if (IsWordPresent('mMgSO4', str, ['=']) = true) then Kf.mMgSO4.text:=ExtractWord(2,str,['=']);
+           if (IsWordPresent('mCmplx', str, ['=']) = true) then Kf.mCmplx.text:=ExtractWord(2,str,['=']);
+           if (IsWordPresent('mFe', str, ['=']) = true) then Kf.mFe.text:=ExtractWord(2,str,['=']);
+           if (IsWordPresent('mMn', str, ['=']) = true) then Kf.mMn.text:=ExtractWord(2,str,['=']);
+           if (IsWordPresent('mB', str, ['=']) = true) then Kf.mB.text:=ExtractWord(2,str,['=']);
+           if (IsWordPresent('mZn', str, ['=']) = true) then Kf.mZn.text:=ExtractWord(2,str,['=']);
+           if (IsWordPresent('mCu', str, ['=']) = true) then Kf.mCu.text:=ExtractWord(2,str,['=']);
+           if (IsWordPresent('mCo', str, ['=']) = true) then Kf.mCo.text:=ExtractWord(2,str,['=']);
+           if (IsWordPresent('mSi', str, ['=']) = true) then Kf.mSi.text:=ExtractWord(2,str,['=']);
+           if (IsWordPresent('addrMixer', str, ['=']) = true) then Kf.addrMixer.text:=ExtractWord(2,str,['=']);
 
 
 
@@ -1645,7 +1667,7 @@ begin
      writeln(tfOut,'mMo=',Kf.mMo.Text);
      writeln(tfOut,'mCo=',Kf.mCo.Text);
      writeln(tfOut,'mSi=',Kf.mSi.Text);
-
+     writeln(tfOut,'addrMixer=',Kf.addrMixer.Text);
     CloseFile(tfOut);
 
     Kf.Caption:='HPG ' + C_FNAME + ' (' + Kf.eComment.Caption +')' ;
