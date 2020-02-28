@@ -1621,6 +1621,25 @@ begin
      writeln(tfOut,'gmlSi=',FloatToStr(Kf.gmlSi.Value,MyFormatSettings));
 
      writeln(tfOut,'chkComplex=',Kf.chkComplex.Checked);
+     writeln(tfOut,'V=',FloatToStr(Kf.V.Value,MyFormatSettings));
+
+     writeln(tfOut,'mCaNO3=',Kf.mCaNO3.Text);
+     writeln(tfOut,'mKNO3=',Kf.mKNO3.Text);
+     writeln(tfOut,'mNH4NO3=',Kf.mNH4NO3.Text);
+     writeln(tfOut,'mMgNO3=',Kf.mMgNO3.Text);
+     writeln(tfOut,'mMgSO4=',Kf.mMgSO4.Text);
+     writeln(tfOut,'mKH2PO4=',Kf.mKH2PO4.Text);
+     writeln(tfOut,'mK2SO4=',Kf.mK2SO4.Text);
+     writeln(tfOut,'mCmplx=',Kf.mCmplx.Text);
+
+     writeln(tfOut,'mFe=',Kf.mFe.Text);
+     writeln(tfOut,'mMn=',Kf.mMn.Text);
+     writeln(tfOut,'mB=',Kf.mB.Text);
+     writeln(tfOut,'mZn=',Kf.mZn.Text);
+     writeln(tfOut,'mCu=',Kf.mCu.Text);
+     writeln(tfOut,'mMo=',Kf.mMo.Text);
+     writeln(tfOut,'mCo=',Kf.mCo.Text);
+     writeln(tfOut,'mSi=',Kf.mSi.Text);
 
     CloseFile(tfOut);
 
