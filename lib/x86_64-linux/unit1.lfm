@@ -1,7 +1,7 @@
 object Kf: TKf
-  Left = 183
+  Left = 711
   Height = 793
-  Top = 77
+  Top = 93
   Width = 762
   Caption = 'Koefficients'
   ClientHeight = 793
@@ -20,7 +20,7 @@ object Kf: TKf
     Height = 15
     Top = 773
     Width = 222
-    Caption = 'Hydroponic Profile Generator 0.051'
+    Caption = 'Hydroponic Profile Generator 0.052'
     Font.Color = clActiveCaption
     Font.Height = -13
     Font.Name = 'Arial'
@@ -2347,8 +2347,8 @@ object Kf: TKf
       ParentFont = False
       object PageControl2: TPageControl
         Left = 0
-        Height = 696
-        Top = -8
+        Height = 668
+        Top = 4
         Width = 752
         ActivePage = TabSheet5
         Font.Height = -15
@@ -2358,7 +2358,7 @@ object Kf: TKf
         TabOrder = 0
         object TabSheet5: TTabSheet
           Caption = 'Расчет'
-          ClientHeight = 661
+          ClientHeight = 633
           ClientWidth = 746
           Font.Height = -15
           Font.Name = 'Arial'
@@ -3624,7 +3624,7 @@ object Kf: TKf
         end
         object TabSheet6: TTabSheet
           Caption = 'Изготовление'
-          ClientHeight = 661
+          ClientHeight = 633
           ClientWidth = 746
           Font.Height = -15
           Font.Name = 'Arial'
@@ -4319,7 +4319,7 @@ object Kf: TKf
           object Button2: TButton
             Left = 288
             Height = 28
-            Top = 628
+            Top = 593
             Width = 96
             Caption = 'Изготовить'
             Font.Height = -15
@@ -4331,7 +4331,7 @@ object Kf: TKf
           object addrMixer: TEdit
             Left = 6
             Height = 27
-            Top = 629
+            Top = 594
             Width = 275
             Font.Height = -15
             Font.Name = 'Arial'
@@ -4388,37 +4388,13 @@ object Kf: TKf
         Height = 27
         Top = 15
         Width = 719
+        Color = clNone
         Font.Height = -15
         Font.Name = 'Arial'
         OnChange = eFileNameChange
         ParentFont = False
         TabOrder = 1
         Text = 'default.hpg'
-      end
-      object DateTimePicker1: TDateTimePicker
-        Left = 632
-        Height = 23
-        Top = 47
-        Width = 97
-        CenturyFrom = 1941
-        MaxDate = 2958465
-        MinDate = -53780
-        Font.Height = -15
-        Font.Name = 'Arial'
-        ParentFont = False
-        TabOrder = 2
-        TrailingSeparator = False
-        TextForNullDate = 'NULL'
-        LeadingZeros = True
-        Kind = dtkDate
-        TimeFormat = tf24
-        TimeDisplay = tdHMS
-        DateMode = dmComboBox
-        Date = 43886
-        Time = 0.546630451390229
-        UseDefaultSeparators = True
-        HideDateTimeParts = []
-        MonthNames = 'Long'
       end
       object Button3: TButton
         Left = 15
@@ -4430,7 +4406,7 @@ object Kf: TKf
         Font.Name = 'Arial'
         OnClick = Button3Click
         ParentFont = False
-        TabOrder = 3
+        TabOrder = 2
       end
       object Button4: TButton
         Left = 15
@@ -4442,7 +4418,7 @@ object Kf: TKf
         Font.Name = 'Arial'
         OnClick = Button4Click
         ParentFont = False
-        TabOrder = 4
+        TabOrder = 3
       end
       object Button5: TButton
         Left = 15
@@ -4454,7 +4430,7 @@ object Kf: TKf
         Font.Name = 'Arial'
         OnClick = Button5Click
         ParentFont = False
-        TabOrder = 5
+        TabOrder = 4
       end
       object Button6: TButton
         Left = 132
@@ -4466,7 +4442,7 @@ object Kf: TKf
         Font.Name = 'Arial'
         OnClick = Button6Click
         ParentFont = False
-        TabOrder = 6
+        TabOrder = 5
       end
     end
   end

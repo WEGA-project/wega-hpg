@@ -1,7 +1,7 @@
 object Kf: TKf
-  Left = 183
+  Left = 711
   Height = 793
-  Top = 77
+  Top = 93
   Width = 762
   Caption = 'Koefficients'
   ClientHeight = 793
@@ -20,7 +20,7 @@ object Kf: TKf
     Height = 15
     Top = 773
     Width = 222
-    Caption = 'Hydroponic Profile Generator 0.051'
+    Caption = 'Hydroponic Profile Generator 0.052'
     Font.Color = clActiveCaption
     Font.Height = -13
     Font.Name = 'Arial'
@@ -31,18 +31,18 @@ object Kf: TKf
   end
   object PageControl1: TPageControl
     Left = 1
-    Height = 736
+    Height = 704
     Top = 0
     Width = 761
-    ActivePage = TabSheet1
+    ActivePage = TabSheet3
     Font.Height = -15
     Font.Name = 'Arial'
     ParentFont = False
-    TabIndex = 0
+    TabIndex = 2
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'Макро'
-      ClientHeight = 701
+      ClientHeight = 669
       ClientWidth = 755
       Font.Height = -15
       Font.Name = 'Arial'
@@ -1549,31 +1549,6 @@ object Kf: TKf
         ParentColor = False
         ParentFont = False
       end
-      object profile: TEdit
-        Left = 9
-        Height = 24
-        Top = 672
-        Width = 695
-        Font.Height = -12
-        Font.Name = 'Arial'
-        OnChange = profileChange
-        OnEditingDone = parseClick
-        ParentFont = False
-        TabOrder = 59
-        Text = 'profile'
-      end
-      object parse: TButton
-        Left = 709
-        Height = 24
-        Top = 672
-        Width = 33
-        Color = clMoneyGreen
-        Font.Height = -15
-        Font.Name = 'Arial'
-        OnClick = parseClick
-        ParentFont = False
-        TabOrder = 60
-      end
       object nMgNO3: TLabel
         Left = 4
         Height = 17
@@ -1597,7 +1572,7 @@ object Kf: TKf
         MinValue = 0
         OnChange = MgNO3_MgChange
         ParentFont = False
-        TabOrder = 61
+        TabOrder = 59
         Value = 9.479
       end
       object MgNO3_NO3: TFloatSpinEdit
@@ -1612,7 +1587,7 @@ object Kf: TKf
         MinValue = 0
         OnChange = MgNO3_NO3Change
         ParentFont = False
-        TabOrder = 62
+        TabOrder = 60
         Value = 10.925
       end
       object Label54: TLabel
@@ -1650,7 +1625,7 @@ object Kf: TKf
         MinValue = -99999999
         OnChange = gMgNO3Change
         ParentFont = False
-        TabOrder = 63
+        TabOrder = 61
         Value = 0
       end
       object chK2SO4: TCheckBox
@@ -1665,7 +1640,7 @@ object Kf: TKf
         OnChange = chK2SO4Change
         ParentFont = False
         State = cbChecked
-        TabOrder = 64
+        TabOrder = 62
       end
       object chMgNO3: TCheckBox
         Left = 636
@@ -1677,7 +1652,7 @@ object Kf: TKf
         Font.Name = 'Arial'
         OnChange = chMgNO3Change
         ParentFont = False
-        TabOrder = 65
+        TabOrder = 63
       end
       object pkf: TLabel
         Left = 292
@@ -1728,7 +1703,7 @@ object Kf: TKf
     end
     object TabSheet2: TTabSheet
       Caption = 'Микро'
-      ClientHeight = 701
+      ClientHeight = 669
       ClientWidth = 755
       Font.Height = -15
       Font.Name = 'Arial'
@@ -2364,7 +2339,7 @@ object Kf: TKf
     end
     object TabSheet3: TTabSheet
       Caption = 'Концентраты'
-      ClientHeight = 701
+      ClientHeight = 669
       ClientWidth = 755
       Font.Height = -15
       Font.Name = 'Arial'
@@ -2373,7 +2348,7 @@ object Kf: TKf
       object PageControl2: TPageControl
         Left = 0
         Height = 696
-        Top = -8
+        Top = 4
         Width = 752
         ActivePage = TabSheet5
         Font.Height = -15
@@ -4392,7 +4367,7 @@ object Kf: TKf
     end
     object TabSheet4: TTabSheet
       Caption = 'Журнал'
-      ClientHeight = 701
+      ClientHeight = 669
       ClientWidth = 755
       Font.Height = -15
       Font.Name = 'Arial'
@@ -4413,37 +4388,13 @@ object Kf: TKf
         Height = 27
         Top = 15
         Width = 719
+        Color = clNone
         Font.Height = -15
         Font.Name = 'Arial'
         OnChange = eFileNameChange
         ParentFont = False
         TabOrder = 1
         Text = 'default.hpg'
-      end
-      object DateTimePicker1: TDateTimePicker
-        Left = 632
-        Height = 23
-        Top = 47
-        Width = 97
-        CenturyFrom = 1941
-        MaxDate = 2958465
-        MinDate = -53780
-        Font.Height = -15
-        Font.Name = 'Arial'
-        ParentFont = False
-        TabOrder = 2
-        TrailingSeparator = False
-        TextForNullDate = 'NULL'
-        LeadingZeros = True
-        Kind = dtkDate
-        TimeFormat = tf24
-        TimeDisplay = tdHMS
-        DateMode = dmComboBox
-        Date = 43886
-        Time = 0.546630451390229
-        UseDefaultSeparators = True
-        HideDateTimeParts = []
-        MonthNames = 'Long'
       end
       object Button3: TButton
         Left = 15
@@ -4455,7 +4406,7 @@ object Kf: TKf
         Font.Name = 'Arial'
         OnClick = Button3Click
         ParentFont = False
-        TabOrder = 3
+        TabOrder = 2
       end
       object Button4: TButton
         Left = 15
@@ -4467,7 +4418,7 @@ object Kf: TKf
         Font.Name = 'Arial'
         OnClick = Button4Click
         ParentFont = False
-        TabOrder = 4
+        TabOrder = 3
       end
       object Button5: TButton
         Left = 15
@@ -4479,7 +4430,7 @@ object Kf: TKf
         Font.Name = 'Arial'
         OnClick = Button5Click
         ParentFont = False
-        TabOrder = 5
+        TabOrder = 4
       end
       object Button6: TButton
         Left = 132
@@ -4491,7 +4442,7 @@ object Kf: TKf
         Font.Name = 'Arial'
         OnClick = Button6Click
         ParentFont = False
-        TabOrder = 6
+        TabOrder = 5
       end
     end
   end
@@ -4569,6 +4520,31 @@ object Kf: TKf
     OnClick = Button1Click
     ParentFont = False
     TabOrder = 5
+  end
+  object profile: TEdit
+    Left = 8
+    Height = 24
+    Top = 710
+    Width = 695
+    Font.Height = -12
+    Font.Name = 'Arial'
+    OnChange = profileChange
+    OnEditingDone = parseClick
+    ParentFont = False
+    TabOrder = 6
+    Text = 'profile'
+  end
+  object parse: TButton
+    Left = 708
+    Height = 24
+    Top = 710
+    Width = 33
+    Color = clMoneyGreen
+    Font.Height = -15
+    Font.Name = 'Arial'
+    OnClick = parseClick
+    ParentFont = False
+    TabOrder = 7
   end
   object od1: TOpenDialog
     DefaultExt = '.hpg'

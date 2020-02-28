@@ -41,7 +41,6 @@ type
     cbMn: TCheckBox;
     cbFe: TCheckBox;
     chkComplex: TCheckBox;
-    DateTimePicker1: TDateTimePicker;
     eComment: TEdit;
     addrMixer: TEdit;
     Label1: TLabel;
@@ -1265,6 +1264,8 @@ Kf.Mo.value:=10000*Kf.gCmplx.value* (Kf.dMo.value/Kf.V.value);
 Kf.Co.value:=10000*Kf.gCmplx.value* (Kf.dCo.value/Kf.V.value);
 Kf.Si.value:=10000*Kf.gCmplx.value* (Kf.dSi.value/Kf.V.value);
  end;
+
+ genProfile;
 end ;
 
 
@@ -1305,7 +1306,7 @@ else begin
 
 
 end;
-
+genProfile;
 end;
 
 
