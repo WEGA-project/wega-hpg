@@ -1691,7 +1691,7 @@ begin
      writeln(tfOut,'mSi=',Kf.mSi.Text);
      writeln(tfOut,'addrMixer=',Kf.addrMixer.Text);
     CloseFile(tfOut);
-
+    Kf.eFileName.Caption:=C_FNAME;
     Kf.Caption:='HPG ' + C_FNAME + ' (' + Kf.eComment.Caption +')' ;
 
 end;
@@ -2529,6 +2529,7 @@ begin
             LoadFirt;
             //loadPrf;
             C_FNAME:=N_FNAME;
+            Kf.eFileName.Caption:=C_FNAME;
          end;
 end;
 
