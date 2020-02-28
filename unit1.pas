@@ -64,6 +64,8 @@ type
     Label77: TLabel;
     Label78: TLabel;
     Label79: TLabel;
+    Label80: TLabel;
+    Label81: TLabel;
     mCmplx: TEdit;
     mFe: TEdit;
     mMn: TEdit;

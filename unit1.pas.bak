@@ -41,7 +41,6 @@ type
     cbMn: TCheckBox;
     cbFe: TCheckBox;
     chkComplex: TCheckBox;
-    DateTimePicker1: TDateTimePicker;
     eComment: TEdit;
     addrMixer: TEdit;
     Label1: TLabel;
@@ -63,6 +62,8 @@ type
     Label75: TLabel;
     Label76: TLabel;
     Label77: TLabel;
+    Label78: TLabel;
+    Label79: TLabel;
     mCmplx: TEdit;
     mFe: TEdit;
     mMn: TEdit;
@@ -762,11 +763,22 @@ begin
                     +'Ca='+FloatToStr(round(vCa*100)/100, MyFormatSettings)+' '
                     +'Mg='+FloatToStr(round(vMg*100)/100, MyFormatSettings)+' '
                     +'S='+FloatToStr(round(vS*10)/10, MyFormatSettings)+' '
-                    +'[ EC='+FloatToStr(round(vEC*10)/10, MyFormatSettings)+' '
-                    +'K:N='+FloatToStr(round(vKN*10)/10, MyFormatSettings)+' '
-                    +'K:Mg='+FloatToStr(round(vKMg*10)/10, MyFormatSettings)+' '
-                    +'K:Ca='+FloatToStr(round(vKCa*10)/10, MyFormatSettings)+' '
-                    +'NH4:NO3='+FloatToStr(round(vNH4NO3*100)/100, MyFormatSettings)+' ]'
+
+                    +'Fe='+FloatToStr(round(kf.Fe.value)/1000, MyFormatSettings)+' '
+                    +'Mn='+FloatToStr(round(kf.Mn.value)/1000, MyFormatSettings)+' '
+                    +'B='+FloatToStr(round(kf.B.value)/1000, MyFormatSettings)+' '
+                    +'Zn='+FloatToStr(round(kf.Zn.value)/1000, MyFormatSettings)+' '
+                    +'Cu='+FloatToStr(round(kf.Cu.value)/1000, MyFormatSettings)+' '
+                    +'Mo='+FloatToStr(round(kf.Mo.value)/1000, MyFormatSettings)+' '
+                    +'Co='+FloatToStr(round(kf.Co.value)/1000, MyFormatSettings)+' '
+                    +'Si='+FloatToStr(round(kf.Si.value)/1000, MyFormatSettings)+' '
+
+
+                    //+'[ EC='+FloatToStr(round(vEC*10)/10, MyFormatSettings)+' '
+                    //+'K:N='+FloatToStr(round(vKN*10)/10, MyFormatSettings)+' '
+                    //+'K:Mg='+FloatToStr(round(vKMg*10)/10, MyFormatSettings)+' '
+                    //+'K:Ca='+FloatToStr(round(vKCa*10)/10, MyFormatSettings)+' '
+                    //+'NH4:NO3='+FloatToStr(round(vNH4NO3*100)/100, MyFormatSettings)+' ]'
                     ;
    Kf.profile.text:=ps;
         Kf.pkf.caption:='K:Mg='+ FloatToStr(round(vK/vMg*10)/10)+' '
@@ -1112,7 +1124,7 @@ end;
 
 
 procedure LoadProfile ;
-// N:220 NO3=200 NH4=20 P=40 K=180 Ca=200 Mg=50 S=72 [ EC=2.102 K:N=0.818 K:Mg=3.6 K:Ca=0.9 NH4:NO3=0.1]
+// N=220 NO3=200 NH4=20 P=40 K=180 Ca=200 Mg=50 S=73 Fe=2 Mn=0.55 B=0.5 Zn=0.33 Cu=0.063 Mo=0.063 Co=0 Si=0
   var numVar,countVar : integer;
       curVar,curValue:string;
 
@@ -1121,7 +1133,7 @@ begin
   ps:=Kf.profile.text;
   countVar:=WordCount( ps,[' ']);
 
-if(countVar=15) then
+if(countVar=16) then
 begin
     Kf.parse.Caption:='OK';
     Kf.parse.Color:=clMoneyGreen;
@@ -1139,6 +1151,14 @@ begin
      if (IsWordPresent('Ca',curVar, ['='] ) = true) then  Kf.Ca.value:=StrToFloat(curValue,MyFormatSettings);
      if (IsWordPresent('Mg',curVar, ['='] ) = true) then  Kf.Mg.value:=StrToFloat(curValue,MyFormatSettings);
 
+     if (IsWordPresent('Fe',curVar, ['='] ) = true) then  Kf.Fe.value:=StrToFloat(curValue,MyFormatSettings)*1000;
+     if (IsWordPresent('Mn',curVar, ['='] ) = true) then  Kf.Mn.value:=StrToFloat(curValue,MyFormatSettings)*1000;
+     if (IsWordPresent('B',curVar, ['='] ) = true) then  Kf.B.value:=StrToFloat(curValue,MyFormatSettings)*1000;
+     if (IsWordPresent('Zn',curVar, ['='] ) = true) then  Kf.Zn.value:=StrToFloat(curValue,MyFormatSettings)*1000;
+     if (IsWordPresent('Cu',curVar, ['='] ) = true) then  Kf.Cu.value:=StrToFloat(curValue,MyFormatSettings)*1000;
+     if (IsWordPresent('Mo',curVar, ['='] ) = true) then  Kf.Mo.value:=StrToFloat(curValue,MyFormatSettings)*1000;
+     if (IsWordPresent('Co',curVar, ['='] ) = true) then  Kf.Co.value:=StrToFloat(curValue,MyFormatSettings)*1000;
+     if (IsWordPresent('Si',curVar, ['='] ) = true) then  Kf.Si.value:=StrToFloat(curValue,MyFormatSettings)*1000;
    end;
     Kf.N.value:=Kf.NO3.value+Kf.NH4.value;
     calculateS;
@@ -1244,6 +1264,8 @@ Kf.Mo.value:=10000*Kf.gCmplx.value* (Kf.dMo.value/Kf.V.value);
 Kf.Co.value:=10000*Kf.gCmplx.value* (Kf.dCo.value/Kf.V.value);
 Kf.Si.value:=10000*Kf.gCmplx.value* (Kf.dSi.value/Kf.V.value);
  end;
+
+ genProfile;
 end ;
 
 
@@ -1284,7 +1306,7 @@ else begin
 
 
 end;
-
+genProfile;
 end;
 
 
@@ -1398,6 +1420,8 @@ begin
            if (IsWordPresent('Mo', str, ['=']) = true) then Kf.Mo.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
            if (IsWordPresent('Co', str, ['=']) = true) then Kf.Co.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
            if (IsWordPresent('Si', str, ['=']) = true) then Kf.Si.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+
+           if (IsWordPresent('V', str, ['=']) = true) then Kf.V.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
           end;
 
       CloseFile(tfIn);
@@ -1455,7 +1479,10 @@ begin
            if (IsWordPresent('dSi', str, ['=']) = true) then Kf.dSi.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
 
            if (IsWordPresent('chkComplex', str, ['=']) = true) then Kf.chkComplex.Checked:=StrToBool(ExtractWord(2,str,['=']));
-           //writeln(tfOut,'chkComplex=',chkComplex.Checked);
+           if (IsWordPresent('chK2SO4', str, ['=']) = true) then Kf.chK2SO4.Checked:=StrToBool(ExtractWord(2,str,['=']));
+           if (IsWordPresent('chMgNO3', str, ['=']) = true) then Kf.chMgNO3.Checked:=StrToBool(ExtractWord(2,str,['=']));
+
+
 
                 // Концентрации
            if (IsWordPresent('glCaNO3', str, ['=']) = true) then Kf.glCaNO3.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
@@ -1498,6 +1525,23 @@ begin
            if (IsWordPresent('gmlMo', str, ['=']) = true) then Kf.gmlMo.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
            if (IsWordPresent('gmlCo', str, ['=']) = true) then Kf.gmlCo.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
            if (IsWordPresent('gmlSi', str, ['=']) = true) then Kf.gmlSi.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+
+           //    Помпы
+
+           if (IsWordPresent('mCaNO3', str, ['=']) = true) then Kf.mCaNO3.text:=ExtractWord(2,str,['=']);
+           if (IsWordPresent('mKNO3', str, ['=']) = true) then Kf.mKNO3.text:=ExtractWord(2,str,['=']);
+           if (IsWordPresent('mNH4NO3', str, ['=']) = true) then Kf.mNH4NO3.text:=ExtractWord(2,str,['=']);
+           if (IsWordPresent('mMgNO3', str, ['=']) = true) then Kf.mMgNO3.text:=ExtractWord(2,str,['=']);
+           if (IsWordPresent('mMgSO4', str, ['=']) = true) then Kf.mMgSO4.text:=ExtractWord(2,str,['=']);
+           if (IsWordPresent('mCmplx', str, ['=']) = true) then Kf.mCmplx.text:=ExtractWord(2,str,['=']);
+           if (IsWordPresent('mFe', str, ['=']) = true) then Kf.mFe.text:=ExtractWord(2,str,['=']);
+           if (IsWordPresent('mMn', str, ['=']) = true) then Kf.mMn.text:=ExtractWord(2,str,['=']);
+           if (IsWordPresent('mB', str, ['=']) = true) then Kf.mB.text:=ExtractWord(2,str,['=']);
+           if (IsWordPresent('mZn', str, ['=']) = true) then Kf.mZn.text:=ExtractWord(2,str,['=']);
+           if (IsWordPresent('mCu', str, ['=']) = true) then Kf.mCu.text:=ExtractWord(2,str,['=']);
+           if (IsWordPresent('mCo', str, ['=']) = true) then Kf.mCo.text:=ExtractWord(2,str,['=']);
+           if (IsWordPresent('mSi', str, ['=']) = true) then Kf.mSi.text:=ExtractWord(2,str,['=']);
+           if (IsWordPresent('addrMixer', str, ['=']) = true) then Kf.addrMixer.text:=ExtractWord(2,str,['=']);
 
 
 
@@ -1621,7 +1665,29 @@ begin
      writeln(tfOut,'gmlSi=',FloatToStr(Kf.gmlSi.Value,MyFormatSettings));
 
      writeln(tfOut,'chkComplex=',Kf.chkComplex.Checked);
+     writeln(tfOut,'chK2SO4=',Kf.chK2SO4.Checked);
+     writeln(tfOut,'chMgNO3=',Kf.chMgNO3.Checked);
 
+     writeln(tfOut,'V=',FloatToStr(Kf.V.Value,MyFormatSettings));
+
+     writeln(tfOut,'mCaNO3=',Kf.mCaNO3.Text);
+     writeln(tfOut,'mKNO3=',Kf.mKNO3.Text);
+     writeln(tfOut,'mNH4NO3=',Kf.mNH4NO3.Text);
+     writeln(tfOut,'mMgNO3=',Kf.mMgNO3.Text);
+     writeln(tfOut,'mMgSO4=',Kf.mMgSO4.Text);
+     writeln(tfOut,'mKH2PO4=',Kf.mKH2PO4.Text);
+     writeln(tfOut,'mK2SO4=',Kf.mK2SO4.Text);
+     writeln(tfOut,'mCmplx=',Kf.mCmplx.Text);
+
+     writeln(tfOut,'mFe=',Kf.mFe.Text);
+     writeln(tfOut,'mMn=',Kf.mMn.Text);
+     writeln(tfOut,'mB=',Kf.mB.Text);
+     writeln(tfOut,'mZn=',Kf.mZn.Text);
+     writeln(tfOut,'mCu=',Kf.mCu.Text);
+     writeln(tfOut,'mMo=',Kf.mMo.Text);
+     writeln(tfOut,'mCo=',Kf.mCo.Text);
+     writeln(tfOut,'mSi=',Kf.mSi.Text);
+     writeln(tfOut,'addrMixer=',Kf.addrMixer.Text);
     CloseFile(tfOut);
 
     Kf.Caption:='HPG ' + C_FNAME + ' (' + Kf.eComment.Caption +')' ;
