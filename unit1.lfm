@@ -1,7 +1,7 @@
 object Kf: TKf
-  Left = 682
+  Left = 183
   Height = 793
-  Top = 104
+  Top = 77
   Width = 762
   Caption = 'Koefficients'
   ClientHeight = 793
@@ -31,7 +31,7 @@ object Kf: TKf
   end
   object PageControl1: TPageControl
     Left = 1
-    Height = 736
+    Height = 704
     Top = 0
     Width = 761
     ActivePage = TabSheet1
@@ -42,7 +42,7 @@ object Kf: TKf
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'Макро'
-      ClientHeight = 701
+      ClientHeight = 669
       ClientWidth = 755
       Font.Height = -15
       Font.Name = 'Arial'
@@ -1549,31 +1549,6 @@ object Kf: TKf
         ParentColor = False
         ParentFont = False
       end
-      object profile: TEdit
-        Left = 9
-        Height = 24
-        Top = 672
-        Width = 695
-        Font.Height = -12
-        Font.Name = 'Arial'
-        OnChange = profileChange
-        OnEditingDone = parseClick
-        ParentFont = False
-        TabOrder = 59
-        Text = 'profile'
-      end
-      object parse: TButton
-        Left = 709
-        Height = 24
-        Top = 672
-        Width = 33
-        Color = clMoneyGreen
-        Font.Height = -15
-        Font.Name = 'Arial'
-        OnClick = parseClick
-        ParentFont = False
-        TabOrder = 60
-      end
       object nMgNO3: TLabel
         Left = 4
         Height = 17
@@ -1597,7 +1572,7 @@ object Kf: TKf
         MinValue = 0
         OnChange = MgNO3_MgChange
         ParentFont = False
-        TabOrder = 61
+        TabOrder = 59
         Value = 9.479
       end
       object MgNO3_NO3: TFloatSpinEdit
@@ -1612,7 +1587,7 @@ object Kf: TKf
         MinValue = 0
         OnChange = MgNO3_NO3Change
         ParentFont = False
-        TabOrder = 62
+        TabOrder = 60
         Value = 10.925
       end
       object Label54: TLabel
@@ -1650,7 +1625,7 @@ object Kf: TKf
         MinValue = -99999999
         OnChange = gMgNO3Change
         ParentFont = False
-        TabOrder = 63
+        TabOrder = 61
         Value = 0
       end
       object chK2SO4: TCheckBox
@@ -1665,7 +1640,7 @@ object Kf: TKf
         OnChange = chK2SO4Change
         ParentFont = False
         State = cbChecked
-        TabOrder = 64
+        TabOrder = 62
       end
       object chMgNO3: TCheckBox
         Left = 636
@@ -1677,7 +1652,7 @@ object Kf: TKf
         Font.Name = 'Arial'
         OnChange = chMgNO3Change
         ParentFont = False
-        TabOrder = 65
+        TabOrder = 63
       end
       object pkf: TLabel
         Left = 292
@@ -1728,7 +1703,7 @@ object Kf: TKf
     end
     object TabSheet2: TTabSheet
       Caption = 'Микро'
-      ClientHeight = 701
+      ClientHeight = 669
       ClientWidth = 755
       Font.Height = -15
       Font.Name = 'Arial'
@@ -2364,7 +2339,7 @@ object Kf: TKf
     end
     object TabSheet3: TTabSheet
       Caption = 'Концентраты'
-      ClientHeight = 701
+      ClientHeight = 669
       ClientWidth = 755
       Font.Height = -15
       Font.Name = 'Arial'
@@ -4392,7 +4367,7 @@ object Kf: TKf
     end
     object TabSheet4: TTabSheet
       Caption = 'Журнал'
-      ClientHeight = 701
+      ClientHeight = 669
       ClientWidth = 755
       Font.Height = -15
       Font.Name = 'Arial'
@@ -4569,6 +4544,31 @@ object Kf: TKf
     OnClick = Button1Click
     ParentFont = False
     TabOrder = 5
+  end
+  object profile: TEdit
+    Left = 8
+    Height = 24
+    Top = 710
+    Width = 695
+    Font.Height = -12
+    Font.Name = 'Arial'
+    OnChange = profileChange
+    OnEditingDone = parseClick
+    ParentFont = False
+    TabOrder = 6
+    Text = 'profile'
+  end
+  object parse: TButton
+    Left = 708
+    Height = 24
+    Top = 710
+    Width = 33
+    Color = clMoneyGreen
+    Font.Height = -15
+    Font.Name = 'Arial'
+    OnClick = parseClick
+    ParentFont = False
+    TabOrder = 7
   end
   object od1: TOpenDialog
     DefaultExt = '.hpg'

@@ -764,11 +764,22 @@ begin
                     +'Ca='+FloatToStr(round(vCa*100)/100, MyFormatSettings)+' '
                     +'Mg='+FloatToStr(round(vMg*100)/100, MyFormatSettings)+' '
                     +'S='+FloatToStr(round(vS*10)/10, MyFormatSettings)+' '
-                    +'[ EC='+FloatToStr(round(vEC*10)/10, MyFormatSettings)+' '
-                    +'K:N='+FloatToStr(round(vKN*10)/10, MyFormatSettings)+' '
-                    +'K:Mg='+FloatToStr(round(vKMg*10)/10, MyFormatSettings)+' '
-                    +'K:Ca='+FloatToStr(round(vKCa*10)/10, MyFormatSettings)+' '
-                    +'NH4:NO3='+FloatToStr(round(vNH4NO3*100)/100, MyFormatSettings)+' ]'
+
+                    +'Fe='+FloatToStr(round(kf.Fe.value)/1000, MyFormatSettings)+' '
+                    +'Mn='+FloatToStr(round(kf.Mn.value)/1000, MyFormatSettings)+' '
+                    +'B='+FloatToStr(round(kf.B.value)/1000, MyFormatSettings)+' '
+                    +'Zn='+FloatToStr(round(kf.Zn.value)/1000, MyFormatSettings)+' '
+                    +'Cu='+FloatToStr(round(kf.Cu.value)/1000, MyFormatSettings)+' '
+                    +'Mo='+FloatToStr(round(kf.Mo.value)/1000, MyFormatSettings)+' '
+                    +'Co='+FloatToStr(round(kf.Co.value)/1000, MyFormatSettings)+' '
+                    +'Si='+FloatToStr(round(kf.Si.value)/1000, MyFormatSettings)+' '
+
+
+                    //+'[ EC='+FloatToStr(round(vEC*10)/10, MyFormatSettings)+' '
+                    //+'K:N='+FloatToStr(round(vKN*10)/10, MyFormatSettings)+' '
+                    //+'K:Mg='+FloatToStr(round(vKMg*10)/10, MyFormatSettings)+' '
+                    //+'K:Ca='+FloatToStr(round(vKCa*10)/10, MyFormatSettings)+' '
+                    //+'NH4:NO3='+FloatToStr(round(vNH4NO3*100)/100, MyFormatSettings)+' ]'
                     ;
    Kf.profile.text:=ps;
         Kf.pkf.caption:='K:Mg='+ FloatToStr(round(vK/vMg*10)/10)+' '
@@ -1114,7 +1125,7 @@ end;
 
 
 procedure LoadProfile ;
-// N:220 NO3=200 NH4=20 P=40 K=180 Ca=200 Mg=50 S=72 [ EC=2.102 K:N=0.818 K:Mg=3.6 K:Ca=0.9 NH4:NO3=0.1]
+// N=220 NO3=200 NH4=20 P=40 K=180 Ca=200 Mg=50 S=73 Fe=2 Mn=0.55 B=0.5 Zn=0.33 Cu=0.063 Mo=0.063 Co=0 Si=0
   var numVar,countVar : integer;
       curVar,curValue:string;
 
@@ -1123,7 +1134,7 @@ begin
   ps:=Kf.profile.text;
   countVar:=WordCount( ps,[' ']);
 
-if(countVar=15) then
+if(countVar=16) then
 begin
     Kf.parse.Caption:='OK';
     Kf.parse.Color:=clMoneyGreen;
@@ -1141,6 +1152,14 @@ begin
      if (IsWordPresent('Ca',curVar, ['='] ) = true) then  Kf.Ca.value:=StrToFloat(curValue,MyFormatSettings);
      if (IsWordPresent('Mg',curVar, ['='] ) = true) then  Kf.Mg.value:=StrToFloat(curValue,MyFormatSettings);
 
+     if (IsWordPresent('Fe',curVar, ['='] ) = true) then  Kf.Fe.value:=StrToFloat(curValue,MyFormatSettings)*1000;
+     if (IsWordPresent('Mn',curVar, ['='] ) = true) then  Kf.Mn.value:=StrToFloat(curValue,MyFormatSettings)*1000;
+     if (IsWordPresent('B',curVar, ['='] ) = true) then  Kf.B.value:=StrToFloat(curValue,MyFormatSettings)*1000;
+     if (IsWordPresent('Zn',curVar, ['='] ) = true) then  Kf.Zn.value:=StrToFloat(curValue,MyFormatSettings)*1000;
+     if (IsWordPresent('Cu',curVar, ['='] ) = true) then  Kf.Cu.value:=StrToFloat(curValue,MyFormatSettings)*1000;
+     if (IsWordPresent('Mo',curVar, ['='] ) = true) then  Kf.Mo.value:=StrToFloat(curValue,MyFormatSettings)*1000;
+     if (IsWordPresent('Co',curVar, ['='] ) = true) then  Kf.Co.value:=StrToFloat(curValue,MyFormatSettings)*1000;
+     if (IsWordPresent('Si',curVar, ['='] ) = true) then  Kf.Si.value:=StrToFloat(curValue,MyFormatSettings)*1000;
    end;
     Kf.N.value:=Kf.NO3.value+Kf.NH4.value;
     calculateS;
