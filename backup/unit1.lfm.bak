@@ -19,8 +19,8 @@ object Kf: TKf
     Left = 520
     Height = 15
     Top = 773
-    Width = 215
-    Caption = 'Hydroponic Profile Generator 0.05'
+    Width = 222
+    Caption = 'Hydroponic Profile Generator 0.051'
     Font.Color = clActiveCaption
     Font.Height = -13
     Font.Name = 'Arial'
@@ -34,11 +34,11 @@ object Kf: TKf
     Height = 736
     Top = 0
     Width = 761
-    ActivePage = TabSheet3
+    ActivePage = TabSheet4
     Font.Height = -15
     Font.Name = 'Arial'
     ParentFont = False
-    TabIndex = 2
+    TabIndex = 3
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'Макро'
@@ -1654,9 +1654,9 @@ object Kf: TKf
         Value = 0
       end
       object chK2SO4: TCheckBox
-        Left = 638
+        Left = 636
         Height = 21
-        Top = 610
+        Top = 608
         Width = 21
         Checked = True
         Font.Color = clMaroon
@@ -1668,9 +1668,9 @@ object Kf: TKf
         TabOrder = 64
       end
       object chMgNO3: TCheckBox
-        Left = 638
+        Left = 636
         Height = 21
-        Top = 640
+        Top = 639
         Width = 21
         Font.Color = clMaroon
         Font.Height = -15
@@ -1703,7 +1703,7 @@ object Kf: TKf
         ParentFont = False
       end
       object Label77: TLabel
-        Left = 454
+        Left = 412
         Height = 17
         Top = 0
         Width = 294
@@ -1711,6 +1711,17 @@ object Kf: TKf
         Font.Height = -15
         Font.Name = 'Arial'
         Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+      end
+      object Label78: TLabel
+        Left = 4
+        Height = 17
+        Top = 435
+        Width = 105
+        Caption = 'Составы солей'
+        Font.Height = -15
+        Font.Name = 'Arial'
         ParentColor = False
         ParentFont = False
       end
@@ -2336,6 +2347,17 @@ object Kf: TKf
         Font.Height = -15
         Font.Name = 'Arial'
         Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+      end
+      object Label79: TLabel
+        Left = 8
+        Height = 17
+        Top = 104
+        Width = 105
+        Caption = 'Составы солей'
+        Font.Height = -15
+        Font.Name = 'Arial'
         ParentColor = False
         ParentFont = False
       end
@@ -3613,7 +3635,7 @@ object Kf: TKf
             ParentFont = False
           end
           object Label75: TLabel
-            Left = 448
+            Left = 411
             Height = 17
             Top = 0
             Width = 285
@@ -4354,7 +4376,7 @@ object Kf: TKf
             ParentFont = False
           end
           object Label74: TLabel
-            Left = 392
+            Left = 367
             Height = 17
             Top = 0
             Width = 341
@@ -4384,7 +4406,7 @@ object Kf: TKf
         Font.Name = 'Arial'
         ParentFont = False
         TabOrder = 0
-        Text = 'eComment'
+        Text = 'По умолчанию'
       end
       object eFileName: TEdit
         Left = 15
@@ -4396,7 +4418,7 @@ object Kf: TKf
         OnChange = eFileNameChange
         ParentFont = False
         TabOrder = 1
-        Text = 'eFileName'
+        Text = 'default.hpg'
       end
       object DateTimePicker1: TDateTimePicker
         Left = 632
@@ -4517,7 +4539,7 @@ object Kf: TKf
     Height = 26
     Top = 738
     Width = 174
-    Caption = 'Вернуть удобрения'
+    Caption = 'Вернуть составы'
     Font.Height = -15
     Font.Name = 'Arial'
     OnClick = bloadClick
@@ -4551,13 +4573,12 @@ object Kf: TKf
   object od1: TOpenDialog
     DefaultExt = '.hpg'
     Filter = 'hpg|*.hpg'
-    left = 716
-    top = 733
+    left = 32
+    top = 768
   end
   object sd1: TSaveDialog
     DefaultExt = '.hpg'
     Filter = 'hpg|*.hpg'
-    left = 680
-    top = 733
+    top = 768
   end
 end

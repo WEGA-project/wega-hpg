@@ -63,6 +63,8 @@ type
     Label75: TLabel;
     Label76: TLabel;
     Label77: TLabel;
+    Label78: TLabel;
+    Label79: TLabel;
     mCmplx: TEdit;
     mFe: TEdit;
     mMn: TEdit;
@@ -1621,6 +1623,9 @@ begin
      writeln(tfOut,'gmlSi=',FloatToStr(Kf.gmlSi.Value,MyFormatSettings));
 
      writeln(tfOut,'chkComplex=',Kf.chkComplex.Checked);
+     writeln(tfOut,'chK2SO4=',Kf.chK2SO4.Checked);
+     writeln(tfOut,'chMgNO3=',Kf.chMgNO3.Checked);
+
      writeln(tfOut,'V=',FloatToStr(Kf.V.Value,MyFormatSettings));
 
      writeln(tfOut,'mCaNO3=',Kf.mCaNO3.Text);
@@ -1631,6 +1636,15 @@ begin
      writeln(tfOut,'mKH2PO4=',Kf.mKH2PO4.Text);
      writeln(tfOut,'mK2SO4=',Kf.mK2SO4.Text);
      writeln(tfOut,'mCmplx=',Kf.mCmplx.Text);
+
+     writeln(tfOut,'mFe=',Kf.mFe.Text);
+     writeln(tfOut,'mMn=',Kf.mMn.Text);
+     writeln(tfOut,'mB=',Kf.mB.Text);
+     writeln(tfOut,'mZn=',Kf.mZn.Text);
+     writeln(tfOut,'mCu=',Kf.mCu.Text);
+     writeln(tfOut,'mMo=',Kf.mMo.Text);
+     writeln(tfOut,'mCo=',Kf.mCo.Text);
+     writeln(tfOut,'mSi=',Kf.mSi.Text);
 
     CloseFile(tfOut);
 
