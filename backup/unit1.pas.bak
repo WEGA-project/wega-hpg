@@ -64,6 +64,10 @@ type
     Label77: TLabel;
     Label78: TLabel;
     Label79: TLabel;
+    Label80: TLabel;
+    Label81: TLabel;
+    lVolA: TLabel;
+    lVolB: TLabel;
     mCmplx: TEdit;
     mFe: TEdit;
     mMn: TEdit;
@@ -497,6 +501,7 @@ type
 
     procedure KSChange(Sender: TObject);
     procedure KSClick(Sender: TObject);
+    procedure mCaNO3Change(Sender: TObject);
 
     procedure versionClick(Sender: TObject);
     procedure MnChange(Sender: TObject);
@@ -988,6 +993,8 @@ begin
 end;
 
 procedure CalcConc;
+var
+ Av,Am,Ak,Bv,Bm,Bk: double;
 begin
    MyFormatSettings.DecimalSeparator := '.';
 
@@ -1108,6 +1115,27 @@ begin
     Kf.l2Mo.Caption:= Kf.lMo.caption + ' (' + FloatToStr(Kf.glMo.Value)+ ' г/л, '+FloatToStr(Kf.gmlMo.Value)+ ' г/мл)';
     Kf.l2Co.Caption:= Kf.lCo.caption + ' (' + FloatToStr(Kf.glCo.Value)+ ' г/л, '+FloatToStr(Kf.gmlCo.Value)+ ' г/мл)';
     Kf.l2Si.Caption:= Kf.lSi.caption + ' (' + FloatToStr(Kf.glSi.Value)+ ' г/л, '+FloatToStr(Kf.gmlSi.Value)+ ' г/мл)';
+
+
+    Av:=round((Kf.mlCaNO3.Value + Kf.mlKNO3.Value + Kf.mlNH4NO3.Value + Kf.mlMgNO3.Value)*10)/10;
+    Am:=round((Kf.ggCaNO3.Value + Kf.ggKNO3.Value + Kf.ggNH4NO3.Value + Kf.gMgNO3.Value)*100)/100;
+    Ak:=round(Am/Av*1000)/1000;
+    Kf.lVolA.Caption:='Концентрат A (Азотный). Объем: '+FloatToStr(Av)+' мл, '+'вес: '+FloatToStr(Am)+' гр,'+' плотность: '+FloatToStr(Ak)+' г/мл.';
+
+    if (kF.chKComplex.Checked = True) then
+    begin
+     Bv:=round((Kf.mlMgSO4.Value + Kf.mlKH2PO4.Value + Kf.mlK2SO4.Value + Kf.mlCmplx.Value)*10)/10;
+     Bm:=round((Kf.ggMgSO4.Value + Kf.ggKH2PO4.Value + Kf.ggK2SO4.Value + Kf.gCmplx.Value)*100)/100;
+     Bk:=round(Bm/Bv*1000)/1000;
+     Kf.lVolB.Caption:='Концентрат B (Сульфатный). Объем: '+FloatToStr(Bv)+' мл, '+'вес: '+FloatToStr(Bm)+' гр,'+ ' плотность: '+FloatToStr(Bk)+' г/мл';
+    end
+    else
+    begin
+     Bv:=round((Kf.mlMgSO4.Value + Kf.mlKH2PO4.Value + Kf.mlK2SO4.Value + Kf.mlFe.Value+Kf.mlMn.Value+Kf.mlB.Value+Kf.mlZn.Value+Kf.mlMo.Value+Kf.mlCo.Value+Kf.mlSi.Value)*10)/10;
+     Bm:=round((Kf.ggMgSO4.Value + Kf.ggKH2PO4.Value + Kf.ggK2SO4.Value + Kf.ggFe.Value+Kf.ggMn.Value+Kf.ggB.Value+Kf.ggZn.Value+Kf.ggMo.Value+Kf.ggCo.Value+Kf.ggSi.Value)*100)/100;
+     Bk:=round(Bm/Bv*1000)/1000;
+    end;
+    Kf.lVolB.Caption:='Концентрат B (Сульфатный). Объем: '+FloatToStr(Bv)+' мл, '+'вес: '+FloatToStr(Bm)+' гр,'+ ' плотность: '+FloatToStr(Bk)+' г/мл';
     //
 end;
 
@@ -1689,7 +1717,7 @@ begin
      writeln(tfOut,'mSi=',Kf.mSi.Text);
      writeln(tfOut,'addrMixer=',Kf.addrMixer.Text);
     CloseFile(tfOut);
-
+    Kf.eFileName.Caption:=C_FNAME;
     Kf.Caption:='HPG ' + C_FNAME + ' (' + Kf.eComment.Caption +')' ;
 
 end;
@@ -2458,6 +2486,11 @@ begin
   CalcAll;
 end;
 
+procedure TKf.mCaNO3Change(Sender: TObject);
+begin
+
+end;
+
 
 
 procedure TKf.Button1Click(Sender: TObject);
@@ -2527,6 +2560,7 @@ begin
             LoadFirt;
             //loadPrf;
             C_FNAME:=N_FNAME;
+            Kf.eFileName.Caption:=C_FNAME;
          end;
 end;
 
