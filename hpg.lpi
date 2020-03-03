@@ -8,6 +8,10 @@
       <Title Value="hpg"/>
       <ResourceType Value="res"/>
       <UseXPManifest Value="True"/>
+      <XPManifest>
+        <TextName Value="siv237.hpg"/>
+        <TextDesc Value="Hydroponic Profile Generator"/>
+      </XPManifest>
       <Icon Value="0"/>
     </General>
     <i18n>
@@ -61,6 +65,11 @@
       <SmartLinkUnit Value="True"/>
     </CodeGeneration>
     <Linking>
+      <Debugging>
+        <StripSymbols Value="True"/>
+        <UseExternalDbgSyms Value="True"/>
+      </Debugging>
+      <LinkSmart Value="True"/>
       <Options>
         <Win32>
           <GraphicApplication Value="True"/>
