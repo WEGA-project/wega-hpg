@@ -25,6 +25,7 @@ type
     Button4: TButton;
     Button5: TButton;
     Button6: TButton;
+    Button7: TButton;
     dateAdd: TButton;
     dateChange: TButton;
     CheckBox1: TCheckBox;
@@ -44,9 +45,13 @@ type
     cbMn: TCheckBox;
     cbFe: TCheckBox;
     chkComplex: TCheckBox;
+    dateChange1: TButton;
     de1: TDateEdit;
     eComment: TEdit;
     addrMixer: TEdit;
+    FloatSpinEdit1: TFloatSpinEdit;
+    FloatSpinEdit2: TFloatSpinEdit;
+    FloatSpinEdit3: TFloatSpinEdit;
     Label1: TLabel;
     Label70: TLabel;
     Label71: TLabel;
@@ -70,6 +75,12 @@ type
     Label79: TLabel;
     Label80: TLabel;
     Label81: TLabel;
+    Label82: TLabel;
+    Label83: TLabel;
+    Label84: TLabel;
+    Label85: TLabel;
+    Label86: TLabel;
+    Label87: TLabel;
     lb1: TListBox;
     lVolA: TLabel;
     lVolB: TLabel;
@@ -2666,7 +2677,8 @@ end;
 
 procedure TKf.Button7Click(Sender: TObject);
 begin
-
+  profile.Caption:=pr2.Caption;
+  LoadProfile;
 end;
 
 procedure TKf.bloadClick(Sender: TObject);

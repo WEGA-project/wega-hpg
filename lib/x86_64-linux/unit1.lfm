@@ -1,7 +1,7 @@
 object Kf: TKf
-  Left = 1109
+  Left = 915
   Height = 793
-  Top = 224
+  Top = 151
   Width = 762
   HorzScrollBar.Page = 762
   VertScrollBar.Page = 790
@@ -23,8 +23,8 @@ object Kf: TKf
     Left = 520
     Height = 15
     Top = 773
-    Width = 215
-    Caption = 'Hydroponic Profile Generator 0.06'
+    Width = 222
+    Caption = 'Hydroponic Profile Generator 0.061'
     Font.Color = clActiveCaption
     Font.Height = -13
     Font.Name = 'Arial'
@@ -2362,8 +2362,8 @@ object Kf: TKf
         TabOrder = 0
         object TabSheet5: TTabSheet
           Caption = 'Расчет'
-          ClientHeight = 612
-          ClientWidth = 748
+          ClientHeight = 581
+          ClientWidth = 746
           Font.Height = -15
           Font.Name = 'Arial'
           ParentFont = False
@@ -2371,7 +2371,7 @@ object Kf: TKf
             Left = 0
             Height = 27
             Top = 25
-            Width = 123
+            Width = 122
             Caption = 'Раствор А'
             Font.Height = -24
             Font.Name = 'Arial'
@@ -2383,7 +2383,7 @@ object Kf: TKf
             Left = 8
             Height = 17
             Top = 55
-            Width = 259
+            Width = 257
             Caption = 'Кальций азотнокислый 4-водный  (ч.)'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -2394,7 +2394,7 @@ object Kf: TKf
             Left = 8
             Height = 17
             Top = 85
-            Width = 169
+            Width = 167
             Caption = 'Калий азотнокислый (ч.)'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -2405,7 +2405,7 @@ object Kf: TKf
             Left = 8
             Height = 17
             Top = 115
-            Width = 189
+            Width = 187
             Caption = 'Аммоний азотнокислый (ч.)'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -2416,7 +2416,7 @@ object Kf: TKf
             Left = 8
             Height = 17
             Top = 143
-            Width = 246
+            Width = 243
             Caption = 'Магний азотнокислый 6-водный (ч.)'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -2427,7 +2427,7 @@ object Kf: TKf
             Left = 8
             Height = 17
             Top = 209
-            Width = 240
+            Width = 237
             Caption = 'Магний сернокислый 7-водный (ч.)'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -2438,7 +2438,7 @@ object Kf: TKf
             Left = 8
             Height = 17
             Top = 240
-            Width = 300
+            Width = 295
             Caption = 'Калий фосфорнокислый 1-замещенный (ч.)'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -2450,7 +2450,7 @@ object Kf: TKf
             Left = 8
             Height = 17
             Top = 269
-            Width = 243
+            Width = 241
             Caption = 'Калий сернокислый безводный (ч.)'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -2462,7 +2462,7 @@ object Kf: TKf
             Left = 8
             Height = 17
             Top = 299
-            Width = 186
+            Width = 184
             Caption = 'Комплекс микроэлементов'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -2474,7 +2474,7 @@ object Kf: TKf
             Left = 8
             Height = 17
             Top = 328
-            Width = 81
+            Width = 80
             Caption = 'Железо (%)'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -2485,7 +2485,7 @@ object Kf: TKf
             Left = 8
             Height = 17
             Top = 362
-            Width = 94
+            Width = 92
             Caption = 'Марганец (%)'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -2518,7 +2518,7 @@ object Kf: TKf
             Left = 8
             Height = 17
             Top = 458
-            Width = 65
+            Width = 63
             Caption = 'Медь (%)'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -2529,7 +2529,7 @@ object Kf: TKf
             Left = 8
             Height = 17
             Top = 522
-            Width = 85
+            Width = 84
             Caption = 'Кобальт (%)'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -3273,7 +3273,7 @@ object Kf: TKf
             Left = 0
             Height = 27
             Top = 177
-            Width = 123
+            Width = 122
             Caption = 'Раствор B'
             Font.Height = -24
             Font.Name = 'Arial'
@@ -3606,7 +3606,7 @@ object Kf: TKf
             Left = 8
             Height = 17
             Top = 490
-            Width = 99
+            Width = 96
             Caption = 'Молибден (%)'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -3617,7 +3617,7 @@ object Kf: TKf
             Left = 411
             Height = 17
             Top = 0
-            Width = 287
+            Width = 285
             Caption = 'Расчет монорастворов и концентратов'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -3628,8 +3628,8 @@ object Kf: TKf
         end
         object TabSheet6: TTabSheet
           Caption = 'Изготовление'
-          ClientHeight = 612
-          ClientWidth = 748
+          ClientHeight = 581
+          ClientWidth = 746
           Font.Height = -15
           Font.Name = 'Arial'
           ParentFont = False
@@ -4384,7 +4384,7 @@ object Kf: TKf
         Left = 8
         Height = 17
         Top = 623
-        Width = 47
+        Width = 46
         Caption = 'Тара А'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -4437,11 +4437,11 @@ object Kf: TKf
         TabOrder = 2
       end
       object Button4: TButton
-        Left = 15
+        Left = 285
         Height = 32
-        Top = 120
-        Width = 229
-        Caption = 'Подгрузить удобрения'
+        Top = 88
+        Width = 212
+        Caption = 'Загрузить только удобрения'
         Font.Height = -15
         Font.Name = 'Arial'
         OnClick = Button4Click
@@ -4449,11 +4449,11 @@ object Kf: TKf
         TabOrder = 3
       end
       object Button5: TButton
-        Left = 15
+        Left = 520
         Height = 32
-        Top = 152
-        Width = 229
-        Caption = 'Подгрузить профиль'
+        Top = 88
+        Width = 212
+        Caption = 'Загрузить только профиль'
         Font.Height = -15
         Font.Name = 'Arial'
         OnClick = Button5Click
@@ -4461,7 +4461,7 @@ object Kf: TKf
         TabOrder = 4
       end
       object Button6: TButton
-        Left = 132
+        Left = 150
         Height = 32
         Top = 88
         Width = 112
@@ -4495,22 +4495,22 @@ object Kf: TKf
         ParentFont = False
       end
       object lb1: TListBox
-        Left = 254
-        Height = 96
-        Top = 88
-        Width = 480
+        Left = 112
+        Height = 136
+        Top = 144
+        Width = 620
         Columns = 2
         ItemHeight = 0
         OnClick = lb1Click
-        ScrollWidth = 478
+        ScrollWidth = 618
         TabOrder = 6
         TopIndex = -1
       end
       object m1: TMemo
-        Left = 3
-        Height = 188
+        Left = 2
+        Height = 189
         Hint = 'Описание события'
-        Top = 242
+        Top = 346
         Width = 749
         Lines.Strings = (
           'm1'
@@ -4520,9 +4520,9 @@ object Kf: TKf
         TabOrder = 7
       end
       object de1: TDateEdit
-        Left = 1
+        Left = 56
         Height = 27
-        Top = 211
+        Top = 552
         Width = 178
         CalendarDisplaySettings = [dsShowHeadings, dsShowDayNames]
         DateOrder = doNone
@@ -4534,33 +4534,55 @@ object Kf: TKf
         Text = 'de1'
       end
       object pr2: TEdit
-        Left = 1
+        Left = 0
         Height = 24
-        Top = 185
+        Top = 304
         Width = 751
         Font.Height = -12
         Font.Name = 'Arial'
         OnChange = profileChange
         OnEditingDone = parseClick
         ParentFont = False
+        ReadOnly = True
         TabOrder = 9
       end
       object dateAdd: TButton
-        Left = 200
+        Left = 8
         Height = 25
-        Top = 212
+        Top = 176
         Width = 75
         Caption = 'Добавить'
         OnClick = dateAddClick
         TabOrder = 10
       end
       object dateChange: TButton
-        Left = 280
+        Left = 8
         Height = 25
-        Top = 213
+        Top = 208
         Width = 75
         Caption = 'Изменить'
         TabOrder = 11
+      end
+      object Label83: TLabel
+        Left = 8
+        Height = 27
+        Top = 141
+        Width = 92
+        Caption = 'Журнал'
+        Font.Height = -24
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+      end
+      object Button7: TButton
+        Left = 8
+        Height = 28
+        Top = 252
+        Width = 92
+        Caption = 'Установить'
+        OnClick = Button7Click
+        TabOrder = 12
       end
     end
   end

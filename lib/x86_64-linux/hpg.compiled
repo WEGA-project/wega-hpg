@@ -2,4 +2,5 @@
 <CONFIG>
   <Compiler Value="/usr/bin/fpc" Date="1540814642"/>
   <Params Value=" -MObjFPC -Scghi -CX -Cg -O1 -g -gl -Xg -Xs -XX -l -vewnhibq -Fi/home/siv/HPG/lib/x86_64-linux -Fu/usr/share/lazarus/2.0.6/lcl/units/x86_64-linux/gtk2 -Fu/usr/share/lazarus/2.0.6/components/datetimectrls/lib/x86_64-linux/gtk2 -Fu/usr/share/lazarus/2.0.6/lcl/units/x86_64-linux -Fu/usr/share/lazarus/2.0.6/components/lazutils/lib/x86_64-linux -Fu/usr/share/lazarus/2.0.6/packager/units/x86_64-linux -Fu/home/siv/HPG/ -FU/home/siv/HPG/lib/x86_64-linux/ -FE/home/siv/HPG/ -o/home/siv/HPG/hpg -dLCL -dLCLgtk2 hpg.lpr"/>
+  <Complete Value="False"/>
 </CONFIG>
