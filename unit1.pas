@@ -1474,6 +1474,7 @@ begin
           end;
 
       CloseFile(tfIn);
+          Kf.lb1.Clear;
           for i := 0 to DStr.Count-1 do
           begin
               str:= DStr[i];
