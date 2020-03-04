@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, DateTimePicker, Forms, Controls, Graphics,
   Dialogs, StdCtrls, Spin, ComCtrls, strutils, LCLIntf, ExtCtrls, Menus, Grids,
-  ValEdit, FileCtrl ;
+  ValEdit, FileCtrl, EditBtn ;
 const
 
   StdWordDelims = ['='] + Brackets;
@@ -25,6 +25,8 @@ type
     Button4: TButton;
     Button5: TButton;
     Button6: TButton;
+    dateAdd: TButton;
+    dateChange: TButton;
     CheckBox1: TCheckBox;
     cbCmplx: TCheckBox;
     cbCu: TCheckBox;
@@ -42,6 +44,7 @@ type
     cbMn: TCheckBox;
     cbFe: TCheckBox;
     chkComplex: TCheckBox;
+    de1: TDateEdit;
     eComment: TEdit;
     addrMixer: TEdit;
     Label1: TLabel;
@@ -71,6 +74,7 @@ type
     lVolA: TLabel;
     lVolB: TLabel;
     mCmplx: TEdit;
+    m1: TMemo;
     mFe: TEdit;
     mMn: TEdit;
     mB: TEdit;
@@ -216,6 +220,7 @@ type
     g2gNH4NO3: TEdit;
     od1: TOpenDialog;
     PageControl2: TPageControl;
+    pr2: TEdit;
     sd1: TSaveDialog;
     Si: TFloatSpinEdit;
     Mo: TFloatSpinEdit;
@@ -416,9 +421,11 @@ type
     procedure chMgNO3Change(Sender: TObject);
     procedure CoChange(Sender: TObject);
     procedure CuChange(Sender: TObject);
+    procedure dateAddClick(Sender: TObject);
     procedure dBChange(Sender: TObject);
     procedure dCoChange(Sender: TObject);
     procedure dCuChange(Sender: TObject);
+    procedure de1Change(Sender: TObject);
     procedure dFeChange(Sender: TObject);
     procedure dMnChange(Sender: TObject);
     procedure dMoChange(Sender: TObject);
@@ -504,7 +511,9 @@ type
 
     procedure KSChange(Sender: TObject);
     procedure KSClick(Sender: TObject);
+    procedure lb1Click(Sender: TObject);
     procedure mCaNO3Change(Sender: TObject);
+    procedure TabSheet4Show(Sender: TObject);
 
     procedure versionClick(Sender: TObject);
     procedure MnChange(Sender: TObject);
@@ -662,6 +671,10 @@ var
 
  str: string;
  C_FNAME,N_FNAME: string;
+
+       DStr: TStringList;
+      i: integer;
+      StrDate,StrCmnt:string;
 
 implementation
 
@@ -1420,10 +1433,7 @@ case FloatToStr(round(Kf.MgNO3_Mg.value*10)/10,MyFormatSettings) of
 
 
 procedure loadPrf;
-var
-      DStr: TStringList;
-      i: integer;
-      StrDate,StrCmnt:string;
+
 begin
    DStr := TStringList.Create;
   //C_FNAME
@@ -1459,7 +1469,7 @@ begin
 
            if (IsWordPresent('V', str, ['=']) = true) then Kf.V.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
 
-           //if (IsWordPresent('date', str, ['=']) = true) then Kf.lb1.Items.Add(ExtractWord(3,str,['=']));
+
            if (IsWordPresent('date', str, ['=']) = true) then DStr.Add(str);
           end;
 
@@ -1475,9 +1485,9 @@ begin
               Kf.lb1.Items.Add(StrDate + ' ' + StrCmnt);
 
               end;
-
-
           end;
+
+
 
 
     CalcAll;
@@ -1742,9 +1752,26 @@ begin
      writeln(tfOut,'mCo=',Kf.mCo.Text);
      writeln(tfOut,'mSi=',Kf.mSi.Text);
      writeln(tfOut,'addrMixer=',Kf.addrMixer.Text);
-    CloseFile(tfOut);
+
+      if Assigned(DStr)then begin
+                  for i := 0 to DStr.Count-1 do
+          begin
+              str:= DStr[i];
+              if (IsWordPresent('date', str, ['=']) = true) then
+              writeln(tfOut,str);
+
+              end;
+       end;
+
+
+     CloseFile(tfOut);
     Kf.eFileName.Caption:=C_FNAME;
     Kf.Caption:='HPG ' + C_FNAME + ' (' + Kf.eComment.Caption +')' ;
+
+
+
+
+
 
 end;
 
@@ -2512,9 +2539,34 @@ begin
   CalcAll;
 end;
 
+procedure TKf.lb1Click(Sender: TObject);
+begin
+if (lb1.Count > 0 ) then
+ begin;
+  i:=lb1.ItemIndex;
+  str:= DStr[i];
+              if (IsWordPresent('date', str, ['=']) = true) then
+              begin
+
+              //StrDate:=ExtractWord(2,str,[';','=']);
+              //StrCmnt:=ExtractWord(2,str,[';']);
+              //Kf.lb1.Items.Add(StrDate + ' ' + StrCmnt);
+              de1.Text:=ExtractWord(2,str,[';','=']);
+              m1.Text:=ExtractWord(2,str,[';']);
+              pr2.Caption:=ExtractWord(3,str,[';']);
+              end;
+  end;
+end;
+
 procedure TKf.mCaNO3Change(Sender: TObject);
 begin
 
+end;
+
+procedure TKf.TabSheet4Show(Sender: TObject);
+begin
+  de1.text:=DateToStr(now);
+  pr2.Caption:=profile.Caption;
 end;
 
 
@@ -2853,6 +2905,28 @@ begin
   end;
 end;
 
+procedure TKf.dateAddClick(Sender: TObject);
+begin
+    //date=01.03.2020;Проверка1;N=140 NO3=135.37 NH4=4.47 P=40 K=279.67 Ca=139.83 Mg=55.93 S=129.8 Fe=8.65 Mn=0.375 B=1.5 Zn=0.825 Cu=0.158 Mo=0.158 Co=0 Si=0
+
+   str:='date='+de1.Text+';'+m1.Text+';'+pr2.Caption;
+   if not Assigned(DStr)then DStr := TStringList.Create;
+   DStr.Add(StringReplace(str, #10, ' ', [rfReplaceAll, rfIgnoreCase]));
+   lb1.Clear;
+   for i := 0 to DStr.Count-1 do
+          begin
+              str:= DStr[i];
+              if (IsWordPresent('date', str, ['=']) = true) then
+              begin
+
+              StrDate:=ExtractWord(2,str,[';','=']);
+              StrCmnt:=ExtractWord(2,str,[';']);
+              Kf.lb1.Items.Add(StrDate + ' ' + StrCmnt);
+
+              end;
+          end;
+end;
+
 procedure TKf.dBChange(Sender: TObject);
 begin
   microToWeght;
@@ -2866,6 +2940,11 @@ end;
 procedure TKf.dCuChange(Sender: TObject);
 begin
   microToWeght;
+end;
+
+procedure TKf.de1Change(Sender: TObject);
+begin
+
 end;
 
 procedure TKf.dFeChange(Sender: TObject);

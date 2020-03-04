@@ -6,7 +6,8 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, DateTimePicker, Forms, Controls, Graphics,
-  Dialogs, StdCtrls, Spin, ComCtrls, strutils, LCLIntf, ExtCtrls, Menus ;
+  Dialogs, StdCtrls, Spin, ComCtrls, strutils, LCLIntf, ExtCtrls, Menus, Grids,
+  ValEdit, FileCtrl, EditBtn ;
 const
 
   StdWordDelims = ['='] + Brackets;
@@ -24,6 +25,8 @@ type
     Button4: TButton;
     Button5: TButton;
     Button6: TButton;
+    dateAdd: TButton;
+    dateChange: TButton;
     CheckBox1: TCheckBox;
     cbCmplx: TCheckBox;
     cbCu: TCheckBox;
@@ -41,6 +44,7 @@ type
     cbMn: TCheckBox;
     cbFe: TCheckBox;
     chkComplex: TCheckBox;
+    de1: TDateEdit;
     eComment: TEdit;
     addrMixer: TEdit;
     Label1: TLabel;
@@ -66,7 +70,11 @@ type
     Label79: TLabel;
     Label80: TLabel;
     Label81: TLabel;
+    lb1: TListBox;
+    lVolA: TLabel;
+    lVolB: TLabel;
     mCmplx: TEdit;
+    m1: TMemo;
     mFe: TEdit;
     mMn: TEdit;
     mB: TEdit;
@@ -212,6 +220,7 @@ type
     g2gNH4NO3: TEdit;
     od1: TOpenDialog;
     PageControl2: TPageControl;
+    pr2: TEdit;
     sd1: TSaveDialog;
     Si: TFloatSpinEdit;
     Mo: TFloatSpinEdit;
@@ -379,6 +388,7 @@ type
     procedure Button4Click(Sender: TObject);
     procedure Button5Click(Sender: TObject);
     procedure Button6Click(Sender: TObject);
+    procedure Button7Click(Sender: TObject);
     procedure CaChange(Sender: TObject);
     procedure C(Sender: TObject);
 
@@ -411,9 +421,11 @@ type
     procedure chMgNO3Change(Sender: TObject);
     procedure CoChange(Sender: TObject);
     procedure CuChange(Sender: TObject);
+    procedure dateAddClick(Sender: TObject);
     procedure dBChange(Sender: TObject);
     procedure dCoChange(Sender: TObject);
     procedure dCuChange(Sender: TObject);
+    procedure de1Change(Sender: TObject);
     procedure dFeChange(Sender: TObject);
     procedure dMnChange(Sender: TObject);
     procedure dMoChange(Sender: TObject);
@@ -499,6 +511,9 @@ type
 
     procedure KSChange(Sender: TObject);
     procedure KSClick(Sender: TObject);
+    procedure lb1Click(Sender: TObject);
+    procedure mCaNO3Change(Sender: TObject);
+    procedure TabSheet4Show(Sender: TObject);
 
     procedure versionClick(Sender: TObject);
     procedure MnChange(Sender: TObject);
@@ -656,6 +671,10 @@ var
 
  str: string;
  C_FNAME,N_FNAME: string;
+
+       DStr: TStringList;
+      i: integer;
+      StrDate,StrCmnt:string;
 
 implementation
 
@@ -990,6 +1009,8 @@ begin
 end;
 
 procedure CalcConc;
+var
+ Av,Am,Ak,Bv,Bm,Bk: double;
 begin
    MyFormatSettings.DecimalSeparator := '.';
 
@@ -1002,15 +1023,15 @@ begin
    Kf.mlK2SO4.Value:=Kf.gK2SO4.value/Kf.glK2SO4.value*1000;
 
    //Kf.mlCmplx.Value:=Kf.gCmplx.value/Kf.glCmplx.value*100;
-   Kf.mlCmplx.Value:=(Kf.B.value/Kf.dB.value*Kf.V.value/10)/Kf.glCmplx.value;
-   Kf.mlFe.Value:=(Kf.Fe.value/Kf.dFe.value*Kf.V.value/10)/Kf.glFe.value;
-   Kf.mlMn.Value:=(Kf.Mn.value/Kf.dMn.value*Kf.V.value/10)/Kf.glMn.value;
-   Kf.mlB.Value:= (Kf.B.value/Kf.dB.value*Kf.V.value/10)/Kf.glB.value;
-   Kf.mlZn.Value:=(Kf.Zn.value/Kf.dZn.value*Kf.V.value/10)/Kf.glZn.value;
-   Kf.mlCu.Value:=(Kf.Cu.value/Kf.dCu.value*Kf.V.value/10)/Kf.glCu.value;
-   Kf.mlMo.Value:=(Kf.Mo.value/Kf.dMo.value*Kf.V.value/10)/Kf.glMo.value;
-   Kf.mlCo.Value:=(Kf.Co.value/Kf.dCo.value*Kf.V.value/10)/Kf.glCo.value;
-   Kf.mlSi.Value:=(Kf.Si.value/Kf.dSi.value*Kf.V.value/10)/Kf.glSi.value;
+   if (Kf.dB.value <> 0) then Kf.mlCmplx.Value:=(Kf.B.value/Kf.dB.value*Kf.V.value/10)/Kf.glCmplx.value;
+   if (Kf.dFe.value <> 0) then Kf.mlFe.Value:=(Kf.Fe.value/Kf.dFe.value*Kf.V.value/10)/Kf.glFe.value;
+   if (Kf.dMn.value <> 0) then Kf.mlMn.Value:=(Kf.Mn.value/Kf.dMn.value*Kf.V.value/10)/Kf.glMn.value;
+   if (Kf.dB.value <> 0) then Kf.mlB.Value:= (Kf.B.value/Kf.dB.value*Kf.V.value/10)/Kf.glB.value;
+   if (Kf.dZn.value <> 0) then Kf.mlZn.Value:=(Kf.Zn.value/Kf.dZn.value*Kf.V.value/10)/Kf.glZn.value;
+   if (Kf.dCu.value <> 0) then Kf.mlCu.Value:=(Kf.Cu.value/Kf.dCu.value*Kf.V.value/10)/Kf.glCu.value;
+   if (Kf.dMo.value <> 0) then Kf.mlMo.Value:=(Kf.Mo.value/Kf.dMo.value*Kf.V.value/10)/Kf.glMo.value;
+   if (Kf.dCo.value <> 0) then Kf.mlCo.Value:=(Kf.Co.value/Kf.dCo.value*Kf.V.value/10)/Kf.glCo.value ;
+   if (Kf.dSi.value <> 0) then Kf.mlSi.Value:=(Kf.Si.value/Kf.dSi.value*Kf.V.value/10)/Kf.glSi.value;
 
    Kf.ggCaNO3.value:=Kf.gmlCaNO3.value*Kf.mlCaNO3.value;
    Kf.ggKNO3.value:=Kf.gmlKNO3.value*Kf.mlKNO3.value;
@@ -1110,6 +1131,27 @@ begin
     Kf.l2Mo.Caption:= Kf.lMo.caption + ' (' + FloatToStr(Kf.glMo.Value)+ ' г/л, '+FloatToStr(Kf.gmlMo.Value)+ ' г/мл)';
     Kf.l2Co.Caption:= Kf.lCo.caption + ' (' + FloatToStr(Kf.glCo.Value)+ ' г/л, '+FloatToStr(Kf.gmlCo.Value)+ ' г/мл)';
     Kf.l2Si.Caption:= Kf.lSi.caption + ' (' + FloatToStr(Kf.glSi.Value)+ ' г/л, '+FloatToStr(Kf.gmlSi.Value)+ ' г/мл)';
+
+
+    Av:=round((Kf.mlCaNO3.Value + Kf.mlKNO3.Value + Kf.mlNH4NO3.Value + Kf.mlMgNO3.Value)*10)/10;
+    Am:=round((Kf.ggCaNO3.Value + Kf.ggKNO3.Value + Kf.ggNH4NO3.Value + Kf.gMgNO3.Value)*100)/100;
+    Ak:=round(Am/Av*1000)/1000;
+    Kf.lVolA.Caption:='Концентрат A (Азотный). Объем: '+FloatToStr(Av)+' мл, '+'вес: '+FloatToStr(Am)+' гр,'+' плотность: '+FloatToStr(Ak)+' г/мл.';
+
+    if (kF.chKComplex.Checked = True) then
+    begin
+     Bv:=round((Kf.mlMgSO4.Value + Kf.mlKH2PO4.Value + Kf.mlK2SO4.Value + Kf.mlCmplx.Value)*10)/10;
+     Bm:=round((Kf.ggMgSO4.Value + Kf.ggKH2PO4.Value + Kf.ggK2SO4.Value + Kf.gCmplx.Value)*100)/100;
+     Bk:=round(Bm/Bv*1000)/1000;
+     Kf.lVolB.Caption:='Концентрат B (Сульфатный). Объем: '+FloatToStr(Bv)+' мл, '+'вес: '+FloatToStr(Bm)+' гр,'+ ' плотность: '+FloatToStr(Bk)+' г/мл';
+    end
+    else
+    begin
+     Bv:=round((Kf.mlMgSO4.Value + Kf.mlKH2PO4.Value + Kf.mlK2SO4.Value + Kf.mlFe.Value+Kf.mlMn.Value+Kf.mlB.Value+Kf.mlZn.Value+Kf.mlMo.Value+Kf.mlCo.Value+Kf.mlSi.Value)*10)/10;
+     Bm:=round((Kf.ggMgSO4.Value + Kf.ggKH2PO4.Value + Kf.ggK2SO4.Value + Kf.ggFe.Value+Kf.ggMn.Value+Kf.ggB.Value+Kf.ggZn.Value+Kf.ggMo.Value+Kf.ggCo.Value+Kf.ggSi.Value)*100)/100;
+     Bk:=round(Bm/Bv*1000)/1000;
+    end;
+    Kf.lVolB.Caption:='Концентрат B (Сульфатный). Объем: '+FloatToStr(Bv)+' мл, '+'вес: '+FloatToStr(Bm)+' гр,'+ ' плотность: '+FloatToStr(Bk)+' г/мл';
     //
 end;
 
@@ -1391,7 +1433,9 @@ case FloatToStr(round(Kf.MgNO3_Mg.value*10)/10,MyFormatSettings) of
 
 
 procedure loadPrf;
+
 begin
+   DStr := TStringList.Create;
   //C_FNAME
    MyFormatSettings.DecimalSeparator := '.';
         AssignFile(tfIn, C_FNAME);
@@ -1424,9 +1468,27 @@ begin
            if (IsWordPresent('Si', str, ['=']) = true) then Kf.Si.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
 
            if (IsWordPresent('V', str, ['=']) = true) then Kf.V.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+
+
+           if (IsWordPresent('date', str, ['=']) = true) then DStr.Add(str);
           end;
 
       CloseFile(tfIn);
+          for i := 0 to DStr.Count-1 do
+          begin
+              str:= DStr[i];
+              if (IsWordPresent('date', str, ['=']) = true) then
+              begin
+
+              StrDate:=ExtractWord(2,str,[';','=']);
+              StrCmnt:=ExtractWord(2,str,[';']);
+              Kf.lb1.Items.Add(StrDate + ' ' + StrCmnt);
+
+              end;
+          end;
+
+
+
 
     CalcAll;
     CalcWeight ;
@@ -1690,9 +1752,26 @@ begin
      writeln(tfOut,'mCo=',Kf.mCo.Text);
      writeln(tfOut,'mSi=',Kf.mSi.Text);
      writeln(tfOut,'addrMixer=',Kf.addrMixer.Text);
-    CloseFile(tfOut);
+
+      if Assigned(DStr)then begin
+                  for i := 0 to DStr.Count-1 do
+          begin
+              str:= DStr[i];
+              if (IsWordPresent('date', str, ['=']) = true) then
+              writeln(tfOut,str);
+
+              end;
+       end;
+
+
+     CloseFile(tfOut);
     Kf.eFileName.Caption:=C_FNAME;
     Kf.Caption:='HPG ' + C_FNAME + ' (' + Kf.eComment.Caption +')' ;
+
+
+
+
+
 
 end;
 
@@ -2460,6 +2539,36 @@ begin
   CalcAll;
 end;
 
+procedure TKf.lb1Click(Sender: TObject);
+begin
+if (lb1.Count > 0 ) then
+ begin;
+  i:=lb1.ItemIndex;
+  str:= DStr[i];
+              if (IsWordPresent('date', str, ['=']) = true) then
+              begin
+
+              //StrDate:=ExtractWord(2,str,[';','=']);
+              //StrCmnt:=ExtractWord(2,str,[';']);
+              //Kf.lb1.Items.Add(StrDate + ' ' + StrCmnt);
+              de1.Text:=ExtractWord(2,str,[';','=']);
+              m1.Text:=ExtractWord(2,str,[';']);
+              pr2.Caption:=ExtractWord(3,str,[';']);
+              end;
+  end;
+end;
+
+procedure TKf.mCaNO3Change(Sender: TObject);
+begin
+
+end;
+
+procedure TKf.TabSheet4Show(Sender: TObject);
+begin
+  de1.text:=DateToStr(now);
+  pr2.Caption:=profile.Caption;
+end;
+
 
 
 procedure TKf.Button1Click(Sender: TObject);
@@ -2552,6 +2661,11 @@ begin
             //loadPrf;
          end;
            SaveFile;
+end;
+
+procedure TKf.Button7Click(Sender: TObject);
+begin
+
 end;
 
 procedure TKf.bloadClick(Sender: TObject);
@@ -2791,6 +2905,28 @@ begin
   end;
 end;
 
+procedure TKf.dateAddClick(Sender: TObject);
+begin
+    //date=01.03.2020;Проверка1;N=140 NO3=135.37 NH4=4.47 P=40 K=279.67 Ca=139.83 Mg=55.93 S=129.8 Fe=8.65 Mn=0.375 B=1.5 Zn=0.825 Cu=0.158 Mo=0.158 Co=0 Si=0
+
+   str:='date='+de1.Text+';'+m1.Text+';'+pr2.Caption;
+   if not Assigned(DStr)then DStr := TStringList.Create;
+   DStr.Add(StringReplace(str, #10, ' ', [rfReplaceAll, rfIgnoreCase]));
+   lb1.Clear;
+   for i := 0 to DStr.Count-1 do
+          begin
+              str:= DStr[i];
+              if (IsWordPresent('date', str, ['=']) = true) then
+              begin
+
+              StrDate:=ExtractWord(2,str,[';','=']);
+              StrCmnt:=ExtractWord(2,str,[';']);
+              Kf.lb1.Items.Add(StrDate + ' ' + StrCmnt);
+
+              end;
+          end;
+end;
+
 procedure TKf.dBChange(Sender: TObject);
 begin
   microToWeght;
@@ -2804,6 +2940,11 @@ end;
 procedure TKf.dCuChange(Sender: TObject);
 begin
   microToWeght;
+end;
+
+procedure TKf.de1Change(Sender: TObject);
+begin
+
 end;
 
 procedure TKf.dFeChange(Sender: TObject);
