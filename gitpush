@@ -1,4 +1,5 @@
 #!/bin/bash
+rm hpg.dbg -f
 git add *
 git commit -a
 git pull

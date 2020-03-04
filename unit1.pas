@@ -6,7 +6,8 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, DateTimePicker, Forms, Controls, Graphics,
-  Dialogs, StdCtrls, Spin, ComCtrls, strutils, LCLIntf, ExtCtrls, Menus ;
+  Dialogs, StdCtrls, Spin, ComCtrls, strutils, LCLIntf, ExtCtrls, Menus, Grids,
+  ValEdit, FileCtrl ;
 const
 
   StdWordDelims = ['='] + Brackets;
@@ -66,6 +67,7 @@ type
     Label79: TLabel;
     Label80: TLabel;
     Label81: TLabel;
+    lb1: TListBox;
     lVolA: TLabel;
     lVolB: TLabel;
     mCmplx: TEdit;
@@ -381,6 +383,7 @@ type
     procedure Button4Click(Sender: TObject);
     procedure Button5Click(Sender: TObject);
     procedure Button6Click(Sender: TObject);
+    procedure Button7Click(Sender: TObject);
     procedure CaChange(Sender: TObject);
     procedure C(Sender: TObject);
 
@@ -1417,7 +1420,12 @@ case FloatToStr(round(Kf.MgNO3_Mg.value*10)/10,MyFormatSettings) of
 
 
 procedure loadPrf;
+var
+      DStr: TStringList;
+      i: integer;
+      StrDate,StrCmnt:string;
 begin
+   DStr := TStringList.Create;
   //C_FNAME
    MyFormatSettings.DecimalSeparator := '.';
         AssignFile(tfIn, C_FNAME);
@@ -1450,9 +1458,27 @@ begin
            if (IsWordPresent('Si', str, ['=']) = true) then Kf.Si.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
 
            if (IsWordPresent('V', str, ['=']) = true) then Kf.V.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+
+           //if (IsWordPresent('date', str, ['=']) = true) then Kf.lb1.Items.Add(ExtractWord(3,str,['=']));
+           if (IsWordPresent('date', str, ['=']) = true) then DStr.Add(str);
           end;
 
       CloseFile(tfIn);
+          for i := 0 to DStr.Count-1 do
+          begin
+              str:= DStr[i];
+              if (IsWordPresent('date', str, ['=']) = true) then
+              begin
+
+              StrDate:=ExtractWord(2,str,[';','=']);
+              StrCmnt:=ExtractWord(2,str,[';']);
+              Kf.lb1.Items.Add(StrDate + ' ' + StrCmnt);
+
+              end;
+
+
+          end;
+
 
     CalcAll;
     CalcWeight ;
@@ -2583,6 +2609,11 @@ begin
             //loadPrf;
          end;
            SaveFile;
+end;
+
+procedure TKf.Button7Click(Sender: TObject);
+begin
+
 end;
 
 procedure TKf.bloadClick(Sender: TObject);
