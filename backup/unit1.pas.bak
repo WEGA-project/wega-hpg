@@ -45,9 +45,13 @@ type
     cbMn: TCheckBox;
     cbFe: TCheckBox;
     chkComplex: TCheckBox;
+    dateChange1: TButton;
     de1: TDateEdit;
     eComment: TEdit;
     addrMixer: TEdit;
+    FloatSpinEdit1: TFloatSpinEdit;
+    FloatSpinEdit2: TFloatSpinEdit;
+    FloatSpinEdit3: TFloatSpinEdit;
     Label1: TLabel;
     Label70: TLabel;
     Label71: TLabel;
@@ -76,6 +80,10 @@ type
     Label84: TLabel;
     Label85: TLabel;
     Label86: TLabel;
+<<<<<<< HEAD
+=======
+    Label87: TLabel;
+>>>>>>> 40d557c4c3e3edc2842eedeb48c3d4a3ea93bf21
     lb1: TListBox;
     lVolA: TLabel;
     lVolB: TLabel;
