@@ -25,6 +25,7 @@ type
     Button4: TButton;
     Button5: TButton;
     Button6: TButton;
+    Button7: TButton;
     dateAdd: TButton;
     dateChange: TButton;
     CheckBox1: TCheckBox;
@@ -70,6 +71,11 @@ type
     Label79: TLabel;
     Label80: TLabel;
     Label81: TLabel;
+    Label82: TLabel;
+    Label83: TLabel;
+    Label84: TLabel;
+    Label85: TLabel;
+    Label86: TLabel;
     lb1: TListBox;
     lVolA: TLabel;
     lVolB: TLabel;
@@ -422,6 +428,7 @@ type
     procedure CoChange(Sender: TObject);
     procedure CuChange(Sender: TObject);
     procedure dateAddClick(Sender: TObject);
+    procedure dateChangeClick(Sender: TObject);
     procedure dBChange(Sender: TObject);
     procedure dCoChange(Sender: TObject);
     procedure dCuChange(Sender: TObject);
@@ -1474,7 +1481,7 @@ begin
           end;
 
       CloseFile(tfIn);
-          lb1.Clear;
+          Kf.lb1.Clear;
           for i := 0 to DStr.Count-1 do
           begin
               str:= DStr[i];
@@ -1487,7 +1494,7 @@ begin
 
               end;
           end;
-
+          Kf.pr2.Caption:=Kf.profile.Caption;
 
 
 
@@ -2666,7 +2673,8 @@ end;
 
 procedure TKf.Button7Click(Sender: TObject);
 begin
-
+  profile.Caption:=pr2.Caption;
+  LoadProfile;
 end;
 
 procedure TKf.bloadClick(Sender: TObject);
@@ -2928,6 +2936,24 @@ begin
           end;
 end;
 
+procedure TKf.dateChangeClick(Sender: TObject);
+begin
+  DStr.Delete(i);
+    lb1.Clear;
+   for i := 0 to DStr.Count-1 do
+          begin
+              str:= DStr[i];
+              if (IsWordPresent('date', str, ['=']) = true) then
+              begin
+
+              StrDate:=ExtractWord(2,str,[';','=']);
+              StrCmnt:=ExtractWord(2,str,[';']);
+              Kf.lb1.Items.Add(StrDate + ' ' + StrCmnt);
+
+              end;
+          end;
+end;
+
 procedure TKf.dBChange(Sender: TObject);
 begin
   microToWeght;
@@ -3028,7 +3054,7 @@ begin
     eFileName.Caption:=C_FNAME;
     loadPrf;
     LoadFirt;
-
+    m1.Clear;
 
   end
 
