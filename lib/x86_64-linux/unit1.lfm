@@ -4547,7 +4547,7 @@ object Kf: TKf
         TabOrder = 9
       end
       object dateAdd: TButton
-        Left = 12
+        Left = 8
         Height = 25
         Top = 179
         Width = 152
@@ -4556,7 +4556,7 @@ object Kf: TKf
         TabOrder = 10
       end
       object dateChange: TButton
-        Left = 12
+        Left = 8
         Height = 25
         Top = 211
         Width = 152
