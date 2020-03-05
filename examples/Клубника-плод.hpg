@@ -1,4 +1,4 @@
-version=Hydroponic Profile Generator 0.06 https://github.com/siv237/HPG
+version=Hydroponic Profile Generator 0.062 https://github.com/siv237/HPG
 Comment=Клубника Кабрилло плод
 N=139.83
 NH4=4.47
@@ -92,4 +92,3 @@ mMo=
 mCo=
 mSi=
 addrMixer=192.168.237.185
-date=05.02.2020;Изготовлен концентрат на 50 литров ;N=140 NO3=135.37 NH4=4.47 P=45 K=279.67 Ca=139.83 Mg=55.93 S=127.2 Fe=3.46 Mn=0.55 B=2 Zn=0.33 Cu=0.063 Mo=0.063 Co=0 Si=0 

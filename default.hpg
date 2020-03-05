@@ -1,13 +1,13 @@
-version=Hydroponic Profile Generator 0.062 https://github.com/siv237/HPG
+version=Hydroponic Profile Generator 0.063 https://github.com/siv237/HPG
 Comment=По умолчанию
 N=100
-NH4=9.09130724251822
+NH4=9.09
 NO3=90.91
 P=50
 K=100
 Ca=90
 Mg=60
-S=72.635039388209
+S=72.63
 CaNO3_Ca=16.972
 CaNO3_NO3=11.863
 CaNO3_NH4=0
@@ -25,12 +25,12 @@ MgNO3_Mg=9.479
 MgNO3_NO3=10.925
 Fe=3460
 Mn=550
-B=600
-Zn=330
-Cu=60
-Mo=60
-Co=0
-Si=0
+B=623
+Zn=363
+Cu=91
+Mo=89
+Co=100
+Si=200
 dFe=20.1
 dMn=36.4
 dB=17.5
@@ -72,8 +72,8 @@ gmlMo=1
 gmlCo=1
 gmlSi=1
 chkComplex=FALSE
-chK2SO4=FALSE
-chMgNO3=TRUE
+chK2SO4=TRUE
+chMgNO3=FALSE
 V=5
 mCaNO3=p1
 mKNO3=p2
@@ -95,3 +95,5 @@ addrMixer=IP Адрес автоматического миксера
 date=05.03.2020;Тестовая запись 1;N=133 NO3=120.84 NH4=12.08 P=40 K=179.32 Ca=89.66 Mg=59.77 S=78.9 Fe=3.46 Mn=0.55 B=0.6 Zn=0.33 Cu=0.06 Mo=0.06 Co=0 Si=0 
 date=05.03.2020;Тестовая запись 2;N=126 NO3=118.44 NH4=7.94 P=40 K=183.25 Ca=91.56 Mg=61.04 S=81.7 Fe=3.46 Mn=0.55 B=0.6 Zn=0.33 Cu=0.06 Mo=0.06 Co=0 Si=0 
 date=05.03.2020;Тестовая запись 3;N=100 NO3=90.91 NH4=9.09 P=50 K=100 Ca=90 Mg=60 S=72.6 Fe=3.46 Mn=0.55 B=0.6 Zn=0.33 Cu=0.06 Mo=0.06 Co=0 Si=0 
+date=05.03.2020;Тестовая запись 4 + кобальт и кремний;N=100 NO3=90.91 NH4=9.09 P=50 K=100 Ca=90 Mg=60 S=72.6 Fe=3.46 Mn=0.55 B=0.6 Zn=0.33 Cu=0.06 Mo=0.06 Co=0 Si=0 
+date=05.03.2020;Тестовая запись 4 + микра;N=100 NO3=90.91 NH4=9.09 P=50 K=100 Ca=90 Mg=60 S=72.6 Fe=3.46 Mn=0.55 B=0.623 Zn=0.363 Cu=0.091 Mo=0.089 Co=0.1 Si=0.2 

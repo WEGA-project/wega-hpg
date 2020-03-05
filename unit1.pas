@@ -76,6 +76,11 @@ type
     Label84: TLabel;
     Label85: TLabel;
     Label86: TLabel;
+    rZn: TLabel;
+    rCo: TLabel;
+    rB: TLabel;
+    rMo: TLabel;
+    rN: TLabel;
     lb1: TListBox;
     lVolA: TLabel;
     lVolB: TLabel;
@@ -227,6 +232,17 @@ type
     od1: TOpenDialog;
     PageControl2: TPageControl;
     pr2: TEdit;
+    rFe: TLabel;
+    rNO3: TLabel;
+    rNH4: TLabel;
+    rP: TLabel;
+    rK: TLabel;
+    rCa: TLabel;
+    rMg: TLabel;
+    rMn: TLabel;
+    rS: TLabel;
+    rCu: TLabel;
+    rSi: TLabel;
     sd1: TSaveDialog;
     Si: TFloatSpinEdit;
     Mo: TFloatSpinEdit;
@@ -661,6 +677,7 @@ type
 var
   Kf: TKf;
   vN,vNO3,vNH4,vP,vK,vCa,vMg,vS,vEC,V:Double;
+  vFe,vMn,vB,vZn,vCu,vMo,vCo,vSi:Double;
   FloatSpinEdit2,mP,mK,mCa,mMg,mS:Double;
   r,rN,rK,rCa,rMg,rNH4:Double;
   vKMg,vKCa,vKN,vNH4NO3:Double;
@@ -710,6 +727,15 @@ begin
   vKCa:=Kf.KCa.value;
   vKN:=Kf.KN.value;
   vNH4NO3:= Kf.NH4NO3.value;
+
+  vFe:=Kf.Fe.Value;
+  vMn:=Kf.Mn.Value;
+  vB:=Kf.B.Value;
+  vZn:=Kf.Zn.Value;
+  vCu:=Kf.Cu.Value;
+  vMo:=Kf.Mo.Value;
+  vCo:=Kf.Co.Value;
+  vSi:=Kf.Si.Value;
 end;
 
 
@@ -2548,7 +2574,13 @@ begin
 end;
 
 procedure TKf.lb1Click(Sender: TObject);
+var
+    vrN,vrNO3,vrNH4,vrP,vrK,vrCa,vrMg,vrS:double;
+    vrFe,vrMn,vrB,vrZn,vrCu,vrMo,vrCo,vrSi:double;
+
 begin
+   MyFormatSettings.DecimalSeparator := '.';
+   getVar;
 if (lb1.Count > 0 ) then
  begin;
   i:=lb1.ItemIndex;
@@ -2564,6 +2596,42 @@ if (lb1.Count > 0 ) then
               pr2.Caption:=ExtractWord(3,str,[';']);
               end;
   end;
+    str:=pr2.Caption;
+    vrN:=StrToFloat(ExtractWord(2,str,['=',' ']),MyFormatSettings);
+    vrNO3:=StrToFloat(ExtractWord(4,str,['=',' ']),MyFormatSettings);
+    vrNH4:=StrToFloat(ExtractWord(6,str,['=',' ']),MyFormatSettings);
+    vrP:=StrToFloat(ExtractWord(8,str,['=',' ']),MyFormatSettings);
+    vrK:=StrToFloat(ExtractWord(10,str,['=',' ']),MyFormatSettings);
+    vrCa:=StrToFloat(ExtractWord(12,str,['=',' ']),MyFormatSettings);
+    vrMg:=StrToFloat(ExtractWord(14,str,['=',' ']),MyFormatSettings);
+    vrS:=StrToFloat(ExtractWord(16,str,['=',' ']),MyFormatSettings);
+
+    vrFe:=StrToFloat(ExtractWord(18,str,['=',' ']),MyFormatSettings);
+    vrMn:=StrToFloat(ExtractWord(20,str,['=',' ']),MyFormatSettings);
+    vrB:=StrToFloat(ExtractWord(22,str,['=',' ']),MyFormatSettings);
+    vrZn:=StrToFloat(ExtractWord(24,str,['=',' ']),MyFormatSettings);
+    vrCu:=StrToFloat(ExtractWord(26,str,['=',' ']),MyFormatSettings);
+    vrMo:=StrToFloat(ExtractWord(28,str,['=',' ']),MyFormatSettings);
+    vrCo:=StrToFloat(ExtractWord(30,str,['=',' ']),MyFormatSettings);
+    vrSi:=StrToFloat(ExtractWord(32,str,['=',' ']),MyFormatSettings);
+
+    rN.Caption:='N:('+FloatToStr(round((vN-vrN)/vrN*100))+'%)';
+    rNO3.Caption:='NO3:('+FloatToStr(round((vNO3-vrNO3)/vrNO3*100))+'%)';
+    rNH4.Caption:='NH4:('+FloatToStr(round((vNH4-vrNH4)/vrNH4*100))+'%)';
+    rP.Caption:='P:('+FloatToStr(round((vP-vrP)/vrP*100))+'%)';
+    rK.Caption:='K:('+FloatToStr(round((vK-vrK)/vrK*100))+'%)';
+    rCa.Caption:='Ca:('+FloatToStr(round((vCa-vrCa)/vrCa*100))+'%)';
+    rMg.Caption:='Mg:('+FloatToStr(round((vMg-vrMg)/vrMg*100))+'%)';
+    rS.Caption:='S:('+FloatToStr(round((vS-vrS)/vrS*100))+'%)';
+
+    if(vrFe >0) then rFe.Caption:='Fe:('+FloatToStr(round((vFe/1000-vrFe)/vrFe*100))+'%)' else rFe.Caption:='Fe: -';
+    if(vrMn >0) then rMn.Caption:='Mn:('+FloatToStr(round((vMn/1000-vrMn)/vrMn*100))+'%)' else rMn.Caption:='Mn: -';
+    if(vrB >0) then rB.Caption:='B:('+FloatToStr(round((vB/1000-vrB)/vrB*100))+'%)' else rB.Caption:='B: -';
+    if(vrZn >0) then rZn.Caption:='Zn:('+FloatToStr(round((vZn/1000-vrZn)/vrZn*100))+'%)' else rZn.Caption:='Zn: -';
+    if(vrCu >0) then rCu.Caption:='Cu:('+FloatToStr(round((vCu/1000-vrCu)/vrCu*100))+'%)' else rCu.Caption:='C: -';
+    if(vrMo >0) then rMo.Caption:='Mo:('+FloatToStr(round((vMo/1000-vrMo)/vrMo*100))+'%)' else rMo.Caption:='Mo: -';
+    if(vrCo >0) then rCo.Caption:='Co:('+FloatToStr(round((vCo/1000-vrCo)/vrCo*100))+'%)' else rCo.Caption:='Co: -';
+    if(vrSi >0) then rSi.Caption:='Si:('+FloatToStr(round((vSi/1000-vrSi)/vrSi*100))+'%)' else rSi.Caption:='Si: -';
 end;
 
 procedure TKf.mCaNO3Change(Sender: TObject);
