@@ -14,9 +14,6 @@ object Kf: TKf
   Font.Height = -15
   Font.Name = 'Arial'
   OnActivate = FormActivate
-  OnChangeBounds = FormChangeBounds
-  OnClick = FormClick
-  OnCreate = FormCreate
   LCLVersion = '2.0.6.0'
   Scaled = False
   object version: TLabel

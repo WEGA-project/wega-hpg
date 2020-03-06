@@ -3139,7 +3139,7 @@ begin
    SoilName;
    genProfile;
 
-  de1.text:=DateToStr(now);
+  //de1.text:=DateToStr(now);
   pr2.Caption:=profile.Caption;
 end;
 
