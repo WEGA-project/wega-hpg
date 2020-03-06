@@ -4529,7 +4529,6 @@ object Kf: TKf
         ButtonWidth = 23
         NumGlyphs = 1
         MaxLength = 0
-        OnChange = de1Change
         TabOrder = 8
         Text = 'de1'
       end

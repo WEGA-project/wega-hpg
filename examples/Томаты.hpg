@@ -1,4 +1,4 @@
-version=Hydroponic Profile Generator 0.053 https://github.com/siv237/HPG
+version=Hydroponic Profile Generator 0.063 https://github.com/siv237/HPG
 Comment=Для томатов чери вега
 N=203.39
 NH4=13.31
@@ -92,3 +92,4 @@ mMo=
 mCo=
 mSi=
 addrMixer=192.168.237.185
+date=20.02.2020;Изготовлен концентрат на 20 литров;N=203 NO3=190.09 NH4=13.31 P=60 K=290.65 Ca=145.33 Mg=41.52 S=56.8 Fe=3.46 Mn=0.55 B=0.6 Zn=0.33 Cu=0.06 Mo=0.06 Co=0 Si=0 

@@ -2641,8 +2641,7 @@ end;
 
 procedure TKf.TabSheet4Show(Sender: TObject);
 begin
-  de1.text:=DateToStr(now);
-  pr2.Caption:=profile.Caption;
+
 end;
 
 
@@ -3140,7 +3139,8 @@ begin
    SoilName;
    genProfile;
 
-
+  de1.text:=DateToStr(now);
+  pr2.Caption:=profile.Caption;
 end;
 
 procedure TKf.FormChangeBounds(Sender: TObject);
