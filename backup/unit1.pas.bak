@@ -2985,7 +2985,7 @@ procedure TKf.dateAddClick(Sender: TObject);
 begin
     //date=01.03.2020;Проверка1;N=140 NO3=135.37 NH4=4.47 P=40 K=279.67 Ca=139.83 Mg=55.93 S=129.8 Fe=8.65 Mn=0.375 B=1.5 Zn=0.825 Cu=0.158 Mo=0.158 Co=0 Si=0
 
-   str:='date='+de1.Text+';'+m1.Text+';'+pr2.Caption;
+   str:='date='+de1.Text+';'+m1.Text+';'+profile.Caption;
    if not Assigned(DStr)then DStr := TStringList.Create;
    DStr.Add(StringReplace(str, #10, ' ', [rfReplaceAll, rfIgnoreCase]));
    lb1.Clear;
