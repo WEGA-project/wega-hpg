@@ -1,5 +1,5 @@
 object Kf: TKf
-  Left = 921
+  Left = 631
   Height = 793
   Top = 199
   Width = 762
@@ -21,7 +21,7 @@ object Kf: TKf
     Height = 15
     Top = 773
     Width = 222
-    Caption = 'Hydroponic Profile Generator 0.063'
+    Caption = 'Hydroponic Profile Generator 0.064'
     Font.Color = clActiveCaption
     Font.Height = -13
     Font.Name = 'Arial'
@@ -35,11 +35,11 @@ object Kf: TKf
     Height = 704
     Top = 0
     Width = 761
-    ActivePage = TabSheet1
+    ActivePage = TabSheet4
     Font.Height = -15
     Font.Name = 'Arial'
     ParentFont = False
-    TabIndex = 0
+    TabIndex = 3
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'Макро'
@@ -4517,9 +4517,9 @@ object Kf: TKf
         TabOrder = 7
       end
       object de1: TDateEdit
-        Left = 416
+        Left = 248
         Height = 27
-        Top = 456
+        Top = 457
         Width = 152
         CalendarDisplaySettings = [dsShowHeadings, dsShowDayNames]
         DateOrder = doNone
@@ -4605,9 +4605,9 @@ object Kf: TKf
         ParentFont = False
       end
       object Label83: TLabel
-        Left = 376
+        Left = 208
         Height = 17
-        Top = 461
+        Top = 462
         Width = 37
         Caption = 'Дата:'
         Font.Height = -15
@@ -4753,6 +4753,15 @@ object Kf: TKf
         Width = 4
         Caption = ' '
         ParentColor = False
+      end
+      object Button8: TButton
+        Left = 440
+        Height = 24
+        Top = 457
+        Width = 139
+        Caption = 'Изменить запись'
+        OnClick = Button8Click
+        TabOrder = 13
       end
     end
   end

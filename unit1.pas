@@ -26,6 +26,7 @@ type
     Button5: TButton;
     Button6: TButton;
     Button7: TButton;
+    Button8: TButton;
     dateAdd: TButton;
     dateChange: TButton;
     CheckBox1: TCheckBox;
@@ -411,6 +412,7 @@ type
     procedure Button5Click(Sender: TObject);
     procedure Button6Click(Sender: TObject);
     procedure Button7Click(Sender: TObject);
+    procedure Button8Click(Sender: TObject);
     procedure CaChange(Sender: TObject);
     procedure C(Sender: TObject);
 
@@ -2744,6 +2746,28 @@ begin
   LoadProfile;
 end;
 
+procedure TKf.Button8Click(Sender: TObject);
+begin
+     str:='date='+de1.Text+';'+m1.Text+';'+profile.Caption;
+   if not Assigned(DStr)then DStr := TStringList.Create;
+   DStr[i]:=(StringReplace(str, #10, ' ', [rfReplaceAll, rfIgnoreCase]));
+   DStr.Sort;
+   //Dstr.
+   lb1.Clear;
+   for i := 0 to DStr.Count-1 do
+          begin
+              str:= DStr[i];
+              if (IsWordPresent('date', str, ['=']) = true) then
+              begin
+
+              StrDate:=ExtractWord(2,str,[';','=']);
+              StrCmnt:=ExtractWord(2,str,[';']);
+              Kf.lb1.Items.Add(StrDate + ' ' + StrCmnt);
+
+              end;
+          end;
+end;
+
 procedure TKf.bloadClick(Sender: TObject);
   //var
     //tfIn: TextFile;
@@ -2988,6 +3012,7 @@ begin
    str:='date='+de1.Text+';'+m1.Text+';'+profile.Caption;
    if not Assigned(DStr)then DStr := TStringList.Create;
    DStr.Add(StringReplace(str, #10, ' ', [rfReplaceAll, rfIgnoreCase]));
+   DStr.Sort;
    lb1.Clear;
    for i := 0 to DStr.Count-1 do
           begin
