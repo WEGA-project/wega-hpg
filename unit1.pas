@@ -450,7 +450,7 @@ type
     procedure dBChange(Sender: TObject);
     procedure dCoChange(Sender: TObject);
     procedure dCuChange(Sender: TObject);
-    procedure de1Change(Sender: TObject);
+
     procedure dFeChange(Sender: TObject);
     procedure dMnChange(Sender: TObject);
     procedure dMoChange(Sender: TObject);
@@ -1522,7 +1522,7 @@ begin
 
               end;
           end;
-          Kf.pr2.Caption:=Kf.profile.Caption;
+          //Kf.pr2.Caption:=Kf.profile.Caption;
 
 
 
@@ -3007,13 +3007,16 @@ end;
 
 procedure TKf.dateAddClick(Sender: TObject);
 begin
-    //date=01.03.2020;Проверка1;N=140 NO3=135.37 NH4=4.47 P=40 K=279.67 Ca=139.83 Mg=55.93 S=129.8 Fe=8.65 Mn=0.375 B=1.5 Zn=0.825 Cu=0.158 Mo=0.158 Co=0 Si=0
 
+   if (m1.Text <> '' ) then begin
+
+   if (de1.text = '' ) then de1.Text:=DateToStr(now);
    str:='date='+de1.Text+';'+m1.Text+';'+profile.Caption;
    if not Assigned(DStr)then DStr := TStringList.Create;
    DStr.Add(StringReplace(str, #10, ' ', [rfReplaceAll, rfIgnoreCase]));
    DStr.Sort;
    lb1.Clear;
+
    for i := 0 to DStr.Count-1 do
           begin
               str:= DStr[i];
@@ -3026,6 +3029,12 @@ begin
 
               end;
           end;
+    end
+   else  ShowMessage('Не заполнено поле описание!');
+
+
+
+
 end;
 
 procedure TKf.dateChangeClick(Sender: TObject);
@@ -3061,10 +3070,7 @@ begin
   microToWeght;
 end;
 
-procedure TKf.de1Change(Sender: TObject);
-begin
 
-end;
 
 procedure TKf.dFeChange(Sender: TObject);
 begin
@@ -3146,7 +3152,7 @@ begin
     eFileName.Caption:=C_FNAME;
     loadPrf;
     LoadFirt;
-    m1.Clear;
+    //m1.Clear;
 
   end
 
@@ -3165,7 +3171,7 @@ begin
    genProfile;
 
   //de1.text:=DateToStr(now);
-  pr2.Caption:=profile.Caption;
+  //pr2.Caption:=profile.Caption;
 end;
 
 procedure TKf.FormChangeBounds(Sender: TObject);
