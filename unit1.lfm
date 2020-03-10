@@ -9,6 +9,7 @@ object Kf: TKf
   Caption = 'Koefficients'
   ClientHeight = 793
   ClientWidth = 762
+  DesignTimePPI = 106
   Font.Color = clMaroon
   Font.Height = -15
   Font.Name = 'Arial'
@@ -19,7 +20,7 @@ object Kf: TKf
     Left = 520
     Height = 15
     Top = 773
-    Width = 218
+    Width = 222
     Caption = 'Hydroponic Profile Generator 0.065'
     Font.Color = clActiveCaption
     Font.Height = -13
@@ -1003,7 +1004,7 @@ object Kf: TKf
         Left = 4
         Height = 17
         Top = 490
-        Width = 169
+        Width = 167
         Caption = 'Калий азотнокислый (ч.)'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -1014,7 +1015,7 @@ object Kf: TKf
         Left = 4
         Height = 17
         Top = 462
-        Width = 259
+        Width = 257
         Caption = 'Кальций азотнокислый 4-водный  (ч.)'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -1025,7 +1026,7 @@ object Kf: TKf
         Left = 4
         Height = 17
         Top = 549
-        Width = 240
+        Width = 237
         Caption = 'Магний сернокислый 7-водный (ч.)'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -1036,7 +1037,7 @@ object Kf: TKf
         Left = 4
         Height = 17
         Top = 581
-        Width = 300
+        Width = 295
         Caption = 'Калий фосфорнокислый 1-замещенный (ч.)'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -1168,7 +1169,7 @@ object Kf: TKf
         Left = 4
         Height = 17
         Top = 612
-        Width = 243
+        Width = 241
         Caption = 'Калий сернокислый безводный (ч.)'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -1180,7 +1181,7 @@ object Kf: TKf
         Left = 4
         Height = 17
         Top = 521
-        Width = 189
+        Width = 187
         Caption = 'Аммоний азотнокислый (ч.)'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -1251,7 +1252,7 @@ object Kf: TKf
         Left = 445
         Height = 17
         Top = 490
-        Width = 31
+        Width = 30
         Caption = 'NО3'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -1262,7 +1263,7 @@ object Kf: TKf
         Left = 445
         Height = 17
         Top = 462
-        Width = 31
+        Width = 30
         Caption = 'NО3'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -1273,7 +1274,7 @@ object Kf: TKf
         Left = 445
         Height = 17
         Top = 521
-        Width = 31
+        Width = 30
         Caption = 'NО3'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -1284,7 +1285,7 @@ object Kf: TKf
         Left = 325
         Height = 17
         Top = 521
-        Width = 30
+        Width = 28
         Caption = 'NH4'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -1306,7 +1307,7 @@ object Kf: TKf
         Left = 325
         Height = 17
         Top = 549
-        Width = 21
+        Width = 19
         Caption = 'Mg'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -1365,7 +1366,7 @@ object Kf: TKf
         Left = 558
         Height = 17
         Top = 462
-        Width = 30
+        Width = 28
         Caption = 'NH4'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -1553,7 +1554,7 @@ object Kf: TKf
         Left = 4
         Height = 17
         Top = 643
-        Width = 246
+        Width = 243
         Caption = 'Магний азотнокислый 6-водный (ч.)'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -1594,7 +1595,7 @@ object Kf: TKf
         Left = 325
         Height = 17
         Top = 643
-        Width = 21
+        Width = 19
         Caption = 'Mg'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -1606,7 +1607,7 @@ object Kf: TKf
         Left = 446
         Height = 17
         Top = 643
-        Width = 31
+        Width = 30
         Caption = 'NO3'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -1658,7 +1659,7 @@ object Kf: TKf
         Left = 292
         Height = 17
         Top = 80
-        Width = 139
+        Width = 135
         Caption = 'K/Mg K/Ca K/N Ca/N'
         Font.Color = clMaroon
         Font.Height = -15
@@ -1670,7 +1671,7 @@ object Kf: TKf
         Left = 4
         Height = 17
         Top = 2
-        Width = 192
+        Width = 187
         Caption = 'Макропрофиль в мг/л (ppm)'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -1681,7 +1682,7 @@ object Kf: TKf
         Left = 412
         Height = 17
         Top = 0
-        Width = 291
+        Width = 294
         Caption = 'Расчет макропрофиля и навесок солей'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -1693,7 +1694,7 @@ object Kf: TKf
         Left = 4
         Height = 17
         Top = 435
-        Width = 106
+        Width = 105
         Caption = 'Составы солей'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -2358,8 +2359,8 @@ object Kf: TKf
         TabOrder = 0
         object TabSheet5: TTabSheet
           Caption = 'Расчет'
-          ClientHeight = 581
-          ClientWidth = 746
+          ClientHeight = 612
+          ClientWidth = 748
           Font.Height = -15
           Font.Name = 'Arial'
           ParentFont = False
@@ -3624,8 +3625,8 @@ object Kf: TKf
         end
         object TabSheet6: TTabSheet
           Caption = 'Изготовление'
-          ClientHeight = 581
-          ClientWidth = 746
+          ClientHeight = 612
+          ClientWidth = 748
           Font.Height = -15
           Font.Name = 'Arial'
           ParentFont = False
@@ -4471,7 +4472,7 @@ object Kf: TKf
         Left = 20
         Height = 17
         Top = 37
-        Width = 82
+        Width = 80
         Caption = 'Имя файла:'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -4558,7 +4559,7 @@ object Kf: TKf
         Left = 8
         Height = 17
         Top = 467
-        Width = 143
+        Width = 137
         Caption = 'Профиль в журнале:'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -4569,7 +4570,7 @@ object Kf: TKf
         Left = 8
         Height = 17
         Top = 3
-        Width = 174
+        Width = 175
         Caption = 'Параметры сохранения'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -4581,7 +4582,7 @@ object Kf: TKf
         Left = 8
         Height = 17
         Top = 152
-        Width = 131
+        Width = 130
         Caption = 'Журнал действий'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -4755,9 +4756,12 @@ object Kf: TKf
         Width = 151
         CalendarDisplaySettings = [dsShowHeadings, dsShowDayNames]
         DateOrder = doNone
+        DateFormat = 'dd.mm.yyyy'
         ButtonWidth = 23
         NumGlyphs = 1
+        Flat = True
         MaxLength = 0
+        OnChange = de1Change
         TabOrder = 13
         Text = 'de1'
       end
@@ -4767,7 +4771,7 @@ object Kf: TKf
     Left = 10
     Height = 17
     Top = 744
-    Width = 112
+    Width = 110
     Caption = 'Объем в литрах'
     Font.Height = -15
     Font.Name = 'Arial'

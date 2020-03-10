@@ -450,6 +450,7 @@ type
     procedure dBChange(Sender: TObject);
     procedure dCoChange(Sender: TObject);
     procedure dCuChange(Sender: TObject);
+    procedure de1Change(Sender: TObject);
 
     procedure dFeChange(Sender: TObject);
     procedure dMnChange(Sender: TObject);
@@ -3068,6 +3069,11 @@ end;
 procedure TKf.dCuChange(Sender: TObject);
 begin
   microToWeght;
+end;
+
+procedure TKf.de1Change(Sender: TObject);
+begin
+
 end;
 
 
