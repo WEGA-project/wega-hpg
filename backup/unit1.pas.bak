@@ -2749,7 +2749,7 @@ end;
 
 procedure TKf.Button8Click(Sender: TObject);
 begin
-     str:='date='+de1.Text+';'+m1.Text+';'+profile.Caption;
+     str:='date='+de1.Text+';'+m1.Text+';'+pr2.Caption;
    if not Assigned(DStr)then DStr := TStringList.Create;
    DStr[i]:=(StringReplace(str, #10, ' ', [rfReplaceAll, rfIgnoreCase]));
    DStr.Sort;
