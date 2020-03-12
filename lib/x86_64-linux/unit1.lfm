@@ -1,7 +1,7 @@
 object Kf: TKf
-  Left = 582
+  Left = 770
   Height = 793
-  Top = 225
+  Top = 184
   Width = 762
   HorzScrollBar.Page = 762
   VertScrollBar.Page = 790

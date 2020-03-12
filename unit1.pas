@@ -3220,7 +3220,8 @@ begin
     eFileName.Caption:=C_FNAME;
     loadPrf;
     LoadFirt;
-    //m1.Clear;
+    loadComment;
+    loadJournal;
 
   end
 
