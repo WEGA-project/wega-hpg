@@ -1471,7 +1471,7 @@ case FloatToStr(round(Kf.MgNO3_Mg.value*10)/10,MyFormatSettings) of
 procedure loadPrf;
 
 begin
-   DStr := TStringList.Create;
+   //DStr := TStringList.Create;
   //C_FNAME
    MyFormatSettings.DecimalSeparator := '.';
         AssignFile(tfIn, C_FNAME);
@@ -1482,8 +1482,8 @@ begin
           while not eof(tfIn) do
           begin
           readln(tfIn, str);
-          //writeln(tfOut,'Comment=',eComment.Caption);
-          if (IsWordPresent('Comment', str, ['=']) = true) then Kf.eComment.Caption:=ExtractWord(2,str,['=']);
+
+          //if (IsWordPresent('Comment', str, ['=']) = true) then Kf.eComment.Caption:=ExtractWord(2,str,['=']);
           //Macro Profile
            if (IsWordPresent('N', str, ['=']) = true) then Kf.N.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
            if (IsWordPresent('NH4', str, ['=']) = true) then Kf.NH4.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
@@ -1505,6 +1505,36 @@ begin
 
            if (IsWordPresent('V', str, ['=']) = true) then Kf.V.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
 
+          end;
+
+      CloseFile(tfIn);
+
+
+
+
+    CalcAll;
+    CalcWeight ;
+    microToWeght;
+    CalcConc;
+    SoilName;
+
+    Kf.Caption:='HPG ' + C_FNAME + ' (' + Kf.eComment.Caption +')' ;
+end;
+
+
+procedure loadJournal;
+
+begin
+    DStr := TStringList.Create;
+   MyFormatSettings.DecimalSeparator := '.';
+        AssignFile(tfIn, C_FNAME);
+        // Открыть файл для чтения
+      reset(tfIn);
+    //
+      // Считываем строки, пока не закончится файл
+          while not eof(tfIn) do
+          begin
+          readln(tfIn, str);
 
            if (IsWordPresent('date', str, ['=']) = true) then DStr.Add(str);
           end;
@@ -1523,18 +1553,48 @@ begin
 
               end;
           end;
-          //Kf.pr2.Caption:=Kf.profile.Caption;
+
+
+end;
 
 
 
-    CalcAll;
-    CalcWeight ;
-    microToWeght;
-    CalcConc;
-    SoilName;
+
+
+
+
+
+procedure loadComment;
+
+begin
+       AssignFile(tfIn, C_FNAME);
+
+      reset(tfIn);
+    //
+      // Считываем строки, пока не закончится файл
+          while not eof(tfIn) do
+          begin
+          readln(tfIn, str);
+
+          if (IsWordPresent('Comment', str, ['=']) = true) then Kf.eComment.Caption:=ExtractWord(2,str,['=']);
+
+          end;
+
+      CloseFile(tfIn);
+
 
     Kf.Caption:='HPG ' + C_FNAME + ' (' + Kf.eComment.Caption +')' ;
 end;
+
+
+
+
+
+
+
+
+
+
 
 procedure LoadFirt;
 begin
@@ -2704,6 +2764,8 @@ begin
             C_FNAME:= od1.FileName;
             LoadFirt;
             loadPrf;
+            loadComment;
+            loadJournal;
          end;
 end;
 

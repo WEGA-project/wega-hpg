@@ -1,7 +1,7 @@
 object Kf: TKf
-  Left = 840
+  Left = 582
   Height = 793
-  Top = 194
+  Top = 225
   Width = 762
   HorzScrollBar.Page = 762
   VertScrollBar.Page = 790
@@ -21,7 +21,7 @@ object Kf: TKf
     Height = 15
     Top = 773
     Width = 222
-    Caption = 'Hydroponic Profile Generator 0.066'
+    Caption = 'Hydroponic Profile Generator 0.067'
     Font.Color = clActiveCaption
     Font.Height = -13
     Font.Name = 'Arial'

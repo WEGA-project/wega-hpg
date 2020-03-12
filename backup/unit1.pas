@@ -26,6 +26,7 @@ type
     Button5: TButton;
     Button6: TButton;
     Button7: TButton;
+    Button8: TButton;
     dateAdd: TButton;
     dateChange: TButton;
     CheckBox1: TCheckBox;
@@ -76,6 +77,11 @@ type
     Label84: TLabel;
     Label85: TLabel;
     Label86: TLabel;
+    rZn: TLabel;
+    rCo: TLabel;
+    rB: TLabel;
+    rMo: TLabel;
+    rN: TLabel;
     lb1: TListBox;
     lVolA: TLabel;
     lVolB: TLabel;
@@ -227,6 +233,17 @@ type
     od1: TOpenDialog;
     PageControl2: TPageControl;
     pr2: TEdit;
+    rFe: TLabel;
+    rNO3: TLabel;
+    rNH4: TLabel;
+    rP: TLabel;
+    rK: TLabel;
+    rCa: TLabel;
+    rMg: TLabel;
+    rMn: TLabel;
+    rS: TLabel;
+    rCu: TLabel;
+    rSi: TLabel;
     sd1: TSaveDialog;
     Si: TFloatSpinEdit;
     Mo: TFloatSpinEdit;
@@ -395,6 +412,7 @@ type
     procedure Button5Click(Sender: TObject);
     procedure Button6Click(Sender: TObject);
     procedure Button7Click(Sender: TObject);
+    procedure Button8Click(Sender: TObject);
     procedure CaChange(Sender: TObject);
     procedure C(Sender: TObject);
 
@@ -433,6 +451,7 @@ type
     procedure dCoChange(Sender: TObject);
     procedure dCuChange(Sender: TObject);
     procedure de1Change(Sender: TObject);
+
     procedure dFeChange(Sender: TObject);
     procedure dMnChange(Sender: TObject);
     procedure dMoChange(Sender: TObject);
@@ -661,6 +680,7 @@ type
 var
   Kf: TKf;
   vN,vNO3,vNH4,vP,vK,vCa,vMg,vS,vEC,V:Double;
+  vFe,vMn,vB,vZn,vCu,vMo,vCo,vSi:Double;
   FloatSpinEdit2,mP,mK,mCa,mMg,mS:Double;
   r,rN,rK,rCa,rMg,rNH4:Double;
   vKMg,vKCa,vKN,vNH4NO3:Double;
@@ -710,6 +730,15 @@ begin
   vKCa:=Kf.KCa.value;
   vKN:=Kf.KN.value;
   vNH4NO3:= Kf.NH4NO3.value;
+
+  vFe:=Kf.Fe.Value;
+  vMn:=Kf.Mn.Value;
+  vB:=Kf.B.Value;
+  vZn:=Kf.Zn.Value;
+  vCu:=Kf.Cu.Value;
+  vMo:=Kf.Mo.Value;
+  vCo:=Kf.Co.Value;
+  vSi:=Kf.Si.Value;
 end;
 
 
@@ -1442,7 +1471,7 @@ case FloatToStr(round(Kf.MgNO3_Mg.value*10)/10,MyFormatSettings) of
 procedure loadPrf;
 
 begin
-   DStr := TStringList.Create;
+   //DStr := TStringList.Create;
   //C_FNAME
    MyFormatSettings.DecimalSeparator := '.';
         AssignFile(tfIn, C_FNAME);
@@ -1453,8 +1482,8 @@ begin
           while not eof(tfIn) do
           begin
           readln(tfIn, str);
-          //writeln(tfOut,'Comment=',eComment.Caption);
-          if (IsWordPresent('Comment', str, ['=']) = true) then Kf.eComment.Caption:=ExtractWord(2,str,['=']);
+
+          //if (IsWordPresent('Comment', str, ['=']) = true) then Kf.eComment.Caption:=ExtractWord(2,str,['=']);
           //Macro Profile
            if (IsWordPresent('N', str, ['=']) = true) then Kf.N.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
            if (IsWordPresent('NH4', str, ['=']) = true) then Kf.NH4.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
@@ -1476,6 +1505,36 @@ begin
 
            if (IsWordPresent('V', str, ['=']) = true) then Kf.V.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
 
+          end;
+
+      CloseFile(tfIn);
+
+
+
+
+    CalcAll;
+    CalcWeight ;
+    microToWeght;
+    CalcConc;
+    SoilName;
+
+    Kf.Caption:='HPG ' + C_FNAME + ' (' + Kf.eComment.Caption +')' ;
+end;
+
+
+procedure loadJournal;
+
+begin
+    DStr := TStringList.Create;
+   MyFormatSettings.DecimalSeparator := '.';
+        AssignFile(tfIn, C_FNAME);
+        // Открыть файл для чтения
+      reset(tfIn);
+    //
+      // Считываем строки, пока не закончится файл
+          while not eof(tfIn) do
+          begin
+          readln(tfIn, str);
 
            if (IsWordPresent('date', str, ['=']) = true) then DStr.Add(str);
           end;
@@ -1494,18 +1553,48 @@ begin
 
               end;
           end;
-          Kf.pr2.Caption:=Kf.profile.Caption;
+
+
+end;
 
 
 
-    CalcAll;
-    CalcWeight ;
-    microToWeght;
-    CalcConc;
-    SoilName;
+
+
+
+
+
+procedure loadComment;
+
+begin
+       AssignFile(tfIn, C_FNAME);
+
+      reset(tfIn);
+    //
+      // Считываем строки, пока не закончится файл
+          while not eof(tfIn) do
+          begin
+          readln(tfIn, str);
+
+          if (IsWordPresent('Comment', str, ['=']) = true) then Kf.eComment.Caption:=ExtractWord(2,str,['=']);
+
+          end;
+
+      CloseFile(tfIn);
+
 
     Kf.Caption:='HPG ' + C_FNAME + ' (' + Kf.eComment.Caption +')' ;
 end;
+
+
+
+
+
+
+
+
+
+
 
 procedure LoadFirt;
 begin
@@ -2548,7 +2637,13 @@ begin
 end;
 
 procedure TKf.lb1Click(Sender: TObject);
+var
+    vrN,vrNO3,vrNH4,vrP,vrK,vrCa,vrMg,vrS:double;
+    vrFe,vrMn,vrB,vrZn,vrCu,vrMo,vrCo,vrSi:double;
+
 begin
+   MyFormatSettings.DecimalSeparator := '.';
+   getVar;
 if (lb1.Count > 0 ) then
  begin;
   i:=lb1.ItemIndex;
@@ -2564,6 +2659,42 @@ if (lb1.Count > 0 ) then
               pr2.Caption:=ExtractWord(3,str,[';']);
               end;
   end;
+    str:=pr2.Caption;
+    vrN:=StrToFloat(ExtractWord(2,str,['=',' ']),MyFormatSettings);
+    vrNO3:=StrToFloat(ExtractWord(4,str,['=',' ']),MyFormatSettings);
+    vrNH4:=StrToFloat(ExtractWord(6,str,['=',' ']),MyFormatSettings);
+    vrP:=StrToFloat(ExtractWord(8,str,['=',' ']),MyFormatSettings);
+    vrK:=StrToFloat(ExtractWord(10,str,['=',' ']),MyFormatSettings);
+    vrCa:=StrToFloat(ExtractWord(12,str,['=',' ']),MyFormatSettings);
+    vrMg:=StrToFloat(ExtractWord(14,str,['=',' ']),MyFormatSettings);
+    vrS:=StrToFloat(ExtractWord(16,str,['=',' ']),MyFormatSettings);
+
+    vrFe:=StrToFloat(ExtractWord(18,str,['=',' ']),MyFormatSettings);
+    vrMn:=StrToFloat(ExtractWord(20,str,['=',' ']),MyFormatSettings);
+    vrB:=StrToFloat(ExtractWord(22,str,['=',' ']),MyFormatSettings);
+    vrZn:=StrToFloat(ExtractWord(24,str,['=',' ']),MyFormatSettings);
+    vrCu:=StrToFloat(ExtractWord(26,str,['=',' ']),MyFormatSettings);
+    vrMo:=StrToFloat(ExtractWord(28,str,['=',' ']),MyFormatSettings);
+    vrCo:=StrToFloat(ExtractWord(30,str,['=',' ']),MyFormatSettings);
+    vrSi:=StrToFloat(ExtractWord(32,str,['=',' ']),MyFormatSettings);
+
+    rN.Caption:='N:('+FloatToStr(round((vN-vrN)/vrN*100))+'%)';
+    rNO3.Caption:='NO3:('+FloatToStr(round((vNO3-vrNO3)/vrNO3*100))+'%)';
+    rNH4.Caption:='NH4:('+FloatToStr(round((vNH4-vrNH4)/vrNH4*100))+'%)';
+    rP.Caption:='P:('+FloatToStr(round((vP-vrP)/vrP*100))+'%)';
+    rK.Caption:='K:('+FloatToStr(round((vK-vrK)/vrK*100))+'%)';
+    rCa.Caption:='Ca:('+FloatToStr(round((vCa-vrCa)/vrCa*100))+'%)';
+    rMg.Caption:='Mg:('+FloatToStr(round((vMg-vrMg)/vrMg*100))+'%)';
+    rS.Caption:='S:('+FloatToStr(round((vS-vrS)/vrS*100))+'%)';
+
+    if(vrFe >0) then rFe.Caption:='Fe:('+FloatToStr(round((vFe/1000-vrFe)/vrFe*100))+'%)' else rFe.Caption:='Fe: -';
+    if(vrMn >0) then rMn.Caption:='Mn:('+FloatToStr(round((vMn/1000-vrMn)/vrMn*100))+'%)' else rMn.Caption:='Mn: -';
+    if(vrB >0) then rB.Caption:='B:('+FloatToStr(round((vB/1000-vrB)/vrB*100))+'%)' else rB.Caption:='B: -';
+    if(vrZn >0) then rZn.Caption:='Zn:('+FloatToStr(round((vZn/1000-vrZn)/vrZn*100))+'%)' else rZn.Caption:='Zn: -';
+    if(vrCu >0) then rCu.Caption:='Cu:('+FloatToStr(round((vCu/1000-vrCu)/vrCu*100))+'%)' else rCu.Caption:='C: -';
+    if(vrMo >0) then rMo.Caption:='Mo:('+FloatToStr(round((vMo/1000-vrMo)/vrMo*100))+'%)' else rMo.Caption:='Mo: -';
+    if(vrCo >0) then rCo.Caption:='Co:('+FloatToStr(round((vCo/1000-vrCo)/vrCo*100))+'%)' else rCo.Caption:='Co: -';
+    if(vrSi >0) then rSi.Caption:='Si:('+FloatToStr(round((vSi/1000-vrSi)/vrSi*100))+'%)' else rSi.Caption:='Si: -';
 end;
 
 procedure TKf.mCaNO3Change(Sender: TObject);
@@ -2573,8 +2704,7 @@ end;
 
 procedure TKf.TabSheet4Show(Sender: TObject);
 begin
-  de1.text:=DateToStr(now);
-  pr2.Caption:=profile.Caption;
+
 end;
 
 
@@ -2634,6 +2764,8 @@ begin
             C_FNAME:= od1.FileName;
             LoadFirt;
             loadPrf;
+            loadComment;
+            loadJournal;
          end;
 end;
 
@@ -2675,6 +2807,28 @@ procedure TKf.Button7Click(Sender: TObject);
 begin
   profile.Caption:=pr2.Caption;
   LoadProfile;
+end;
+
+procedure TKf.Button8Click(Sender: TObject);
+begin
+     str:='date='+de1.Text+';'+m1.Text+';'+pr2.Caption;
+   if not Assigned(DStr)then DStr := TStringList.Create;
+   DStr[i]:=(StringReplace(str, #10, ' ', [rfReplaceAll, rfIgnoreCase]));
+   DStr.Sort;
+   //Dstr.
+   lb1.Clear;
+   for i := 0 to DStr.Count-1 do
+          begin
+              str:= DStr[i];
+              if (IsWordPresent('date', str, ['=']) = true) then
+              begin
+
+              StrDate:=ExtractWord(2,str,[';','=']);
+              StrCmnt:=ExtractWord(2,str,[';']);
+              Kf.lb1.Items.Add(StrDate + ' ' + StrCmnt);
+
+              end;
+          end;
 end;
 
 procedure TKf.bloadClick(Sender: TObject);
@@ -2916,12 +3070,16 @@ end;
 
 procedure TKf.dateAddClick(Sender: TObject);
 begin
-    //date=01.03.2020;Проверка1;N=140 NO3=135.37 NH4=4.47 P=40 K=279.67 Ca=139.83 Mg=55.93 S=129.8 Fe=8.65 Mn=0.375 B=1.5 Zn=0.825 Cu=0.158 Mo=0.158 Co=0 Si=0
 
-   str:='date='+de1.Text+';'+m1.Text+';'+pr2.Caption;
+   if (m1.Text <> '' ) then begin
+
+   if (de1.text = '' ) then de1.Text:=DateToStr(now);
+   str:='date='+de1.Text+';'+m1.Text+';'+profile.Caption;
    if not Assigned(DStr)then DStr := TStringList.Create;
    DStr.Add(StringReplace(str, #10, ' ', [rfReplaceAll, rfIgnoreCase]));
+   DStr.Sort;
    lb1.Clear;
+
    for i := 0 to DStr.Count-1 do
           begin
               str:= DStr[i];
@@ -2934,6 +3092,12 @@ begin
 
               end;
           end;
+    end
+   else  ShowMessage('Не заполнено поле описание!');
+
+
+
+
 end;
 
 procedure TKf.dateChangeClick(Sender: TObject);
@@ -2973,6 +3137,8 @@ procedure TKf.de1Change(Sender: TObject);
 begin
 
 end;
+
+
 
 procedure TKf.dFeChange(Sender: TObject);
 begin
@@ -3054,7 +3220,7 @@ begin
     eFileName.Caption:=C_FNAME;
     loadPrf;
     LoadFirt;
-    m1.Clear;
+    //m1.Clear;
 
   end
 
@@ -3072,7 +3238,8 @@ begin
    SoilName;
    genProfile;
 
-
+  //de1.text:=DateToStr(now);
+  //pr2.Caption:=profile.Caption;
 end;
 
 procedure TKf.FormChangeBounds(Sender: TObject);
