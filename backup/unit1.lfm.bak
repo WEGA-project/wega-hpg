@@ -4529,27 +4529,27 @@ object Kf: TKf
         TabOrder = 8
       end
       object dateAdd: TButton
-        Left = 579
+        Left = 388
         Height = 25
-        Top = 456
+        Top = 316
         Width = 152
         Caption = 'Добавить в журнал'
         OnClick = dateAddClick
         TabOrder = 9
       end
       object dateChange: TButton
-        Left = 579
+        Left = 648
         Height = 25
-        Top = 152
-        Width = 152
-        Caption = 'Удалить из журнала'
+        Top = 315
+        Width = 83
+        Caption = 'Удалить'
         OnClick = dateChangeClick
         TabOrder = 10
       end
       object Button7: TButton
         Left = 264
         Height = 24
-        Top = 314
+        Top = 504
         Width = 249
         Caption = 'Принять профиль из журнала'
         OnClick = Button7Click
@@ -4591,9 +4591,9 @@ object Kf: TKf
         ParentFont = False
       end
       object Label83: TLabel
-        Left = 208
+        Left = 201
         Height = 17
-        Top = 462
+        Top = 320
         Width = 37
         Caption = 'Дата:'
         Font.Height = -15
@@ -4741,19 +4741,19 @@ object Kf: TKf
         ParentColor = False
       end
       object Button8: TButton
-        Left = 440
+        Left = 544
         Height = 24
-        Top = 457
-        Width = 139
-        Caption = 'Изменить запись'
+        Top = 316
+        Width = 99
+        Caption = 'Обновить'
         OnClick = Button8Click
         TabOrder = 12
       end
       object de1: TDateEdit
-        Left = 256
+        Left = 254
         Height = 27
-        Top = 457
-        Width = 151
+        Top = 315
+        Width = 123
         CalendarDisplaySettings = [dsShowHeadings, dsShowDayNames]
         DateOrder = doNone
         DateFormat = 'dd.mm.yyyy'
