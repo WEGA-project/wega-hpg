@@ -3230,6 +3230,13 @@ begin
     C_FNAME:='default.hpg';
     eFileName.Caption:=C_FNAME;
 
+    if FileExists(C_FNAME) then
+    begin
+            LoadFirt;
+            loadPrf;
+            loadComment;
+            loadJournal;
+    end;
 
   end;
          CalcAll;
