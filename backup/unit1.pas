@@ -450,7 +450,7 @@ type
     procedure dBChange(Sender: TObject);
     procedure dCoChange(Sender: TObject);
     procedure dCuChange(Sender: TObject);
-    procedure de1Change(Sender: TObject);
+
 
     procedure dFeChange(Sender: TObject);
     procedure dMnChange(Sender: TObject);
@@ -3133,10 +3133,7 @@ begin
   microToWeght;
 end;
 
-procedure TKf.de1Change(Sender: TObject);
-begin
 
-end;
 
 
 
@@ -3220,7 +3217,8 @@ begin
     eFileName.Caption:=C_FNAME;
     loadPrf;
     LoadFirt;
-    //m1.Clear;
+    loadComment;
+    loadJournal;
 
   end
 
@@ -3229,6 +3227,13 @@ begin
     C_FNAME:='default.hpg';
     eFileName.Caption:=C_FNAME;
 
+    if FileExists(C_FNAME) then
+    begin
+            LoadFirt;
+            loadPrf;
+            loadComment;
+            loadJournal;
+    end;
 
   end;
          CalcAll;
