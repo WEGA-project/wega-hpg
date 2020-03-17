@@ -5,9 +5,9 @@ unit Unit1;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, DateTimePicker, Forms, Controls, Graphics,
-  Dialogs, StdCtrls, Spin, ComCtrls, strutils, LCLIntf, ExtCtrls, Menus, Grids,
-  ValEdit, FileCtrl, EditBtn ;
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
+  Dialogs, StdCtrls, Spin, ComCtrls, strutils, LCLIntf, ExtCtrls, Menus,
+  EditBtn , Types;
 const
 
   StdWordDelims = ['='] + Brackets;
@@ -49,6 +49,11 @@ type
     de1: TDateEdit;
     eComment: TEdit;
     addrMixer: TEdit;
+    Label87: TLabel;
+    Label88: TLabel;
+    sumA: TLabel;
+    sumB: TLabel;
+    tAml: TFloatSpinEdit;
     Label1: TLabel;
     Label70: TLabel;
     Label71: TLabel;
@@ -255,6 +260,7 @@ type
     TabSheet4: TTabSheet;
     TabSheet5: TTabSheet;
     TabSheet6: TTabSheet;
+    tBml: TFloatSpinEdit;
     Zn: TFloatSpinEdit;
     Mn: TFloatSpinEdit;
     Label31: TLabel;
@@ -540,6 +546,10 @@ type
     procedure lb1Click(Sender: TObject);
     procedure mCaNO3Change(Sender: TObject);
     procedure TabSheet4Show(Sender: TObject);
+    procedure TabSheet5ContextPopup(Sender: TObject; MousePos: TPoint;
+      var Handled: Boolean);
+    procedure tAmlChange(Sender: TObject);
+    procedure tBmlChange(Sender: TObject);
 
     procedure versionClick(Sender: TObject);
     procedure MnChange(Sender: TObject);
@@ -1046,7 +1056,7 @@ end;
 
 procedure CalcConc;
 var
- Av,Am,Ak,Bv,Bm,Bk: double;
+ Av,Am,Ak,Ac,Aw,Aml, Bv,Bm,Bk,Bc,Bw,Bml: double;
 begin
    MyFormatSettings.DecimalSeparator := '.';
 
@@ -1172,14 +1182,19 @@ begin
     Av:=round((Kf.mlCaNO3.Value + Kf.mlKNO3.Value + Kf.mlNH4NO3.Value + Kf.mlMgNO3.Value)*10)/10;
     Am:=round((Kf.ggCaNO3.Value + Kf.ggKNO3.Value + Kf.ggNH4NO3.Value + Kf.gMgNO3.Value)*100)/100;
     Ak:=round(Am/Av*1000)/1000;
-    Kf.lVolA.Caption:='Концентрат A (Азотный). Объем: '+FloatToStr(Av)+' мл, '+'вес: '+FloatToStr(Am)+' гр,'+' плотность: '+FloatToStr(Ak)+' г/мл.';
+    Ac:=round(Kf.V.value/Kf.tAml.value*1000);
+    Aw:=round(Kf.tAml.value-Av);
+    Aml:= round(Kf.tAml.value/Kf.V.value);
 
+    Kf.sumA.Caption:='Объем: '+FloatToStr(Av)+' мл, '+'вес: '+FloatToStr(Am)+' гр,'+' плотность: '+FloatToStr(Ak)+' г/мл. ';
+    Kf.lVolA.Caption:='Концентрат A ('+ FloatToStr(Ac)+':1) . Долить воды: '+ FloatToStr(Aw) + 'мл. По ' + FloatToStr(Aml) + ' мл на 1л.';
     if (kF.chKComplex.Checked = True) then
     begin
      Bv:=round((Kf.mlMgSO4.Value + Kf.mlKH2PO4.Value + Kf.mlK2SO4.Value + Kf.mlCmplx.Value)*10)/10;
      Bm:=round((Kf.ggMgSO4.Value + Kf.ggKH2PO4.Value + Kf.ggK2SO4.Value + Kf.gCmplx.Value)*100)/100;
      Bk:=round(Bm/Bv*1000)/1000;
-     Kf.lVolB.Caption:='Концентрат B (Сульфатный). Объем: '+FloatToStr(Bv)+' мл, '+'вес: '+FloatToStr(Bm)+' гр,'+ ' плотность: '+FloatToStr(Bk)+' г/мл';
+
+
     end
     else
     begin
@@ -1187,7 +1202,11 @@ begin
      Bm:=round((Kf.ggMgSO4.Value + Kf.ggKH2PO4.Value + Kf.ggK2SO4.Value + Kf.ggFe.Value+Kf.ggMn.Value+Kf.ggB.Value+Kf.ggZn.Value+Kf.ggMo.Value+Kf.ggCo.Value+Kf.ggSi.Value)*100)/100;
      Bk:=round(Bm/Bv*1000)/1000;
     end;
-    Kf.lVolB.Caption:='Концентрат B (Сульфатный). Объем: '+FloatToStr(Bv)+' мл, '+'вес: '+FloatToStr(Bm)+' гр,'+ ' плотность: '+FloatToStr(Bk)+' г/мл';
+    Bc:=round(Kf.V.value/Kf.tBml.value*1000);
+    Bw:=round(Kf.tBml.value-Bv);
+    Bml:= round(Kf.tBml.value/Kf.V.value);
+    Kf.sumB.Caption:='Объем: '+FloatToStr(Bv)+' мл, '+'вес: '+FloatToStr(Bm)+' гр,'+ ' плотность: '+FloatToStr(Bk)+' г/мл';
+    Kf.lVolB.Caption:='Концентрат B ('+ FloatToStr(Bc)+':1) . Долить воды: '+ FloatToStr(Bw) + 'мл. По ' + FloatToStr(Bml) + ' мл на 1л.';
     //
 end;
 
@@ -2705,6 +2724,26 @@ end;
 procedure TKf.TabSheet4Show(Sender: TObject);
 begin
 
+end;
+
+procedure TKf.TabSheet5ContextPopup(Sender: TObject; MousePos: TPoint;
+  var Handled: Boolean);
+begin
+
+end;
+
+procedure TKf.tAmlChange(Sender: TObject);
+begin
+    CalcWeight ;
+  microToWeght;
+  CalcConc;
+end;
+
+procedure TKf.tBmlChange(Sender: TObject);
+begin
+    CalcWeight ;
+  microToWeght;
+  CalcConc;
 end;
 
 
