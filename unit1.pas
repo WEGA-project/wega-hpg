@@ -1184,7 +1184,7 @@ begin
     Ak:=round(Am/Av*1000)/1000;
     Ac:=round(Kf.V.value/Kf.tAml.value*1000);
     Aw:=round(Kf.tAml.value-Av);
-    Aml:= round(Kf.tAml.value/Kf.V.value);
+    Aml:= round(Kf.tAml.value/Kf.V.value*10)/10;
 
     Kf.sumA.Caption:='Объем: '+FloatToStr(Av)+' мл, '+'вес: '+FloatToStr(Am)+' гр,'+' плотность: '+FloatToStr(Ak)+' г/мл. ';
     Kf.lVolA.Caption:='Концентрат A ('+ FloatToStr(Ac)+':1) . Долить воды: '+ FloatToStr(Aw) + 'мл. По ' + FloatToStr(Aml) + ' мл на 1л.';
@@ -1204,7 +1204,7 @@ begin
     end;
     Bc:=round(Kf.V.value/Kf.tBml.value*1000);
     Bw:=round(Kf.tBml.value-Bv);
-    Bml:= round(Kf.tBml.value/Kf.V.value);
+    Bml:= round(Kf.tBml.value/Kf.V.value*10)/10;
     Kf.sumB.Caption:='Объем: '+FloatToStr(Bv)+' мл, '+'вес: '+FloatToStr(Bm)+' гр,'+ ' плотность: '+FloatToStr(Bk)+' г/мл';
     Kf.lVolB.Caption:='Концентрат B ('+ FloatToStr(Bc)+':1) . Долить воды: '+ FloatToStr(Bw) + 'мл. По ' + FloatToStr(Bml) + ' мл на 1л.';
     //
@@ -1723,8 +1723,8 @@ begin
            if (IsWordPresent('mSi', str, ['=']) = true) then Kf.mSi.text:=ExtractWord(2,str,['=']);
            if (IsWordPresent('addrMixer', str, ['=']) = true) then Kf.addrMixer.text:=ExtractWord(2,str,['=']);
 
-
-
+           if (IsWordPresent('tAml', str, ['=']) = true) then Kf.tAml.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('tBml', str, ['=']) = true) then Kf.tBml.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
           end;
 
 
@@ -1868,6 +1868,9 @@ begin
      writeln(tfOut,'mCo=',Kf.mCo.Text);
      writeln(tfOut,'mSi=',Kf.mSi.Text);
      writeln(tfOut,'addrMixer=',Kf.addrMixer.Text);
+
+     writeln(tfOut,'tAml=',FloatToStr(Kf.tAml.Value,MyFormatSettings));
+     writeln(tfOut,'tBml=',FloatToStr(Kf.tBml.Value,MyFormatSettings));
 
       if Assigned(DStr)then begin
                   for i := 0 to DStr.Count-1 do

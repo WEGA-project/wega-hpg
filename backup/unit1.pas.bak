@@ -1723,8 +1723,8 @@ begin
            if (IsWordPresent('mSi', str, ['=']) = true) then Kf.mSi.text:=ExtractWord(2,str,['=']);
            if (IsWordPresent('addrMixer', str, ['=']) = true) then Kf.addrMixer.text:=ExtractWord(2,str,['=']);
 
-
-
+           if (IsWordPresent('tAml', str, ['=']) = true) then Kf.tAml.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('tBml', str, ['=']) = true) then Kf.tBml.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
           end;
 
 
@@ -1868,6 +1868,9 @@ begin
      writeln(tfOut,'mCo=',Kf.mCo.Text);
      writeln(tfOut,'mSi=',Kf.mSi.Text);
      writeln(tfOut,'addrMixer=',Kf.addrMixer.Text);
+
+     writeln(tfOut,'tAml=',FloatToStr(Kf.tAml.Value,MyFormatSettings));
+     writeln(tfOut,'tBml=',FloatToStr(Kf.tBml.Value,MyFormatSettings));
 
       if Assigned(DStr)then begin
                   for i := 0 to DStr.Count-1 do
