@@ -1,4 +1,4 @@
-version=Hydroponic Profile Generator 0.068 https://github.com/siv237/HPG
+version=Hydroponic Profile Generator 0.071 https://github.com/siv237/HPG
 Comment=Раствор для цитрусовых
 N=131.88
 NH4=10.11
@@ -92,4 +92,7 @@ mMo=
 mCo=
 mSi=
 addrMixer=192.168.237.185
+tAml=500
+tBml=500
 date=2020-03-14;Залито 10 литров на лимон и остальное;N=132 NO3=121.77 NH4=10.11 P=40 K=252.68 Ca=151.03 Mg=50.33 S=142.3 Fe=3.46 Mn=0.55 B=0.6 Zn=0.33 Cu=0.06 Mo=0.06 Co=0 Si=0 
+date=2020-04-01;Залито 10 литров на лимон и остальное;N=132 NO3=121.77 NH4=10.11 P=40 K=252.68 Ca=151.03 Mg=50.33 S=142.3 Fe=3.46 Mn=0.55 B=0.6 Zn=0.33 Cu=0.06 Mo=0.06 Co=0 Si=0 
