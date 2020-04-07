@@ -27,6 +27,7 @@ type
     Button6: TButton;
     Button7: TButton;
     Button8: TButton;
+    btch: TButton;
     dateAdd: TButton;
     dateChange: TButton;
     CheckBox1: TCheckBox;
@@ -411,6 +412,7 @@ type
     procedure BChange(Sender: TObject);
     procedure bloadClick(Sender: TObject);
     procedure bloadpfClick(Sender: TObject);
+    procedure btchClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
@@ -475,6 +477,7 @@ type
     procedure FormChangeBounds(Sender: TObject);
     procedure FormClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure g2gCaNO3Change(Sender: TObject);
     procedure gBChange(Sender: TObject);
 
     procedure gCaNO3Change(Sender: TObject);
@@ -2154,6 +2157,11 @@ begin
 
 end;
 
+procedure TKf.g2gCaNO3Change(Sender: TObject);
+begin
+
+end;
+
 procedure TKf.gBChange(Sender: TObject);
 begin
     if ( gB.Focused = True )    then begin
@@ -2885,6 +2893,39 @@ procedure TKf.bloadpfClick(Sender: TObject);
 
 begin
  loadPrf;
+end;
+
+procedure TKf.btchClick(Sender: TObject);
+begin
+   MyFormatSettings.DecimalSeparator := '.';
+
+  gCaNO3.value:= (StrToFloat(g2gCaNO3.Text,MyFormatSettings) * StrToFloat(glCaNO3.Text) )/(1000* StrToFloat(gmlCaNO3.Text));
+  gKNO3.value:=  (StrToFloat(g2gKNO3.Text,MyFormatSettings) *  StrToFloat(glKNO3.Text) )/ (1000* StrToFloat(gmlKNO3.Text));
+  gNH4NO3.value:=(StrToFloat(g2gNH4NO3.Text,MyFormatSettings)* StrToFloat(glNH4NO3.Text) )/(1000* StrToFloat(gmlNH4NO3.Text));
+  gMgSO4.value:= (StrToFloat(g2gMgSO4.Text,MyFormatSettings) * StrToFloat(glMgSO4.Text) )/(1000* StrToFloat(gmlMgSO4.Text));
+  gKH2PO4.value:= (StrToFloat(g2gKH2PO4.Text,MyFormatSettings) * StrToFloat(glKH2PO4.Text) )/(1000* StrToFloat(gmlKH2PO4.Text));
+  gK2SO4.value:= (StrToFloat(g2gK2SO4.Text,MyFormatSettings) * StrToFloat(glK2SO4.Text) )/(1000* StrToFloat(gmlK2SO4.Text));
+  gMgNO3.value:= (StrToFloat(g2gMgNO3.Text,MyFormatSettings) * StrToFloat(glMgNO3.Text) )/(1000* StrToFloat(gmlMgNO3.Text));
+
+
+    gFe.value:= (StrToFloat(g2gFe.Text,MyFormatSettings) * StrToFloat(glFe.Text) )/(1000* StrToFloat(gmlFe.Text));
+    gMn.value:= (StrToFloat(g2gMn.Text,MyFormatSettings) * StrToFloat(glMn.Text) )/(1000* StrToFloat(gmlMn.Text));
+    gB.value:= (StrToFloat(g2gB.Text,MyFormatSettings) * StrToFloat(glB.Text) )/(1000* StrToFloat(gmlB.Text));
+    gZn.value:= (StrToFloat(g2gZn.Text,MyFormatSettings) * StrToFloat(glZn.Text) )/(1000* StrToFloat(gmlZn.Text));
+    gCu.value:= (StrToFloat(g2gCu.Text,MyFormatSettings) * StrToFloat(glCu.Text) )/(1000* StrToFloat(gmlCu.Text));
+    gMo.value:= (StrToFloat(g2gMo.Text,MyFormatSettings) * StrToFloat(glMo.Text) )/(1000* StrToFloat(gmlMo.Text));
+    gCo.value:= (StrToFloat(g2gCo.Text,MyFormatSettings) * StrToFloat(glCo.Text) )/(1000* StrToFloat(gmlCo.Text));
+    gSi.value:= (StrToFloat(g2gSi.Text,MyFormatSettings) * StrToFloat(glSi.Text) )/(1000* StrToFloat(gmlSi.Text));
+
+    gCmplx.value:= (StrToFloat(g2gCmplx.Text,MyFormatSettings) * StrToFloat(glCmplx.Text) )/(1000* StrToFloat(gmlCmplx.Text));
+
+  WeghtTomicro;
+  fromWeight ;
+  CalculateS;
+  CalcKoef;
+  CalcEC;
+  genProfile;
+
 end;
 
 procedure TKf.BChange(Sender: TObject);

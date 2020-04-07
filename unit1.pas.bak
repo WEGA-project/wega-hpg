@@ -5,9 +5,9 @@ unit Unit1;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, DateTimePicker, Forms, Controls, Graphics,
-  Dialogs, StdCtrls, Spin, ComCtrls, strutils, LCLIntf, ExtCtrls, Menus, Grids,
-  ValEdit, FileCtrl, EditBtn ;
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
+  Dialogs, StdCtrls, Spin, ComCtrls, strutils, LCLIntf, ExtCtrls, Menus,
+  EditBtn , Types;
 const
 
   StdWordDelims = ['='] + Brackets;
@@ -27,6 +27,7 @@ type
     Button6: TButton;
     Button7: TButton;
     Button8: TButton;
+    btch: TButton;
     dateAdd: TButton;
     dateChange: TButton;
     CheckBox1: TCheckBox;
@@ -49,6 +50,11 @@ type
     de1: TDateEdit;
     eComment: TEdit;
     addrMixer: TEdit;
+    Label87: TLabel;
+    Label88: TLabel;
+    sumA: TLabel;
+    sumB: TLabel;
+    tAml: TFloatSpinEdit;
     Label1: TLabel;
     Label70: TLabel;
     Label71: TLabel;
@@ -255,6 +261,7 @@ type
     TabSheet4: TTabSheet;
     TabSheet5: TTabSheet;
     TabSheet6: TTabSheet;
+    tBml: TFloatSpinEdit;
     Zn: TFloatSpinEdit;
     Mn: TFloatSpinEdit;
     Label31: TLabel;
@@ -405,6 +412,7 @@ type
     procedure BChange(Sender: TObject);
     procedure bloadClick(Sender: TObject);
     procedure bloadpfClick(Sender: TObject);
+    procedure btchClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
@@ -451,6 +459,7 @@ type
     procedure dCoChange(Sender: TObject);
     procedure dCuChange(Sender: TObject);
 
+
     procedure dFeChange(Sender: TObject);
     procedure dMnChange(Sender: TObject);
     procedure dMoChange(Sender: TObject);
@@ -468,6 +477,7 @@ type
     procedure FormChangeBounds(Sender: TObject);
     procedure FormClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure g2gCaNO3Change(Sender: TObject);
     procedure gBChange(Sender: TObject);
 
     procedure gCaNO3Change(Sender: TObject);
@@ -539,6 +549,10 @@ type
     procedure lb1Click(Sender: TObject);
     procedure mCaNO3Change(Sender: TObject);
     procedure TabSheet4Show(Sender: TObject);
+    procedure TabSheet5ContextPopup(Sender: TObject; MousePos: TPoint;
+      var Handled: Boolean);
+    procedure tAmlChange(Sender: TObject);
+    procedure tBmlChange(Sender: TObject);
 
     procedure versionClick(Sender: TObject);
     procedure MnChange(Sender: TObject);
@@ -1045,7 +1059,7 @@ end;
 
 procedure CalcConc;
 var
- Av,Am,Ak,Bv,Bm,Bk: double;
+ Av,Am,Ak,Ac,Aw,Aml, Bv,Bm,Bk,Bc,Bw,Bml: double;
 begin
    MyFormatSettings.DecimalSeparator := '.';
 
@@ -1171,14 +1185,19 @@ begin
     Av:=round((Kf.mlCaNO3.Value + Kf.mlKNO3.Value + Kf.mlNH4NO3.Value + Kf.mlMgNO3.Value)*10)/10;
     Am:=round((Kf.ggCaNO3.Value + Kf.ggKNO3.Value + Kf.ggNH4NO3.Value + Kf.gMgNO3.Value)*100)/100;
     Ak:=round(Am/Av*1000)/1000;
-    Kf.lVolA.Caption:='Концентрат A (Азотный). Объем: '+FloatToStr(Av)+' мл, '+'вес: '+FloatToStr(Am)+' гр,'+' плотность: '+FloatToStr(Ak)+' г/мл.';
+    Ac:=round(Kf.V.value/Kf.tAml.value*1000);
+    Aw:=round(Kf.tAml.value-Av);
+    Aml:= round(Kf.tAml.value/Kf.V.value*100)/100;
 
+    Kf.sumA.Caption:='Объем: '+FloatToStr(Av)+' мл, '+'вес: '+FloatToStr(Am)+' гр,'+' плотность: '+FloatToStr(Ak)+' г/мл. ';
+    Kf.lVolA.Caption:='Концентрат A ('+ FloatToStr(Ac)+':1) . Долить воды: '+ FloatToStr(Aw) + 'мл. По ' + FloatToStr(Aml) + ' мл на 1л.';
     if (kF.chKComplex.Checked = True) then
     begin
      Bv:=round((Kf.mlMgSO4.Value + Kf.mlKH2PO4.Value + Kf.mlK2SO4.Value + Kf.mlCmplx.Value)*10)/10;
      Bm:=round((Kf.ggMgSO4.Value + Kf.ggKH2PO4.Value + Kf.ggK2SO4.Value + Kf.gCmplx.Value)*100)/100;
      Bk:=round(Bm/Bv*1000)/1000;
-     Kf.lVolB.Caption:='Концентрат B (Сульфатный). Объем: '+FloatToStr(Bv)+' мл, '+'вес: '+FloatToStr(Bm)+' гр,'+ ' плотность: '+FloatToStr(Bk)+' г/мл';
+
+
     end
     else
     begin
@@ -1186,7 +1205,11 @@ begin
      Bm:=round((Kf.ggMgSO4.Value + Kf.ggKH2PO4.Value + Kf.ggK2SO4.Value + Kf.ggFe.Value+Kf.ggMn.Value+Kf.ggB.Value+Kf.ggZn.Value+Kf.ggMo.Value+Kf.ggCo.Value+Kf.ggSi.Value)*100)/100;
      Bk:=round(Bm/Bv*1000)/1000;
     end;
-    Kf.lVolB.Caption:='Концентрат B (Сульфатный). Объем: '+FloatToStr(Bv)+' мл, '+'вес: '+FloatToStr(Bm)+' гр,'+ ' плотность: '+FloatToStr(Bk)+' г/мл';
+    Bc:=round(Kf.V.value/Kf.tBml.value*1000);
+    Bw:=round(Kf.tBml.value-Bv);
+    Bml:= round(Kf.tBml.value/Kf.V.value*100)/100;
+    Kf.sumB.Caption:='Объем: '+FloatToStr(Bv)+' мл, '+'вес: '+FloatToStr(Bm)+' гр,'+ ' плотность: '+FloatToStr(Bk)+' г/мл';
+    Kf.lVolB.Caption:='Концентрат B ('+ FloatToStr(Bc)+':1) . Долить воды: '+ FloatToStr(Bw) + 'мл. По ' + FloatToStr(Bml) + ' мл на 1л.';
     //
 end;
 
@@ -1470,7 +1493,7 @@ case FloatToStr(round(Kf.MgNO3_Mg.value*10)/10,MyFormatSettings) of
 procedure loadPrf;
 
 begin
-   DStr := TStringList.Create;
+   //DStr := TStringList.Create;
   //C_FNAME
    MyFormatSettings.DecimalSeparator := '.';
         AssignFile(tfIn, C_FNAME);
@@ -1481,8 +1504,8 @@ begin
           while not eof(tfIn) do
           begin
           readln(tfIn, str);
-          //writeln(tfOut,'Comment=',eComment.Caption);
-          if (IsWordPresent('Comment', str, ['=']) = true) then Kf.eComment.Caption:=ExtractWord(2,str,['=']);
+
+          //if (IsWordPresent('Comment', str, ['=']) = true) then Kf.eComment.Caption:=ExtractWord(2,str,['=']);
           //Macro Profile
            if (IsWordPresent('N', str, ['=']) = true) then Kf.N.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
            if (IsWordPresent('NH4', str, ['=']) = true) then Kf.NH4.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
@@ -1504,6 +1527,36 @@ begin
 
            if (IsWordPresent('V', str, ['=']) = true) then Kf.V.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
 
+          end;
+
+      CloseFile(tfIn);
+
+
+
+
+    CalcAll;
+    CalcWeight ;
+    microToWeght;
+    CalcConc;
+    SoilName;
+
+    Kf.Caption:='HPG ' + C_FNAME + ' (' + Kf.eComment.Caption +')' ;
+end;
+
+
+procedure loadJournal;
+
+begin
+    DStr := TStringList.Create;
+   MyFormatSettings.DecimalSeparator := '.';
+        AssignFile(tfIn, C_FNAME);
+        // Открыть файл для чтения
+      reset(tfIn);
+    //
+      // Считываем строки, пока не закончится файл
+          while not eof(tfIn) do
+          begin
+          readln(tfIn, str);
 
            if (IsWordPresent('date', str, ['=']) = true) then DStr.Add(str);
           end;
@@ -1522,18 +1575,48 @@ begin
 
               end;
           end;
-          //Kf.pr2.Caption:=Kf.profile.Caption;
+
+
+end;
 
 
 
-    CalcAll;
-    CalcWeight ;
-    microToWeght;
-    CalcConc;
-    SoilName;
+
+
+
+
+
+procedure loadComment;
+
+begin
+       AssignFile(tfIn, C_FNAME);
+
+      reset(tfIn);
+    //
+      // Считываем строки, пока не закончится файл
+          while not eof(tfIn) do
+          begin
+          readln(tfIn, str);
+
+          if (IsWordPresent('Comment', str, ['=']) = true) then Kf.eComment.Caption:=ExtractWord(2,str,['=']);
+
+          end;
+
+      CloseFile(tfIn);
+
 
     Kf.Caption:='HPG ' + C_FNAME + ' (' + Kf.eComment.Caption +')' ;
 end;
+
+
+
+
+
+
+
+
+
+
 
 procedure LoadFirt;
 begin
@@ -1643,8 +1726,8 @@ begin
            if (IsWordPresent('mSi', str, ['=']) = true) then Kf.mSi.text:=ExtractWord(2,str,['=']);
            if (IsWordPresent('addrMixer', str, ['=']) = true) then Kf.addrMixer.text:=ExtractWord(2,str,['=']);
 
-
-
+           if (IsWordPresent('tAml', str, ['=']) = true) then Kf.tAml.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('tBml', str, ['=']) = true) then Kf.tBml.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
           end;
 
 
@@ -1788,6 +1871,9 @@ begin
      writeln(tfOut,'mCo=',Kf.mCo.Text);
      writeln(tfOut,'mSi=',Kf.mSi.Text);
      writeln(tfOut,'addrMixer=',Kf.addrMixer.Text);
+
+     writeln(tfOut,'tAml=',FloatToStr(Kf.tAml.Value,MyFormatSettings));
+     writeln(tfOut,'tBml=',FloatToStr(Kf.tBml.Value,MyFormatSettings));
 
       if Assigned(DStr)then begin
                   for i := 0 to DStr.Count-1 do
@@ -2067,6 +2153,11 @@ begin
 end;
 
 procedure TKf.FormCreate(Sender: TObject);
+begin
+
+end;
+
+procedure TKf.g2gCaNO3Change(Sender: TObject);
 begin
 
 end;
@@ -2646,6 +2737,26 @@ begin
 
 end;
 
+procedure TKf.TabSheet5ContextPopup(Sender: TObject; MousePos: TPoint;
+  var Handled: Boolean);
+begin
+
+end;
+
+procedure TKf.tAmlChange(Sender: TObject);
+begin
+    CalcWeight ;
+  microToWeght;
+  CalcConc;
+end;
+
+procedure TKf.tBmlChange(Sender: TObject);
+begin
+    CalcWeight ;
+  microToWeght;
+  CalcConc;
+end;
+
 
 
 procedure TKf.Button1Click(Sender: TObject);
@@ -2703,6 +2814,8 @@ begin
             C_FNAME:= od1.FileName;
             LoadFirt;
             loadPrf;
+            loadComment;
+            loadJournal;
          end;
 end;
 
@@ -2748,7 +2861,7 @@ end;
 
 procedure TKf.Button8Click(Sender: TObject);
 begin
-     str:='date='+de1.Text+';'+m1.Text+';'+profile.Caption;
+     str:='date='+de1.Text+';'+m1.Text+';'+pr2.Caption;
    if not Assigned(DStr)then DStr := TStringList.Create;
    DStr[i]:=(StringReplace(str, #10, ' ', [rfReplaceAll, rfIgnoreCase]));
    DStr.Sort;
@@ -2780,6 +2893,39 @@ procedure TKf.bloadpfClick(Sender: TObject);
 
 begin
  loadPrf;
+end;
+
+procedure TKf.btchClick(Sender: TObject);
+begin
+   MyFormatSettings.DecimalSeparator := '.';
+
+  gCaNO3.value:= (StrToFloat(g2gCaNO3.Text,MyFormatSettings) * StrToFloat(glCaNO3.Text) )/(1000* StrToFloat(gmlCaNO3.Text));
+  gKNO3.value:=  (StrToFloat(g2gKNO3.Text,MyFormatSettings) *  StrToFloat(glKNO3.Text) )/ (1000* StrToFloat(gmlKNO3.Text));
+  gNH4NO3.value:=(StrToFloat(g2gNH4NO3.Text,MyFormatSettings)* StrToFloat(glNH4NO3.Text) )/(1000* StrToFloat(gmlNH4NO3.Text));
+  gMgSO4.value:= (StrToFloat(g2gMgSO4.Text,MyFormatSettings) * StrToFloat(glMgSO4.Text) )/(1000* StrToFloat(gmlMgSO4.Text));
+  gKH2PO4.value:= (StrToFloat(g2gKH2PO4.Text,MyFormatSettings) * StrToFloat(glKH2PO4.Text) )/(1000* StrToFloat(gmlKH2PO4.Text));
+  gK2SO4.value:= (StrToFloat(g2gK2SO4.Text,MyFormatSettings) * StrToFloat(glK2SO4.Text) )/(1000* StrToFloat(gmlK2SO4.Text));
+  gMgNO3.value:= (StrToFloat(g2gMgNO3.Text,MyFormatSettings) * StrToFloat(glMgNO3.Text) )/(1000* StrToFloat(gmlMgNO3.Text));
+
+
+    gFe.value:= (StrToFloat(g2gFe.Text,MyFormatSettings) * StrToFloat(glFe.Text) )/(1000* StrToFloat(gmlFe.Text));
+    gMn.value:= (StrToFloat(g2gMn.Text,MyFormatSettings) * StrToFloat(glMn.Text) )/(1000* StrToFloat(gmlMn.Text));
+    gB.value:= (StrToFloat(g2gB.Text,MyFormatSettings) * StrToFloat(glB.Text) )/(1000* StrToFloat(gmlB.Text));
+    gZn.value:= (StrToFloat(g2gZn.Text,MyFormatSettings) * StrToFloat(glZn.Text) )/(1000* StrToFloat(gmlZn.Text));
+    gCu.value:= (StrToFloat(g2gCu.Text,MyFormatSettings) * StrToFloat(glCu.Text) )/(1000* StrToFloat(gmlCu.Text));
+    gMo.value:= (StrToFloat(g2gMo.Text,MyFormatSettings) * StrToFloat(glMo.Text) )/(1000* StrToFloat(gmlMo.Text));
+    gCo.value:= (StrToFloat(g2gCo.Text,MyFormatSettings) * StrToFloat(glCo.Text) )/(1000* StrToFloat(gmlCo.Text));
+    gSi.value:= (StrToFloat(g2gSi.Text,MyFormatSettings) * StrToFloat(glSi.Text) )/(1000* StrToFloat(gmlSi.Text));
+
+    gCmplx.value:= (StrToFloat(g2gCmplx.Text,MyFormatSettings) * StrToFloat(glCmplx.Text) )/(1000* StrToFloat(gmlCmplx.Text));
+
+  WeghtTomicro;
+  fromWeight ;
+  CalculateS;
+  CalcKoef;
+  CalcEC;
+  genProfile;
+
 end;
 
 procedure TKf.BChange(Sender: TObject);
@@ -3072,6 +3218,8 @@ end;
 
 
 
+
+
 procedure TKf.dFeChange(Sender: TObject);
 begin
   if ( dFe.Focused = True )    then begin
@@ -3152,7 +3300,8 @@ begin
     eFileName.Caption:=C_FNAME;
     loadPrf;
     LoadFirt;
-    //m1.Clear;
+    loadComment;
+    loadJournal;
 
   end
 
@@ -3161,6 +3310,13 @@ begin
     C_FNAME:='default.hpg';
     eFileName.Caption:=C_FNAME;
 
+    if FileExists(C_FNAME) then
+    begin
+            LoadFirt;
+            loadPrf;
+            loadComment;
+            loadJournal;
+    end;
 
   end;
          CalcAll;
