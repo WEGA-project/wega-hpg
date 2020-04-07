@@ -694,7 +694,7 @@ var
   Kf: TKf;
   vN,vNO3,vNH4,vP,vK,vCa,vMg,vS,vEC,V:Double;
   vFe,vMn,vB,vZn,vCu,vMo,vCo,vSi:Double;
-  FloatSpinEdit2,mP,mK,mCa,mMg,mS:Double;
+  molN,molP,molK,molCa,molMg,molS:Double;
   r,rN,rK,rCa,rMg,rNH4:Double;
   vKMg,vKCa,vKN,vNH4NO3:Double;
   sMgSO4,sKH2PO4,sCaNO3,sNH4NO3,sKNO3,sK2SO4,sMgNO3:Double;
@@ -724,12 +724,12 @@ implementation
 
 procedure getVar;
 begin
-  FloatSpinEdit2:=14.0067;
-  mP:=30.973762;
-  mK:=39.0983;
-  mCa:=40.078;
-  mMg:=24.305;
-  mS:=32.065;
+  molN:=14.0067;
+  molP:=30.973762;
+  molK:=39.0983;
+  molCa:=40.078;
+  molMg:=24.305;
+  molS:=32.065;
 
   vNO3:=Kf.NO3.value;
   vNH4:=Kf.NH4.value;
@@ -759,14 +759,14 @@ procedure CalculateCa;
 begin
   getVar;
 
- vCa:=-mCa*(vNH4*mP*mMg*mK*mS - vP*FloatSpinEdit2*mMg*mK*mS + 2*vMg*FloatSpinEdit2*mP*mK*mS + vK*FloatSpinEdit2*mP*mMg*mS - vNO3*mP*mMg*mK*mS - 2*vS*FloatSpinEdit2*mP*mMg*mK)/(2*(FloatSpinEdit2*mP*mMg*mK*mS));
+ vCa:=-molCa*(vNH4*molP*molMg*molK*molS - vP*molN*molMg*molK*molS + 2*vMg*molN*molP*molK*molS + vK*molN*molP*molMg*molS - vNO3*molP*molMg*molK*molS - 2*vS*molN*molP*molMg*molK)/(2*(molN*molP*molMg*molK*molS));
  if ( Kf.Ca.Focused = False ) then Kf.Ca.value:=vCa;
 end;
 
 procedure CalcEC;
 begin
   getVar;
-  vEC:=0.095*(vNH4*mCa*mMg*mK + 2*vCa*FloatSpinEdit2*mMg*mK + 2*vMg*FloatSpinEdit2*mCa*mK + vK*FloatSpinEdit2*mCa*mMg + 2*FloatSpinEdit2*mCa*mMg*mK)/(FloatSpinEdit2*mCa*mMg*mK);
+  vEC:=0.095*(vNH4*molCa*molMg*molK + 2*vCa*molN*molMg*molK + 2*vMg*molN*molCa*molK + vK*molN*molCa*molMg + 2*molN*molCa*molMg*molK)/(molN*molCa*molMg*molK);
   if ( Kf.EC.Focused = False ) then Kf.EC.Value:=vEC;
 end;
 
@@ -776,7 +776,7 @@ procedure CalculateS;
 begin
   getVar;
 
- vS:=(mS*(vNH4*mCa*mMg*mK*mP + 2*vCa*FloatSpinEdit2*mMg*mK*mP + 2*vMg*FloatSpinEdit2*mCa*mK*mP+ vK*FloatSpinEdit2*mCa*mMg*mP - vNO3*mCa*mMg*mK*mP - vP*FloatSpinEdit2*mCa*mMg*mK))/(2*(FloatSpinEdit2*mCa*mMg*mK*mP));
+ vS:=(molS*(vNH4*molCa*molMg*molK*molP + 2*vCa*molN*molMg*molK*molP + 2*vMg*molN*molCa*molK*molP+ vK*molN*molCa*molMg*molP - vNO3*molCa*molMg*molK*molP - vP*molN*molCa*molMg*molK))/(2*(molN*molCa*molMg*molK*molP));
 
   if ( Kf.S.Focused = False ) then Kf.S.value:=vS;
 end;
@@ -794,7 +794,7 @@ begin
   rNH4:=(rN*vNH4NO3)/(1+vNH4NO3);
 
   vEC:= Kf.EC.Value;
-  r:= (0.10526315789473684211*FloatSpinEdit2*mCa*mMg*mK*(100*vEC-19)) /(rNH4*mCa*mMg*mK + 2*rCa*FloatSpinEdit2*mMg*mK + 2*rMg*FloatSpinEdit2*mCa*mK + rK*FloatSpinEdit2*mCa*mMg);
+  r:= (0.10526315789473684211*molN*molCa*molMg*molK*(100*vEC-19)) /(rNH4*molCa*molMg*molK + 2*rCa*molN*molMg*molK + 2*rMg*molN*molCa*molK + rK*molN*molCa*molMg);
 
 
   vN:=rN*r;
@@ -805,7 +805,7 @@ begin
 
   vNO3:=vN-vNH4;
 
-  vS:=(mS*(vNH4*mCa*mMg*mK*mP + 2*vCa*FloatSpinEdit2*mMg*mK*mP + 2*vMg*FloatSpinEdit2*mCa*mK*mP+ vK*FloatSpinEdit2*mCa*mMg*mP - vNO3*mCa*mMg*mK*mP - vP*FloatSpinEdit2*mCa*mMg*mK))/(2*(FloatSpinEdit2*mCa*mMg*mK*mP));
+  vS:=(molS*(vNH4*molCa*molMg*molK*molP + 2*vCa*molN*molMg*molK*molP + 2*vMg*molN*molCa*molK*molP+ vK*molN*molCa*molMg*molP - vNO3*molCa*molMg*molK*molP - vP*molN*molCa*molMg*molK))/(2*(molN*molCa*molMg*molK*molP));
 
 
   if ( Kf.NO3.Focused = False ) then Kf.NO3.value:=vNO3;
@@ -817,7 +817,7 @@ begin
   if ( Kf.S.Focused = False ) then Kf.S.value:=vS;
   if ( Kf.N.Focused = False ) then Kf.N.value:=vN;
 
-  //vEC:=0.095*(vNH4*mCa*mMg*mK + 2*vCa*FloatSpinEdit2*mMg*mK + 2*vMg*FloatSpinEdit2*mCa*mK + vK*FloatSpinEdit2*mCa*mMg + 2*FloatSpinEdit2*mCa*mMg*mK)/(FloatSpinEdit2*mCa*mMg*mK);
+  //vEC:=0.095*(vNH4*molCa*molMg*molK + 2*vCa*molN*molMg*molK + 2*vMg*molN*molCa*molK + vK*molN*molCa*molMg + 2*molN*molCa*molMg*molK)/(molN*molCa*molMg*molK);
   //Kf.EC.Value:=vEC;
 end;
 
@@ -2033,7 +2033,7 @@ end;
 procedure TKf.MgNO3_MgChange(Sender: TObject);
 begin
     if ( MgNO3_Mg.Focused = True )    then begin
-          MgNO3_NO3.value:=(2*MgNO3_Mg.value*FloatSpinEdit2)/(mMg);
+          MgNO3_NO3.value:=(2*MgNO3_Mg.value*molN)/(molMg);
 
     SoilName;
     CalcWeight ;
@@ -2043,7 +2043,7 @@ end;
 procedure TKf.MgNO3_NO3Change(Sender: TObject);
 begin
       if ( MgNO3_NO3.Focused = True )    then begin
-          MgNO3_Mg.value:=((1/2)*(MgNO3_NO3.value/FloatSpinEdit2)*mMg);
+          MgNO3_Mg.value:=((1/2)*(MgNO3_NO3.value/molN)*molMg);
 
     SoilName;
     CalcWeight ;
@@ -2077,7 +2077,7 @@ end;
 procedure TKf.MgSO4_MgChange(Sender: TObject);
 begin
    if ( MgSO4_Mg.Focused = True )    then begin
-          MgSO4_S.value:= (MgSO4_Mg.value * mS)/mMg;
+          MgSO4_S.value:= (MgSO4_Mg.value * molS)/molMg;
          SoilName;
          CalcWeight ;
    end;
@@ -2089,7 +2089,7 @@ procedure TKf.MgSO4_SChange(Sender: TObject);
 begin
   if ( MgSO4_S.Focused = True )    then begin
      
-  MgSO4_Mg.value:= (MgSO4_S.value * mMg)/mS;
+  MgSO4_Mg.value:= (MgSO4_S.value * molMg)/molS;
     SoilName;
     CalcWeight ;
   end;
@@ -2402,7 +2402,7 @@ end;
 procedure TKf.K2SO4_KChange(Sender: TObject);
 begin
   if ( K2SO4_K.Focused = True )    then begin
-          K2SO4_S.value:=(K2SO4_K.value*mS)/(2*mK);
+          K2SO4_S.value:=(K2SO4_K.value*molS)/(2*molK);
 
     SoilName;
     CalcWeight ;
@@ -2411,7 +2411,7 @@ end;
 
 procedure TKf.K2SO4_KClick(Sender: TObject);
 begin
-      K2SO4_S.value:=(K2SO4_K.value*mS)/(2*mK);
+      K2SO4_S.value:=(K2SO4_K.value*molS)/(2*molK);
 
     SoilName;
     CalcWeight ;
@@ -2422,7 +2422,7 @@ end;
 procedure TKf.K2SO4_SChange(Sender: TObject);
 begin
   if ( K2SO4_S.Focused = True )    then begin
-               K2SO4_K.value:=(K2SO4_S.value*2*mK)/(mS);
+               K2SO4_K.value:=(K2SO4_S.value*2*molK)/(molS);
 
     SoilName;
     CalcWeight ;
@@ -2431,7 +2431,7 @@ end;
 
 procedure TKf.K2SO4_SClick(Sender: TObject);
 begin
-        K2SO4_K.value:=(K2SO4_S.value*2*mK)/(mS);
+        K2SO4_K.value:=(K2SO4_S.value*2*molK)/(molS);
 
     nK2SO4.Caption:='Сульфат калия'
  + ' K2O-' +floattostr(Round((K2SO4_K.value/0.830148)*10)/10)+'%'
@@ -2489,7 +2489,7 @@ end;
 procedure TKf.KH2PO4_KChange(Sender: TObject);
 begin
   if ( KH2PO4_K.Focused = True )    then begin
-        KH2PO4_P.value:=(KH2PO4_K.value*mP)/mK;
+        KH2PO4_P.value:=(KH2PO4_K.value*molP)/molK;
 
     SoilName;
     CalcWeight ;
@@ -2498,7 +2498,7 @@ end;
 
 procedure TKf.KH2PO4_KClick(Sender: TObject);
 begin
-    KH2PO4_P.value:=(KH2PO4_K.value*mP)/mK;
+    KH2PO4_P.value:=(KH2PO4_K.value*molP)/molK;
 
     nKH2PO4.Caption:='Монофосфат калия'
  + ' K2O-' +floattostr(Round((KH2PO4_K.value/0.830148)*10)/10)+'%'
@@ -2511,7 +2511,7 @@ end;
 procedure TKf.KH2PO4_PChange(Sender: TObject);
 begin
   if ( KH2PO4_P.Focused = True )    then begin
-         KH2PO4_K.value:=(KH2PO4_P.value*mK)/mP;
+         KH2PO4_K.value:=(KH2PO4_P.value*molK)/molP;
 
     SoilName;
     CalcWeight ;
@@ -2520,7 +2520,7 @@ end;
 
 procedure TKf.KH2PO4_PClick(Sender: TObject);
 begin
-      KH2PO4_K.value:=(KH2PO4_P.value*mK)/mP;
+      KH2PO4_K.value:=(KH2PO4_P.value*molK)/molP;
 
     nKH2PO4.Caption:='Монофосфат калия'
  + ' K2O-' +floattostr(Round((KH2PO4_K.value/0.830148)*10)/10)+'%'
@@ -2589,7 +2589,7 @@ end;
 procedure TKf.KNO3_KChange(Sender: TObject);
 begin
   if ( KNO3_K.Focused = True )    then begin
-     KNO3_NO3.value:=(KNO3_K.value*FloatSpinEdit2)/mK;
+     KNO3_NO3.value:=(KNO3_K.value*molN)/molK;
 
  //   nKNO3.Caption:='Селитра калиевая'
  //+ ' K2O-' +floattostr(Round((KNO3_K.value/0.830148)*10)/10)+'%'
@@ -2601,7 +2601,7 @@ end;
 
 procedure TKf.KNO3_KClick(Sender: TObject);
 begin
-  KNO3_NO3.value:=(KNO3_K.value*FloatSpinEdit2)/mK;
+  KNO3_NO3.value:=(KNO3_K.value*molN)/molK;
 
     SoilName;
     CalcWeight ;
@@ -2612,7 +2612,7 @@ end;
 procedure TKf.KNO3_NO3Change(Sender: TObject);
 begin
   if ( KNO3_NO3.Focused = True )    then begin
-      KNO3_K.value:=(KNO3_NO3.value*mK)/FloatSpinEdit2;
+      KNO3_K.value:=(KNO3_NO3.value*molK)/molN;
       SoilName;
        CalcWeight ;
   end;
@@ -2620,7 +2620,7 @@ end;
 
 procedure TKf.KNO3_NO3Click(Sender: TObject);
 begin
-  KNO3_K.value:=(KNO3_NO3.value*mK)/FloatSpinEdit2;
+  KNO3_K.value:=(KNO3_NO3.value*molK)/molN;
        nKNO3.Caption:='Селитра калиевая'
  + ' K2O-' +floattostr(Round((KNO3_K.value/0.830148)*10)/10)+'%'
  + ' N-' +floattostr(Round((KNO3_NO3.value)*10)/10)+'%';
@@ -2802,6 +2802,44 @@ begin
 
 end;
 
+  
+   de1.Text:=DateToStr(now);
+   m1.Text:='Автозапись. Изготовлен раствор';
+   str:='date='+de1.Text+';'+m1.Text+';'+profile.Caption;
+   if not Assigned(DStr)then DStr := TStringList.Create;
+   DStr.Add(StringReplace(str, #10, ' ', [rfReplaceAll, rfIgnoreCase]));
+   DStr.Sort;
+   lb1.Clear;
+
+   for i := 0 to DStr.Count-1 do
+          begin
+              str:= DStr[i];
+              if (IsWordPresent('date', str, ['=']) = true) then
+              begin
+
+              StrDate:=ExtractWord(2,str,[';','=']);
+              StrCmnt:=ExtractWord(2,str,[';']);
+              Kf.lb1.Items.Add(StrDate + ' ' + StrCmnt);
+
+              end;
+          end;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  //--------------------
 
   delete(mixlink, length(mixlink)-0, 1);
   //lMixlink.Caption:=mixlink;
@@ -3017,7 +3055,7 @@ end;
 procedure TKf.CaNO3_CaChange(Sender: TObject);
 begin
   if ( CaNO3_Ca.Focused = True )    then begin
-  CaNO3_NO3.value:= (2 * CaNO3_Ca.value *FloatSpinEdit2 + CaNO3_NH4.value*mCa)/mCa  ;
+  CaNO3_NO3.value:= (2 * CaNO3_Ca.value *molN + CaNO3_NH4.value*molCa)/molCa  ;
    // nCaNO3.Caption:='Селитра кальциевая'
    //+ ' CaO-' +floattostr(Round((CaNO3_Ca.value/0.714691)*10)/10)+'%'
    //+ ' N-' +floattostr(Round((CaNO3_NH4.value+CaNO3_NO3.value)*10)/10)+'%';
@@ -3032,8 +3070,8 @@ end;
 procedure TKf.CaNO3_NH4Change(Sender: TObject);
 begin
   if ( CaNO3_NH4.Focused = True )    then begin
-      CaNO3_NO3.value:= (2 * CaNO3_Ca.value *FloatSpinEdit2 + CaNO3_NH4.value*mCa)/mCa  ;
-  CaNO3_Ca.value:= -mCa*( CaNO3_NH4.value - CaNO3_NO3.value)/(2*FloatSpinEdit2)  ;
+      CaNO3_NO3.value:= (2 * CaNO3_Ca.value *molN + CaNO3_NH4.value*molCa)/molCa  ;
+  CaNO3_Ca.value:= -molCa*( CaNO3_NH4.value - CaNO3_NO3.value)/(2*molN)  ;
 
   SoilName;
   CalcWeight ;
@@ -3042,8 +3080,8 @@ end;
 
 procedure TKf.CaNO3_NH4EditingDone(Sender: TObject);
 begin
-  CaNO3_NO3.value:= (2 * CaNO3_Ca.value *FloatSpinEdit2 + CaNO3_NH4.value*mCa)/mCa  ;
-  CaNO3_Ca.value:= -mCa*( CaNO3_NH4.value - CaNO3_NO3.value)/(2*FloatSpinEdit2)  ;
+  CaNO3_NO3.value:= (2 * CaNO3_Ca.value *molN + CaNO3_NH4.value*molCa)/molCa  ;
+  CaNO3_Ca.value:= -molCa*( CaNO3_NH4.value - CaNO3_NO3.value)/(2*molN)  ;
 
   nCaNO3.Caption:='Селитра кальциевая'
  + ' CaO-' +floattostr(Round((CaNO3_Ca.value/0.714691)*10)/10)+'%'
@@ -3056,7 +3094,7 @@ end;
 procedure TKf.CaNO3_NO3Change(Sender: TObject);
 begin
   if ( CaNO3_NO3.Focused = True )    then begin
-    CaNO3_Ca.value:= -mCa*( CaNO3_NH4.value - CaNO3_NO3.value)/(2*FloatSpinEdit2)  ;
+    CaNO3_Ca.value:= -molCa*( CaNO3_NH4.value - CaNO3_NO3.value)/(2*molN)  ;
     SoilName;
     CalcWeight ;
   end;
