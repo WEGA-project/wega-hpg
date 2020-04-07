@@ -2804,7 +2804,7 @@ end;
 
   
    de1.Text:=DateToStr(now);
-   m1.Text:='Автозапись. Изготовлен раствор';
+   m1.Text:='Автозапись. Изготовлен раствор на ' + FloatToStr(V.Value) + ' литров.';
    str:='date='+de1.Text+';'+m1.Text+';'+profile.Caption;
    if not Assigned(DStr)then DStr := TStringList.Create;
    DStr.Add(StringReplace(str, #10, ' ', [rfReplaceAll, rfIgnoreCase]));

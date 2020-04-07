@@ -3,7 +3,7 @@ object Kf: TKf
   Height = 793
   Top = 200
   Width = 762
-  HorzScrollBar.Page = 762
+  HorzScrollBar.Page = 761
   VertScrollBar.Page = 790
   AutoScroll = True
   Caption = 'Koefficients'
@@ -30,7 +30,7 @@ object Kf: TKf
     OnClick = versionClick
   end
   object PageControl1: TPageControl
-    Left = 1
+    Left = 0
     Height = 704
     Top = 0
     Width = 761

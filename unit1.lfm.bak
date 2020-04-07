@@ -3,7 +3,7 @@ object Kf: TKf
   Height = 793
   Top = 200
   Width = 762
-  HorzScrollBar.Page = 762
+  HorzScrollBar.Page = 761
   VertScrollBar.Page = 790
   AutoScroll = True
   Caption = 'Koefficients'
@@ -19,8 +19,8 @@ object Kf: TKf
     Left = 520
     Height = 15
     Top = 773
-    Width = 211
-    Caption = 'Hydroponic Profile Generator 0.08'
+    Width = 218
+    Caption = 'Hydroponic Profile Generator 0.081'
     Font.Color = clActiveCaption
     Font.Height = -13
     Font.Name = 'Arial'
@@ -30,7 +30,7 @@ object Kf: TKf
     OnClick = versionClick
   end
   object PageControl1: TPageControl
-    Left = 1
+    Left = 0
     Height = 704
     Top = 0
     Width = 761
