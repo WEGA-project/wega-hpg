@@ -1163,23 +1163,23 @@ begin
     Kf.g2gCo.caption:=FloatToStr(round(Kf.ggCo.value*100)/100,MyFormatSettings);
     Kf.g2gSi.caption:=FloatToStr(round(Kf.ggSi.value*100)/100,MyFormatSettings);
 
-    Kf.k2nCaNO3.Caption:= Kf.knCaNO3.caption + ' (' + FloatToStr(Kf.glCaNO3.Value)+ ' г/л, '+FloatToStr(Kf.gmlCaNO3.Value)+ ' г/мл)';
-    Kf.k2nKNO3.Caption:= Kf.knKNO3.caption + ' (' + FloatToStr(Kf.glKNO3.Value)+ ' г/л, '+FloatToStr(Kf.gmlKNO3.Value)+ ' г/мл)';
-    Kf.k2nNH4NO3.Caption:= Kf.knNH4NO3.caption + ' (' + FloatToStr(Kf.glNH4NO3.Value)+ ' г/л, '+FloatToStr(Kf.gmlNH4NO3.Value)+ ' г/мл)';
-    Kf.k2nMgNO3.Caption:= Kf.knMgNO3.caption + ' (' + FloatToStr(Kf.glMgNO3.Value)+ ' г/л, '+FloatToStr(Kf.gmlMgNO3.Value)+ ' г/мл)';
-    Kf.k2nMgSO4.Caption:= Kf.knMgSO4.caption + ' (' + FloatToStr(Kf.glMgSO4.Value)+ ' г/л, '+FloatToStr(Kf.gmlMgSO4.Value)+ ' г/мл)';
-    Kf.k2nKH2PO4.Caption:= Kf.knKH2PO4.caption + ' (' + FloatToStr(Kf.glKH2PO4.Value)+ ' г/л, '+FloatToStr(Kf.gmlKH2PO4.Value)+ ' г/мл)';
-    Kf.k2nK2SO4.Caption:= Kf.knK2SO4.caption + ' (' + FloatToStr(Kf.glK2SO4.Value)+ ' г/л, '+FloatToStr(Kf.gmlK2SO4.Value)+ ' г/мл)';
+    Kf.k2nCaNO3.Caption:= Kf.knCaNO3.caption +  ' ' + FloatToStr(Kf.gCaNO3.value) + ' г. ' + ' (' + FloatToStr(Kf.glCaNO3.Value)+ ' г/л, '+FloatToStr(Kf.gmlCaNO3.Value)+ ' г/мл)';
+    Kf.k2nKNO3.Caption:=  Kf.knKNO3.caption + ' ' + FloatToStr(Kf.gKNO3.value) + ' г. ' +' (' + FloatToStr(Kf.glKNO3.Value)+ ' г/л, '+FloatToStr(Kf.gmlKNO3.Value)+ ' г/мл)';
+    Kf.k2nNH4NO3.Caption:= Kf.knNH4NO3.caption +' ' + FloatToStr(Kf.gNH4NO3.value) + ' г. ' + ' (' + FloatToStr(Kf.glNH4NO3.Value)+ ' г/л, '+FloatToStr(Kf.gmlNH4NO3.Value)+ ' г/мл)';
+    Kf.k2nMgNO3.Caption:= Kf.knMgNO3.caption +' ' + FloatToStr(Kf.gMgNO3.value) + ' г. ' + ' (' + FloatToStr(Kf.glMgNO3.Value)+ ' г/л, '+FloatToStr(Kf.gmlMgNO3.Value)+ ' г/мл)';
+    Kf.k2nMgSO4.Caption:= Kf.knMgSO4.caption +' ' + FloatToStr(Kf.gMgSO4.value) + ' г. ' + ' (' + FloatToStr(Kf.glMgSO4.Value)+ ' г/л, '+FloatToStr(Kf.gmlMgSO4.Value)+ ' г/мл)';
+    Kf.k2nKH2PO4.Caption:= Kf.knKH2PO4.caption +' ' + FloatToStr(Kf.gKH2PO4.value) + ' г. ' + ' (' + FloatToStr(Kf.glKH2PO4.Value)+ ' г/л, '+FloatToStr(Kf.gmlKH2PO4.Value)+ ' г/мл)';
+    Kf.k2nK2SO4.Caption:= Kf.knK2SO4.caption +' ' + FloatToStr(Kf.gK2SO4.value) + ' г. ' + ' (' + FloatToStr(Kf.glK2SO4.Value)+ ' г/л, '+FloatToStr(Kf.gmlK2SO4.Value)+ ' г/мл)';
 
-    Kf.l2Cmplx.Caption:= Kf.lCmplx.caption + ' (' + FloatToStr(Kf.glCmplx.Value)+ ' г/л, '+FloatToStr(Kf.gmlCmplx.Value)+ ' г/мл)';
-    Kf.l2Fe.Caption:= Kf.lFe.caption + ' (' + FloatToStr(Kf.glFe.Value)+ ' г/л, '+FloatToStr(Kf.gmlFe.Value)+ ' г/мл)';
-    Kf.l2Mn.Caption:= Kf.lMn.caption + ' (' + FloatToStr(Kf.glMn.Value)+ ' г/л, '+FloatToStr(Kf.gmlMn.Value)+ ' г/мл)';
-    Kf.l2B.Caption:= Kf.lB.caption + ' (' + FloatToStr(Kf.glB.Value)+ ' г/л, '+FloatToStr(Kf.gmlB.Value)+ ' г/мл)';
-    Kf.l2Zn.Caption:= Kf.lZn.caption + ' (' + FloatToStr(Kf.glZn.Value)+ ' г/л, '+FloatToStr(Kf.gmlZn.Value)+ ' г/мл)';
-    Kf.l2Cu.Caption:= Kf.lCu.caption + ' (' + FloatToStr(Kf.glCu.Value)+ ' г/л, '+FloatToStr(Kf.gmlCu.Value)+ ' г/мл)';
-    Kf.l2Mo.Caption:= Kf.lMo.caption + ' (' + FloatToStr(Kf.glMo.Value)+ ' г/л, '+FloatToStr(Kf.gmlMo.Value)+ ' г/мл)';
-    Kf.l2Co.Caption:= Kf.lCo.caption + ' (' + FloatToStr(Kf.glCo.Value)+ ' г/л, '+FloatToStr(Kf.gmlCo.Value)+ ' г/мл)';
-    Kf.l2Si.Caption:= Kf.lSi.caption + ' (' + FloatToStr(Kf.glSi.Value)+ ' г/л, '+FloatToStr(Kf.gmlSi.Value)+ ' г/мл)';
+    Kf.l2Cmplx.Caption:= Kf.lCmplx.caption +' ' + FloatToStr(Kf.gCmplx.value) + ' г. ' + ' (' + FloatToStr(Kf.glCmplx.Value)+ ' г/л, '+FloatToStr(Kf.gmlCmplx.Value)+ ' г/мл)';
+    Kf.l2Fe.Caption:= Kf.lFe.caption +' ' + FloatToStr(Kf.gFe.value) + ' г. ' + ' (' + FloatToStr(Kf.glFe.Value)+ ' г/л, '+FloatToStr(Kf.gmlFe.Value)+ ' г/мл)';
+    Kf.l2Mn.Caption:= Kf.lMn.caption +' ' + FloatToStr(Kf.gMn.value) + ' г. ' + ' (' + FloatToStr(Kf.glMn.Value)+ ' г/л, '+FloatToStr(Kf.gmlMn.Value)+ ' г/мл)';
+    Kf.l2B.Caption:= Kf.lB.caption +' ' + FloatToStr(Kf.gB.value) + ' г. ' + ' (' + FloatToStr(Kf.glB.Value)+ ' г/л, '+FloatToStr(Kf.gmlB.Value)+ ' г/мл)';
+    Kf.l2Zn.Caption:= Kf.lZn.caption +' ' + FloatToStr(Kf.gZn.value) + ' г. ' + ' (' + FloatToStr(Kf.glZn.Value)+ ' г/л, '+FloatToStr(Kf.gmlZn.Value)+ ' г/мл)';
+    Kf.l2Cu.Caption:= Kf.lCu.caption +' ' + FloatToStr(Kf.gCu.value) + ' г. ' + ' (' + FloatToStr(Kf.glCu.Value)+ ' г/л, '+FloatToStr(Kf.gmlCu.Value)+ ' г/мл)';
+    Kf.l2Mo.Caption:= Kf.lMo.caption +' ' + FloatToStr(Kf.gMo.value) + ' г. ' + ' (' + FloatToStr(Kf.glMo.Value)+ ' г/л, '+FloatToStr(Kf.gmlMo.Value)+ ' г/мл)';
+    Kf.l2Co.Caption:= Kf.lCo.caption +' ' + FloatToStr(Kf.gCo.value) + ' г. ' + ' (' + FloatToStr(Kf.glCo.Value)+ ' г/л, '+FloatToStr(Kf.gmlCo.Value)+ ' г/мл)';
+    Kf.l2Si.Caption:= Kf.lSi.caption +' ' + FloatToStr(Kf.gSi.value) + ' г. ' + ' (' + FloatToStr(Kf.glSi.Value)+ ' г/л, '+FloatToStr(Kf.gmlSi.Value)+ ' г/мл)';
 
 
     Av:=round((Kf.mlCaNO3.Value + Kf.mlKNO3.Value + Kf.mlNH4NO3.Value + Kf.mlMgNO3.Value)*10)/10;
@@ -2925,6 +2925,7 @@ begin
   CalcKoef;
   CalcEC;
   genProfile;
+  CalcConc;
 
 end;
 

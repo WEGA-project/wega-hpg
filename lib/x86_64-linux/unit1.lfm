@@ -2138,6 +2138,7 @@ object Kf: TKf
         Height = 27
         Top = 132
         Width = 97
+        DecimalPlaces = 5
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.01
@@ -2153,6 +2154,7 @@ object Kf: TKf
         Height = 27
         Top = 165
         Width = 97
+        DecimalPlaces = 5
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.01
@@ -2168,6 +2170,7 @@ object Kf: TKf
         Height = 27
         Top = 197
         Width = 97
+        DecimalPlaces = 5
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.01
@@ -2183,6 +2186,7 @@ object Kf: TKf
         Height = 27
         Top = 229
         Width = 97
+        DecimalPlaces = 5
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.01
@@ -2198,6 +2202,7 @@ object Kf: TKf
         Height = 27
         Top = 261
         Width = 97
+        DecimalPlaces = 5
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.01
@@ -2213,6 +2218,7 @@ object Kf: TKf
         Height = 27
         Top = 293
         Width = 97
+        DecimalPlaces = 5
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.01
@@ -2228,6 +2234,7 @@ object Kf: TKf
         Height = 27
         Top = 325
         Width = 97
+        DecimalPlaces = 5
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.01
@@ -2243,6 +2250,7 @@ object Kf: TKf
         Height = 27
         Top = 357
         Width = 97
+        DecimalPlaces = 5
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.01
@@ -2292,7 +2300,7 @@ object Kf: TKf
         Height = 27
         Top = 392
         Width = 97
-        DecimalPlaces = 4
+        DecimalPlaces = 5
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.001
@@ -2350,11 +2358,11 @@ object Kf: TKf
         Height = 616
         Top = 0
         Width = 752
-        ActivePage = TabSheet6
+        ActivePage = TabSheet5
         Font.Height = -15
         Font.Name = 'Arial'
         ParentFont = False
-        TabIndex = 1
+        TabIndex = 0
         TabOrder = 0
         object TabSheet5: TTabSheet
           Caption = 'Расчет'
@@ -4875,7 +4883,7 @@ object Kf: TKf
   object bload: TButton
     Left = 316
     Height = 26
-    Top = 738
+    Top = 737
     Width = 174
     Caption = 'Вернуть составы'
     Font.Height = -15
