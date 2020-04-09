@@ -28,6 +28,7 @@ type
     Button7: TButton;
     Button8: TButton;
     btch: TButton;
+    Button9: TButton;
     dateAdd: TButton;
     dateChange: TButton;
     CheckBox1: TCheckBox;
@@ -421,6 +422,7 @@ type
     procedure Button6Click(Sender: TObject);
     procedure Button7Click(Sender: TObject);
     procedure Button8Click(Sender: TObject);
+    procedure Button9Click(Sender: TObject);
     procedure CaChange(Sender: TObject);
     procedure C(Sender: TObject);
 
@@ -2803,30 +2805,7 @@ begin
 end;
 
   
-   de1.Text:=DateToStr(now);
-   m1.Text:='Автозапись. Изготовлен раствор на ' + FloatToStr(V.Value) + ' литров.';
-   str:='date='+de1.Text+';'+m1.Text+';'+profile.Caption;
-   if not Assigned(DStr)then DStr := TStringList.Create;
-   DStr.Add(StringReplace(str, #10, ' ', [rfReplaceAll, rfIgnoreCase]));
-   DStr.Sort;
-   lb1.Clear;
 
-   for i := 0 to DStr.Count-1 do
-          begin
-              str:= DStr[i];
-              if (IsWordPresent('date', str, ['=']) = true) then
-              begin
-
-              StrDate:=ExtractWord(2,str,[';','=']);
-              StrCmnt:=ExtractWord(2,str,[';']);
-              Kf.lb1.Items.Add(StrDate + ' ' + StrCmnt);
-
-              end;
-          end;
-
-
-
-  //--------------------
 
   delete(mixlink, length(mixlink)-0, 1);
   //lMixlink.Caption:=mixlink;
@@ -2904,6 +2883,34 @@ begin
 
               end;
           end;
+end;
+
+procedure TKf.Button9Click(Sender: TObject);
+begin
+    de1.Text:=FormatDateTime('yyyy-dd-mm', Now);
+   m1.Text:='Автозапись. Изготовлен раствор на ' + FloatToStr(V.Value) + ' литров.';
+   str:='date='+de1.Text+';'+m1.Text+';'+profile.Caption;
+   if not Assigned(DStr)then DStr := TStringList.Create;
+   DStr.Add(StringReplace(str, #10, ' ', [rfReplaceAll, rfIgnoreCase]));
+   DStr.Sort;
+   lb1.Clear;
+
+   for i := 0 to DStr.Count-1 do
+          begin
+              str:= DStr[i];
+              if (IsWordPresent('date', str, ['=']) = true) then
+              begin
+
+              StrDate:=ExtractWord(2,str,[';','=']);
+              StrCmnt:=ExtractWord(2,str,[';']);
+              Kf.lb1.Items.Add(StrDate + ' ' + StrCmnt);
+
+              end;
+          end;
+
+
+
+  //--------------------
 end;
 
 procedure TKf.bloadClick(Sender: TObject);
@@ -3182,7 +3189,8 @@ begin
 
    if (m1.Text <> '' ) then begin
 
-   if (de1.text = '' ) then de1.Text:=DateToStr(now);
+//   if (de1.text = '' ) then de1.Text:=DateToStr(now);     FormatDateTime('dd mmmm yyyy - hh:nn:ss', Now);
+   if (de1.text = '' ) then de1.Text:=FormatDateTime('yyyy-dd-mm', Now);
    str:='date='+de1.Text+';'+m1.Text+';'+profile.Caption;
    if not Assigned(DStr)then DStr := TStringList.Create;
    DStr.Add(StringReplace(str, #10, ' ', [rfReplaceAll, rfIgnoreCase]));

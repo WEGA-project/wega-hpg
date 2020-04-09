@@ -1,7 +1,7 @@
 object Kf: TKf
-  Left = 747
+  Left = 679
   Height = 793
-  Top = 200
+  Top = 172
   Width = 762
   HorzScrollBar.Page = 761
   VertScrollBar.Page = 790
@@ -20,7 +20,7 @@ object Kf: TKf
     Height = 15
     Top = 773
     Width = 218
-    Caption = 'Hydroponic Profile Generator 0.081'
+    Caption = 'Hydroponic Profile Generator 0.082'
     Font.Color = clActiveCaption
     Font.Height = -13
     Font.Name = 'Arial'
@@ -4397,6 +4397,15 @@ object Kf: TKf
             Caption = 'Перевести в профиль'
             OnClick = btchClick
             TabOrder = 50
+          end
+          object Button9: TButton
+            Left = 568
+            Height = 28
+            Top = 548
+            Width = 135
+            Caption = 'Внести в журнал'
+            OnClick = Button9Click
+            TabOrder = 51
           end
         end
       end

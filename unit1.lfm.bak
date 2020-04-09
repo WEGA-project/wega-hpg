@@ -1,7 +1,7 @@
 object Kf: TKf
-  Left = 747
+  Left = 679
   Height = 793
-  Top = 200
+  Top = 172
   Width = 762
   HorzScrollBar.Page = 761
   VertScrollBar.Page = 790
@@ -4397,6 +4397,15 @@ object Kf: TKf
             Caption = 'Перевести в профиль'
             OnClick = btchClick
             TabOrder = 50
+          end
+          object Button9: TButton
+            Left = 600
+            Height = 25
+            Top = 553
+            Width = 75
+            Caption = 'Button9'
+            OnClick = Button9Click
+            TabOrder = 51
           end
         end
       end
