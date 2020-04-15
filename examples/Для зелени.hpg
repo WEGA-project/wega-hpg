@@ -1,4 +1,4 @@
-version=Hydroponic Profile Generator 0.071 https://github.com/siv237/HPG
+version=Hydroponic Profile Generator 0.082 https://github.com/siv237/HPG
 Comment=Раствор для зелени
 N=235.6
 NH4=14.79
@@ -23,20 +23,20 @@ K2SO4_K=44.874
 K2SO4_S=18.401
 MgNO3_Mg=9.479
 MgNO3_NO3=10.925
-Fe=3460
+Fe=3458
 Mn=550
 B=600
-Zn=330
+Zn=332
 Cu=60
 Mo=60
 Co=0
 Si=0
-dFe=0.346
-dMn=0.055
-dB=0.06
-dZn=0.033
-dCu=0.006
-dMo=0.006
+dFe=0.4
+dMn=0.0636
+dB=0.0694
+dZn=0.0384
+dCu=0.0069
+dMo=0.0069
 dCo=0
 dSi=0
 glCaNO3=600
@@ -96,3 +96,4 @@ tAml=500
 tBml=500
 date=2020-03-15;Изготовленно на10 литров;N=236 NO3=220.81 NH4=14.79 P=43 K=308.17 Ca=181.27 Mg=51.36 S=81.1 Fe=3.46 Mn=0.55 B=0.6 Zn=0.33 Cu=0.06 Mo=0.06 Co=0 Si=0 
 date=2020-03-31;Изготовленно на 10 литров;N=236 NO3=220.81 NH4=14.79 P=43 K=308.17 Ca=181.27 Mg=51.36 S=81.1 Fe=3.46 Mn=0.55 B=0.6 Zn=0.33 Cu=0.06 Mo=0.06 Co=0 Si=0 
+date=2020-13-04;Автозапись. Изготовлен раствор на 10 литров.;N=236 NO3=220.81 NH4=14.79 P=43 K=308.17 Ca=181.27 Mg=51.36 S=81.1 Fe=3.458 Mn=0.55 B=0.6 Zn=0.332 Cu=0.06 Mo=0.06 Co=0 Si=0 

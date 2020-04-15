@@ -20,6 +20,11 @@ type
     bload: TButton;
     bloadpf: TButton;
     Button1: TButton;
+    bMacro: TButton;
+    bMicro: TButton;
+    bRasch: TButton;
+    bIzg: TButton;
+    bfile: TButton;
     Button2: TButton;
     Button3: TButton;
     Button4: TButton;
@@ -411,8 +416,13 @@ type
     Label8: TLabel;
     Label9: TLabel;
     procedure BChange(Sender: TObject);
+    procedure bfileClick(Sender: TObject);
+    procedure bIzgClick(Sender: TObject);
     procedure bloadClick(Sender: TObject);
     procedure bloadpfClick(Sender: TObject);
+    procedure bMacroClick(Sender: TObject);
+    procedure bMicroClick(Sender: TObject);
+    procedure bRaschClick(Sender: TObject);
     procedure btchClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
@@ -824,6 +834,8 @@ begin
 end;
 
 procedure genProfile;
+
+
 begin
    MyFormatSettings.DecimalSeparator := '.';
    vN:=kf.N.Value;
@@ -853,6 +865,8 @@ begin
                     //+'NH4:NO3='+FloatToStr(round(vNH4NO3*100)/100, MyFormatSettings)+' ]'
                     ;
    Kf.profile.text:=ps;
+
+
         Kf.pkf.caption:='K:Mg='+ FloatToStr(round(vK/vMg*10)/10)+' '
                   +'K:Ca='+FloatToStr(round(vK/vCa*10)/10)+' '
                   +'Ca:N='+FloatToStr(round(vCa/vN*10)/10)+' '
@@ -1056,6 +1070,7 @@ begin
     if ( Kf.Mg.Focused = False ) then Kf.Mg.value:=vMg;
 
     //GenNH4NO3event;
+
 
 end;
 
@@ -2927,6 +2942,21 @@ begin
  loadPrf;
 end;
 
+procedure TKf.bMacroClick(Sender: TObject);
+begin
+  OpenURL('https://github.com/siv237/HPG/wiki/Macro');
+end;
+
+procedure TKf.bMicroClick(Sender: TObject);
+begin
+  OpenURL('https://github.com/siv237/HPG/wiki/Micro');
+end;
+
+procedure TKf.bRaschClick(Sender: TObject);
+begin
+  OpenURL('https://github.com/siv237/HPG/wiki/raschet');
+end;
+
 procedure TKf.btchClick(Sender: TObject);
 begin
    MyFormatSettings.DecimalSeparator := '.';
@@ -2968,6 +2998,16 @@ begin
 
 
    end;
+end;
+
+procedure TKf.bfileClick(Sender: TObject);
+begin
+  OpenURL('https://github.com/siv237/HPG/wiki/file');
+end;
+
+procedure TKf.bIzgClick(Sender: TObject);
+begin
+  OpenURL('https://github.com/siv237/HPG/wiki/izgotovlenie');
 end;
 
 procedure TKf.CaChange(Sender: TObject);

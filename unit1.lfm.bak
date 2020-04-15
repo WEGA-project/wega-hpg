@@ -1,7 +1,7 @@
 object Kf: TKf
-  Left = 679
+  Left = 981
   Height = 793
-  Top = 172
+  Top = 62
   Width = 762
   HorzScrollBar.Page = 761
   VertScrollBar.Page = 790
@@ -20,7 +20,7 @@ object Kf: TKf
     Height = 15
     Top = 773
     Width = 218
-    Caption = 'Hydroponic Profile Generator 0.081'
+    Caption = 'Hydroponic Profile Generator 0.083'
     Font.Color = clActiveCaption
     Font.Height = -13
     Font.Name = 'Arial'
@@ -34,11 +34,11 @@ object Kf: TKf
     Height = 704
     Top = 0
     Width = 761
-    ActivePage = TabSheet3
+    ActivePage = TabSheet1
     Font.Height = -15
     Font.Name = 'Arial'
     ParentFont = False
-    TabIndex = 2
+    TabIndex = 0
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'Макро'
@@ -1678,7 +1678,7 @@ object Kf: TKf
         ParentFont = False
       end
       object Label77: TLabel
-        Left = 412
+        Left = 368
         Height = 17
         Top = 0
         Width = 291
@@ -1699,6 +1699,15 @@ object Kf: TKf
         Font.Name = 'Arial'
         ParentColor = False
         ParentFont = False
+      end
+      object bMacro: TButton
+        Left = 702
+        Height = 20
+        Top = 2
+        Width = 50
+        Caption = 'help'
+        OnClick = bMacroClick
+        TabOrder = 64
       end
     end
     object TabSheet2: TTabSheet
@@ -2018,10 +2027,10 @@ object Kf: TKf
         Height = 27
         Top = 132
         Width = 97
-        DecimalPlaces = 3
+        DecimalPlaces = 4
         Font.Height = -15
         Font.Name = 'Arial'
-        Increment = 0.01
+        Increment = 0.001
         MinValue = 0
         OnChange = dFeChange
         ParentFont = False
@@ -2033,10 +2042,10 @@ object Kf: TKf
         Height = 27
         Top = 165
         Width = 97
-        DecimalPlaces = 3
+        DecimalPlaces = 4
         Font.Height = -15
         Font.Name = 'Arial'
-        Increment = 0.01
+        Increment = 0.001
         MinValue = 0
         OnChange = dMnChange
         ParentFont = False
@@ -2048,10 +2057,10 @@ object Kf: TKf
         Height = 27
         Top = 197
         Width = 97
-        DecimalPlaces = 3
+        DecimalPlaces = 4
         Font.Height = -15
         Font.Name = 'Arial'
-        Increment = 0.01
+        Increment = 0.001
         MinValue = 0
         OnChange = dBChange
         ParentFont = False
@@ -2063,10 +2072,10 @@ object Kf: TKf
         Height = 27
         Top = 229
         Width = 97
-        DecimalPlaces = 3
+        DecimalPlaces = 4
         Font.Height = -15
         Font.Name = 'Arial'
-        Increment = 0.01
+        Increment = 0.001
         MinValue = 0
         OnChange = dZnChange
         ParentFont = False
@@ -2078,10 +2087,10 @@ object Kf: TKf
         Height = 27
         Top = 261
         Width = 97
-        DecimalPlaces = 3
+        DecimalPlaces = 4
         Font.Height = -15
         Font.Name = 'Arial'
-        Increment = 0.01
+        Increment = 0.001
         MinValue = 0
         OnChange = dCuChange
         ParentFont = False
@@ -2093,10 +2102,10 @@ object Kf: TKf
         Height = 27
         Top = 293
         Width = 97
-        DecimalPlaces = 3
+        DecimalPlaces = 4
         Font.Height = -15
         Font.Name = 'Arial'
-        Increment = 0.01
+        Increment = 0.001
         MinValue = 0
         OnChange = dMoChange
         ParentFont = False
@@ -2108,10 +2117,10 @@ object Kf: TKf
         Height = 27
         Top = 325
         Width = 97
-        DecimalPlaces = 3
+        DecimalPlaces = 4
         Font.Height = -15
         Font.Name = 'Arial'
-        Increment = 0.01
+        Increment = 0.001
         MinValue = 0
         OnChange = dCoChange
         ParentFont = False
@@ -2123,10 +2132,10 @@ object Kf: TKf
         Height = 27
         Top = 357
         Width = 97
-        DecimalPlaces = 3
+        DecimalPlaces = 4
         Font.Height = -15
         Font.Name = 'Arial'
-        Increment = 0.01
+        Increment = 0.001
         MinValue = 0
         OnChange = dSiChange
         ParentFont = False
@@ -2358,16 +2367,16 @@ object Kf: TKf
         Height = 616
         Top = 0
         Width = 752
-        ActivePage = TabSheet6
+        ActivePage = TabSheet5
         Font.Height = -15
         Font.Name = 'Arial'
         ParentFont = False
-        TabIndex = 1
+        TabIndex = 0
         TabOrder = 0
         object TabSheet5: TTabSheet
           Caption = 'Расчет'
-          ClientHeight = 581
-          ClientWidth = 746
+          ClientHeight = 612
+          ClientWidth = 748
           Font.Height = -15
           Font.Name = 'Arial'
           OnContextPopup = TabSheet5ContextPopup
@@ -3649,8 +3658,8 @@ object Kf: TKf
         end
         object TabSheet6: TTabSheet
           Caption = 'Изготовление'
-          ClientHeight = 581
-          ClientWidth = 746
+          ClientHeight = 612
+          ClientWidth = 748
           Font.Height = -15
           Font.Name = 'Arial'
           ParentFont = False
@@ -4399,11 +4408,11 @@ object Kf: TKf
             TabOrder = 50
           end
           object Button9: TButton
-            Left = 600
-            Height = 25
-            Top = 553
-            Width = 75
-            Caption = 'Button9'
+            Left = 568
+            Height = 28
+            Top = 548
+            Width = 135
+            Caption = 'Внести в журнал'
             OnClick = Button9Click
             TabOrder = 51
           end
