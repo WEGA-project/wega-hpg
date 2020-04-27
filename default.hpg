@@ -1,4 +1,4 @@
-version=Hydroponic Profile Generator 0.070 https://github.com/siv237/HPG
+version=Hydroponic Profile Generator 0.081 https://github.com/siv237/HPG
 Comment=По умолчанию
 N=220.76
 NH4=19.15
@@ -31,7 +31,7 @@ Cu=63
 Mo=63
 Co=0
 Si=0
-dFe=20.1
+dFe=36.763
 dMn=36.4
 dB=17.5
 dZn=22.7

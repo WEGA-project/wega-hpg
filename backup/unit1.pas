@@ -20,6 +20,11 @@ type
     bload: TButton;
     bloadpf: TButton;
     Button1: TButton;
+    bMacro: TButton;
+    bMicro: TButton;
+    bRasch: TButton;
+    bIzg: TButton;
+    bfile: TButton;
     Button2: TButton;
     Button3: TButton;
     Button4: TButton;
@@ -28,6 +33,7 @@ type
     Button7: TButton;
     Button8: TButton;
     btch: TButton;
+    Button9: TButton;
     dateAdd: TButton;
     dateChange: TButton;
     CheckBox1: TCheckBox;
@@ -410,8 +416,13 @@ type
     Label8: TLabel;
     Label9: TLabel;
     procedure BChange(Sender: TObject);
+    procedure bfileClick(Sender: TObject);
+    procedure bIzgClick(Sender: TObject);
     procedure bloadClick(Sender: TObject);
     procedure bloadpfClick(Sender: TObject);
+    procedure bMacroClick(Sender: TObject);
+    procedure bMicroClick(Sender: TObject);
+    procedure bRaschClick(Sender: TObject);
     procedure btchClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
@@ -421,6 +432,7 @@ type
     procedure Button6Click(Sender: TObject);
     procedure Button7Click(Sender: TObject);
     procedure Button8Click(Sender: TObject);
+    procedure Button9Click(Sender: TObject);
     procedure CaChange(Sender: TObject);
     procedure C(Sender: TObject);
 
@@ -822,6 +834,8 @@ begin
 end;
 
 procedure genProfile;
+
+
 begin
    MyFormatSettings.DecimalSeparator := '.';
    vN:=kf.N.Value;
@@ -851,6 +865,8 @@ begin
                     //+'NH4:NO3='+FloatToStr(round(vNH4NO3*100)/100, MyFormatSettings)+' ]'
                     ;
    Kf.profile.text:=ps;
+
+
         Kf.pkf.caption:='K:Mg='+ FloatToStr(round(vK/vMg*10)/10)+' '
                   +'K:Ca='+FloatToStr(round(vK/vCa*10)/10)+' '
                   +'Ca:N='+FloatToStr(round(vCa/vN*10)/10)+' '
@@ -1054,6 +1070,7 @@ begin
     if ( Kf.Mg.Focused = False ) then Kf.Mg.value:=vMg;
 
     //GenNH4NO3event;
+
 
 end;
 
@@ -2803,30 +2820,7 @@ begin
 end;
 
   
-   de1.Text:=DateToStr(now);
-   m1.Text:='Автозапись. Изготовлен раствор на ' + FloatToStr(V.Value) + ' литров.';
-   str:='date='+de1.Text+';'+m1.Text+';'+profile.Caption;
-   if not Assigned(DStr)then DStr := TStringList.Create;
-   DStr.Add(StringReplace(str, #10, ' ', [rfReplaceAll, rfIgnoreCase]));
-   DStr.Sort;
-   lb1.Clear;
 
-   for i := 0 to DStr.Count-1 do
-          begin
-              str:= DStr[i];
-              if (IsWordPresent('date', str, ['=']) = true) then
-              begin
-
-              StrDate:=ExtractWord(2,str,[';','=']);
-              StrCmnt:=ExtractWord(2,str,[';']);
-              Kf.lb1.Items.Add(StrDate + ' ' + StrCmnt);
-
-              end;
-          end;
-
-
-
-  //--------------------
 
   delete(mixlink, length(mixlink)-0, 1);
   //lMixlink.Caption:=mixlink;
@@ -2906,6 +2900,34 @@ begin
           end;
 end;
 
+procedure TKf.Button9Click(Sender: TObject);
+begin
+    de1.Text:=FormatDateTime('yyyy-dd-mm', Now);
+   m1.Text:='Автозапись. Изготовлен раствор на ' + FloatToStr(V.Value) + ' литров.';
+   str:='date='+de1.Text+';'+m1.Text+';'+profile.Caption;
+   if not Assigned(DStr)then DStr := TStringList.Create;
+   DStr.Add(StringReplace(str, #10, ' ', [rfReplaceAll, rfIgnoreCase]));
+   DStr.Sort;
+   lb1.Clear;
+
+   for i := 0 to DStr.Count-1 do
+          begin
+              str:= DStr[i];
+              if (IsWordPresent('date', str, ['=']) = true) then
+              begin
+
+              StrDate:=ExtractWord(2,str,[';','=']);
+              StrCmnt:=ExtractWord(2,str,[';']);
+              Kf.lb1.Items.Add(StrDate + ' ' + StrCmnt);
+
+              end;
+          end;
+
+
+
+  //--------------------
+end;
+
 procedure TKf.bloadClick(Sender: TObject);
   //var
     //tfIn: TextFile;
@@ -2918,6 +2940,21 @@ procedure TKf.bloadpfClick(Sender: TObject);
 
 begin
  loadPrf;
+end;
+
+procedure TKf.bMacroClick(Sender: TObject);
+begin
+  OpenURL('https://github.com/siv237/HPG/wiki/Macro');
+end;
+
+procedure TKf.bMicroClick(Sender: TObject);
+begin
+  OpenURL('https://github.com/siv237/HPG/wiki/Micro');
+end;
+
+procedure TKf.bRaschClick(Sender: TObject);
+begin
+  OpenURL('https://github.com/siv237/HPG/wiki/raschet');
 end;
 
 procedure TKf.btchClick(Sender: TObject);
@@ -2961,6 +2998,16 @@ begin
 
 
    end;
+end;
+
+procedure TKf.bfileClick(Sender: TObject);
+begin
+  OpenURL('https://github.com/siv237/HPG/wiki/file');
+end;
+
+procedure TKf.bIzgClick(Sender: TObject);
+begin
+  OpenURL('https://github.com/siv237/HPG/wiki/izgotovlenie');
 end;
 
 procedure TKf.CaChange(Sender: TObject);
@@ -3182,7 +3229,8 @@ begin
 
    if (m1.Text <> '' ) then begin
 
-   if (de1.text = '' ) then de1.Text:=DateToStr(now);
+//   if (de1.text = '' ) then de1.Text:=DateToStr(now);     FormatDateTime('dd mmmm yyyy - hh:nn:ss', Now);
+   if (de1.text = '' ) then de1.Text:=FormatDateTime('yyyy-dd-mm', Now);
    str:='date='+de1.Text+';'+m1.Text+';'+profile.Caption;
    if not Assigned(DStr)then DStr := TStringList.Create;
    DStr.Add(StringReplace(str, #10, ' ', [rfReplaceAll, rfIgnoreCase]));
