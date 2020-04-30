@@ -1,7 +1,7 @@
 object Kf: TKf
-  Left = 981
+  Left = 897
   Height = 793
-  Top = 62
+  Top = 119
   Width = 762
   HorzScrollBar.Page = 761
   VertScrollBar.Page = 790
@@ -20,7 +20,7 @@ object Kf: TKf
     Height = 15
     Top = 773
     Width = 218
-    Caption = 'Hydroponic Profile Generator 0.083'
+    Caption = 'Hydroponic Profile Generator 0.084'
     Font.Color = clActiveCaption
     Font.Height = -13
     Font.Name = 'Arial'
@@ -67,6 +67,7 @@ object Kf: TKf
         Height = 27
         Top = 42
         Width = 94
+        Color = clMoneyGreen
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.01
@@ -285,9 +286,9 @@ object Kf: TKf
         Value = 0.1
       end
       object Label10: TLabel
-        Left = 99
+        Left = 94
         Height = 17
-        Top = 141
+        Top = 158
         Width = 11
         Caption = 'N'
         Font.Height = -15
@@ -299,7 +300,7 @@ object Kf: TKf
       object Label11: TLabel
         Left = 209
         Height = 17
-        Top = 141
+        Top = 158
         Width = 10
         Caption = 'P'
         Font.Height = -15
@@ -311,7 +312,7 @@ object Kf: TKf
       object Label12: TLabel
         Left = 319
         Height = 17
-        Top = 141
+        Top = 158
         Width = 11
         Caption = 'K'
         Font.Height = -15
@@ -323,7 +324,7 @@ object Kf: TKf
       object Label13: TLabel
         Left = 427
         Height = 17
-        Top = 141
+        Top = 158
         Width = 19
         Caption = 'Ca'
         Font.Height = -15
@@ -335,7 +336,7 @@ object Kf: TKf
       object Label14: TLabel
         Left = 550
         Height = 17
-        Top = 141
+        Top = 158
         Width = 22
         Caption = 'Mg'
         Font.Height = -15
@@ -347,7 +348,7 @@ object Kf: TKf
       object Label15: TLabel
         Left = 677
         Height = 17
-        Top = 141
+        Top = 158
         Width = 10
         Caption = 'S'
         Font.Height = -15
@@ -357,9 +358,9 @@ object Kf: TKf
         ParentFont = False
       end
       object Label16: TLabel
-        Left = 10
+        Left = 20
         Height = 17
-        Top = 180
+        Top = 182
         Width = 11
         Caption = 'N'
         Font.Height = -15
@@ -369,9 +370,9 @@ object Kf: TKf
         ParentFont = False
       end
       object Label17: TLabel
-        Left = 10
+        Left = 20
         Height = 17
-        Top = 221
+        Top = 223
         Width = 10
         Caption = 'P'
         Font.Height = -15
@@ -381,9 +382,9 @@ object Kf: TKf
         ParentFont = False
       end
       object Label18: TLabel
-        Left = 10
+        Left = 20
         Height = 17
-        Top = 261
+        Top = 263
         Width = 11
         Caption = 'K'
         Font.Height = -15
@@ -393,9 +394,9 @@ object Kf: TKf
         ParentFont = False
       end
       object Label19: TLabel
-        Left = 10
+        Left = 20
         Height = 17
-        Top = 300
+        Top = 302
         Width = 19
         Caption = 'Ca'
         Font.Height = -15
@@ -405,9 +406,9 @@ object Kf: TKf
         ParentFont = False
       end
       object Label20: TLabel
-        Left = 10
+        Left = 20
         Height = 17
-        Top = 340
+        Top = 342
         Width = 22
         Caption = 'Mg'
         Font.Height = -15
@@ -417,9 +418,9 @@ object Kf: TKf
         ParentFont = False
       end
       object Label21: TLabel
-        Left = 10
+        Left = 20
         Height = 17
-        Top = 381
+        Top = 383
         Width = 10
         Caption = 'S'
         Font.Height = -15
@@ -1701,13 +1702,24 @@ object Kf: TKf
         ParentFont = False
       end
       object bMacro: TButton
-        Left = 702
+        Left = 704
         Height = 20
-        Top = 2
+        Top = 0
         Width = 50
         Caption = 'help'
         OnClick = bMacroClick
         TabOrder = 64
+      end
+      object Label89: TLabel
+        Left = 4
+        Height = 17
+        Top = 140
+        Width = 234
+        Caption = 'Матрица соотношений элементов'
+        Font.Height = -15
+        Font.Name = 'Arial'
+        ParentColor = False
+        ParentFont = False
       end
     end
     object TabSheet2: TTabSheet
@@ -2331,7 +2343,7 @@ object Kf: TKf
         ParentFont = False
       end
       object Label76: TLabel
-        Left = 456
+        Left = 408
         Height = 17
         Top = 0
         Width = 242
@@ -2352,6 +2364,15 @@ object Kf: TKf
         Font.Name = 'Arial'
         ParentColor = False
         ParentFont = False
+      end
+      object bMicro: TButton
+        Left = 709
+        Height = 21
+        Top = 0
+        Width = 43
+        Caption = 'help'
+        OnClick = bMicroClick
+        TabOrder = 26
       end
     end
     object TabSheet3: TTabSheet
@@ -3628,7 +3649,7 @@ object Kf: TKf
             ParentFont = False
           end
           object Label75: TLabel
-            Left = 411
+            Left = 365
             Height = 17
             Top = 0
             Width = 287
@@ -3654,6 +3675,15 @@ object Kf: TKf
             Width = 52
             Caption = 'ИТОГО'
             ParentColor = False
+          end
+          object bRasch: TButton
+            Left = 696
+            Height = 25
+            Top = 0
+            Width = 51
+            Caption = 'help'
+            OnClick = bRaschClick
+            TabOrder = 68
           end
         end
         object TabSheet6: TTabSheet
@@ -4387,7 +4417,7 @@ object Kf: TKf
             ParentFont = False
           end
           object Label74: TLabel
-            Left = 367
+            Left = 330
             Height = 17
             Top = 0
             Width = 343
@@ -4415,6 +4445,15 @@ object Kf: TKf
             Caption = 'Внести в журнал'
             OnClick = Button9Click
             TabOrder = 51
+          end
+          object bIzg: TButton
+            Left = 688
+            Height = 19
+            Top = 0
+            Width = 60
+            Caption = 'help'
+            OnClick = bIzgClick
+            TabOrder = 52
           end
         end
       end
@@ -4856,6 +4895,15 @@ object Kf: TKf
         MaxLength = 0
         TabOrder = 13
         Text = 'de1'
+      end
+      object bfile: TButton
+        Left = 704
+        Height = 21
+        Top = 3
+        Width = 51
+        Caption = 'help'
+        OnClick = bfileClick
+        TabOrder = 14
       end
     end
   end

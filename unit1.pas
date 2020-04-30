@@ -58,6 +58,7 @@ type
     addrMixer: TEdit;
     Label87: TLabel;
     Label88: TLabel;
+    Label89: TLabel;
     sumA: TLabel;
     sumB: TLabel;
     tAml: TFloatSpinEdit;

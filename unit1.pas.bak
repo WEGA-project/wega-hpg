@@ -21,6 +21,10 @@ type
     bloadpf: TButton;
     Button1: TButton;
     bMacro: TButton;
+    bMicro: TButton;
+    bRasch: TButton;
+    bIzg: TButton;
+    bfile: TButton;
     Button2: TButton;
     Button3: TButton;
     Button4: TButton;
@@ -54,6 +58,7 @@ type
     addrMixer: TEdit;
     Label87: TLabel;
     Label88: TLabel;
+    Label89: TLabel;
     sumA: TLabel;
     sumB: TLabel;
     tAml: TFloatSpinEdit;
@@ -412,9 +417,13 @@ type
     Label8: TLabel;
     Label9: TLabel;
     procedure BChange(Sender: TObject);
+    procedure bfileClick(Sender: TObject);
+    procedure bIzgClick(Sender: TObject);
     procedure bloadClick(Sender: TObject);
     procedure bloadpfClick(Sender: TObject);
     procedure bMacroClick(Sender: TObject);
+    procedure bMicroClick(Sender: TObject);
+    procedure bRaschClick(Sender: TObject);
     procedure btchClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
@@ -2939,6 +2948,16 @@ begin
   OpenURL('https://github.com/siv237/HPG/wiki/Macro');
 end;
 
+procedure TKf.bMicroClick(Sender: TObject);
+begin
+  OpenURL('https://github.com/siv237/HPG/wiki/Micro');
+end;
+
+procedure TKf.bRaschClick(Sender: TObject);
+begin
+  OpenURL('https://github.com/siv237/HPG/wiki/raschet');
+end;
+
 procedure TKf.btchClick(Sender: TObject);
 begin
    MyFormatSettings.DecimalSeparator := '.';
@@ -2980,6 +2999,16 @@ begin
 
 
    end;
+end;
+
+procedure TKf.bfileClick(Sender: TObject);
+begin
+  OpenURL('https://github.com/siv237/HPG/wiki/file');
+end;
+
+procedure TKf.bIzgClick(Sender: TObject);
+begin
+  OpenURL('https://github.com/siv237/HPG/wiki/izgotovlenie');
 end;
 
 procedure TKf.CaChange(Sender: TObject);
