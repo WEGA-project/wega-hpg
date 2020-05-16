@@ -884,48 +884,62 @@ procedure CalcKoef;
 
 begin
 
+ if  ( Kf.P.value > 0 )
+ and ( Kf.K.value > 0 )
+ and ( Kf.Ca.value > 0 )
+ and ( Kf.Mg.value > 0 )
+ and ( Kf.N.value > 0 )
+ and ( Kf.S.value > 0 )
+ and ( Kf.NH4.value > 0 )
+ and ( Kf.NO3.value > 0 )
 
 
-   if ( Kf.NP.Focused = False ) then Kf.NP.value:=Kf.N.value/Kf.P.Value;
-   if ( Kf.NK.Focused = False ) then Kf.NK.value:=Kf.N.value/Kf.K.value;
+ then begin
+
+
+
+   if ( Kf.NP.Focused = False) then Kf.NP.value:=Kf.N.value/Kf.P.Value;
+   if ( Kf.NK.Focused = False )  then Kf.NK.value:=Kf.N.value/Kf.K.value;
    if ( Kf.NCa.Focused = False ) then Kf.NCa.value:=Kf.N.value/Kf.Ca.value;
    if ( Kf.NMg.Focused = False ) then Kf.NMg.value:=Kf.N.value/Kf.Mg.value;
    if ( Kf.CaN.Focused = False ) then Kf.CaN.value:=Kf.Ca.value/Kf.N.value;
    if ( Kf.NS.Focused = False ) then Kf.NS.value:=Kf.N.value/Kf.S.value;
 
    if ( Kf.PN.Focused = False ) then Kf.PN.value:=Kf.P.value/Kf.N.value;
-   if ( Kf.PK.Focused = False ) then Kf.PK.value:=Kf.P.value/Kf.K.value;
+   if ( Kf.PK.Focused = False )  then Kf.PK.value:=Kf.P.value/Kf.K.value;
    if ( Kf.PCa.Focused = False ) then Kf.PCa.value:=Kf.P.value/Kf.Ca.value;
    if ( Kf.PMg.Focused = False ) then Kf.PMg.value:=Kf.P.value/Kf.Mg.Value;
    if ( Kf.PS.Focused = False ) then Kf.PS.Value:=Kf.P.value/Kf.S.value;
 
 
   if ( Kf.KN.Focused = False ) then Kf.KN.value:=Kf.K.value/Kf.N.value;
-  if ( Kf.KP.Focused = False ) then Kf.KP.Value:=Kf.K.value/Kf.P.value;
+  if ( Kf.KP.Focused = False )  then Kf.KP.Value:=Kf.K.value/Kf.P.value;
   if ( Kf.KCa.Focused = False ) then Kf.KCa.value:=Kf.K.value/Kf.Ca.value;
   if ( Kf.KMg.Focused = False ) then Kf.KMg.value:=Kf.K.value/Kf.Mg.value;
   if ( Kf.KS.Focused = False ) then Kf.KS.value:=Kf.K.value/Kf.S.value;
 
   if ( Kf.CaN.Focused = False ) then Kf.CaN.value:=Kf.Ca.value/Kf.N.value;
-  if ( Kf.CaP.Focused = False ) then Kf.CaP.value:=Kf.Ca.value/Kf.P.value;
-  if ( Kf.CaK.Focused = False ) then Kf.CaK.value:=Kf.Ca.value/Kf.K.value;
+  if ( Kf.CaP.Focused = False )  then Kf.CaP.value:=Kf.Ca.value/Kf.P.value;
+  if ( Kf.CaK.Focused = False )  then Kf.CaK.value:=Kf.Ca.value/Kf.K.value;
   if ( Kf.CaMg.Focused = False ) then Kf.CaMg.value:=Kf.Ca.value/Kf.Mg.value;
   if ( Kf.CaS.Focused = False ) then Kf.CaS.value:=Kf.Ca.Value/Kf.S.value;
 
   if ( Kf.MgN.Focused = False ) then Kf.MgN.value:=Kf.Mg.value/Kf.N.value;
-  if ( Kf.MgP.Focused = False ) then Kf.MgP.value:=Kf.Mg.value/Kf.P.value;
+  if ( Kf.MgP.Focused = False )  then Kf.MgP.value:=Kf.Mg.value/Kf.P.value;
   if ( Kf.MgK.Focused = False ) then Kf.MgK.value:=Kf.Mg.value/Kf.K.value;
   if ( Kf.MgCa.Focused = False ) then Kf.MgCa.value:=Kf.Mg.value/Kf.Ca.value;
   if ( Kf.MgS.Focused = False ) then Kf.MgS.value:=Kf.Mg.Value/Kf.S.value;
 
   if ( Kf.SN.Focused = False ) then Kf.SN.value:=Kf.S.value/Kf.N.value;
-  if ( Kf.SP.Focused = False ) then Kf.SP.value:=Kf.S.value/Kf.P.value;
+  if ( Kf.SP.Focused = False )  then Kf.SP.value:=Kf.S.value/Kf.P.value;
   if ( Kf.SK.Focused = False ) then Kf.SK.value:=Kf.S.value/Kf.K.value;
   if ( Kf.SCa.Focused = False ) then Kf.SCa.value:=Kf.S.value/Kf.Ca.value;
   if ( Kf.SMg.Focused = False ) then Kf.SMg.value:=Kf.S.Value/Kf.Mg.value;
 
 
   if ( Kf.NH4NO3.Focused = False ) then Kf.NH4NO3.value:=Kf.NH4.Value/Kf.NO3.value;
+
+ end;
 end;
 
 
@@ -1206,7 +1220,7 @@ begin
     Av:=round((Kf.mlCaNO3.Value + Kf.mlKNO3.Value + Kf.mlNH4NO3.Value + Kf.mlMgNO3.Value)*10000)/10000;
     Am:=round((Kf.ggCaNO3.Value + Kf.ggKNO3.Value + Kf.ggNH4NO3.Value + Kf.ggMgNO3.Value)*10000)/10000;
     Ak:=round(Am/Av*100)/100;
-    Ac:=round(Kf.V.value/Kf.tAml.value*1000);
+    if (Kf.tAml.value <> 0) then Ac:=round(Kf.V.value/Kf.tAml.value*1000);
     Aw:=round(Kf.tAml.value-Av);
     Aml:= round(Kf.tAml.value/Kf.V.value*1000)/1000;
 
@@ -1226,7 +1240,7 @@ begin
      Bm:=round((Kf.ggMgSO4.Value + Kf.ggKH2PO4.Value + Kf.ggK2SO4.Value + Kf.ggFe.Value+Kf.ggMn.Value+Kf.ggB.Value+Kf.ggZn.Value+Kf.ggMo.Value+Kf.ggCo.Value+Kf.ggSi.Value)*100)/100;
      Bk:=round(Bm/Bv*100)/100;
     end;
-    Bc:=round(Kf.V.value/Kf.tBml.value*1000);
+     if (Kf.tBml.value <> 0) then Bc:=round(Kf.V.value/Kf.tBml.value*1000);
     Bw:=round(Kf.tBml.value-Bv);
     Bml:= round(Kf.tBml.value/Kf.V.value*1000)/1000;
     Kf.sumB.Caption:='Объем: '+FloatToStr(Bv)+' мл, '+'вес: '+FloatToStr(Bm)+' гр,'+ ' плотность: '+FloatToStr(Bk)+' г/мл';
@@ -1377,7 +1391,7 @@ Kf.g2gSi.Visible:=false;  Kf.cbSi.Visible:=false; Kf.mSi.Visible:=false;  Kf.l2S
 Kf.g2gCmplx.Visible:=true; Kf.cbCmplx.Visible:=true; Kf.mCmplx.Visible:=true;  Kf.l2Cmplx.Visible:=true;
 
 
-Kf.gCmplx.value:=Kf.B.value/Kf.dB.value*Kf.V.value/10000;
+if Kf.dB.value >0 then Kf.gCmplx.value:=Kf.B.value/Kf.dB.value*Kf.V.value/10000;
 Kf.Fe.value:=10000*Kf.gCmplx.value* (Kf.dFe.value/Kf.V.value);
 Kf.Mn.value:=10000*Kf.gCmplx.value* (Kf.dMn.value/Kf.V.value);
 //Kf.B.value:=1000*Kf.gCmplx.value*   (Kf.dB.value/Kf.V.value);
@@ -1928,7 +1942,7 @@ end;
 
 procedure TKf.MgChange(Sender: TObject);
 begin
-   if ( Mg.Focused = True )    then begin
+   if ( Mg.Focused = True )  and ( Mg.value <> 0 )    then begin
   //CalcKoef;
   CalcWeight ;
     CalcAll;
@@ -2501,7 +2515,7 @@ end;
 
 procedure TKf.KChange(Sender: TObject);
 begin
-   if ( K.Focused = True )    then begin
+   if ( K.Focused = True )   and ( K.value <> 0 )   then begin
  //CalcKoef;
  //CalcWeight ;
    CalcAll;
@@ -3031,7 +3045,7 @@ end;
 
 procedure TKf.CaChange(Sender: TObject);
 begin
-   if ( Ca.Focused = True )    then begin
+   if ( Ca.Focused = True )  and ( Ca.value <> 0 )    then begin
   CalculateS;
   CalcKoef;
   CalcWeight ;
@@ -3430,7 +3444,7 @@ end;
 
 procedure TKf.NChange(Sender: TObject);
 begin
-   if ( N.Focused = True )    then begin
+   if ( N.Focused = True ) and ( N.value <> 0 )    then begin
   NO3.value := N.value/(NH4NO3.value+1);
   NH4.value := NH4NO3.value*N.value/(NH4NO3.value+1);
   //CalcKoef;
@@ -3594,7 +3608,7 @@ end;
 
 procedure TKf.NO3Change(Sender: TObject);
 begin
-   if ( NO3.Focused = True )    then begin
+   if ( NO3.Focused = True ) and ( NO3.value <> 0 )   then begin
     NH4.value:=N.Value-NO3.value;
     NH4NO3.value := NH4.value/NO3.value;
     CalcAll;
@@ -3704,7 +3718,7 @@ end;
 
 procedure TKf.PChange(Sender: TObject);
 begin
-   if ( P.Focused = True )    then begin
+   if ( P.Focused = True )  and ( P.value <> 0 )    then begin
   //CalcKoef;
   //CalcWeight ;
    CalcAll;
@@ -3810,7 +3824,7 @@ end;
 
 procedure TKf.SChange(Sender: TObject);
 begin
-    if ( S.Focused = True )    then begin
+    if ( S.Focused = True )  and ( S.value <> 0 )    then begin
    CalculateCa;
 
    CalcEC;

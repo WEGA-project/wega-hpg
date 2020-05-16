@@ -1,4 +1,4 @@
-version=Hydroponic Profile Generator 0.081 https://github.com/siv237/HPG
+version=Hydroponic Profile Generator 0.086 https://github.com/siv237/HPG
 Comment=По умолчанию
 N=220.76
 NH4=19.15
@@ -74,7 +74,7 @@ gmlSi=1
 chkComplex=FALSE
 chK2SO4=TRUE
 chMgNO3=FALSE
-V=10
+V=10.2
 mCaNO3=p1
 mKNO3=p2
 mNH4NO3=p3
