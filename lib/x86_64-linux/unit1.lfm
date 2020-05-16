@@ -1,7 +1,7 @@
 object Kf: TKf
-  Left = 897
+  Left = 1072
   Height = 793
-  Top = 119
+  Top = 82
   Width = 762
   HorzScrollBar.Page = 761
   VertScrollBar.Page = 790
@@ -20,7 +20,7 @@ object Kf: TKf
     Height = 15
     Top = 773
     Width = 218
-    Caption = 'Hydroponic Profile Generator 0.084'
+    Caption = 'Hydroponic Profile Generator 0.085'
     Font.Color = clActiveCaption
     Font.Height = -13
     Font.Name = 'Arial'
@@ -2397,8 +2397,8 @@ object Kf: TKf
         TabOrder = 0
         object TabSheet5: TTabSheet
           Caption = 'Расчет'
-          ClientHeight = 612
-          ClientWidth = 748
+          ClientHeight = 581
+          ClientWidth = 746
           Font.Height = -15
           Font.Name = 'Arial'
           OnContextPopup = TabSheet5ContextPopup
@@ -2923,7 +2923,7 @@ object Kf: TKf
             Font.Name = 'Arial'
             Increment = 0.001
             MinValue = 0
-            OnChange = CalcConcChange
+            OnChange = gmlMgNO3Change
             ParentFont = False
             TabOrder = 23
             Value = 1
@@ -3520,7 +3520,7 @@ object Kf: TKf
             Increment = 0.01
             MaxValue = 9999999999
             MinValue = -999999999
-            OnChange = gMgNO3Change
+            OnChange = ggMgNO3Change
             ParentFont = False
             ReadOnly = True
             TabOrder = 60
@@ -3536,7 +3536,6 @@ object Kf: TKf
             Increment = 0.01
             MaxValue = 9999999999
             MinValue = -999999999
-            OnChange = gNH4NO3Change
             ParentFont = False
             ReadOnly = True
             TabOrder = 61
@@ -3552,7 +3551,6 @@ object Kf: TKf
             Increment = 0.01
             MaxValue = 9999999999
             MinValue = -999999999
-            OnChange = gKNO3Change
             ParentFont = False
             ReadOnly = True
             TabOrder = 62
@@ -3568,7 +3566,6 @@ object Kf: TKf
             Increment = 0.01
             MaxValue = 9999999999
             MinValue = -999999999
-            OnChange = gCaNO3Change
             ParentFont = False
             ReadOnly = True
             TabOrder = 63
@@ -3584,7 +3581,6 @@ object Kf: TKf
             Increment = 0.01
             MaxValue = 99999999999
             MinValue = -99999999999
-            OnChange = gCaNO3Change
             ParentFont = False
             ReadOnly = True
             TabOrder = 64
@@ -3616,7 +3612,6 @@ object Kf: TKf
             Increment = 0.01
             MaxValue = 99999999999
             MinValue = -99999999999
-            OnChange = gNH4NO3Change
             ParentFont = False
             ReadOnly = True
             TabOrder = 66
@@ -3632,7 +3627,7 @@ object Kf: TKf
             Increment = 0.01
             MaxValue = 99999999999
             MinValue = -99999999999
-            OnChange = gMgNO3Change
+            OnChange = mlMgNO3Change
             ParentFont = False
             ReadOnly = True
             TabOrder = 67
@@ -3689,8 +3684,8 @@ object Kf: TKf
         end
         object TabSheet6: TTabSheet
           Caption = 'Изготовление'
-          ClientHeight = 612
-          ClientWidth = 748
+          ClientHeight = 581
+          ClientWidth = 746
           Font.Height = -15
           Font.Name = 'Arial'
           ParentFont = False

@@ -498,6 +498,7 @@ type
     procedure gCoChange(Sender: TObject);
     procedure gCuChange(Sender: TObject);
     procedure gFeChange(Sender: TObject);
+    procedure ggMgNO3Change(Sender: TObject);
     procedure gK2SO4Change(Sender: TObject);
     procedure gKH2PO4Change(Sender: TObject);
     procedure gKNO3Change(Sender: TObject);
@@ -519,6 +520,7 @@ type
     procedure gMgNO3Change(Sender: TObject);
     procedure gMgSO4Change(Sender: TObject);
     procedure CalcConcChange(Sender: TObject);
+    procedure gmlMgNO3Change(Sender: TObject);
     procedure gMnChange(Sender: TObject);
     procedure gMoChange(Sender: TObject);
     procedure gNH4NO3Change(Sender: TObject);
@@ -561,6 +563,7 @@ type
     procedure KSClick(Sender: TObject);
     procedure lb1Click(Sender: TObject);
     procedure mCaNO3Change(Sender: TObject);
+    procedure mlMgNO3Change(Sender: TObject);
     procedure TabSheet4Show(Sender: TObject);
     procedure TabSheet5ContextPopup(Sender: TObject; MousePos: TPoint;
       var Handled: Boolean);
@@ -1200,19 +1203,19 @@ begin
     Kf.l2Si.Caption:= Kf.lSi.caption +' ' + FloatToStr(Kf.gSi.value) + ' г. ' + ' (' + FloatToStr(Kf.glSi.Value)+ ' г/л, '+FloatToStr(Kf.gmlSi.Value)+ ' г/мл)';
 
 
-    Av:=round((Kf.mlCaNO3.Value + Kf.mlKNO3.Value + Kf.mlNH4NO3.Value + Kf.mlMgNO3.Value)*10)/10;
-    Am:=round((Kf.ggCaNO3.Value + Kf.ggKNO3.Value + Kf.ggNH4NO3.Value + Kf.gMgNO3.Value)*100)/100;
-    Ak:=round(Am/Av*1000)/1000;
+    Av:=round((Kf.mlCaNO3.Value + Kf.mlKNO3.Value + Kf.mlNH4NO3.Value + Kf.mlMgNO3.Value)*10000)/10000;
+    Am:=round((Kf.ggCaNO3.Value + Kf.ggKNO3.Value + Kf.ggNH4NO3.Value + Kf.ggMgNO3.Value)*10000)/10000;
+    Ak:=round(Am/Av*100)/100;
     Ac:=round(Kf.V.value/Kf.tAml.value*1000);
     Aw:=round(Kf.tAml.value-Av);
-    Aml:= round(Kf.tAml.value/Kf.V.value*100)/100;
+    Aml:= round(Kf.tAml.value/Kf.V.value*1000)/1000;
 
     Kf.sumA.Caption:='Объем: '+FloatToStr(Av)+' мл, '+'вес: '+FloatToStr(Am)+' гр,'+' плотность: '+FloatToStr(Ak)+' г/мл. ';
     Kf.lVolA.Caption:='Концентрат A ('+ FloatToStr(Ac)+':1) . Долить воды: '+ FloatToStr(Aw) + 'мл. По ' + FloatToStr(Aml) + ' мл на 1л.';
     if (kF.chKComplex.Checked = True) then
     begin
-     Bv:=round((Kf.mlMgSO4.Value + Kf.mlKH2PO4.Value + Kf.mlK2SO4.Value + Kf.mlCmplx.Value)*10)/10;
-     Bm:=round((Kf.ggMgSO4.Value + Kf.ggKH2PO4.Value + Kf.ggK2SO4.Value + Kf.gCmplx.Value)*100)/100;
+     Bv:=round((Kf.mlMgSO4.Value + Kf.mlKH2PO4.Value + Kf.mlK2SO4.Value + Kf.mlCmplx.Value)*10000)/10000;
+     Bm:=round((Kf.ggMgSO4.Value + Kf.ggKH2PO4.Value + Kf.ggK2SO4.Value + Kf.ggCmplx.Value)*10000)/10000;
      Bk:=round(Bm/Bv*1000)/1000;
 
 
@@ -1221,11 +1224,11 @@ begin
     begin
      Bv:=round((Kf.mlMgSO4.Value + Kf.mlKH2PO4.Value + Kf.mlK2SO4.Value + Kf.mlFe.Value+Kf.mlMn.Value+Kf.mlB.Value+Kf.mlZn.Value+Kf.mlMo.Value+Kf.mlCo.Value+Kf.mlSi.Value)*10)/10;
      Bm:=round((Kf.ggMgSO4.Value + Kf.ggKH2PO4.Value + Kf.ggK2SO4.Value + Kf.ggFe.Value+Kf.ggMn.Value+Kf.ggB.Value+Kf.ggZn.Value+Kf.ggMo.Value+Kf.ggCo.Value+Kf.ggSi.Value)*100)/100;
-     Bk:=round(Bm/Bv*1000)/1000;
+     Bk:=round(Bm/Bv*100)/100;
     end;
     Bc:=round(Kf.V.value/Kf.tBml.value*1000);
     Bw:=round(Kf.tBml.value-Bv);
-    Bml:= round(Kf.tBml.value/Kf.V.value*100)/100;
+    Bml:= round(Kf.tBml.value/Kf.V.value*1000)/1000;
     Kf.sumB.Caption:='Объем: '+FloatToStr(Bv)+' мл, '+'вес: '+FloatToStr(Bm)+' гр,'+ ' плотность: '+FloatToStr(Bk)+' г/мл';
     Kf.lVolB.Caption:='Концентрат B ('+ FloatToStr(Bc)+':1) . Долить воды: '+ FloatToStr(Bw) + 'мл. По ' + FloatToStr(Bml) + ' мл на 1л.';
     //
@@ -2234,6 +2237,11 @@ begin
   end;
 end;
 
+procedure TKf.ggMgNO3Change(Sender: TObject);
+begin
+
+end;
+
 procedure TKf.gK2SO4Change(Sender: TObject);
 begin
   if ( gK2SO4.Focused = True )    then begin
@@ -2369,6 +2377,11 @@ begin
 end;
 
 procedure TKf.CalcConcChange(Sender: TObject);
+begin
+  CalcConc;
+end;
+
+procedure TKf.gmlMgNO3Change(Sender: TObject);
 begin
   CalcConc;
 end;
@@ -2746,6 +2759,11 @@ if (lb1.Count > 0 ) then
 end;
 
 procedure TKf.mCaNO3Change(Sender: TObject);
+begin
+
+end;
+
+procedure TKf.mlMgNO3Change(Sender: TObject);
 begin
 
 end;

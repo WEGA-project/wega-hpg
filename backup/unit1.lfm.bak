@@ -1,7 +1,7 @@
 object Kf: TKf
-  Left = 981
+  Left = 1072
   Height = 793
-  Top = 62
+  Top = 82
   Width = 762
   HorzScrollBar.Page = 761
   VertScrollBar.Page = 790
@@ -20,7 +20,7 @@ object Kf: TKf
     Height = 15
     Top = 773
     Width = 218
-    Caption = 'Hydroponic Profile Generator 0.083'
+    Caption = 'Hydroponic Profile Generator 0.085'
     Font.Color = clActiveCaption
     Font.Height = -13
     Font.Name = 'Arial'
@@ -67,6 +67,8 @@ object Kf: TKf
         Height = 27
         Top = 42
         Width = 94
+        Color = clMoneyGreen
+        Font.Color = clMaroon
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.01
@@ -285,9 +287,9 @@ object Kf: TKf
         Value = 0.1
       end
       object Label10: TLabel
-        Left = 99
+        Left = 94
         Height = 17
-        Top = 141
+        Top = 158
         Width = 11
         Caption = 'N'
         Font.Height = -15
@@ -299,7 +301,7 @@ object Kf: TKf
       object Label11: TLabel
         Left = 209
         Height = 17
-        Top = 141
+        Top = 158
         Width = 10
         Caption = 'P'
         Font.Height = -15
@@ -311,7 +313,7 @@ object Kf: TKf
       object Label12: TLabel
         Left = 319
         Height = 17
-        Top = 141
+        Top = 158
         Width = 11
         Caption = 'K'
         Font.Height = -15
@@ -323,7 +325,7 @@ object Kf: TKf
       object Label13: TLabel
         Left = 427
         Height = 17
-        Top = 141
+        Top = 158
         Width = 19
         Caption = 'Ca'
         Font.Height = -15
@@ -335,7 +337,7 @@ object Kf: TKf
       object Label14: TLabel
         Left = 550
         Height = 17
-        Top = 141
+        Top = 158
         Width = 22
         Caption = 'Mg'
         Font.Height = -15
@@ -347,7 +349,7 @@ object Kf: TKf
       object Label15: TLabel
         Left = 677
         Height = 17
-        Top = 141
+        Top = 158
         Width = 10
         Caption = 'S'
         Font.Height = -15
@@ -357,9 +359,9 @@ object Kf: TKf
         ParentFont = False
       end
       object Label16: TLabel
-        Left = 10
+        Left = 20
         Height = 17
-        Top = 180
+        Top = 182
         Width = 11
         Caption = 'N'
         Font.Height = -15
@@ -369,9 +371,9 @@ object Kf: TKf
         ParentFont = False
       end
       object Label17: TLabel
-        Left = 10
+        Left = 20
         Height = 17
-        Top = 221
+        Top = 223
         Width = 10
         Caption = 'P'
         Font.Height = -15
@@ -381,9 +383,9 @@ object Kf: TKf
         ParentFont = False
       end
       object Label18: TLabel
-        Left = 10
+        Left = 20
         Height = 17
-        Top = 261
+        Top = 263
         Width = 11
         Caption = 'K'
         Font.Height = -15
@@ -393,9 +395,9 @@ object Kf: TKf
         ParentFont = False
       end
       object Label19: TLabel
-        Left = 10
+        Left = 20
         Height = 17
-        Top = 300
+        Top = 302
         Width = 19
         Caption = 'Ca'
         Font.Height = -15
@@ -405,9 +407,9 @@ object Kf: TKf
         ParentFont = False
       end
       object Label20: TLabel
-        Left = 10
+        Left = 20
         Height = 17
-        Top = 340
+        Top = 342
         Width = 22
         Caption = 'Mg'
         Font.Height = -15
@@ -417,9 +419,9 @@ object Kf: TKf
         ParentFont = False
       end
       object Label21: TLabel
-        Left = 10
+        Left = 20
         Height = 17
-        Top = 381
+        Top = 383
         Width = 10
         Caption = 'S'
         Font.Height = -15
@@ -1709,6 +1711,17 @@ object Kf: TKf
         OnClick = bMacroClick
         TabOrder = 64
       end
+      object Label89: TLabel
+        Left = 4
+        Height = 17
+        Top = 140
+        Width = 234
+        Caption = 'Матрица соотношений элементов'
+        Font.Height = -15
+        Font.Name = 'Arial'
+        ParentColor = False
+        ParentFont = False
+      end
     end
     object TabSheet2: TTabSheet
       Caption = 'Микро'
@@ -2910,7 +2923,7 @@ object Kf: TKf
             Font.Name = 'Arial'
             Increment = 0.001
             MinValue = 0
-            OnChange = CalcConcChange
+            OnChange = gmlMgNO3Change
             ParentFont = False
             TabOrder = 23
             Value = 1
@@ -3507,7 +3520,7 @@ object Kf: TKf
             Increment = 0.01
             MaxValue = 9999999999
             MinValue = -999999999
-            OnChange = gMgNO3Change
+            OnChange = ggMgNO3Change
             ParentFont = False
             ReadOnly = True
             TabOrder = 60
@@ -3523,7 +3536,6 @@ object Kf: TKf
             Increment = 0.01
             MaxValue = 9999999999
             MinValue = -999999999
-            OnChange = gNH4NO3Change
             ParentFont = False
             ReadOnly = True
             TabOrder = 61
@@ -3539,7 +3551,6 @@ object Kf: TKf
             Increment = 0.01
             MaxValue = 9999999999
             MinValue = -999999999
-            OnChange = gKNO3Change
             ParentFont = False
             ReadOnly = True
             TabOrder = 62
@@ -3555,7 +3566,6 @@ object Kf: TKf
             Increment = 0.01
             MaxValue = 9999999999
             MinValue = -999999999
-            OnChange = gCaNO3Change
             ParentFont = False
             ReadOnly = True
             TabOrder = 63
@@ -3571,7 +3581,6 @@ object Kf: TKf
             Increment = 0.01
             MaxValue = 99999999999
             MinValue = -99999999999
-            OnChange = gCaNO3Change
             ParentFont = False
             ReadOnly = True
             TabOrder = 64
@@ -3603,7 +3612,6 @@ object Kf: TKf
             Increment = 0.01
             MaxValue = 99999999999
             MinValue = -99999999999
-            OnChange = gNH4NO3Change
             ParentFont = False
             ReadOnly = True
             TabOrder = 66
@@ -3619,7 +3627,7 @@ object Kf: TKf
             Increment = 0.01
             MaxValue = 99999999999
             MinValue = -99999999999
-            OnChange = gMgNO3Change
+            OnChange = mlMgNO3Change
             ParentFont = False
             ReadOnly = True
             TabOrder = 67
