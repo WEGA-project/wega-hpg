@@ -1,13 +1,13 @@
 object Kf: TKf
-  Left = 1013
-  Height = 793
-  Top = 159
+  Left = 963
+  Height = 804
+  Top = 71
   Width = 762
   HorzScrollBar.Page = 761
-  VertScrollBar.Page = 790
+  VertScrollBar.Page = 793
   AutoScroll = True
   Caption = 'Koefficients'
-  ClientHeight = 793
+  ClientHeight = 804
   ClientWidth = 762
   Font.Color = clMaroon
   Font.Height = -15
@@ -20,7 +20,7 @@ object Kf: TKf
     Height = 15
     Top = 773
     Width = 218
-    Caption = 'Hydroponic Profile Generator 0.086'
+    Caption = 'Hydroponic Profile Generator 0.088'
     Font.Color = clActiveCaption
     Font.Height = -13
     Font.Name = 'Arial'
@@ -34,11 +34,11 @@ object Kf: TKf
     Height = 704
     Top = 0
     Width = 761
-    ActivePage = TabSheet3
+    ActivePage = TabSheet2
     Font.Height = -15
     Font.Name = 'Arial'
     ParentFont = False
-    TabIndex = 2
+    TabIndex = 1
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'Макро'
@@ -1763,9 +1763,9 @@ object Kf: TKf
       ParentFont = False
       object Label31: TLabel
         Left = 29
-        Height = 18
+        Height = 17
         Top = 32
-        Width = 18
+        Width = 17
         Caption = 'Fe'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -1775,7 +1775,7 @@ object Kf: TKf
       end
       object Label32: TLabel
         Left = 112
-        Height = 18
+        Height = 17
         Top = 32
         Width = 22
         Caption = 'Mn'
@@ -1787,7 +1787,7 @@ object Kf: TKf
       end
       object Label33: TLabel
         Left = 200
-        Height = 18
+        Height = 17
         Top = 32
         Width = 11
         Caption = 'B'
@@ -1799,9 +1799,9 @@ object Kf: TKf
       end
       object Label35: TLabel
         Left = 295
-        Height = 18
+        Height = 17
         Top = 32
-        Width = 17
+        Width = 18
         Caption = 'Zn'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -1811,7 +1811,7 @@ object Kf: TKf
       end
       object Label34: TLabel
         Left = 385
-        Height = 18
+        Height = 17
         Top = 32
         Width = 20
         Caption = 'Cu'
@@ -1823,7 +1823,7 @@ object Kf: TKf
       end
       object Label56: TLabel
         Left = 477
-        Height = 18
+        Height = 17
         Top = 32
         Width = 22
         Caption = 'Mo'
@@ -1835,7 +1835,7 @@ object Kf: TKf
       end
       object Label57: TLabel
         Left = 568
-        Height = 18
+        Height = 17
         Top = 32
         Width = 20
         Caption = 'Co'
@@ -1847,7 +1847,7 @@ object Kf: TKf
       end
       object Label58: TLabel
         Left = 664
-        Height = 18
+        Height = 17
         Top = 32
         Width = 14
         Caption = 'Si'
@@ -1861,7 +1861,7 @@ object Kf: TKf
         Left = 8
         Height = 17
         Top = 137
-        Width = 80
+        Width = 81
         Caption = 'Железо (%)'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -1872,7 +1872,7 @@ object Kf: TKf
         Left = 8
         Height = 17
         Top = 170
-        Width = 92
+        Width = 94
         Caption = 'Марганец (%)'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -1905,7 +1905,7 @@ object Kf: TKf
         Left = 8
         Height = 17
         Top = 266
-        Width = 63
+        Width = 65
         Caption = 'Медь (%)'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -1916,7 +1916,7 @@ object Kf: TKf
         Left = 8
         Height = 17
         Top = 298
-        Width = 96
+        Width = 99
         Caption = 'Молибден (%)'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -1927,7 +1927,7 @@ object Kf: TKf
         Left = 8
         Height = 17
         Top = 331
-        Width = 84
+        Width = 85
         Caption = 'Кобальт (%)'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -1947,7 +1947,7 @@ object Kf: TKf
       end
       object Fe: TFloatSpinEdit
         Left = 15
-        Height = 25
+        Height = 27
         Top = 64
         Width = 88
         DecimalPlaces = 0
@@ -1962,7 +1962,7 @@ object Kf: TKf
       end
       object Mn: TFloatSpinEdit
         Left = 105
-        Height = 25
+        Height = 27
         Top = 64
         Width = 88
         DecimalPlaces = 0
@@ -1977,7 +1977,7 @@ object Kf: TKf
       end
       object B: TFloatSpinEdit
         Left = 194
-        Height = 25
+        Height = 27
         Top = 64
         Width = 88
         DecimalPlaces = 0
@@ -1992,7 +1992,7 @@ object Kf: TKf
       end
       object Zn: TFloatSpinEdit
         Left = 284
-        Height = 25
+        Height = 27
         Top = 64
         Width = 88
         DecimalPlaces = 0
@@ -2007,7 +2007,7 @@ object Kf: TKf
       end
       object Cu: TFloatSpinEdit
         Left = 373
-        Height = 25
+        Height = 27
         Top = 64
         Width = 88
         DecimalPlaces = 0
@@ -2022,7 +2022,7 @@ object Kf: TKf
       end
       object Mo: TFloatSpinEdit
         Left = 462
-        Height = 25
+        Height = 27
         Top = 64
         Width = 88
         DecimalPlaces = 0
@@ -2037,7 +2037,7 @@ object Kf: TKf
       end
       object Co: TFloatSpinEdit
         Left = 551
-        Height = 25
+        Height = 27
         Top = 64
         Width = 88
         DecimalPlaces = 0
@@ -2052,7 +2052,7 @@ object Kf: TKf
       end
       object Si: TFloatSpinEdit
         Left = 640
-        Height = 25
+        Height = 27
         Top = 64
         Width = 88
         DecimalPlaces = 0
@@ -2067,7 +2067,7 @@ object Kf: TKf
       end
       object dFe: TFloatSpinEdit
         Left = 150
-        Height = 25
+        Height = 27
         Top = 132
         Width = 97
         DecimalPlaces = 4
@@ -2082,7 +2082,7 @@ object Kf: TKf
       end
       object dMn: TFloatSpinEdit
         Left = 150
-        Height = 25
+        Height = 27
         Top = 165
         Width = 97
         DecimalPlaces = 4
@@ -2097,7 +2097,7 @@ object Kf: TKf
       end
       object dB: TFloatSpinEdit
         Left = 150
-        Height = 25
+        Height = 27
         Top = 197
         Width = 97
         DecimalPlaces = 4
@@ -2112,7 +2112,7 @@ object Kf: TKf
       end
       object dZn: TFloatSpinEdit
         Left = 150
-        Height = 25
+        Height = 27
         Top = 229
         Width = 97
         DecimalPlaces = 4
@@ -2127,7 +2127,7 @@ object Kf: TKf
       end
       object dCu: TFloatSpinEdit
         Left = 150
-        Height = 25
+        Height = 27
         Top = 261
         Width = 97
         DecimalPlaces = 4
@@ -2142,7 +2142,7 @@ object Kf: TKf
       end
       object dMo: TFloatSpinEdit
         Left = 150
-        Height = 25
+        Height = 27
         Top = 293
         Width = 97
         DecimalPlaces = 4
@@ -2157,7 +2157,7 @@ object Kf: TKf
       end
       object dCo: TFloatSpinEdit
         Left = 150
-        Height = 25
+        Height = 27
         Top = 325
         Width = 97
         DecimalPlaces = 4
@@ -2172,7 +2172,7 @@ object Kf: TKf
       end
       object dSi: TFloatSpinEdit
         Left = 150
-        Height = 25
+        Height = 27
         Top = 357
         Width = 97
         DecimalPlaces = 4
@@ -2187,7 +2187,7 @@ object Kf: TKf
       end
       object gFe: TFloatSpinEdit
         Left = 256
-        Height = 25
+        Height = 27
         Top = 132
         Width = 97
         DecimalPlaces = 5
@@ -2203,7 +2203,7 @@ object Kf: TKf
       end
       object gMn: TFloatSpinEdit
         Left = 256
-        Height = 25
+        Height = 27
         Top = 165
         Width = 97
         DecimalPlaces = 5
@@ -2219,7 +2219,7 @@ object Kf: TKf
       end
       object gB: TFloatSpinEdit
         Left = 256
-        Height = 25
+        Height = 27
         Top = 197
         Width = 97
         DecimalPlaces = 5
@@ -2235,7 +2235,7 @@ object Kf: TKf
       end
       object gZn: TFloatSpinEdit
         Left = 256
-        Height = 25
+        Height = 27
         Top = 229
         Width = 97
         DecimalPlaces = 5
@@ -2251,7 +2251,7 @@ object Kf: TKf
       end
       object gCu: TFloatSpinEdit
         Left = 256
-        Height = 25
+        Height = 27
         Top = 261
         Width = 97
         DecimalPlaces = 5
@@ -2267,7 +2267,7 @@ object Kf: TKf
       end
       object gMo: TFloatSpinEdit
         Left = 256
-        Height = 25
+        Height = 27
         Top = 293
         Width = 97
         DecimalPlaces = 5
@@ -2283,7 +2283,7 @@ object Kf: TKf
       end
       object gCo: TFloatSpinEdit
         Left = 256
-        Height = 25
+        Height = 27
         Top = 325
         Width = 97
         DecimalPlaces = 5
@@ -2299,7 +2299,7 @@ object Kf: TKf
       end
       object gSi: TFloatSpinEdit
         Left = 256
-        Height = 25
+        Height = 27
         Top = 357
         Width = 97
         DecimalPlaces = 5
@@ -2317,7 +2317,7 @@ object Kf: TKf
         Left = 155
         Height = 17
         Top = 115
-        Width = 60
+        Width = 61
         Caption = 'доля (%)'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -2339,7 +2339,7 @@ object Kf: TKf
         Left = 8
         Height = 21
         Top = 400
-        Width = 142
+        Width = 147
         Caption = 'Комплекс по бору'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -2349,7 +2349,7 @@ object Kf: TKf
       end
       object gCmplx: TFloatSpinEdit
         Left = 256
-        Height = 25
+        Height = 27
         Top = 392
         Width = 97
         DecimalPlaces = 5
@@ -2366,7 +2366,7 @@ object Kf: TKf
         Left = 4
         Height = 17
         Top = 2
-        Width = 151
+        Width = 156
         Caption = 'Микропрофиль в мкг/л'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -2375,9 +2375,9 @@ object Kf: TKf
       end
       object Label76: TLabel
         Left = 408
-        Height = 18
+        Height = 17
         Top = 0
-        Width = 244
+        Width = 242
         Caption = 'Расчет навесок микроэлементов'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -2389,7 +2389,7 @@ object Kf: TKf
         Left = 8
         Height = 17
         Top = 104
-        Width = 105
+        Width = 106
         Caption = 'Составы солей'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -2419,16 +2419,16 @@ object Kf: TKf
         Height = 616
         Top = 0
         Width = 752
-        ActivePage = TabSheet6
+        ActivePage = TabSheet5
         Font.Height = -15
         Font.Name = 'Arial'
         ParentFont = False
-        TabIndex = 1
+        TabIndex = 0
         TabOrder = 0
         object TabSheet5: TTabSheet
           Caption = 'Расчет'
-          ClientHeight = 581
-          ClientWidth = 746
+          ClientHeight = 612
+          ClientWidth = 748
           Font.Height = -15
           Font.Name = 'Arial'
           OnContextPopup = TabSheet5ContextPopup
@@ -3714,8 +3714,8 @@ object Kf: TKf
         end
         object TabSheet6: TTabSheet
           Caption = 'Изготовление'
-          ClientHeight = 581
-          ClientWidth = 746
+          ClientHeight = 612
+          ClientWidth = 748
           Font.Height = -15
           Font.Name = 'Arial'
           ParentFont = False
@@ -5033,15 +5033,42 @@ object Kf: TKf
     ParentFont = False
     TabOrder = 7
   end
+  object Label90: TLabel
+    Left = 10
+    Height = 17
+    Top = 770
+    Width = 121
+    Caption = 'Солей в граммах:'
+    Font.Height = -15
+    Font.Name = 'Arial'
+    ParentColor = False
+    ParentFont = False
+  end
+  object sSoil: TFloatSpinEdit
+    Left = 136
+    Height = 27
+    Top = 766
+    Width = 80
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Increment = 0.01
+    MaxValue = 999999
+    MinValue = 0
+    ParentFont = False
+    ReadOnly = True
+    TabOrder = 8
+    Value = 0
+  end
   object od1: TOpenDialog
     DefaultExt = '.hpg'
     Filter = 'hpg|*.hpg'
-    left = 32
-    top = 769
+    left = 584
+    top = 600
   end
   object sd1: TSaveDialog
     DefaultExt = '.hpg'
     Filter = 'hpg|*.hpg'
-    top = 769
+    left = 584
+    top = 552
   end
 end

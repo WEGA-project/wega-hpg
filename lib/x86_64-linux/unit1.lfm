@@ -1,13 +1,13 @@
 object Kf: TKf
-  Left = 1013
-  Height = 793
-  Top = 159
+  Left = 963
+  Height = 804
+  Top = 71
   Width = 762
   HorzScrollBar.Page = 761
-  VertScrollBar.Page = 790
+  VertScrollBar.Page = 793
   AutoScroll = True
   Caption = 'Koefficients'
-  ClientHeight = 793
+  ClientHeight = 804
   ClientWidth = 762
   Font.Color = clMaroon
   Font.Height = -15
@@ -20,7 +20,7 @@ object Kf: TKf
     Height = 15
     Top = 773
     Width = 218
-    Caption = 'Hydroponic Profile Generator 0.087'
+    Caption = 'Hydroponic Profile Generator 0.088'
     Font.Color = clActiveCaption
     Font.Height = -13
     Font.Name = 'Arial'
@@ -2427,8 +2427,8 @@ object Kf: TKf
         TabOrder = 0
         object TabSheet5: TTabSheet
           Caption = 'Расчет'
-          ClientHeight = 581
-          ClientWidth = 746
+          ClientHeight = 612
+          ClientWidth = 748
           Font.Height = -15
           Font.Name = 'Arial'
           OnContextPopup = TabSheet5ContextPopup
@@ -3714,8 +3714,8 @@ object Kf: TKf
         end
         object TabSheet6: TTabSheet
           Caption = 'Изготовление'
-          ClientHeight = 581
-          ClientWidth = 746
+          ClientHeight = 612
+          ClientWidth = 748
           Font.Height = -15
           Font.Name = 'Arial'
           ParentFont = False
@@ -5033,15 +5033,42 @@ object Kf: TKf
     ParentFont = False
     TabOrder = 7
   end
+  object Label90: TLabel
+    Left = 10
+    Height = 17
+    Top = 770
+    Width = 121
+    Caption = 'Солей в граммах:'
+    Font.Height = -15
+    Font.Name = 'Arial'
+    ParentColor = False
+    ParentFont = False
+  end
+  object sSoil: TFloatSpinEdit
+    Left = 136
+    Height = 27
+    Top = 766
+    Width = 80
+    Font.Height = -15
+    Font.Name = 'Arial'
+    Increment = 0.01
+    MaxValue = 999999
+    MinValue = 0
+    ParentFont = False
+    ReadOnly = True
+    TabOrder = 8
+    Value = 0
+  end
   object od1: TOpenDialog
     DefaultExt = '.hpg'
     Filter = 'hpg|*.hpg'
-    left = 32
-    top = 769
+    left = 584
+    top = 600
   end
   object sd1: TSaveDialog
     DefaultExt = '.hpg'
     Filter = 'hpg|*.hpg'
-    top = 769
+    left = 584
+    top = 552
   end
 end

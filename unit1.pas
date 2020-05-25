@@ -56,9 +56,11 @@ type
     de1: TDateEdit;
     eComment: TEdit;
     addrMixer: TEdit;
+    sSoil: TFloatSpinEdit;
     Label87: TLabel;
     Label88: TLabel;
     Label89: TLabel;
+    Label90: TLabel;
     sumA: TLabel;
     sumB: TLabel;
     tAml: TFloatSpinEdit;
@@ -564,6 +566,7 @@ type
     procedure lb1Click(Sender: TObject);
     procedure mCaNO3Change(Sender: TObject);
     procedure mlMgNO3Change(Sender: TObject);
+
     procedure TabSheet4Show(Sender: TObject);
     procedure TabSheet5ContextPopup(Sender: TObject; MousePos: TPoint;
       var Handled: Boolean);
@@ -837,6 +840,45 @@ begin
   //Kf.EC.Value:=vEC;
 end;
 
+procedure CalcSoil ;
+begin
+
+  if (kF.chKComplex.Checked = False) then  begin
+
+   Kf.sSoil.value:=Kf.gCaNO3.value
+   +Kf.gKNO3.value
+   +Kf.gNH4NO3.value
+   +Kf.gMgNO3.value
+   +Kf.gMgSO4.value
+   +Kf.gKH2PO4.value
+   +Kf.gK2SO4.value
+   +Kf.gFe.value
+   +Kf.gMn.value
+   +Kf.gB.value
+   +Kf.gZn.value
+   +Kf.gCu.value
+   +Kf.gMo.value
+   +Kf.gCo.value
+   +Kf.gSi.value
+   ;
+
+  end
+  else begin
+      Kf.sSoil.value:=Kf.gCaNO3.value
+   +Kf.gKNO3.value
+   +Kf.gNH4NO3.value
+   +Kf.gMgNO3.value
+   +Kf.gMgSO4.value
+   +Kf.gKH2PO4.value
+   +Kf.gK2SO4.value
+   +Kf.gCmplx.value
+
+   ;
+
+  end;
+
+end;
+
 procedure genProfile;
 
 
@@ -877,7 +919,8 @@ begin
                   +'(N:K='+FloatToStr(round(vN/vK*10)/10)+' '
                   +'N:P='+FloatToStr(round(vN/vP*10)/10)+')';
 
-   ;
+
+   CalcSoil ;
 end;
 
 procedure CalcKoef;
@@ -1046,6 +1089,8 @@ end;
         end;
    end;
 
+
+
 procedure fromWeight ;
 begin
    getVar;
@@ -1091,6 +1136,11 @@ begin
 
 
 end;
+
+
+
+
+
 
 procedure CalcConc;
 var
@@ -1257,6 +1307,7 @@ begin
  genProfile;
  CalcWeight ;
  GenNH4NO3event;
+
 end;
 
 
@@ -1403,6 +1454,7 @@ Kf.Si.value:=10000*Kf.gCmplx.value* (Kf.dSi.value/Kf.V.value);
  end;
 
  genProfile;
+ CalcSoil ;
 end ;
 
 
@@ -2782,6 +2834,8 @@ begin
 
 end;
 
+
+
 procedure TKf.TabSheet4Show(Sender: TObject);
 begin
 
@@ -3432,6 +3486,8 @@ begin
    CalcConc;
    SoilName;
    genProfile;
+   CalcSoil ;
+
 
   //de1.text:=DateToStr(now);
   //pr2.Caption:=profile.Caption;
@@ -3927,6 +3983,7 @@ begin
   CalcWeight ;
   microToWeght;
   CalcConc;
+  CalcSoil ;
   //WeghtTomicro
   //VtoMicrot;
    //microToWeght;
