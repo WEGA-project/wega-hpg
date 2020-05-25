@@ -1,7 +1,7 @@
 object Kf: TKf
-  Left = 1072
+  Left = 1013
   Height = 793
-  Top = 82
+  Top = 159
   Width = 762
   HorzScrollBar.Page = 761
   VertScrollBar.Page = 790
@@ -20,7 +20,7 @@ object Kf: TKf
     Height = 15
     Top = 773
     Width = 218
-    Caption = 'Hydroponic Profile Generator 0.085'
+    Caption = 'Hydroponic Profile Generator 0.087'
     Font.Color = clActiveCaption
     Font.Height = -13
     Font.Name = 'Arial'
@@ -148,7 +148,7 @@ object Kf: TKf
         Font.Name = 'Arial'
         Increment = 0.01
         MaxValue = 999
-        MinValue = 0
+        MinValue = 0.01
         OnChange = NO3Change
         ParentFont = False
         TabOrder = 6
@@ -441,13 +441,14 @@ object Kf: TKf
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.001
-        MinValue = 0
+        MaxValue = 999
+        MinValue = 0.001
         OnChange = NPChange
         ParentFont = False
         ParentShowHint = False
         ShowHint = True
         TabOrder = 9
-        Value = 0
+        Value = 0.001
       end
       object NK: TFloatSpinEdit
         Left = 61
@@ -458,11 +459,12 @@ object Kf: TKf
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.001
-        MinValue = 0
+        MaxValue = 999
+        MinValue = 0.001
         OnChange = NKChange
         ParentFont = False
         TabOrder = 10
-        Value = 0
+        Value = 0.001
       end
       object NMg: TFloatSpinEdit
         Left = 61
@@ -473,11 +475,12 @@ object Kf: TKf
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.001
-        MinValue = 0
+        MaxValue = 999
+        MinValue = 0.001
         OnChange = NMgChange
         ParentFont = False
         TabOrder = 11
-        Value = 0
+        Value = 0.001
       end
       object NS: TFloatSpinEdit
         Left = 61
@@ -488,11 +491,12 @@ object Kf: TKf
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.001
-        MinValue = 0
+        MaxValue = 999
+        MinValue = 0.001
         OnChange = NSChange
         ParentFont = False
         TabOrder = 12
-        Value = 0
+        Value = 0.001
       end
       object PN: TFloatSpinEdit
         Left = 177
@@ -503,11 +507,12 @@ object Kf: TKf
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.001
-        MinValue = 0
+        MaxValue = 999
+        MinValue = 0.001
         OnChange = PNChange
         ParentFont = False
         TabOrder = 13
-        Value = 0
+        Value = 0.001
       end
       object PK: TFloatSpinEdit
         Left = 177
@@ -518,11 +523,12 @@ object Kf: TKf
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.001
-        MinValue = 0
+        MaxValue = 999
+        MinValue = 0.001
         OnChange = PKChange
         ParentFont = False
         TabOrder = 14
-        Value = 0
+        Value = 0.001
       end
       object PCa: TFloatSpinEdit
         Left = 177
@@ -533,11 +539,12 @@ object Kf: TKf
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.001
-        MinValue = 0
+        MaxValue = 999
+        MinValue = 0.001
         OnChange = PCaChange
         ParentFont = False
         TabOrder = 15
-        Value = 0
+        Value = 0.001
       end
       object PMg: TFloatSpinEdit
         Left = 177
@@ -548,11 +555,12 @@ object Kf: TKf
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.001
-        MinValue = 0
+        MaxValue = 999
+        MinValue = 0.001
         OnChange = PMgChange
         ParentFont = False
         TabOrder = 16
-        Value = 0
+        Value = 0.001
       end
       object PS: TFloatSpinEdit
         Left = 177
@@ -563,11 +571,12 @@ object Kf: TKf
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.001
-        MinValue = 0
+        MaxValue = 999
+        MinValue = 0.001
         OnChange = PSChange
         ParentFont = False
         TabOrder = 17
-        Value = 0
+        Value = 0.001
       end
       object KN: TFloatSpinEdit
         Left = 292
@@ -580,11 +589,12 @@ object Kf: TKf
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.001
-        MinValue = 0
+        MaxValue = 999
+        MinValue = 0.001
         OnChange = KNChange
         ParentFont = False
         TabOrder = 18
-        Value = 0
+        Value = 0.001
       end
       object KP: TFloatSpinEdit
         Left = 292
@@ -595,11 +605,12 @@ object Kf: TKf
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.001
-        MinValue = 0
+        MaxValue = 999
+        MinValue = 0.001
         OnChange = KPChange
         ParentFont = False
         TabOrder = 19
-        Value = 0
+        Value = 0.001
       end
       object KCa: TFloatSpinEdit
         Left = 292
@@ -612,11 +623,12 @@ object Kf: TKf
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.001
-        MinValue = 0
+        MaxValue = 999
+        MinValue = 0.001
         OnChange = KCaChange
         ParentFont = False
         TabOrder = 20
-        Value = 0
+        Value = 0.001
       end
       object KMg: TFloatSpinEdit
         Left = 292
@@ -629,11 +641,12 @@ object Kf: TKf
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.001
-        MinValue = 0
+        MaxValue = 999
+        MinValue = 0.001
         OnChange = KMgChange
         ParentFont = False
         TabOrder = 21
-        Value = 0
+        Value = 0.001
       end
       object KS: TFloatSpinEdit
         Left = 292
@@ -644,11 +657,12 @@ object Kf: TKf
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.001
-        MinValue = 0
+        MaxValue = 999
+        MinValue = 0.001
         OnChange = KSChange
         ParentFont = False
         TabOrder = 22
-        Value = 0
+        Value = 0.001
       end
       object CaN: TFloatSpinEdit
         Left = 407
@@ -660,11 +674,12 @@ object Kf: TKf
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.001
-        MinValue = 0
+        MaxValue = 999
+        MinValue = 0.001
         OnChange = CaNChange
         ParentFont = False
         TabOrder = 23
-        Value = 0
+        Value = 0.001
       end
       object CaP: TFloatSpinEdit
         Left = 407
@@ -675,11 +690,12 @@ object Kf: TKf
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.001
-        MinValue = 0
+        MaxValue = 999
+        MinValue = 0.001
         OnChange = CaPChange
         ParentFont = False
         TabOrder = 24
-        Value = 0
+        Value = 0.001
       end
       object CaK: TFloatSpinEdit
         Left = 407
@@ -691,11 +707,12 @@ object Kf: TKf
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.001
-        MinValue = 0
+        MaxValue = 999
+        MinValue = 0.001
         OnChange = CaKChange
         ParentFont = False
         TabOrder = 25
-        Value = 0
+        Value = 0.001
       end
       object CaMg: TFloatSpinEdit
         Left = 407
@@ -707,11 +724,12 @@ object Kf: TKf
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.001
-        MinValue = 0
+        MaxValue = 999
+        MinValue = 0.001
         OnChange = CaMgChange
         ParentFont = False
         TabOrder = 26
-        Value = 0
+        Value = 0.001
       end
       object CaS: TFloatSpinEdit
         Left = 407
@@ -722,11 +740,12 @@ object Kf: TKf
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.001
-        MinValue = 0
+        MaxValue = 999
+        MinValue = 0.001
         OnChange = CaSChange
         ParentFont = False
         TabOrder = 27
-        Value = 0
+        Value = 0.001
       end
       object MgN: TFloatSpinEdit
         Left = 523
@@ -737,11 +756,12 @@ object Kf: TKf
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.001
-        MinValue = 0
+        MaxValue = 999
+        MinValue = 0.001
         OnChange = MgNChange
         ParentFont = False
         TabOrder = 28
-        Value = 0
+        Value = 0.001
       end
       object MgP: TFloatSpinEdit
         Left = 523
@@ -752,11 +772,12 @@ object Kf: TKf
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.001
-        MinValue = 0
+        MaxValue = 999
+        MinValue = 0.001
         OnChange = MgPChange
         ParentFont = False
         TabOrder = 29
-        Value = 0
+        Value = 0.001
       end
       object MgK: TFloatSpinEdit
         Left = 523
@@ -768,11 +789,12 @@ object Kf: TKf
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.001
-        MinValue = 0
+        MaxValue = 999
+        MinValue = 0.001
         OnChange = MgKChange
         ParentFont = False
         TabOrder = 30
-        Value = 0
+        Value = 0.001
       end
       object MgCa: TFloatSpinEdit
         Left = 523
@@ -784,11 +806,12 @@ object Kf: TKf
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.001
-        MinValue = 0
+        MaxValue = 999
+        MinValue = 0.001
         OnChange = MgCaChange
         ParentFont = False
         TabOrder = 31
-        Value = 0
+        Value = 0.001
       end
       object MgS: TFloatSpinEdit
         Left = 523
@@ -799,11 +822,12 @@ object Kf: TKf
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.001
-        MinValue = 0
+        MaxValue = 999
+        MinValue = 0.001
         OnChange = MgSChange
         ParentFont = False
         TabOrder = 32
-        Value = 0
+        Value = 0.001
       end
       object SN: TFloatSpinEdit
         Left = 639
@@ -814,11 +838,12 @@ object Kf: TKf
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.001
-        MinValue = 0
+        MaxValue = 999
+        MinValue = 0.001
         OnChange = SNChange
         ParentFont = False
         TabOrder = 33
-        Value = 0
+        Value = 0.001
       end
       object SP: TFloatSpinEdit
         Left = 639
@@ -829,11 +854,12 @@ object Kf: TKf
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.001
-        MinValue = 0
+        MaxValue = 999
+        MinValue = 0.001
         OnChange = SPChange
         ParentFont = False
         TabOrder = 34
-        Value = 0
+        Value = 0.001
       end
       object SK: TFloatSpinEdit
         Left = 639
@@ -844,11 +870,12 @@ object Kf: TKf
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.001
-        MinValue = 0
+        MaxValue = 999
+        MinValue = 0.001
         OnChange = SKChange
         ParentFont = False
         TabOrder = 35
-        Value = 0
+        Value = 0.001
       end
       object SCa: TFloatSpinEdit
         Left = 639
@@ -859,11 +886,12 @@ object Kf: TKf
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.001
-        MinValue = 0
+        MaxValue = 999
+        MinValue = 0.001
         OnChange = SCaChange
         ParentFont = False
         TabOrder = 36
-        Value = 0
+        Value = 0.001
       end
       object SMg: TFloatSpinEdit
         Left = 639
@@ -874,11 +902,12 @@ object Kf: TKf
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.001
-        MinValue = 0
+        MaxValue = 999
+        MinValue = 0.001
         OnChange = SMgChange
         ParentFont = False
         TabOrder = 37
-        Value = 0
+        Value = 0.001
       end
       object EC: TFloatSpinEdit
         Left = 647
@@ -919,11 +948,12 @@ object Kf: TKf
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.001
-        MinValue = 0
+        MaxValue = 999
+        MinValue = 0.001
         OnChange = NCaChange
         ParentFont = False
         TabOrder = 39
-        Value = 0
+        Value = 0.001
       end
       object Label23: TLabel
         Left = 94
@@ -1055,7 +1085,7 @@ object Kf: TKf
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.001
-        MinValue = 0
+        MinValue = 0.001
         OnChange = KNO3_KChange
         ParentFont = False
         TabOrder = 40
@@ -1070,7 +1100,7 @@ object Kf: TKf
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.001
-        MinValue = 0
+        MinValue = 0.001
         OnChange = MgSO4_MgChange
         ParentFont = False
         TabOrder = 41
@@ -1085,7 +1115,7 @@ object Kf: TKf
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.001
-        MinValue = 0
+        MinValue = 0.001
         OnChange = KH2PO4_KChange
         ParentFont = False
         TabOrder = 42
@@ -1100,7 +1130,7 @@ object Kf: TKf
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.001
-        MinValue = 0
+        MinValue = 0.001
         OnChange = KNO3_NO3Change
         ParentFont = False
         TabOrder = 43
@@ -1115,7 +1145,7 @@ object Kf: TKf
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.001
-        MinValue = 0
+        MinValue = 0.001
         OnChange = CaNO3_NO3Change
         ParentFont = False
         TabOrder = 44
@@ -1130,7 +1160,7 @@ object Kf: TKf
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.001
-        MinValue = 0
+        MinValue = 0.001
         OnChange = MgSO4_SChange
         ParentFont = False
         TabOrder = 45
@@ -1145,7 +1175,7 @@ object Kf: TKf
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.001
-        MinValue = 0
+        MinValue = 0.001
         OnChange = KH2PO4_PChange
         ParentFont = False
         TabOrder = 46
@@ -1160,7 +1190,7 @@ object Kf: TKf
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.001
-        MinValue = 0
+        MinValue = 0.001
         OnChange = CaNO3_CaChange
         ParentFont = False
         TabOrder = 47
@@ -1198,7 +1228,7 @@ object Kf: TKf
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.001
-        MinValue = 0
+        MinValue = 0.001
         OnChange = K2SO4_KChange
         ParentFont = False
         TabOrder = 48
@@ -1213,7 +1243,7 @@ object Kf: TKf
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.001
-        MinValue = 0
+        MinValue = 0.001
         OnChange = NH4NO3_NH4Change
         ParentFont = False
         TabOrder = 49
@@ -1228,7 +1258,7 @@ object Kf: TKf
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.001
-        MinValue = 0
+        MinValue = 0.001
         OnChange = K2SO4_SChange
         ParentFont = False
         TabOrder = 50
@@ -1243,7 +1273,7 @@ object Kf: TKf
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.001
-        MinValue = 0
+        MinValue = 0.001
         OnChange = NH4NO3_NO3Change
         ParentFont = False
         TabOrder = 51
@@ -1571,7 +1601,7 @@ object Kf: TKf
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.001
-        MinValue = 0
+        MinValue = 0.001
         OnChange = MgNO3_MgChange
         ParentFont = False
         TabOrder = 59
@@ -1586,7 +1616,7 @@ object Kf: TKf
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.001
-        MinValue = 0
+        MinValue = 0.001
         OnChange = MgNO3_NO3Change
         ParentFont = False
         TabOrder = 60
@@ -2592,7 +2622,7 @@ object Kf: TKf
             Font.Name = 'Arial'
             Increment = 0.01
             MaxValue = 1000
-            MinValue = 0
+            MinValue = 0.01
             OnChange = glSiChange
             ParentFont = False
             TabOrder = 0
@@ -2607,7 +2637,7 @@ object Kf: TKf
             Font.Name = 'Arial'
             Increment = 0.01
             MaxValue = 1000
-            MinValue = 0
+            MinValue = 0.01
             OnChange = glCoChange
             ParentFont = False
             TabOrder = 1
@@ -2622,7 +2652,7 @@ object Kf: TKf
             Font.Name = 'Arial'
             Increment = 0.01
             MaxValue = 1000
-            MinValue = 0
+            MinValue = 0.01
             OnChange = glMoChange
             ParentFont = False
             TabOrder = 2
@@ -2637,7 +2667,7 @@ object Kf: TKf
             Font.Name = 'Arial'
             Increment = 0.01
             MaxValue = 1000
-            MinValue = 0
+            MinValue = 0.01
             OnChange = glCuChange
             ParentFont = False
             TabOrder = 3
@@ -2652,7 +2682,7 @@ object Kf: TKf
             Font.Name = 'Arial'
             Increment = 0.01
             MaxValue = 1000
-            MinValue = 0
+            MinValue = 0.01
             OnChange = glZnChange
             ParentFont = False
             TabOrder = 4
@@ -2667,7 +2697,7 @@ object Kf: TKf
             Font.Name = 'Arial'
             Increment = 0.01
             MaxValue = 1000
-            MinValue = 0
+            MinValue = 0.01
             OnChange = glBChange
             ParentFont = False
             TabOrder = 5
@@ -2682,7 +2712,7 @@ object Kf: TKf
             Font.Name = 'Arial'
             Increment = 0.01
             MaxValue = 1000
-            MinValue = 0
+            MinValue = 0.01
             OnChange = glMnChange
             ParentFont = False
             TabOrder = 6
@@ -2697,7 +2727,7 @@ object Kf: TKf
             Font.Name = 'Arial'
             Increment = 0.01
             MaxValue = 1000
-            MinValue = 0
+            MinValue = 0.01
             OnChange = glFeChange
             ParentFont = False
             TabOrder = 7
@@ -2712,7 +2742,7 @@ object Kf: TKf
             Font.Name = 'Arial'
             Increment = 0.01
             MaxValue = 1000
-            MinValue = 0
+            MinValue = 0.01
             OnChange = glFeChange
             ParentFont = False
             TabOrder = 8
@@ -2728,7 +2758,7 @@ object Kf: TKf
             Font.Name = 'Arial'
             Increment = 0.01
             MaxValue = 1000
-            MinValue = 0
+            MinValue = 0.01
             OnChange = glK2SO4Change
             ParentFont = False
             TabOrder = 9
@@ -2743,7 +2773,7 @@ object Kf: TKf
             Font.Name = 'Arial'
             Increment = 0.01
             MaxValue = 1000
-            MinValue = 0
+            MinValue = 0.01
             OnChange = glKH2PO4Change
             ParentFont = False
             TabOrder = 10
@@ -2758,7 +2788,7 @@ object Kf: TKf
             Font.Name = 'Arial'
             Increment = 0.01
             MaxValue = 1000
-            MinValue = 0
+            MinValue = 0.01
             OnChange = glMgSO4Change
             ParentFont = False
             TabOrder = 11
@@ -2773,7 +2803,7 @@ object Kf: TKf
             Font.Name = 'Arial'
             Increment = 0.01
             MaxValue = 1000
-            MinValue = 0
+            MinValue = 0.01
             OnChange = glMgNO3Change
             ParentFont = False
             TabOrder = 12
@@ -2788,7 +2818,7 @@ object Kf: TKf
             Font.Name = 'Arial'
             Increment = 0.01
             MaxValue = 1000
-            MinValue = 0
+            MinValue = 0.01
             OnChange = glNH4NO3Change
             ParentFont = False
             TabOrder = 13
@@ -2803,7 +2833,7 @@ object Kf: TKf
             Font.Name = 'Arial'
             Increment = 0.01
             MaxValue = 1000
-            MinValue = 0
+            MinValue = 0.01
             OnChange = glKNO3Change
             ParentFont = False
             TabOrder = 14
@@ -2818,7 +2848,7 @@ object Kf: TKf
             Font.Name = 'Arial'
             Increment = 0.01
             MaxValue = 1000
-            MinValue = 0
+            MinValue = 0.01
             OnChange = glCaNO3Change
             ParentFont = False
             TabOrder = 15
@@ -4924,7 +4954,7 @@ object Kf: TKf
     Font.Name = 'Arial'
     Increment = 0.1
     MaxValue = 99999999
-    MinValue = 0
+    MinValue = 0.1
     OnChange = VChange
     ParentFont = False
     TabOrder = 1

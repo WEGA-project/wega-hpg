@@ -2935,7 +2935,7 @@ end;
 
 procedure TKf.Button9Click(Sender: TObject);
 begin
-    de1.Text:=FormatDateTime('yyyy-dd-mm', Now);
+    de1.Text:=FormatDateTime('yyyy-mm-dd', Now);
    m1.Text:='Автозапись. Изготовлен раствор на ' + FloatToStr(V.Value) + ' литров.';
    str:='date='+de1.Text+';'+m1.Text+';'+profile.Caption;
    if not Assigned(DStr)then DStr := TStringList.Create;
