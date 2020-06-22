@@ -1,5 +1,6 @@
 #!/bin/bash
 rm hpg.dbg -f
+zip -r hpg.zip examples hpg hpg.exe README.md
 git add *
 git commit -a
 git pull
