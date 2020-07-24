@@ -56,9 +56,12 @@ type
     de1: TDateEdit;
     eComment: TEdit;
     addrMixer: TEdit;
+    Image1: TImage;
+    sSoil: TFloatSpinEdit;
     Label87: TLabel;
     Label88: TLabel;
     Label89: TLabel;
+    Label90: TLabel;
     sumA: TLabel;
     sumB: TLabel;
     tAml: TFloatSpinEdit;
@@ -526,6 +529,7 @@ type
     procedure gNH4NO3Change(Sender: TObject);
     procedure gSiChange(Sender: TObject);
     procedure gZnChange(Sender: TObject);
+    procedure Image1Click(Sender: TObject);
     procedure K2SO4_KChange(Sender: TObject);
     procedure K2SO4_KClick(Sender: TObject);
 
@@ -564,6 +568,7 @@ type
     procedure lb1Click(Sender: TObject);
     procedure mCaNO3Change(Sender: TObject);
     procedure mlMgNO3Change(Sender: TObject);
+
     procedure TabSheet4Show(Sender: TObject);
     procedure TabSheet5ContextPopup(Sender: TObject; MousePos: TPoint;
       var Handled: Boolean);
@@ -837,6 +842,45 @@ begin
   //Kf.EC.Value:=vEC;
 end;
 
+procedure CalcSoil ;
+begin
+
+  if (kF.chKComplex.Checked = False) then  begin
+
+   Kf.sSoil.value:=Kf.gCaNO3.value
+   +Kf.gKNO3.value
+   +Kf.gNH4NO3.value
+   +Kf.gMgNO3.value
+   +Kf.gMgSO4.value
+   +Kf.gKH2PO4.value
+   +Kf.gK2SO4.value
+   +Kf.gFe.value
+   +Kf.gMn.value
+   +Kf.gB.value
+   +Kf.gZn.value
+   +Kf.gCu.value
+   +Kf.gMo.value
+   +Kf.gCo.value
+   +Kf.gSi.value
+   ;
+
+  end
+  else begin
+      Kf.sSoil.value:=Kf.gCaNO3.value
+   +Kf.gKNO3.value
+   +Kf.gNH4NO3.value
+   +Kf.gMgNO3.value
+   +Kf.gMgSO4.value
+   +Kf.gKH2PO4.value
+   +Kf.gK2SO4.value
+   +Kf.gCmplx.value
+
+   ;
+
+  end;
+
+end;
+
 procedure genProfile;
 
 
@@ -877,7 +921,8 @@ begin
                   +'(N:K='+FloatToStr(round(vN/vK*10)/10)+' '
                   +'N:P='+FloatToStr(round(vN/vP*10)/10)+')';
 
-   ;
+
+   CalcSoil ;
 end;
 
 procedure CalcKoef;
@@ -1046,6 +1091,8 @@ end;
         end;
    end;
 
+
+
 procedure fromWeight ;
 begin
    getVar;
@@ -1091,6 +1138,11 @@ begin
 
 
 end;
+
+
+
+
+
 
 procedure CalcConc;
 var
@@ -1257,6 +1309,7 @@ begin
  genProfile;
  CalcWeight ;
  GenNH4NO3event;
+
 end;
 
 
@@ -1403,6 +1456,7 @@ Kf.Si.value:=10000*Kf.gCmplx.value* (Kf.dSi.value/Kf.V.value);
  end;
 
  genProfile;
+ CalcSoil ;
 end ;
 
 
@@ -2298,8 +2352,12 @@ begin
 end;
 
 procedure TKf.glCaNO3Change(Sender: TObject);
+ var   kmol:double;
 begin
+  kmol:=glCaNO3.value/(24.4247/CaNO3_Ca.value);
+  gmlCaNO3.value:=0.999 + 0.000732*kmol-0.000000113*sqr(kmol);
   CalcConc;
+
 end;
 
 procedure TKf.glCoChange(Sender: TObject);
@@ -2318,27 +2376,43 @@ begin
 end;
 
 procedure TKf.glK2SO4Change(Sender: TObject);
-begin
+ var  kmol:double;
+ begin
+ kmol:=glK2SO4.value/((44.8737)/K2SO4_K.value);
+ gmlK2SO4.value:=0.998 + 0.000814*kmol-0.00000039*sqr(kmol);
   CalcConc;
 end;
 
 procedure TKf.glKH2PO4Change(Sender: TObject);
-begin
+ var  kmol:double;
+ begin
+ kmol:=glKH2PO4.value/((28.7307)/KH2PO4_K.value);
+ gmlKH2PO4.value:=0.998 + 0.000716*kmol-0.000000399*sqr(kmol);
   CalcConc;
 end;
 
 procedure TKf.glKNO3Change(Sender: TObject);
+var  kmol:double;
 begin
+kmol:=glKNO3.value/(38.6717/KNO3_K.value);
+gmlKNO3.value:=0.998 + 0.00062*kmol-0.000000114*sqr(kmol);
+
   CalcConc;
 end;
 
 procedure TKf.glMgNO3Change(Sender: TObject);
+var  kmol:double;
 begin
+kmol:=glMgNO3.value/((20.1923)/MgNO3_Mg.value);
+gmlMgNO3.value:=0.998 + 0.000736*kmol-0.000000121*sqr(kmol);
   CalcConc;
 end;
 
 procedure TKf.glMgSO4Change(Sender: TObject);
+var  kmol:double;
 begin
+kmol:=glMgSO4.value/((20.1923)/MgSO4_Mg.value);
+gmlMgSO4.value:=0.999 + 0.00097*kmol-0.000000268*sqr(kmol);
   CalcConc;
 end;
 
@@ -2353,7 +2427,10 @@ begin
 end;
 
 procedure TKf.glNH4NO3Change(Sender: TObject);
+var  kmol:double;
 begin
+kmol:=glNH4NO3.value/((34.9978/2)/NH4NO3_NO3.value);
+gmlNH4NO3.value:=0.999 + 0.000397*kmol-0.0000000422*sqr(kmol);
   CalcConc;
 end;
 
@@ -2442,6 +2519,11 @@ begin
   WeghtTomicro;
 
   end;
+end;
+
+procedure TKf.Image1Click(Sender: TObject);
+begin
+
 end;
 
 procedure TKf.K2SO4_KChange(Sender: TObject);
@@ -2782,6 +2864,8 @@ begin
 
 end;
 
+
+
 procedure TKf.TabSheet4Show(Sender: TObject);
 begin
 
@@ -2935,7 +3019,7 @@ end;
 
 procedure TKf.Button9Click(Sender: TObject);
 begin
-    de1.Text:=FormatDateTime('yyyy-dd-mm', Now);
+    de1.Text:=FormatDateTime('yyyy-mm-dd', Now);
    m1.Text:='Автозапись. Изготовлен раствор на ' + FloatToStr(V.Value) + ' литров.';
    str:='date='+de1.Text+';'+m1.Text+';'+profile.Caption;
    if not Assigned(DStr)then DStr := TStringList.Create;
@@ -3432,6 +3516,8 @@ begin
    CalcConc;
    SoilName;
    genProfile;
+   CalcSoil ;
+
 
   //de1.text:=DateToStr(now);
   //pr2.Caption:=profile.Caption;
@@ -3927,6 +4013,7 @@ begin
   CalcWeight ;
   microToWeght;
   CalcConc;
+  CalcSoil ;
   //WeghtTomicro
   //VtoMicrot;
    //microToWeght;

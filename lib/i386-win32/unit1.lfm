@@ -1,10 +1,10 @@
 object Kf: TKf
-  Left = 963
+  Left = 635
   Height = 804
-  Top = 71
+  Top = 109
   Width = 762
   HorzScrollBar.Page = 761
-  VertScrollBar.Page = 793
+  VertScrollBar.Page = 801
   AutoScroll = True
   Caption = 'Koefficients'
   ClientHeight = 804
@@ -15,20 +15,6 @@ object Kf: TKf
   OnCreate = FormActivate
   LCLVersion = '2.0.6.0'
   Scaled = False
-  object version: TLabel
-    Left = 520
-    Height = 15
-    Top = 773
-    Width = 218
-    Caption = 'Hydroponic Profile Generator 0.088'
-    Font.Color = clActiveCaption
-    Font.Height = -13
-    Font.Name = 'Arial'
-    Font.Style = [fsBold]
-    ParentColor = False
-    ParentFont = False
-    OnClick = versionClick
-  end
   object PageControl1: TPageControl
     Left = 0
     Height = 704
@@ -42,14 +28,14 @@ object Kf: TKf
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'Макро'
-      ClientHeight = 669
-      ClientWidth = 755
+      ClientHeight = 674
+      ClientWidth = 753
       Font.Height = -15
       Font.Name = 'Arial'
       ParentFont = False
       object N: TFloatSpinEdit
         Left = 56
-        Height = 27
+        Height = 25
         Top = 42
         Width = 94
         Font.Height = -15
@@ -64,7 +50,7 @@ object Kf: TKf
       end
       object P: TFloatSpinEdit
         Left = 153
-        Height = 27
+        Height = 25
         Top = 42
         Width = 94
         Color = clMoneyGreen
@@ -81,7 +67,7 @@ object Kf: TKf
       end
       object K: TFloatSpinEdit
         Left = 253
-        Height = 27
+        Height = 25
         Top = 42
         Width = 94
         Font.Height = -15
@@ -96,7 +82,7 @@ object Kf: TKf
       end
       object Ca: TFloatSpinEdit
         Left = 352
-        Height = 27
+        Height = 25
         Top = 42
         Width = 94
         Font.Height = -15
@@ -111,7 +97,7 @@ object Kf: TKf
       end
       object Mg: TFloatSpinEdit
         Left = 449
-        Height = 27
+        Height = 25
         Top = 42
         Width = 94
         Font.Height = -15
@@ -126,7 +112,7 @@ object Kf: TKf
       end
       object S: TFloatSpinEdit
         Left = 549
-        Height = 27
+        Height = 25
         Top = 42
         Width = 94
         Font.Height = -15
@@ -141,7 +127,7 @@ object Kf: TKf
       end
       object NO3: TFloatSpinEdit
         Left = 56
-        Height = 27
+        Height = 25
         Top = 72
         Width = 94
         Font.Height = -15
@@ -156,7 +142,7 @@ object Kf: TKf
       end
       object NH4: TFloatSpinEdit
         Left = 56
-        Height = 27
+        Height = 25
         Top = 100
         Width = 94
         Font.Height = -15
@@ -171,7 +157,7 @@ object Kf: TKf
       end
       object Label2: TLabel
         Left = 88
-        Height = 17
+        Height = 18
         Top = 21
         Width = 11
         Caption = 'N'
@@ -183,7 +169,7 @@ object Kf: TKf
       end
       object Label3: TLabel
         Left = 192
-        Height = 17
+        Height = 18
         Top = 21
         Width = 10
         Caption = 'P'
@@ -195,7 +181,7 @@ object Kf: TKf
       end
       object Label4: TLabel
         Left = 292
-        Height = 17
+        Height = 18
         Top = 21
         Width = 11
         Caption = 'K'
@@ -207,7 +193,7 @@ object Kf: TKf
       end
       object Label5: TLabel
         Left = 391
-        Height = 17
+        Height = 18
         Top = 21
         Width = 19
         Caption = 'Ca'
@@ -219,7 +205,7 @@ object Kf: TKf
       end
       object Label6: TLabel
         Left = 479
-        Height = 17
+        Height = 18
         Top = 21
         Width = 22
         Caption = 'Mg'
@@ -231,7 +217,7 @@ object Kf: TKf
       end
       object Label7: TLabel
         Left = 584
-        Height = 17
+        Height = 18
         Top = 21
         Width = 10
         Caption = 'S'
@@ -243,7 +229,7 @@ object Kf: TKf
       end
       object Label8: TLabel
         Left = 4
-        Height = 17
+        Height = 18
         Top = 76
         Width = 31
         Caption = 'NO3'
@@ -255,7 +241,7 @@ object Kf: TKf
       end
       object Label9: TLabel
         Left = 4
-        Height = 17
+        Height = 18
         Top = 109
         Width = 30
         Caption = 'NH4'
@@ -267,7 +253,7 @@ object Kf: TKf
       end
       object NH4NO3: TFloatSpinEdit
         Left = 153
-        Height = 27
+        Height = 25
         Hint = 'NH4:NO3'
         Top = 100
         Width = 94
@@ -288,7 +274,7 @@ object Kf: TKf
       end
       object Label10: TLabel
         Left = 94
-        Height = 17
+        Height = 18
         Top = 158
         Width = 11
         Caption = 'N'
@@ -300,7 +286,7 @@ object Kf: TKf
       end
       object Label11: TLabel
         Left = 209
-        Height = 17
+        Height = 18
         Top = 158
         Width = 10
         Caption = 'P'
@@ -312,7 +298,7 @@ object Kf: TKf
       end
       object Label12: TLabel
         Left = 319
-        Height = 17
+        Height = 18
         Top = 158
         Width = 11
         Caption = 'K'
@@ -324,7 +310,7 @@ object Kf: TKf
       end
       object Label13: TLabel
         Left = 427
-        Height = 17
+        Height = 18
         Top = 158
         Width = 19
         Caption = 'Ca'
@@ -336,7 +322,7 @@ object Kf: TKf
       end
       object Label14: TLabel
         Left = 550
-        Height = 17
+        Height = 18
         Top = 158
         Width = 22
         Caption = 'Mg'
@@ -348,7 +334,7 @@ object Kf: TKf
       end
       object Label15: TLabel
         Left = 677
-        Height = 17
+        Height = 18
         Top = 158
         Width = 10
         Caption = 'S'
@@ -360,7 +346,7 @@ object Kf: TKf
       end
       object Label16: TLabel
         Left = 20
-        Height = 17
+        Height = 18
         Top = 182
         Width = 11
         Caption = 'N'
@@ -372,7 +358,7 @@ object Kf: TKf
       end
       object Label17: TLabel
         Left = 20
-        Height = 17
+        Height = 18
         Top = 223
         Width = 10
         Caption = 'P'
@@ -384,7 +370,7 @@ object Kf: TKf
       end
       object Label18: TLabel
         Left = 20
-        Height = 17
+        Height = 18
         Top = 263
         Width = 11
         Caption = 'K'
@@ -396,7 +382,7 @@ object Kf: TKf
       end
       object Label19: TLabel
         Left = 20
-        Height = 17
+        Height = 18
         Top = 302
         Width = 19
         Caption = 'Ca'
@@ -408,7 +394,7 @@ object Kf: TKf
       end
       object Label20: TLabel
         Left = 20
-        Height = 17
+        Height = 18
         Top = 342
         Width = 22
         Caption = 'Mg'
@@ -420,7 +406,7 @@ object Kf: TKf
       end
       object Label21: TLabel
         Left = 20
-        Height = 17
+        Height = 18
         Top = 383
         Width = 10
         Caption = 'S'
@@ -432,7 +418,7 @@ object Kf: TKf
       end
       object NP: TFloatSpinEdit
         Left = 61
-        Height = 27
+        Height = 25
         Hint = 'N:P'
         Top = 219
         Width = 102
@@ -452,7 +438,7 @@ object Kf: TKf
       end
       object NK: TFloatSpinEdit
         Left = 61
-        Height = 27
+        Height = 25
         Top = 258
         Width = 102
         DecimalPlaces = 3
@@ -468,7 +454,7 @@ object Kf: TKf
       end
       object NMg: TFloatSpinEdit
         Left = 61
-        Height = 27
+        Height = 25
         Top = 336
         Width = 102
         DecimalPlaces = 3
@@ -484,7 +470,7 @@ object Kf: TKf
       end
       object NS: TFloatSpinEdit
         Left = 61
-        Height = 27
+        Height = 25
         Top = 374
         Width = 102
         DecimalPlaces = 3
@@ -500,7 +486,7 @@ object Kf: TKf
       end
       object PN: TFloatSpinEdit
         Left = 177
-        Height = 27
+        Height = 25
         Top = 180
         Width = 102
         DecimalPlaces = 3
@@ -516,7 +502,7 @@ object Kf: TKf
       end
       object PK: TFloatSpinEdit
         Left = 177
-        Height = 27
+        Height = 25
         Top = 258
         Width = 102
         DecimalPlaces = 3
@@ -532,7 +518,7 @@ object Kf: TKf
       end
       object PCa: TFloatSpinEdit
         Left = 177
-        Height = 27
+        Height = 25
         Top = 297
         Width = 102
         DecimalPlaces = 3
@@ -548,7 +534,7 @@ object Kf: TKf
       end
       object PMg: TFloatSpinEdit
         Left = 177
-        Height = 27
+        Height = 25
         Top = 336
         Width = 102
         DecimalPlaces = 3
@@ -564,7 +550,7 @@ object Kf: TKf
       end
       object PS: TFloatSpinEdit
         Left = 177
-        Height = 27
+        Height = 25
         Top = 374
         Width = 102
         DecimalPlaces = 3
@@ -580,7 +566,7 @@ object Kf: TKf
       end
       object KN: TFloatSpinEdit
         Left = 292
-        Height = 27
+        Height = 25
         Top = 180
         Width = 102
         Color = clMoneyGreen
@@ -598,7 +584,7 @@ object Kf: TKf
       end
       object KP: TFloatSpinEdit
         Left = 292
-        Height = 27
+        Height = 25
         Top = 219
         Width = 102
         DecimalPlaces = 3
@@ -614,7 +600,7 @@ object Kf: TKf
       end
       object KCa: TFloatSpinEdit
         Left = 292
-        Height = 27
+        Height = 25
         Top = 297
         Width = 102
         Color = clMoneyGreen
@@ -632,7 +618,7 @@ object Kf: TKf
       end
       object KMg: TFloatSpinEdit
         Left = 292
-        Height = 27
+        Height = 25
         Top = 336
         Width = 102
         Color = clMoneyGreen
@@ -650,7 +636,7 @@ object Kf: TKf
       end
       object KS: TFloatSpinEdit
         Left = 292
-        Height = 27
+        Height = 25
         Top = 374
         Width = 102
         DecimalPlaces = 3
@@ -666,7 +652,7 @@ object Kf: TKf
       end
       object CaN: TFloatSpinEdit
         Left = 407
-        Height = 27
+        Height = 25
         Top = 180
         Width = 102
         DecimalPlaces = 3
@@ -683,7 +669,7 @@ object Kf: TKf
       end
       object CaP: TFloatSpinEdit
         Left = 407
-        Height = 27
+        Height = 25
         Top = 219
         Width = 102
         DecimalPlaces = 3
@@ -699,7 +685,7 @@ object Kf: TKf
       end
       object CaK: TFloatSpinEdit
         Left = 407
-        Height = 27
+        Height = 25
         Top = 258
         Width = 102
         DecimalPlaces = 3
@@ -716,7 +702,7 @@ object Kf: TKf
       end
       object CaMg: TFloatSpinEdit
         Left = 407
-        Height = 27
+        Height = 25
         Top = 336
         Width = 102
         DecimalPlaces = 3
@@ -733,7 +719,7 @@ object Kf: TKf
       end
       object CaS: TFloatSpinEdit
         Left = 407
-        Height = 27
+        Height = 25
         Top = 374
         Width = 102
         DecimalPlaces = 3
@@ -749,7 +735,7 @@ object Kf: TKf
       end
       object MgN: TFloatSpinEdit
         Left = 523
-        Height = 27
+        Height = 25
         Top = 180
         Width = 102
         DecimalPlaces = 3
@@ -765,7 +751,7 @@ object Kf: TKf
       end
       object MgP: TFloatSpinEdit
         Left = 523
-        Height = 27
+        Height = 25
         Top = 219
         Width = 102
         DecimalPlaces = 3
@@ -781,7 +767,7 @@ object Kf: TKf
       end
       object MgK: TFloatSpinEdit
         Left = 523
-        Height = 27
+        Height = 25
         Top = 258
         Width = 102
         DecimalPlaces = 3
@@ -798,7 +784,7 @@ object Kf: TKf
       end
       object MgCa: TFloatSpinEdit
         Left = 523
-        Height = 27
+        Height = 25
         Top = 297
         Width = 102
         DecimalPlaces = 3
@@ -815,7 +801,7 @@ object Kf: TKf
       end
       object MgS: TFloatSpinEdit
         Left = 523
-        Height = 27
+        Height = 25
         Top = 374
         Width = 102
         DecimalPlaces = 3
@@ -831,7 +817,7 @@ object Kf: TKf
       end
       object SN: TFloatSpinEdit
         Left = 639
-        Height = 27
+        Height = 25
         Top = 180
         Width = 102
         DecimalPlaces = 3
@@ -847,7 +833,7 @@ object Kf: TKf
       end
       object SP: TFloatSpinEdit
         Left = 639
-        Height = 27
+        Height = 25
         Top = 219
         Width = 102
         DecimalPlaces = 3
@@ -863,7 +849,7 @@ object Kf: TKf
       end
       object SK: TFloatSpinEdit
         Left = 639
-        Height = 27
+        Height = 25
         Top = 258
         Width = 102
         DecimalPlaces = 3
@@ -879,7 +865,7 @@ object Kf: TKf
       end
       object SCa: TFloatSpinEdit
         Left = 639
-        Height = 27
+        Height = 25
         Top = 297
         Width = 102
         DecimalPlaces = 3
@@ -895,7 +881,7 @@ object Kf: TKf
       end
       object SMg: TFloatSpinEdit
         Left = 639
-        Height = 27
+        Height = 25
         Top = 336
         Width = 102
         DecimalPlaces = 3
@@ -911,7 +897,7 @@ object Kf: TKf
       end
       object EC: TFloatSpinEdit
         Left = 647
-        Height = 27
+        Height = 25
         Top = 42
         Width = 95
         Color = clMoneyGreen
@@ -928,7 +914,7 @@ object Kf: TKf
       end
       object Label22: TLabel
         Left = 677
-        Height = 17
+        Height = 18
         Top = 21
         Width = 21
         Caption = 'EC'
@@ -940,7 +926,7 @@ object Kf: TKf
       end
       object NCa: TFloatSpinEdit
         Left = 61
-        Height = 27
+        Height = 25
         Top = 297
         Width = 102
         DecimalPlaces = 3
@@ -1035,7 +1021,7 @@ object Kf: TKf
         Left = 4
         Height = 17
         Top = 490
-        Width = 169
+        Width = 167
         Caption = 'Калий азотнокислый (ч.)'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -1046,7 +1032,7 @@ object Kf: TKf
         Left = 4
         Height = 17
         Top = 462
-        Width = 259
+        Width = 257
         Caption = 'Кальций азотнокислый 4-водный  (ч.)'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -1057,7 +1043,7 @@ object Kf: TKf
         Left = 4
         Height = 17
         Top = 549
-        Width = 240
+        Width = 237
         Caption = 'Магний сернокислый 7-водный (ч.)'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -1068,7 +1054,7 @@ object Kf: TKf
         Left = 4
         Height = 17
         Top = 581
-        Width = 300
+        Width = 295
         Caption = 'Калий фосфорнокислый 1-замещенный (ч.)'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -1078,7 +1064,7 @@ object Kf: TKf
       end
       object KNO3_K: TFloatSpinEdit
         Left = 356
-        Height = 27
+        Height = 25
         Top = 486
         Width = 86
         DecimalPlaces = 3
@@ -1093,7 +1079,7 @@ object Kf: TKf
       end
       object MgSO4_Mg: TFloatSpinEdit
         Left = 356
-        Height = 27
+        Height = 25
         Top = 545
         Width = 86
         DecimalPlaces = 3
@@ -1108,7 +1094,7 @@ object Kf: TKf
       end
       object KH2PO4_K: TFloatSpinEdit
         Left = 356
-        Height = 27
+        Height = 25
         Top = 575
         Width = 86
         DecimalPlaces = 3
@@ -1123,7 +1109,7 @@ object Kf: TKf
       end
       object KNO3_NO3: TFloatSpinEdit
         Left = 477
-        Height = 27
+        Height = 25
         Top = 486
         Width = 80
         DecimalPlaces = 3
@@ -1138,7 +1124,7 @@ object Kf: TKf
       end
       object CaNO3_NO3: TFloatSpinEdit
         Left = 477
-        Height = 27
+        Height = 25
         Top = 456
         Width = 80
         DecimalPlaces = 3
@@ -1153,7 +1139,7 @@ object Kf: TKf
       end
       object MgSO4_S: TFloatSpinEdit
         Left = 477
-        Height = 27
+        Height = 25
         Top = 545
         Width = 80
         DecimalPlaces = 3
@@ -1168,7 +1154,7 @@ object Kf: TKf
       end
       object KH2PO4_P: TFloatSpinEdit
         Left = 477
-        Height = 27
+        Height = 25
         Top = 575
         Width = 80
         DecimalPlaces = 3
@@ -1183,7 +1169,7 @@ object Kf: TKf
       end
       object CaNO3_Ca: TFloatSpinEdit
         Left = 356
-        Height = 27
+        Height = 25
         Top = 456
         Width = 86
         DecimalPlaces = 3
@@ -1200,7 +1186,7 @@ object Kf: TKf
         Left = 4
         Height = 17
         Top = 612
-        Width = 243
+        Width = 241
         Caption = 'Калий сернокислый безводный (ч.)'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -1212,7 +1198,7 @@ object Kf: TKf
         Left = 4
         Height = 17
         Top = 521
-        Width = 189
+        Width = 187
         Caption = 'Аммоний азотнокислый (ч.)'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -1221,7 +1207,7 @@ object Kf: TKf
       end
       object K2SO4_K: TFloatSpinEdit
         Left = 356
-        Height = 27
+        Height = 25
         Top = 605
         Width = 86
         DecimalPlaces = 3
@@ -1236,7 +1222,7 @@ object Kf: TKf
       end
       object NH4NO3_NH4: TFloatSpinEdit
         Left = 356
-        Height = 27
+        Height = 25
         Top = 516
         Width = 86
         DecimalPlaces = 3
@@ -1251,7 +1237,7 @@ object Kf: TKf
       end
       object K2SO4_S: TFloatSpinEdit
         Left = 477
-        Height = 27
+        Height = 25
         Top = 605
         Width = 80
         DecimalPlaces = 3
@@ -1266,7 +1252,7 @@ object Kf: TKf
       end
       object NH4NO3_NO3: TFloatSpinEdit
         Left = 477
-        Height = 27
+        Height = 25
         Top = 516
         Width = 80
         DecimalPlaces = 3
@@ -1283,7 +1269,7 @@ object Kf: TKf
         Left = 445
         Height = 17
         Top = 490
-        Width = 31
+        Width = 30
         Caption = 'NО3'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -1294,7 +1280,7 @@ object Kf: TKf
         Left = 445
         Height = 17
         Top = 462
-        Width = 31
+        Width = 30
         Caption = 'NО3'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -1305,7 +1291,7 @@ object Kf: TKf
         Left = 445
         Height = 17
         Top = 521
-        Width = 31
+        Width = 30
         Caption = 'NО3'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -1316,7 +1302,7 @@ object Kf: TKf
         Left = 325
         Height = 17
         Top = 521
-        Width = 30
+        Width = 28
         Caption = 'NH4'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -1338,7 +1324,7 @@ object Kf: TKf
         Left = 325
         Height = 17
         Top = 549
-        Width = 21
+        Width = 19
         Caption = 'Mg'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -1380,7 +1366,7 @@ object Kf: TKf
       end
       object CaNO3_NH4: TFloatSpinEdit
         Left = 587
-        Height = 27
+        Height = 25
         Top = 456
         Width = 70
         DecimalPlaces = 3
@@ -1397,7 +1383,7 @@ object Kf: TKf
         Left = 558
         Height = 17
         Top = 462
-        Width = 30
+        Width = 28
         Caption = 'NH4'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -1472,7 +1458,7 @@ object Kf: TKf
       end
       object gKNO3: TFloatSpinEdit
         Left = 658
-        Height = 27
+        Height = 25
         Top = 486
         Width = 85
         Font.Height = -15
@@ -1487,7 +1473,7 @@ object Kf: TKf
       end
       object gCaNO3: TFloatSpinEdit
         Left = 658
-        Height = 27
+        Height = 25
         Top = 456
         Width = 85
         Font.Height = -15
@@ -1502,7 +1488,7 @@ object Kf: TKf
       end
       object gMgSO4: TFloatSpinEdit
         Left = 658
-        Height = 27
+        Height = 25
         Top = 545
         Width = 85
         Font.Height = -15
@@ -1517,7 +1503,7 @@ object Kf: TKf
       end
       object gKH2PO4: TFloatSpinEdit
         Left = 658
-        Height = 27
+        Height = 25
         Top = 575
         Width = 85
         Font.Height = -15
@@ -1532,7 +1518,7 @@ object Kf: TKf
       end
       object gK2SO4: TFloatSpinEdit
         Left = 658
-        Height = 27
+        Height = 25
         Top = 605
         Width = 85
         Font.Height = -15
@@ -1547,7 +1533,7 @@ object Kf: TKf
       end
       object gNH4NO3: TFloatSpinEdit
         Left = 658
-        Height = 27
+        Height = 25
         Top = 516
         Width = 85
         Font.Height = -15
@@ -1585,7 +1571,7 @@ object Kf: TKf
         Left = 4
         Height = 17
         Top = 643
-        Width = 246
+        Width = 243
         Caption = 'Магний азотнокислый 6-водный (ч.)'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -1594,7 +1580,7 @@ object Kf: TKf
       end
       object MgNO3_Mg: TFloatSpinEdit
         Left = 356
-        Height = 27
+        Height = 25
         Top = 636
         Width = 86
         DecimalPlaces = 3
@@ -1609,7 +1595,7 @@ object Kf: TKf
       end
       object MgNO3_NO3: TFloatSpinEdit
         Left = 477
-        Height = 27
+        Height = 25
         Top = 636
         Width = 80
         DecimalPlaces = 3
@@ -1626,7 +1612,7 @@ object Kf: TKf
         Left = 325
         Height = 17
         Top = 643
-        Width = 21
+        Width = 19
         Caption = 'Mg'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -1638,7 +1624,7 @@ object Kf: TKf
         Left = 446
         Height = 17
         Top = 643
-        Width = 31
+        Width = 30
         Caption = 'NO3'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -1647,7 +1633,7 @@ object Kf: TKf
       end
       object gMgNO3: TFloatSpinEdit
         Left = 658
-        Height = 27
+        Height = 25
         Top = 636
         Width = 85
         Font.Height = -15
@@ -1662,9 +1648,9 @@ object Kf: TKf
       end
       object chK2SO4: TCheckBox
         Left = 636
-        Height = 21
+        Height = 17
         Top = 608
-        Width = 21
+        Width = 20
         Checked = True
         Font.Color = clMaroon
         Font.Height = -15
@@ -1676,9 +1662,9 @@ object Kf: TKf
       end
       object chMgNO3: TCheckBox
         Left = 636
-        Height = 21
+        Height = 17
         Top = 639
-        Width = 21
+        Width = 20
         Font.Color = clMaroon
         Font.Height = -15
         Font.Name = 'Arial'
@@ -1690,7 +1676,7 @@ object Kf: TKf
         Left = 292
         Height = 17
         Top = 80
-        Width = 139
+        Width = 135
         Caption = 'K/Mg K/Ca K/N Ca/N'
         Font.Color = clMaroon
         Font.Height = -15
@@ -1702,7 +1688,7 @@ object Kf: TKf
         Left = 4
         Height = 17
         Top = 2
-        Width = 192
+        Width = 187
         Caption = 'Макропрофиль в мг/л (ppm)'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -1711,9 +1697,9 @@ object Kf: TKf
       end
       object Label77: TLabel
         Left = 368
-        Height = 17
+        Height = 18
         Top = 0
-        Width = 291
+        Width = 294
         Caption = 'Расчет макропрофиля и навесок солей'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -1725,7 +1711,7 @@ object Kf: TKf
         Left = 4
         Height = 17
         Top = 435
-        Width = 106
+        Width = 105
         Caption = 'Составы солей'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -1745,7 +1731,7 @@ object Kf: TKf
         Left = 4
         Height = 17
         Top = 140
-        Width = 234
+        Width = 230
         Caption = 'Матрица соотношений элементов'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -1755,17 +1741,17 @@ object Kf: TKf
     end
     object TabSheet2: TTabSheet
       Caption = 'Микро'
-      ClientHeight = 669
-      ClientWidth = 755
+      ClientHeight = 674
+      ClientWidth = 753
       Font.Height = -15
       Font.Name = 'Arial'
       OnShow = TabSheet2Show
       ParentFont = False
       object Label31: TLabel
         Left = 29
-        Height = 17
+        Height = 18
         Top = 32
-        Width = 17
+        Width = 18
         Caption = 'Fe'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -1775,7 +1761,7 @@ object Kf: TKf
       end
       object Label32: TLabel
         Left = 112
-        Height = 17
+        Height = 18
         Top = 32
         Width = 22
         Caption = 'Mn'
@@ -1787,7 +1773,7 @@ object Kf: TKf
       end
       object Label33: TLabel
         Left = 200
-        Height = 17
+        Height = 18
         Top = 32
         Width = 11
         Caption = 'B'
@@ -1799,9 +1785,9 @@ object Kf: TKf
       end
       object Label35: TLabel
         Left = 295
-        Height = 17
+        Height = 18
         Top = 32
-        Width = 18
+        Width = 17
         Caption = 'Zn'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -1811,7 +1797,7 @@ object Kf: TKf
       end
       object Label34: TLabel
         Left = 385
-        Height = 17
+        Height = 18
         Top = 32
         Width = 20
         Caption = 'Cu'
@@ -1823,7 +1809,7 @@ object Kf: TKf
       end
       object Label56: TLabel
         Left = 477
-        Height = 17
+        Height = 18
         Top = 32
         Width = 22
         Caption = 'Mo'
@@ -1835,7 +1821,7 @@ object Kf: TKf
       end
       object Label57: TLabel
         Left = 568
-        Height = 17
+        Height = 18
         Top = 32
         Width = 20
         Caption = 'Co'
@@ -1847,7 +1833,7 @@ object Kf: TKf
       end
       object Label58: TLabel
         Left = 664
-        Height = 17
+        Height = 18
         Top = 32
         Width = 14
         Caption = 'Si'
@@ -1861,7 +1847,7 @@ object Kf: TKf
         Left = 8
         Height = 17
         Top = 137
-        Width = 81
+        Width = 80
         Caption = 'Железо (%)'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -1872,7 +1858,7 @@ object Kf: TKf
         Left = 8
         Height = 17
         Top = 170
-        Width = 94
+        Width = 92
         Caption = 'Марганец (%)'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -1905,7 +1891,7 @@ object Kf: TKf
         Left = 8
         Height = 17
         Top = 266
-        Width = 65
+        Width = 63
         Caption = 'Медь (%)'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -1916,7 +1902,7 @@ object Kf: TKf
         Left = 8
         Height = 17
         Top = 298
-        Width = 99
+        Width = 96
         Caption = 'Молибден (%)'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -1927,7 +1913,7 @@ object Kf: TKf
         Left = 8
         Height = 17
         Top = 331
-        Width = 85
+        Width = 84
         Caption = 'Кобальт (%)'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -1947,7 +1933,7 @@ object Kf: TKf
       end
       object Fe: TFloatSpinEdit
         Left = 15
-        Height = 27
+        Height = 25
         Top = 64
         Width = 88
         DecimalPlaces = 0
@@ -1962,7 +1948,7 @@ object Kf: TKf
       end
       object Mn: TFloatSpinEdit
         Left = 105
-        Height = 27
+        Height = 25
         Top = 64
         Width = 88
         DecimalPlaces = 0
@@ -1977,7 +1963,7 @@ object Kf: TKf
       end
       object B: TFloatSpinEdit
         Left = 194
-        Height = 27
+        Height = 25
         Top = 64
         Width = 88
         DecimalPlaces = 0
@@ -1992,7 +1978,7 @@ object Kf: TKf
       end
       object Zn: TFloatSpinEdit
         Left = 284
-        Height = 27
+        Height = 25
         Top = 64
         Width = 88
         DecimalPlaces = 0
@@ -2007,7 +1993,7 @@ object Kf: TKf
       end
       object Cu: TFloatSpinEdit
         Left = 373
-        Height = 27
+        Height = 25
         Top = 64
         Width = 88
         DecimalPlaces = 0
@@ -2022,7 +2008,7 @@ object Kf: TKf
       end
       object Mo: TFloatSpinEdit
         Left = 462
-        Height = 27
+        Height = 25
         Top = 64
         Width = 88
         DecimalPlaces = 0
@@ -2037,7 +2023,7 @@ object Kf: TKf
       end
       object Co: TFloatSpinEdit
         Left = 551
-        Height = 27
+        Height = 25
         Top = 64
         Width = 88
         DecimalPlaces = 0
@@ -2052,7 +2038,7 @@ object Kf: TKf
       end
       object Si: TFloatSpinEdit
         Left = 640
-        Height = 27
+        Height = 25
         Top = 64
         Width = 88
         DecimalPlaces = 0
@@ -2067,7 +2053,7 @@ object Kf: TKf
       end
       object dFe: TFloatSpinEdit
         Left = 150
-        Height = 27
+        Height = 25
         Top = 132
         Width = 97
         DecimalPlaces = 4
@@ -2082,7 +2068,7 @@ object Kf: TKf
       end
       object dMn: TFloatSpinEdit
         Left = 150
-        Height = 27
+        Height = 25
         Top = 165
         Width = 97
         DecimalPlaces = 4
@@ -2097,7 +2083,7 @@ object Kf: TKf
       end
       object dB: TFloatSpinEdit
         Left = 150
-        Height = 27
+        Height = 25
         Top = 197
         Width = 97
         DecimalPlaces = 4
@@ -2112,7 +2098,7 @@ object Kf: TKf
       end
       object dZn: TFloatSpinEdit
         Left = 150
-        Height = 27
+        Height = 25
         Top = 229
         Width = 97
         DecimalPlaces = 4
@@ -2127,7 +2113,7 @@ object Kf: TKf
       end
       object dCu: TFloatSpinEdit
         Left = 150
-        Height = 27
+        Height = 25
         Top = 261
         Width = 97
         DecimalPlaces = 4
@@ -2142,7 +2128,7 @@ object Kf: TKf
       end
       object dMo: TFloatSpinEdit
         Left = 150
-        Height = 27
+        Height = 25
         Top = 293
         Width = 97
         DecimalPlaces = 4
@@ -2157,7 +2143,7 @@ object Kf: TKf
       end
       object dCo: TFloatSpinEdit
         Left = 150
-        Height = 27
+        Height = 25
         Top = 325
         Width = 97
         DecimalPlaces = 4
@@ -2172,7 +2158,7 @@ object Kf: TKf
       end
       object dSi: TFloatSpinEdit
         Left = 150
-        Height = 27
+        Height = 25
         Top = 357
         Width = 97
         DecimalPlaces = 4
@@ -2187,7 +2173,7 @@ object Kf: TKf
       end
       object gFe: TFloatSpinEdit
         Left = 256
-        Height = 27
+        Height = 25
         Top = 132
         Width = 97
         DecimalPlaces = 5
@@ -2203,7 +2189,7 @@ object Kf: TKf
       end
       object gMn: TFloatSpinEdit
         Left = 256
-        Height = 27
+        Height = 25
         Top = 165
         Width = 97
         DecimalPlaces = 5
@@ -2219,7 +2205,7 @@ object Kf: TKf
       end
       object gB: TFloatSpinEdit
         Left = 256
-        Height = 27
+        Height = 25
         Top = 197
         Width = 97
         DecimalPlaces = 5
@@ -2235,7 +2221,7 @@ object Kf: TKf
       end
       object gZn: TFloatSpinEdit
         Left = 256
-        Height = 27
+        Height = 25
         Top = 229
         Width = 97
         DecimalPlaces = 5
@@ -2251,7 +2237,7 @@ object Kf: TKf
       end
       object gCu: TFloatSpinEdit
         Left = 256
-        Height = 27
+        Height = 25
         Top = 261
         Width = 97
         DecimalPlaces = 5
@@ -2267,7 +2253,7 @@ object Kf: TKf
       end
       object gMo: TFloatSpinEdit
         Left = 256
-        Height = 27
+        Height = 25
         Top = 293
         Width = 97
         DecimalPlaces = 5
@@ -2283,7 +2269,7 @@ object Kf: TKf
       end
       object gCo: TFloatSpinEdit
         Left = 256
-        Height = 27
+        Height = 25
         Top = 325
         Width = 97
         DecimalPlaces = 5
@@ -2299,7 +2285,7 @@ object Kf: TKf
       end
       object gSi: TFloatSpinEdit
         Left = 256
-        Height = 27
+        Height = 25
         Top = 357
         Width = 97
         DecimalPlaces = 5
@@ -2317,7 +2303,7 @@ object Kf: TKf
         Left = 155
         Height = 17
         Top = 115
-        Width = 61
+        Width = 60
         Caption = 'доля (%)'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -2339,7 +2325,7 @@ object Kf: TKf
         Left = 8
         Height = 21
         Top = 400
-        Width = 147
+        Width = 142
         Caption = 'Комплекс по бору'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -2349,13 +2335,14 @@ object Kf: TKf
       end
       object gCmplx: TFloatSpinEdit
         Left = 256
-        Height = 27
+        Height = 25
         Top = 392
         Width = 97
         DecimalPlaces = 5
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.001
+        MaxValue = 99999999999
         MinValue = 0
         OnChange = gCmplxChange
         ParentFont = False
@@ -2366,7 +2353,7 @@ object Kf: TKf
         Left = 4
         Height = 17
         Top = 2
-        Width = 156
+        Width = 151
         Caption = 'Микропрофиль в мкг/л'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -2375,9 +2362,9 @@ object Kf: TKf
       end
       object Label76: TLabel
         Left = 408
-        Height = 17
+        Height = 18
         Top = 0
-        Width = 242
+        Width = 244
         Caption = 'Расчет навесок микроэлементов'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -2389,7 +2376,7 @@ object Kf: TKf
         Left = 8
         Height = 17
         Top = 104
-        Width = 106
+        Width = 105
         Caption = 'Составы солей'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -2408,8 +2395,8 @@ object Kf: TKf
     end
     object TabSheet3: TTabSheet
       Caption = 'Концентраты'
-      ClientHeight = 669
-      ClientWidth = 755
+      ClientHeight = 674
+      ClientWidth = 753
       Font.Height = -15
       Font.Name = 'Arial'
       OnShow = TabSheet3Show
@@ -2427,17 +2414,17 @@ object Kf: TKf
         TabOrder = 0
         object TabSheet5: TTabSheet
           Caption = 'Расчет'
-          ClientHeight = 612
-          ClientWidth = 748
+          ClientHeight = 586
+          ClientWidth = 744
           Font.Height = -15
           Font.Name = 'Arial'
           OnContextPopup = TabSheet5ContextPopup
           ParentFont = False
           object Label30: TLabel
             Left = 0
-            Height = 27
-            Top = 25
-            Width = 123
+            Height = 29
+            Top = 18
+            Width = 122
             Caption = 'Раствор А'
             Font.Height = -24
             Font.Name = 'Arial'
@@ -2449,7 +2436,7 @@ object Kf: TKf
             Left = 8
             Height = 17
             Top = 75
-            Width = 259
+            Width = 257
             Caption = 'Кальций азотнокислый 4-водный  (ч.)'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -2460,7 +2447,7 @@ object Kf: TKf
             Left = 8
             Height = 17
             Top = 102
-            Width = 169
+            Width = 167
             Caption = 'Калий азотнокислый (ч.)'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -2471,7 +2458,7 @@ object Kf: TKf
             Left = 8
             Height = 17
             Top = 131
-            Width = 189
+            Width = 187
             Caption = 'Аммоний азотнокислый (ч.)'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -2482,7 +2469,7 @@ object Kf: TKf
             Left = 8
             Height = 17
             Top = 156
-            Width = 246
+            Width = 243
             Caption = 'Магний азотнокислый 6-водный (ч.)'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -2493,7 +2480,7 @@ object Kf: TKf
             Left = 8
             Height = 17
             Top = 243
-            Width = 240
+            Width = 237
             Caption = 'Магний сернокислый 7-водный (ч.)'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -2504,7 +2491,7 @@ object Kf: TKf
             Left = 8
             Height = 17
             Top = 271
-            Width = 300
+            Width = 295
             Caption = 'Калий фосфорнокислый 1-замещенный (ч.)'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -2516,7 +2503,7 @@ object Kf: TKf
             Left = 8
             Height = 17
             Top = 299
-            Width = 243
+            Width = 241
             Caption = 'Калий сернокислый безводный (ч.)'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -2528,7 +2515,7 @@ object Kf: TKf
             Left = 8
             Height = 17
             Top = 326
-            Width = 186
+            Width = 184
             Caption = 'Комплекс микроэлементов'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -2540,7 +2527,7 @@ object Kf: TKf
             Left = 8
             Height = 17
             Top = 352
-            Width = 81
+            Width = 80
             Caption = 'Железо (%)'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -2551,7 +2538,7 @@ object Kf: TKf
             Left = 8
             Height = 17
             Top = 383
-            Width = 94
+            Width = 92
             Caption = 'Марганец (%)'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -2584,7 +2571,7 @@ object Kf: TKf
             Left = 8
             Height = 17
             Top = 471
-            Width = 65
+            Width = 63
             Caption = 'Медь (%)'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -2595,7 +2582,7 @@ object Kf: TKf
             Left = 8
             Height = 17
             Top = 529
-            Width = 85
+            Width = 84
             Caption = 'Кобальт (%)'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -2615,7 +2602,7 @@ object Kf: TKf
           end
           object glSi: TFloatSpinEdit
             Left = 312
-            Height = 27
+            Height = 25
             Top = 553
             Width = 85
             Font.Height = -15
@@ -2630,7 +2617,7 @@ object Kf: TKf
           end
           object glCo: TFloatSpinEdit
             Left = 312
-            Height = 27
+            Height = 25
             Top = 523
             Width = 85
             Font.Height = -15
@@ -2645,7 +2632,7 @@ object Kf: TKf
           end
           object glMo: TFloatSpinEdit
             Left = 312
-            Height = 27
+            Height = 25
             Top = 495
             Width = 85
             Font.Height = -15
@@ -2660,7 +2647,7 @@ object Kf: TKf
           end
           object glCu: TFloatSpinEdit
             Left = 312
-            Height = 27
+            Height = 25
             Top = 465
             Width = 85
             Font.Height = -15
@@ -2675,7 +2662,7 @@ object Kf: TKf
           end
           object glZn: TFloatSpinEdit
             Left = 312
-            Height = 27
+            Height = 25
             Top = 435
             Width = 85
             Font.Height = -15
@@ -2690,7 +2677,7 @@ object Kf: TKf
           end
           object glB: TFloatSpinEdit
             Left = 312
-            Height = 27
+            Height = 25
             Top = 406
             Width = 85
             Font.Height = -15
@@ -2705,7 +2692,7 @@ object Kf: TKf
           end
           object glMn: TFloatSpinEdit
             Left = 312
-            Height = 27
+            Height = 25
             Top = 378
             Width = 85
             Font.Height = -15
@@ -2720,7 +2707,7 @@ object Kf: TKf
           end
           object glFe: TFloatSpinEdit
             Left = 312
-            Height = 27
+            Height = 25
             Top = 347
             Width = 85
             Font.Height = -15
@@ -2735,7 +2722,7 @@ object Kf: TKf
           end
           object glCmplx: TFloatSpinEdit
             Left = 312
-            Height = 27
+            Height = 25
             Top = 320
             Width = 85
             Font.Height = -15
@@ -2751,7 +2738,7 @@ object Kf: TKf
           end
           object glK2SO4: TFloatSpinEdit
             Left = 312
-            Height = 27
+            Height = 25
             Top = 293
             Width = 85
             Font.Height = -15
@@ -2766,7 +2753,7 @@ object Kf: TKf
           end
           object glKH2PO4: TFloatSpinEdit
             Left = 312
-            Height = 27
+            Height = 25
             Top = 267
             Width = 85
             Font.Height = -15
@@ -2781,7 +2768,7 @@ object Kf: TKf
           end
           object glMgSO4: TFloatSpinEdit
             Left = 312
-            Height = 27
+            Height = 25
             Top = 238
             Width = 85
             Font.Height = -15
@@ -2796,7 +2783,7 @@ object Kf: TKf
           end
           object glMgNO3: TFloatSpinEdit
             Left = 312
-            Height = 27
+            Height = 25
             Top = 151
             Width = 85
             Font.Height = -15
@@ -2811,7 +2798,7 @@ object Kf: TKf
           end
           object glNH4NO3: TFloatSpinEdit
             Left = 312
-            Height = 27
+            Height = 25
             Top = 125
             Width = 85
             Font.Height = -15
@@ -2826,7 +2813,7 @@ object Kf: TKf
           end
           object glKNO3: TFloatSpinEdit
             Left = 312
-            Height = 27
+            Height = 25
             Top = 98
             Width = 85
             Font.Height = -15
@@ -2841,7 +2828,7 @@ object Kf: TKf
           end
           object glCaNO3: TFloatSpinEdit
             Left = 312
-            Height = 27
+            Height = 25
             Top = 70
             Width = 85
             Font.Height = -15
@@ -2900,7 +2887,7 @@ object Kf: TKf
           end
           object gmlCaNO3: TFloatSpinEdit
             Left = 409
-            Height = 27
+            Height = 25
             Top = 70
             Width = 72
             DecimalPlaces = 3
@@ -2915,7 +2902,7 @@ object Kf: TKf
           end
           object gmlKNO3: TFloatSpinEdit
             Left = 409
-            Height = 27
+            Height = 25
             Top = 98
             Width = 72
             DecimalPlaces = 3
@@ -2930,7 +2917,7 @@ object Kf: TKf
           end
           object gmlNH4NO3: TFloatSpinEdit
             Left = 409
-            Height = 27
+            Height = 25
             Top = 125
             Width = 72
             DecimalPlaces = 3
@@ -2945,7 +2932,7 @@ object Kf: TKf
           end
           object gmlMgNO3: TFloatSpinEdit
             Left = 409
-            Height = 27
+            Height = 25
             Top = 151
             Width = 72
             DecimalPlaces = 3
@@ -2960,7 +2947,7 @@ object Kf: TKf
           end
           object gmlMgSO4: TFloatSpinEdit
             Left = 409
-            Height = 27
+            Height = 25
             Top = 238
             Width = 72
             DecimalPlaces = 3
@@ -2976,7 +2963,7 @@ object Kf: TKf
           end
           object gmlKH2PO4: TFloatSpinEdit
             Left = 409
-            Height = 27
+            Height = 25
             Top = 267
             Width = 72
             DecimalPlaces = 3
@@ -2992,7 +2979,7 @@ object Kf: TKf
           end
           object gmlK2SO4: TFloatSpinEdit
             Left = 409
-            Height = 27
+            Height = 25
             Top = 293
             Width = 72
             DecimalPlaces = 3
@@ -3008,7 +2995,7 @@ object Kf: TKf
           end
           object gmlCmplx: TFloatSpinEdit
             Left = 409
-            Height = 27
+            Height = 25
             Top = 320
             Width = 72
             DecimalPlaces = 3
@@ -3024,7 +3011,7 @@ object Kf: TKf
           end
           object gmlFe: TFloatSpinEdit
             Left = 409
-            Height = 27
+            Height = 25
             Top = 347
             Width = 72
             DecimalPlaces = 3
@@ -3039,7 +3026,7 @@ object Kf: TKf
           end
           object gmlMn: TFloatSpinEdit
             Left = 409
-            Height = 27
+            Height = 25
             Top = 378
             Width = 72
             DecimalPlaces = 3
@@ -3054,7 +3041,7 @@ object Kf: TKf
           end
           object gmlB: TFloatSpinEdit
             Left = 409
-            Height = 27
+            Height = 25
             Top = 406
             Width = 72
             DecimalPlaces = 3
@@ -3069,7 +3056,7 @@ object Kf: TKf
           end
           object gmlZn: TFloatSpinEdit
             Left = 409
-            Height = 27
+            Height = 25
             Top = 436
             Width = 72
             DecimalPlaces = 3
@@ -3084,7 +3071,7 @@ object Kf: TKf
           end
           object gmlCu: TFloatSpinEdit
             Left = 409
-            Height = 27
+            Height = 25
             Top = 465
             Width = 72
             DecimalPlaces = 3
@@ -3099,7 +3086,7 @@ object Kf: TKf
           end
           object gmlMo: TFloatSpinEdit
             Left = 409
-            Height = 27
+            Height = 25
             Top = 495
             Width = 72
             DecimalPlaces = 3
@@ -3114,7 +3101,7 @@ object Kf: TKf
           end
           object gmlCo: TFloatSpinEdit
             Left = 409
-            Height = 27
+            Height = 25
             Top = 523
             Width = 72
             DecimalPlaces = 3
@@ -3129,7 +3116,7 @@ object Kf: TKf
           end
           object gmlSi: TFloatSpinEdit
             Left = 409
-            Height = 27
+            Height = 25
             Top = 553
             Width = 72
             DecimalPlaces = 3
@@ -3144,7 +3131,7 @@ object Kf: TKf
           end
           object mlSi: TFloatSpinEdit
             Left = 488
-            Height = 27
+            Height = 25
             Top = 553
             Width = 72
             Font.Height = -15
@@ -3160,7 +3147,7 @@ object Kf: TKf
           end
           object mlCo: TFloatSpinEdit
             Left = 488
-            Height = 27
+            Height = 25
             Top = 523
             Width = 72
             Font.Height = -15
@@ -3176,7 +3163,7 @@ object Kf: TKf
           end
           object mlMo: TFloatSpinEdit
             Left = 488
-            Height = 27
+            Height = 25
             Top = 495
             Width = 72
             Font.Height = -15
@@ -3192,7 +3179,7 @@ object Kf: TKf
           end
           object mlCu: TFloatSpinEdit
             Left = 488
-            Height = 27
+            Height = 25
             Top = 465
             Width = 72
             Font.Height = -15
@@ -3208,7 +3195,7 @@ object Kf: TKf
           end
           object mlZn: TFloatSpinEdit
             Left = 488
-            Height = 27
+            Height = 25
             Top = 436
             Width = 72
             Font.Height = -15
@@ -3224,7 +3211,7 @@ object Kf: TKf
           end
           object mlB: TFloatSpinEdit
             Left = 488
-            Height = 27
+            Height = 25
             Top = 406
             Width = 72
             Font.Height = -15
@@ -3240,7 +3227,7 @@ object Kf: TKf
           end
           object mlMn: TFloatSpinEdit
             Left = 488
-            Height = 27
+            Height = 25
             Top = 378
             Width = 72
             Font.Height = -15
@@ -3256,7 +3243,7 @@ object Kf: TKf
           end
           object mlFe: TFloatSpinEdit
             Left = 488
-            Height = 27
+            Height = 25
             Top = 347
             Width = 72
             Font.Height = -15
@@ -3272,7 +3259,7 @@ object Kf: TKf
           end
           object mlCmplx: TFloatSpinEdit
             Left = 488
-            Height = 27
+            Height = 25
             Top = 320
             Width = 72
             Font.Height = -15
@@ -3289,7 +3276,7 @@ object Kf: TKf
           end
           object mlK2SO4: TFloatSpinEdit
             Left = 488
-            Height = 27
+            Height = 25
             Top = 293
             Width = 72
             Font.Height = -15
@@ -3305,7 +3292,7 @@ object Kf: TKf
           end
           object mlKH2PO4: TFloatSpinEdit
             Left = 488
-            Height = 27
+            Height = 25
             Top = 267
             Width = 72
             Font.Height = -15
@@ -3321,7 +3308,7 @@ object Kf: TKf
           end
           object mlMgSO4: TFloatSpinEdit
             Left = 488
-            Height = 27
+            Height = 25
             Top = 238
             Width = 72
             Font.Height = -15
@@ -3337,9 +3324,9 @@ object Kf: TKf
           end
           object Label59: TLabel
             Left = 0
-            Height = 27
+            Height = 29
             Top = 194
-            Width = 123
+            Width = 122
             Caption = 'Раствор B'
             Font.Height = -24
             Font.Name = 'Arial'
@@ -3349,7 +3336,7 @@ object Kf: TKf
           end
           object ggMgSO4: TFloatSpinEdit
             Left = 568
-            Height = 27
+            Height = 25
             Top = 238
             Width = 72
             Font.Height = -15
@@ -3365,7 +3352,7 @@ object Kf: TKf
           end
           object ggKH2PO4: TFloatSpinEdit
             Left = 568
-            Height = 27
+            Height = 25
             Top = 267
             Width = 72
             Font.Height = -15
@@ -3381,7 +3368,7 @@ object Kf: TKf
           end
           object ggK2SO4: TFloatSpinEdit
             Left = 568
-            Height = 27
+            Height = 25
             Top = 293
             Width = 72
             Font.Height = -15
@@ -3397,7 +3384,7 @@ object Kf: TKf
           end
           object ggCmplx: TFloatSpinEdit
             Left = 568
-            Height = 27
+            Height = 25
             Top = 320
             Width = 72
             Font.Height = -15
@@ -3414,7 +3401,7 @@ object Kf: TKf
           end
           object ggFe: TFloatSpinEdit
             Left = 568
-            Height = 27
+            Height = 25
             Top = 347
             Width = 72
             Font.Height = -15
@@ -3430,7 +3417,7 @@ object Kf: TKf
           end
           object ggMn: TFloatSpinEdit
             Left = 568
-            Height = 27
+            Height = 25
             Top = 378
             Width = 72
             Font.Height = -15
@@ -3446,7 +3433,7 @@ object Kf: TKf
           end
           object ggB: TFloatSpinEdit
             Left = 568
-            Height = 27
+            Height = 25
             Top = 406
             Width = 72
             Font.Height = -15
@@ -3462,7 +3449,7 @@ object Kf: TKf
           end
           object ggZn: TFloatSpinEdit
             Left = 568
-            Height = 27
+            Height = 25
             Top = 436
             Width = 72
             Font.Height = -15
@@ -3478,7 +3465,7 @@ object Kf: TKf
           end
           object ggCu: TFloatSpinEdit
             Left = 568
-            Height = 27
+            Height = 25
             Top = 465
             Width = 72
             Font.Height = -15
@@ -3494,7 +3481,7 @@ object Kf: TKf
           end
           object ggMo: TFloatSpinEdit
             Left = 568
-            Height = 27
+            Height = 25
             Top = 495
             Width = 72
             Font.Height = -15
@@ -3510,7 +3497,7 @@ object Kf: TKf
           end
           object ggCo: TFloatSpinEdit
             Left = 568
-            Height = 27
+            Height = 25
             Top = 523
             Width = 72
             Font.Height = -15
@@ -3526,7 +3513,7 @@ object Kf: TKf
           end
           object ggSi: TFloatSpinEdit
             Left = 568
-            Height = 27
+            Height = 25
             Top = 553
             Width = 72
             Font.Height = -15
@@ -3542,7 +3529,7 @@ object Kf: TKf
           end
           object ggMgNO3: TFloatSpinEdit
             Left = 568
-            Height = 27
+            Height = 25
             Top = 151
             Width = 72
             Font.Height = -15
@@ -3558,7 +3545,7 @@ object Kf: TKf
           end
           object ggNH4NO3: TFloatSpinEdit
             Left = 568
-            Height = 27
+            Height = 25
             Top = 125
             Width = 72
             Font.Height = -15
@@ -3573,7 +3560,7 @@ object Kf: TKf
           end
           object ggKNO3: TFloatSpinEdit
             Left = 568
-            Height = 27
+            Height = 25
             Top = 98
             Width = 72
             Font.Height = -15
@@ -3588,7 +3575,7 @@ object Kf: TKf
           end
           object ggCaNO3: TFloatSpinEdit
             Left = 568
-            Height = 27
+            Height = 25
             Top = 70
             Width = 72
             Font.Height = -15
@@ -3603,7 +3590,7 @@ object Kf: TKf
           end
           object mlCaNO3: TFloatSpinEdit
             Left = 488
-            Height = 27
+            Height = 25
             Top = 70
             Width = 72
             Font.Height = -15
@@ -3618,7 +3605,7 @@ object Kf: TKf
           end
           object mlKNO3: TFloatSpinEdit
             Left = 488
-            Height = 27
+            Height = 25
             Top = 98
             Width = 72
             Font.Height = -15
@@ -3634,7 +3621,7 @@ object Kf: TKf
           end
           object mlNH4NO3: TFloatSpinEdit
             Left = 488
-            Height = 27
+            Height = 25
             Top = 125
             Width = 72
             Font.Height = -15
@@ -3649,7 +3636,7 @@ object Kf: TKf
           end
           object mlMgNO3: TFloatSpinEdit
             Left = 488
-            Height = 27
+            Height = 25
             Top = 151
             Width = 72
             Font.Height = -15
@@ -3667,7 +3654,7 @@ object Kf: TKf
             Left = 8
             Height = 17
             Top = 500
-            Width = 99
+            Width = 96
             Caption = 'Молибден (%)'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -3676,9 +3663,9 @@ object Kf: TKf
           end
           object Label75: TLabel
             Left = 365
-            Height = 17
+            Height = 18
             Top = 0
-            Width = 287
+            Width = 285
             Caption = 'Расчет монорастворов и концентратов'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -3689,7 +3676,7 @@ object Kf: TKf
           object sumA: TLabel
             Left = 144
             Height = 17
-            Top = 29
+            Top = 24
             Width = 52
             Caption = 'ИТОГО'
             ParentColor = False
@@ -3721,7 +3708,7 @@ object Kf: TKf
           ParentFont = False
           object k2nCaNO3: TLabel
             Left = 181
-            Height = 17
+            Height = 18
             Top = 30
             Width = 259
             Caption = 'Кальций азотнокислый 4-водный  (ч.)'
@@ -3732,7 +3719,7 @@ object Kf: TKf
           end
           object k2nKNO3: TLabel
             Left = 181
-            Height = 17
+            Height = 18
             Top = 59
             Width = 169
             Caption = 'Калий азотнокислый (ч.)'
@@ -3743,7 +3730,7 @@ object Kf: TKf
           end
           object k2nNH4NO3: TLabel
             Left = 181
-            Height = 17
+            Height = 18
             Top = 88
             Width = 189
             Caption = 'Аммоний азотнокислый (ч.)'
@@ -3754,7 +3741,7 @@ object Kf: TKf
           end
           object k2nMgNO3: TLabel
             Left = 181
-            Height = 17
+            Height = 18
             Top = 117
             Width = 246
             Caption = 'Магний азотнокислый 6-водный (ч.)'
@@ -3765,7 +3752,7 @@ object Kf: TKf
           end
           object k2nMgSO4: TLabel
             Left = 181
-            Height = 17
+            Height = 18
             Top = 166
             Width = 240
             Caption = 'Магний сернокислый 7-водный (ч.)'
@@ -3776,7 +3763,7 @@ object Kf: TKf
           end
           object k2nKH2PO4: TLabel
             Left = 181
-            Height = 17
+            Height = 18
             Top = 197
             Width = 300
             Caption = 'Калий фосфорнокислый 1-замещенный (ч.)'
@@ -3788,7 +3775,7 @@ object Kf: TKf
           end
           object k2nK2SO4: TLabel
             Left = 181
-            Height = 17
+            Height = 18
             Top = 228
             Width = 243
             Caption = 'Калий сернокислый безводный (ч.)'
@@ -3800,7 +3787,7 @@ object Kf: TKf
           end
           object l2Fe: TLabel
             Left = 181
-            Height = 17
+            Height = 18
             Top = 290
             Width = 81
             Caption = 'Железо (%)'
@@ -3811,7 +3798,7 @@ object Kf: TKf
           end
           object l2Mn: TLabel
             Left = 181
-            Height = 17
+            Height = 18
             Top = 321
             Width = 94
             Caption = 'Марганец (%)'
@@ -3822,7 +3809,7 @@ object Kf: TKf
           end
           object l2B: TLabel
             Left = 181
-            Height = 17
+            Height = 18
             Top = 352
             Width = 53
             Caption = 'Бор (%)'
@@ -3833,7 +3820,7 @@ object Kf: TKf
           end
           object l2Zn: TLabel
             Left = 181
-            Height = 17
+            Height = 18
             Top = 384
             Width = 61
             Caption = 'Цинк (%)'
@@ -3844,7 +3831,7 @@ object Kf: TKf
           end
           object l2Cu: TLabel
             Left = 181
-            Height = 17
+            Height = 18
             Top = 414
             Width = 65
             Caption = 'Медь (%)'
@@ -3855,7 +3842,7 @@ object Kf: TKf
           end
           object l2Mo: TLabel
             Left = 181
-            Height = 17
+            Height = 18
             Top = 445
             Width = 99
             Caption = 'Молибден (%)'
@@ -3866,7 +3853,7 @@ object Kf: TKf
           end
           object l2Co: TLabel
             Left = 181
-            Height = 17
+            Height = 18
             Top = 476
             Width = 85
             Caption = 'Кобальт (%)'
@@ -3877,7 +3864,7 @@ object Kf: TKf
           end
           object l2Si: TLabel
             Left = 181
-            Height = 17
+            Height = 18
             Top = 507
             Width = 86
             Caption = 'Кремний (%)'
@@ -3888,7 +3875,7 @@ object Kf: TKf
           end
           object mCaNO3: TEdit
             Left = 2
-            Height = 27
+            Height = 28
             Top = 22
             Width = 54
             Font.Height = -15
@@ -3900,7 +3887,7 @@ object Kf: TKf
           end
           object mKNO3: TEdit
             Left = 2
-            Height = 27
+            Height = 28
             Top = 53
             Width = 54
             Font.Height = -15
@@ -3911,7 +3898,7 @@ object Kf: TKf
           end
           object mNH4NO3: TEdit
             Left = 2
-            Height = 27
+            Height = 28
             Top = 82
             Width = 54
             Font.Height = -15
@@ -3922,7 +3909,7 @@ object Kf: TKf
           end
           object mMgNO3: TEdit
             Left = 2
-            Height = 27
+            Height = 28
             Top = 114
             Width = 54
             Font.Height = -15
@@ -3932,7 +3919,7 @@ object Kf: TKf
           end
           object mMgSO4: TEdit
             Left = 2
-            Height = 27
+            Height = 28
             Top = 159
             Width = 54
             Font.Height = -15
@@ -3943,7 +3930,7 @@ object Kf: TKf
           end
           object mKH2PO4: TEdit
             Left = 2
-            Height = 27
+            Height = 28
             Top = 190
             Width = 54
             Font.Height = -15
@@ -3954,7 +3941,7 @@ object Kf: TKf
           end
           object mK2SO4: TEdit
             Left = 2
-            Height = 27
+            Height = 28
             Top = 221
             Width = 54
             Font.Height = -15
@@ -3965,7 +3952,7 @@ object Kf: TKf
           end
           object mCmplx: TEdit
             Left = 2
-            Height = 27
+            Height = 28
             Top = 252
             Width = 54
             Font.Height = -15
@@ -3976,7 +3963,7 @@ object Kf: TKf
           end
           object mFe: TEdit
             Left = 2
-            Height = 27
+            Height = 28
             Top = 283
             Width = 54
             Font.Height = -15
@@ -3986,7 +3973,7 @@ object Kf: TKf
           end
           object mMn: TEdit
             Left = 2
-            Height = 27
+            Height = 28
             Top = 314
             Width = 54
             Font.Height = -15
@@ -3996,7 +3983,7 @@ object Kf: TKf
           end
           object mB: TEdit
             Left = 2
-            Height = 27
+            Height = 28
             Top = 345
             Width = 54
             Font.Height = -15
@@ -4006,7 +3993,7 @@ object Kf: TKf
           end
           object mZn: TEdit
             Left = 2
-            Height = 27
+            Height = 28
             Top = 376
             Width = 54
             Font.Height = -15
@@ -4016,7 +4003,7 @@ object Kf: TKf
           end
           object mCu: TEdit
             Left = 2
-            Height = 27
+            Height = 28
             Top = 407
             Width = 54
             Font.Height = -15
@@ -4026,7 +4013,7 @@ object Kf: TKf
           end
           object mMo: TEdit
             Left = 2
-            Height = 27
+            Height = 28
             Top = 438
             Width = 54
             Font.Height = -15
@@ -4036,7 +4023,7 @@ object Kf: TKf
           end
           object mCo: TEdit
             Left = 2
-            Height = 27
+            Height = 28
             Top = 469
             Width = 54
             Font.Height = -15
@@ -4046,7 +4033,7 @@ object Kf: TKf
           end
           object mSi: TEdit
             Left = 2
-            Height = 27
+            Height = 28
             Top = 499
             Width = 54
             Font.Height = -15
@@ -4216,7 +4203,7 @@ object Kf: TKf
           end
           object g2gCaNO3: TEdit
             Left = 114
-            Height = 27
+            Height = 28
             Top = 22
             Width = 54
             Font.Height = -15
@@ -4227,7 +4214,7 @@ object Kf: TKf
           end
           object g2gKNO3: TEdit
             Left = 114
-            Height = 27
+            Height = 28
             Top = 53
             Width = 54
             Font.Height = -15
@@ -4237,7 +4224,7 @@ object Kf: TKf
           end
           object g2gNH4NO3: TEdit
             Left = 114
-            Height = 27
+            Height = 28
             Top = 82
             Width = 54
             Font.Height = -15
@@ -4247,7 +4234,7 @@ object Kf: TKf
           end
           object g2gMgNO3: TEdit
             Left = 114
-            Height = 27
+            Height = 28
             Top = 114
             Width = 54
             Font.Height = -15
@@ -4257,7 +4244,7 @@ object Kf: TKf
           end
           object g2gMgSO4: TEdit
             Left = 114
-            Height = 27
+            Height = 28
             Top = 159
             Width = 54
             Font.Height = -15
@@ -4267,7 +4254,7 @@ object Kf: TKf
           end
           object g2gKH2PO4: TEdit
             Left = 114
-            Height = 27
+            Height = 28
             Top = 190
             Width = 54
             Font.Height = -15
@@ -4277,7 +4264,7 @@ object Kf: TKf
           end
           object g2gK2SO4: TEdit
             Left = 114
-            Height = 27
+            Height = 28
             Top = 221
             Width = 54
             Font.Height = -15
@@ -4287,7 +4274,7 @@ object Kf: TKf
           end
           object g2gCmplx: TEdit
             Left = 114
-            Height = 27
+            Height = 28
             Top = 252
             Width = 54
             Font.Height = -15
@@ -4297,7 +4284,7 @@ object Kf: TKf
           end
           object g2gFe: TEdit
             Left = 114
-            Height = 27
+            Height = 28
             Top = 283
             Width = 54
             Font.Height = -15
@@ -4307,7 +4294,7 @@ object Kf: TKf
           end
           object g2gMn: TEdit
             Left = 114
-            Height = 27
+            Height = 28
             Top = 314
             Width = 54
             Font.Height = -15
@@ -4317,7 +4304,7 @@ object Kf: TKf
           end
           object g2gB: TEdit
             Left = 114
-            Height = 27
+            Height = 28
             Top = 345
             Width = 54
             Font.Height = -15
@@ -4327,7 +4314,7 @@ object Kf: TKf
           end
           object g2gZn: TEdit
             Left = 114
-            Height = 27
+            Height = 28
             Top = 376
             Width = 54
             Font.Height = -15
@@ -4337,7 +4324,7 @@ object Kf: TKf
           end
           object g2gCu: TEdit
             Left = 114
-            Height = 27
+            Height = 28
             Top = 407
             Width = 54
             Font.Height = -15
@@ -4347,7 +4334,7 @@ object Kf: TKf
           end
           object g2gMo: TEdit
             Left = 114
-            Height = 27
+            Height = 28
             Top = 438
             Width = 54
             Font.Height = -15
@@ -4357,7 +4344,7 @@ object Kf: TKf
           end
           object g2gCo: TEdit
             Left = 114
-            Height = 27
+            Height = 28
             Top = 469
             Width = 54
             Font.Height = -15
@@ -4367,7 +4354,7 @@ object Kf: TKf
           end
           object g2gSi: TEdit
             Left = 114
-            Height = 27
+            Height = 28
             Top = 499
             Width = 54
             Font.Height = -15
@@ -4377,7 +4364,7 @@ object Kf: TKf
           end
           object Label70: TLabel
             Left = 5
-            Height = 17
+            Height = 18
             Top = 0
             Width = 45
             Caption = 'Помпа'
@@ -4388,7 +4375,7 @@ object Kf: TKf
           end
           object Label71: TLabel
             Left = 68
-            Height = 17
+            Height = 18
             Top = 0
             Width = 38
             Caption = 'Ручн.'
@@ -4399,7 +4386,7 @@ object Kf: TKf
           end
           object Label72: TLabel
             Left = 119
-            Height = 17
+            Height = 18
             Top = 0
             Width = 65
             Caption = 'жидк (гр.)'
@@ -4422,7 +4409,7 @@ object Kf: TKf
           end
           object addrMixer: TEdit
             Left = 0
-            Height = 27
+            Height = 28
             Top = 548
             Width = 275
             Font.Height = -15
@@ -4433,7 +4420,7 @@ object Kf: TKf
           end
           object l2Cmplx: TLabel
             Left = 181
-            Height = 17
+            Height = 18
             Top = 259
             Width = 186
             Caption = 'Комплекс микроэлементов'
@@ -4444,7 +4431,7 @@ object Kf: TKf
           end
           object Label74: TLabel
             Left = 330
-            Height = 17
+            Height = 18
             Top = 0
             Width = 343
             Caption = 'План изготовления жидкими монорастворами'
@@ -4498,7 +4485,7 @@ object Kf: TKf
         Left = 166
         Height = 17
         Top = 620
-        Width = 47
+        Width = 46
         Caption = 'Тара А'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -4507,7 +4494,7 @@ object Kf: TKf
       end
       object tAml: TFloatSpinEdit
         Left = 83
-        Height = 27
+        Height = 25
         Top = 616
         Width = 79
         DecimalPlaces = 0
@@ -4519,7 +4506,7 @@ object Kf: TKf
       end
       object tBml: TFloatSpinEdit
         Left = 83
-        Height = 27
+        Height = 25
         Top = 643
         Width = 79
         DecimalPlaces = 0
@@ -4533,7 +4520,7 @@ object Kf: TKf
         Left = 0
         Height = 17
         Top = 620
-        Width = 80
+        Width = 78
         Caption = 'Тара А (мл)'
         ParentColor = False
       end
@@ -4541,14 +4528,14 @@ object Kf: TKf
         Left = 0
         Height = 17
         Top = 648
-        Width = 80
+        Width = 79
         Caption = 'Тара B (мл)'
         ParentColor = False
       end
     end
     object TabSheet4: TTabSheet
       Caption = 'Файл'
-      ClientHeight = 669
+      ClientHeight = 668
       ClientWidth = 755
       Font.Height = -15
       Font.Name = 'Arial'
@@ -4659,7 +4646,6 @@ object Kf: TKf
         ParentDoubleBuffered = False
         ScrollWidth = 721
         TabOrder = 6
-        TopIndex = -1
       end
       object m1: TMemo
         Left = 8
@@ -4937,7 +4923,7 @@ object Kf: TKf
     Left = 10
     Height = 17
     Top = 744
-    Width = 112
+    Width = 110
     Caption = 'Объем в литрах'
     Font.Height = -15
     Font.Name = 'Arial'
@@ -4946,7 +4932,7 @@ object Kf: TKf
   end
   object V: TFloatSpinEdit
     Left = 134
-    Height = 27
+    Height = 25
     Top = 738
     Width = 82
     DecimalPlaces = 1
@@ -5037,7 +5023,7 @@ object Kf: TKf
     Left = 10
     Height = 17
     Top = 770
-    Width = 121
+    Width = 119
     Caption = 'Солей в граммах:'
     Font.Height = -15
     Font.Name = 'Arial'
@@ -5046,7 +5032,7 @@ object Kf: TKf
   end
   object sSoil: TFloatSpinEdit
     Left = 136
-    Height = 27
+    Height = 25
     Top = 766
     Width = 80
     Font.Height = -15
@@ -5058,6 +5044,512 @@ object Kf: TKf
     ReadOnly = True
     TabOrder = 8
     Value = 0
+  end
+  object Image1: TImage
+    Left = 591
+    Height = 71
+    Top = 730
+    Width = 167
+    Picture.Data = {
+      1754506F727461626C654E6574776F726B477261706869635C3C000089504E47
+      0D0A1A0A0000000D49484452000000A20000004608060000004F274F8F000000
+      06624B474400FF00FF00FFA0BDA79300000009704859730000475C0000475C01
+      735E1CC20000000774494D4507E40718052C0BCEA42099000020004944415478
+      DAECBD777C14D5FEFFFF3C33BB9B0A4908BD774876133A22A282A2A202527603
+      88A22876BD2A2ACA0569829DEB55AFFDDA0B905D8A200A8202D27BC96EE83594
+      000142FA9699F3FB6336D90D848EF7FBB9BFEB793CF691ECECCCEECC99D7BCCB
+      EB5D8EE0BF60F4CF84E9C9C6FFBD9741DBEBC09D8182CA24E084CBCADBFC35FE
+      1AE71AE324DC33AFFCB6816E62FB6F21EECC7D07AE0BFDDF2FF3ECEFB26750D5
+      EE66907D0B09006919D4B27B781560DCB8F2FB3AE45F73FFDF36C4951C7CFF5E
+      C4578DB8E06D77EC4691C5C408410F099D005D800E48092781452E2B6B076C20
+      4246522D3D9983E1C70F580FBE3884EAE561200F88069A0A9D1F0464A4A784F6
+      BD7B0B26DD8C59FA3103A0236504FEF4244A00D2DC906E8367B3E09D7A7F01E0
+      BF1E88F7EF85AF1A5D00801E705AA1FF5A4C229AE170B6240C0E0538ADC0C7E9
+      5672ED1E7059CBEFD0671F543A8CE2AD4467095952E1119795BF077FA7017003
+      9024210290C157F8754A6089CBCA4FFD37C3F45670FB4EF8A51938B681B3E55F
+      60F8AF9588E71D12D23661D62DB407FA01BE8B384A15F06920C09E99AD2ADEC1
+      9E416D21A801644B411B2017B80B085CE4999D56246FA6DB820FCB362CDE027C
+      B3DBFF0586FF9743F93321AE9BB911E875912004D0243CA84A22CEB5832B85C3
+      52E510829E4017A0E7258010205E87A8D237FEE2BF40F8FF0F200625D7004F85
+      60BCE10C15797110B650FFBC272DF14A6854810ABE28592D048F943A53B3DA9C
+      D3AC107FC1E3BF09889B61602696695670B8E96877D315C0E1A61E041D864B1B
+      45AE64769EA592DD58FA6FA132802E79F13200186E35547764526DDC1950BB7F
+      51E87FA715E9F09CFF7BEEDD1CB285FF1AFF476C44C71670A682C3C343C022E0
+      66C9F925DB39816865D2397FC78D3D681B5EA90DABAA7EC64C6B63980DFDDD30
+      DD068357C1F79D427F2F34D232888FA8C4E96F1B9EFD60A46D2142E8A8BA82EE
+      4C35BCF6BFC67FC05929F576ED1E1E15902B0DC5AD5FEA392982AFD393D90EE0
+      C8A4B63399C3008E0C2A4B859197F19DE71A11C036019B9C56D68581AB5E7A0A
+      59E73AA8DF56989104691E48B782630B55A44A472006300155904422A81ED40A
+      AA907CE0B4B1AB1C5037A3A4B742EF9F01D353FE02E2551DF6CD100B4A8189B7
+      E0B2A580226033924429A80F08010725D4B944C7E46287490418E36C85376806
+      3CEAB2F1F13940680AF809CC36A47FA294F445D0E2221C32558157D2AD149649
+      F7CDC4491395224D647FD78280231D9C697F01F16A4AC6EAC07040FB2F9A087F
+      E171C64757470A8DD69A64CB8C5443F23A5682F3DAB36CD6F608FA5FA274B608
+      C9474E1B7B1C19E04C01BB9BD62E1B9B0667C0F729E0484738D3907F01F12A8C
+      DE2B1096389E0312AFA21AFDF32743B2D469639EDD83198949911497466D1C2B
+      213B016AF988D2151E4550ED321D2693804D0AB8A659F1DB3D0C1590E7B432DD
+      21C129A0D73AC49CF6FF5B60FC538038600B4C4B05BB9BEB11DC791524A30839
+      BC7FDE5CA88231AA0FE937D313491102B714F8D08910E097E047F0CC65B20167
+      DBA73A6FA3300C881530DD6965ED5F3662B844DB00B3DB0625412691CEE490AD
+      576AC7F45A07732E8208B6BB791841832B3CCFE5C2884B77F9332743C256016D
+      016F50929B8273548011DF1657D9465D1595CB2FC5F13C0C3495F0F2F4301BF2
+      7F6954C823CE6E0B760FED1D6ED2A46468F867CE34E89F41F588482C17A474DC
+      2054A65EA90411705297FC067F2EC9AC4094229828244E4005E600AB82400C5C
+      6D4749C03EED340197950F817C01231D9944FF2F02D154D1C63E1B31015629F8
+      5E4057FB162A290AF9A5F159216884E02EBB9B4F84A0A5D4D9A44281A6A0AB12
+      7D9A0D6F69960B906777F32B829B017FF0065FAAA4BAC61CC1DA800FE54F7480
+      54245F090B7EE1A7B22641916C48B7511474C0C6C2851FBE4BBA2E41951FEE28
+      7B7B0868202569C0577FA966439DB61510AF14B1588FA18D841B84CE7B42122D
+      055E670A3EBB87378312420625AB09388691A66516F01911781372E1D3F6E0F0
+      D00F8D9D52E59ECB902C42489623489218F9887F0610058C715AF1F5DB825951
+      192B241E096B04DC24455948F16A8E480193F1922D23180544720142FF7F4A22
+      22680D6C9CD611DDEEA13510271592A4A40582E60332F8A76680AFF4C6E8C066
+      9795EFC2289C4728E0B34FDB1B5EB3D3CA8CA0BA4E9702FB257AD3254E1B73D3
+      B6B244EAFCFD4F725AB4600A994F55E82B4191021B60937F9EA35422E16F44A0
+      12E22113F81F1CE78A35274969A82401B12E2BE35C56DC087204FCA2096A06A5
+      DAA9E0042A8AC4536A170EC80497954F8499DE760FD5000665046D4C1BEB052C
+      08FEF6C580311BC90C879B97749D11E2FCE77DA5A34D5065A6FCC91E7AB90780
+      F264B8F21710018787E68010027FBFCD440433A849F310EDB2B244420D048F01
+      052E2B6F233805F875415F879B87A4C4322DD9489C755A992520DEE1A6AF4F37
+      6CC360B2ECEFC02224F3819C0A4C84D2F7FB046C3249763A6DBCEEB23206C952
+      45F2EE9F04940E69193408B363D5A0A3F29F1A5E20FB2FFAC650A9F70236241F
+      09C897825B158DD9BACA1B688C42653046A84D11F09384EB814D2E2BF31C1E7A
+      4BE82C60BA0E6E218914826EC194AD2A42E0522519C591047E6C52CE267D0041
+      E9961201B39D5636DB3D8C90F0BD22F04919949E125540F7E248A6457A19734E
+      F3E2DC17EC93120D11CA490CCE43BE30BE7F5F5022F21FE02E2B120CCB5C56E6
+      FECFDB8842D2500A7404B7232950545C52A78E10EC44E566098D81ED4082842E
+      2E2BAF133214172A6091D05D8196089697DA864169784D005EFCB149C818EFBB
+      195C36BE70781829E1A8CBCA170332CBCE653F82C765080A010448304516D3C8
+      95C2D84BF5662558828F9F3F482B05A4E44D45D01BC17E01054832A5C022A0A5
+      84FF641181040EFE2F264198C0C8ABFBB655D93339499124E9902605D152C38A
+      4201121FD01A38EDB2F299C3C33009CD06B869AA0BA2245C2724AB9D365C0069
+      5B88D605D5D33CDCA6432D201689AA48BEEBFC02AC78CBF8B9B092808F819B01
+      F410F04A415008C406CF57034A50E838D0C3FE80E063244F053F0B5C24D7A810
+      4CC870591997E6A6832E8953247B34419E0A3EA79580DD4D25C47F1488AA80E3
+      AE3010DE97871A55090510261001908A71A1BAF704FAD7554376F695244D0CCA
+      8429C9FF8F5573DA4E22159594E2E37C6B8AA4607A2BDA0755E610049ACBCAF7
+      41B5FD6CF066EF00BA0838286096A5067925D90CF5E733C912CF3834B63A6DFC
+      0AD0DF4D2321E80B440B9048BC8A898FA7B5A4202D03930E44FB08145A18EA3B
+      CDE8A86A3CA646B26C4A038AEC1EDE02FC8AC6EBBACADF83209442F2AE143C0B
+      A8BE00232D269E903E86E83A25E668D6EA3A251750A92D342F1619C0A9EB6802
+      8450A882C024146E100A02899420836557D2F0614006BF5704FF4A408DA030C8
+      035E29E16EA993CCC8E359D438E9A14DA0908647575323672D8D8B8F51235044
+      3412698A262FA63659B56EC453B905C722ABB0B3666776A851147EA6183CEB9D
+      5B606EEA857FD091493C92AE79B9FC38FFBA4B3743BE9670DF550833087B269F
+      E5EF66D8CA67216F17243D06B667B8C5D98285FD3611AB9819071423D88FA451
+      D0D3DDE9B2F28DDD4D75246B777C43E296B7880148DBCDCAF426742EF5A09D36
+      70B8A9A2EB94089508E0719795490E370F4941D3A064AA94BF8FDBE7DF494B35
+      02D96E02BBEBF76423B01BD084E47729B85181993A3882F75F0AD8A4C11F8AE0
+      EE5F6EE3ADC22CCC35BA5070CD6B1CB3546115B0EF4C49A86BDCF24B77528A8F
+      5D3D72BADF667E524C6CBE02200A21A85472027DD36B241C9CCF40A95D5A344A
+      8DE458DD5BF9BCC583AC484C65B5F71427CD51E8D3922A06575A06A4A780C3C3
+      1809C52E2B6F5DE8371ED88D92E5A669DE564C7E898C8824B03B865D7DDA223F
+      BDC2BA1F93A2F263D63C86E5055336B77E04B6677817B0CE684D81DD4311A007
+      4178DC65E59FC10B69AD9AD8E2D738BDE5AD5026F61F4369E7D8C6DDCE96FCE0
+      B49529C24A8A409530D4656592DDC3BB120A85E41BA70D8F632B2B7E1F447300
+      CD8BD8F2360D1BDCC554A91109E8D288CA684110964AF2755267B9AA50587282
+      3B0AB38C1B777419B125C7391A19CFA7BAC2ADE5EF36D7CC6C453B29FF0CBD72
+      D9C75629D847CBC5F7D2B1E4C4B9C37B42094A67433E0BA997FF55AD84EAFB67
+      3372FF6C102A450F05B8E953C1EA8ABEABEBA22008DDF49260715999703119E9
+      A23E9517366785D4480C9E7BE18B3A75DE109CBE621B31BD053F0DD8C596CC0F
+      2813E4EBC7909CB68341E9CD99E2B2322628DDEC52D074D056A2FD1AAD75416F
+      A9510F853ED74C66CBEAE70C8998FD0716DDC70BC00FFD57C0F4CE20257705ED
+      B137834E88571AD3D8C8B19DC3A73248F6E785A8A45B7E245B2BE16DC5CC8BC1
+      4D794267BE5068A1639CA7A291919ECA71BB87E1F36EE79632C910851ED79C7D
+      BA280FC2E0C449A12265C0B889A668B452755F4E6E2828E886ED250D10284254
+      0CB740F1A5872C83E762D68A4999DF93EB8B8E187317F6C0E8C24C71ED1B39D2
+      388D83B5BB9183194DE8E812740514BF1765FF2C6AEE9D4E93935BA8A9FB514B
+      C119DF8245B97B389496819A9E7276487471377064D0480ABAA0F17E9A1BBEB7
+      9DC7839290B60765C97D742803A1313931FF6AC87D03B6F27E9E09F94BB32B78
+      1EFB7B4051E8B4EB07566E7C254CDD6CE0E08CB6D43B439CD79282A152101B94
+      033FBBAC2C1DB08B6FD29B73AF0C9ACD5552F17577F296D07953D37908236CF5
+      519A071350578747822A5E22B8D3954CEBD2DFA8D4007F8F5FF85D4A3608C952
+      09C9082A45C0442F4C0C020761980B6FE4ED66DEFC5EDC547A7CEF65ECB42490
+      5E919C120A9DA6A7D04D0F02F1C66FD853BD3DDD828E1842802E900490C28450
+      34A44F05454355042F1AB2E82CE35306AFC57BF17A985A3BBFA6C3A637B09D71
+      7E813AB7F1FDCD3F30DD9B43C6D466ECB36701A74906DA2068462823A8EC3911
+      2A716A349533DFA3A9E723DA0DDCC1B7DE5C8E0679502F923F4C11ACD47C789D
+      5663FEEC6EAE51619F06475DB60B9FF37D79247E13C75E29A974C60355F0B24E
+      9D5704795745A90C3AC0AFE9CDB8450B4E67DD5BE1BA0F797A5A53DEB3BB51D4
+      00BA3916BE6B0A76377D1174000EB9AC7C60CFA4CED1156C5D3A2C7492BD9671
+      2822812F82139785C1256A40B18042095510C41C5DC190A5C342612DC7369648
+      8D6561E7E60D62E46321A9A50B1C48A622B816495D978D974B8F8DAA46E0CEC5
+      FC0CB8CFA1DECE04E2AEEAED70006E099ACB7A6E63DDEE6138844983CBA46784
+      428BDF07D1F5C426AA96F39E1EE4FD76E399F1435D16030CC803F6203433AA30
+      A8754D6AC401438444951527E64A0471E87811153E182A704215CCF5EBEC3049
+      B4F4940B3B28830FA3AE789A1E7B9DFC54D1E731B578C9BA85371BEC443A3B5F
+      4164C5E1017F014F767835F4C1C15FA1208BF17637AD10BCA69979F0BBA6C667
+      2E1B3391CC051A38B690E84AE6509D5BF8D8121FA212960CA59662A67B70B2EA
+      0201245FA3F399942C16908FC66DE120ACD21AAFD43982E49084A54232434816
+      021152D21141064696CC31A1F24DCE3A06845FCC1D8BD8752E109E87B81B2861
+      023031CD7D5E357BA52960528D20E9E75BE9110EC2C8EAEC1D7C88016D1FE3D9
+      5210024CAB0CBA9901C00409AF488DD78011400D29A87A0E564020C93B07084B
+      C389F19A64B02298A02B4CB27BE8D5DF4394C313328D1E5E57FE20731455F6B9
+      985E061A133B2DF17C5DFABE309B976FAA4AECE582B00C885627B892D9D17800
+      DF47560F7DB8E6252AAB11BC13944ACD07AD0B756070D9582E043BA5CA73760F
+      13030598AFFF2C1433CDDB89722A83A4E00D94261313116C73A5704440BC6262
+      FEFE9FA81B26ADE8318BBD8ACEB3087C42D242C29D52D00D8DCF105C23E139C0
+      A7EB144B1FFF5A7CBFE1E000C4B7A404C1A62B209291A27CEE25C0804CA2EC1E
+      C60335AE1084CD7EBE85EE8559C4966EAC7B1BD3FBAEC7FE7D1DD22B5590DE16
+      38CDD4607F9F6365B6EC655CD7793E93402701A3254C727878DC9141AD935121
+      503AB250170FA58B0CEBBED17D2A3D52478702194862DEADC6F06E1B51EEBDCC
+      00A548CBA0667A0AD9B7EF844A5EAA66AFE2F81FC3423B749F8E77617F22CF3C
+      B0EF2E882EC6EC55784DC07E0935D5083ACEBF939B72B71B17125317BDE76236
+      FA14AE8928469B6A85BB32E0C714E8BB81C333DB52ABECA6DC4251A777702138
+      08EC079AA81AFF9C96CA91B3A8879D54DAF52D7F6C9810B42D050CD8C6362D10
+      8AE25CAC6AAED68EE9848140C031CDCB7B33DA22076410A3298C3AC70D9517EB
+      2F2B0AB57FBB9B762736864287CD86F065EBB1BCE26CC2DE8BF90EBB870140EA
+      259B02F063307AD412413DA052F0BCC5F9CD587285CE54B506FE29D539582AB4
+      140BDBEE3DC43595AA52FC5915DEF39EE2D1E0C415BFAE53FD257179B179253D
+      C508B2FFD20CD26DE4D4B99577E25B86267EDD68CC83F6F1E19907CE6C0ADFA7
+      E057E03B093583D4CB866B26E32F13D907510EFE4A735142E4542B383618201C
+      B09B96DB3E0D335C2CC82EFFE6308203C14D0D8080A6F2A4C31DF27EFB6C0B4A
+      8A42BE29032150EB46F2358DE55729C6565DB1D02E7817AB41397B35DCB8DE15
+      6D66E2C53829590B318583B0CE6DFCD87112AF5E0C081D1965FF36BF1C4123A1
+      8F043B021B92052E2B2FBBAC8CAED682D1E8CC10905F91AD29214E57786CDF0F
+      7C4858724C9F95F4F8BA1A79FF12F8DB8DE39DB0898B1A5385D1BD16A13CB0ED
+      325573B933C8E7C5761342139FBB1525EB571EB92713CB395A6BC4857D8F3FAE
+      05BFD4BC3E644FAD1F4B8C259215696E9A38837530C54799BEF5E390346C3A98
+      A24001F32B3C1FC18D760F93EC1EBACC6A09693BA8E97E97E4707EADCBC71C46
+      72F4AAD18286E420DDC6BE32F6EE6CC0362BF23346087E86F2FD1CC377B3C4D2
+      60ED48CAF2B023123872D314DEFEBE5EF962FB730D670AD83D0C84B3B5D265B8
+      A676BB8791001F9990AE14D63BADBCEEB2325AD178154966F843271462563E43
+      9F32A7A40ED96A0CD70CDC44F49075D0FE6FEC89A81AEAD6EBCBE5E94E5D89FA
+      A2E55500E2542BFE6AD730B246E790E3B17102E895F8D2693DFB0B74491B4279
+      8542F791D96E5CC8562C398EB2FD0BEAEB9A914E36702FD7B8DFA17119911983
+      6CFD328730DACB55A4223ED63446E92ACBD2DC5C1BC8E7FB1D5F86A443C3BEEC
+      969A114EBC5A2358C85F26D0CEB3AB2E257D83CED8995FE2755919BDF94DF440
+      01554A37777A87CFBF2960D9C59C87C303F62D54C728E8BA5A23D6EE61C25DEB
+      303B82C925776F81F4540A5D36BE173A7F37C3182158B27F36E53A60DEB90897
+      D4480D98195514C5F86C0F8DDA4D08D39692C8719578ED9E5D97CEAD9E05C4FE
+      1930B501AFB71913DA56781065E7B70CB47BA8D935AC51916307B86CFC13CA73
+      48317599D5C81102A3FB5D2A99AA18751805FB99B6C7197ABA538653A01533FB
+      1C368B94E098990A335A82AE52BCE6EFB42843A98AEC30894D18EAE56A22313E
+      CC29DB7299D22762C02EBEDD3F37245112DB72B86617E21DF94CB47B78DD9111
+      D20A154A432BA0D21D42E6CE551AAA398AD1CEA05EF921B5BC049E6245534C6C
+      5BF3223DCBF8DDC61CD1030695562A4374C1FD75BAF15083DE2C2CDDCF5FC023
+      3D9B5C7AF8F42C2096A61FC5B7E0E106BD425271F39B084B029F2DEE16B6B31F
+      EC6EEA523EBD3D576ABC97F2AC91E10DE0CF47DDF0325D06EC64F8DABF87A80B
+      4B3C7AF321645DC0CE4A0CAAE657B5227E3C383F24AD529EE3A00C9449C3AB57
+      E1A79C05ECE2CBF816DD1C476CC1BE10B79AFC2847342F85C173D59D29673B62
+      158C86FC39C364F79CCD123836C3D05398973E4C8F72ECC16E3A562AE1050153
+      9165D780D4916D46136E155AEE89E1FDDEAB51066CBE0220020CDA8C696A233E
+      6FF5522886E8CB4564BCC5ED760FA98E6D614FACE0B6A06ACE011602A725E444
+      24F063F2E3A1E3774F21A1F8380F1D5D110A67757C8DD39A8F5917032221A8B7
+      EC31A3EC20280DF5160FB0594A56065138F32A458D15A1B3E10C8BFF97CB00BA
+      3C3087DAE11BAAB6E370291F29B8386F39E8E5FE59E3ACFA18672BC83B40FDC3
+      8BF9A48C478C61B96F1FA7BF6C8B745AC970D978555119AD18E5B6264B2CF9CD
+      86843850CDCBD0E89A4CD44C8644B57B2E13883EB33159513579B0F9FD21A9E8
+      F90035229E77C3FB4D0BF812C9CB02E60A4940C07E745A499D252D868554B6E6
+      45CCB93EA45623ABA1D7BEE9A26F861228E4C6E36B4259D59DDE626D40D2D795
+      825B91CC947097909746660B055D31D15A35D35631D3468DE09862C1A744D26E
+      C06E1E18B89BA1697BB85F89265935D3403191A298B009159B3061554C24AB66
+      9283524B9EF1E0988FAD0C497F730C8188444E84CDFB924B8D7EFD09A35C86CF
+      801D30B418CBB2C7422A19908F1590F64DA3F25A429C424FB7B2CA247949C227
+      B6BF510637A9A1FCD69FDEC075760F13910C02B0679C473C57B4717AB2D14D75
+      9C6066BF4DECDEF115CD00741FAC19C9F5F64C6E7625F39B7D33959D56F21C99
+      2449C97D02964A3885C0E6B23279E02E36B49FC4EA75A30C32546AA149BDE173
+      4EE801E6721175CE42A1E582FE217B4A98D1EBDEC10A02C643A22B6C40D2B7B8
+      0867540CB52521E7E07C63C97D341346FCB6D420BD4D0884941584CE8C542D71
+      264B2C03887E5BF84951CF3A20B2302B640B47D7A5401A799266041F3993D9F7
+      F03AA3D4F602A308CEDDCAF94A6DC5326E3603A63587BEAB6874748591610560
+      AEC4EF47F79F6D834F0B36A5D254A43389FDCF48FE165B8FED0559BC0790B381
+      A4C838E6949C4620B0D93DBC228CB4BEAF2E5A220294765335C7F050CAF321A9
+      B8F31B5453246F04D5637E9A87E6486C408ED3C65CE034A038DCD498DA94CD0D
+      EEE2B7B3629375D1E35AB0838B2BB6578B73685F7020F4D0DC329D03CE960C07
+      784382A2A1034A640CE3E525D01C5243E881D04B6A28A57FCF78A9A59FE90184
+      0C7B9DC7E1119A2F34BF6A041A128B0830CE95CCBEBEBB2E0A84409914D5C35E
+      F202AF4B06A206096999BCB8F4312353AA74F3D3790C99D6F0DCCEA033C9F8FB
+      4F81DEF91FA4975DBE8EF2F31DF40BC39822A199DDC344878797066C0D4598CE
+      2911CB21BF194B1CDB5899F136D7956E5BF114AD066C6390A631C5696507B063
+      A08708BB27548B22054FDB3D6842B0B8D33FB866D5F050C2C08D5F9323032CE4
+      625A9108DACDBF23646B992BA1C735656A50EAC8F56E2332E470B30E41134999
+      C7AB7281F870741DBCAA053D48FC4ADD4B91346EA50C8B9D84BF2B6D27204C91
+      C4209181928A1F2621D0CCB1A1888D3F1F8B299AE9DF37311C9F994D2F9A91DE
+      8C4273CF07743DBC28A815825940429E2D9DAF7D9F65B175D989B8A8D8B80CD2
+      447D25542F3CCA4F391B43E68D259EF907779227A5C1A35D68B4B5736C795D1E
+      283CC8170027B7D0A466329F6767F250D8BD10122A693A23803197647F38B6D1
+      7AEF7436AC1B15DABFDF26B6CF685DBE9EC3E1A6BE143C41282EAA2B26EE7026
+      D356864552139209749FCE6F52672DE7AFE335E5EFE7DEF97784D472EF15EC9C
+      DD39C4233A3CD4705A393A7033890113CF0A582A253942215EEA74469013E4F9
+      8450B8263CC4D7F55B76566BCF1C4028663E150AF9115539898652963C2B82F7
+      5A84E55E091025988A4EF212609246EEE299B162B9FD0BEC19938376B180FB8A
+      B8E1EB28965EACB8EABAC8C81D4CCBE49555231874E0279A5CCC716D46B3ACC9
+      20565F808D10C03AA08D8085F1C9AC9CD186BF9FD8C4D8E0A7FE513A8D0EC369
+      61D80632F8C44933483FC848834E90B120BD4065909BD61337BB3DC7CB54AECA
+      AF7D37D05355A9AE0B9E2A174E95AC73DA98E948BF8044EC22619900674B360D
+      D8CD8C0D13E8A77B8DFBB1E2299AA4EDE419EF29FEF963C7A098B671C0E1E673
+      29E801D4138288C38B6829CFB845A73231794F921811874F0AA2A9B8D05E22B9
+      F1D79E46F830C8EC0722128CE4DA526FCC69E5E8802D549B6A24C98A08334BBC
+      7E9E173AAF21D8A3EB14298234215824051AD0B58C7A90285227A048FE900172
+      74857CEF7E125038AE058870B63228A8D2858BCE621736312A602E5B62E32CFA
+      A6F6CD1C2B03A284230BE800170FC452AA4C086601432EF6B8430BA9D76430EB
+      2ED0BE4002ED84CE3F9C299CB8631EADCB40687CAABE6A0A73FEE4F9A56AE97F
+      C13781526DAB6B7477A5A209C1A1B41D8C945E6A4B85273132EFDB3B3C2438AD
+      7C71DEAE02F53CC4D83D0C06907E9EEF34392411B397622A3CC898A848EADBDD
+      A14880D3C68E2035512C756E5FF668C5E9EFBFDF4D1BC54CBD735EA2C0727C1D
+      8DCA52E205F498C76E6712FFB67B78D9EEE16935402587874EBA4AA2DD4D3F80
+      123F4F4BC95104D72A017C4292E7B4F13E3AFBA15C2D33D24F36F02FBFC6CFE9
+      29E4283ADEA929646B927B62354AEC1E5EB17B781959BE79FC3DC158CB94D648
+      A795A5620D2F05598393C031010780F5B56EE04BC514924A8717611DB08D4ABD
+      D65D220FE467779BD17CD87B39CEDE2B98D67B39537B2F67EA5DCB99D27B053F
+      F459CB946A1DCE1B01AA083E793ABCEC4CE1C42392C855CF1B9E6DB8FF2035E2
+      CB5EFA395F09652F49029284334C3E4535B178F07AD4A63F229D291CCADFCE48
+      E05D01BA4F32CDE1A6CD798138C546A18211C34D6FC9BEFA77F261748D107056
+      0D274E46F1EFD20C5FA7157AE480847542A1C6DE9961695E2ADC362744E016EC
+      473DE1E1562AEE3D2D65803B96DC4F59525A151B5EA1B2D9EE610C102974BED6
+      4CBC28E01492EA2A2C1446B1545C4409DFE8709B5089456554DA666AA7A7908F
+      E04878BD8AE6E384B090AD04D5EFB41463890BA78DAF0B22B8353692F1408414
+      38EC1E5E71B879C4E1E1E9923C9EB77B1865F7181C9FE8400DA089D3C6649795
+      779D563E7159F9B1F8281B63EA8600B2FD33FAC6362279CE25161AA5A792FB63
+      27DE888867A4258E7D9678F658E2D9638E67AF258E7D962A1C15EA2539290508
+      7266580D99B96B062927DD8CF8B338225DA3CB776D91AFBE60BCAFDC025C568E
+      39ADBCAC9AF04BC15DE755CD4337C397D6B0F04D31233BBEC5E38B834AE2C446
+      94139BB9216D2B49F926B6FED20CE655057B06798112FAAD7F39E4C1D6BB9DC2
+      B8964CAFD48461F9BB8DEDCB1FA36EAF65F4D27DCC3B431A461F981B46D728D0
+      3D9D83BACE0E2042487621A823E0F5742B05C0F6B40C6274854D8ACE225F1476
+      02FC43B35082CEEBD2C4E0BBDD7C728E3899981E16E2FAAA5B999669E72F60BE
+      108C952A2305FCEAB4B106202D13B32E195BAAE2D36D6403DF9EA9C2A73561D3
+      CDE97CF35B1A1382E1AF848DAF724F3F376E9389C2F44B480E08D269BB076E30
+      5112C100001BDD49444154E3EF9A8FA652E5FE706AE912B111278CE0030F49A2
+      9D2DB9376CAE0B9FD4B01ECF225751415390522295423045213569249A884864
+      A440E66B10116D145B4469C8FC446454219CDA8E6566BB326F5B0895950F66D1
+      B95E5DB45246A6EF5698D1121F30EEBC40FCB2559913D2520A8620C9AFD1993F
+      E293E892BBD57032D68CC47CC7AF4CF8A55159851DA65892B74E3616E7095217
+      FAB5EFB33A57F2B7EB3EA0DFBC1E86175C7C14F5E02F54AD7D73F9864CBA97BB
+      D68E0C7181B5BB53A8E92C11060777544836A5DBF0F4DF046919349782420479
+      F2386B9D3782DDC383AAC28F42C7A2495AA393FE432A38B65F5C07B2016EA855
+      83D70E1C2176460AF9FD33F84135B1BF4C4225E37778C8966700A0223BB2E675
+      FC11559303C5D946A5E386F13CD9C8CEBAF4967C7D913C62393AAD28077D7617
+      76DCBB96512551D49682FBA13C1572A1E080D0F9DC99622CAAB47B0A6D72B7F3
+      54991D5E9F6F8F1FE0C8D40617BD6C5DC5424CE2AF62E5FA939EA04DACD3E19E
+      BAD02D6CC666265D048F58E61D6F2512B88560B705CDCBCAF09282BC9D2807E7
+      D32B6D9321C1EC9944151D61AEE75FA1C077B37B280894F0E8FCC6C8CACD78A4
+      C675A156C8EB4653DB1445738CB6214228C46DFF3244F5282664E77F7154816D
+      42F00F45B23EDDC646005585F41476386D1CAA61217FC68DC1C74FE71B1DDA69
+      D0C069638933955303B65209DD5815ABEC8189A689F49338C01332011C5B20D2
+      8FF2CF4474452575D8261092239A66D8A0FD371BEB410BC94A2143D7E838476E
+      F8F7755872FBBCB06C66E0E79B193FB4806E9FB63724DDA58CD9C1E6CDDF7640
+      3A6D1C7259991459950F02C5E74C480D6F24655624FF72A6B0332D8384417BE9
+      90F96159A5244221FF91BDBC7AA52004F85220BB7E65DCA7D2AFEFA6B2E18943
+      28155DF3058138238912A78DF7A12C0B25502585F935AF0FB9E11BC663511358
+      60F7304231F165C63F42CBE19A2BA1B779994D16852C47069DF4125A76782D04
+      445F1EA6AD1FD356E87C2D24BB0385F4F4BC173ABE918323D2C77D401E1A2DD3
+      ADFC512699C25A73BC1F8C8FF4DB0ECE14B66A02B794EC73787800400BD00985
+      33DD04B3D0A9ADC37D760FAFDA3D8C5240F14621D3321104D870DA4473572AC5
+      0892EC1EFE36BD15080FA4DB582F05B7D83DDCED70335455CA3310FD3231DB3D
+      88BE5BC114C314EB13A18842F1311AB8ACFCEBBE7C6E1E27A04FC695DD744B65
+      72BD27439489564CBE30007852C017404D013B84C6B8741B877A1F32BCE2FC03
+      3C9FBD8C5E6541ED267C91B593A33DAFD2926ED5DB53186FA363C8582425EF24
+      A671E2328018463A95E97BCDCBC6B663428469D111C48EAF69828EB9F020BDF6
+      BA42922265385E7F11EBFD01C64885BB8084A8EACC6E640F65B4B8DFA39E3981
+      314A0C6BD68F0F85B31433B2FD2BE408A3F15381332504C2733E382DC0E1A197
+      6AD84ED70B8D757D77822B8505C17059685E7C1C9682010A7C8ECE0602BC352D
+      157D6A4BA4845B5068E4B4B123B8FB32A0A6DDC3A8E8CAA8760FBD05EC045A4A
+      C11F53530984679BCC48C6EF5391339320BD19B9A9A378AB56B790BD9DBF9FE4
+      A90DF96A50160ECFB3885B565D79B64658A85257CCBCEFB232D9696587CBCAD3
+      4E2B5F13675CFFEC3AA044E1D8F2064961DAC1DB7311422B428DBE4A0B927C2C
+      A0CBA7B809A5B1896F53D97CEF81B3A5E2450351CAF2C999951A30B761DF1018
+      33DEC6125593BBD78F094986C8AAE8CDEF672F46D3CFD2FA5FA4C6C15623C212
+      224A5057BFC07525D97C78604E88374C7E8A9DBAD17AAE508248F318B6D0800B
+      3FB1BAD3C649978DB9E9A96C51BDB47178B8554812C20BE5A54611E0D760982B
+      0597622232CD4365879B7855E777978DCCFE416ACA65F4742C01620AF2795D48
+      B638ADAC355B18ABE824D833A936ED8C35A667873923536A9379F33446D4EEC6
+      82D26DDE13D49DD6886F136EE3EF351BD114A0FF559046DE539C50CC9C3A2B1C
+      17B6B6C391A5EC3DF073A87CA1711A1B7DA7291666FE1E6B262A6DEBD50163F2
+      B51457B519A51741D7AAE59A778938532A5ED846CC84340FF188F2499C9A9FCC
+      D4174260F2E5A12C1A4CA3EC652169D8EE158A02851527BD9A2BF363D2A31C2A
+      7DBF773A35573F1F7A42550BBAF54936EAB0520A1A02C93A8CB67B785997C632
+      17FDB79C9361FDD5B1C5C8E3B37BB84F088E4AC90629C3D404A046D31C892660
+      77FFCD44444793976E25CF6923776A8AF1904D0F5253763736A092305637F8B7
+      14DC6F7793A8E89875052B9287EC1E5EB27B186E77D309C0B1A2FC797D579D8D
+      37CFE0F1A4478D1018801E2062CD0B4C74B5625EAF25DC1B592394BDEED87DE1
+      1BDD67E3A5A7EB3C2AA9BC7E5C2817D11443498749AC0B463D943C8D917112D3
+      D500E39B026EFD841D411FC3A0B126E3192ECB63EF82B1E619C960F7707B057C
+      5F61742DD25A0E63CEB67F1B44F1C15F438471741DF4BAB7B1432B463B537304
+      C9D2E3498F7072EBC746A2ABEE43C95E1E72523ABE85C79FC33D6A0C234B1319
+      84649F8459121AD93DBC8C914AF5470506871FA381E83E45B23DDDC661870704
+      6C41D03D4C1D6951554954A2490C14F3B68CC47DDF69A430280B5D18C4881628
+      A2B3D4893345B358F7D24F8961B55E4415549ED4FDB408A625EC29BB4E411F87
+      9B7A4E1BCE334FEDDB0476DD7B9AE1B5BAB163C9105ED6BC467E6671364DE6DC
+      C83711091C6C7E1FD3BA7EC55C095983F773F8FB06E54D8A32EF7E17D1959B50
+      2D16AA05BCE5DB969C6F6CF980CE0507286B60D7FC5E367A73CB393BEA29C968
+      5B36E3FBBB91D36D5706C63A9DF156694DBB939BCA12681B7D954A2C6199FD62
+      D83EC4491F72C6396AC41C6E3A49A3AD9C026C16B03B58D3D1CC65E5B57E1BD8
+      30A3EDD9CBD6DE348562732CBF556ACCE6E26C522B35E160A090532539541126
+      4E44C6B3D197C7FDD9CBE9B6FAF9F293688A46EBBF850FA635E569879B6BA4E0
+      2E608ACB4A867D2BB892E05E0F4A31BCEAB2F25285E7FD0038BF30564870D98C
+      4457C7769E9F6EE50D3D50561AA90B05A48E2E149460CCF8CCBC428140915AB0
+      F7A244067BE368C284592B41E9B785598A8AE78C074E4132D565A3C23CE53E6B
+      50CD7174D9309687764F35A257678835DD1C4B8EA532C7A36AB037AA267BCD31
+      E4A1A0F9F3A85474848645D934F6E7532D5048ADF0DF8E6DC8FC3B16724F7A53
+      72CEFCDA6724719FD6E39BA283F40EB212271EF3D3F96826432B08B57A5D5626
+      942E817C25A3EF6E2CB39A70242C452F0B4983D258BE925B84B92210DADDA4DA
+      DDBC2105A9C047581881E4276950411B14BFD1C6CC14C7C3AD46967F62E39A1B
+      93B87B1AA9803CB1992A877EA515204FEFA0E589F574574C88CC8F49A87F2767
+      5945377EC5FA694D797AD87490828D42B2D46525030C1002F8342214F8ADCFBE
+      735CF973A5A45928C428358E27B62E2B5945F7A1682528BA0F53E95FDD8739FC
+      A579839FF9B1E87ECC7A008BEEC3A40788D04A82EA450F3921E1762A82C10333
+      2A4E4B13B168CE162CB9EEDF3CDA7B05C3931E612E222C7142A2F8F3A95E7808
+      6BCE067A66FDCC537B9C8CDA338D3159BFF0EC894DF42DCEA655A090DAE12054
+      23C8E9B39C5115811060F96BDC540A42806AED79F7D81FEC46670267A7E545D8
+      3D8C72A61A26DAC58C811594923A4EC28CC6F8E253C36C45A8475428ABAA4273
+      C2B10E9CED2B046713044F02B92E2BE3CBECC8CD2C583A8CAE6AA4919DDB7E22
+      45A6087A2F4C63FE1DBFF3DAE96DD4C97887BBBA7CC2871B27F06CE7F7995892
+      43C2A2C1BC74CB2CC61EFE8D27333F245AA898CDB1E89DDF63A50CF081941C47
+      701DA0098529CE24235C36C083D060948405D3ADAC1EB405A6A486162F0FC6BD
+      AF911835D12E2BAFB495B041C0DD87B975C358261E5B451D4037C792E02F20B7
+      B419675952AC8E6EAE4CA22F9F93618960D21C4BBCBF88D3E66883622A3ACAC9
+      1E73D924549643F97E36412DF291CB1A02FF19F3890A89BAA07D545396282534
+      DEFA6F7A1D5E409BA32BE9E23B5DAE9AF07CF4CD9EC4B6FC5AE72656B77D9905
+      FB7FE6486C1DF4E9ADCFB0F7333017ECC2B6FD1B6E3ABC80FB03C534782180ED
+      CD603DB9C34DB4148CE5ECF4B97C9795D7EFDE52BED0EACCF1E012F8FCC6737F
+      7EE746CC73DB705008728489D17A0C8BC835AA372F390DDDE1264A2AC4B8928D
+      27AEFF54C046E5A85A34F2E76207E2352FEF46542665819D19B7CC64AC2F8FF8
+      D99D78AABF9BD7675FCBE88203889E8B499DDF93D57DD6320AA8AA98A985D168
+      5DE83E8E13EA46A087DDD41D182B0D98A49145A300FB8460B3945C1BA1F3B14F
+      504F1ACBD7C6011918ED8FF35C56DE2A5DE87BD001EA47D5462FCEA25F4422F3
+      14135E5D353237858A2E24A2309B76682444D7E5D7F0DE84524751557CA7F730
+      028945B5B0D8978F35284DCC1590C9EFB8AC46BCBE34ADCB9E01A5ED891D6E86
+      386D7C53EE866A444729C4E6ECA3F6C15F695A924D1D7F31097A09265D47AA66
+      BC6A1427A36B9055BF0F3BEAD7E5682E147F12EC7953AE157505E37189520FA2
+      FEF89DC65155C9540BD14AFBD6D83DC4006339BB72F094CBCADBE712526511A0
+      71C6EBCC71EB66F8B515B41947E4C67167AFE37D55EB21D23C44E9101D69E694
+      5FA1D3FAB17CD67E22CB6480D3CB9FE2856BFFC147BFDCCE90DB7FE1EFD9CB28
+      CAFA85511D2632BEF008354E6EE636358AFA5552F0E87E12A36AE037C7B0DC5F
+      58FE1C0B0F714BFE2E1225E835AF679A508CFED284167194AA056DEB27F49201
+      AA599F667AA088D3C0AEB864666AA729FE2A1EAFC3C39082C3C44655A3DA8CD6
+      21E97ECD5BCC88ADCFC95ADD585A729CBA8AC2E2033FF38C1E200A1D4B9576F4
+      9B772B05760F2FA916624F6DE5CECA4D995BAE105F222DF1D4F4E59203BCED3D
+      45A3822C6C8BEEE64B80F192C8DFBEE27573348D0B0E1025757C8044C752A50D
+      4FC6D667872B198616F17095287E992C0C4DD0772D4FCEECC0BFCAECCC753C32
+      AB7DA8C8E91149DB4F84610FDF34853605FB7895602B632422AA067F0895AD96
+      387CBFDE65C4F71F977428F1D1E28B08BEEB976938A78FEB988F6DE5B5401111
+      45876957B929A545C4275D5626F7D908B3DA5C3E4EFEB613DE3BA397A2E96A02
+      31DD4A31505CEF53C87A98152D1E62F286095CBFE34B46B47C88FAD9CB48AA7D
+      132B10AC293ECAA4960FB3599849D8F80AAFE76C34A0D4762CAB36BF4EEF9213
+      9060A5EB2DB398A6FBD81D0C41290BFAD2A13421FEAED534C720954B1D8C00C0
+      B2C779FEF4762C11092025835A3ECCC740B3752F3127AA26CBED1E72748D7F2E
+      7F8CD379BB888E4F625C77275D475859796D247D352FC4D4E5C1DBE6F0614475
+      7AAD1D855D28A0FB216D3B8EB62FF3A450986E89C3B46B0A0DDA8F43EA616503
+      91D5913FDDC0833DE6F1CF40215AE1411AECFF91366000B1081A1E98CD101920
+      EFE0421A68C5608A368AB8AF79939AF37AB0A3416F72BE8C2631AA26DC36875B
+      E6F762E1C201BCD6ED7B0A125BB337A63629539BF0FE901C3A161F659BA5325A
+      7A0A93EFCBE58EC24344672FE19AF5E3E92114D0BCA046429D5B10E8C884244A
+      80795D3EE1B14F63F93050084D07F3B719C9746CF332D7FD319C679286F144D1
+      6126EFFA81866D4335EE55EC1E9E7359993C702B4C4DBA3C9CBCD7EC0A222B97
+      32B21E86FE6E884C64E5A105DC0020753EDD3891AEAD5FE47D6712AB8EAFE1A6
+      5F7AD02FBD39EFA8D1F0EA69EA3E984FCBB6CFF38C1A097DD67053DD1EACFCE9
+      06FA09115279428101BBF8C0B19D8F84CA9E337F3B5044B3E26C2CFD3671FBE0
+      4DD46E3288AF83D7A9EF71D2F9D0024620A8DA6925814001B2E712EE6CEC60C9
+      AF77B1783944341948E683013A34BF9F551993794098F0351BC2C9B49D7C3C28
+      8BE7A2EB22374EA2AD94C40B414945E957A7B7D33A771B1C5FCD02979553C1E6
+      9E81419B49B07B1872F8244F0805D9F9037E4ADBCEBFEBDEC6A13B7FE7DB01BB
+      78B5CECD346D378E9925C749ECB984D9B6A7C95A37869F869CE0858878D4DD53
+      196DA9C4CE4DAF53D97B123A27F292D3CA5BEBC6B2EF941B62E2D8EBB2323DE5
+      31463F5A4CB376E3195ABF17BF3E5240D31E3319224CA04611F5A22466D3443E
+      ECF02A1F74FB96078EAFA5C3EDF3195C9845E2AEEFB8D569E358F6523E56D4B3
+      B46615BB8717A7261936F9D51A7FDA725BD36DD0EF350E281683A0AD71033B4A
+      8E437A4BE63CA451F9C85274214274C10B82431F0BB6D7855CA92367756451C6
+      643A0B81D999CC0801AB09B625F1E571CA9FCF29408B48A04664A2F102D8F216
+      BDBA7ECFD74547E87A38937B2D95F84948360B1559721C256B1E021DB1B60B0A
+      020ECE63F1860974D5FD14AECB253A504CC9E726D66D9CC8B57BA713A998D8AF
+      FBD1FDF99CF09EA06AA4999D513520D7434B61265B0628096A965213217BEBC7
+      346F3C8043593F1B5EA1B912CDE29B72ADDFC4382422AE0ADFF90B3936BE1E7F
+      2BC9E5B1FCFDECCAD9C8E78153BC796D1253764FE3B6CE1FD0232A917B7ABE44
+      B20C90777A072B23AA52587498268E7A141E5AC873756E43AE38C904BB87919A
+      97E79ADFCFE9DF8631A0D746F848E0FB40B02B673D477CA729FC40B0FB13A36C
+      420805D38A4FF932B621AB563ECD9355DBB0AC711ABD56FC8D915A317E61A672
+      7F3777E6EDE374C04B016717A455B67B78B9AE09C5E1FE3F0E4480B182C2042B
+      A7DF93D4886F8E5F04C9813F86512DA67658E32201E325494F48DA1F806A4241
+      0C3ECCC34D06B15E0B04339C257B9C49BC211488AC42AD882AD44260FEB1130F
+      4E6DCC83539BF0A0A250F5C04F442A2A078351823809DDA5A0B51A41B5460E72
+      6B5E472050825F37987DB1E9357C52A2161F272A3ABE3C8F668927A72487666A
+      24A6C844122312A92F40DA9EE6E4D64FE9553D8E15BA97C2F4168C14822F81E5
+      8A9982C38B69D87E3C5F687E46A56DE73553341D8A73D8A5FA19EEB2F1B51576
+      A3239B0BF499A904A48E1E28A224DDC6E9E182E24A0D889AD996F94E1BF96305
+      05B10DF96CC37892D188ADDC944F5F7E86254862A5C6414037C560293ACCB52D
+      1F66F1B155DC36A7CDF96B88FD859C3AB408ADE31B1C74786824CDEC4E7A9458
+      DF291AE87E7C0D7AB373C910DEF41710D08AC845F28F0AC018992519AF6A24D8
+      3DFFC781081053974FBE7D9D615B3FA6BE94F0B0A443541DEEAC7707734B2F20
+      5000AFC492F9490C6B374C62B4BF00BEAFCD277BA7D3B6CF2AECBD3680D386FB
+      098949F3C20FF578706A43864A8DE40EAFB1E2BA8F587EDD872C973AF981A252
+      1E9ACA27D673A76AA132A0ED9BC5752D87F17BD223AC2ED84F23E006A140D223
+      2C486C45A0517F4EDD6EAC3A55A66AA36BE1D77CC4ECF892F81FEAF1E80F7518
+      9C779296FE7C8E1C5F43D1BE6D3C2075B44512554A92811BCD956950B93196CA
+      CD28C8DF43C3F8E67C567488AFFCF99C9AD6FAC26B4D7F2249F4171AB9826131
+      FB9D959BD20781B8672A6F78DEA755B3FB582E75239CAA4610EFCB45AF712D6B
+      4CD15C7BF7219E51240DCE9920A120FDA7A956F75A3E9730183F77FC5097A995
+      9B11AB5890A64816FBF248AE6D24CD09978D430ABCCBD9F5D54AC0C40821697A
+      A53831FDD940F417E0DA37938FAAB623B1D54B78963DC9B0E263DCD82B1DC77B
+      41EB438D82F69318AD951051B51D7F98A279BCE530E61C5B4DAF658FF1EF83F3
+      CB1221A4628236631827250A829F135BD3591849199524C405997A81206AD17D
+      B44A7D9E84E6F73365E73724EF99864DA8105583A40E1399AD4460DAFE055D53
+      4770A8F97DBC32F304BD4C95A89E96C960295116A611ABA8E8756EE658CD1BF9
+      486A9891B42D384846BBF11C3DF42B3DCC95A8FAD10E5E0B3A4AFE926324E76E
+      839F6EE08DE36BE1E84AEE89AD4F23A9854268C69AE415977B3E0C05132242F9
+      91FD3360E304AA4556A3588D246282604FBB09AC69EC60D5BE1F8DF67CD97F50
+      2F6F0FEA9C2E4C3ABD0354334D7D2A4FD83D7C12DEA03FCCAB174A040579C728
+      765999E8D8863A476219DC1C3DA636C29B4B6E9DEEFC1828E4B33047F480DDC3
+      A7C0B033A81D5D0A1E747898E5B456BC9CC6FF0989D86E2CFB7333695C98C5D0
+      7AB731E4C8227A9ECCA0C57B463FEC320764D5334C5AFB12636EE9CE622472CB
+      647A0F5F4A6CCEC6B35A06EB6B46307EED8B8C9D6E63B5CBCA3B4E2BEFB86C4C
+      88F232A266178439960552E7E0E0C3FCA01521540BEF9FCA80AA6D589798CADA
+      AC9FA9E24C669A564C891A09D5DAB3510F90199DC80619C08B99154E2BDFE66E
+      C3628EA5488D247BCD08C6AD1DC928A110304551B9E93D2CF1BC4F0BA1201535
+      D4086ADB67B4AE7B2B0713525857AB1BC7B77FC1FE2AAD70050A8DD25B8784E5
+      C7687EAE7E8E42E0F5E512374E52D5EE369A621564D13F228E0F35AF11EF6F6A
+      A797BFA06C7F3D7B298D1AF527B77A678ED4E84CC1DE99B40496264670AEB409
+      D51CC3C255C38D6EAF2B86A34D7C9BE6BE5364E93ECC42C154A9112F65FC832E
+      282173C56565079229611198FC206DA64BE863F754B0A4C8FF15204E6BCAB11A
+      D79190B311D3AC8E6C283941EDE2EC7336B664B851182E0156ACE35EEFC98BCF
+      16FEB62D5AD37B98B4E625BE74D91817C80B726C0AF7D6EFC989CC8FE890F911
+      1D2B37C157E33A221198EE5CC8670BFAD253F3A1D580934A04B1426148EF15FC
+      54BD131195EB31478D226EE01E232C26418D48A061C9714CB18D28F01520758D
+      1EC01F8A19E78139D48D6F41C7D427E8DCF17586969CE0DEAFE3985B7888EEDB
+      2516A780154FF09C258EF9E78C945461F6B7839873B795D8DBE7F194F714D7AC
+      1DC56FA5BCEFB4648E61AC958D1A8976CA4D728757F9B6F9FD7CDDB03FFFF2BC
+      8FDF65654E41CE39931745B321CC3F309781430BE93E6C2EB5B2E6B22475043F
+      AA5186FA5DF322DB125B811AD660EEFE45E0B2B151C04F41EC540EC3900E741B
+      BCE2F2D69DF98F2C521D5D9B1911711C06A8924A41FD3BCBB531432B81867D38
+      5ABF17C76FFC92B19A0FA5E675C8591DF8A8D364FE1D3E85BA1FA5416F8E35E8
+      CDB1FE9BB9BD5C08E97758F608A30FFD4683C676F6AD9FC4BBDE7C8E1E5AC075
+      CD87B2382DD348656BD01B67F2630C4222F5005F75FD9ACC857D59BEF3002FE5
+      ACA5FA8AA71837BB3377B61BC7CCFCC3F43FB1893AAB9EE79B06BD29D44AA82E
+      04AA801DED5EE1FE989A58D25BF0BCCBCABCF4E66C8C4824AAD97DDC3F2D05FF
+      ACF6CCF59D3616BA34C5E0EEDA95432D1E6455F61FF46937095745B987695BA1
+      DF7C1EC95E4AA70792C8FFA507EF35BB97B3146C441CD3A44E408920C65F44A4
+      0CB05B08FE79EB83BC85347EF37C2B49FD721B3B5B3CC8DC2F635830B92187BD
+      A7895E3382A7C3F7A975230FC7D40D01EBAB6E46CCD9696559301DAE34281289
+      2407301555BABCA5E54CFF0920C635E393CA8DB875DD18A8D39DC90936D6EDFA
+      3EEC826F605ACE06AE4722742F252D86B2B2E414F99DDEE19B591D29DB733C04
+      163FF2FF357636AF0C077018FFFC70D8C66A46DE5FCAC1CB46D628B9388883D7
+      D32C37B9D1B2120E56CBC1CD811C1CE424DBC55C39AC293B481146FB8988A28D
+      4D36C2326BE6F0FB65C9C5F76F784ECFF3F93E0F87AF373F6CE42F0F6F539EFD
+      E9F5D2BE67652B19A2A2718A9E8888495030E6D611338BA0AC60F66A95FE920E
+      424F3E8E762DE8AB87B94EC609ABAB080A1944BADD5CAA4A394BC4486A1B784E
+      BC1217B2D07E25385014915AAFC301526FA0CEC20470A1C825EFD24950A56669
+      C04F93AB9EC39C72FCF614CA1874BAFA398D8AB4186718DFA849EF0496B4F1A8
+      2A9488F575C9247E309FD3EC5FC46698667F6748EA1ACA37721790B1DAB5426E
+      EB4638FE7C613BDF48A5B38CC58113B00B60B01188CA22D7E889A9CA08DFCBD9
+      48AE9E6876311F26115C3AFA5A8B59780F50D035CFE49C009A5ADE3295444C22
+      6875389661C53C8A21ECC1E7B54AC98BFCADE88134EC3128929D4A9193C9DFF8
+      EE3FF70D05AD25EF9AD1065B0000000049454E44AE426082
+    }
+  end
+  object version: TLabel
+    Left = 536
+    Height = 16
+    Top = 738
+    Width = 222
+    Caption = 'Hydroponic Profile Generator 0.090'
+    Font.Color = clActiveCaption
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+    OnClick = versionClick
   end
   object od1: TOpenDialog
     DefaultExt = '.hpg'
