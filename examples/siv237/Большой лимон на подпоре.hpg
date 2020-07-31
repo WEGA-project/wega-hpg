@@ -1,4 +1,4 @@
-version=Hydroponic Profile Generator 0.088 https://github.com/siv237/HPG
+version=Hydroponic Profile Generator 0.090 https://github.com/siv237/HPG
 Comment=Лимон на активном подпоре.
 N=214.8
 NH4=61.37
@@ -61,7 +61,7 @@ gmlNH4NO3=1.058
 gmlMgNO3=1
 gmlMgSO4=1.286
 gmlK2SO4=1.073
-gmlKH2PO4=1.115
+gmlKH2PO4=1.099
 gmlCmplx=1.048
 gmlFe=1
 gmlMn=1
@@ -74,7 +74,7 @@ gmlSi=1
 chkComplex=TRUE
 chK2SO4=TRUE
 chMgNO3=FALSE
-V=1.8
+V=1.6
 mCaNO3=p1
 mKNO3=p2
 mNH4NO3=p3
@@ -109,3 +109,4 @@ date=2020-07-03;Автозапись. Изготовлен раствор на 1
 date=2020-07-10;Автозапись. Изготовлен раствор на 3,4 литров.;N=216 NO3=166.48 NH4=49.94 P=50 K=194.78 Ca=139.13 Mg=43.29 S=89 Fe=3.888 Mn=0.618 B=0.694 Zn=0.373 Cu=0.067 Mo=0.067 Co=0 Si=0 
 date=2020-07-15;Автозапись. Изготовлен раствор на 3,5 литров.;N=215 NO3=153.43 NH4=61.37 P=50 K=184.51 Ca=131.8 Mg=41.01 S=104 Fe=3.888 Mn=0.618 B=0.694 Zn=0.373 Cu=0.067 Mo=0.067 Co=0 Si=0 
 date=2020-07-23;Автозапись. Изготовлен раствор на 1,8 литров.;N=215 NO3=153.43 NH4=61.37 P=50 K=184.51 Ca=131.8 Mg=41.01 S=104 Fe=3.888 Mn=0.618 B=0.694 Zn=0.373 Cu=0.067 Mo=0.067 Co=0 Si=0 
+date=2020-07-30;Автозапись. Изготовлен раствор на 1,6 литров.;N=215 NO3=153.43 NH4=61.37 P=50 K=184.51 Ca=131.8 Mg=41.01 S=104 Fe=3.888 Mn=0.618 B=0.694 Zn=0.373 Cu=0.067 Mo=0.067 Co=0 Si=0 
