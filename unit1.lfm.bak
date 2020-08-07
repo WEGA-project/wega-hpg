@@ -1,7 +1,7 @@
 object Kf: TKf
-  Left = 955
+  Left = 966
   Height = 809
-  Top = 84
+  Top = 146
   Width = 762
   HorzScrollBar.Page = 761
   VertScrollBar.Page = 809
@@ -21,11 +21,11 @@ object Kf: TKf
     Height = 704
     Top = 0
     Width = 761
-    ActivePage = TabSheet1
+    ActivePage = TabSheet3
     Font.Height = -15
     Font.Name = 'Arial'
     ParentFont = False
-    TabIndex = 0
+    TabIndex = 2
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'Макро'
@@ -2407,11 +2407,11 @@ object Kf: TKf
         Height = 616
         Top = 0
         Width = 752
-        ActivePage = TabSheet5
+        ActivePage = TabSheet7
         Font.Height = -15
         Font.Name = 'Arial'
         ParentFont = False
-        TabIndex = 0
+        TabIndex = 2
         TabOrder = 0
         object TabSheet5: TTabSheet
           Caption = 'Расчет'
@@ -4665,7 +4665,7 @@ object Kf: TKf
             OnChange = CalcConcChange
             ParentFont = False
             TabOrder = 0
-            Value = 1
+            Value = 0.4
           end
           object cgKNO3: TFloatSpinEdit
             Left = 8
@@ -4680,7 +4680,7 @@ object Kf: TKf
             OnChange = CalcConcChange
             ParentFont = False
             TabOrder = 1
-            Value = 1
+            Value = 0.35
           end
           object cgNH4NO3: TFloatSpinEdit
             Left = 8
@@ -4695,7 +4695,7 @@ object Kf: TKf
             OnChange = CalcConcChange
             ParentFont = False
             TabOrder = 2
-            Value = 1
+            Value = 0.25
           end
           object cgMgNO3: TFloatSpinEdit
             Left = 8
@@ -4710,7 +4710,7 @@ object Kf: TKf
             OnChange = gmlMgNO3Change
             ParentFont = False
             TabOrder = 3
-            Value = 1
+            Value = 0.35
           end
           object cgMgSO4: TFloatSpinEdit
             Left = 8
@@ -4726,7 +4726,7 @@ object Kf: TKf
             OnChange = CalcConcChange
             ParentFont = False
             TabOrder = 4
-            Value = 1
+            Value = 0.12
           end
           object cgKH2PO4: TFloatSpinEdit
             Left = 8
@@ -4742,7 +4742,7 @@ object Kf: TKf
             OnChange = CalcConcChange
             ParentFont = False
             TabOrder = 5
-            Value = 1
+            Value = 0.4
           end
           object cgK2SO4: TFloatSpinEdit
             Left = 8
@@ -4758,7 +4758,7 @@ object Kf: TKf
             OnChange = CalcConcChange
             ParentFont = False
             TabOrder = 6
-            Value = 1
+            Value = 0.32
           end
           object cgCmplx: TFloatSpinEdit
             Left = 8
@@ -4773,7 +4773,7 @@ object Kf: TKf
             OnChange = CalcConcChange
             ParentFont = False
             TabOrder = 7
-            Value = 1
+            Value = 0.05
             Visible = False
           end
           object cgFe: TFloatSpinEdit
@@ -4789,7 +4789,7 @@ object Kf: TKf
             OnChange = CalcConcChange
             ParentFont = False
             TabOrder = 8
-            Value = 1
+            Value = 3
           end
           object cgMn: TFloatSpinEdit
             Left = 8
@@ -4804,7 +4804,7 @@ object Kf: TKf
             OnChange = CalcConcChange
             ParentFont = False
             TabOrder = 9
-            Value = 1
+            Value = 0.3
           end
           object cgB: TFloatSpinEdit
             Left = 8
@@ -4819,7 +4819,7 @@ object Kf: TKf
             OnChange = CalcConcChange
             ParentFont = False
             TabOrder = 10
-            Value = 1
+            Value = 0.4
           end
           object cgZn: TFloatSpinEdit
             Left = 8
@@ -4834,7 +4834,7 @@ object Kf: TKf
             OnChange = CalcConcChange
             ParentFont = False
             TabOrder = 11
-            Value = 1
+            Value = 0.15
           end
           object cgCu: TFloatSpinEdit
             Left = 8
@@ -4849,7 +4849,7 @@ object Kf: TKf
             OnChange = CalcConcChange
             ParentFont = False
             TabOrder = 12
-            Value = 1
+            Value = 0.4
           end
           object cgMo: TFloatSpinEdit
             Left = 8
@@ -4864,7 +4864,7 @@ object Kf: TKf
             OnChange = CalcConcChange
             ParentFont = False
             TabOrder = 13
-            Value = 1
+            Value = 3
           end
           object cgCo: TFloatSpinEdit
             Left = 8
@@ -4879,7 +4879,7 @@ object Kf: TKf
             OnChange = CalcConcChange
             ParentFont = False
             TabOrder = 14
-            Value = 1
+            Value = 2.3
           end
           object cgSi: TFloatSpinEdit
             Left = 8
@@ -4894,7 +4894,7 @@ object Kf: TKf
             OnChange = CalcConcChange
             ParentFont = False
             TabOrder = 15
-            Value = 1
+            Value = 0.27
           end
           object Label91: TLabel
             Left = 8
@@ -5995,6 +5995,7 @@ object Kf: TKf
     Width = 35
     Caption = 'lprice'
     ParentColor = False
+    OnClick = lpriceClick
   end
   object od1: TOpenDialog
     DefaultExt = '.hpg'
