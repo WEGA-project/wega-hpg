@@ -602,6 +602,8 @@ type
     procedure KSChange(Sender: TObject);
     procedure KSClick(Sender: TObject);
     procedure lb1Click(Sender: TObject);
+    procedure lpriceClick(Sender: TObject);
+
     procedure mCaNO3Change(Sender: TObject);
     procedure mlMgNO3Change(Sender: TObject);
 
@@ -3013,6 +3015,14 @@ if (lb1.Count > 0 ) then
     if(vrSi >0) then rSi.Caption:='Si:('+FloatToStr(round((vSi/1000-vrSi)/vrSi*100))+'%)' else rSi.Caption:='Si: -';
 end;
 
+procedure TKf.lpriceClick(Sender: TObject);
+begin
+  PageControl1.ActivePage:=TabSheet3;
+  PageControl2.ActivePage:=TabSheet7;
+end;
+
+
+
 procedure TKf.mCaNO3Change(Sender: TObject);
 begin
 
@@ -3512,7 +3522,7 @@ begin
    if (m1.Text <> '' ) then begin
 
 //   if (de1.text = '' ) then de1.Text:=DateToStr(now);     FormatDateTime('dd mmmm yyyy - hh:nn:ss', Now);
-   if (de1.text = '' ) then de1.Text:=FormatDateTime('yyyy-dd-mm', Now);
+   if (de1.text = '' ) then de1.Text:=FormatDateTime('yyyy-mm-dd', Now);
    str:='date='+de1.Text+';'+m1.Text+';'+profile.Caption;
    if not Assigned(DStr)then DStr := TStringList.Create;
    DStr.Add(StringReplace(str, #10, ' ', [rfReplaceAll, rfIgnoreCase]));

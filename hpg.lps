@@ -7,7 +7,7 @@
       <Unit0>
         <Filename Value="hpg.lpr"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="1"/>
         <CursorPos Y="16"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
@@ -81,11 +81,10 @@
       </Unit8>
       <Unit9>
         <Filename Value="/usr/share/lazarus/2.0.6/lcl/include/customform.inc"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="1904"/>
         <CursorPos Y="1921"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit9>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">

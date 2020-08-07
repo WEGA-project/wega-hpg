@@ -1,7 +1,7 @@
 object Kf: TKf
   Left = 966
   Height = 809
-  Top = 242
+  Top = 146
   Width = 762
   HorzScrollBar.Page = 761
   VertScrollBar.Page = 808
@@ -20,11 +20,11 @@ object Kf: TKf
     Height = 704
     Top = 0
     Width = 761
-    ActivePage = TabSheet3
+    ActivePage = TabSheet1
     Font.Height = -15
     Font.Name = 'Arial'
     ParentFont = False
-    TabIndex = 2
+    TabIndex = 0
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'Макро'
@@ -3701,16 +3701,16 @@ object Kf: TKf
         end
         object TabSheet6: TTabSheet
           Caption = 'Изготовление'
-          ClientHeight = 586
-          ClientWidth = 744
+          ClientHeight = 580
+          ClientWidth = 746
           Font.Height = -15
           Font.Name = 'Arial'
           ParentFont = False
           object k2nCaNO3: TLabel
             Left = 181
-            Height = 17
+            Height = 18
             Top = 30
-            Width = 257
+            Width = 259
             Caption = 'Кальций азотнокислый 4-водный  (ч.)'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -3719,9 +3719,9 @@ object Kf: TKf
           end
           object k2nKNO3: TLabel
             Left = 181
-            Height = 17
+            Height = 18
             Top = 59
-            Width = 167
+            Width = 169
             Caption = 'Калий азотнокислый (ч.)'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -3730,9 +3730,9 @@ object Kf: TKf
           end
           object k2nNH4NO3: TLabel
             Left = 181
-            Height = 17
+            Height = 18
             Top = 88
-            Width = 187
+            Width = 189
             Caption = 'Аммоний азотнокислый (ч.)'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -3741,9 +3741,9 @@ object Kf: TKf
           end
           object k2nMgNO3: TLabel
             Left = 181
-            Height = 17
+            Height = 18
             Top = 117
-            Width = 243
+            Width = 246
             Caption = 'Магний азотнокислый 6-водный (ч.)'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -3752,9 +3752,9 @@ object Kf: TKf
           end
           object k2nMgSO4: TLabel
             Left = 181
-            Height = 17
+            Height = 18
             Top = 166
-            Width = 237
+            Width = 240
             Caption = 'Магний сернокислый 7-водный (ч.)'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -3763,9 +3763,9 @@ object Kf: TKf
           end
           object k2nKH2PO4: TLabel
             Left = 181
-            Height = 17
+            Height = 18
             Top = 197
-            Width = 295
+            Width = 300
             Caption = 'Калий фосфорнокислый 1-замещенный (ч.)'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -3775,9 +3775,9 @@ object Kf: TKf
           end
           object k2nK2SO4: TLabel
             Left = 181
-            Height = 17
+            Height = 18
             Top = 228
-            Width = 241
+            Width = 243
             Caption = 'Калий сернокислый безводный (ч.)'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -3787,9 +3787,9 @@ object Kf: TKf
           end
           object l2Fe: TLabel
             Left = 181
-            Height = 17
+            Height = 18
             Top = 290
-            Width = 80
+            Width = 81
             Caption = 'Железо (%)'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -3798,9 +3798,9 @@ object Kf: TKf
           end
           object l2Mn: TLabel
             Left = 181
-            Height = 17
+            Height = 18
             Top = 321
-            Width = 92
+            Width = 94
             Caption = 'Марганец (%)'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -3809,7 +3809,7 @@ object Kf: TKf
           end
           object l2B: TLabel
             Left = 181
-            Height = 17
+            Height = 18
             Top = 352
             Width = 53
             Caption = 'Бор (%)'
@@ -3820,7 +3820,7 @@ object Kf: TKf
           end
           object l2Zn: TLabel
             Left = 181
-            Height = 17
+            Height = 18
             Top = 384
             Width = 61
             Caption = 'Цинк (%)'
@@ -3831,9 +3831,9 @@ object Kf: TKf
           end
           object l2Cu: TLabel
             Left = 181
-            Height = 17
+            Height = 18
             Top = 414
-            Width = 63
+            Width = 65
             Caption = 'Медь (%)'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -3842,9 +3842,9 @@ object Kf: TKf
           end
           object l2Mo: TLabel
             Left = 181
-            Height = 17
+            Height = 18
             Top = 445
-            Width = 96
+            Width = 99
             Caption = 'Молибден (%)'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -3853,9 +3853,9 @@ object Kf: TKf
           end
           object l2Co: TLabel
             Left = 181
-            Height = 17
+            Height = 18
             Top = 476
-            Width = 84
+            Width = 85
             Caption = 'Кобальт (%)'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -3864,7 +3864,7 @@ object Kf: TKf
           end
           object l2Si: TLabel
             Left = 181
-            Height = 17
+            Height = 18
             Top = 507
             Width = 86
             Caption = 'Кремний (%)'
@@ -3875,7 +3875,7 @@ object Kf: TKf
           end
           object mCaNO3: TEdit
             Left = 2
-            Height = 25
+            Height = 28
             Top = 22
             Width = 54
             Font.Height = -15
@@ -3887,7 +3887,7 @@ object Kf: TKf
           end
           object mKNO3: TEdit
             Left = 2
-            Height = 25
+            Height = 28
             Top = 53
             Width = 54
             Font.Height = -15
@@ -3898,7 +3898,7 @@ object Kf: TKf
           end
           object mNH4NO3: TEdit
             Left = 2
-            Height = 25
+            Height = 28
             Top = 82
             Width = 54
             Font.Height = -15
@@ -3909,7 +3909,7 @@ object Kf: TKf
           end
           object mMgNO3: TEdit
             Left = 2
-            Height = 25
+            Height = 28
             Top = 114
             Width = 54
             Font.Height = -15
@@ -3919,7 +3919,7 @@ object Kf: TKf
           end
           object mMgSO4: TEdit
             Left = 2
-            Height = 25
+            Height = 28
             Top = 159
             Width = 54
             Font.Height = -15
@@ -3930,7 +3930,7 @@ object Kf: TKf
           end
           object mKH2PO4: TEdit
             Left = 2
-            Height = 25
+            Height = 28
             Top = 190
             Width = 54
             Font.Height = -15
@@ -3941,7 +3941,7 @@ object Kf: TKf
           end
           object mK2SO4: TEdit
             Left = 2
-            Height = 25
+            Height = 28
             Top = 221
             Width = 54
             Font.Height = -15
@@ -3952,7 +3952,7 @@ object Kf: TKf
           end
           object mCmplx: TEdit
             Left = 2
-            Height = 25
+            Height = 28
             Top = 252
             Width = 54
             Font.Height = -15
@@ -3963,7 +3963,7 @@ object Kf: TKf
           end
           object mFe: TEdit
             Left = 2
-            Height = 25
+            Height = 28
             Top = 283
             Width = 54
             Font.Height = -15
@@ -3973,7 +3973,7 @@ object Kf: TKf
           end
           object mMn: TEdit
             Left = 2
-            Height = 25
+            Height = 28
             Top = 314
             Width = 54
             Font.Height = -15
@@ -3983,7 +3983,7 @@ object Kf: TKf
           end
           object mB: TEdit
             Left = 2
-            Height = 25
+            Height = 28
             Top = 345
             Width = 54
             Font.Height = -15
@@ -3993,7 +3993,7 @@ object Kf: TKf
           end
           object mZn: TEdit
             Left = 2
-            Height = 25
+            Height = 28
             Top = 376
             Width = 54
             Font.Height = -15
@@ -4003,7 +4003,7 @@ object Kf: TKf
           end
           object mCu: TEdit
             Left = 2
-            Height = 25
+            Height = 28
             Top = 407
             Width = 54
             Font.Height = -15
@@ -4013,7 +4013,7 @@ object Kf: TKf
           end
           object mMo: TEdit
             Left = 2
-            Height = 25
+            Height = 28
             Top = 438
             Width = 54
             Font.Height = -15
@@ -4023,7 +4023,7 @@ object Kf: TKf
           end
           object mCo: TEdit
             Left = 2
-            Height = 25
+            Height = 28
             Top = 469
             Width = 54
             Font.Height = -15
@@ -4033,7 +4033,7 @@ object Kf: TKf
           end
           object mSi: TEdit
             Left = 2
-            Height = 25
+            Height = 28
             Top = 499
             Width = 54
             Font.Height = -15
@@ -4043,9 +4043,9 @@ object Kf: TKf
           end
           object CheckBox1: TCheckBox
             Left = 74
-            Height = 17
+            Height = 21
             Top = 26
-            Width = 20
+            Width = 21
             Font.Height = -15
             Font.Name = 'Arial'
             ParentFont = False
@@ -4053,9 +4053,9 @@ object Kf: TKf
           end
           object CheckBox2: TCheckBox
             Left = 74
-            Height = 17
+            Height = 21
             Top = 55
-            Width = 20
+            Width = 21
             Font.Height = -15
             Font.Name = 'Arial'
             ParentFont = False
@@ -4063,9 +4063,9 @@ object Kf: TKf
           end
           object CheckBox3: TCheckBox
             Left = 74
-            Height = 17
+            Height = 21
             Top = 85
-            Width = 20
+            Width = 21
             Font.Height = -15
             Font.Name = 'Arial'
             ParentFont = False
@@ -4073,9 +4073,9 @@ object Kf: TKf
           end
           object CheckBox4: TCheckBox
             Left = 74
-            Height = 17
+            Height = 21
             Top = 162
-            Width = 20
+            Width = 21
             Font.Height = -15
             Font.Name = 'Arial'
             ParentFont = False
@@ -4083,9 +4083,9 @@ object Kf: TKf
           end
           object CheckBox5: TCheckBox
             Left = 74
-            Height = 17
+            Height = 21
             Top = 193
-            Width = 20
+            Width = 21
             Font.Height = -15
             Font.Name = 'Arial'
             ParentFont = False
@@ -4093,9 +4093,9 @@ object Kf: TKf
           end
           object CheckBox6: TCheckBox
             Left = 74
-            Height = 17
+            Height = 21
             Top = 225
-            Width = 20
+            Width = 21
             Font.Height = -15
             Font.Name = 'Arial'
             ParentFont = False
@@ -4103,9 +4103,9 @@ object Kf: TKf
           end
           object CheckBox7: TCheckBox
             Left = 74
-            Height = 17
+            Height = 21
             Top = 113
-            Width = 20
+            Width = 21
             Font.Height = -15
             Font.Name = 'Arial'
             ParentFont = False
@@ -4113,9 +4113,9 @@ object Kf: TKf
           end
           object cbMn: TCheckBox
             Left = 74
-            Height = 17
+            Height = 21
             Top = 317
-            Width = 20
+            Width = 21
             Font.Height = -15
             Font.Name = 'Arial'
             ParentFont = False
@@ -4123,9 +4123,9 @@ object Kf: TKf
           end
           object cbFe: TCheckBox
             Left = 74
-            Height = 17
+            Height = 21
             Top = 286
-            Width = 20
+            Width = 21
             Font.Height = -15
             Font.Name = 'Arial'
             ParentFont = False
@@ -4133,9 +4133,9 @@ object Kf: TKf
           end
           object cbCmplx: TCheckBox
             Left = 74
-            Height = 17
+            Height = 21
             Top = 255
-            Width = 20
+            Width = 21
             Font.Height = -15
             Font.Name = 'Arial'
             ParentFont = False
@@ -4143,9 +4143,9 @@ object Kf: TKf
           end
           object cbCu: TCheckBox
             Left = 74
-            Height = 17
+            Height = 21
             Top = 410
-            Width = 20
+            Width = 21
             Font.Height = -15
             Font.Name = 'Arial'
             ParentFont = False
@@ -4153,9 +4153,9 @@ object Kf: TKf
           end
           object cbZn: TCheckBox
             Left = 74
-            Height = 17
+            Height = 21
             Top = 379
-            Width = 20
+            Width = 21
             Font.Height = -15
             Font.Name = 'Arial'
             ParentFont = False
@@ -4163,9 +4163,9 @@ object Kf: TKf
           end
           object cbB: TCheckBox
             Left = 74
-            Height = 17
+            Height = 21
             Top = 348
-            Width = 20
+            Width = 21
             Font.Height = -15
             Font.Name = 'Arial'
             ParentFont = False
@@ -4173,9 +4173,9 @@ object Kf: TKf
           end
           object cbSi: TCheckBox
             Left = 74
-            Height = 17
+            Height = 21
             Top = 503
-            Width = 20
+            Width = 21
             Font.Height = -15
             Font.Name = 'Arial'
             ParentFont = False
@@ -4183,9 +4183,9 @@ object Kf: TKf
           end
           object cbCo: TCheckBox
             Left = 74
-            Height = 17
+            Height = 21
             Top = 472
-            Width = 20
+            Width = 21
             Font.Height = -15
             Font.Name = 'Arial'
             ParentFont = False
@@ -4193,9 +4193,9 @@ object Kf: TKf
           end
           object cbMo: TCheckBox
             Left = 74
-            Height = 17
+            Height = 21
             Top = 441
-            Width = 20
+            Width = 21
             Font.Height = -15
             Font.Name = 'Arial'
             ParentFont = False
@@ -4203,7 +4203,7 @@ object Kf: TKf
           end
           object g2gCaNO3: TEdit
             Left = 114
-            Height = 25
+            Height = 28
             Top = 22
             Width = 54
             Font.Height = -15
@@ -4214,7 +4214,7 @@ object Kf: TKf
           end
           object g2gKNO3: TEdit
             Left = 114
-            Height = 25
+            Height = 28
             Top = 53
             Width = 54
             Font.Height = -15
@@ -4224,7 +4224,7 @@ object Kf: TKf
           end
           object g2gNH4NO3: TEdit
             Left = 114
-            Height = 25
+            Height = 28
             Top = 82
             Width = 54
             Font.Height = -15
@@ -4234,7 +4234,7 @@ object Kf: TKf
           end
           object g2gMgNO3: TEdit
             Left = 114
-            Height = 25
+            Height = 28
             Top = 114
             Width = 54
             Font.Height = -15
@@ -4244,7 +4244,7 @@ object Kf: TKf
           end
           object g2gMgSO4: TEdit
             Left = 114
-            Height = 25
+            Height = 28
             Top = 159
             Width = 54
             Font.Height = -15
@@ -4254,7 +4254,7 @@ object Kf: TKf
           end
           object g2gKH2PO4: TEdit
             Left = 114
-            Height = 25
+            Height = 28
             Top = 190
             Width = 54
             Font.Height = -15
@@ -4264,7 +4264,7 @@ object Kf: TKf
           end
           object g2gK2SO4: TEdit
             Left = 114
-            Height = 25
+            Height = 28
             Top = 221
             Width = 54
             Font.Height = -15
@@ -4274,7 +4274,7 @@ object Kf: TKf
           end
           object g2gCmplx: TEdit
             Left = 114
-            Height = 25
+            Height = 28
             Top = 252
             Width = 54
             Font.Height = -15
@@ -4284,7 +4284,7 @@ object Kf: TKf
           end
           object g2gFe: TEdit
             Left = 114
-            Height = 25
+            Height = 28
             Top = 283
             Width = 54
             Font.Height = -15
@@ -4294,7 +4294,7 @@ object Kf: TKf
           end
           object g2gMn: TEdit
             Left = 114
-            Height = 25
+            Height = 28
             Top = 314
             Width = 54
             Font.Height = -15
@@ -4304,7 +4304,7 @@ object Kf: TKf
           end
           object g2gB: TEdit
             Left = 114
-            Height = 25
+            Height = 28
             Top = 345
             Width = 54
             Font.Height = -15
@@ -4314,7 +4314,7 @@ object Kf: TKf
           end
           object g2gZn: TEdit
             Left = 114
-            Height = 25
+            Height = 28
             Top = 376
             Width = 54
             Font.Height = -15
@@ -4324,7 +4324,7 @@ object Kf: TKf
           end
           object g2gCu: TEdit
             Left = 114
-            Height = 25
+            Height = 28
             Top = 407
             Width = 54
             Font.Height = -15
@@ -4334,7 +4334,7 @@ object Kf: TKf
           end
           object g2gMo: TEdit
             Left = 114
-            Height = 25
+            Height = 28
             Top = 438
             Width = 54
             Font.Height = -15
@@ -4344,7 +4344,7 @@ object Kf: TKf
           end
           object g2gCo: TEdit
             Left = 114
-            Height = 25
+            Height = 28
             Top = 469
             Width = 54
             Font.Height = -15
@@ -4354,7 +4354,7 @@ object Kf: TKf
           end
           object g2gSi: TEdit
             Left = 114
-            Height = 25
+            Height = 28
             Top = 499
             Width = 54
             Font.Height = -15
@@ -4364,9 +4364,9 @@ object Kf: TKf
           end
           object Label70: TLabel
             Left = 5
-            Height = 17
+            Height = 18
             Top = 0
-            Width = 44
+            Width = 45
             Caption = 'Помпа'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -4375,9 +4375,9 @@ object Kf: TKf
           end
           object Label71: TLabel
             Left = 68
-            Height = 17
+            Height = 18
             Top = 0
-            Width = 37
+            Width = 38
             Caption = 'Ручн.'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -4386,9 +4386,9 @@ object Kf: TKf
           end
           object Label72: TLabel
             Left = 119
-            Height = 17
+            Height = 18
             Top = 0
-            Width = 64
+            Width = 65
             Caption = 'жидк (гр.)'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -4409,7 +4409,7 @@ object Kf: TKf
           end
           object addrMixer: TEdit
             Left = 0
-            Height = 25
+            Height = 28
             Top = 548
             Width = 275
             Font.Height = -15
@@ -4420,9 +4420,9 @@ object Kf: TKf
           end
           object l2Cmplx: TLabel
             Left = 181
-            Height = 17
+            Height = 18
             Top = 259
-            Width = 184
+            Width = 186
             Caption = 'Комплекс микроэлементов'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -4433,7 +4433,7 @@ object Kf: TKf
             Left = 330
             Height = 18
             Top = 0
-            Width = 341
+            Width = 343
             Caption = 'План изготовления жидкими монорастворами'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -4471,13 +4471,13 @@ object Kf: TKf
         end
         object TabSheet7: TTabSheet
           Caption = 'Цена'
-          ClientHeight = 580
-          ClientWidth = 746
+          ClientHeight = 586
+          ClientWidth = 744
           object cnCaNO3: TLabel
             Left = 98
-            Height = 18
+            Height = 17
             Top = 28
-            Width = 259
+            Width = 257
             Caption = 'Кальций азотнокислый 4-водный  (ч.)'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -4486,9 +4486,9 @@ object Kf: TKf
           end
           object cnKNO3: TLabel
             Left = 98
-            Height = 18
+            Height = 17
             Top = 61
-            Width = 169
+            Width = 167
             Caption = 'Калий азотнокислый (ч.)'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -4497,9 +4497,9 @@ object Kf: TKf
           end
           object cnNH4NO3: TLabel
             Left = 98
-            Height = 18
+            Height = 17
             Top = 95
-            Width = 189
+            Width = 187
             Caption = 'Аммоний азотнокислый (ч.)'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -4508,9 +4508,9 @@ object Kf: TKf
           end
           object cnMgNO3: TLabel
             Left = 98
-            Height = 18
+            Height = 17
             Top = 127
-            Width = 246
+            Width = 243
             Caption = 'Магний азотнокислый 6-водный (ч.)'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -4519,9 +4519,9 @@ object Kf: TKf
           end
           object cnMgSO4: TLabel
             Left = 98
-            Height = 18
+            Height = 17
             Top = 161
-            Width = 240
+            Width = 237
             Caption = 'Магний сернокислый 7-водный (ч.)'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -4530,9 +4530,9 @@ object Kf: TKf
           end
           object cnKH2PO4: TLabel
             Left = 98
-            Height = 18
+            Height = 17
             Top = 194
-            Width = 300
+            Width = 295
             Caption = 'Калий фосфорнокислый 1-замещенный (ч.)'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -4542,9 +4542,9 @@ object Kf: TKf
           end
           object cnK2SO4: TLabel
             Left = 98
-            Height = 18
+            Height = 17
             Top = 228
-            Width = 243
+            Width = 241
             Caption = 'Калий сернокислый безводный (ч.)'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -4554,9 +4554,9 @@ object Kf: TKf
           end
           object cnFe: TLabel
             Left = 98
-            Height = 18
+            Height = 17
             Top = 294
-            Width = 81
+            Width = 80
             Caption = 'Железо (%)'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -4565,9 +4565,9 @@ object Kf: TKf
           end
           object cnMn: TLabel
             Left = 98
-            Height = 18
+            Height = 17
             Top = 327
-            Width = 94
+            Width = 92
             Caption = 'Марганец (%)'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -4576,7 +4576,7 @@ object Kf: TKf
           end
           object cnB: TLabel
             Left = 98
-            Height = 18
+            Height = 17
             Top = 361
             Width = 53
             Caption = 'Бор (%)'
@@ -4587,7 +4587,7 @@ object Kf: TKf
           end
           object cnZn: TLabel
             Left = 98
-            Height = 18
+            Height = 17
             Top = 394
             Width = 61
             Caption = 'Цинк (%)'
@@ -4598,9 +4598,9 @@ object Kf: TKf
           end
           object cnCu: TLabel
             Left = 98
-            Height = 18
+            Height = 17
             Top = 428
-            Width = 65
+            Width = 63
             Caption = 'Медь (%)'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -4609,9 +4609,9 @@ object Kf: TKf
           end
           object cnMo: TLabel
             Left = 98
-            Height = 18
+            Height = 17
             Top = 460
-            Width = 99
+            Width = 96
             Caption = 'Молибден (%)'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -4620,9 +4620,9 @@ object Kf: TKf
           end
           object cnCo: TLabel
             Left = 98
-            Height = 18
+            Height = 17
             Top = 494
-            Width = 85
+            Width = 84
             Caption = 'Кобальт (%)'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -4631,7 +4631,7 @@ object Kf: TKf
           end
           object cnSi: TLabel
             Left = 98
-            Height = 18
+            Height = 17
             Top = 527
             Width = 86
             Caption = 'Кремний (%)'
@@ -4642,9 +4642,9 @@ object Kf: TKf
           end
           object cnCmplx: TLabel
             Left = 98
-            Height = 18
+            Height = 17
             Top = 261
-            Width = 186
+            Width = 184
             Caption = 'Комплекс микроэлементов'
             Font.Height = -15
             Font.Name = 'Arial'
@@ -4653,10 +4653,10 @@ object Kf: TKf
           end
           object cgCaNO3: TFloatSpinEdit
             Left = 8
-            Height = 28
+            Height = 25
             Top = 24
             Width = 72
-            DecimalPlaces = 3
+            DecimalPlaces = 4
             Font.Height = -15
             Font.Name = 'Arial'
             Increment = 0.001
@@ -4668,10 +4668,10 @@ object Kf: TKf
           end
           object cgKNO3: TFloatSpinEdit
             Left = 8
-            Height = 28
+            Height = 25
             Top = 57
             Width = 72
-            DecimalPlaces = 3
+            DecimalPlaces = 4
             Font.Height = -15
             Font.Name = 'Arial'
             Increment = 0.001
@@ -4683,10 +4683,10 @@ object Kf: TKf
           end
           object cgNH4NO3: TFloatSpinEdit
             Left = 8
-            Height = 28
+            Height = 25
             Top = 90
             Width = 72
-            DecimalPlaces = 3
+            DecimalPlaces = 4
             Font.Height = -15
             Font.Name = 'Arial'
             Increment = 0.001
@@ -4698,10 +4698,10 @@ object Kf: TKf
           end
           object cgMgNO3: TFloatSpinEdit
             Left = 8
-            Height = 28
+            Height = 25
             Top = 123
             Width = 72
-            DecimalPlaces = 3
+            DecimalPlaces = 4
             Font.Height = -15
             Font.Name = 'Arial'
             Increment = 0.001
@@ -4713,10 +4713,10 @@ object Kf: TKf
           end
           object cgMgSO4: TFloatSpinEdit
             Left = 8
-            Height = 28
+            Height = 25
             Top = 156
             Width = 72
-            DecimalPlaces = 3
+            DecimalPlaces = 4
             Font.Height = -15
             Font.Name = 'Arial'
             Increment = 0.001
@@ -4729,10 +4729,10 @@ object Kf: TKf
           end
           object cgKH2PO4: TFloatSpinEdit
             Left = 8
-            Height = 28
+            Height = 25
             Top = 189
             Width = 72
-            DecimalPlaces = 3
+            DecimalPlaces = 4
             Font.Height = -15
             Font.Name = 'Arial'
             Increment = 0.001
@@ -4745,10 +4745,10 @@ object Kf: TKf
           end
           object cgK2SO4: TFloatSpinEdit
             Left = 8
-            Height = 28
+            Height = 25
             Top = 222
             Width = 72
-            DecimalPlaces = 3
+            DecimalPlaces = 4
             Font.Height = -15
             Font.Name = 'Arial'
             Increment = 0.001
@@ -4761,10 +4761,10 @@ object Kf: TKf
           end
           object cgCmplx: TFloatSpinEdit
             Left = 8
-            Height = 28
+            Height = 25
             Top = 255
             Width = 72
-            DecimalPlaces = 3
+            DecimalPlaces = 4
             Font.Height = -15
             Font.Name = 'Arial'
             Increment = 0.001
@@ -4777,10 +4777,10 @@ object Kf: TKf
           end
           object cgFe: TFloatSpinEdit
             Left = 8
-            Height = 28
+            Height = 25
             Top = 288
             Width = 72
-            DecimalPlaces = 3
+            DecimalPlaces = 4
             Font.Height = -15
             Font.Name = 'Arial'
             Increment = 0.001
@@ -4792,10 +4792,10 @@ object Kf: TKf
           end
           object cgMn: TFloatSpinEdit
             Left = 8
-            Height = 28
+            Height = 25
             Top = 321
             Width = 72
-            DecimalPlaces = 3
+            DecimalPlaces = 4
             Font.Height = -15
             Font.Name = 'Arial'
             Increment = 0.001
@@ -4807,10 +4807,10 @@ object Kf: TKf
           end
           object cgB: TFloatSpinEdit
             Left = 8
-            Height = 28
+            Height = 25
             Top = 354
             Width = 72
-            DecimalPlaces = 3
+            DecimalPlaces = 4
             Font.Height = -15
             Font.Name = 'Arial'
             Increment = 0.001
@@ -4822,10 +4822,10 @@ object Kf: TKf
           end
           object cgZn: TFloatSpinEdit
             Left = 8
-            Height = 28
+            Height = 25
             Top = 387
             Width = 72
-            DecimalPlaces = 3
+            DecimalPlaces = 4
             Font.Height = -15
             Font.Name = 'Arial'
             Increment = 0.001
@@ -4837,10 +4837,10 @@ object Kf: TKf
           end
           object cgCu: TFloatSpinEdit
             Left = 8
-            Height = 28
+            Height = 25
             Top = 420
             Width = 72
-            DecimalPlaces = 3
+            DecimalPlaces = 4
             Font.Height = -15
             Font.Name = 'Arial'
             Increment = 0.001
@@ -4852,10 +4852,10 @@ object Kf: TKf
           end
           object cgMo: TFloatSpinEdit
             Left = 8
-            Height = 28
+            Height = 25
             Top = 453
             Width = 72
-            DecimalPlaces = 3
+            DecimalPlaces = 4
             Font.Height = -15
             Font.Name = 'Arial'
             Increment = 0.001
@@ -4867,10 +4867,10 @@ object Kf: TKf
           end
           object cgCo: TFloatSpinEdit
             Left = 8
-            Height = 28
+            Height = 25
             Top = 486
             Width = 72
-            DecimalPlaces = 3
+            DecimalPlaces = 4
             Font.Height = -15
             Font.Name = 'Arial'
             Increment = 0.001
@@ -4882,10 +4882,10 @@ object Kf: TKf
           end
           object cgSi: TFloatSpinEdit
             Left = 8
-            Height = 28
+            Height = 25
             Top = 519
             Width = 72
-            DecimalPlaces = 3
+            DecimalPlaces = 4
             Font.Height = -15
             Font.Name = 'Arial'
             Increment = 0.001
@@ -4897,7 +4897,7 @@ object Kf: TKf
           end
           object Label91: TLabel
             Left = 8
-            Height = 18
+            Height = 17
             Top = 0
             Width = 111
             Caption = 'Цена за 1 грамм'
@@ -5977,7 +5977,7 @@ object Kf: TKf
     Height = 16
     Top = 738
     Width = 222
-    Caption = 'Hydroponic Profile Generator 0.100'
+    Caption = 'Hydroponic Profile Generator 0.101'
     Font.Color = clActiveCaption
     Font.Height = -13
     Font.Name = 'Arial'
@@ -5993,6 +5993,7 @@ object Kf: TKf
     Width = 35
     Caption = 'lprice'
     ParentColor = False
+    OnClick = lpriceClick
   end
   object od1: TOpenDialog
     DefaultExt = '.hpg'
