@@ -1808,6 +1808,7 @@ begin
 
 
     Kf.Caption:='HPG ' + C_FNAME + ' (' + Kf.eComment.Caption +')' ;
+    Kf.m1.Caption:='';
 end;
 
 
@@ -2962,7 +2963,7 @@ var
 begin
    MyFormatSettings.DecimalSeparator := '.';
    getVar;
-if (lb1.Count > 0 ) then
+if (lb1.SelCount > 0 ) then
  begin;
   i:=lb1.ItemIndex;
   str:= DStr[i];
@@ -2976,7 +2977,8 @@ if (lb1.Count > 0 ) then
               m1.Text:=ExtractWord(2,str,[';']);
               pr2.Caption:=ExtractWord(3,str,[';']);
               end;
-  end;
+
+
     str:=pr2.Caption;
     vrN:=StrToFloat(ExtractWord(2,str,['=',' ']),MyFormatSettings);
     vrNO3:=StrToFloat(ExtractWord(4,str,['=',' ']),MyFormatSettings);
@@ -3013,7 +3015,8 @@ if (lb1.Count > 0 ) then
     if(vrMo >0) then rMo.Caption:='Mo:('+FloatToStr(round((vMo/1000-vrMo)/vrMo*100))+'%)' else rMo.Caption:='Mo: -';
     if(vrCo >0) then rCo.Caption:='Co:('+FloatToStr(round((vCo/1000-vrCo)/vrCo*100))+'%)' else rCo.Caption:='Co: -';
     if(vrSi >0) then rSi.Caption:='Si:('+FloatToStr(round((vSi/1000-vrSi)/vrSi*100))+'%)' else rSi.Caption:='Si: -';
-end;
+ end ;
+ end;
 
 procedure TKf.lpriceClick(Sender: TObject);
 begin
@@ -3172,6 +3175,8 @@ end;
 
 procedure TKf.Button8Click(Sender: TObject);
 begin
+if Kf.lb1.SelCount > 0  then
+begin
      str:='date='+de1.Text+';'+m1.Text+';'+pr2.Caption;
    if not Assigned(DStr)then DStr := TStringList.Create;
    DStr[i]:=(StringReplace(str, #10, ' ', [rfReplaceAll, rfIgnoreCase]));
@@ -3190,6 +3195,7 @@ begin
 
               end;
           end;
+end;
 end;
 
 procedure TKf.Button9Click(Sender: TObject);
@@ -3551,6 +3557,8 @@ end;
 
 procedure TKf.dateChangeClick(Sender: TObject);
 begin
+if Kf.lb1.SelCount > 0  then
+begin
   DStr.Delete(i);
     lb1.Clear;
    for i := 0 to DStr.Count-1 do
@@ -3565,6 +3573,7 @@ begin
 
               end;
           end;
+  end;
 end;
 
 procedure TKf.dBChange(Sender: TObject);
