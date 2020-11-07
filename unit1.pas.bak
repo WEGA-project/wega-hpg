@@ -482,6 +482,8 @@ type
     procedure Button9Click(Sender: TObject);
     procedure CaChange(Sender: TObject);
     procedure C(Sender: TObject);
+    procedure CaCl2_CaChange(Sender: TObject);
+    procedure CaCl2_ClChange(Sender: TObject);
 
     procedure CaKChange(Sender: TObject);
     procedure CaKClick(Sender: TObject);
@@ -769,7 +771,7 @@ var
   r,rN,rK,rCa,rMg,rNH4:Double;
   vKMg,vKCa,vKN,vNH4NO3:Double;
   sMgSO4,sKH2PO4,sCaNO3,sNH4NO3,sKNO3,sK2SO4,sMgNO3,sCaCl2:Double;
-  Mg_MgSO4,S_MgSO4,P_KH2PO4,K_KH2PO4,Ca_CaNO3,NO3_CaNO3,NH4_CaNO3,NH4_NH4NO3,NO3_NH4NO3,K_KNO3,NO3_KNO3,S_K2SO4,K_K2SO4:Double;
+  Mg_MgSO4,S_MgSO4,P_KH2PO4,K_KH2PO4,Ca_CaNO3,NO3_CaNO3,NH4_CaNO3,NH4_NH4NO3,NO3_NH4NO3,K_KNO3,NO3_KNO3,S_K2SO4,K_K2SO4,Cl_CaCl2,Ca_CaCl2:Double;
   vCaCl2_Ca,vCaCl2_Cl,vMgSO4_Mg,vMgSO4_S,vKH2PO4_P,vKH2PO4_K,vCaNO3_Ca,vCaNO3_NO3,vCaNO3_NH4,vNH4NO3_NH4,vNH4NO3_NO3,vKNO3_K,vKNO3_NO3,vK2SO4_S,vK2SO4_K,vMgNO3_Mg,vMgNO3_NO3:Double;
   xNH4, xNO3, xS: Double;
   vEC0,vKN0,vCaN0,vKP0,vKCa0,vKMg0:Double;
@@ -983,6 +985,7 @@ begin
    +Kf.gMgSO4.value
    +Kf.gKH2PO4.value
    +Kf.gK2SO4.value
+   +Kf.gCaCl2.value
    +Kf.gFe.value
    +Kf.gMn.value
    +Kf.gB.value
@@ -991,6 +994,7 @@ begin
    +Kf.gMo.value
    +Kf.gCo.value
    +Kf.gSi.value
+
    ;
 
   end
@@ -1139,6 +1143,9 @@ end;
    vMgNO3_Mg:=Kf.MgNO3_Mg.value;
    vMgNO3_NO3:=Kf.MgNO3_NO3.value;
 
+   vCaCl2_Ca:=Kf.CaCl2_Ca.value;
+   vCaCl2_Cl:=Kf.CaCl2_Cl.value;
+
    V:=kF.V.Value;
     getVar;
 
@@ -1159,6 +1166,10 @@ end;
      NO3_CaNO3:=sCaNO3*vCaNO3_NO3*10;
      NH4_CaNO3:=sCaNO3*vCaNO3_NH4*10;
      Ca_CaNO3:=sCaNO3*vCaNO3_Ca*10;
+
+     sCaCl2:=vCl/(vCaCl2_Cl*10);                    Kf.gCaCl2.value:= sCaCl2*V;
+       Cl_CaCl2:=sCaCl2*vCaCl2_Cl*10;
+       Ca_CaCl2:=sCaCl2*vCaCl2_Cl*10;
 
  xNH4:=vNH4 - NH4_CaNO3;
 
@@ -1246,7 +1257,7 @@ begin
    vN:=vNH4+vNO3;
    vP:=(sKH2PO4*vKH2PO4_P)/(0.1*V)  ;
    vK:=(sKNO3*vKNO3_K + sKH2PO4*vKH2PO4_K + sK2SO4*vK2SO4_K)/(0.1*V)  ;
-   vCa:=(sCaNO3*vCaNO3_Ca)/(0.1*V)   ;
+   vCa:=(sCaNO3*vCaNO3_Ca+sCaCl2*vCaCl2_Ca)/(0.1*V)   ;
    vMg:=(sMgSO4*vMgSO4_Mg+sMgNO3*vMgNO3_Mg)/(0.1*V)  ;
    vNH4NO3:=vNH4/vNO3;
    vCl:=(sCaCl2*vCaCl2_Cl)/(0.1*V);
@@ -1708,7 +1719,15 @@ case FloatToStr(round(Kf.MgNO3_Mg.value*10)/10,MyFormatSettings) of
     + ' MgO-' +floattostr(Round((Kf.MgNO3_Mg.value/0.603036)*10)/10)+'%'
     + ' N-' +floattostr(Round((Kf.MgNO3_NO3.value)*10)/10)+'%';
  end;
-
+// Хлорид кальция
+case FloatToStr(round(Kf.CaCl2_Ca.value*10)/10,MyFormatSettings) of
+   '18.3':  Kf.nCaCl2.Caption:='Хлорид кальция 6-водный CaCl2*6H2O';
+   '36.1':  Kf.nCaCl2.Caption:='Хлорид кальция безводный CaCl2';
+ else
+   Kf.nCaCl2.Caption:='Кальций хлористый'
+   + ' CaO-' +floattostr(Round((Kf.CaCl2_Ca.value/0.714691)*10)/10)+'%'
+   + ' Cl-' +floattostr(Round((Kf.CaCl2_Cl.value)*10)/10)+'%';
+ end;
   end;
 
 
@@ -3357,6 +3376,26 @@ begin
   CalcAll;
 end;
 
+procedure TKf.CaCl2_CaChange(Sender: TObject);
+begin
+      if ( CaCl2_Ca.Focused = True )    then begin
+          CaCl2_Cl.value:=(2*CaCl2_Ca.value/molCa)*(molCl);
+
+    SoilName;
+    CalcWeight ;
+end;
+ end;
+
+procedure TKf.CaCl2_ClChange(Sender: TObject);
+
+  begin
+      if ( CaCl2_Cl.Focused = True )    then begin
+          CaCl2_Ca.value:=(0.5*(CaCl2_Cl.value/molCl))*(molCa);
+
+    SoilName;
+    CalcWeight ;
+end;
+end;
 
 
 procedure TKf.CaKChange(Sender: TObject);

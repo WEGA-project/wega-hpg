@@ -1795,7 +1795,7 @@ object Kf: TKf
         Font.Name = 'Arial'
         Increment = 0.001
         MinValue = 0.001
-        OnChange = KH2PO4_KChange
+        OnChange = CaCl2_CaChange
         ParentFont = False
         TabOrder = 66
         Value = 18.294
@@ -1821,7 +1821,7 @@ object Kf: TKf
         Font.Name = 'Arial'
         Increment = 0.001
         MinValue = 0.001
-        OnChange = KH2PO4_PChange
+        OnChange = CaCl2_ClChange
         ParentFont = False
         TabOrder = 67
         Value = 32.366
@@ -2509,16 +2509,16 @@ object Kf: TKf
         Height = 616
         Top = 0
         Width = 752
-        ActivePage = TabSheet6
+        ActivePage = TabSheet5
         Font.Height = -15
         Font.Name = 'Arial'
         ParentFont = False
-        TabIndex = 1
+        TabIndex = 0
         TabOrder = 0
         object TabSheet5: TTabSheet
           Caption = 'Расчет'
-          ClientHeight = 612
-          ClientWidth = 748
+          ClientHeight = 580
+          ClientWidth = 746
           Font.Height = -15
           Font.Name = 'Arial'
           OnContextPopup = TabSheet5ContextPopup
@@ -3804,8 +3804,8 @@ object Kf: TKf
         end
         object TabSheet6: TTabSheet
           Caption = 'Изготовление'
-          ClientHeight = 612
-          ClientWidth = 748
+          ClientHeight = 580
+          ClientWidth = 746
           Font.Height = -15
           Font.Name = 'Arial'
           ParentFont = False
@@ -4574,8 +4574,8 @@ object Kf: TKf
         end
         object TabSheet7: TTabSheet
           Caption = 'Цена'
-          ClientHeight = 612
-          ClientWidth = 748
+          ClientHeight = 580
+          ClientWidth = 746
           object cnCaNO3: TLabel
             Left = 98
             Height = 17
