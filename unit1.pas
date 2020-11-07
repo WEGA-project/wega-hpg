@@ -110,6 +110,7 @@ type
     mlCaCl2: TFloatSpinEdit;
     mCaCl2: TEdit;
     nCaCl2: TLabel;
+    rCl: TLabel;
     sSoil: TFloatSpinEdit;
     Label87: TLabel;
     Label88: TLabel;
@@ -1041,6 +1042,7 @@ begin
                     +'Ca='+FloatToStr(round(vCa*100)/100, MyFormatSettings)+' '
                     +'Mg='+FloatToStr(round(vMg*100)/100, MyFormatSettings)+' '
                     +'S='+FloatToStr(round(vS*10)/10, MyFormatSettings)+' '
+                    +'Cl='+FloatToStr(round(vCl*10)/10, MyFormatSettings)+' '
 
                     +'Fe='+FloatToStr(round(kf.Fe.value)/1000, MyFormatSettings)+' '
                     +'Mn='+FloatToStr(round(kf.Mn.value)/1000, MyFormatSettings)+' '
@@ -1485,7 +1487,7 @@ begin
   ps:=Kf.profile.text;
   countVar:=WordCount( ps,[' ']);
 
-if(countVar=16) then
+if(countVar=17) then
 begin
     Kf.parse.Caption:='OK';
     Kf.parse.Color:=clMoneyGreen;
@@ -1502,6 +1504,7 @@ begin
      if (IsWordPresent('K',curVar, ['='] ) = true) then  Kf.K.value:=StrToFloat(curValue,MyFormatSettings);
      if (IsWordPresent('Ca',curVar, ['='] ) = true) then  Kf.Ca.value:=StrToFloat(curValue,MyFormatSettings);
      if (IsWordPresent('Mg',curVar, ['='] ) = true) then  Kf.Mg.value:=StrToFloat(curValue,MyFormatSettings);
+     if (IsWordPresent('Cl',curVar, ['='] ) = true) then  Kf.Cl.value:=StrToFloat(curValue,MyFormatSettings);
 
      if (IsWordPresent('Fe',curVar, ['='] ) = true) then  Kf.Fe.value:=StrToFloat(curValue,MyFormatSettings)*1000;
      if (IsWordPresent('Mn',curVar, ['='] ) = true) then  Kf.Mn.value:=StrToFloat(curValue,MyFormatSettings)*1000;
@@ -3046,15 +3049,16 @@ end;
 
 procedure TKf.lb1Click(Sender: TObject);
 var
-    vrN,vrNO3,vrNH4,vrP,vrK,vrCa,vrMg,vrS:double;
+    vrN,vrNO3,vrNH4,vrP,vrK,vrCa,vrMg,vrS,vrCl:double;
     vrFe,vrMn,vrB,vrZn,vrCu,vrMo,vrCo,vrSi:double;
-
+    oldf: string;
 begin
    MyFormatSettings.DecimalSeparator := '.';
    getVar;
 if (lb1.SelCount > 0 ) then
  begin;
   i:=lb1.ItemIndex;
+
   str:= DStr[i];
               if (IsWordPresent('date', str, ['=']) = true) then
               begin
@@ -3069,6 +3073,13 @@ if (lb1.SelCount > 0 ) then
 
 
     str:=pr2.Caption;
+    oldf:= ExtractWord(17,str,['=',' ']);
+
+    //ShowMessage(oldf);
+
+    //Проверка на старый формат журнала без хлора
+    if ( oldf = 'Cl') then begin
+
     vrN:=StrToFloat(ExtractWord(2,str,['=',' ']),MyFormatSettings);
     vrNO3:=StrToFloat(ExtractWord(4,str,['=',' ']),MyFormatSettings);
     vrNH4:=StrToFloat(ExtractWord(6,str,['=',' ']),MyFormatSettings);
@@ -3077,6 +3088,28 @@ if (lb1.SelCount > 0 ) then
     vrCa:=StrToFloat(ExtractWord(12,str,['=',' ']),MyFormatSettings);
     vrMg:=StrToFloat(ExtractWord(14,str,['=',' ']),MyFormatSettings);
     vrS:=StrToFloat(ExtractWord(16,str,['=',' ']),MyFormatSettings);
+    vrCl:=StrToFloat(ExtractWord(18,str,['=',' ']),MyFormatSettings);
+
+    vrFe:=StrToFloat(ExtractWord(20,str,['=',' ']),MyFormatSettings);
+    vrMn:=StrToFloat(ExtractWord(22,str,['=',' ']),MyFormatSettings);
+    vrB:=StrToFloat(ExtractWord(24,str,['=',' ']),MyFormatSettings);
+    vrZn:=StrToFloat(ExtractWord(26,str,['=',' ']),MyFormatSettings);
+    vrCu:=StrToFloat(ExtractWord(28,str,['=',' ']),MyFormatSettings);
+    vrMo:=StrToFloat(ExtractWord(30,str,['=',' ']),MyFormatSettings);
+    vrCo:=StrToFloat(ExtractWord(32,str,['=',' ']),MyFormatSettings);
+    vrSi:=StrToFloat(ExtractWord(34,str,['=',' ']),MyFormatSettings);
+    end;
+    // Без хлора
+    if ( oldf = 'Fe') then begin
+    vrN:=StrToFloat(ExtractWord(2,str,['=',' ']),MyFormatSettings);
+    vrNO3:=StrToFloat(ExtractWord(4,str,['=',' ']),MyFormatSettings);
+    vrNH4:=StrToFloat(ExtractWord(6,str,['=',' ']),MyFormatSettings);
+    vrP:=StrToFloat(ExtractWord(8,str,['=',' ']),MyFormatSettings);
+    vrK:=StrToFloat(ExtractWord(10,str,['=',' ']),MyFormatSettings);
+    vrCa:=StrToFloat(ExtractWord(12,str,['=',' ']),MyFormatSettings);
+    vrMg:=StrToFloat(ExtractWord(14,str,['=',' ']),MyFormatSettings);
+    vrS:=StrToFloat(ExtractWord(16,str,['=',' ']),MyFormatSettings);
+    vrCl:=0;
 
     vrFe:=StrToFloat(ExtractWord(18,str,['=',' ']),MyFormatSettings);
     vrMn:=StrToFloat(ExtractWord(20,str,['=',' ']),MyFormatSettings);
@@ -3086,6 +3119,8 @@ if (lb1.SelCount > 0 ) then
     vrMo:=StrToFloat(ExtractWord(28,str,['=',' ']),MyFormatSettings);
     vrCo:=StrToFloat(ExtractWord(30,str,['=',' ']),MyFormatSettings);
     vrSi:=StrToFloat(ExtractWord(32,str,['=',' ']),MyFormatSettings);
+    end;
+
 
     rN.Caption:='N:('+FloatToStr(round((vN-vrN)/vrN*100))+'%)';
     rNO3.Caption:='NO3:('+FloatToStr(round((vNO3-vrNO3)/vrNO3*100))+'%)';
@@ -3095,6 +3130,7 @@ if (lb1.SelCount > 0 ) then
     rCa.Caption:='Ca:('+FloatToStr(round((vCa-vrCa)/vrCa*100))+'%)';
     rMg.Caption:='Mg:('+FloatToStr(round((vMg-vrMg)/vrMg*100))+'%)';
     rS.Caption:='S:('+FloatToStr(round((vS-vrS)/vrS*100))+'%)';
+    if (vrCl = 0) then rCl.Caption:='-' else rCl.Caption:='Cl:('+FloatToStr(round((vCl-vrCl)/vrCl*100))+'%)';
 
     if(vrFe >0) then rFe.Caption:='Fe:('+FloatToStr(round((vFe/1000-vrFe)/vrFe*100))+'%)' else rFe.Caption:='Fe: -';
     if(vrMn >0) then rMn.Caption:='Mn:('+FloatToStr(round((vMn/1000-vrMn)/vrMn*100))+'%)' else rMn.Caption:='Mn: -';
@@ -3104,6 +3140,7 @@ if (lb1.SelCount > 0 ) then
     if(vrMo >0) then rMo.Caption:='Mo:('+FloatToStr(round((vMo/1000-vrMo)/vrMo*100))+'%)' else rMo.Caption:='Mo: -';
     if(vrCo >0) then rCo.Caption:='Co:('+FloatToStr(round((vCo/1000-vrCo)/vrCo*100))+'%)' else rCo.Caption:='Co: -';
     if(vrSi >0) then rSi.Caption:='Si:('+FloatToStr(round((vSi/1000-vrSi)/vrSi*100))+'%)' else rSi.Caption:='Si: -';
+
  end ;
  end;
 

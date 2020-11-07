@@ -21,11 +21,11 @@ object Kf: TKf
     Height = 709
     Top = -1
     Width = 761
-    ActivePage = TabSheet3
+    ActivePage = TabSheet4
     Font.Height = -15
     Font.Name = 'Arial'
     ParentFont = False
-    TabIndex = 2
+    TabIndex = 3
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'Макро'
@@ -2509,11 +2509,11 @@ object Kf: TKf
         Height = 616
         Top = 0
         Width = 752
-        ActivePage = TabSheet7
+        ActivePage = TabSheet5
         Font.Height = -15
         Font.Name = 'Arial'
         ParentFont = False
-        TabIndex = 2
+        TabIndex = 0
         TabOrder = 0
         object TabSheet5: TTabSheet
           Caption = 'Расчет'
@@ -5597,6 +5597,14 @@ object Kf: TKf
         Caption = 'help'
         OnClick = bfileClick
         TabOrder = 14
+      end
+      object rCl: TLabel
+        Left = 88
+        Height = 18
+        Top = 573
+        Width = 4
+        Caption = ' '
+        ParentColor = False
       end
     end
   end
