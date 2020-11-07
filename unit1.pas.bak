@@ -72,6 +72,8 @@ type
     cgNH4NO3: TFloatSpinEdit;
     cgSi: TFloatSpinEdit;
     cgZn: TFloatSpinEdit;
+    Cl: TFloatSpinEdit;
+    gCaCl2: TFloatSpinEdit;
     Image1: TImage;
     cnCaNO3: TLabel;
     cnK2SO4: TLabel;
@@ -89,8 +91,14 @@ type
     cnMo: TLabel;
     cnSi: TLabel;
     cnZn: TLabel;
+    CaCl2_Ca: TFloatSpinEdit;
+    CaCl2_Cl: TFloatSpinEdit;
     Label91: TLabel;
+    Label92: TLabel;
+    Label93: TLabel;
+    Label94: TLabel;
     lprice: TLabel;
+    nCaCl2: TLabel;
     sSoil: TFloatSpinEdit;
     Label87: TLabel;
     Label88: TLabel;
@@ -502,6 +510,7 @@ type
     procedure chK2SO4Change(Sender: TObject);
     procedure chkComplexChange(Sender: TObject);
     procedure chMgNO3Change(Sender: TObject);
+    procedure ClChange(Sender: TObject);
     procedure CoChange(Sender: TObject);
     procedure CuChange(Sender: TObject);
     procedure dateAddClick(Sender: TObject);
@@ -530,6 +539,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure g2gCaNO3Change(Sender: TObject);
     procedure gBChange(Sender: TObject);
+    procedure gCaCl2Change(Sender: TObject);
 
     procedure gCaNO3Change(Sender: TObject);
     procedure gCmplxChange(Sender: TObject);
@@ -753,14 +763,14 @@ type
 
 var
   Kf: TKf;
-  vN,vNO3,vNH4,vP,vK,vCa,vMg,vS,vEC,V:Double;
+  vN,vNO3,vNH4,vP,vK,vCa,vMg,vS,vCl,vEC,V:Double;
   vFe,vMn,vB,vZn,vCu,vMo,vCo,vSi:Double;
-  molN,molP,molK,molCa,molMg,molS:Double;
+  molN,molP,molK,molCa,molMg,molS,molCl:Double;
   r,rN,rK,rCa,rMg,rNH4:Double;
   vKMg,vKCa,vKN,vNH4NO3:Double;
-  sMgSO4,sKH2PO4,sCaNO3,sNH4NO3,sKNO3,sK2SO4,sMgNO3:Double;
+  sMgSO4,sKH2PO4,sCaNO3,sNH4NO3,sKNO3,sK2SO4,sMgNO3,sCaCl2:Double;
   Mg_MgSO4,S_MgSO4,P_KH2PO4,K_KH2PO4,Ca_CaNO3,NO3_CaNO3,NH4_CaNO3,NH4_NH4NO3,NO3_NH4NO3,K_KNO3,NO3_KNO3,S_K2SO4,K_K2SO4:Double;
-  vMgSO4_Mg,vMgSO4_S,vKH2PO4_P,vKH2PO4_K,vCaNO3_Ca,vCaNO3_NO3,vCaNO3_NH4,vNH4NO3_NH4,vNH4NO3_NO3,vKNO3_K,vKNO3_NO3,vK2SO4_S,vK2SO4_K,vMgNO3_Mg,vMgNO3_NO3:Double;
+  vCaCl2_Ca,vCaCl2_Cl,vMgSO4_Mg,vMgSO4_S,vKH2PO4_P,vKH2PO4_K,vCaNO3_Ca,vCaNO3_NO3,vCaNO3_NH4,vNH4NO3_NH4,vNH4NO3_NO3,vKNO3_K,vKNO3_NO3,vK2SO4_S,vK2SO4_K,vMgNO3_Mg,vMgNO3_NO3:Double;
   xNH4, xNO3, xS: Double;
   vEC0,vKN0,vCaN0,vKP0,vKCa0,vKMg0:Double;
   ps,s:string;
@@ -791,6 +801,7 @@ begin
   molCa:=40.078;
   molMg:=24.305;
   molS:=32.065;
+  molCl:=35.453;
 
   vNO3:=Kf.NO3.value;
   vNH4:=Kf.NH4.value;
@@ -799,6 +810,7 @@ begin
   vCa:=Kf.Ca.value;
   vMg:=Kf.Mg.value;
   vS:=Kf.S.value;
+  vCl:=Kf.Cl.value;
 
   vKMg:=Kf.KMg.value;
   vKCa:=Kf.KCa.value;
@@ -820,8 +832,11 @@ procedure CalculateCa;
 begin
   getVar;
 
- vCa:=-molCa*(vNH4*molP*molMg*molK*molS - vP*molN*molMg*molK*molS + 2*vMg*molN*molP*molK*molS + vK*molN*molP*molMg*molS - vNO3*molP*molMg*molK*molS - 2*vS*molN*molP*molMg*molK)/(2*(molN*molP*molMg*molK*molS));
- if ( Kf.Ca.Focused = False ) then Kf.Ca.value:=vCa;
+ //vCa:=-molCa*(vNH4*molP*molMg*molK*molS - vP*molN*molMg*molK*molS + 2*vMg*molN*molP*molK*molS + vK*molN*molP*molMg*molS - vNO3*molP*molMg*molK*molS - 2*vS*molN*molP*molMg*molK)/(2*(molN*molP*molMg*molK*molS));
+
+  vCa:= ( -molCa* (vNH4*molP*molMg*molK*molS*molCl - vP*molN*molMg*molK*molS*molCl + 2*vMg*molN*molP*molK*molS*molCl + vK*molN*molP*molMg*molS*molCl - vNO3*molP*molMg*molK*molS*molCl - 2*vS*molN*molP*molMg*molK*molCl - vCl*molN*molP*molMg*molK*molS)) / (2*molN*molP*molMg*molK*molS*molCl);
+
+   if ( Kf.Ca.Focused = False ) then Kf.Ca.value:=vCa;
 end;
 
 procedure CalcEC;
@@ -837,8 +852,9 @@ procedure CalculateS;
 begin
   getVar;
 
- vS:=(molS*(vNH4*molCa*molMg*molK*molP + 2*vCa*molN*molMg*molK*molP + 2*vMg*molN*molCa*molK*molP+ vK*molN*molCa*molMg*molP - vNO3*molCa*molMg*molK*molP - vP*molN*molCa*molMg*molK))/(2*(molN*molCa*molMg*molK*molP));
+ //vS:=(molS*(vNH4*molCa*molMg*molK*molP + 2*vCa*molN*molMg*molK*molP + 2*vMg*molN*molCa*molK*molP+ vK*molN*molCa*molMg*molP - vNO3*molCa*molMg*molK*molP - vP*molN*molCa*molMg*molK))/(2*(molN*molCa*molMg*molK*molP));
 
+ vS:=( -molS*(-vNH4*molCa*molMg*molK*molP*molCl  -  2*vCa*molN*molMg*molK*molP*molCl  -  2*vMg*molN*molCa*molK*molP*molCl - vK*molN*molCa*molMg*molP*molCl  + vNO3*molCa*molMg*molK*molP*molCl + vP*molN*molCa*molMg*molK*molCl + vCl*molN*molCa*molMg*molK*molP))/(2*(molN*molCa*molMg*molK*molP*molCl));
   if ( Kf.S.Focused = False ) then Kf.S.value:=vS;
 end;
 
@@ -1211,6 +1227,7 @@ begin
    vKNO3_K:=Kf.KNO3_K.value;             vKNO3_NO3:=Kf.KNO3_NO3.value;
    vK2SO4_S:=Kf.K2SO4_S.value;           vK2SO4_K:=Kf.K2SO4_K.value;
    vMgNO3_Mg:=Kf.MgNO3_Mg.value;           vMgNO3_NO3:=Kf.MgNO3_NO3.value;
+   vCaCl2_Ca:=Kf.CaCl2_Ca.value;           vCaCl2_Cl:=Kf.CaCl2_Cl.value;
 
    V:=kF.V.Value;
 
@@ -1222,6 +1239,7 @@ begin
    sKH2PO4:=Kf.gKH2PO4.value;
    sK2SO4:=Kf.gK2SO4.value;
    sMgNO3:=Kf.gMgNO3.value;
+   sCaCl2:=Kf.gCaCl2.value;
 
    vNO3:=(sCaNO3*vCaNO3_NO3 + sNH4NO3*vNH4NO3_NO3 + sKNO3*vKNO3_NO3 + sMgNO3*vMgNO3_NO3)/(0.1*V);
    vNH4:=(sCaNO3*vCaNO3_NH4 + sNH4NO3*vNH4NO3_NH4)/(0.1*V);
@@ -1231,6 +1249,7 @@ begin
    vCa:=(sCaNO3*vCaNO3_Ca)/(0.1*V)   ;
    vMg:=(sMgSO4*vMgSO4_Mg+sMgNO3*vMgNO3_Mg)/(0.1*V)  ;
    vNH4NO3:=vNH4/vNO3;
+   vCl:=(sCaCl2*vCaCl2_Cl)/(0.1*V);
 
     if ( Kf.NH4NO3.Focused = False ) then Kf.NH4NO3.value:=vNH4NO3;
 
@@ -1242,6 +1261,7 @@ begin
     if ( Kf.K.Focused = False ) then Kf.K.value:=vK;
     if ( Kf.Ca.Focused = False ) then Kf.Ca.value:=vCa;
     if ( Kf.Mg.Focused = False ) then Kf.Mg.value:=vMg;
+    if ( Kf.Cl.Focused = False ) then Kf.Cl.value:=vCl;
 
     //GenNH4NO3event;
 
@@ -2415,6 +2435,18 @@ begin
   end;
 end;
 
+procedure TKf.gCaCl2Change(Sender: TObject);
+begin
+    if ( gCaCl2.Focused = True )    then begin
+  fromWeight ;
+  CalculateS;
+  CalcKoef;
+  CalcEC;
+  genProfile;
+
+ end;
+end;
+
 
 
 procedure TKf.gCaNO3Change(Sender: TObject);
@@ -3504,6 +3536,15 @@ begin
   end;
   CalcWeight ;
 
+end;
+
+procedure TKf.ClChange(Sender: TObject);
+begin
+  if ( Cl.Focused = True )  and ( Cl.value <> 0 )    then begin
+ //CalcKoef;
+ CalcWeight ;
+   CalcAll;
+  end
 end;
 
 procedure TKf.CoChange(Sender: TObject);
