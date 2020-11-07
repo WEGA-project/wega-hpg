@@ -34,6 +34,9 @@ type
     Button8: TButton;
     btch: TButton;
     Button9: TButton;
+    cgCaCl2: TFloatSpinEdit;
+    CheckBox8: TCheckBox;
+    cnCaCl2: TLabel;
     dateAdd: TButton;
     dateChange: TButton;
     CheckBox1: TCheckBox;
@@ -73,7 +76,11 @@ type
     cgSi: TFloatSpinEdit;
     cgZn: TFloatSpinEdit;
     Cl: TFloatSpinEdit;
+    g2gCaCl2: TEdit;
     gCaCl2: TFloatSpinEdit;
+    ggCaCl2: TFloatSpinEdit;
+    glCaCl2: TFloatSpinEdit;
+    gmlCaCl2: TFloatSpinEdit;
     Image1: TImage;
     cnCaNO3: TLabel;
     cnK2SO4: TLabel;
@@ -93,11 +100,15 @@ type
     cnZn: TLabel;
     CaCl2_Ca: TFloatSpinEdit;
     CaCl2_Cl: TFloatSpinEdit;
+    k2nCaCl2: TLabel;
+    knCaCl2: TLabel;
     Label91: TLabel;
     Label92: TLabel;
     Label93: TLabel;
     Label94: TLabel;
     lprice: TLabel;
+    mlCaCl2: TFloatSpinEdit;
+    mCaCl2: TEdit;
     nCaCl2: TLabel;
     sSoil: TFloatSpinEdit;
     Label87: TLabel;
@@ -553,6 +564,7 @@ type
     procedure gKH2PO4Change(Sender: TObject);
     procedure gKNO3Change(Sender: TObject);
     procedure glBChange(Sender: TObject);
+    procedure glCaCl2Change(Sender: TObject);
     procedure glCaNO3Change(Sender: TObject);
     procedure glCoChange(Sender: TObject);
     procedure glCuChange(Sender: TObject);
@@ -900,7 +912,7 @@ begin
   //Kf.EC.Value:=vEC;
 end;
  procedure price;
-var prCaNO3,prMgSO4,prKH2PO4,prNH4NO3,prKNO3,prK2SO4,prMgNO3,prCmplx,prAll:Double;
+var prCaNO3,prMgSO4,prKH2PO4,prNH4NO3,prKNO3,prK2SO4,prMgNO3,prCaCl2,prCmplx,prAll:Double;
     prFe,prMn,prB,prZn,prCu,prMo,prCo,prSi:Double;
 begin
  prCaNO3:=   Kf.cgCaNO3.value*Kf.gCaNO3.value;
@@ -910,6 +922,7 @@ begin
  prKH2PO4:=  Kf.cgKH2PO4.value*Kf.gKH2PO4.value;
  prK2SO4:=   Kf.cgK2SO4.value*Kf.gK2SO4.value;
  prMgNO3:=   Kf.cgMgNO3.value*Kf.gMgNO3.value;
+ prCaCl2:=   Kf.cgCaCl2.value*Kf.gCaCl2.value;
 
 
  Kf.cnCaNO3.caption:=Kf.knCaNO3.caption +  ' ' + FloatToStr(round(Kf.gCaNO3.value*1000)/1000) + ' г. цена: ' + FloatToStr(round(prCaNO3*100)/100) ;
@@ -919,7 +932,7 @@ begin
  Kf.cnKH2PO4.caption:=Kf.knKH2PO4.caption +  ' ' + FloatToStr(round(Kf.gKH2PO4.value*1000)/1000) + ' г. цена: ' + FloatToStr(round(prKH2PO4*100)/100) ;
  Kf.cnK2SO4.caption:=Kf.knK2SO4.caption +  ' ' + FloatToStr(round(Kf.gK2SO4.value*1000)/1000) + ' г. цена: ' + FloatToStr(round(prK2SO4*100)/100) ;
  Kf.cnMgNO3.caption:=Kf.knMgNO3.caption +  ' ' + FloatToStr(round(Kf.gMgNO3.value*1000)/1000) + ' г. цена: ' + FloatToStr(round(prMgNO3*100)/100) ;
-
+ Kf.cnCaCl2.caption:=Kf.knCaCl2.caption +  ' ' + FloatToStr(round(Kf.gCaCl2.value*1000)/1000) + ' г. цена: ' + FloatToStr(round(prCaCl2*100)/100) ;
 
  if (kF.chKComplex.Checked = True) then  begin
   Kf.cnCmplx.Visible:=True;     Kf.cgCmplx.Visible:=True;
@@ -935,7 +948,7 @@ begin
   prCmplx:=   Kf.cgCmplx.value*Kf.gCmplx.value;
   Kf.cnCmplx.caption:=Kf.lCmplx.caption +  ' ' + FloatToStr(round(Kf.gCmplx.value*1000)/1000) + ' г. цена: ' + FloatToStr(round(prCmplx*100)/100) ;
 
-  prAll:= prCaNO3+prMgSO4+prKH2PO4+prNH4NO3+prKNO3+prK2SO4+prMgNO3+prCmplx ;
+  prAll:= prCaNO3+prMgSO4+prKH2PO4+prNH4NO3+prKNO3+prK2SO4+prMgNO3+prCaCl2+prCmplx ;
 
  end
  else begin
@@ -967,7 +980,7 @@ begin
   Kf.cnCo.caption:=Kf.lCo.caption +  ' ' + FloatToStr(round(Kf.gCo.value*1000)/1000) + ' г. цена: ' + FloatToStr(round(prCo*100)/100) ;
   Kf.cnSi.caption:=Kf.lSi.caption +  ' ' + FloatToStr(round(Kf.gSi.value*1000)/1000) + ' г. цена: ' + FloatToStr(round(prSi*100)/100) ;
 
-  prAll:= prCaNO3+prMgSO4+prKH2PO4+prNH4NO3+prKNO3+prK2SO4+prMgNO3+prFe+prMn+prB+prZn+prCu+prMo+prCo+prSi  ;
+  prAll:= prCaNO3+prMgSO4+prKH2PO4+prNH4NO3+prKNO3+prK2SO4+prMgNO3+prCaCl2+prFe+prMn+prB+prZn+prCu+prMo+prCo+prSi  ;
 
  end;
   if (V > 0) then Kf.lprice.Caption:='Стоимость:' + FloatToStr(round(prAll*100)/100)+' за 1 литр:'+ FloatToStr(round(prAll/V*100)/100);
@@ -1297,6 +1310,7 @@ begin
    Kf.mlMgSO4.Value:=Kf.gMgSO4.value/Kf.glMgSO4.value*1000;
    Kf.mlKH2PO4.Value:=Kf.gKH2PO4.value/Kf.glKH2PO4.value*1000;
    Kf.mlK2SO4.Value:=Kf.gK2SO4.value/Kf.glK2SO4.value*1000;
+   Kf.mlCaCl2.Value:=Kf.gCaCl2.value/Kf.glCaCl2.value*1000;
 
    //Kf.mlCmplx.Value:=Kf.gCmplx.value/Kf.glCmplx.value*100;
    if (Kf.dB.value <> 0) then Kf.mlCmplx.Value:=(Kf.B.value/Kf.dB.value*Kf.V.value/10)/Kf.glCmplx.value;
@@ -1316,6 +1330,7 @@ begin
    Kf.ggMgSO4.value:=Kf.gmlMgSO4.value*Kf.mlMgSO4.value;
    Kf.ggKH2PO4.value:=Kf.gmlKH2PO4.value*Kf.mlKH2PO4.value;
    Kf.ggK2SO4.value:=Kf.gmlK2SO4.value*Kf.mlK2SO4.value;
+   Kf.ggCaCl2.value:=Kf.gmlCaCl2.value*Kf.mlCaCl2.value;
 
    Kf.ggCmplx.value:=Kf.gmlCmplx.value*Kf.mlCmplx.value;
    Kf.ggFe.value:=Kf.gmlFe.value*Kf.mlFe.value;
@@ -1361,6 +1376,7 @@ begin
     Kf.knMgSO4.caption:= Kf.nMgSO4.caption;
     Kf.knK2SO4.caption:= Kf.nK2SO4.caption;
     Kf.knKH2PO4.caption:= Kf.nKH2PO4.caption;
+    Kf.knCaCl2.caption:= Kf.nCaCl2.caption;
 
     Kf.lFe.Caption:='Железо Fe='+FloatToStr(Kf.dFe.value)+'%';
     Kf.lMn.Caption:='Марганец Mn='+FloatToStr(Kf.dMn.value)+'%';
@@ -1375,6 +1391,7 @@ begin
     Kf.g2gKNO3.caption:=FloatToStr(round(Kf.ggKNO3.value*100)/100,MyFormatSettings);
     Kf.g2gNH4NO3.caption:=FloatToStr(round(Kf.ggNH4NO3.value*100)/100,MyFormatSettings);
     Kf.g2gMgNO3.caption:=FloatToStr(round(Kf.ggMgNO3.value*100)/100,MyFormatSettings);
+    Kf.g2gCaCl2.caption:=FloatToStr(round(Kf.ggCaCl2.value*100)/100,MyFormatSettings);
 
     Kf.g2gMgSO4.caption:=FloatToStr(round(Kf.ggMgSO4.value*100)/100,MyFormatSettings);
     Kf.g2gKH2PO4.caption:=FloatToStr(round(Kf.ggKH2PO4.value*100)/100,MyFormatSettings);
@@ -1397,6 +1414,7 @@ begin
     Kf.k2nMgSO4.Caption:= Kf.knMgSO4.caption +' ' + FloatToStr(round(Kf.gMgSO4.value*1000)/1000) + ' г. ' + ' (' + FloatToStr(Kf.glMgSO4.Value)+ ' г/л, '+FloatToStr(Kf.gmlMgSO4.Value)+ ' г/мл)';
     Kf.k2nKH2PO4.Caption:= Kf.knKH2PO4.caption +' ' + FloatToStr(round(Kf.gKH2PO4.value*1000)/1000) + ' г. ' + ' (' + FloatToStr(Kf.glKH2PO4.Value)+ ' г/л, '+FloatToStr(Kf.gmlKH2PO4.Value)+ ' г/мл)';
     Kf.k2nK2SO4.Caption:= Kf.knK2SO4.caption +' ' + FloatToStr(round(Kf.gK2SO4.value*1000)/1000) + ' г. ' + ' (' + FloatToStr(Kf.glK2SO4.Value)+ ' г/л, '+FloatToStr(Kf.gmlK2SO4.Value)+ ' г/мл)';
+    Kf.k2nCaCl2.Caption:= Kf.knCaCl2.caption +' ' + FloatToStr(round(Kf.gCaCl2.value*1000)/1000) + ' г. ' + ' (' + FloatToStr(Kf.glCaCl2.Value)+ ' г/л, '+FloatToStr(Kf.gmlCaCl2.Value)+ ' г/мл)';
 
     Kf.l2Cmplx.Caption:= Kf.lCmplx.caption +' ' + FloatToStr(round(Kf.gCmplx.value*1000)/1000) + ' г. ' + ' (' + FloatToStr(Kf.glCmplx.Value)+ ' г/л, '+FloatToStr(Kf.gmlCmplx.Value)+ ' г/мл)';
     Kf.l2Fe.Caption:= Kf.lFe.caption +' ' + FloatToStr(round(Kf.gFe.value*1000)/1000) + ' г. ' + ' (' + FloatToStr(Kf.glFe.Value)+ ' г/л, '+FloatToStr(Kf.gmlFe.Value)+ ' г/мл)';
@@ -1409,8 +1427,8 @@ begin
     Kf.l2Si.Caption:= Kf.lSi.caption +' ' + FloatToStr(round(Kf.gSi.value*1000)/1000) + ' г. ' + ' (' + FloatToStr(Kf.glSi.Value)+ ' г/л, '+FloatToStr(Kf.gmlSi.Value)+ ' г/мл)';
 
 
-    Av:=round((Kf.mlCaNO3.Value + Kf.mlKNO3.Value + Kf.mlNH4NO3.Value + Kf.mlMgNO3.Value)*10000)/10000;
-    Am:=round((Kf.ggCaNO3.Value + Kf.ggKNO3.Value + Kf.ggNH4NO3.Value + Kf.ggMgNO3.Value)*10000)/10000;
+    Av:=round((Kf.mlCaNO3.Value + Kf.mlKNO3.Value + Kf.mlNH4NO3.Value + Kf.mlMgNO3.Value + Kf.mlCaCl2.Value)*10000)/10000;
+    Am:=round((Kf.ggCaNO3.Value + Kf.ggKNO3.Value + Kf.ggNH4NO3.Value + Kf.ggMgNO3.Value + Kf.ggCaCl2.Value)*10000)/10000;
     Ak:=round(Am/Av*100)/100;
     if (Kf.tAml.value <> 0) then Ac:=round(Kf.V.value/Kf.tAml.value*1000);
     Aw:=round(Kf.tAml.value-Av);
@@ -1756,6 +1774,7 @@ begin
            if (IsWordPresent('Ca', str, ['=']) = true)  then Kf.Ca.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
            if (IsWordPresent('Mg', str, ['=']) = true)  then Kf.Mg.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
            if (IsWordPresent('S', str, ['=']) = true)   then Kf.S.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('Cl', str, ['=']) = true)   then Kf.Cl.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
           //Micro Profile
            if (IsWordPresent('Fe', str, ['=']) = true) then Kf.Fe.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
            if (IsWordPresent('Mn', str, ['=']) = true) then Kf.Mn.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
@@ -1893,6 +1912,10 @@ begin
 
            if (IsWordPresent('MgNO3_Mg', str, ['=']) = true) then Kf.MgNO3_Mg.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
            if (IsWordPresent('MgNO3_NO3', str, ['=']) = true) then Kf.MgNO3_NO3.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+
+           if (IsWordPresent('CaCl2_Ca', str, ['=']) = true) then Kf.CaCl2_Ca.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('CaCl2_Cl', str, ['=']) = true) then Kf.CaCl2_Cl.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+
            //Micro
            if (IsWordPresent('dFe', str, ['=']) = true) then Kf.dFe.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
            if (IsWordPresent('dMn', str, ['=']) = true) then Kf.dMn.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
@@ -1917,6 +1940,7 @@ begin
            if (IsWordPresent('glMgSO4', str, ['=']) = true) then Kf.glMgSO4.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
            if (IsWordPresent('glK2SO4', str, ['=']) = true) then Kf.glK2SO4.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
            if (IsWordPresent('glKH2PO4', str, ['=']) = true) then Kf.glKH2PO4.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('glCaCl2', str, ['=']) = true) then Kf.glCaCl2.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
 
            if (IsWordPresent('glCmplx', str, ['=']) = true) then Kf.glCmplx.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
 
@@ -1939,6 +1963,7 @@ begin
            if (IsWordPresent('gmlMgSO4', str, ['=']) = true) then Kf.gmlMgSO4.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
            if (IsWordPresent('gmlK2SO4', str, ['=']) = true) then Kf.gmlK2SO4.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
            if (IsWordPresent('gmlKH2PO4', str, ['=']) = true) then Kf.gmlKH2PO4.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('gmlCaCl2', str, ['=']) = true) then Kf.gmlCaCl2.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
 
            if (IsWordPresent('gmlCmplx', str, ['=']) = true) then Kf.gmlCmplx.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
 
@@ -1958,6 +1983,7 @@ begin
            if (IsWordPresent('mNH4NO3', str, ['=']) = true) then Kf.mNH4NO3.text:=ExtractWord(2,str,['=']);
            if (IsWordPresent('mMgNO3', str, ['=']) = true) then Kf.mMgNO3.text:=ExtractWord(2,str,['=']);
            if (IsWordPresent('mMgSO4', str, ['=']) = true) then Kf.mMgSO4.text:=ExtractWord(2,str,['=']);
+           if (IsWordPresent('mCaCl2', str, ['=']) = true) then Kf.mCaCl2.text:=ExtractWord(2,str,['=']);
            if (IsWordPresent('mCmplx', str, ['=']) = true) then Kf.mCmplx.text:=ExtractWord(2,str,['=']);
            if (IsWordPresent('mFe', str, ['=']) = true) then Kf.mFe.text:=ExtractWord(2,str,['=']);
            if (IsWordPresent('mMn', str, ['=']) = true) then Kf.mMn.text:=ExtractWord(2,str,['=']);
@@ -1976,6 +2002,7 @@ begin
            if (IsWordPresent('cgMgSO4', str, ['=']) = true) then Kf.cgMgSO4.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
            if (IsWordPresent('cgK2SO4', str, ['=']) = true) then Kf.cgK2SO4.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
            if (IsWordPresent('cgKH2PO4', str, ['=']) = true) then Kf.cgKH2PO4.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
+           if (IsWordPresent('cgCaCl2', str, ['=']) = true) then Kf.cgCaCl2.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
 
            if (IsWordPresent('cgCmplx', str, ['=']) = true) then Kf.cgCmplx.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
 
@@ -2024,7 +2051,7 @@ begin
     writeln(tfOut,'Ca=',FloatToStr(Kf.Ca.value,MyFormatSettings));
     writeln(tfOut,'Mg=',FloatToStr(Kf.Mg.value,MyFormatSettings));
     writeln(tfOut,'S=',FloatToStr(Kf.S.value,MyFormatSettings));
-
+    writeln(tfOut,'Cl=',FloatToStr(Kf.Cl.value,MyFormatSettings));
 
     //Macro %
     writeln(tfOut,'CaNO3_Ca=',FloatToStr(vCaNO3_Ca,MyFormatSettings));
@@ -2050,6 +2077,8 @@ begin
     writeln(tfOut,'MgNO3_Mg=',FloatToStr(vMgNO3_Mg,MyFormatSettings));
     writeln(tfOut,'MgNO3_NO3=',FloatToStr(vMgNO3_NO3,MyFormatSettings));
 
+    writeln(tfOut,'CaCl2_Ca=',FloatToStr(vCaCl2_Ca,MyFormatSettings));
+    writeln(tfOut,'CaCl2_Cl=',FloatToStr(vCaCl2_Cl,MyFormatSettings));
 
     // Micro Profile
     writeln(tfOut,'Fe=',FloatToStr(Kf.Fe.value,MyFormatSettings));
@@ -2079,6 +2108,7 @@ begin
      writeln(tfOut,'glMgSO4=',FloatToStr(Kf.glMgSO4.Value,MyFormatSettings));
      writeln(tfOut,'glK2SO4=',FloatToStr(Kf.glK2SO4.Value,MyFormatSettings));
      writeln(tfOut,'glKH2PO4=',FloatToStr(Kf.glKH2PO4.Value,MyFormatSettings));
+     writeln(tfOut,'glCaCl2=',FloatToStr(Kf.glCaCl2.Value,MyFormatSettings));
 
      writeln(tfOut,'glCmplx=',FloatToStr(Kf.glCmplx.Value,MyFormatSettings));
      writeln(tfOut,'glFe=',FloatToStr(Kf.glFe.Value,MyFormatSettings));
@@ -2098,6 +2128,7 @@ begin
      writeln(tfOut,'gmlMgSO4=',FloatToStr(Kf.gmlMgSO4.Value,MyFormatSettings));
      writeln(tfOut,'gmlK2SO4=',FloatToStr(Kf.gmlK2SO4.Value,MyFormatSettings));
      writeln(tfOut,'gmlKH2PO4=',FloatToStr(Kf.gmlKH2PO4.Value,MyFormatSettings));
+     writeln(tfOut,'gmlCaCl2=',FloatToStr(Kf.gmlCaCl2.Value,MyFormatSettings));
 
      writeln(tfOut,'gmlCmplx=',FloatToStr(Kf.gmlCmplx.Value,MyFormatSettings));
      writeln(tfOut,'gmlFe=',FloatToStr(Kf.gmlFe.Value,MyFormatSettings));
@@ -2122,6 +2153,7 @@ begin
      writeln(tfOut,'mMgSO4=',Kf.mMgSO4.Text);
      writeln(tfOut,'mKH2PO4=',Kf.mKH2PO4.Text);
      writeln(tfOut,'mK2SO4=',Kf.mK2SO4.Text);
+     writeln(tfOut,'mCaCl2=',Kf.mCaCl2.Text);
      writeln(tfOut,'mCmplx=',Kf.mCmplx.Text);
 
      writeln(tfOut,'mFe=',Kf.mFe.Text);
@@ -2145,6 +2177,7 @@ begin
      writeln(tfOut,'cgMgSO4=',FloatToStr(Kf.cgMgSO4.Value,MyFormatSettings));
      writeln(tfOut,'cgK2SO4=',FloatToStr(Kf.cgK2SO4.Value,MyFormatSettings));
      writeln(tfOut,'cgKH2PO4=',FloatToStr(Kf.cgKH2PO4.Value,MyFormatSettings));
+     writeln(tfOut,'cgCaCl2=',FloatToStr(Kf.cgCaCl2.Value,MyFormatSettings));
 
      writeln(tfOut,'cgCmplx=',FloatToStr(Kf.cgCmplx.Value,MyFormatSettings));
      writeln(tfOut,'cgFe=',FloatToStr(Kf.cgFe.Value,MyFormatSettings));
@@ -2554,6 +2587,11 @@ begin
 end;
 
 procedure TKf.glBChange(Sender: TObject);
+begin
+  CalcConc;
+end;
+
+procedure TKf.glCaCl2Change(Sender: TObject);
 begin
   CalcConc;
 end;

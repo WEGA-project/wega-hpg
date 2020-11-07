@@ -1,5 +1,5 @@
 #!/bin/bash
-rm hpg.dbg -f
+rm hpg.dbg default.hpg -f
 zip -r hpg.zip examples hpg hpg.exe README.md
 git add *
 git commit -a
