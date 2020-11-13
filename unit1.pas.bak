@@ -1219,27 +1219,44 @@ sCaCl2:=vCl/vCaCl2_Cl;
 
  // Если сульфат калия не используем но используем нитрат магния
   if (kF.chK2SO4.Checked = false and kF.chMgNO3.Checked = True) then  begin
+   // KH2PO4
 
-      sK2SO4:=0; Kf.gK2SO4.value:=sK2SO4*V;
-     //sK2SO4:= Kf.gK2SO4.value/V;
+  sKH2PO4:=vP/vKH2PO4_P;
+     Kf.gKH2PO4.value:= sKH2PO4*V/10;
 
-     sKH2PO4:=vP/(vKH2PO4_P*10);
-      Kf.gKH2PO4.value:= sKH2PO4*V;
 
-     sKNO3:=-(-vK*vKH2PO4_P+vP*vKH2PO4_K+sK2SO4*vK2SO4_K*vKH2PO4_P)/(vKNO3_K*vKH2PO4_P*10);
-      Kf.gKNO3.value:=sKNO3*V;
+   // KNO3
 
-     sCaNO3:=vCa/(vCaNO3_Ca*10);
-      Kf.gCaNO3.value:= sCaNO3*V;
+  sKNO3:=  (vK*vKH2PO4_P-vP*vKH2PO4_K) / (vKNO3_K*vKH2PO4_P);
+     Kf.gKNO3.value:=sKNO3*V/10;
 
-     sMgSO4:=(vS-sK2SO4*vK2SO4_S) /(vMgSO4_S*10);
-      kF.gMgSO4.value:=sMgSO4*V;
+  // Ca(NO3)2
 
-     sNH4NO3:=-(-vNH4*vCaNO3_Ca+vCa*vCaNO3_NH4)/(vNH4NO3_NH4*vCaNO3_Ca*10);
-      Kf.gNH4NO3.value:= sNH4NO3*V;
+  sCaNO3:=(vCa*vCaCl2_Cl -vCl*vCaCl2_Ca ) / (vCaNO3_Ca*vCaCl2_Cl);
+    Kf.gCaNO3.value:= sCaNO3*V/10;
 
-     sMgNO3:=(vMg*vMgSO4_S-vMgSO4_Mg*vS+vMgSO4_Mg*sK2SO4*vK2SO4_S)/(vMgNO3_Mg*vMgSO4_S*10);
-      Kf.gMgNO3.value:=sMgNO3*V;
+
+  //Mg(NO3)2
+  sMgNO3:=(vMg*vMgSO4_S-vMgSO4_Mg*vS)/(vMgNO3_Mg*vMgSO4_S);
+     Kf.gMgNO3.value:=sMgNO3*V/10;
+
+  //MgSO4
+
+  sMgSO4:=vS/vMgSO4_S;
+     Kf.gMgSO4.value:= sMgSO4*V/10;
+
+  // K2SO4
+  sK2SO4:=0;
+     Kf.gK2SO4.value:= sK2SO4*V/10;
+
+  //NH4NO3
+  sNH4NO3:= (vNH4*vCaNO3_Ca*vCaCl2_Cl - vCaNO3_NH4*vCa*vCaCl2_Cl + vCaNO3_NH4*vCl*vCaCl2_Ca)
+             / (vNH4NO3_NH4*vCaNO3_Ca*vCaCl2_Cl);
+     Kf.gNH4NO3.value:= sNH4NO3*V/10;
+
+  //CaCl2
+  sCaCl2:=vCl/vCaCl2_Cl;
+     Kf.gCaCl2.value:= sCaCl2*V/10;
   end;
 
 

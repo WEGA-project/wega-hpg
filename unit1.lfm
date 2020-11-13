@@ -1,12 +1,12 @@
 object Kf: TKf
-  Left = 627
+  Left = 717
   Height = 809
-  Top = 164
+  Top = 165
   Width = 762
   HorzScrollBar.Page = 761
   VertScrollBar.Page = 809
   AutoScroll = True
-  Caption = 'Koefficients'
+  Caption = 'Hydroponic Profile Generator (HPG)'
   ClientHeight = 809
   ClientWidth = 762
   DesignTimePPI = 100
@@ -6231,7 +6231,7 @@ object Kf: TKf
     Height = 15
     Top = 738
     Width = 218
-    Caption = 'Hydroponic Profile Generator 0.112'
+    Caption = 'Hydroponic Profile Generator 0.113'
     Font.Color = clActiveCaption
     Font.Height = -13
     Font.Name = 'Arial'
@@ -6250,11 +6250,11 @@ object Kf: TKf
     OnClick = lpriceClick
   end
   object Button10: TButton
-    Left = 709
-    Height = 38
+    Left = 706
+    Height = 41
     Top = 758
-    Width = 52
-    Caption = 'donat'
+    Width = 54
+    Caption = 'donate'
     OnClick = Button10Click
     TabOrder = 9
   end
