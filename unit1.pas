@@ -25,6 +25,7 @@ type
     bRasch: TButton;
     bIzg: TButton;
     bfile: TButton;
+    Button10: TButton;
     Button2: TButton;
     Button3: TButton;
     Button4: TButton;
@@ -483,6 +484,7 @@ type
     procedure bMicroClick(Sender: TObject);
     procedure bRaschClick(Sender: TObject);
     procedure btchClick(Sender: TObject);
+    procedure Button10Click(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
@@ -1135,7 +1137,7 @@ end;
 
    procedure CalcWeight ;
  begin
-
+ // Процентовки удобрений
    vMgSO4_Mg:=Kf.MgSO4_Mg.value;
    vMgSO4_S:=Kf.MgSO4_S.value;
 
@@ -1164,41 +1166,54 @@ end;
    V:=kF.V.Value;
     getVar;
 
+
 // Если флаг стоит на сульфате калия и не стоит на нитрате магния
   if (kF.chK2SO4.Checked = True and  kF.chMgNO3.Checked = false ) then  begin
 
-   sMgNO3:=0; Kf.gMgNO3.value:=sMgNO3*V;
+  // KH2PO4
 
-   sMgSO4:=vMg/(vMgSO4_Mg*10);                    Kf.gMgSO4.value:= sMgSO4*V;
-     Mg_MgSO4:=sMgSO4*vMgSO4_Mg*10;
-     S_MgSO4:=sMgSO4*vMgSO4_S*10;
+sKH2PO4:=vP/vKH2PO4_P;
+   Kf.gKH2PO4.value:= sKH2PO4*V/10;
 
-   sKH2PO4:=vP/(vKH2PO4_P*10);                    Kf.gKH2PO4.value:= sKH2PO4*V;
-     P_KH2PO4:=sKH2PO4*vKH2PO4_P*10;
-     K_KH2PO4:=sKH2PO4*vKH2PO4_K*10;
 
-   sCaNO3:=vCa/(vCaNO3_Ca*10);                    Kf.gCaNO3.value:= sCaNO3*V;
-     NO3_CaNO3:=sCaNO3*vCaNO3_NO3*10;
-     NH4_CaNO3:=sCaNO3*vCaNO3_NH4*10;
-     Ca_CaNO3:=sCaNO3*vCaNO3_Ca*10;
+ // KNO3
 
-     sCaCl2:=vCl/(vCaCl2_Cl*10);                    Kf.gCaCl2.value:= sCaCl2*V;
-       Cl_CaCl2:=sCaCl2*vCaCl2_Cl*10;
-       Ca_CaCl2:=sCaCl2*vCaCl2_Cl*10;
+sKNO3:=  - (-vK*vKH2PO4_P*vK2SO4_S*vMgSO4_Mg + vP*vKH2PO4_K*vK2SO4_S*vMgSO4_Mg
+         + vK2SO4_K*vKH2PO4_P*vS*vMgSO4_Mg - vK2SO4_K*vKH2PO4_P*vMg*vMgSO4_S)
+         / (vKNO3_K*vKH2PO4_P*vK2SO4_S*vMgSO4_Mg) ;
+   Kf.gKNO3.value:=sKNO3*V/10;
 
- xNH4:=vNH4 - NH4_CaNO3;
+// Ca(NO3)2
 
-   sNH4NO3:=xNH4/(vNH4NO3_NH4*10);                  Kf.gNH4NO3.value:= sNH4NO3*V;
-     NO3_NH4NO3:=sNH4NO3*vNH4NO3_NO3*10;
-     NH4_NH4NO3:=sNH4NO3*vNH4NO3_NH4*10;
+sCaNO3:=(vCa*vCaCl2_Cl -vCl*vCaCl2_Ca ) / (vCaNO3_Ca*vCaCl2_Cl);
+  Kf.gCaNO3.value:= sCaNO3*V/10;
 
- xNO3:= vNO3 - NO3_CaNO3 - NO3_NH4NO3;
 
-   sKNO3:=xNO3/(vKNO3_NO3*10);                      Kf.gKNO3.value:=sKNO3*V;
+//Mg(NO3)2
+sMgNO3:=0;
+   Kf.gMgNO3.value:=sMgNO3*V/10;
 
- xS:=vS-S_MgSO4;
+//MgSO4
 
-         sK2SO4:=xS/(vK2SO4_S*10);                Kf.gK2SO4.value:=sK2SO4*V;
+sMgSO4:=vMg/vMgSO4_Mg;
+   Kf.gMgSO4.value:= sMgSO4*V/10;
+
+// K2SO4
+sK2SO4:=(vS*vMgSO4_Mg-vMg*vMgSO4_S)/(vK2SO4_S*vMgSO4_Mg);
+   Kf.gK2SO4.value:= sK2SO4*V/10;
+
+//NH4NO3
+sNH4NO3:= -(-vNH4*vCaNO3_Ca*vCaCl2_Cl
+            + vCaNO3_NH4*vCa*vCaCl2_Cl
+            - vCaNO3_NH4*vCl*vCaCl2_Ca)
+          / ( vNH4NO3_NH4*vCaNO3_Ca*vCaCl2_Cl);
+   Kf.gNH4NO3.value:= sNH4NO3*V/10;
+
+//CaCl2
+sCaCl2:=vCl/vCaCl2_Cl;
+   Kf.gCaCl2.value:= sCaCl2*V/10;
+
+
 
   end;
 
@@ -1464,8 +1479,9 @@ end;
 
 procedure CalcAll;
 begin
- CalculateS;
  //CalculateCa;
+ CalculateS;
+
  CalcEC;
  CalcKoef;
  genProfile;
@@ -1796,9 +1812,9 @@ begin
 
 
 
-
+    //CalcWeight ;
     CalcAll;
-    CalcWeight ;
+
     microToWeght;
     CalcConc;
     SoilName;
@@ -2507,11 +2523,15 @@ end;
 procedure TKf.gCaNO3Change(Sender: TObject);
 begin
  if ( gCaNO3.Focused = True )    then begin
-  fromWeight ;
+
+ fromWeight ;
   CalculateS;
-  CalcKoef;
+  CalculateCa;
   CalcEC;
+  CalcKoef;
+
   genProfile;
+
 
  end;
 end;
@@ -2581,7 +2601,9 @@ procedure TKf.gKNO3Change(Sender: TObject);
 begin
   if ( gKNO3.Focused = True )    then begin
   fromWeight ;
+  CalculateCa;
   CalculateS;
+
   CalcKoef;
   CalcEC;
   genProfile;
@@ -2942,7 +2964,7 @@ procedure TKf.KNChange(Sender: TObject);
 begin
   if ( KN.Focused = True )    then begin
 
-        K.value:=N.value*KN.value;
+    K.value:=N.value*KN.value;
   vKCa0:=KCa.value;
   vKMg0:=KMg.value;
   //vKN0:=KN.value;
@@ -3201,6 +3223,7 @@ procedure TKf.Button1Click(Sender: TObject);
 begin
    CalcAll;
    CalcWeight ;
+
    microToWeght;
    CalcConc;
    SoilName;
@@ -3413,6 +3436,11 @@ begin
   genProfile;
 
 
+end;
+
+procedure TKf.Button10Click(Sender: TObject);
+begin
+  OpenURL('https://www.blockchain.com/btc/address/14TZ3jcaNcKqs2HKap5bYSvGuaSecZDC9q');
 end;
 
 procedure TKf.BChange(Sender: TObject);

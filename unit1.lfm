@@ -2517,8 +2517,8 @@ object Kf: TKf
         TabOrder = 0
         object TabSheet5: TTabSheet
           Caption = 'Расчет'
-          ClientHeight = 580
-          ClientWidth = 746
+          ClientHeight = 612
+          ClientWidth = 748
           Font.Height = -15
           Font.Name = 'Arial'
           OnContextPopup = TabSheet5ContextPopup
@@ -3877,8 +3877,8 @@ object Kf: TKf
         end
         object TabSheet6: TTabSheet
           Caption = 'Изготовление'
-          ClientHeight = 580
-          ClientWidth = 746
+          ClientHeight = 612
+          ClientWidth = 748
           Font.Height = -15
           Font.Name = 'Arial'
           ParentFont = False
@@ -4688,8 +4688,8 @@ object Kf: TKf
         end
         object TabSheet7: TTabSheet
           Caption = 'Цена'
-          ClientHeight = 580
-          ClientWidth = 746
+          ClientHeight = 612
+          ClientWidth = 748
           object cnCaNO3: TLabel
             Left = 98
             Height = 18
@@ -5699,7 +5699,7 @@ object Kf: TKf
   object parse: TButton
     Left = 728
     Height = 24
-    Top = 708
+    Top = 709
     Width = 33
     Color = clMoneyGreen
     Font.Height = -15
@@ -5735,9 +5735,9 @@ object Kf: TKf
     Value = 0
   end
   object Image1: TImage
-    Left = 591
+    Left = 538
     Height = 71
-    Top = 730
+    Top = 733
     Width = 167
     Picture.Data = {
       1754506F727461626C654E6574776F726B477261706869635C3C000089504E47
@@ -6231,7 +6231,7 @@ object Kf: TKf
     Height = 15
     Top = 738
     Width = 218
-    Caption = 'Hydroponic Profile Generator 0.111'
+    Caption = 'Hydroponic Profile Generator 0.112'
     Font.Color = clActiveCaption
     Font.Height = -13
     Font.Name = 'Arial'
@@ -6249,16 +6249,25 @@ object Kf: TKf
     ParentColor = False
     OnClick = lpriceClick
   end
+  object Button10: TButton
+    Left = 709
+    Height = 38
+    Top = 758
+    Width = 52
+    Caption = 'donat'
+    OnClick = Button10Click
+    TabOrder = 9
+  end
   object od1: TOpenDialog
     DefaultExt = '.hpg'
     Filter = 'hpg|*.hpg'
-    left = 536
-    top = 760
+    left = 416
+    top = 784
   end
   object sd1: TSaveDialog
     DefaultExt = '.hpg'
     Filter = 'hpg|*.hpg'
-    left = 496
-    top = 760
+    left = 376
+    top = 784
   end
 end
