@@ -3432,7 +3432,7 @@ begin
   gKH2PO4.value:= (StrToFloat(g2gKH2PO4.Text,MyFormatSettings) * StrToFloat(glKH2PO4.Text) )/(1000* StrToFloat(gmlKH2PO4.Text));
   gK2SO4.value:= (StrToFloat(g2gK2SO4.Text,MyFormatSettings) * StrToFloat(glK2SO4.Text) )/(1000* StrToFloat(gmlK2SO4.Text));
   gMgNO3.value:= (StrToFloat(g2gMgNO3.Text,MyFormatSettings) * StrToFloat(glMgNO3.Text) )/(1000* StrToFloat(gmlMgNO3.Text));
-
+  gCaCl2.value:= (StrToFloat(g2gCaCl2.Text,MyFormatSettings) * StrToFloat(glCaCl2.Text) )/(1000* StrToFloat(gmlCaCl2.Text));
 
     gFe.value:= (StrToFloat(g2gFe.Text,MyFormatSettings) * StrToFloat(glFe.Text) )/(1000* StrToFloat(gmlFe.Text));
     gMn.value:= (StrToFloat(g2gMn.Text,MyFormatSettings) * StrToFloat(glMn.Text) )/(1000* StrToFloat(gmlMn.Text));

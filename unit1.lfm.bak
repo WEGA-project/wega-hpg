@@ -6,7 +6,7 @@ object Kf: TKf
   HorzScrollBar.Page = 761
   VertScrollBar.Page = 809
   AutoScroll = True
-  Caption = 'Koefficients'
+  Caption = 'Hydroponic Profile Generator (HPG)'
   ClientHeight = 809
   ClientWidth = 762
   DesignTimePPI = 100
@@ -2517,8 +2517,8 @@ object Kf: TKf
         TabOrder = 0
         object TabSheet5: TTabSheet
           Caption = 'Расчет'
-          ClientHeight = 612
-          ClientWidth = 748
+          ClientHeight = 580
+          ClientWidth = 746
           Font.Height = -15
           Font.Name = 'Arial'
           OnContextPopup = TabSheet5ContextPopup
@@ -3877,8 +3877,8 @@ object Kf: TKf
         end
         object TabSheet6: TTabSheet
           Caption = 'Изготовление'
-          ClientHeight = 612
-          ClientWidth = 748
+          ClientHeight = 580
+          ClientWidth = 746
           Font.Height = -15
           Font.Name = 'Arial'
           ParentFont = False
@@ -4688,8 +4688,8 @@ object Kf: TKf
         end
         object TabSheet7: TTabSheet
           Caption = 'Цена'
-          ClientHeight = 612
-          ClientWidth = 748
+          ClientHeight = 580
+          ClientWidth = 746
           object cnCaNO3: TLabel
             Left = 98
             Height = 18
@@ -6231,7 +6231,7 @@ object Kf: TKf
     Height = 15
     Top = 738
     Width = 218
-    Caption = 'Hydroponic Profile Generator 0.112'
+    Caption = 'Hydroponic Profile Generator 0.113'
     Font.Color = clActiveCaption
     Font.Height = -13
     Font.Name = 'Arial'
