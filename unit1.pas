@@ -107,6 +107,7 @@ type
     Label92: TLabel;
     Label93: TLabel;
     Label94: TLabel;
+    pka: TLabel;
     lprice: TLabel;
     mlCaCl2: TFloatSpinEdit;
     mCaCl2: TEdit;
@@ -780,7 +781,7 @@ type
 
 var
   Kf: TKf;
-  vN,vNO3,vNH4,vP,vK,vCa,vMg,vS,vCl,vEC,V:Double;
+  vN,vNO3,vNH4,vP,vK,vCa,vMg,vS,vCl,vEC,V,vSUM:Double;
   vFe,vMn,vB,vZn,vCu,vMo,vCo,vSi:Double;
   molN,molP,molK,molCa,molMg,molS,molCl:Double;
   r,rN,rK,rCa,rMg,rNH4:Double;
@@ -789,7 +790,7 @@ var
   Mg_MgSO4,S_MgSO4,P_KH2PO4,K_KH2PO4,Ca_CaNO3,NO3_CaNO3,NH4_CaNO3,NH4_NH4NO3,NO3_NH4NO3,K_KNO3,NO3_KNO3,S_K2SO4,K_K2SO4,Cl_CaCl2,Ca_CaCl2:Double;
   vCaCl2_Ca,vCaCl2_Cl,vMgSO4_Mg,vMgSO4_S,vKH2PO4_P,vKH2PO4_K,vCaNO3_Ca,vCaNO3_NO3,vCaNO3_NH4,vNH4NO3_NH4,vNH4NO3_NO3,vKNO3_K,vKNO3_NO3,vK2SO4_S,vK2SO4_K,vMgNO3_Mg,vMgNO3_NO3:Double;
   xNH4, xNO3, xS: Double;
-  vEC0,vKN0,vCaN0,vKP0,vKCa0,vKMg0:Double;
+  vEC0,vKN0,vCaN0,vKP0,vKCa0,vKMg0,vN0:Double;
   ps,s:string;
   MyFormatSettings: TFormatSettings;
 
@@ -1061,12 +1062,34 @@ begin
    Kf.profile.text:=ps;
 
 
-        Kf.pkf.caption:='K:Mg='+ FloatToStr(round(vK/vMg*10)/10)+' '
-                  +'K:Ca='+FloatToStr(round(vK/vCa*10)/10)+' '
-                  +'Ca:N='+FloatToStr(round(vCa/vN*10)/10)+' '
-                  +'(N:K='+FloatToStr(round(vN/vK*10)/10)+' '
-                  +'N:P='+FloatToStr(round(vN/vP*10)/10)+')';
+ vSUM:=vN+vP+vK+vCa+vMg+vS+vCl;
+ //;
+        Kf.pkf.caption:='NPK: '
+                  +FloatToStr(round(vN/10) ) + '-'
+                  +FloatToStr(round(vP/0.436421/10) ) + '-'
+                  +FloatToStr(round(vK/0.830148/10) )
+                  +' CaO='+FloatToStr(round(vCa/0.714691/10)*10/10 ) + '%'
+                  +' MgO='+FloatToStr(round(vMg/0.603036/10*10)/10 ) + '%'
+                  +' SO3='+FloatToStr(round(vS/0.400496/10*10)/10 ) + '%'
 
+
+                  //+'K:Mg='+ FloatToStr(round(vK/vMg*10)/10)+' '
+                  //+'K:Ca='+FloatToStr(round(vK/vCa*10)/10)+' '
+                  //+'Ca:N='+FloatToStr(round(vCa/vN*10)/10)+' '
+                  //+'(N:K='+FloatToStr(round(vN/vK*10)/10)+' '
+                  //+'N:P='+FloatToStr(round(vN/vP*10)/10)
+                   ;
+       Kf.pka.caption:= 'N:'
+       //'N/P/K/Ca/Mg/S/Cl '
+                  +FloatToStr(round(vN/vN*100)/100 ) + ' : '
+                  +FloatToStr(round(vP/vN*100)/100 ) + ' : '
+                  +FloatToStr(round(vK/vN*100)/100 ) + ' : '
+                  +FloatToStr(round(vCa/vN*100)/100 ) + ' : '
+                  +FloatToStr(round(vMg/vN*100)/100 ) + ' : '
+                  +FloatToStr(round(vS/vN*100)/100 ) + ' : '
+                  +FloatToStr(round(vCl/vN*100)/100 ) + ' sPPM='
+                  +FloatToStr(round(vSUM*100)/100 )
+                  ;
 
    CalcSoil ;
 end;
@@ -1136,7 +1159,26 @@ end;
 
 
    procedure CalcWeight ;
+  var
+      vDecimalPlaces:integer;
+      vIncrement:double;
  begin
+
+ // Динамическая точность в полях навески удобрений
+ if ( Kf.V.Value >= 1 )then   begin vDecimalPlaces:=3;     vIncrement:=0.001; end;
+ if ( Kf.V.Value >= 10 )then   begin vDecimalPlaces:=2;    vIncrement:=0.01; end;
+ if ( Kf.V.Value >= 100 )then  begin vDecimalPlaces:=1;    vIncrement:=0.1;  end;
+ if ( Kf.V.Value >= 1000 )then begin  vDecimalPlaces:=0;   vIncrement:=1; end;
+
+ Kf.gCaNO3.DecimalPlaces:=vDecimalPlaces;   Kf.gCaNO3.Increment:=vIncrement;
+ Kf.gKNO3.DecimalPlaces:=vDecimalPlaces;    Kf.gKNO3.Increment:=vIncrement;
+ Kf.gNH4NO3.DecimalPlaces:=vDecimalPlaces;  Kf.gNH4NO3.Increment:=vIncrement;
+ Kf.gMgSO4.DecimalPlaces:=vDecimalPlaces;   Kf.gMgSO4.Increment:=vIncrement;
+ Kf.gKH2PO4.DecimalPlaces:=vDecimalPlaces;  Kf.gKH2PO4.Increment:=vIncrement;
+ Kf.gK2SO4.DecimalPlaces:=vDecimalPlaces;   Kf.gK2SO4.Increment:=vIncrement;
+ Kf.gMgNO3.DecimalPlaces:=vDecimalPlaces;   Kf.gMgNO3.Increment:=vIncrement;
+ Kf.gCaCl2.DecimalPlaces:=vDecimalPlaces;   Kf.gCaCl2.Increment:=vIncrement;
+
  // Процентовки удобрений
    vMgSO4_Mg:=Kf.MgSO4_Mg.value;
    vMgSO4_S:=Kf.MgSO4_S.value;
@@ -2877,6 +2919,7 @@ begin
            KN.value:=vKN0;
                   EC.value:=vEC0;
                   calcECtoVal;
+                  CalcWeight ;
   end;
 end;
 
@@ -2966,6 +3009,7 @@ begin
         KN.value:=vKN0;
                EC.value:=vEC0;
                calcECtoVal;
+               CalcWeight ;
   end;
 end;
 
@@ -2994,6 +3038,7 @@ begin
   //KN.value:=vKN0;
          EC.value:=vEC0;
          calcECtoVal;
+         CalcWeight ;
 
   end;
 end;
@@ -3973,8 +4018,11 @@ procedure TKf.NH4NO3Change(Sender: TObject);
 begin
     if ( NH4NO3.Focused = True )    then begin
     //CalcAll;
+    //vN:=N.value;
+
     NH4.value := N.value *(NH4NO3.value/(NH4NO3.value+1));
-  NO3.value := N.value / ( NH4NO3.value+1 );
+    NO3.value := N.value / ( NH4NO3.value+1 );
+
       GenNH4NO3event;
   //CalcAll;
   //CalcWeight ;
@@ -3984,14 +4032,18 @@ begin
            vKMg0:=KMg.value;
            vKN0:=KN.value;
 
+           //N.value:=vN;
                     vEC0:=EC.value;
 
                   CalcAll;
            KCa.value:=vKCa0;
            KMg.value:=vKMg0;
            KN.value:=vKN0;
+
                   EC.value:=vEC0;
+
                   calcECtoVal;
+                  CalcWeight ;
 
   end;
   //CalculateS;

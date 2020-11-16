@@ -1,5 +1,5 @@
 object Kf: TKf
-  Left = 717
+  Left = 792
   Height = 809
   Top = 165
   Width = 762
@@ -55,7 +55,6 @@ object Kf: TKf
         Top = 42
         Width = 83
         Color = clMoneyGreen
-        Font.Color = clMaroon
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.01
@@ -260,7 +259,6 @@ object Kf: TKf
         Width = 83
         Color = clMoneyGreen
         DecimalPlaces = 3
-        Font.Color = clMaroon
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.001
@@ -572,7 +570,6 @@ object Kf: TKf
         Width = 102
         Color = clMoneyGreen
         DecimalPlaces = 3
-        Font.Color = clMaroon
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.001
@@ -606,7 +603,6 @@ object Kf: TKf
         Width = 102
         Color = clMoneyGreen
         DecimalPlaces = 3
-        Font.Color = clMaroon
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.001
@@ -624,7 +620,6 @@ object Kf: TKf
         Width = 102
         Color = clMoneyGreen
         DecimalPlaces = 3
-        Font.Color = clMaroon
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.001
@@ -903,7 +898,6 @@ object Kf: TKf
         Width = 78
         Color = clMoneyGreen
         DecimalPlaces = 3
-        Font.Color = clMaroon
         Font.Height = -15
         Font.Name = 'Arial'
         Increment = 0.001
@@ -1462,9 +1456,10 @@ object Kf: TKf
         Height = 28
         Top = 463
         Width = 85
+        DecimalPlaces = 3
         Font.Height = -15
         Font.Name = 'Arial'
-        Increment = 0.01
+        Increment = 0.001
         MaxValue = 99999999
         MinValue = -99999999
         OnChange = gKNO3Change
@@ -1475,11 +1470,12 @@ object Kf: TKf
       object gCaNO3: TFloatSpinEdit
         Left = 658
         Height = 28
-        Top = 433
+        Top = 432
         Width = 85
+        DecimalPlaces = 3
         Font.Height = -15
         Font.Name = 'Arial'
-        Increment = 0.01
+        Increment = 0.001
         MaxValue = 99999999
         MinValue = -99999999
         OnChange = gCaNO3Change
@@ -1492,9 +1488,10 @@ object Kf: TKf
         Height = 28
         Top = 522
         Width = 85
+        DecimalPlaces = 3
         Font.Height = -15
         Font.Name = 'Arial'
-        Increment = 0.01
+        Increment = 0.001
         MaxValue = 99999999
         MinValue = -99999999
         OnChange = gMgSO4Change
@@ -1507,9 +1504,10 @@ object Kf: TKf
         Height = 28
         Top = 552
         Width = 85
+        DecimalPlaces = 3
         Font.Height = -15
         Font.Name = 'Arial'
-        Increment = 0.01
+        Increment = 0.001
         MaxValue = 99999999
         MinValue = -99999999
         OnChange = gKH2PO4Change
@@ -1522,9 +1520,10 @@ object Kf: TKf
         Height = 28
         Top = 582
         Width = 85
+        DecimalPlaces = 3
         Font.Height = -15
         Font.Name = 'Arial'
-        Increment = 0.01
+        Increment = 0.001
         MaxValue = 99999999
         MinValue = -99999999
         OnChange = gK2SO4Change
@@ -1537,9 +1536,10 @@ object Kf: TKf
         Height = 28
         Top = 493
         Width = 85
+        DecimalPlaces = 3
         Font.Height = -15
         Font.Name = 'Arial'
-        Increment = 0.01
+        Increment = 0.001
         MaxValue = 99999999
         MinValue = -99999999
         OnChange = gNH4NO3Change
@@ -1559,7 +1559,7 @@ object Kf: TKf
         ParentFont = False
       end
       object nnNH4NO3: TLabel
-        Left = 157
+        Left = 142
         Height = 1
         Top = 81
         Width = 1
@@ -1637,9 +1637,10 @@ object Kf: TKf
         Height = 28
         Top = 613
         Width = 85
+        DecimalPlaces = 3
         Font.Height = -15
         Font.Name = 'Arial'
-        Increment = 0.01
+        Increment = 0.001
         MaxValue = 99999999
         MinValue = -99999999
         OnChange = gMgNO3Change
@@ -1674,12 +1675,11 @@ object Kf: TKf
         TabOrder = 63
       end
       object pkf: TLabel
-        Left = 292
+        Left = 316
         Height = 18
-        Top = 80
+        Top = 118
         Width = 139
         Caption = 'K/Mg K/Ca K/N Ca/N'
-        Font.Color = clMaroon
         Font.Height = -15
         Font.Name = 'Arial'
         ParentColor = False
@@ -1744,6 +1744,7 @@ object Kf: TKf
         Height = 28
         Top = 40
         Width = 83
+        Color = clMoneyGreen
         Increment = 0.01
         MaxValue = 999
         MinValue = -999
@@ -1831,15 +1832,24 @@ object Kf: TKf
         Height = 28
         Top = 642
         Width = 85
+        DecimalPlaces = 3
         Font.Height = -15
         Font.Name = 'Arial'
-        Increment = 0.01
+        Increment = 0.001
         MaxValue = 99999999
         MinValue = -99999999
         OnChange = gCaCl2Change
         ParentFont = False
         TabOrder = 68
         Value = 0
+      end
+      object pka: TLabel
+        Left = 316
+        Height = 18
+        Top = 89
+        Width = 119
+        Caption = 'N:P:K:Ca:Mg:S:Cl'
+        ParentColor = False
       end
     end
     object TabSheet2: TTabSheet
@@ -2517,8 +2527,8 @@ object Kf: TKf
         TabOrder = 0
         object TabSheet5: TTabSheet
           Caption = 'Расчет'
-          ClientHeight = 580
-          ClientWidth = 746
+          ClientHeight = 612
+          ClientWidth = 748
           Font.Height = -15
           Font.Name = 'Arial'
           OnContextPopup = TabSheet5ContextPopup
@@ -3877,8 +3887,8 @@ object Kf: TKf
         end
         object TabSheet6: TTabSheet
           Caption = 'Изготовление'
-          ClientHeight = 580
-          ClientWidth = 746
+          ClientHeight = 612
+          ClientWidth = 748
           Font.Height = -15
           Font.Name = 'Arial'
           ParentFont = False
@@ -4688,8 +4698,8 @@ object Kf: TKf
         end
         object TabSheet7: TTabSheet
           Caption = 'Цена'
-          ClientHeight = 580
-          ClientWidth = 746
+          ClientHeight = 612
+          ClientWidth = 748
           object cnCaNO3: TLabel
             Left = 98
             Height = 18
@@ -6231,7 +6241,7 @@ object Kf: TKf
     Height = 15
     Top = 738
     Width = 218
-    Caption = 'Hydroponic Profile Generator 0.114'
+    Caption = 'Hydroponic Profile Generator 0.115'
     Font.Color = clActiveCaption
     Font.Height = -13
     Font.Name = 'Arial'
