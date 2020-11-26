@@ -1376,6 +1376,8 @@ end;
 procedure CalcConc;
 var
  Av,Am,Ak,Ac,Aw,Aml, Bv,Bm,Bk,Bc,Bw,Bml: double;
+
+ vmlMgSO4,vlMgSO4,vmlKH2PO4,vmlK2SO4,vmlFe,vmlMn,vmlB,vmlZn,vmlCu,vmlMo,vmlCo,vmlSi:double;
 begin
    MyFormatSettings.DecimalSeparator := '.';
 
@@ -1512,6 +1514,19 @@ begin
 
     Kf.sumA.Caption:='Объем: '+FloatToStr(Av)+' мл, '+'вес: '+FloatToStr(Am)+' гр,'+' плотность: '+FloatToStr(Ak)+' г/мл. ';
     Kf.lVolA.Caption:='Концентрат A ('+ FloatToStr(Ac)+':1) . Долить воды: '+ FloatToStr(Aw) + 'мл. По ' + FloatToStr(Aml) + ' мл на 1л.';
+
+     vmlMgSO4:=Kf.mlMgSO4.Value;
+     vmlKH2PO4:=Kf.mlKH2PO4.Value;
+     vmlK2SO4:=Kf.mlK2SO4.Value;
+     vmlFe:=Kf.mlFe.Value;
+     vmlMn:=Kf.mlMn.Value;
+     vmlB:=Kf.mlB.Value;
+     vmlZn:=Kf.mlZn.Value;
+     vmlCu:=Kf.mlCu.Value;
+     vmlMo:=Kf.mlMo.Value;
+     vmlCo:=Kf.mlCo.Value;
+     vmlSi:=Kf.mlSi.Value;
+
     if (kF.chKComplex.Checked = True) then
     begin
      Bv:=round((Kf.mlMgSO4.Value + Kf.mlKH2PO4.Value + Kf.mlK2SO4.Value + Kf.mlCmplx.Value)*10000)/10000;
@@ -1522,14 +1537,14 @@ begin
     end
     else
     begin
-     Bv:=round((Kf.mlMgSO4.Value + Kf.mlKH2PO4.Value + Kf.mlK2SO4.Value + Kf.mlFe.Value+Kf.mlMn.Value+Kf.mlB.Value+Kf.mlZn.Value+Kf.mlMo.Value+Kf.mlCo.Value+Kf.mlSi.Value)*10)/10;
+     Bv:=vmlMgSO4 + vmlKH2PO4 + vmlK2SO4 + vmlFe+vmlMn+vmlB+vmlZn+vmlMo+vmlCu+vmlCo+vmlSi;
      Bm:=round((Kf.ggMgSO4.Value + Kf.ggKH2PO4.Value + Kf.ggK2SO4.Value + Kf.ggFe.Value+Kf.ggMn.Value+Kf.ggB.Value+Kf.ggZn.Value+Kf.ggMo.Value+Kf.ggCo.Value+Kf.ggSi.Value)*100)/100;
      Bk:=round(Bm/Bv*100)/100;
     end;
      if (Kf.tBml.value <> 0) then Bc:=round(Kf.V.value/Kf.tBml.value*1000);
     Bw:=round(Kf.tBml.value-Bv);
     Bml:= round(Kf.tBml.value/Kf.V.value*1000)/1000;
-    Kf.sumB.Caption:='Объем: '+FloatToStr(Bv)+' мл, '+'вес: '+FloatToStr(Bm)+' гр,'+ ' плотность: '+FloatToStr(Bk)+' г/мл';
+    Kf.sumB.Caption:='Объем: '+FloatToStr(round(Bv*10)/10)+' мл, '+'вес: '+FloatToStr(Bm)+' гр,'+ ' плотность: '+FloatToStr(Bk)+' г/мл';
     Kf.lVolB.Caption:='Концентрат B ('+ FloatToStr(Bc)+':1) . Долить воды: '+ FloatToStr(Bw) + 'мл. По ' + FloatToStr(Bml) + ' мл на 1л.';
     //
 end;
@@ -1697,6 +1712,7 @@ Kf.Si.value:=10000*Kf.gCmplx.value* (Kf.dSi.value/Kf.V.value);
 
  genProfile;
  CalcSoil ;
+
 end ;
 
 
@@ -2798,6 +2814,7 @@ end;
 
 procedure TKf.CalcConcChange(Sender: TObject);
 begin
+  CalcConc;
   price;
 
 end;
