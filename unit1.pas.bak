@@ -1544,7 +1544,7 @@ begin
      if (Kf.tBml.value <> 0) then Bc:=round(Kf.V.value/Kf.tBml.value*1000);
     Bw:=round(Kf.tBml.value-Bv);
     Bml:= round(Kf.tBml.value/Kf.V.value*1000)/1000;
-    Kf.sumB.Caption:='Объем: '+FloatToStr(Bv)+' мл, '+'вес: '+FloatToStr(Bm)+' гр,'+ ' плотность: '+FloatToStr(Bk)+' г/мл';
+    Kf.sumB.Caption:='Объем: '+FloatToStr(round(Bv*10)/10)+' мл, '+'вес: '+FloatToStr(Bm)+' гр,'+ ' плотность: '+FloatToStr(Bk)+' г/мл';
     Kf.lVolB.Caption:='Концентрат B ('+ FloatToStr(Bc)+':1) . Долить воды: '+ FloatToStr(Bw) + 'мл. По ' + FloatToStr(Bml) + ' мл на 1л.';
     //
 end;
@@ -2930,13 +2930,14 @@ begin
 
                     vEC0:=EC.value;
 
-                  CalcAll;
+
            //KCa.value:=vKCa0;
            KMg.value:=vKMg0;
            KN.value:=vKN0;
                   EC.value:=vEC0;
                   calcECtoVal;
                   CalcWeight ;
+                  CalcAll;
   end;
 end;
 
@@ -3020,13 +3021,14 @@ begin
 
                  vEC0:=EC.value;
 
-               CalcAll;
+
         KCa.value:=vKCa0;
         //KMg.value:=vKMg0;
         KN.value:=vKN0;
                EC.value:=vEC0;
                calcECtoVal;
                CalcWeight ;
+               CalcAll;
   end;
 end;
 
@@ -3049,13 +3051,14 @@ begin
 
            vEC0:=EC.value;
 
-         CalcAll;
+
   KCa.value:=vKCa0;
   KMg.value:=vKMg0;
   //KN.value:=vKN0;
          EC.value:=vEC0;
          calcECtoVal;
          CalcWeight ;
+         CalcAll;
 
   end;
 end;
@@ -3300,9 +3303,9 @@ end;
 
 procedure TKf.Button1Click(Sender: TObject);
 begin
-   CalcAll;
-   CalcWeight ;
 
+   CalcWeight ;
+   CalcAll;
    microToWeght;
    CalcConc;
    SoilName;

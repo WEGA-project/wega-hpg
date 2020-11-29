@@ -2930,13 +2930,14 @@ begin
 
                     vEC0:=EC.value;
 
-                  CalcAll;
+
            //KCa.value:=vKCa0;
            KMg.value:=vKMg0;
            KN.value:=vKN0;
                   EC.value:=vEC0;
                   calcECtoVal;
                   CalcWeight ;
+                  CalcAll;
   end;
 end;
 
@@ -3020,13 +3021,14 @@ begin
 
                  vEC0:=EC.value;
 
-               CalcAll;
+
         KCa.value:=vKCa0;
         //KMg.value:=vKMg0;
         KN.value:=vKN0;
                EC.value:=vEC0;
                calcECtoVal;
                CalcWeight ;
+               CalcAll;
   end;
 end;
 
@@ -3049,13 +3051,14 @@ begin
 
            vEC0:=EC.value;
 
-         CalcAll;
+
   KCa.value:=vKCa0;
   KMg.value:=vKMg0;
   //KN.value:=vKN0;
          EC.value:=vEC0;
          calcECtoVal;
          CalcWeight ;
+         CalcAll;
 
   end;
 end;
@@ -3300,9 +3303,9 @@ end;
 
 procedure TKf.Button1Click(Sender: TObject);
 begin
-   CalcAll;
-   CalcWeight ;
 
+   CalcWeight ;
+   CalcAll;
    microToWeght;
    CalcConc;
    SoilName;
@@ -4052,7 +4055,7 @@ begin
            //N.value:=vN;
                     vEC0:=EC.value;
 
-                  CalcAll;
+
            KCa.value:=vKCa0;
            KMg.value:=vKMg0;
            KN.value:=vKN0;
@@ -4061,6 +4064,7 @@ begin
 
                   calcECtoVal;
                   CalcWeight ;
+                  CalcAll;
 
   end;
   //CalculateS;
