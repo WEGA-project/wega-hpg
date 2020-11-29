@@ -1557,7 +1557,7 @@ if ( Kf.gmlKNO3.value > 1.1627 ) then Kf.gmlKNO3.Font.Color := clRed else  Kf.gm
 if ( Kf.gmlNH4NO3.value > 1.2528 ) then Kf.gmlNH4NO3.Font.Color := clRed else  Kf.gmlNH4NO3.Font.Color := clDefault;
 if ( Kf.gmlMgNO3.value > 1.2013 ) then Kf.gmlMgNO3.Font.Color := clRed else  Kf.gmlMgNO3.Font.Color := clDefault;
 if ( Kf.gmlMgSO4.value > 1.2978 ) then Kf.gmlMgSO4.Font.Color := clRed else  Kf.gmlMgSO4.Font.Color := clDefault;
-if ( Kf.gmlKH2PO4.value > 1.0719 ) then Kf.gmlKH2PO4.Font.Color := clRed else  Kf.gmlKH2PO4.Font.Color := clDefault;
+if ( Kf.gmlKH2PO4.value > 1.128 ) then Kf.gmlKH2PO4.Font.Color := clRed else  Kf.gmlKH2PO4.Font.Color := clDefault;
 if ( Kf.gmlK2SO4.value > 1.0825 ) then Kf.gmlK2SO4.Font.Color := clRed else  Kf.gmlK2SO4.Font.Color := clDefault;
 if ( Kf.gmlCaCl2.value > 1.3963 ) then Kf.gmlCaCl2.Font.Color := clRed else  Kf.gmlCaCl2.Font.Color := clDefault;
 end;

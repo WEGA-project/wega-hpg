@@ -42,7 +42,6 @@ object Kf: TKf
         DecimalPlaces = 3
         Font.Height = -15
         Font.Name = 'Arial'
-        Increment = 0.01
         MaxValue = 999
         MinValue = -999
         OnChange = NChange
@@ -59,7 +58,6 @@ object Kf: TKf
         DecimalPlaces = 3
         Font.Height = -15
         Font.Name = 'Arial'
-        Increment = 0.01
         MaxValue = 999
         MinValue = -999
         OnChange = PChange
@@ -75,7 +73,6 @@ object Kf: TKf
         DecimalPlaces = 3
         Font.Height = -15
         Font.Name = 'Arial'
-        Increment = 0.01
         MaxValue = 999
         MinValue = -999
         OnChange = KChange
@@ -91,7 +88,6 @@ object Kf: TKf
         DecimalPlaces = 3
         Font.Height = -15
         Font.Name = 'Arial'
-        Increment = 0.01
         MaxValue = 999
         MinValue = -999
         OnChange = CaChange
@@ -107,7 +103,6 @@ object Kf: TKf
         DecimalPlaces = 3
         Font.Height = -15
         Font.Name = 'Arial'
-        Increment = 0.01
         MaxValue = 999
         MinValue = -999
         OnChange = MgChange
@@ -123,7 +118,6 @@ object Kf: TKf
         DecimalPlaces = 3
         Font.Height = -15
         Font.Name = 'Arial'
-        Increment = 0.01
         MaxValue = 999
         MinValue = -999
         OnChange = SChange
@@ -1751,7 +1745,6 @@ object Kf: TKf
         Top = 40
         Width = 83
         Color = clMoneyGreen
-        Increment = 0.01
         MaxValue = 999
         MinValue = -999
         OnChange = ClChange
@@ -2533,8 +2526,8 @@ object Kf: TKf
         TabOrder = 0
         object TabSheet5: TTabSheet
           Caption = 'Расчет'
-          ClientHeight = 580
-          ClientWidth = 746
+          ClientHeight = 612
+          ClientWidth = 748
           Font.Height = -15
           Font.Name = 'Arial'
           OnContextPopup = TabSheet5ContextPopup
@@ -3893,8 +3886,8 @@ object Kf: TKf
         end
         object TabSheet6: TTabSheet
           Caption = 'Изготовление'
-          ClientHeight = 580
-          ClientWidth = 746
+          ClientHeight = 612
+          ClientWidth = 748
           Font.Height = -15
           Font.Name = 'Arial'
           ParentFont = False
@@ -4704,8 +4697,8 @@ object Kf: TKf
         end
         object TabSheet7: TTabSheet
           Caption = 'Цена'
-          ClientHeight = 580
-          ClientWidth = 746
+          ClientHeight = 612
+          ClientWidth = 748
           object cnCaNO3: TLabel
             Left = 98
             Height = 18
