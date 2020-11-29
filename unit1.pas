@@ -911,6 +911,7 @@ begin
   if ( Kf.Mg.Focused = False ) then Kf.Mg.value:=vMg;
   if ( Kf.S.Focused = False ) then Kf.S.value:=vS;
   if ( Kf.N.Focused = False ) then Kf.N.value:=vN;
+  if ( Kf.Cl.Focused = False ) then Kf.Cl.value:=vCl;
 
   //vEC:=0.095*(vNH4*molCa*molMg*molK + 2*vCa*molN*molMg*molK + 2*vMg*molN*molCa*molK + vK*molN*molCa*molMg + 2*molN*molCa*molMg*molK)/(molN*molCa*molMg*molK);
   //Kf.EC.Value:=vEC;
@@ -1549,7 +1550,17 @@ begin
     //
 end;
 
-
+procedure ErrorLight;
+begin
+if ( Kf.gmlCaNO3.value > 1.4212 ) then Kf.gmlCaNO3.Font.Color := clRed else  Kf.gmlCaNO3.Font.Color := clDefault;
+if ( Kf.gmlKNO3.value > 1.1627 ) then Kf.gmlKNO3.Font.Color := clRed else  Kf.gmlKNO3.Font.Color := clDefault;
+if ( Kf.gmlNH4NO3.value > 1.2528 ) then Kf.gmlNH4NO3.Font.Color := clRed else  Kf.gmlNH4NO3.Font.Color := clDefault;
+if ( Kf.gmlMgNO3.value > 1.2013 ) then Kf.gmlMgNO3.Font.Color := clRed else  Kf.gmlMgNO3.Font.Color := clDefault;
+if ( Kf.gmlMgSO4.value > 1.2978 ) then Kf.gmlMgSO4.Font.Color := clRed else  Kf.gmlMgSO4.Font.Color := clDefault;
+if ( Kf.gmlKH2PO4.value > 1.0719 ) then Kf.gmlKH2PO4.Font.Color := clRed else  Kf.gmlKH2PO4.Font.Color := clDefault;
+if ( Kf.gmlK2SO4.value > 1.0825 ) then Kf.gmlK2SO4.Font.Color := clRed else  Kf.gmlK2SO4.Font.Color := clDefault;
+if ( Kf.gmlCaCl2.value > 1.3963 ) then Kf.gmlCaCl2.Font.Color := clRed else  Kf.gmlCaCl2.Font.Color := clDefault;
+end;
 
 procedure CalcAll;
 begin
@@ -2423,10 +2434,11 @@ procedure TKf.MgKChange(Sender: TObject);
 begin
   if ( MgK.Focused = True )    then begin
       Mg.value:=K.value*MgK.value;
-           vEC0:=EC.value;
-         CalcAll;
-         EC.value:=vEC0;
-         calcECtoVal;
+      vEC0:=EC.value;
+      CalcKoef;
+      EC.value:=vEC0;
+      calcECtoVal;
+      CalcAll;
   end;
 end;
 
@@ -2434,10 +2446,11 @@ procedure TKf.MgNChange(Sender: TObject);
 begin
    if ( MgN.Focused = True )    then begin
       Mg.value:=N.value*MgN.value;
-                    vEC0:=EC.value;
-         CalcAll;
-         EC.value:=vEC0;
-         calcECtoVal;
+      vEC0:=EC.value;
+      CalcKoef;
+      EC.value:=vEC0;
+      calcECtoVal;
+      CalcAll;
   end;
 end;
 
@@ -2466,10 +2479,11 @@ procedure TKf.MgPChange(Sender: TObject);
 begin
    if ( MgP.Focused = True )    then begin
      Mg.value:=P.value*MgP.value;
-           vEC0:=EC.value;
-         CalcAll;
-         EC.value:=vEC0;
-         calcECtoVal;
+     vEC0:=EC.value;
+     CalcKoef;
+     EC.value:=vEC0;
+     calcECtoVal;
+     CalcAll;
   end;
 end;
 
@@ -2478,10 +2492,11 @@ begin
    if ( MgS.Focused = True )    then begin
     Mg.value:=S.value*MgS.value;
     CalculateCa;
-          vEC0:=EC.value;
-         CalcAll;
-         EC.value:=vEC0;
-         calcECtoVal;
+   vEC0:=EC.value;
+  CalcKoef;
+  EC.value:=vEC0;
+  calcECtoVal;
+  CalcAll;
   end;
 end;
 
@@ -2519,10 +2534,11 @@ begin
     N.value:=Ca.value*NCa.value;
   NO3.value := N.value/(NH4NO3.value+1);
         NH4.value := NH4NO3.value*N.value/(NH4NO3.value+1);
-         vEC0:=EC.value;
-     CalcAll;
-     EC.value:=vEC0;
-      calcECtoVal;
+        vEC0:=EC.value;
+        CalcKoef;
+        EC.value:=vEC0;
+        calcECtoVal;
+        CalcAll;
   end;
 end;
 
@@ -2692,7 +2708,12 @@ begin
 end;
 
 procedure TKf.glCaCl2Change(Sender: TObject);
+  var   kmol:double;
 begin
+
+kmol:=glCaCl2.value/(36.1115/CaCl2_Ca.value);
+gmlCaCl2.value:=0.999 + 0.000794*kmol-0.000000151*sqr(kmol);
+
   CalcConc;
 end;
 
@@ -2748,7 +2769,7 @@ end;
 procedure TKf.glMgNO3Change(Sender: TObject);
 var  kmol:double;
 begin
-kmol:=glMgNO3.value/((20.1923)/MgNO3_Mg.value);
+kmol:=glMgNO3.value/((16.3874)/MgNO3_Mg.value);
 gmlMgNO3.value:=0.998 + 0.000736*kmol-0.000000121*sqr(kmol);
   CalcConc;
 end;
@@ -2816,12 +2837,14 @@ procedure TKf.CalcConcChange(Sender: TObject);
 begin
   CalcConc;
   price;
-
+  ErrorLight;
 end;
 
 procedure TKf.gmlMgNO3Change(Sender: TObject);
 begin
-  CalcConc;
+CalcConc;
+price;
+ErrorLight;
 end;
 
 procedure TKf.gMnChange(Sender: TObject);
@@ -2924,20 +2947,8 @@ procedure TKf.KCaChange(Sender: TObject);
 begin
    if ( KCa.Focused = True )    then begin
           K.value:=Ca.value*KCa.value;
-           //vKCa0:=KCa.value;
-           vKMg0:=KMg.value;
-           vKN0:=KN.value;
-
-                    vEC0:=EC.value;
-
-
-           //KCa.value:=vKCa0;
-           KMg.value:=vKMg0;
-           KN.value:=vKN0;
-                  EC.value:=vEC0;
-                  calcECtoVal;
-                  CalcWeight ;
-                  CalcAll;
+          calcECtoVal;
+          CalcAll;
   end;
 end;
 
@@ -3015,20 +3026,8 @@ procedure TKf.KMgChange(Sender: TObject);
 begin
    if ( KMg.Focused = True )    then begin
        K.value:=Mg.value*KMg.value;
-       vKCa0:=KCa.value;
-        //vKMg0:=KMg.value;
-        vKN0:=KN.value;
-
-                 vEC0:=EC.value;
-
-
-        KCa.value:=vKCa0;
-        //KMg.value:=vKMg0;
-        KN.value:=vKN0;
-               EC.value:=vEC0;
-               calcECtoVal;
-               CalcWeight ;
-               CalcAll;
+       calcECtoVal;
+       CalcAll;
   end;
 end;
 
@@ -3045,19 +3044,7 @@ begin
   if ( KN.Focused = True )    then begin
 
     K.value:=N.value*KN.value;
-  vKCa0:=KCa.value;
-  vKMg0:=KMg.value;
-  //vKN0:=KN.value;
-
-           vEC0:=EC.value;
-
-
-  KCa.value:=vKCa0;
-  KMg.value:=vKMg0;
-  //KN.value:=vKN0;
-         EC.value:=vEC0;
          calcECtoVal;
-         CalcWeight ;
          CalcAll;
 
   end;
@@ -3118,10 +3105,11 @@ procedure TKf.KPChange(Sender: TObject);
 begin
    if ( KP.Focused = True )    then begin
      K.value:=P.value*KP.value;
-           vEC0:=EC.value;
-         CalcAll;
-         EC.value:=vEC0;
-         calcECtoVal;
+     vEC0:=EC.value;
+     CalcKoef;
+     EC.value:=vEC0;
+     calcECtoVal;
+     CalcAll;
   end;
 end;
 
@@ -3137,11 +3125,12 @@ procedure TKf.KSChange(Sender: TObject);
 begin
    if ( KS.Focused = True )    then begin
      K.value:=S.value*KS.value;
-    CalculateCa;
-          vEC0:=EC.value;
-         CalcAll;
-         EC.value:=vEC0;
-         calcECtoVal;
+     CalculateCa;
+    vEC0:=EC.value;
+   CalcKoef;
+   EC.value:=vEC0;
+   calcECtoVal;
+   CalcAll;
   end;
 end;
 
@@ -3587,10 +3576,11 @@ procedure TKf.CaKChange(Sender: TObject);
 begin
    if ( CaK.Focused = True )    then begin
      Ca.value:=K.value*CaK.value;
-             vEC0:=EC.value;
-         CalcAll;
-         EC.value:=vEC0;
-         calcECtoVal;
+     vEC0:=EC.value;
+     CalcKoef;
+     EC.value:=vEC0;
+     calcECtoVal;
+     CalcAll;
   end;
 end;
 
@@ -3626,9 +3616,10 @@ begin
    if ( CaN.Focused = True )    then begin
            Ca.value:=N.value*CaN.value;
            vEC0:=EC.value;
-         CalcAll;
-         EC.value:=vEC0;
-         calcECtoVal;
+           CalcKoef;
+           EC.value:=vEC0;
+           calcECtoVal;
+           CalcAll;
   end;
 end;
 
@@ -3699,10 +3690,11 @@ procedure TKf.CaPChange(Sender: TObject);
 begin
    if ( CaP.Focused = True )    then begin
       Ca.value:=P.value*CaP.value;
-            vEC0:=EC.value;
-         CalcAll;
-         EC.value:=vEC0;
-         calcECtoVal;
+      vEC0:=EC.value;
+      CalcKoef;
+      EC.value:=vEC0;
+      calcECtoVal;
+      CalcAll;
   end;
 end;
 
@@ -3720,9 +3712,11 @@ begin
 
       S.value:= Ca.value/CaS.value;
       CalculateCa;
-      CalcAll;
-
-
+     vEC0:=EC.value;
+    CalcKoef;
+    EC.value:=vEC0;
+    calcECtoVal;
+    CalcAll;
   end;
 end;
 
@@ -4044,27 +4038,8 @@ begin
     NO3.value := N.value / ( NH4NO3.value+1 );
 
       GenNH4NO3event;
-  //CalcAll;
-  //CalcWeight ;
-
-
-           vKCa0:=KCa.value;
-           vKMg0:=KMg.value;
-           vKN0:=KN.value;
-
-           //N.value:=vN;
-                    vEC0:=EC.value;
-
-
-           KCa.value:=vKCa0;
-           KMg.value:=vKMg0;
-           KN.value:=vKN0;
-
-                  EC.value:=vEC0;
-
-                  calcECtoVal;
-                  CalcWeight ;
-                  CalcAll;
+      calcECtoVal;
+      CalcAll;
 
   end;
   //CalculateS;
@@ -4111,10 +4086,12 @@ begin
      N.value:=K.value*NK.value;
     NO3.value := N.value/(NH4NO3.value+1);
         NH4.value := NH4NO3.value*N.value/(NH4NO3.value+1);
-         vEC0:=EC.value;
-     CalcAll;
-     EC.value:=vEC0;
-      calcECtoVal;
+
+        vEC0:=EC.value;
+        CalcKoef;
+        EC.value:=vEC0;
+        calcECtoVal;
+        CalcAll;
 
   end;
 end;
@@ -4135,10 +4112,11 @@ begin
      N.value:=Mg.value*NMg.value;
   NO3.value := N.value/(NH4NO3.value+1);
         NH4.value := NH4NO3.value*N.value/(NH4NO3.value+1);
-         vEC0:=EC.value;
-     CalcAll;
-     EC.value:=vEC0;
-      calcECtoVal;
+vEC0:=EC.value;
+ CalcKoef;
+EC.value:=vEC0;
+ calcECtoVal;
+ CalcAll;
   end;
 end;
 
@@ -4187,11 +4165,12 @@ begin
 
         NO3.value := N.value/(NH4NO3.value+1);
         NH4.value := NH4NO3.value*N.value/(NH4NO3.value+1);
-     vEC0:=EC.value;
-     CalcAll;
-     EC.value:=vEC0;
-      calcECtoVal;
-////    CalcWeight ;
+
+vEC0:=EC.value;
+CalcKoef;
+EC.value:=vEC0;
+calcECtoVal;
+CalcAll;
    end;
 end;
 
@@ -4217,6 +4196,8 @@ begin
          CalcAll;
          EC.value:=vEC0;
          calcECtoVal;
+
+CalcAll;
   end;
 end;
 
@@ -4241,10 +4222,11 @@ procedure TKf.PCaChange(Sender: TObject);
 begin
   if ( PCa.Focused = True )    then begin
      P.value:=Ca.value*PCa.value;
-           vEC0:=EC.value;
-         CalcAll;
-         EC.value:=vEC0;
-         calcECtoVal;
+     vEC0:=EC.value;
+     CalcKoef;
+     EC.value:=vEC0;
+     calcECtoVal;
+     CalcAll;
   end;
 end;
 
@@ -4281,10 +4263,11 @@ procedure TKf.PKChange(Sender: TObject);
 begin
   if ( PK.Focused = True )    then begin
      P.value:=K.value*PK.value;
-           vEC0:=EC.value;
-         CalcAll;
-         EC.value:=vEC0;
-         calcECtoVal;
+     vEC0:=EC.value;
+     CalcKoef;
+     EC.value:=vEC0;
+     calcECtoVal;
+     CalcAll;
   end;
 end;
 
@@ -4296,10 +4279,11 @@ procedure TKf.PMgChange(Sender: TObject);
 begin
   if ( PMg.Focused = True )    then begin
         P.value:=Mg.value*PMg.value;
-           vEC0:=EC.value;
-                      CalcAll;
-           EC.value:=vEC0;
-           calcECtoVal;
+        vEC0:=EC.value;
+        CalcKoef;
+        EC.value:=vEC0;
+        calcECtoVal;
+        CalcAll;
   end;
 end;
 
@@ -4311,10 +4295,11 @@ procedure TKf.PNChange(Sender: TObject);
 begin
   if ( PN.Focused = True )    then begin
    P.value:=N.value*PN.value;
-           vEC0:=EC.value;
-         CalcAll;
-         EC.value:=vEC0;
-         calcECtoVal;
+   vEC0:=EC.value;
+   CalcKoef;
+   EC.value:=vEC0;
+   calcECtoVal;
+   CalcAll;
 
      end;
 end;
@@ -4333,11 +4318,12 @@ procedure TKf.PSChange(Sender: TObject);
 begin
     if ( PS.Focused = True )    then begin
       P.value:=S.value*PS.value;
-  CalculateCa;
-          vEC0:=EC.value;
-         CalcAll;
-         EC.value:=vEC0;
-         calcECtoVal;
+      CalculateCa;
+     vEC0:=EC.value;
+    CalcKoef;
+    EC.value:=vEC0;
+    calcECtoVal;
+    CalcAll;
   end;
 end;
 
@@ -4354,11 +4340,12 @@ procedure TKf.SCaChange(Sender: TObject);
 begin
    if ( SCa.Focused = True )    then begin
      S.value:=Ca.value*SCa.value;
-   CalculateCa;
-          vEC0:=EC.value;
-         CalcAll;
-         EC.value:=vEC0;
-         calcECtoVal; ;
+     CalculateCa;
+    vEC0:=EC.value;
+   CalcKoef;
+   EC.value:=vEC0;
+   calcECtoVal;
+   CalcAll;
   end;
 end;
 
@@ -4395,11 +4382,12 @@ procedure TKf.SKChange(Sender: TObject);
 begin
    if ( SK.Focused = True )    then begin
      S.value:=K.value*SK.value;
-   CalculateCa;
-          vEC0:=EC.value;
-         CalcAll;
-         EC.value:=vEC0;
-         calcECtoVal;
+     CalculateCa;
+    vEC0:=EC.value;
+   CalcKoef;
+   EC.value:=vEC0;
+   calcECtoVal;
+   CalcAll;
   end;
 end;
 
@@ -4411,11 +4399,12 @@ procedure TKf.SMgChange(Sender: TObject);
 begin
    if ( SMg.Focused = True )    then begin
         S.value:=Mg.value*SMg.value;
-   CalculateCa;
-          vEC0:=EC.value;
-         CalcAll;
-         EC.value:=vEC0;
-         calcECtoVal;
+        CalculateCa;
+       vEC0:=EC.value;
+      CalcKoef;
+      EC.value:=vEC0;
+      calcECtoVal;
+      CalcAll;
   end;
 end;
 
@@ -4427,11 +4416,12 @@ begin
    if ( SN.Focused = True )    then begin
           CalcAll;
      S.value:=N.value*SN.value;
-           CalculateCa;
-          vEC0:=EC.value;
-         CalcAll;
-         EC.value:=vEC0;
-         calcECtoVal;
+     CalculateCa;
+    vEC0:=EC.value;
+   CalcKoef;
+   EC.value:=vEC0;
+   calcECtoVal;
+   CalcAll;
   end;
 end;
 
