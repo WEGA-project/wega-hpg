@@ -5,7 +5,7 @@ unit Unit1;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
+  Classes, SysUtils, FileUtil, SpinEx, Forms, Controls, Graphics,
   Dialogs, StdCtrls, Spin, ComCtrls, strutils, LCLIntf, ExtCtrls, Menus,
   EditBtn , Types;
 const
@@ -58,6 +58,7 @@ type
     cbFe: TCheckBox;
     chkComplex: TCheckBox;
     de1: TDateEdit;
+    EC: TFloatSpinEdit;
     eComment: TEdit;
     addrMixer: TEdit;
     cgB: TFloatSpinEdit;
@@ -77,6 +78,7 @@ type
     cgSi: TFloatSpinEdit;
     cgZn: TFloatSpinEdit;
     Cl: TFloatSpinEdit;
+    kMicro: TEdit;
     g2gCaCl2: TEdit;
     gCaCl2: TFloatSpinEdit;
     ggCaCl2: TFloatSpinEdit;
@@ -361,7 +363,6 @@ type
     parse: TButton;
     profile: TEdit;
     gCaNO3: TFloatSpinEdit;
-    EC: TFloatSpinEdit;
     gK2SO4: TFloatSpinEdit;
     gKH2PO4: TFloatSpinEdit;
     gKNO3: TFloatSpinEdit;
@@ -1631,6 +1632,44 @@ begin
 
   //then vA:=StrToFloat(ExtractWord(2,s,['=']));
 end;
+procedure toMicrocomplex;
+// Генерация строки состава микрокомплекса из составляющих
+var gmSUM,agFe,agMn,agB,agZn,agCu,agMo,agCo,agSi:double;
+begin
+MyFormatSettings.DecimalSeparator := '.';
+gmSUM:=kf.gFe.value
+      +kf.gMn.value
+      +kf.gB.value
+      +kf.gZn.value
+      +kf.gCu.value
+      +kf.gMo.value
+      +kf.gCo.value
+      +kf.gSi.value;
+
+    agFe:=( kf.Fe.value * kf.V.value   )/ (gmSUM*10000);
+    agMn:=( kf.Mn.value * kf.V.value   )/ (gmSUM*10000);
+    agB:= ( kf.B.value  * kf.V.value   )/ (gmSUM*10000);
+    agZn:=( kf.Zn.value * kf.V.value   )/ (gmSUM*10000);
+    agCu:=( kf.Cu.value * kf.V.value   )/ (gmSUM*10000);
+    agMo:=( kf.Mo.value * kf.V.value   )/ (gmSUM*10000);
+    agCo:=( kf.Co.value * kf.V.value   )/ (gmSUM*10000);
+    agSi:=( kf.Si.value * kf.V.value   )/ (gmSUM*10000);
+
+   kf.gCmplx.value:= gmSUM;
+   kf.kMicro.text:=     'Состав: '
+                       +'Fe=' + FloatToStr(round(agFe*1000)/1000)+'% '
+                       +'Mn=' + FloatToStr(round(agMn*1000)/1000)+'% '
+                       +'B=' + FloatToStr(round(agB*1000)/1000)+'% '
+                       +'Zn=' + FloatToStr(round(agZn*1000)/1000)+'% '
+                       +'Cu=' + FloatToStr(round(agCu*1000)/1000)+'% '
+                       +'Mo=' + FloatToStr(round(agMo*1000)/1000)+'% '
+                       +'Co=' + FloatToStr(round(agCo*1000)/1000)+'% '
+                       +'Si=' + FloatToStr(round(agSi*1000)/1000)+'% '
+   ;
+
+
+end;
+
 procedure microToWeght; begin
  if (kF.chKComplex.Checked = False) then  begin
 
@@ -1642,7 +1681,7 @@ procedure microToWeght; begin
  Kf.gMo.Visible:=true;
  Kf.gCo.Visible:=true;
  Kf.gSi.Visible:=true;
- Kf.gCmplx.Visible:=false;
+ //Kf.gCmplx.Visible:=false;
 // На форме изготовление
  Kf.g2gFe.Visible:=true; Kf.cbFe.Visible:=true; Kf.mFe.Visible:=true;  Kf.l2Fe.Visible:=true;
  Kf.g2gMn.Visible:=true; Kf.cbMn.Visible:=true; Kf.mMn.Visible:=true;  Kf.l2Mn.Visible:=true;
@@ -1675,7 +1714,10 @@ Kf.Mo.ReadOnly:=false;
 Kf.Mo.ReadOnly:=false;
 Kf.Co.ReadOnly:=false;
 Kf.Si.ReadOnly:=false;
+Kf.gCmplx.ReadOnly:=true;
+Kf.kMicro.Visible:=true;
 
+toMicrocomplex;
  end
  else begin
  Kf.Fe.ReadOnly :=true;
@@ -1687,6 +1729,7 @@ Kf.Mo.ReadOnly:=true;
 Kf.Mo.ReadOnly:=true;
 Kf.Co.ReadOnly:=true;
 Kf.Si.ReadOnly:=true;
+Kf.gCmplx.ReadOnly:=false;
 
 Kf.gFe.Visible :=false;
 Kf.gMn.Visible:=false;
@@ -1698,6 +1741,8 @@ Kf.gMo.Visible:=false;
 Kf.gCo.Visible:=false;
 Kf.gSi.Visible:=false;
 Kf.gCmplx.Visible:=true;
+Kf.kMicro.Visible:=false;
+
 // На форме изготовление
 Kf.g2gFe.Visible :=false; Kf.cbFe.Visible:=false; Kf.mFe.Visible:=false;  Kf.l2Fe.Visible:=false;
 Kf.g2gMn.Visible:=false;  Kf.cbMn.Visible:=false; Kf.mMn.Visible:=false;  Kf.l2Mn.Visible:=false;
@@ -1723,6 +1768,7 @@ Kf.Si.value:=10000*Kf.gCmplx.value* (Kf.dSi.value/Kf.V.value);
 
  genProfile;
  CalcSoil ;
+
 
 end ;
 
