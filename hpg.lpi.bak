@@ -29,25 +29,16 @@
         <Mode0 Name="default"/>
       </Modes>
     </RunParams>
-    <RequiredPackages Count="6">
+    <RequiredPackages Count="3">
       <Item1>
-        <PackageName Value="amw_ide_tools"/>
+        <PackageName Value="LazControls"/>
       </Item1>
       <Item2>
-        <PackageName Value="LazAndroidWizardPack"/>
+        <PackageName Value="DateTimeCtrls"/>
       </Item2>
       <Item3>
-        <PackageName Value="tfpandroidbridge_pack"/>
-      </Item3>
-      <Item4>
-        <PackageName Value="LazControls"/>
-      </Item4>
-      <Item5>
-        <PackageName Value="DateTimeCtrls"/>
-      </Item5>
-      <Item6>
         <PackageName Value="LCL"/>
-      </Item6>
+      </Item3>
     </RequiredPackages>
     <Units Count="2">
       <Unit0>

@@ -527,6 +527,7 @@ type
 
     procedure chK2SO4Change(Sender: TObject);
     procedure chkComplexChange(Sender: TObject);
+    procedure chkComplexClick(Sender: TObject);
     procedure chMgNO3Change(Sender: TObject);
     procedure ClChange(Sender: TObject);
     procedure CoChange(Sender: TObject);
@@ -794,7 +795,8 @@ var
   vEC0,vKN0,vCaN0,vKP0,vKCa0,vKMg0,vN0:Double;
   ps,s:string;
   MyFormatSettings: TFormatSettings;
-
+  gmSUM,agFe,agMn,agB,agZn,agCu,agMo,agCo,agSi:double;
+  vdFe, vdMn, vdB, vdZn, vdCu, vdMo, vdCo, vdSi: double;
 
   tfOut: TextFile;
   tfIn: TextFile;
@@ -1634,7 +1636,7 @@ begin
 end;
 procedure toMicrocomplex;
 // Генерация строки состава микрокомплекса из составляющих
-var gmSUM,agFe,agMn,agB,agZn,agCu,agMo,agCo,agSi:double;
+//var gmSUM,agFe,agMn,agB,agZn,agCu,agMo,agCo,agSi:double;
 begin
 MyFormatSettings.DecimalSeparator := '.';
 gmSUM:=kf.gFe.value
@@ -1671,7 +1673,13 @@ gmSUM:=kf.gFe.value
 end;
 
 procedure microToWeght; begin
+
+
+
  if (kF.chKComplex.Checked = False) then  begin
+
+
+
 
  Kf.gFe.Visible:=true;
  Kf.gMn.Visible:=true;
@@ -1718,8 +1726,13 @@ Kf.gCmplx.ReadOnly:=true;
 Kf.kMicro.Visible:=true;
 
 toMicrocomplex;
+
+
+
  end
  else begin
+
+
  Kf.Fe.ReadOnly :=true;
 Kf.Mn.ReadOnly:=true;
 //Kf.B.ReadOnly:=false;
@@ -1756,6 +1769,8 @@ Kf.g2gCmplx.Visible:=true; Kf.cbCmplx.Visible:=true; Kf.mCmplx.Visible:=true;  K
 
 
 if Kf.dB.value >0 then Kf.gCmplx.value:=Kf.B.value/Kf.dB.value*Kf.V.value/10000;
+
+
 Kf.Fe.value:=10000*Kf.gCmplx.value* (Kf.dFe.value/Kf.V.value);
 Kf.Mn.value:=10000*Kf.gCmplx.value* (Kf.dMn.value/Kf.V.value);
 //Kf.B.value:=1000*Kf.gCmplx.value*   (Kf.dB.value/Kf.V.value);
@@ -1764,6 +1779,10 @@ Kf.Cu.value:=10000*Kf.gCmplx.value* (Kf.dCu.value/Kf.V.value);
 Kf.Mo.value:=10000*Kf.gCmplx.value* (Kf.dMo.value/Kf.V.value);
 Kf.Co.value:=10000*Kf.gCmplx.value* (Kf.dCo.value/Kf.V.value);
 Kf.Si.value:=10000*Kf.gCmplx.value* (Kf.dSi.value/Kf.V.value);
+
+
+
+
  end;
 
  genProfile;
@@ -2675,18 +2694,16 @@ end;
 
 procedure TKf.gCmplxChange(Sender: TObject);
 begin
- if ( gCmplx.Focused = True )    then begin
-  WeghtTomicro;
+ if ( gCmplx.Focused = True )    then       WeghtTomicro;
 
- end;
+
 end;
 
 procedure TKf.gCoChange(Sender: TObject);
 begin
-    if ( gCo.Focused = True )    then begin
-  WeghtTomicro;
+    if ( gCo.Focused = True )    then    WeghtTomicro;
 
-  end;
+
 end;
 
 procedure TKf.gCuChange(Sender: TObject);
@@ -3562,8 +3579,7 @@ end;
 
 procedure TKf.BChange(Sender: TObject);
 begin
-   if ( B.Focused = True )    then begin
-  microToWeght;
+   if ( B.Focused = True )    then begin    microToWeght;
 
 
    end;
@@ -3787,7 +3803,55 @@ end;
 
 procedure TKf.chkComplexChange(Sender: TObject);
 begin
+
+if   (kF.chKComplex.Checked = true) then begin
+vdFe:= kf.dFe.value;
+vdMn:= kf.dMn.value;
+vdB:=  kf.dB.value;
+vdZn:= kf.dZn.value;
+vdCu:= kf.dCu.value;
+vdMo:= kf.dMo.value;
+vdCo:= kf.dCo.value;
+vdSi:= kf.dSi.value;
+end ;
+
   microToWeght;
+
+end;
+
+procedure TKf.chkComplexClick(Sender: TObject);
+//var vdFe, vdMn, vdB, vdZn, vdCu, vdMo, vdCo, vdSi: double;
+begin
+
+
+
+    if (kF.chKComplex.Checked = True) then  begin
+
+     // Сразу заполним
+      if ( kF.dFe.Focused = False ) then kf.dFe.value:= agFe;
+      if ( kF.dMn.Focused = False ) then kf.dMn.value:= agMn;
+      if ( kF.dZn.Focused = False ) then kf.dZn.value:= agZn;
+      if ( kF.dCu.Focused = False ) then kf.dCu.value:= agCu;
+      if ( kF.dMo.Focused = False ) then kf.dMo.value:= agMo;
+      if ( kF.dCo.Focused = False ) then kf.dCo.value:= agCo;
+      if ( kF.dSi.Focused = False ) then kf.dSi.value:= agSi;
+      if ( kF.dB.Focused = False ) then kf.dB.value:= agB;
+      //toMicrocomplex;
+      kf.gCmplx.value:= gmSUM;
+      microToWeght;
+      end
+    else begin
+      kf.dFe.value:= vdFe;
+      kf.dMn.value:= vdMn;
+      kf.dB.value:= vdB;
+      kf.dZn.value:= vdZn;
+      kf.dCu.value:= vdCu;
+      kf.dMo.value:= vdMo;
+      kf.dCo.value:= vdCo;
+      kf.dSi.value:= vdSi;
+      kf.gCmplx.value:= gmSUM;
+      microToWeght;
+      end  ;
 
 end;
 
@@ -3883,17 +3947,19 @@ end;
 
 procedure TKf.dBChange(Sender: TObject);
 begin
-  microToWeght;
-end;
+if ( dB.Focused = True )    then    microToWeght;
+  end;
+
+
 
 procedure TKf.dCoChange(Sender: TObject);
 begin
-  microToWeght;
+  if ( dCo.Focused = True )    then microToWeght;
 end;
 
 procedure TKf.dCuChange(Sender: TObject);
 begin
-  microToWeght;
+  if ( dCu.Focused = True )    then microToWeght;
 end;
 
 
@@ -3911,22 +3977,25 @@ end;
 
 procedure TKf.dMnChange(Sender: TObject);
 begin
+  if ( dMn.Focused = True )    then begin
   microToWeght;
+
+  end;
 end;
 
 procedure TKf.dMoChange(Sender: TObject);
 begin
-  microToWeght;
+  if ( dMo.Focused = True )    then microToWeght;
 end;
 
 procedure TKf.dSiChange(Sender: TObject);
 begin
-  microToWeght;
+  if ( dSi.Focused = True )    then microToWeght;
 end;
 
 procedure TKf.dZnChange(Sender: TObject);
 begin
-  microToWeght;
+  if ( dZn.Focused = True )    then microToWeght;
 end;
 
 

@@ -1,7 +1,7 @@
 object Kf: TKf
-  Left = 843
+  Left = 1117
   Height = 809
-  Top = 171
+  Top = 162
   Width = 762
   HorzScrollBar.Page = 761
   VertScrollBar.Page = 809
@@ -17,7 +17,7 @@ object Kf: TKf
   LCLVersion = '2.0.10.0'
   Scaled = False
   object PageControl1: TPageControl
-    Left = 0
+    Left = -1
     Height = 709
     Top = -1
     Width = 761
@@ -2393,6 +2393,7 @@ object Kf: TKf
         Font.Height = -15
         Font.Name = 'Arial'
         OnChange = chkComplexChange
+        OnClick = chkComplexClick
         ParentFont = False
         TabOrder = 24
       end
@@ -2455,7 +2456,7 @@ object Kf: TKf
       end
       object kMicro: TEdit
         Left = 15
-        Height = 28
+        Height = 22
         Top = 444
         Width = 713
         BorderStyle = bsNone
@@ -2485,8 +2486,8 @@ object Kf: TKf
         TabOrder = 0
         object TabSheet5: TTabSheet
           Caption = 'Расчет'
-          ClientHeight = 612
-          ClientWidth = 748
+          ClientHeight = 580
+          ClientWidth = 746
           Font.Height = -15
           Font.Name = 'Arial'
           OnContextPopup = TabSheet5ContextPopup
@@ -3797,8 +3798,8 @@ object Kf: TKf
         end
         object TabSheet6: TTabSheet
           Caption = 'Изготовление'
-          ClientHeight = 612
-          ClientWidth = 748
+          ClientHeight = 580
+          ClientWidth = 746
           Font.Height = -15
           Font.Name = 'Arial'
           ParentFont = False
@@ -4608,8 +4609,8 @@ object Kf: TKf
         end
         object TabSheet7: TTabSheet
           Caption = 'Цена'
-          ClientHeight = 612
-          ClientWidth = 748
+          ClientHeight = 580
+          ClientWidth = 746
           object cnCaNO3: TLabel
             Left = 98
             Height = 18
@@ -6134,7 +6135,7 @@ object Kf: TKf
     Height = 15
     Top = 738
     Width = 218
-    Caption = 'Hydroponic Profile Generator 0.200'
+    Caption = 'Hydroponic Profile Generator 0.201'
     Font.Color = clActiveCaption
     Font.Height = -13
     Font.Name = 'Arial'
