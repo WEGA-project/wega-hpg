@@ -2423,9 +2423,9 @@ object Kf: TKf
         ParentFont = False
       end
       object Label76: TLabel
-        Left = 408
+        Left = 457
         Height = 18
-        Top = 0
+        Top = 2
         Width = 242
         Caption = 'Расчет навесок микроэлементов'
         Font.Height = -15
@@ -2455,14 +2455,57 @@ object Kf: TKf
         TabOrder = 26
       end
       object kMicro: TEdit
-        Left = 15
+        Left = 8
         Height = 22
-        Top = 444
+        Top = 427
         Width = 713
         BorderStyle = bsNone
         DoubleBuffered = False
         ParentDoubleBuffered = False
         TabOrder = 27
+      end
+      object Tmicro: TFloatSpinEdit
+        Left = 8
+        Height = 28
+        Top = 495
+        Width = 106
+        DecimalPlaces = 0
+        MaxValue = 9999999
+        MinValue = 1
+        OnChange = TmicroChange
+        TabOrder = 28
+        Value = 500
+      end
+      object Label95: TLabel
+        Left = 145
+        Height = 18
+        Top = 456
+        Width = 554
+        Caption = 'Разведение микроэлементов в воде (жидкий концентрат микроэлементов)'
+        Font.Height = -15
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+        OnClick = Label95Click
+      end
+      object Label96: TLabel
+        Left = 8
+        Height = 18
+        Top = 475
+        Width = 106
+        Caption = 'Объем до (мл):'
+        ParentColor = False
+      end
+      object lMicro: TEdit
+        Left = 120
+        Height = 28
+        Top = 495
+        Width = 601
+        BorderStyle = bsNone
+        ReadOnly = True
+        TabOrder = 29
+        Text = 'lMicro'
       end
     end
     object TabSheet3: TTabSheet
@@ -2486,8 +2529,8 @@ object Kf: TKf
         TabOrder = 0
         object TabSheet5: TTabSheet
           Caption = 'Расчет'
-          ClientHeight = 580
-          ClientWidth = 746
+          ClientHeight = 612
+          ClientWidth = 748
           Font.Height = -15
           Font.Name = 'Arial'
           OnContextPopup = TabSheet5ContextPopup
@@ -3798,8 +3841,8 @@ object Kf: TKf
         end
         object TabSheet6: TTabSheet
           Caption = 'Изготовление'
-          ClientHeight = 580
-          ClientWidth = 746
+          ClientHeight = 612
+          ClientWidth = 748
           Font.Height = -15
           Font.Name = 'Arial'
           ParentFont = False
@@ -4609,8 +4652,8 @@ object Kf: TKf
         end
         object TabSheet7: TTabSheet
           Caption = 'Цена'
-          ClientHeight = 580
-          ClientWidth = 746
+          ClientHeight = 612
+          ClientWidth = 748
           object cnCaNO3: TLabel
             Left = 98
             Height = 18
@@ -6135,7 +6178,7 @@ object Kf: TKf
     Height = 15
     Top = 738
     Width = 218
-    Caption = 'Hydroponic Profile Generator 0.201'
+    Caption = 'Hydroponic Profile Generator 0.202'
     Font.Color = clActiveCaption
     Font.Height = -13
     Font.Name = 'Arial'

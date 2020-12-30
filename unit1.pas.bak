@@ -78,6 +78,8 @@ type
     cgSi: TFloatSpinEdit;
     cgZn: TFloatSpinEdit;
     Cl: TFloatSpinEdit;
+    lMicro: TEdit;
+    Tmicro: TFloatSpinEdit;
     kMicro: TEdit;
     g2gCaCl2: TEdit;
     gCaCl2: TFloatSpinEdit;
@@ -109,6 +111,8 @@ type
     Label92: TLabel;
     Label93: TLabel;
     Label94: TLabel;
+    Label95: TLabel;
+    Label96: TLabel;
     pka: TLabel;
     lprice: TLabel;
     mlCaCl2: TFloatSpinEdit;
@@ -631,6 +635,7 @@ type
 
     procedure KSChange(Sender: TObject);
     procedure KSClick(Sender: TObject);
+    procedure Label95Click(Sender: TObject);
     procedure lb1Click(Sender: TObject);
     procedure lpriceClick(Sender: TObject);
 
@@ -644,6 +649,7 @@ type
       var Handled: Boolean);
     procedure tAmlChange(Sender: TObject);
     procedure tBmlChange(Sender: TObject);
+    procedure TmicroChange(Sender: TObject);
 
     procedure versionClick(Sender: TObject);
     procedure MnChange(Sender: TObject);
@@ -1018,6 +1024,8 @@ begin
 
    ;
 
+
+
   end
   else begin
       Kf.sSoil.value:=Kf.gCaNO3.value
@@ -1032,6 +1040,15 @@ begin
    ;
 
   end;
+
+  // Расчет параметров раствора микры в жидком виде
+  Kf.lMicro.Text:='Концентрация: ' + floattostr(Round(Kf.gCmplx.Value*1000/Kf.TMicro.Value*100)/100) + ' г/л,'
+                 +' Кратность: ' + floattostr(Round(V/Kf.TMicro.Value*1000)) + ':1,'
+                 +' Расход: ' + floattostr(Round(Kf.TMicro.Value/V*10)/10) + ' мл/л раствора'
+
+
+  ;
+
   price;
 end;
 
@@ -3203,6 +3220,11 @@ begin
   CalcAll;
 end;
 
+procedure TKf.Label95Click(Sender: TObject);
+begin
+
+end;
+
 procedure TKf.lb1Click(Sender: TObject);
 var
     vrN,vrNO3,vrNH4,vrP,vrK,vrCa,vrMg,vrS,vrCl:double;
@@ -3349,6 +3371,11 @@ begin
     CalcWeight ;
   microToWeght;
   CalcConc;
+end;
+
+procedure TKf.TmicroChange(Sender: TObject);
+begin
+  microToWeght;
 end;
 
 
