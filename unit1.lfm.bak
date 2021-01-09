@@ -21,11 +21,11 @@ object Kf: TKf
     Height = 709
     Top = -1
     Width = 761
-    ActivePage = TabSheet2
+    ActivePage = TabSheet1
     Font.Height = -15
     Font.Name = 'Arial'
     ParentFont = False
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'Макро'
@@ -2499,7 +2499,7 @@ object Kf: TKf
       end
       object lMicro: TEdit
         Left = 120
-        Height = 28
+        Height = 22
         Top = 495
         Width = 601
         BorderStyle = bsNone
@@ -6178,7 +6178,7 @@ object Kf: TKf
     Height = 15
     Top = 738
     Width = 218
-    Caption = 'Hydroponic Profile Generator 0.202'
+    Caption = 'Hydroponic Profile Generator 0.203'
     Font.Color = clActiveCaption
     Font.Height = -13
     Font.Name = 'Arial'

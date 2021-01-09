@@ -1042,13 +1042,11 @@ begin
   end;
 
   // Расчет параметров раствора микры в жидком виде
+  if (Kf.TMicro.Value > 0 ) then begin
   Kf.lMicro.Text:='Концентрация: ' + floattostr(Round(Kf.gCmplx.Value*1000/Kf.TMicro.Value*100)/100) + ' г/л,'
-                 +' Кратность: ' + floattostr(Round(V/Kf.TMicro.Value*1000)) + ':1,'
-                 +' Расход: ' + floattostr(Round(Kf.TMicro.Value/V*10)/10) + ' мл/л раствора'
-
-
-  ;
-
+                 +' Кратность: ' + floattostr(Round(Kf.V.value/Kf.TMicro.Value*1000)) + ':1,'
+                 +' Расход: ' + floattostr(Round(Kf.TMicro.Value/Kf.V.value*10)/10) + ' мл/л раствора' ;
+  end;
   price;
 end;
 
@@ -1656,6 +1654,8 @@ procedure toMicrocomplex;
 //var gmSUM,agFe,agMn,agB,agZn,agCu,agMo,agCo,agSi:double;
 begin
 MyFormatSettings.DecimalSeparator := '.';
+
+
 gmSUM:=kf.gFe.value
       +kf.gMn.value
       +kf.gB.value
@@ -1816,11 +1816,6 @@ procedure WeghtTomicro; begin
 
 if (kF.chKComplex.Checked = False) then  begin
 
-
-
-
-
-
  Kf.Fe.value:=10000*Kf.gFe.value* (Kf.dFe.value/Kf.V.value);
  Kf.Mn.value:=10000*Kf.gMn.value* (Kf.dMn.value/Kf.V.value);
  Kf.B.value:=10000*Kf.gB.value*   (Kf.dB.value/Kf.V.value);
@@ -1829,6 +1824,7 @@ if (kF.chKComplex.Checked = False) then  begin
  Kf.Mo.value:=10000*Kf.gMo.value* (Kf.dMo.value/Kf.V.value);
  Kf.Co.value:=10000*Kf.gCo.value* (Kf.dCo.value/Kf.V.value);
  Kf.Si.value:=10000*Kf.gSi.value* (Kf.dSi.value/Kf.V.value);
+
  end
 else begin
 
@@ -1841,12 +1837,8 @@ else begin
  Kf.Co.value:=10000*Kf.gCmplx.value* (Kf.dCo.value/Kf.V.value);
  Kf.Si.value:=10000*Kf.gCmplx.value* (Kf.dSi.value/Kf.V.value);
 
-
-
-
-
 end;
-genProfile;
+ genProfile;
 end;
 
 
@@ -2117,7 +2109,14 @@ begin
            if (IsWordPresent('chK2SO4', str, ['=']) = true) then Kf.chK2SO4.Checked:=StrToBool(ExtractWord(2,str,['=']));
            if (IsWordPresent('chMgNO3', str, ['=']) = true) then Kf.chMgNO3.Checked:=StrToBool(ExtractWord(2,str,['=']));
 
-
+           agFe:=kf.dFe.value;
+           agMn:=kf.dMn.value;
+           agZn:=kf.dZn.value;
+           agCu:=kf.dCu.value;
+           agMo:=kf.dMo.value;
+           agCo:=kf.dMo.value;
+           agSi:=kf.dSi.value;
+           agB:=kf.dB.value;
 
                 // Концентрации
            if (IsWordPresent('glCaNO3', str, ['=']) = true) then Kf.glCaNO3.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
@@ -3436,10 +3435,10 @@ procedure TKf.Button3Click(Sender: TObject);
 begin
          if od1.Execute then begin;
             C_FNAME:= od1.FileName;
-            LoadFirt;
             loadPrf;
             loadComment;
             loadJournal;
+            LoadFirt;
          end;
 end;
 
@@ -3862,20 +3861,20 @@ begin
       if ( kF.dMo.Focused = False ) then kf.dMo.value:= agMo;
       if ( kF.dCo.Focused = False ) then kf.dCo.value:= agCo;
       if ( kF.dSi.Focused = False ) then kf.dSi.value:= agSi;
-      if ( kF.dB.Focused = False ) then kf.dB.value:= agB;
-      //toMicrocomplex;
+      if ( kF.dB.Focused = False )  then kf.dB.value:= agB;
+      toMicrocomplex;
       kf.gCmplx.value:= gmSUM;
       microToWeght;
       end
     else begin
-      kf.dFe.value:= vdFe;
-      kf.dMn.value:= vdMn;
-      kf.dB.value:= vdB;
-      kf.dZn.value:= vdZn;
-      kf.dCu.value:= vdCu;
-      kf.dMo.value:= vdMo;
-      kf.dCo.value:= vdCo;
-      kf.dSi.value:= vdSi;
+      //kf.dFe.value:= vdFe;
+      //kf.dMn.value:= vdMn;
+      //kf.dB.value:= vdB;
+      //kf.dZn.value:= vdZn;
+      //kf.dCu.value:= vdCu;
+      //kf.dMo.value:= vdMo;
+      //kf.dCo.value:= vdCo;
+      //kf.dSi.value:= vdSi;
       kf.gCmplx.value:= gmSUM;
       microToWeght;
       end  ;
@@ -4075,9 +4074,9 @@ begin
     C_FNAME:=ParamStr(1);
     eFileName.Caption:=C_FNAME;
     loadPrf;
-    LoadFirt;
     loadComment;
     loadJournal;
+    LoadFirt
 
   end
 
@@ -4088,10 +4087,11 @@ begin
 
     if FileExists(C_FNAME) then
     begin
-            LoadFirt;
+
             loadPrf;
             loadComment;
             loadJournal;
+            LoadFirt;
     end;
 
   end;
