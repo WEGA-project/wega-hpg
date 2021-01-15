@@ -2529,8 +2529,8 @@ object Kf: TKf
         TabOrder = 0
         object TabSheet5: TTabSheet
           Caption = 'Расчет'
-          ClientHeight = 580
-          ClientWidth = 746
+          ClientHeight = 612
+          ClientWidth = 748
           Font.Height = -15
           Font.Name = 'Arial'
           OnContextPopup = TabSheet5ContextPopup
@@ -3841,8 +3841,8 @@ object Kf: TKf
         end
         object TabSheet6: TTabSheet
           Caption = 'Изготовление'
-          ClientHeight = 580
-          ClientWidth = 746
+          ClientHeight = 612
+          ClientWidth = 748
           Font.Height = -15
           Font.Name = 'Arial'
           ParentFont = False
@@ -4652,8 +4652,8 @@ object Kf: TKf
         end
         object TabSheet7: TTabSheet
           Caption = 'Цена'
-          ClientHeight = 580
-          ClientWidth = 746
+          ClientHeight = 612
+          ClientWidth = 748
           object cnCaNO3: TLabel
             Left = 98
             Height = 18

@@ -3409,7 +3409,7 @@ end;
 
 procedure TKf.ToggleBox1Change(Sender: TObject);
 begin
-  OpenURL('https://github.com/siv237/HPG/blob/master/hpg.zip');
+  OpenURL('https://github.com/WEGA-project/HPG/wiki');
 end;
 
 procedure TKf.ToggleBox2Change(Sender: TObject);
@@ -3645,7 +3645,7 @@ end;
 
 procedure TKf.Button10Click(Sender: TObject);
 begin
-  OpenURL('https://www.blockchain.com/ru/btc/address/14TZ3jcaNcKqs2HKap5bYSvGuaSecZDC9q');
+  OpenURL('https://t.me/wega_hpg');
 end;
 
 procedure TKf.BChange(Sender: TObject);
