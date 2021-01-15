@@ -6,9 +6,11 @@
       <SessionStorage Value="InProjectDir"/>
       <MainUnit Value="0"/>
       <Title Value="hpg"/>
+      <Scaled Value="True"/>
       <ResourceType Value="res"/>
       <UseXPManifest Value="True"/>
       <XPManifest>
+        <DpiAware Value="True"/>
         <TextName Value="siv237.hpg"/>
         <TextDesc Value="Hydroponic Profile Generator"/>
       </XPManifest>

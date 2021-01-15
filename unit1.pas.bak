@@ -25,7 +25,7 @@ type
     bRasch: TButton;
     bIzg: TButton;
     bfile: TButton;
-    Button10: TButton;
+    Button11: TButton;
     Button2: TButton;
     Button3: TButton;
     Button4: TButton;
@@ -78,7 +78,13 @@ type
     cgSi: TFloatSpinEdit;
     cgZn: TFloatSpinEdit;
     Cl: TFloatSpinEdit;
+    Image2: TImage;
+    BITCOIN: TLabeledEdit;
+    Image3: TImage;
+    Label97: TLabel;
     lMicro: TEdit;
+    Memo1: TMemo;
+    TabSheet8: TTabSheet;
     Tmicro: TFloatSpinEdit;
     kMicro: TEdit;
     g2gCaCl2: TEdit;
@@ -335,6 +341,9 @@ type
     TabSheet5: TTabSheet;
     TabSheet6: TTabSheet;
     tBml: TFloatSpinEdit;
+    ToggleBox1: TToggleBox;
+    ToggleBox2: TToggleBox;
+    ToggleBox3: TToggleBox;
     Zn: TFloatSpinEdit;
     Mn: TFloatSpinEdit;
     Label31: TLabel;
@@ -599,6 +608,7 @@ type
     procedure gSiChange(Sender: TObject);
     procedure gZnChange(Sender: TObject);
     procedure Image1Click(Sender: TObject);
+    procedure Image3Click(Sender: TObject);
     procedure k2nCaNO3Click(Sender: TObject);
     procedure K2SO4_KChange(Sender: TObject);
     procedure K2SO4_KClick(Sender: TObject);
@@ -636,10 +646,12 @@ type
     procedure KSChange(Sender: TObject);
     procedure KSClick(Sender: TObject);
     procedure Label95Click(Sender: TObject);
+    procedure Label97Click(Sender: TObject);
     procedure lb1Click(Sender: TObject);
     procedure lpriceClick(Sender: TObject);
 
     procedure mCaNO3Change(Sender: TObject);
+    procedure Memo1Change(Sender: TObject);
     procedure mlMgNO3Change(Sender: TObject);
 
     procedure TabSheet4Show(Sender: TObject);
@@ -650,6 +662,9 @@ type
     procedure tAmlChange(Sender: TObject);
     procedure tBmlChange(Sender: TObject);
     procedure TmicroChange(Sender: TObject);
+    procedure ToggleBox1Change(Sender: TObject);
+    procedure ToggleBox2Change(Sender: TObject);
+    procedure ToggleBox3Change(Sender: TObject);
 
     procedure versionClick(Sender: TObject);
     procedure MnChange(Sender: TObject);
@@ -2975,6 +2990,11 @@ begin
 
 end;
 
+procedure TKf.Image3Click(Sender: TObject);
+begin
+  OpenURL('https://yoomoney.ru/to/410012112381647');
+end;
+
 procedure TKf.k2nCaNO3Click(Sender: TObject);
 begin
 
@@ -3224,6 +3244,11 @@ begin
 
 end;
 
+procedure TKf.Label97Click(Sender: TObject);
+begin
+
+end;
+
 procedure TKf.lb1Click(Sender: TObject);
 var
     vrN,vrNO3,vrNH4,vrP,vrK,vrCa,vrMg,vrS,vrCl:double;
@@ -3334,6 +3359,11 @@ begin
 
 end;
 
+procedure TKf.Memo1Change(Sender: TObject);
+begin
+
+end;
+
 procedure TKf.mlMgNO3Change(Sender: TObject);
 begin
 
@@ -3375,6 +3405,21 @@ end;
 procedure TKf.TmicroChange(Sender: TObject);
 begin
   microToWeght;
+end;
+
+procedure TKf.ToggleBox1Change(Sender: TObject);
+begin
+  OpenURL('https://github.com/siv237/HPG/blob/master/hpg.zip');
+end;
+
+procedure TKf.ToggleBox2Change(Sender: TObject);
+begin
+  OpenURL('https://github.com/siv237/HPG/blob/master/hpg.zip');
+end;
+
+procedure TKf.ToggleBox3Change(Sender: TObject);
+begin
+  OpenURL('https://github.com/siv237/HPG/issues');
 end;
 
 
@@ -3600,7 +3645,7 @@ end;
 
 procedure TKf.Button10Click(Sender: TObject);
 begin
-  OpenURL('https://www.blockchain.com/btc/address/14TZ3jcaNcKqs2HKap5bYSvGuaSecZDC9q');
+  OpenURL('https://www.blockchain.com/ru/btc/address/14TZ3jcaNcKqs2HKap5bYSvGuaSecZDC9q');
 end;
 
 procedure TKf.BChange(Sender: TObject);
@@ -3867,14 +3912,14 @@ begin
       microToWeght;
       end
     else begin
-      //kf.dFe.value:= vdFe;
-      //kf.dMn.value:= vdMn;
-      //kf.dB.value:= vdB;
-      //kf.dZn.value:= vdZn;
-      //kf.dCu.value:= vdCu;
-      //kf.dMo.value:= vdMo;
-      //kf.dCo.value:= vdCo;
-      //kf.dSi.value:= vdSi;
+      kf.dFe.value:= vdFe;
+      kf.dMn.value:= vdMn;
+      kf.dB.value:= vdB;
+      kf.dZn.value:= vdZn;
+      kf.dCu.value:= vdCu;
+      kf.dMo.value:= vdMo;
+      kf.dCo.value:= vdCo;
+      kf.dSi.value:= vdSi;
       kf.gCmplx.value:= gmSUM;
       microToWeght;
       end  ;
