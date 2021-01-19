@@ -25,6 +25,7 @@ type
     bRasch: TButton;
     bIzg: TButton;
     bfile: TButton;
+    Button10: TButton;
     Button11: TButton;
     Button2: TButton;
     Button3: TButton;
@@ -35,8 +36,16 @@ type
     Button8: TButton;
     btch: TButton;
     Button9: TButton;
+    Ca_0: TFloatSpinEdit;
+    Ca_1: TFloatSpinEdit;
+    Ca_k: TFloatSpinEdit;
+    Ca_2: TFloatSpinEdit;
     cgCaCl2: TFloatSpinEdit;
     CheckBox8: TCheckBox;
+    Cl_0: TFloatSpinEdit;
+    Cl_1: TFloatSpinEdit;
+    Cl_k: TFloatSpinEdit;
+    Cl_2: TFloatSpinEdit;
     cnCaCl2: TLabel;
     dateAdd: TButton;
     dateChange: TButton;
@@ -59,6 +68,10 @@ type
     chkComplex: TCheckBox;
     de1: TDateEdit;
     EC: TFloatSpinEdit;
+    EC_0: TFloatSpinEdit;
+    EC_1: TFloatSpinEdit;
+    EC_k: TFloatSpinEdit;
+    EC_2: TFloatSpinEdit;
     eComment: TEdit;
     addrMixer: TEdit;
     cgB: TFloatSpinEdit;
@@ -81,10 +94,58 @@ type
     Image2: TImage;
     BITCOIN: TLabeledEdit;
     Image3: TImage;
+    K_0: TFloatSpinEdit;
+    K_1: TFloatSpinEdit;
+    K_k: TFloatSpinEdit;
+    K_2: TFloatSpinEdit;
+    Label100: TLabel;
+    Label101: TLabel;
+    Label102: TLabel;
+    Label103: TLabel;
+    Label104: TLabel;
+    Label105: TLabel;
+    Label106: TLabel;
+    Label107: TLabel;
+    Label108: TLabel;
+    Label110: TLabel;
+    Label111: TLabel;
+    Label112: TLabel;
+    Label114: TLabel;
     Label97: TLabel;
+    Label98: TLabel;
+    Label99: TLabel;
     lMicro: TEdit;
     Memo1: TMemo;
+    Mg_0: TFloatSpinEdit;
+    Mg_1: TFloatSpinEdit;
+    Mg_k: TFloatSpinEdit;
+    Mg_2: TFloatSpinEdit;
+    N_0: TFloatSpinEdit;
+    N_1: TFloatSpinEdit;
+    N_k: TFloatSpinEdit;
+    N_2: TFloatSpinEdit;
+    NH4_0: TFloatSpinEdit;
+    NH4_1: TFloatSpinEdit;
+    NH4_k: TFloatSpinEdit;
+    NH4_2: TFloatSpinEdit;
+    nnNH4NO4: TLabel;
+    nnNH4NO5: TLabel;
+    nnNH4NO6: TLabel;
+    nnNH4NO7: TLabel;
+    NO3_0: TFloatSpinEdit;
+    NO3_1: TFloatSpinEdit;
+    NO3_k: TFloatSpinEdit;
+    NO3_2: TFloatSpinEdit;
+    P_0: TFloatSpinEdit;
+    P_1: TFloatSpinEdit;
+    P_k: TFloatSpinEdit;
+    P_2: TFloatSpinEdit;
+    S_0: TFloatSpinEdit;
+    S_1: TFloatSpinEdit;
+    S_k: TFloatSpinEdit;
+    S_2: TFloatSpinEdit;
     TabSheet8: TTabSheet;
+    TabSheet9: TTabSheet;
     Tmicro: TFloatSpinEdit;
     kMicro: TEdit;
     g2gCaCl2: TEdit;
@@ -344,6 +405,10 @@ type
     ToggleBox1: TToggleBox;
     ToggleBox2: TToggleBox;
     ToggleBox3: TToggleBox;
+    V_1: TFloatSpinEdit;
+    V_2: TFloatSpinEdit;
+    V_k: TFloatSpinEdit;
+    V_0: TFloatSpinEdit;
     Zn: TFloatSpinEdit;
     Mn: TFloatSpinEdit;
     Label31: TLabel;
@@ -639,6 +704,7 @@ type
 
     procedure KNO3_NO3Change(Sender: TObject);
     procedure KNO3_NO3Click(Sender: TObject);
+    procedure korrections(Sender: TObject);
 
     procedure KPChange(Sender: TObject);
     procedure KPClick(Sender: TObject);
@@ -653,8 +719,11 @@ type
     procedure mCaNO3Change(Sender: TObject);
     procedure Memo1Change(Sender: TObject);
     procedure mlMgNO3Change(Sender: TObject);
+    procedure Change(Sender: TObject);
+    procedure NChange(Sender: TObject);
+    procedure S_1ChangeBounds(Sender: TObject);
 
-    procedure TabSheet4Show(Sender: TObject);
+
     procedure TabSheet5ContextPopup(Sender: TObject; MousePos: TPoint;
       var Handled: Boolean);
     procedure TabSheet7ContextPopup(Sender: TObject; MousePos: TPoint;
@@ -708,7 +777,7 @@ type
 
     procedure NCaClick(Sender: TObject);
 
-    procedure NChange(Sender: TObject);
+    procedure Corrector(Sender: TObject);
     procedure NClick(Sender: TObject);
     procedure NEditingDone(Sender: TObject);
     procedure NH4Change(Sender: TObject);
@@ -2065,8 +2134,12 @@ end;
 
 
 
+procedure Corrector;
+  begin
 
 
+
+  end;
 
 
 
@@ -3199,6 +3272,42 @@ begin
 end;
 
 
+function CalcS(NO3, NH4, P, K, Ca, Mg, Cl : double) : double;
+begin
+
+CalcS:=(  -molS*(
+       -  NH4*molCa*molMg*molK*molP*molCl
+       -  2*Ca*molN*molMg*molK*molP*molCl
+       -  2*Mg*molN*molCa*molK*molP*molCl
+       -     K*molN*molCa*molMg*molP*molCl
+       +  NO3*molCa*molMg*molK*molP*molCl
+       +    P*molN*molCa*molMg*molK*molCl
+       +   Cl*molN*molCa*molMg*molK*molP))
+       /(2*(molN*molCa*molMg*molK*molP*molCl));
+
+end;
+
+
+
+
+
+procedure TKf.korrections(Sender: TObject);
+begin
+
+ //if ( S_0.Focused = True ) then begin
+ S_0.value:= CalcS(NO3_0.value,
+                   NH4_0.value,
+                   P_0.value,
+                   K_0.value,
+                   Ca_0.value,
+                   Mg_0.value,
+                   Cl_0.value);
+ //end;
+
+
+end;
+
+
 
 procedure TKf.KPChange(Sender: TObject);
 begin
@@ -3369,12 +3478,29 @@ begin
 
 end;
 
-
-
-procedure TKf.TabSheet4Show(Sender: TObject);
+procedure TKf.Change(Sender: TObject);
 begin
 
 end;
+
+procedure TKf.NChange(Sender: TObject);
+begin
+     if ( N.Focused = True ) and ( N.value <> 0 )    then begin
+  NO3.value := N.value/(NH4NO3.value+1);
+  NH4.value := NH4NO3.value*N.value/(NH4NO3.value+1);
+  //CalcKoef;
+  //CalcWeight ;
+    CalcAll;
+    CalcWeight ;
+end;
+          end ;
+
+procedure TKf.S_1ChangeBounds(Sender: TObject);
+begin
+
+end;
+
+
 
 procedure TKf.TabSheet5ContextPopup(Sender: TObject; MousePos: TPoint;
   var Handled: Boolean);
@@ -4159,7 +4285,7 @@ begin
 
 end;
 
-procedure TKf.NChange(Sender: TObject);
+procedure TKf.Corrector(Sender: TObject);
 begin
    if ( N.Focused = True ) and ( N.value <> 0 )    then begin
   NO3.value := N.value/(NH4NO3.value+1);
