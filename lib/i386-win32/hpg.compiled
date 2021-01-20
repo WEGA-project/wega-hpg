@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <Compiler Value="c:\lazarus\fpc\3.0.4\bin\i386-win32\fpc.exe" Date="1331391084"/>
-  <Params Value=" -MObjFPC -Scghi -CX -O1 -g -gl -Xg -Xs -XX -WG -l -vewnhibq -FiZ:\home\user\HPG\lib\i386-win32 -Fuc:\lazarus\components\lazcontrols\lib\i386-win32\win32 -Fuc:\lazarus\lcl\units\i386-win32\win32 -Fuc:\lazarus\components\datetimectrls\lib\i386-win32\win32 -Fuc:\lazarus\lcl\units\i386-win32 -Fuc:\lazarus\components\lazutils\lib\i386-win32 -Fuc:\lazarus\packager\units\i386-win32 -FuZ:\home\user\HPG\ -FUZ:\home\user\HPG\lib\i386-win32\ -FEZ:\home\user\HPG\ -oZ:\home\user\HPG\hpg.exe -dLCL -dLCLwin32 hpg.lpr"/>
+  <Params Value=" -MObjFPC -Scghi -CX -O1 -g-h -gt -Xs -XX -WG -l -vewnhibq -FiZ:\home\user\HPG\lib\i386-win32 -Fuc:\lazarus\components\lazcontrols\lib\i386-win32\win32 -Fuc:\lazarus\lcl\units\i386-win32\win32 -Fuc:\lazarus\components\datetimectrls\lib\i386-win32\win32 -Fuc:\lazarus\lcl\units\i386-win32 -Fuc:\lazarus\components\lazutils\lib\i386-win32 -Fuc:\lazarus\packager\units\i386-win32 -FuZ:\home\user\HPG\ -FUZ:\home\user\HPG\lib\i386-win32\ -FEZ:\home\user\HPG\ -oZ:\home\user\HPG\hpg.exe -dLCL -dLCLwin32 hpg.lpr"/>
 </CONFIG>
