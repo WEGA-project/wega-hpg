@@ -35,7 +35,7 @@
 </div>
 
 <a name="versions"></a>
-### Актуальная версии
+### Актуальные версии
 
 [Liniux x86_64](https://github.com/siv237/HPG/raw/master/hpg)
 
