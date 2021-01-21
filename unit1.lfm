@@ -6017,6 +6017,15 @@ object Kf: TKf
         OnClick = bsendClick
         TabOrder = 45
       end
+      object tojrnl: TButton
+        Left = 376
+        Height = 32
+        Top = 437
+        Width = 83
+        Caption = 'В журнал'
+        OnClick = tojrnlClick
+        TabOrder = 46
+      end
     end
     object TabSheet4: TTabSheet
       Caption = 'Файл'
@@ -7263,7 +7272,7 @@ object Kf: TKf
     Height = 15
     Top = 738
     Width = 218
-    Caption = 'Hydroponic Profile Generator 0.211'
+    Caption = 'Hydroponic Profile Generator 0.212'
     Font.Color = clActiveCaption
     Font.Height = -13
     Font.Name = 'Arial'

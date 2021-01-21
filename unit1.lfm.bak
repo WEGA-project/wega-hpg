@@ -2529,8 +2529,8 @@ object Kf: TKf
         TabOrder = 0
         object TabSheet5: TTabSheet
           Caption = 'Расчет'
-          ClientHeight = 612
-          ClientWidth = 748
+          ClientHeight = 580
+          ClientWidth = 746
           Font.Height = -15
           Font.Name = 'Arial'
           OnContextPopup = TabSheet5ContextPopup
@@ -3841,8 +3841,8 @@ object Kf: TKf
         end
         object TabSheet6: TTabSheet
           Caption = 'Изготовление'
-          ClientHeight = 612
-          ClientWidth = 748
+          ClientHeight = 580
+          ClientWidth = 746
           Font.Height = -15
           Font.Name = 'Arial'
           ParentFont = False
@@ -4652,8 +4652,8 @@ object Kf: TKf
         end
         object TabSheet7: TTabSheet
           Caption = 'Цена'
-          ClientHeight = 612
-          ClientWidth = 748
+          ClientHeight = 580
+          ClientWidth = 746
           object cnCaNO3: TLabel
             Left = 98
             Height = 18
@@ -6017,6 +6017,15 @@ object Kf: TKf
         OnClick = bsendClick
         TabOrder = 45
       end
+      object tojrnl: TButton
+        Left = 376
+        Height = 32
+        Top = 437
+        Width = 83
+        Caption = 'В журнал'
+        OnClick = tojrnlClick
+        TabOrder = 46
+      end
     end
     object TabSheet4: TTabSheet
       Caption = 'Файл'
@@ -7263,7 +7272,7 @@ object Kf: TKf
     Height = 15
     Top = 738
     Width = 218
-    Caption = 'Hydroponic Profile Generator 0.210'
+    Caption = 'Hydroponic Profile Generator 0.211'
     Font.Color = clActiveCaption
     Font.Height = -13
     Font.Name = 'Arial'

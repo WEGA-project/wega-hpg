@@ -28,6 +28,7 @@ type
     bIzg: TButton;
     bfile: TButton;
     bsrc: TButton;
+    tojrnl: TButton;
     Button11: TButton;
     Button2: TButton;
     Button3: TButton;
@@ -753,6 +754,7 @@ type
     procedure ToggleBox1Change(Sender: TObject);
     procedure ToggleBox2Change(Sender: TObject);
     procedure ToggleBox3Change(Sender: TObject);
+    procedure tojrnlClick(Sender: TObject);
 
     procedure versionClick(Sender: TObject);
     procedure MnChange(Sender: TObject);
@@ -3726,6 +3728,46 @@ end;
 procedure TKf.ToggleBox3Change(Sender: TObject);
 begin
   OpenURL('https://github.com/siv237/HPG/issues');
+end;
+
+procedure TKf.tojrnlClick(Sender: TObject);
+begin
+   de1.Text:=FormatDateTime('yyyy-mm-dd', Now);
+   m1.Text:='Корректор. Скорректирован раствор до ' + FloatToStr(V_2.Value) + ' литров.';
+   kf.N.value:=kf.N_2.value;
+   kf.NO3.value:=kf.NO3_2.value;
+   kf.NH4.value:=kf.NH4_2.value;
+   kf.P.value:=kf.P_2.value;
+   kf.K.value:=kf.K_2.value;
+   kf.Ca.value:=kf.Ca_2.value;
+   kf.Mg.value:=kf.Mg_2.value;
+   kf.Cl.value:=kf.Cl_2.value;
+
+   CalcAll;
+   genProfile;
+
+   str:='date='+de1.Text+';'+m1.Text+';'+profile.Caption;
+   if not Assigned(DStr)then DStr := TStringList.Create;
+   DStr.Add(StringReplace(str, #10, ' ', [rfReplaceAll, rfIgnoreCase]));
+   DStr.Sort;
+   lb1.Clear;
+
+   for i := 0 to DStr.Count-1 do
+          begin
+              str:= DStr[i];
+              if (IsWordPresent('date', str, ['=']) = true) then
+              begin
+
+              StrDate:=ExtractWord(2,str,[';','=']);
+              StrCmnt:=ExtractWord(2,str,[';']);
+              Kf.lb1.Items.Add(StrDate + ' ' + StrCmnt);
+
+              end;
+          end;
+
+
+
+  //--------------------
 end;
 
 
