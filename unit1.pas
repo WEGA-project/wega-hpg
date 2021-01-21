@@ -737,6 +737,8 @@ type
     procedure mlMgNO3Change(Sender: TObject);
     procedure Change(Sender: TObject);
     procedure NChange(Sender: TObject);
+    procedure NO3_1Change(Sender: TObject);
+    procedure N_1Change(Sender: TObject);
     procedure S_1Change(Sender: TObject);
 
 
@@ -2545,7 +2547,7 @@ procedure korrection;
 var kEC:double;
 begin
 // Исходный
-        Kf.N_0.value:= Kf.NO3_0.value  + Kf.NH4_0.value;
+
 
         kf.S_0.value:= CalcS(kf.NO3_0.value,
                    kf.NH4_0.value,
@@ -2560,8 +2562,10 @@ begin
                    kf.K_0.value,
                    kf.Ca_0.value,
                    kf.Mg_0.value);
+
+          Kf.N_0.value:= Kf.NO3_0.value  + Kf.NH4_0.value;
  // Текущий
-      Kf.N_1.value:= Kf.NO3_1.value  + Kf.NH4_1.value;
+
 
          kEC:=kf.EC_1.value/kf.EC_0.value;
 
@@ -2573,10 +2577,10 @@ begin
          kf.Mg_1.value:=  kf.Mg_0.value * kEC;
          kf.S_1.value:=   kf.S_0.value * kEC;
          kf.Cl_1.value:=   kf.Cl_0.value * kEC;
-
+         Kf.N_1.value:= Kf.NO3_1.value  + Kf.NH4_1.value;
 // Корректирующий
     kf.V_k.Value := kf.V_2.value - kf.V_1.value;
-    Kf.N_k.value:= Kf.NO3_k.value  + Kf.NH4_k.value;
+
 
 
 
@@ -2605,10 +2609,10 @@ begin
                    kf.K_k.value,
                    kf.Ca_k.value,
                    kf.Mg_k.value);
-
+    Kf.N_k.value:= Kf.NO3_k.value  + Kf.NH4_k.value;
 // Итоговый
 
-        Kf.N_2.value:= Kf.NO3_2.value  + Kf.NH4_2.value;
+
 
         kf.S_2.value:= CalcS(kf.NO3_2.value,
                    kf.NH4_2.value,
@@ -2623,6 +2627,9 @@ begin
                        kf.K_2.value,
                        kf.Ca_2.value,
                        kf.Mg_2.value);
+
+        Kf.N_2.value:= Kf.NO3_2.value  + Kf.NH4_2.value;
+
 end;
 
 
@@ -3659,6 +3666,16 @@ begin
     CalcWeight ;
 end;
           end ;
+
+procedure TKf.NO3_1Change(Sender: TObject);
+begin
+
+end;
+
+procedure TKf.N_1Change(Sender: TObject);
+begin
+
+end;
 
 procedure TKf.S_1Change(Sender: TObject);
 begin

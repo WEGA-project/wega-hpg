@@ -5472,6 +5472,7 @@ object Kf: TKf
         Font.Name = 'Arial'
         MaxValue = 999
         MinValue = -999
+        OnChange = N_1Change
         ParentFont = False
         ReadOnly = True
         TabOrder = 10
@@ -5564,6 +5565,7 @@ object Kf: TKf
         Increment = 0.01
         MaxValue = 999
         MinValue = 0.01
+        OnChange = NO3_1Change
         ParentFont = False
         ReadOnly = True
         TabOrder = 16
