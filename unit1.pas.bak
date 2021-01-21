@@ -3917,6 +3917,7 @@ end;
 
 procedure TKf.bsendClick(Sender: TObject);
 begin
+  kf.N.value:=kf.N_k.value;
   kf.NO3.value:=kf.NO3_k.value;
   kf.NH4.value:=kf.NH4_k.value;
   kf.P.value:=kf.P_k.value;
