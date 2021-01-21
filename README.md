@@ -31,7 +31,7 @@
 
 и многое многое другое.
 <div align="center">
-<a href="images/calc.png"><img src="images/calc.png" width="350"></a> &emsp; <a href="images/micro.png"><img src="images/micro.png" width="350"></a>&emsp; <a href="images/mono_solutions.png"><img src="images/mono_solutions.png" width="350"></a>
+<a href="images/calc.png"><img src="images/calc.png" width="300"></a> &emsp; <a href="images/micro.png"><img src="images/micro.png" width="300"></a>&emsp; <a href="images/mono_solutions.png"><img src="images/mono_solutions.png" width="300"></a>
 </div>
 
 <a name="versions"></a>
