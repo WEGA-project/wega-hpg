@@ -3872,7 +3872,9 @@ begin
             C_FNAME:= od1.FileName;
             //LoadFirt;
             loadPrf;
-            //C_FNAME:=N_FNAME;
+            C_FNAME:=N_FNAME;
+            Kf.eFileName.Caption:=C_FNAME;
+            Kf.Caption:='HPG ' + C_FNAME + ' (' + Kf.eComment.Caption +')' ;
          end;
 end;
 
