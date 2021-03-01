@@ -17,10 +17,12 @@ type
   { TKf }
 
   TKf = class(TForm)
+    bdst1: TButton;
     bload: TButton;
     bloadpf: TButton;
     bdst: TButton;
     bsend: TButton;
+    bsend1: TButton;
     Button1: TButton;
     bMacro: TButton;
     bMicro: TButton;
@@ -28,6 +30,8 @@ type
     bIzg: TButton;
     bfile: TButton;
     bsrc: TButton;
+    Label109: TLabel;
+    Label113: TLabel;
     tojrnl: TButton;
     Button11: TButton;
     Button2: TButton;
@@ -452,7 +456,6 @@ type
     Label25: TLabel;
     Label26: TLabel;
     Label27: TLabel;
-    Label28: TLabel;
     Label29: TLabel;
     nnNH4NO3: TLabel;
     Label53: TLabel;
@@ -558,6 +561,7 @@ type
     Label8: TLabel;
     Label9: TLabel;
     procedure BChange(Sender: TObject);
+    procedure bdst1Click(Sender: TObject);
     procedure bdstClick(Sender: TObject);
     procedure bfileClick(Sender: TObject);
     procedure bIzgClick(Sender: TObject);
@@ -566,6 +570,7 @@ type
     procedure bMacroClick(Sender: TObject);
     procedure bMicroClick(Sender: TObject);
     procedure bRaschClick(Sender: TObject);
+    procedure bsend1Click(Sender: TObject);
     procedure bsendClick(Sender: TObject);
     procedure bsrcClick(Sender: TObject);
 
@@ -608,6 +613,8 @@ type
 
     procedure CaSChange(Sender: TObject);
     procedure CaSClick(Sender: TObject);
+    procedure Ca_2Change(Sender: TObject);
+    procedure Ca_kChange(Sender: TObject);
 
 
     procedure chK2SO4Change(Sender: TObject);
@@ -615,6 +622,8 @@ type
     procedure chkComplexClick(Sender: TObject);
     procedure chMgNO3Change(Sender: TObject);
     procedure ClChange(Sender: TObject);
+    procedure Cl_2Change(Sender: TObject);
+    procedure Cl_kChange(Sender: TObject);
 
     procedure CoChange(Sender: TObject);
     procedure CuChange(Sender: TObject);
@@ -724,6 +733,8 @@ type
 
     procedure KSChange(Sender: TObject);
     procedure KSClick(Sender: TObject);
+    procedure K_2Change(Sender: TObject);
+    procedure K_kChange(Sender: TObject);
 
     procedure Label95Click(Sender: TObject);
     procedure Label97Click(Sender: TObject);
@@ -733,12 +744,21 @@ type
     procedure mCaNO3Change(Sender: TObject);
     procedure Memo1Change(Sender: TObject);
     procedure Mg_1Change(Sender: TObject);
+    procedure Mg_2Change(Sender: TObject);
+    procedure Mg_kChange(Sender: TObject);
 
     procedure mlMgNO3Change(Sender: TObject);
     procedure Change(Sender: TObject);
     procedure NChange(Sender: TObject);
+    procedure NH4_2Change(Sender: TObject);
+    procedure NH4_kChange(Sender: TObject);
     procedure NO3_1Change(Sender: TObject);
+    procedure NO3_2Change(Sender: TObject);
+    procedure NO3_kChange(Sender: TObject);
     procedure N_1Change(Sender: TObject);
+    procedure N_kChange(Sender: TObject);
+    procedure P_2Change(Sender: TObject);
+    procedure P_kChange(Sender: TObject);
     procedure S_1Change(Sender: TObject);
 
 
@@ -2630,11 +2650,55 @@ begin
 
         Kf.N_2.value:= Kf.NO3_2.value  + Kf.NH4_2.value;
 
+
+
 end;
 
 
+procedure unkorrection;
+var kEC:double;
+begin
 
+    kF.NO3_2.Value:=  (kF.NO3_k.Value*kf.V_k.Value + kf.NO3_1.value * kf.V_1.value)/ kf.V_2.value;
+    kF.NH4_2.Value:=  (kF.NH4_k.Value*kf.V_k.Value + kf.NH4_1.value * kf.V_1.value)/ kf.V_2.value;
 
+    kF.N_k.Value:=kF.NO3_k.Value+kF.NH4_k.Value;
+    kF.N_2.Value:=kF.NO3_2.Value+kF.NH4_2.Value;
+
+    kF.P_2.Value:=  (kF.P_k.Value*kf.V_k.Value + kf.P_1.value * kf.V_1.value)/ kf.V_2.value;
+    kF.K_2.Value:=  (kF.K_k.Value*kf.V_k.Value + kf.K_1.value * kf.V_1.value)/ kf.V_2.value;
+    kF.Ca_2.Value:=  (kF.Ca_k.Value*kf.V_k.Value + kf.Ca_1.value * kf.V_1.value)/ kf.V_2.value;
+    kF.Mg_2.Value:=  (kF.Mg_k.Value*kf.V_k.Value + kf.Mg_1.value * kf.V_1.value)/ kf.V_2.value;
+    kF.Cl_2.Value:=  (kF.Cl_k.Value*kf.V_k.Value + kf.Cl_1.value * kf.V_1.value)/ kf.V_2.value;
+
+       kf.S_k.value:= CalcS(kf.NO3_k.value,
+                   kf.NH4_k.value,
+                   kf.P_k.value,
+                   kf.K_k.value,
+                   kf.Ca_k.value,
+                   kf.Mg_k.value,
+                   kf.Cl_k.value);
+
+      kf.EC_k.value:= CalcEC
+                   ( kf.NH4_k.value,
+                   kf.K_k.value,
+                   kf.Ca_k.value,
+                   kf.Mg_k.value);
+
+      kf.S_2.value:= CalcS(kf.NO3_2.value,
+                   kf.NH4_2.value,
+                   kf.P_2.value,
+                   kf.K_2.value,
+                   kf.Ca_2.value,
+                   kf.Mg_2.value,
+                   kf.Cl_2.value);
+      kf.EC_2.value:= CalcEC
+                   ( kf.NH4_2.value,
+                   kf.K_2.value,
+                   kf.Ca_2.value,
+                   kf.Mg_2.value);
+
+end;
 
 
 
@@ -3511,6 +3575,22 @@ begin
   CalcAll;
 end;
 
+procedure TKf.K_2Change(Sender: TObject);
+begin
+      if ( kF.K_2.Focused = True )    then begin
+korrection;
+
+  end;
+end;
+
+procedure TKf.K_kChange(Sender: TObject);
+begin
+       if ( kF.K_k.Focused = True )    then begin
+  unkorrection;
+
+     end;
+end;
+
 
 
 procedure TKf.Label95Click(Sender: TObject);
@@ -3643,6 +3723,22 @@ begin
 
 end;
 
+procedure TKf.Mg_2Change(Sender: TObject);
+begin
+    if ( kF.Mg_2.Focused = True )    then begin
+korrection;
+
+  end;
+end;
+
+procedure TKf.Mg_kChange(Sender: TObject);
+begin
+       if ( kF.Mg_k.Focused = True )    then begin
+  unkorrection;
+
+     end;
+end;
+
 
 
 procedure TKf.mlMgNO3Change(Sender: TObject);
@@ -3667,14 +3763,67 @@ begin
 end;
           end ;
 
+procedure TKf.NH4_2Change(Sender: TObject);
+begin
+    if ( kF.NH4_2.Focused = True )    then begin
+korrection;
+
+  end;
+end;
+
+procedure TKf.NH4_kChange(Sender: TObject);
+begin
+       if ( kF.NH4_k.Focused = True )    then begin
+  unkorrection;
+
+     end;
+end;
+
 procedure TKf.NO3_1Change(Sender: TObject);
 begin
 
 end;
 
+procedure TKf.NO3_2Change(Sender: TObject);
+begin
+        if ( kF.NO3_2.Focused = True )    then begin
+korrection;
+
+  end;
+end;
+
+procedure TKf.NO3_kChange(Sender: TObject);
+begin
+     if ( kF.NO3_k.Focused = True )    then begin
+  unkorrection;
+
+     end;
+end;
+
 procedure TKf.N_1Change(Sender: TObject);
 begin
 
+end;
+
+procedure TKf.N_kChange(Sender: TObject);
+begin
+  unkorrection;
+end;
+
+procedure TKf.P_2Change(Sender: TObject);
+begin
+    if ( kF.P_2.Focused = True )    then begin
+korrection;
+
+  end;
+end;
+
+procedure TKf.P_kChange(Sender: TObject);
+begin
+       if ( kF.P_k.Focused = True )    then begin
+  unkorrection;
+
+     end;
 end;
 
 procedure TKf.S_1Change(Sender: TObject);
@@ -3976,7 +4125,7 @@ begin
   OpenURL('https://github.com/siv237/HPG/wiki/raschet');
 end;
 
-procedure TKf.bsendClick(Sender: TObject);
+procedure TKf.bsend1Click(Sender: TObject);
 begin
   kf.N.value:=kf.N_k.value;
   kf.NO3.value:=kf.NO3_k.value;
@@ -3987,6 +4136,21 @@ begin
   kf.Mg.value:=kf.Mg_k.value;
   kf.Cl.value:=kf.Cl_k.value;
   kf.V.value:=kf.V_k.value;
+
+  CalcAll;
+end;
+
+procedure TKf.bsendClick(Sender: TObject);
+begin
+  kf.N.value:=kf.N_2.value;
+  kf.NO3.value:=kf.NO3_2.value;
+  kf.NH4.value:=kf.NH4_2.value;
+  kf.P.value:=kf.P_2.value;
+  kf.K.value:=kf.K_2.value;
+  kf.Ca.value:=kf.Ca_2.value;
+  kf.Mg.value:=kf.Mg_2.value;
+  kf.Cl.value:=kf.Cl_2.value;
+  kf.V.value:=kf.V_2.value;
 
   CalcAll;
 end;
@@ -4050,6 +4214,19 @@ begin
 
 
    end;
+end;
+
+procedure TKf.bdst1Click(Sender: TObject);
+begin
+  kf.NO3_k.value:=kf.NO3.value;
+  kf.NH4_k.value:=kf.NH4.value;
+  kf.P_k.value:=kf.P.value;
+  kf.K_k.value:=kf.K.value;
+  kf.Ca_k.value:=kf.Ca.value;
+  kf.Mg_k.value:=kf.Mg.value;
+  kf.Cl_k.value:=kf.Cl.value;
+
+  unkorrection;
 end;
 
 procedure TKf.bdstClick(Sender: TObject);
@@ -4269,6 +4446,22 @@ begin
   CalcAll;
 end;
 
+procedure TKf.Ca_2Change(Sender: TObject);
+begin
+    if ( kF.Ca_2.Focused = True )    then begin
+korrection;
+
+  end;
+end;
+
+procedure TKf.Ca_kChange(Sender: TObject);
+begin
+       if ( kF.Ca_k.Focused = True )    then begin
+  unkorrection;
+
+     end;
+end;
+
 
 
 
@@ -4356,6 +4549,22 @@ begin
  CalcWeight ;
    CalcAll;
   end
+end;
+
+procedure TKf.Cl_2Change(Sender: TObject);
+begin
+      if ( kF.Cl_2.Focused = True )    then begin
+korrection;
+
+  end;
+end;
+
+procedure TKf.Cl_kChange(Sender: TObject);
+begin
+        if ( kF.Cl_k.Focused = True )    then begin
+  unkorrection;
+
+     end;
 end;
 
 
@@ -4529,7 +4738,10 @@ end;
 
 procedure TKf.korr(Sender: TObject);
 begin
+
 korrection;
+
+
 end;
 
 
