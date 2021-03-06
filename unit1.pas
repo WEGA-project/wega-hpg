@@ -2567,7 +2567,7 @@ procedure korrection;
 var kEC:double;
 begin
 // Исходный
-
+        if (kF.V_1.Value >= kF.V_2.Value) then  kF.V_2.Value := kF.V_1.Value+kF.V_k.Value;
 
         kf.S_0.value:= CalcS(kf.NO3_0.value,
                    kf.NH4_0.value,
@@ -2587,7 +2587,7 @@ begin
  // Текущий
 
 
-         kEC:=kf.EC_1.value/kf.EC_0.value;
+         if(kf.EC_0.value <> 0 ) then kEC:=kf.EC_1.value/kf.EC_0.value;
 
          kf.NO3_1.value:= kf.NO3_0.value * kEC;
          kf.NH4_1.value:= kf.NH4_0.value * kEC;
@@ -2659,17 +2659,17 @@ procedure unkorrection;
 var kEC:double;
 begin
 
-    kF.NO3_2.Value:=  (kF.NO3_k.Value*kf.V_k.Value + kf.NO3_1.value * kf.V_1.value)/ kf.V_2.value;
-    kF.NH4_2.Value:=  (kF.NH4_k.Value*kf.V_k.Value + kf.NH4_1.value * kf.V_1.value)/ kf.V_2.value;
+    if(kf.V_2.value <> 0) then kF.NO3_2.Value:=  (kF.NO3_k.Value*kf.V_k.Value + kf.NO3_1.value * kf.V_1.value)/ kf.V_2.value;
+    if(kf.V_2.value <> 0) then kF.NH4_2.Value:=  (kF.NH4_k.Value*kf.V_k.Value + kf.NH4_1.value * kf.V_1.value)/ kf.V_2.value;
 
     kF.N_k.Value:=kF.NO3_k.Value+kF.NH4_k.Value;
     kF.N_2.Value:=kF.NO3_2.Value+kF.NH4_2.Value;
 
-    kF.P_2.Value:=  (kF.P_k.Value*kf.V_k.Value + kf.P_1.value * kf.V_1.value)/ kf.V_2.value;
-    kF.K_2.Value:=  (kF.K_k.Value*kf.V_k.Value + kf.K_1.value * kf.V_1.value)/ kf.V_2.value;
-    kF.Ca_2.Value:=  (kF.Ca_k.Value*kf.V_k.Value + kf.Ca_1.value * kf.V_1.value)/ kf.V_2.value;
-    kF.Mg_2.Value:=  (kF.Mg_k.Value*kf.V_k.Value + kf.Mg_1.value * kf.V_1.value)/ kf.V_2.value;
-    kF.Cl_2.Value:=  (kF.Cl_k.Value*kf.V_k.Value + kf.Cl_1.value * kf.V_1.value)/ kf.V_2.value;
+    if(kf.V_2.value <> 0) then kF.P_2.Value:=  (kF.P_k.Value*kf.V_k.Value + kf.P_1.value * kf.V_1.value)/ kf.V_2.value;
+    if(kf.V_2.value <> 0) then kF.K_2.Value:=  (kF.K_k.Value*kf.V_k.Value + kf.K_1.value * kf.V_1.value)/ kf.V_2.value;
+    if(kf.V_2.value <> 0) then kF.Ca_2.Value:=  (kF.Ca_k.Value*kf.V_k.Value + kf.Ca_1.value * kf.V_1.value)/ kf.V_2.value;
+    if(kf.V_2.value <> 0) then kF.Mg_2.Value:=  (kF.Mg_k.Value*kf.V_k.Value + kf.Mg_1.value * kf.V_1.value)/ kf.V_2.value;
+    if(kf.V_2.value <> 0) then kF.Cl_2.Value:=  (kF.Cl_k.Value*kf.V_k.Value + kf.Cl_1.value * kf.V_1.value)/ kf.V_2.value;
 
        kf.S_k.value:= CalcS(kf.NO3_k.value,
                    kf.NH4_k.value,
@@ -2699,14 +2699,6 @@ begin
                    kf.Mg_2.value);
 
 end;
-
-
-
-
-
-
-
-
 
 
 
