@@ -17,15 +17,28 @@ type
   { TKf }
 
   TKf = class(TForm)
+    bdst1: TButton;
     bload: TButton;
     bloadpf: TButton;
+    bdst: TButton;
+    bRasch1: TButton;
+    bsend: TButton;
+    bsend1: TButton;
+    bsend2: TButton;
+    bsend3: TButton;
     Button1: TButton;
     bMacro: TButton;
     bMicro: TButton;
     bRasch: TButton;
     bIzg: TButton;
     bfile: TButton;
-    Button10: TButton;
+    bsrc: TButton;
+    Label109: TLabel;
+    Label113: TLabel;
+    Label115: TLabel;
+    mkorr: TMemo;
+    tojrnl: TButton;
+    Button11: TButton;
     Button2: TButton;
     Button3: TButton;
     Button4: TButton;
@@ -35,8 +48,16 @@ type
     Button8: TButton;
     btch: TButton;
     Button9: TButton;
+    Ca_0: TFloatSpinEdit;
+    Ca_1: TFloatSpinEdit;
+    Ca_k: TFloatSpinEdit;
+    Ca_2: TFloatSpinEdit;
     cgCaCl2: TFloatSpinEdit;
     CheckBox8: TCheckBox;
+    Cl_0: TFloatSpinEdit;
+    Cl_1: TFloatSpinEdit;
+    Cl_k: TFloatSpinEdit;
+    Cl_2: TFloatSpinEdit;
     cnCaCl2: TLabel;
     dateAdd: TButton;
     dateChange: TButton;
@@ -59,6 +80,10 @@ type
     chkComplex: TCheckBox;
     de1: TDateEdit;
     EC: TFloatSpinEdit;
+    EC_0: TFloatSpinEdit;
+    EC_1: TFloatSpinEdit;
+    EC_k: TFloatSpinEdit;
+    EC_2: TFloatSpinEdit;
     eComment: TEdit;
     addrMixer: TEdit;
     cgB: TFloatSpinEdit;
@@ -78,7 +103,61 @@ type
     cgSi: TFloatSpinEdit;
     cgZn: TFloatSpinEdit;
     Cl: TFloatSpinEdit;
+    N_0: TFloatSpinEdit;
+    Image2: TImage;
+    BITCOIN: TLabeledEdit;
+    Image3: TImage;
+    K_0: TFloatSpinEdit;
+    K_1: TFloatSpinEdit;
+    K_k: TFloatSpinEdit;
+    K_2: TFloatSpinEdit;
+    Label100: TLabel;
+    Label101: TLabel;
+    Label102: TLabel;
+    Label103: TLabel;
+    Label104: TLabel;
+    Label105: TLabel;
+    Label106: TLabel;
+    Label107: TLabel;
+    Label108: TLabel;
+    Label110: TLabel;
+    Label111: TLabel;
+    Label112: TLabel;
+    Label114: TLabel;
+    Label97: TLabel;
+    Label98: TLabel;
+    Label99: TLabel;
     lMicro: TEdit;
+    Memo1: TMemo;
+    Mg_0: TFloatSpinEdit;
+    Mg_1: TFloatSpinEdit;
+    Mg_k: TFloatSpinEdit;
+    Mg_2: TFloatSpinEdit;
+    N_1: TFloatSpinEdit;
+    N_k: TFloatSpinEdit;
+    N_2: TFloatSpinEdit;
+    NH4_0: TFloatSpinEdit;
+    NH4_1: TFloatSpinEdit;
+    NH4_k: TFloatSpinEdit;
+    NH4_2: TFloatSpinEdit;
+    nnNH4NO4: TLabel;
+    nnNH4NO5: TLabel;
+    nnNH4NO6: TLabel;
+    nnNH4NO7: TLabel;
+    NO3_0: TFloatSpinEdit;
+    NO3_1: TFloatSpinEdit;
+    NO3_k: TFloatSpinEdit;
+    NO3_2: TFloatSpinEdit;
+    P_0: TFloatSpinEdit;
+    P_1: TFloatSpinEdit;
+    P_k: TFloatSpinEdit;
+    P_2: TFloatSpinEdit;
+    S_0: TFloatSpinEdit;
+    S_1: TFloatSpinEdit;
+    S_k: TFloatSpinEdit;
+    S_2: TFloatSpinEdit;
+    TabSheet8: TTabSheet;
+    TabSheet9: TTabSheet;
     Tmicro: TFloatSpinEdit;
     kMicro: TEdit;
     g2gCaCl2: TEdit;
@@ -335,6 +414,12 @@ type
     TabSheet5: TTabSheet;
     TabSheet6: TTabSheet;
     tBml: TFloatSpinEdit;
+    ToggleBox1: TToggleBox;
+    ToggleBox2: TToggleBox;
+    ToggleBox3: TToggleBox;
+    V_1: TFloatSpinEdit;
+    V_2: TFloatSpinEdit;
+    V_k: TFloatSpinEdit;
     Zn: TFloatSpinEdit;
     Mn: TFloatSpinEdit;
     Label31: TLabel;
@@ -376,7 +461,6 @@ type
     Label25: TLabel;
     Label26: TLabel;
     Label27: TLabel;
-    Label28: TLabel;
     Label29: TLabel;
     nnNH4NO3: TLabel;
     Label53: TLabel;
@@ -482,6 +566,8 @@ type
     Label8: TLabel;
     Label9: TLabel;
     procedure BChange(Sender: TObject);
+    procedure bdst1Click(Sender: TObject);
+    procedure bdstClick(Sender: TObject);
     procedure bfileClick(Sender: TObject);
     procedure bIzgClick(Sender: TObject);
     procedure bloadClick(Sender: TObject);
@@ -489,6 +575,12 @@ type
     procedure bMacroClick(Sender: TObject);
     procedure bMicroClick(Sender: TObject);
     procedure bRaschClick(Sender: TObject);
+    procedure bsend1Click(Sender: TObject);
+    procedure bsend2Click(Sender: TObject);
+    procedure bsend3Click(Sender: TObject);
+    procedure bsendClick(Sender: TObject);
+    procedure bsrcClick(Sender: TObject);
+
     procedure btchClick(Sender: TObject);
     procedure Button10Click(Sender: TObject);
     procedure Button1Click(Sender: TObject);
@@ -528,12 +620,18 @@ type
 
     procedure CaSChange(Sender: TObject);
     procedure CaSClick(Sender: TObject);
+    procedure Ca_2Change(Sender: TObject);
+    procedure Ca_kChange(Sender: TObject);
+
 
     procedure chK2SO4Change(Sender: TObject);
     procedure chkComplexChange(Sender: TObject);
     procedure chkComplexClick(Sender: TObject);
     procedure chMgNO3Change(Sender: TObject);
     procedure ClChange(Sender: TObject);
+    procedure Cl_2Change(Sender: TObject);
+    procedure Cl_kChange(Sender: TObject);
+
     procedure CoChange(Sender: TObject);
     procedure CuChange(Sender: TObject);
     procedure dateAddClick(Sender: TObject);
@@ -553,7 +651,11 @@ type
 
     procedure ECClick(Sender: TObject);
     procedure e1Change(Sender: TObject);
+    procedure EC_0Change(Sender: TObject);
+    procedure EC_2Change(Sender: TObject);
+
     procedure eFileNameChange(Sender: TObject);
+    procedure korr(Sender: TObject);
 
     procedure FeChange(Sender: TObject);
     procedure FormActivate(Sender: TObject);
@@ -599,6 +701,7 @@ type
     procedure gSiChange(Sender: TObject);
     procedure gZnChange(Sender: TObject);
     procedure Image1Click(Sender: TObject);
+    procedure Image3Click(Sender: TObject);
     procedure k2nCaNO3Click(Sender: TObject);
     procedure K2SO4_KChange(Sender: TObject);
     procedure K2SO4_KClick(Sender: TObject);
@@ -630,26 +733,58 @@ type
     procedure KNO3_NO3Change(Sender: TObject);
     procedure KNO3_NO3Click(Sender: TObject);
 
+
+
     procedure KPChange(Sender: TObject);
     procedure KPClick(Sender: TObject);
 
     procedure KSChange(Sender: TObject);
     procedure KSClick(Sender: TObject);
+    procedure K_2Change(Sender: TObject);
+    procedure K_kChange(Sender: TObject);
+
     procedure Label95Click(Sender: TObject);
+    procedure Label97Click(Sender: TObject);
     procedure lb1Click(Sender: TObject);
     procedure lpriceClick(Sender: TObject);
 
     procedure mCaNO3Change(Sender: TObject);
-    procedure mlMgNO3Change(Sender: TObject);
+    procedure Memo1Change(Sender: TObject);
+    procedure Mg_1Change(Sender: TObject);
+    procedure Mg_2Change(Sender: TObject);
+    procedure Mg_kChange(Sender: TObject);
 
-    procedure TabSheet4Show(Sender: TObject);
+    procedure mlMgNO3Change(Sender: TObject);
+    procedure Change(Sender: TObject);
+    procedure NChange(Sender: TObject);
+    procedure NH4_2Change(Sender: TObject);
+    procedure NH4_kChange(Sender: TObject);
+    procedure NO3_1Change(Sender: TObject);
+    procedure NO3_2Change(Sender: TObject);
+    procedure NO3_kChange(Sender: TObject);
+    procedure N_1Change(Sender: TObject);
+    procedure N_2Change(Sender: TObject);
+    procedure N_kChange(Sender: TObject);
+    procedure P_2Change(Sender: TObject);
+    procedure P_kChange(Sender: TObject);
+    procedure S_1Change(Sender: TObject);
+
+
+
+
+
     procedure TabSheet5ContextPopup(Sender: TObject; MousePos: TPoint;
       var Handled: Boolean);
     procedure TabSheet7ContextPopup(Sender: TObject; MousePos: TPoint;
       var Handled: Boolean);
+    procedure TabSheet9Show(Sender: TObject);
     procedure tAmlChange(Sender: TObject);
     procedure tBmlChange(Sender: TObject);
     procedure TmicroChange(Sender: TObject);
+    procedure ToggleBox1Change(Sender: TObject);
+    procedure ToggleBox2Change(Sender: TObject);
+    procedure ToggleBox3Change(Sender: TObject);
+    procedure tojrnlClick(Sender: TObject);
 
     procedure versionClick(Sender: TObject);
     procedure MnChange(Sender: TObject);
@@ -693,7 +828,7 @@ type
 
     procedure NCaClick(Sender: TObject);
 
-    procedure NChange(Sender: TObject);
+    procedure Corrector(Sender: TObject);
     procedure NClick(Sender: TObject);
     procedure NEditingDone(Sender: TObject);
     procedure NH4Change(Sender: TObject);
@@ -777,7 +912,13 @@ type
 
 
     procedure VChange(Sender: TObject);
+    procedure V_1Change(Sender: TObject);
+    procedure V_2Change(Sender: TObject);
+
     procedure ZnChange(Sender: TObject);
+
+
+
 
 
   private
@@ -813,6 +954,8 @@ var
        DStr: TStringList;
       i: integer;
       StrDate,StrCmnt:string;
+
+
 
 implementation
 
@@ -2050,8 +2193,12 @@ end;
 
 
 
+procedure Corrector;
+  begin
 
 
+
+  end;
 
 
 
@@ -2392,10 +2539,197 @@ begin
 
 
 
+end;
 
 
+
+
+
+function CalcS(NO3, NH4, P, K, Ca, Mg, Cl : double) :double;
+begin
+
+ Result := (  -molS*(
+       -  NH4*molCa*molMg*molK*molP*molCl
+       -  2*Ca*molN*molMg*molK*molP*molCl
+       -  2*Mg*molN*molCa*molK*molP*molCl
+       -     K*molN*molCa*molMg*molP*molCl
+       +  NO3*molCa*molMg*molK*molP*molCl
+       +    P*molN*molCa*molMg*molK*molCl
+       +   Cl*molN*molCa*molMg*molK*molP))
+       /(2*(molN*molCa*molMg*molK*molP*molCl));
+end;
+
+function CalcEC(NH4, K, Ca, Mg: double) :double;
+begin
+
+ Result := 0.095*(NH4*molCa*molMg*molK
+               + 2*Ca*molN*molMg*molK
+               + 2*Mg*molN*molCa*molK
+               + K*molN*molCa*molMg
+               + 2*molN*molCa*molMg*molK)
+               /(molN*molCa*molMg*molK);
+end;
+
+
+procedure korrection;
+var kEC:double;
+begin
+// Исходный
+        if (kF.V_1.Value >= kF.V_2.Value) then  kF.V_2.Value := kF.V_1.Value+kF.V_k.Value;
+
+        kf.S_0.value:= CalcS(kf.NO3_0.value,
+                   kf.NH4_0.value,
+                   kf.P_0.value,
+                   kf.K_0.value,
+                   kf.Ca_0.value,
+                   kf.Mg_0.value,
+                   kf.Cl_0.value);
+
+         kf.EC_0.value:= CalcEC
+                   ( kf.NH4_0.value,
+                   kf.K_0.value,
+                   kf.Ca_0.value,
+                   kf.Mg_0.value);
+
+          Kf.N_0.value:= Kf.NO3_0.value  + Kf.NH4_0.value;
+ // Текущий
+
+
+         if(kf.EC_0.value <> 0 ) then kEC:=kf.EC_1.value/kf.EC_0.value;
+
+         kf.NO3_1.value:= kf.NO3_0.value * kEC;
+         kf.NH4_1.value:= kf.NH4_0.value * kEC;
+         kf.P_1.value:=   kf.P_0.value * kEC;
+         kf.K_1.value:=   kf.K_0.value * kEC;
+         kf.Ca_1.value:=  kf.Ca_0.value * kEC;
+         kf.Mg_1.value:=  kf.Mg_0.value * kEC;
+         kf.S_1.value:=   kf.S_0.value * kEC;
+         kf.Cl_1.value:=   kf.Cl_0.value * kEC;
+         Kf.N_1.value:= Kf.NO3_1.value  + Kf.NH4_1.value;
+// Корректирующий
+    kf.V_k.Value := kf.V_2.value - kf.V_1.value;
+
+
+
+
+    kF.NO3_k.Value:=(kf.NO3_2.value * kf.V_2.value - kf.NO3_1.value * kf.V_1.value)/kf.V_k.Value;
+    kF.NH4_k.Value:=(kf.NH4_2.value * kf.V_2.value - kf.NH4_1.value * kf.V_1.value)/kf.V_k.Value;
+    kF.P_k.Value:=  (kf.P_2.value * kf.V_2.value - kf.P_1.value * kf.V_1.value)/kf.V_k.Value;
+    kF.K_k.Value:=  (kf.K_2.value * kf.V_2.value - kf.K_1.value * kf.V_1.value)/kf.V_k.Value;
+    kF.Ca_k.Value:=(kf.Ca_2.value * kf.V_2.value - kf.Ca_1.value * kf.V_1.value)/kf.V_k.Value;
+    kF.Mg_k.Value:=(kf.Mg_2.value * kf.V_2.value - kf.Mg_1.value * kf.V_1.value)/kf.V_k.Value;
+    kF.Cl_k.Value:=(kf.Cl_2.value * kf.V_2.value - kf.Cl_1.value * kf.V_1.value)/kf.V_k.Value;
+
+
+
+    kf.S_k.value:= CalcS(kf.NO3_k.value,
+                   kf.NH4_k.value,
+                   kf.P_k.value,
+                   kf.K_k.value,
+                   kf.Ca_k.value,
+                   kf.Mg_k.value,
+                   kf.Cl_k.value);
+
+    //kF.EC_k.Value:= (kf.EC_2.value * kf.V_2.value - kf.EC_1.value * kf.V_1.value)/kf.V_k.Value;
+
+    kf.EC_k.value:= CalcEC
+                   ( kf.NH4_k.value,
+                   kf.K_k.value,
+                   kf.Ca_k.value,
+                   kf.Mg_k.value);
+    Kf.N_k.value:= Kf.NO3_k.value  + Kf.NH4_k.value;
+// Итоговый
+
+
+
+        kf.S_2.value:= CalcS(kf.NO3_2.value,
+                   kf.NH4_2.value,
+                   kf.P_2.value,
+                   kf.K_2.value,
+                   kf.Ca_2.value,
+                   kf.Mg_2.value,
+                   kf.Cl_2.value);
+
+        kf.EC_2.value:= CalcEC
+                       ( kf.NH4_2.value,
+                       kf.K_2.value,
+                       kf.Ca_2.value,
+                       kf.Mg_2.value);
+
+        Kf.N_2.value:= Kf.NO3_2.value  + Kf.NH4_2.value;
+
+     Kf.mkorr.Text:= 'ОСНОВНОЕ:';
+     Kf.mkorr.Lines.Add('Изменение объема на: '+ FloatToStr( round((Kf.V_2.value - Kf.V_1.value)/Kf.V_1.value*100))  +'%');
+     Kf.mkorr.Lines.Add('Доля старого расвтора: '+ FloatToStr( round((Kf.V_1.value/Kf.V_2.value)*100))  +'%');
+     Kf.mkorr.Lines.Add('Изменение EC на: '+ FloatToStr( round((Kf.EC_2.value - Kf.EC_1.value)/Kf.EC_1.value*100))  +'%');
+     Kf.mkorr.Lines.Add('Изменение N общий на: '+ FloatToStr( round((Kf.N_2.value - Kf.N_1.value)/Kf.N_1.value*100))  +'%');
+
+          Kf.mkorr.Lines.add('');
+     Kf.mkorr.Lines.add('ПРОФИЛЬ:');
+     Kf.mkorr.Lines.Add('Коррекция NO3 на: '+ FloatToStr( round((Kf.NO3_2.value - Kf.NO3_1.value)/Kf.NO3_1.value*100))  +'%');
+     Kf.mkorr.Lines.Add('Коррекция NH4 на: '+ FloatToStr( round((Kf.NH4_2.value - Kf.NH4_1.value)/Kf.NH4_1.value*100))  +'%');
+     Kf.mkorr.Lines.Add('Коррекция P на: '+ FloatToStr( round((Kf.P_2.value - Kf.P_1.value)/Kf.P_1.value*100))  +'%');
+     Kf.mkorr.Lines.Add('Коррекция K на: '+ FloatToStr( round((Kf.K_2.value - Kf.K_1.value)/Kf.K_1.value*100))  +'%');
+     Kf.mkorr.Lines.Add('Коррекция Ca на: '+ FloatToStr( round((Kf.Ca_2.value - Kf.Ca_1.value)/Kf.Ca_1.value*100))  +'%');
+     Kf.mkorr.Lines.Add('Коррекция Mg на: '+ FloatToStr( round((Kf.Mg_2.value - Kf.Mg_1.value)/Kf.Mg_1.value*100))  +'%');
+     Kf.mkorr.Lines.Add('Коррекция S на: '+ FloatToStr( round((Kf.S_2.value - Kf.S_1.value)))  +' ppm');
+     Kf.mkorr.Lines.Add('Коррекция Cl на: '+ FloatToStr( round((Kf.Cl_2.value - Kf.Cl_1.value)))  +' ppm');
+
+          Kf.mkorr.Lines.add('');
+     Kf.mkorr.Lines.Add('СООТНОШЕНИЯ:');
+     Kf.mkorr.Lines.Add('NH4:NO3 до '+ FloatToStr( round( Kf.NH4_1.value/Kf.NO3_1.value*1000  )/1000)  +' после ' + FloatToStr( round( Kf.NH4_2.value/Kf.NO3_2.value*1000  )/1000));
+     Kf.mkorr.Lines.Add('K:N до '+ FloatToStr( round( Kf.K_1.value/Kf.N_1.value*1000  )/1000)  +' после ' + FloatToStr( round( Kf.K_2.value/Kf.N_2.value*1000  )/1000));
+     Kf.mkorr.Lines.Add('K:Ca до '+ FloatToStr( round( Kf.K_1.value/Kf.Ca_1.value*1000  )/1000)  +' после ' + FloatToStr( round( Kf.K_2.value/Kf.Ca_2.value*1000  )/1000));
+     Kf.mkorr.Lines.Add('K:Mg до '+ FloatToStr( round( Kf.K_1.value/Kf.Mg_1.value*1000  )/1000)  +' после ' + FloatToStr( round( Kf.K_2.value/Kf.Mg_2.value*1000  )/1000));
 
 end;
+
+
+procedure unkorrection;
+var kEC:double;
+begin
+
+    if(kf.V_2.value <> 0) then kF.NO3_2.Value:=  (kF.NO3_k.Value*kf.V_k.Value + kf.NO3_1.value * kf.V_1.value)/ kf.V_2.value;
+    if(kf.V_2.value <> 0) then kF.NH4_2.Value:=  (kF.NH4_k.Value*kf.V_k.Value + kf.NH4_1.value * kf.V_1.value)/ kf.V_2.value;
+
+    kF.N_k.Value:=kF.NO3_k.Value+kF.NH4_k.Value;
+    kF.N_2.Value:=kF.NO3_2.Value+kF.NH4_2.Value;
+
+    if(kf.V_2.value <> 0) then kF.P_2.Value:=  (kF.P_k.Value*kf.V_k.Value + kf.P_1.value * kf.V_1.value)/ kf.V_2.value;
+    if(kf.V_2.value <> 0) then kF.K_2.Value:=  (kF.K_k.Value*kf.V_k.Value + kf.K_1.value * kf.V_1.value)/ kf.V_2.value;
+    if(kf.V_2.value <> 0) then kF.Ca_2.Value:=  (kF.Ca_k.Value*kf.V_k.Value + kf.Ca_1.value * kf.V_1.value)/ kf.V_2.value;
+    if(kf.V_2.value <> 0) then kF.Mg_2.Value:=  (kF.Mg_k.Value*kf.V_k.Value + kf.Mg_1.value * kf.V_1.value)/ kf.V_2.value;
+    if(kf.V_2.value <> 0) then kF.Cl_2.Value:=  (kF.Cl_k.Value*kf.V_k.Value + kf.Cl_1.value * kf.V_1.value)/ kf.V_2.value;
+
+       kf.S_k.value:= CalcS(kf.NO3_k.value,
+                   kf.NH4_k.value,
+                   kf.P_k.value,
+                   kf.K_k.value,
+                   kf.Ca_k.value,
+                   kf.Mg_k.value,
+                   kf.Cl_k.value);
+
+      kf.EC_k.value:= CalcEC
+                   ( kf.NH4_k.value,
+                   kf.K_k.value,
+                   kf.Ca_k.value,
+                   kf.Mg_k.value);
+
+      kf.S_2.value:= CalcS(kf.NO3_2.value,
+                   kf.NH4_2.value,
+                   kf.P_2.value,
+                   kf.K_2.value,
+                   kf.Ca_2.value,
+                   kf.Mg_2.value,
+                   kf.Cl_2.value);
+      kf.EC_2.value:= CalcEC
+                   ( kf.NH4_2.value,
+                   kf.K_2.value,
+                   kf.Ca_2.value,
+                   kf.Mg_2.value);
+
+end;
+
 
 
 
@@ -2975,6 +3309,11 @@ begin
 
 end;
 
+procedure TKf.Image3Click(Sender: TObject);
+begin
+  OpenURL('https://yoomoney.ru/to/410012112381647');
+end;
+
 procedure TKf.k2nCaNO3Click(Sender: TObject);
 begin
 
@@ -3180,6 +3519,45 @@ end;
 
 
 
+
+
+
+
+
+//
+//
+// procedure korrect(NO3, NH4, P, K, Ca, Mg, Cl : double);
+//  begin
+//   NO3:=23;
+//  end;
+//
+
+//function CalcS(NO3, NH4, P, K, Ca, Mg, Cl : double) :double;
+//var S:double;
+//begin
+//
+//S:=10;
+//
+////return (  -molS*(
+////       -  NH4*molCa*molMg*molK*molP*molCl
+////       -  2*Ca*molN*molMg*molK*molP*molCl
+////       -  2*Mg*molN*molCa*molK*molP*molCl
+////       -     K*molN*molCa*molMg*molP*molCl
+////       +  NO3*molCa*molMg*molK*molP*molCl
+////       +    P*molN*molCa*molMg*molK*molCl
+////       +   Cl*molN*molCa*molMg*molK*molP))
+////       /(2*(molN*molCa*molMg*molK*molP*molCl));
+//
+//end;
+//
+
+
+
+
+
+
+
+
 procedure TKf.KPChange(Sender: TObject);
 begin
    if ( KP.Focused = True )    then begin
@@ -3219,7 +3597,30 @@ begin
   CalcAll;
 end;
 
+procedure TKf.K_2Change(Sender: TObject);
+begin
+      if ( kF.K_2.Focused = True )    then begin
+korrection;
+
+  end;
+end;
+
+procedure TKf.K_kChange(Sender: TObject);
+begin
+       if ( kF.K_k.Focused = True )    then begin
+  unkorrection;
+
+     end;
+end;
+
+
+
 procedure TKf.Label95Click(Sender: TObject);
+begin
+
+end;
+
+procedure TKf.Label97Click(Sender: TObject);
 begin
 
 end;
@@ -3334,17 +3735,142 @@ begin
 
 end;
 
+procedure TKf.Memo1Change(Sender: TObject);
+begin
+
+end;
+
+procedure TKf.Mg_1Change(Sender: TObject);
+begin
+
+end;
+
+procedure TKf.Mg_2Change(Sender: TObject);
+begin
+    if ( kF.Mg_2.Focused = True )    then begin
+korrection;
+
+  end;
+end;
+
+procedure TKf.Mg_kChange(Sender: TObject);
+begin
+       if ( kF.Mg_k.Focused = True )    then begin
+  unkorrection;
+
+     end;
+end;
+
+
+
 procedure TKf.mlMgNO3Change(Sender: TObject);
 begin
 
 end;
 
-
-
-procedure TKf.TabSheet4Show(Sender: TObject);
+procedure TKf.Change(Sender: TObject);
 begin
 
 end;
+
+procedure TKf.NChange(Sender: TObject);
+begin
+     if ( N.Focused = True ) and ( N.value <> 0 )    then begin
+  NO3.value := N.value/(NH4NO3.value+1);
+  NH4.value := NH4NO3.value*N.value/(NH4NO3.value+1);
+  //CalcKoef;
+  //CalcWeight ;
+    CalcAll;
+    CalcWeight ;
+end;
+          end ;
+
+procedure TKf.NH4_2Change(Sender: TObject);
+begin
+    if ( kF.NH4_2.Focused = True )    then begin
+korrection;
+
+  end;
+end;
+
+procedure TKf.NH4_kChange(Sender: TObject);
+begin
+       if ( kF.NH4_k.Focused = True )    then begin
+  unkorrection;
+
+     end;
+end;
+
+procedure TKf.NO3_1Change(Sender: TObject);
+begin
+
+end;
+
+procedure TKf.NO3_2Change(Sender: TObject);
+begin
+        if ( kF.NO3_2.Focused = True )    then begin
+korrection;
+
+  end;
+end;
+
+procedure TKf.NO3_kChange(Sender: TObject);
+begin
+     if ( kF.NO3_k.Focused = True )    then begin
+  unkorrection;
+
+     end;
+end;
+
+procedure TKf.N_1Change(Sender: TObject);
+begin
+
+end;
+
+procedure TKf.N_2Change(Sender: TObject);
+begin
+
+end;
+
+procedure TKf.N_kChange(Sender: TObject);
+begin
+  unkorrection;
+end;
+
+procedure TKf.P_2Change(Sender: TObject);
+begin
+    if ( kF.P_2.Focused = True )    then begin
+korrection;
+
+  end;
+end;
+
+procedure TKf.P_kChange(Sender: TObject);
+begin
+       if ( kF.P_k.Focused = True )    then begin
+  unkorrection;
+
+     end;
+end;
+
+procedure TKf.S_1Change(Sender: TObject);
+begin
+
+end;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 procedure TKf.TabSheet5ContextPopup(Sender: TObject; MousePos: TPoint;
   var Handled: Boolean);
@@ -3356,6 +3882,11 @@ procedure TKf.TabSheet7ContextPopup(Sender: TObject; MousePos: TPoint;
   var Handled: Boolean);
 begin
   price;
+end;
+
+procedure TKf.TabSheet9Show(Sender: TObject);
+begin
+  korrection;
 end;
 
 procedure TKf.tAmlChange(Sender: TObject);
@@ -3375,6 +3906,94 @@ end;
 procedure TKf.TmicroChange(Sender: TObject);
 begin
   microToWeght;
+end;
+
+procedure TKf.ToggleBox1Change(Sender: TObject);
+begin
+  OpenURL('https://github.com/WEGA-project/HPG/wiki');
+end;
+
+procedure TKf.ToggleBox2Change(Sender: TObject);
+begin
+  OpenURL('https://github.com/siv237/HPG/blob/master/hpg.zip');
+end;
+
+procedure TKf.ToggleBox3Change(Sender: TObject);
+begin
+  OpenURL('https://github.com/siv237/HPG/issues');
+end;
+
+procedure TKf.tojrnlClick(Sender: TObject);
+begin
+      MyFormatSettings.DecimalSeparator := '.';
+   //vN:=kf.N.Value;
+   //ps:='N='+ FloatToStr(round(vN))+' '
+   //                 +'NO3='+FloatToStr(round(vNO3*100)/100, MyFormatSettings)+' '
+   //                 +'NH4='+FloatToStr(round(vNH4*100)/100, MyFormatSettings)+' '
+   //                 +'P='+FloatToStr(round(vP*100)/100, MyFormatSettings)+' '
+   //                 +'K='+FloatToStr(round(vK*100)/100, MyFormatSettings)+' '
+   //                 +'Ca='+FloatToStr(round(vCa*100)/100, MyFormatSettings)+' '
+   //                 +'Mg='+FloatToStr(round(vMg*100)/100, MyFormatSettings)+' '
+   //                 +'S='+FloatToStr(round(vS*10)/10, MyFormatSettings)+' '
+   //                 +'Cl='+FloatToStr(round(vCl*10)/10, MyFormatSettings)+' '
+   //
+   //                 +'Fe='+FloatToStr(round(kf.Fe.value)/1000, MyFormatSettings)+' '
+   //                 +'Mn='+FloatToStr(round(kf.Mn.value)/1000, MyFormatSettings)+' '
+   //                 +'B='+FloatToStr(round(kf.B.value)/1000, MyFormatSettings)+' '
+   //                 +'Zn='+FloatToStr(round(kf.Zn.value)/1000, MyFormatSettings)+' '
+   //                 +'Cu='+FloatToStr(round(kf.Cu.value)/1000, MyFormatSettings)+' '
+   //                 +'Mo='+FloatToStr(round(kf.Mo.value)/1000, MyFormatSettings)+' '
+   //                 +'Co='+FloatToStr(round(kf.Co.value)/1000, MyFormatSettings)+' '
+   //                 +'Si='+FloatToStr(round(kf.Si.value)/1000, MyFormatSettings)+' '
+
+
+
+de1.Text:=FormatDateTime('yyyy-mm-dd', Now);
+   m1.Text:='Корректор. Скорректирован раствор до ' + FloatToStr(V_2.Value) + ' литров.';
+
+   //str:='date='+de1.Text+';'+m1.Text+';'+profile.Caption;
+   str:='date='+de1.Text+';'+m1.Text+';'+
+   'N='+FloatToStr(kf.N_2.value, MyFormatSettings)+' '+
+   'NO3='+FloatToStr(kf.NO3_2.value, MyFormatSettings)+' '+
+   'NH4='+FloatToStr(kf.NH4_2.value, MyFormatSettings)+' '+
+   'P='+FloatToStr(kf.P_2.value, MyFormatSettings)+' '+
+   'K='+FloatToStr(kf.K_2.value, MyFormatSettings)+' '+
+   'Ca='+FloatToStr(kf.Ca_2.value, MyFormatSettings)+' '+
+   'Mg='+FloatToStr(kf.Mg_2.value, MyFormatSettings)+' '+
+   'S='+FloatToStr(kf.S_2.value, MyFormatSettings)+' '+
+   'Cl='+FloatToStr(kf.Cl_2.value, MyFormatSettings)+' '
+
+
+                       +'Fe='+FloatToStr(round(kf.Fe.value)/1000, MyFormatSettings)+' '
+                       +'Mn='+FloatToStr(round(kf.Mn.value)/1000, MyFormatSettings)+' '
+                       +'B='+FloatToStr(round(kf.B.value)/1000, MyFormatSettings)+' '
+                       +'Zn='+FloatToStr(round(kf.Zn.value)/1000, MyFormatSettings)+' '
+                       +'Cu='+FloatToStr(round(kf.Cu.value)/1000, MyFormatSettings)+' '
+                       +'Mo='+FloatToStr(round(kf.Mo.value)/1000, MyFormatSettings)+' '
+                       +'Co='+FloatToStr(round(kf.Co.value)/1000, MyFormatSettings)+' '
+                       +'Si='+FloatToStr(round(kf.Si.value)/1000, MyFormatSettings);
+
+   if not Assigned(DStr)then DStr := TStringList.Create;
+   DStr.Add(StringReplace(str, #10, ' ', [rfReplaceAll, rfIgnoreCase]));
+   DStr.Sort;
+   lb1.Clear;
+
+   for i := 0 to DStr.Count-1 do
+          begin
+              str:= DStr[i];
+              if (IsWordPresent('date', str, ['=']) = true) then
+              begin
+
+              StrDate:=ExtractWord(2,str,[';','=']);
+              StrCmnt:=ExtractWord(2,str,[';']);
+              Kf.lb1.Items.Add(StrDate + ' ' + StrCmnt);
+
+              end;
+          end;
+
+
+
+  //--------------------
 end;
 
 
@@ -3462,7 +4081,9 @@ begin
             C_FNAME:= od1.FileName;
             //LoadFirt;
             loadPrf;
-            //C_FNAME:=N_FNAME;
+            C_FNAME:=N_FNAME;
+            Kf.eFileName.Caption:=C_FNAME;
+            Kf.Caption:='HPG ' + C_FNAME + ' (' + Kf.eComment.Caption +')' ;
          end;
 end;
 
@@ -3564,6 +4185,80 @@ begin
   OpenURL('https://github.com/siv237/HPG/wiki/raschet');
 end;
 
+procedure TKf.bsend1Click(Sender: TObject);
+begin
+  kf.N.value:=kf.N_k.value;
+  kf.NO3.value:=kf.NO3_k.value;
+  kf.NH4.value:=kf.NH4_k.value;
+  kf.P.value:=kf.P_k.value;
+  kf.K.value:=kf.K_k.value;
+  kf.Ca.value:=kf.Ca_k.value;
+  kf.Mg.value:=kf.Mg_k.value;
+  kf.Cl.value:=kf.Cl_k.value;
+  kf.V.value:=kf.V_k.value;
+
+  CalcAll;
+end;
+
+procedure TKf.bsend2Click(Sender: TObject);
+begin
+  kf.N.value:=kf.N_0.value;
+  kf.NO3.value:=kf.NO3_0.value;
+  kf.NH4.value:=kf.NH4_0.value;
+  kf.P.value:=kf.P_0.value;
+  kf.K.value:=kf.K_0.value;
+  kf.Ca.value:=kf.Ca_0.value;
+  kf.Mg.value:=kf.Mg_0.value;
+  kf.Cl.value:=kf.Cl_0.value;
+
+
+  CalcAll;
+end;
+
+procedure TKf.bsend3Click(Sender: TObject);
+begin
+  kf.N.value:=kf.N_1.value;
+  kf.NO3.value:=kf.NO3_1.value;
+  kf.NH4.value:=kf.NH4_1.value;
+  kf.P.value:=kf.P_1.value;
+  kf.K.value:=kf.K_1.value;
+  kf.Ca.value:=kf.Ca_1.value;
+  kf.Mg.value:=kf.Mg_1.value;
+  kf.Cl.value:=kf.Cl_1.value;
+  kf.V.value:=kf.V_1.value;
+
+  CalcAll;
+end;
+
+procedure TKf.bsendClick(Sender: TObject);
+begin
+  kf.N.value:=kf.N_2.value;
+  kf.NO3.value:=kf.NO3_2.value;
+  kf.NH4.value:=kf.NH4_2.value;
+  kf.P.value:=kf.P_2.value;
+  kf.K.value:=kf.K_2.value;
+  kf.Ca.value:=kf.Ca_2.value;
+  kf.Mg.value:=kf.Mg_2.value;
+  kf.Cl.value:=kf.Cl_2.value;
+  kf.V.value:=kf.V_2.value;
+
+  CalcAll;
+end;
+
+procedure TKf.bsrcClick(Sender: TObject);
+begin
+  kf.NO3_0.value:=kf.NO3.value;
+  kf.NH4_0.value:=kf.NH4.value;
+  kf.P_0.value:=kf.P.value;
+  kf.K_0.value:=kf.K.value;
+  kf.Ca_0.value:=kf.Ca.value;
+  kf.Mg_0.value:=kf.Mg.value;
+  kf.Cl_0.value:=kf.Cl.value;
+
+  korrection;
+end;
+
+
 procedure TKf.btchClick(Sender: TObject);
 begin
    MyFormatSettings.DecimalSeparator := '.';
@@ -3600,7 +4295,7 @@ end;
 
 procedure TKf.Button10Click(Sender: TObject);
 begin
-  OpenURL('https://www.blockchain.com/btc/address/14TZ3jcaNcKqs2HKap5bYSvGuaSecZDC9q');
+  OpenURL('https://t.me/wega_hpg');
 end;
 
 procedure TKf.BChange(Sender: TObject);
@@ -3609,6 +4304,33 @@ begin
 
 
    end;
+end;
+
+procedure TKf.bdst1Click(Sender: TObject);
+begin
+  kf.NO3_k.value:=kf.NO3.value;
+  kf.NH4_k.value:=kf.NH4.value;
+  kf.P_k.value:=kf.P.value;
+  kf.K_k.value:=kf.K.value;
+  kf.Ca_k.value:=kf.Ca.value;
+  kf.Mg_k.value:=kf.Mg.value;
+  kf.Cl_k.value:=kf.Cl.value;
+
+  unkorrection;
+end;
+
+procedure TKf.bdstClick(Sender: TObject);
+begin
+  kf.NO3_2.value:=kf.NO3.value;
+  kf.NH4_2.value:=kf.NH4.value;
+  kf.P_2.value:=kf.P.value;
+  kf.K_2.value:=kf.K.value;
+  kf.Ca_2.value:=kf.Ca.value;
+  kf.Mg_2.value:=kf.Mg.value;
+  kf.Cl_2.value:=kf.Cl.value;
+
+  korrection;
+
 end;
 
 procedure TKf.bfileClick(Sender: TObject);
@@ -3814,6 +4536,24 @@ begin
   CalcAll;
 end;
 
+procedure TKf.Ca_2Change(Sender: TObject);
+begin
+    if ( kF.Ca_2.Focused = True )    then begin
+korrection;
+
+  end;
+end;
+
+procedure TKf.Ca_kChange(Sender: TObject);
+begin
+       if ( kF.Ca_k.Focused = True )    then begin
+  unkorrection;
+
+     end;
+end;
+
+
+
 
 
 procedure TKf.chK2SO4Change(Sender: TObject);
@@ -3900,6 +4640,24 @@ begin
    CalcAll;
   end
 end;
+
+procedure TKf.Cl_2Change(Sender: TObject);
+begin
+      if ( kF.Cl_2.Focused = True )    then begin
+korrection;
+
+  end;
+end;
+
+procedure TKf.Cl_kChange(Sender: TObject);
+begin
+        if ( kF.Cl_k.Focused = True )    then begin
+  unkorrection;
+
+     end;
+end;
+
+
 
 procedure TKf.CoChange(Sender: TObject);
 begin
@@ -4049,9 +4807,31 @@ begin
 
 end;
 
+procedure TKf.EC_0Change(Sender: TObject);
+begin
+  if ( EC_0.Focused = True )    then begin
+   korrection;
+  end;
+end;
+
+procedure TKf.EC_2Change(Sender: TObject);
+begin
+  korrection;
+end;
+
+
+
 procedure TKf.eFileNameChange(Sender: TObject);
 begin
   C_FNAME:=eFileName.Caption;
+end;
+
+procedure TKf.korr(Sender: TObject);
+begin
+
+korrection;
+
+
 end;
 
 
@@ -4114,7 +4894,7 @@ begin
 
 end;
 
-procedure TKf.NChange(Sender: TObject);
+procedure TKf.Corrector(Sender: TObject);
 begin
    if ( N.Focused = True ) and ( N.value <> 0 )    then begin
   NO3.value := N.value/(NH4NO3.value+1);
@@ -4612,6 +5392,18 @@ begin
 
 
 end;
+
+procedure TKf.V_1Change(Sender: TObject);
+begin
+  korrection;
+end;
+
+procedure TKf.V_2Change(Sender: TObject);
+begin
+  korrection;
+end;
+
+
 
 procedure TKf.ZnChange(Sender: TObject);
 begin
