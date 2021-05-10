@@ -16,8 +16,8 @@ Dmitriy Burakov
 * #гидропоника
 
 #### Фото
-<a href="s_1.jpg"><img src="s_1.jpg" width="250"></a><a href="s_2.jpg"><img src="s_2.jpg" width="250"></a>
+<a href="img/s_1.jpg"><img src="img/s_1.jpg" width="250"></a><a href="img/s_2.jpg"><img src="img/s_2.jpg" width="250"></a>
 
-<a href="s_3.jpg"><img src="s_3.jpg" width="250"></a><a href="s_4.jpg"><img src="s_4.jpg" width="250"></a>
+<a href="img/s_3.jpg"><img src="img/s_3.jpg" width="250"></a><a href="img/s_4.jpg"><img src="img/s_4.jpg" width="250"></a>
 
-<a href="s_5.jpg"><img src="s_5.jpg" width="250"></a><a href="s_6.jpg"><img src="s_6.jpg" width="250"></a>
+<a href="img/s_5.jpg"><img src="img/s_5.jpg" width="250"></a><a href="img/s_6.jpg"><img src="img/s_6.jpg" width="250"></a>

@@ -14,5 +14,5 @@
 
 
 #### Фото
-<a href="p_1.jpg"><img src="p_1.jpg" width="250"></a>
+<a href="img/p_1.jpg"><img src="img/p_1.jpg" width="250"></a>
 
