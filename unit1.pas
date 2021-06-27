@@ -2262,7 +2262,7 @@ begin
            agZn:=kf.dZn.value;
            agCu:=kf.dCu.value;
            agMo:=kf.dMo.value;
-           agCo:=kf.dMo.value;
+           agCo:=kf.dCo.value;
            agSi:=kf.dSi.value;
            agB:=kf.dB.value;
 

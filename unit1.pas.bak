@@ -21,8 +21,11 @@ type
     bload: TButton;
     bloadpf: TButton;
     bdst: TButton;
+    bKorrect: TButton;
     bsend: TButton;
     bsend1: TButton;
+    bsend2: TButton;
+    bsend3: TButton;
     Button1: TButton;
     bMacro: TButton;
     bMicro: TButton;
@@ -32,6 +35,8 @@ type
     bsrc: TButton;
     Label109: TLabel;
     Label113: TLabel;
+    Label115: TLabel;
+    mkorr: TMemo;
     tojrnl: TButton;
     Button11: TButton;
     Button2: TButton;
@@ -565,12 +570,15 @@ type
     procedure bdstClick(Sender: TObject);
     procedure bfileClick(Sender: TObject);
     procedure bIzgClick(Sender: TObject);
+    procedure bKorrectClick(Sender: TObject);
     procedure bloadClick(Sender: TObject);
     procedure bloadpfClick(Sender: TObject);
     procedure bMacroClick(Sender: TObject);
     procedure bMicroClick(Sender: TObject);
     procedure bRaschClick(Sender: TObject);
     procedure bsend1Click(Sender: TObject);
+    procedure bsend2Click(Sender: TObject);
+    procedure bsend3Click(Sender: TObject);
     procedure bsendClick(Sender: TObject);
     procedure bsrcClick(Sender: TObject);
 
@@ -756,6 +764,7 @@ type
     procedure NO3_2Change(Sender: TObject);
     procedure NO3_kChange(Sender: TObject);
     procedure N_1Change(Sender: TObject);
+    procedure N_2Change(Sender: TObject);
     procedure N_kChange(Sender: TObject);
     procedure P_2Change(Sender: TObject);
     procedure P_kChange(Sender: TObject);
@@ -2253,7 +2262,7 @@ begin
            agZn:=kf.dZn.value;
            agCu:=kf.dCu.value;
            agMo:=kf.dMo.value;
-           agCo:=kf.dMo.value;
+           agCo:=kf.dCo.value;
            agSi:=kf.dSi.value;
            agB:=kf.dB.value;
 
@@ -2650,7 +2659,29 @@ begin
 
         Kf.N_2.value:= Kf.NO3_2.value  + Kf.NH4_2.value;
 
+     Kf.mkorr.Text:= 'ОСНОВНОЕ:';
+     Kf.mkorr.Lines.Add('Изменение объема на: '+ FloatToStr( round((Kf.V_2.value - Kf.V_1.value)/Kf.V_1.value*100))  +'%');
+     Kf.mkorr.Lines.Add('Доля старого расвтора: '+ FloatToStr( round((Kf.V_1.value/Kf.V_2.value)*100))  +'%');
+     Kf.mkorr.Lines.Add('Изменение EC на: '+ FloatToStr( round((Kf.EC_2.value - Kf.EC_1.value)/Kf.EC_1.value*100))  +'%');
+     Kf.mkorr.Lines.Add('Изменение N общий на: '+ FloatToStr( round((Kf.N_2.value - Kf.N_1.value)/Kf.N_1.value*100))  +'%');
 
+          Kf.mkorr.Lines.add('');
+     Kf.mkorr.Lines.add('ПРОФИЛЬ:');
+     Kf.mkorr.Lines.Add('Коррекция NO3 на: '+ FloatToStr( round((Kf.NO3_2.value - Kf.NO3_1.value)/Kf.NO3_1.value*100))  +'%');
+     Kf.mkorr.Lines.Add('Коррекция NH4 на: '+ FloatToStr( round((Kf.NH4_2.value - Kf.NH4_1.value)/Kf.NH4_1.value*100))  +'%');
+     Kf.mkorr.Lines.Add('Коррекция P на: '+ FloatToStr( round((Kf.P_2.value - Kf.P_1.value)/Kf.P_1.value*100))  +'%');
+     Kf.mkorr.Lines.Add('Коррекция K на: '+ FloatToStr( round((Kf.K_2.value - Kf.K_1.value)/Kf.K_1.value*100))  +'%');
+     Kf.mkorr.Lines.Add('Коррекция Ca на: '+ FloatToStr( round((Kf.Ca_2.value - Kf.Ca_1.value)/Kf.Ca_1.value*100))  +'%');
+     Kf.mkorr.Lines.Add('Коррекция Mg на: '+ FloatToStr( round((Kf.Mg_2.value - Kf.Mg_1.value)/Kf.Mg_1.value*100))  +'%');
+     Kf.mkorr.Lines.Add('Коррекция S на: '+ FloatToStr( round((Kf.S_2.value - Kf.S_1.value)))  +' ppm');
+     Kf.mkorr.Lines.Add('Коррекция Cl на: '+ FloatToStr( round((Kf.Cl_2.value - Kf.Cl_1.value)))  +' ppm');
+
+          Kf.mkorr.Lines.add('');
+     Kf.mkorr.Lines.Add('СООТНОШЕНИЯ:');
+     Kf.mkorr.Lines.Add('NH4:NO3 до '+ FloatToStr( round( Kf.NH4_1.value/Kf.NO3_1.value*1000  )/1000)  +' после ' + FloatToStr( round( Kf.NH4_2.value/Kf.NO3_2.value*1000  )/1000));
+     Kf.mkorr.Lines.Add('K:N до '+ FloatToStr( round( Kf.K_1.value/Kf.N_1.value*1000  )/1000)  +' после ' + FloatToStr( round( Kf.K_2.value/Kf.N_2.value*1000  )/1000));
+     Kf.mkorr.Lines.Add('K:Ca до '+ FloatToStr( round( Kf.K_1.value/Kf.Ca_1.value*1000  )/1000)  +' после ' + FloatToStr( round( Kf.K_2.value/Kf.Ca_2.value*1000  )/1000));
+     Kf.mkorr.Lines.Add('K:Mg до '+ FloatToStr( round( Kf.K_1.value/Kf.Mg_1.value*1000  )/1000)  +' после ' + FloatToStr( round( Kf.K_2.value/Kf.Mg_2.value*1000  )/1000));
 
 end;
 
@@ -3797,6 +3828,11 @@ begin
 
 end;
 
+procedure TKf.N_2Change(Sender: TObject);
+begin
+
+end;
+
 procedure TKf.N_kChange(Sender: TObject);
 begin
   unkorrection;
@@ -3890,21 +3926,54 @@ end;
 
 procedure TKf.tojrnlClick(Sender: TObject);
 begin
-   de1.Text:=FormatDateTime('yyyy-mm-dd', Now);
+      MyFormatSettings.DecimalSeparator := '.';
+   //vN:=kf.N.Value;
+   //ps:='N='+ FloatToStr(round(vN))+' '
+   //                 +'NO3='+FloatToStr(round(vNO3*100)/100, MyFormatSettings)+' '
+   //                 +'NH4='+FloatToStr(round(vNH4*100)/100, MyFormatSettings)+' '
+   //                 +'P='+FloatToStr(round(vP*100)/100, MyFormatSettings)+' '
+   //                 +'K='+FloatToStr(round(vK*100)/100, MyFormatSettings)+' '
+   //                 +'Ca='+FloatToStr(round(vCa*100)/100, MyFormatSettings)+' '
+   //                 +'Mg='+FloatToStr(round(vMg*100)/100, MyFormatSettings)+' '
+   //                 +'S='+FloatToStr(round(vS*10)/10, MyFormatSettings)+' '
+   //                 +'Cl='+FloatToStr(round(vCl*10)/10, MyFormatSettings)+' '
+   //
+   //                 +'Fe='+FloatToStr(round(kf.Fe.value)/1000, MyFormatSettings)+' '
+   //                 +'Mn='+FloatToStr(round(kf.Mn.value)/1000, MyFormatSettings)+' '
+   //                 +'B='+FloatToStr(round(kf.B.value)/1000, MyFormatSettings)+' '
+   //                 +'Zn='+FloatToStr(round(kf.Zn.value)/1000, MyFormatSettings)+' '
+   //                 +'Cu='+FloatToStr(round(kf.Cu.value)/1000, MyFormatSettings)+' '
+   //                 +'Mo='+FloatToStr(round(kf.Mo.value)/1000, MyFormatSettings)+' '
+   //                 +'Co='+FloatToStr(round(kf.Co.value)/1000, MyFormatSettings)+' '
+   //                 +'Si='+FloatToStr(round(kf.Si.value)/1000, MyFormatSettings)+' '
+
+
+
+de1.Text:=FormatDateTime('yyyy-mm-dd', Now);
    m1.Text:='Корректор. Скорректирован раствор до ' + FloatToStr(V_2.Value) + ' литров.';
-   kf.N.value:=kf.N_2.value;
-   kf.NO3.value:=kf.NO3_2.value;
-   kf.NH4.value:=kf.NH4_2.value;
-   kf.P.value:=kf.P_2.value;
-   kf.K.value:=kf.K_2.value;
-   kf.Ca.value:=kf.Ca_2.value;
-   kf.Mg.value:=kf.Mg_2.value;
-   kf.Cl.value:=kf.Cl_2.value;
 
-   CalcAll;
-   genProfile;
+   //str:='date='+de1.Text+';'+m1.Text+';'+profile.Caption;
+   str:='date='+de1.Text+';'+m1.Text+';'+
+   'N='+FloatToStr(kf.N_2.value, MyFormatSettings)+' '+
+   'NO3='+FloatToStr(kf.NO3_2.value, MyFormatSettings)+' '+
+   'NH4='+FloatToStr(kf.NH4_2.value, MyFormatSettings)+' '+
+   'P='+FloatToStr(kf.P_2.value, MyFormatSettings)+' '+
+   'K='+FloatToStr(kf.K_2.value, MyFormatSettings)+' '+
+   'Ca='+FloatToStr(kf.Ca_2.value, MyFormatSettings)+' '+
+   'Mg='+FloatToStr(kf.Mg_2.value, MyFormatSettings)+' '+
+   'S='+FloatToStr(kf.S_2.value, MyFormatSettings)+' '+
+   'Cl='+FloatToStr(kf.Cl_2.value, MyFormatSettings)+' '
 
-   str:='date='+de1.Text+';'+m1.Text+';'+profile.Caption;
+
+                       +'Fe='+FloatToStr(round(kf.Fe.value)/1000, MyFormatSettings)+' '
+                       +'Mn='+FloatToStr(round(kf.Mn.value)/1000, MyFormatSettings)+' '
+                       +'B='+FloatToStr(round(kf.B.value)/1000, MyFormatSettings)+' '
+                       +'Zn='+FloatToStr(round(kf.Zn.value)/1000, MyFormatSettings)+' '
+                       +'Cu='+FloatToStr(round(kf.Cu.value)/1000, MyFormatSettings)+' '
+                       +'Mo='+FloatToStr(round(kf.Mo.value)/1000, MyFormatSettings)+' '
+                       +'Co='+FloatToStr(round(kf.Co.value)/1000, MyFormatSettings)+' '
+                       +'Si='+FloatToStr(round(kf.Si.value)/1000, MyFormatSettings);
+
    if not Assigned(DStr)then DStr := TStringList.Create;
    DStr.Add(StringReplace(str, #10, ' ', [rfReplaceAll, rfIgnoreCase]));
    DStr.Sort;
@@ -4132,6 +4201,36 @@ begin
   CalcAll;
 end;
 
+procedure TKf.bsend2Click(Sender: TObject);
+begin
+  kf.N.value:=kf.N_0.value;
+  kf.NO3.value:=kf.NO3_0.value;
+  kf.NH4.value:=kf.NH4_0.value;
+  kf.P.value:=kf.P_0.value;
+  kf.K.value:=kf.K_0.value;
+  kf.Ca.value:=kf.Ca_0.value;
+  kf.Mg.value:=kf.Mg_0.value;
+  kf.Cl.value:=kf.Cl_0.value;
+
+
+  CalcAll;
+end;
+
+procedure TKf.bsend3Click(Sender: TObject);
+begin
+  kf.N.value:=kf.N_1.value;
+  kf.NO3.value:=kf.NO3_1.value;
+  kf.NH4.value:=kf.NH4_1.value;
+  kf.P.value:=kf.P_1.value;
+  kf.K.value:=kf.K_1.value;
+  kf.Ca.value:=kf.Ca_1.value;
+  kf.Mg.value:=kf.Mg_1.value;
+  kf.Cl.value:=kf.Cl_1.value;
+  kf.V.value:=kf.V_1.value;
+
+  CalcAll;
+end;
+
 procedure TKf.bsendClick(Sender: TObject);
 begin
   kf.N.value:=kf.N_2.value;
@@ -4243,6 +4342,11 @@ end;
 procedure TKf.bIzgClick(Sender: TObject);
 begin
   OpenURL('https://github.com/siv237/HPG/wiki/izgotovlenie');
+end;
+
+procedure TKf.bKorrectClick(Sender: TObject);
+begin
+  OpenURL('https://github.com/siv237/HPG/wiki/correction');
 end;
 
 procedure TKf.CaChange(Sender: TObject);
