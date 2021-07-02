@@ -1,4 +1,4 @@
-version=Hydroponic Profile Generator 0.216 https://github.com/siv237/HPG
+version=Hydroponic Profile Generator 0.218 https://github.com/siv237/HPG
 Comment=Огурцы и зелень
 N=210.26
 NH4=13.2
@@ -79,7 +79,7 @@ gmlSi=1
 chkComplex=TRUE
 chK2SO4=TRUE
 chMgNO3=FALSE
-V=10
+V=30
 mCaNO3=p1
 mKNO3=p2
 mNH4NO3=p3
@@ -98,6 +98,7 @@ mMo=
 mCo=
 mSi=
 addrMixer=mixer.local
+nmix=2
 tAml=500
 tBml=500
 cgCaNO3=0.088
@@ -127,3 +128,4 @@ date=2021-06-07;Корректор. Скорректирован раствор 
 date=2021-06-13;Автозапись. Изготовлен раствор на 23,6 литров.;N=210 NO3=197.06 NH4=13.2 P=40 K=294.37 Ca=154.93 Mg=34.63 S=59.2 Cl=0 Fe=3.361 Mn=0.534 B=0.6 Zn=0.323 Cu=0.058 Mo=0.058 Co=0.058 Si=0 
 date=2021-06-19;Автозапись. Изготовлен раствор на 20 литров.;N=210 NO3=197.06 NH4=13.2 P=40 K=294.37 Ca=154.93 Mg=34.63 S=59.2 Cl=0 Fe=4 Mn=1.681 B=0.6 Zn=0.4 Cu=0.07 Mo=0.07 Co=0.07 Si=0 
 date=2021-06-27;Автозапись. Изготовлен раствор на 10 литров.;N=210 NO3=197.06 NH4=13.2 P=40 K=294.37 Ca=154.93 Mg=34.63 S=59.2 Cl=0 Fe=4 Mn=1.681 B=0.6 Zn=0.4 Cu=0.07 Mo=0.07 Co=0.07 Si=0 
+date=2021-07-01;Автозапись. Изготовлен раствор на 30 литров.;N=210 NO3=197.06 NH4=13.2 P=40 K=294.37 Ca=154.93 Mg=34.63 S=59.2 Cl=0 Fe=4.001 Mn=1.048 B=0.706 Zn=0.398 Cu=0.07 Mo=0.07 Co=0 Si=0 

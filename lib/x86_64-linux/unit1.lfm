@@ -1,7 +1,7 @@
 object Kf: TKf
-  Left = 916
+  Left = 418
   Height = 816
-  Top = 170
+  Top = 117
   Width = 763
   HorzScrollBar.Page = 761
   VertScrollBar.Page = 807
@@ -4560,7 +4560,7 @@ object Kf: TKf
             ParentFont = False
           end
           object Button2: TButton
-            Left = 282
+            Left = 323
             Height = 28
             Top = 548
             Width = 96
@@ -4575,7 +4575,7 @@ object Kf: TKf
             Left = 0
             Height = 27
             Top = 548
-            Width = 275
+            Width = 240
             Font.Height = -15
             Font.Name = 'Arial'
             ParentFont = False
@@ -4606,7 +4606,7 @@ object Kf: TKf
             ParentFont = False
           end
           object btch: TButton
-            Left = 383
+            Left = 424
             Height = 28
             Top = 548
             Width = 180
@@ -4615,7 +4615,7 @@ object Kf: TKf
             TabOrder = 54
           end
           object Button9: TButton
-            Left = 568
+            Left = 609
             Height = 28
             Top = 548
             Width = 135
@@ -4672,6 +4672,14 @@ object Kf: TKf
             Font.Name = 'Arial'
             ParentFont = False
             TabOrder = 15
+          end
+          object nmix: TSpinEdit
+            Left = 247
+            Height = 27
+            Top = 548
+            Width = 68
+            MaxValue = 999
+            TabOrder = 56
           end
         end
         object TabSheet7: TTabSheet
@@ -7370,7 +7378,7 @@ object Kf: TKf
     Height = 13
     Top = 738
     Width = 218
-    Caption = 'Hydroponic Profile Generator 0.217'
+    Caption = 'Hydroponic Profile Generator 0.218'
     Font.Color = clActiveCaption
     Font.Height = -13
     Font.Name = 'Arial'

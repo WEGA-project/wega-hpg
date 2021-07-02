@@ -1,4 +1,4 @@
-version=Hydroponic Profile Generator 0.216 https://github.com/siv237/HPG
+version=Hydroponic Profile Generator 0.218 https://github.com/siv237/HPG
 Comment=Для клубники и зелени
 N=179.2
 NH4=10.14
@@ -79,7 +79,7 @@ gmlSi=1
 chkComplex=TRUE
 chK2SO4=TRUE
 chMgNO3=FALSE
-V=10
+V=20
 mCaNO3=p1
 mKNO3=p2
 mNH4NO3=p3
@@ -98,6 +98,7 @@ mMo=
 mCo=
 mSi=
 addrMixer=mixer.local
+nmix=3
 tAml=500
 tBml=500
 cgCaNO3=0.088
@@ -146,3 +147,4 @@ date=2021-05-18;Автозапись. Изготовлен раствор на 6
 date=2021-05-18;Корректор. Скорректирован раствор до 36 литров.;N=179.2 NO3=169.06 NH4=10.14 P=60 K=340.48 Ca=154.76 Mg=48.64 S=114.642 Cl=0 Fe=4 Mn=0.635 B=0.714 Zn=0.384 Cu=0.069 Mo=0.069 Co=0.069 Si=0
 date=2021-05-25;Автозапись. Изготовлен раствор на 10 литров.;N=179 NO3=169.06 NH4=10.14 P=60 K=340.48 Ca=154.76 Mg=48.64 S=114.6 Cl=0 Fe=4 Mn=0.635 B=0.714 Zn=0.384 Cu=0.069 Mo=0.069 Co=0.069 Si=0 
 date=2021-06-21;Автозапись. Изготовлен раствор на 9 литров.;N=179 NO3=169.06 NH4=10.14 P=60 K=340.48 Ca=154.76 Mg=48.64 S=114.6 Cl=0 Fe=4 Mn=1.681 B=0.6 Zn=0.4 Cu=0.07 Mo=0.07 Co=0.07 Si=0 
+date=2021-07-01;Автозапись. Изготовлен раствор на 20 литров.;N=179 NO3=169.06 NH4=10.14 P=60 K=340.48 Ca=154.76 Mg=48.64 S=114.6 Cl=0 Fe=4.001 Mn=1.048 B=0.706 Zn=0.398 Cu=0.07 Mo=0.07 Co=0 Si=0 

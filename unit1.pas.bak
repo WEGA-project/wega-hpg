@@ -37,6 +37,7 @@ type
     Label113: TLabel;
     Label115: TLabel;
     mkorr: TMemo;
+    nmix: TSpinEdit;
     tojrnl: TButton;
     Button11: TButton;
     Button2: TButton;
@@ -2327,6 +2328,7 @@ begin
            if (IsWordPresent('mCo', str, ['=']) = true) then Kf.mCo.text:=ExtractWord(2,str,['=']);
            if (IsWordPresent('mSi', str, ['=']) = true) then Kf.mSi.text:=ExtractWord(2,str,['=']);
            if (IsWordPresent('addrMixer', str, ['=']) = true) then Kf.addrMixer.text:=ExtractWord(2,str,['=']);
+           if (IsWordPresent('nmix', str, ['=']) = true) then Kf.nmix.text:=ExtractWord(2,str,['=']);
 
            // Цены
            if (IsWordPresent('cgCaNO3', str, ['=']) = true) then Kf.cgCaNO3.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
@@ -2499,6 +2501,7 @@ begin
      writeln(tfOut,'mCo=',Kf.mCo.Text);
      writeln(tfOut,'mSi=',Kf.mSi.Text);
      writeln(tfOut,'addrMixer=',Kf.addrMixer.Text);
+     writeln(tfOut,'nmix=',Kf.nmix.Text);
 
      writeln(tfOut,'tAml=',FloatToStr(Kf.tAml.Value,MyFormatSettings));
      writeln(tfOut,'tBml=',FloatToStr(Kf.tBml.Value,MyFormatSettings));
@@ -4014,8 +4017,8 @@ var
     mixlink:string;
 begin
   mixlink:='http://' + addrMixer.text + '/?';
-
-    if (mCaNO3.Text <> '') then mixlink:=mixlink + mCaNO3.Text + '=' + g2gCaNO3.Text + '&';
+  mixlink:=mixlink + 's' + '=' + nmix.Text + '&';
+  if (mCaNO3.Text <> '') then mixlink:=mixlink + mCaNO3.Text + '=' + g2gCaNO3.Text + '&';
   if (mKNO3.Text <> '') then mixlink:=mixlink + mKNO3.Text + '=' + g2gKNO3.Text + '&';
   if (mNH4NO3.Text <> '') then mixlink:=mixlink + mNH4NO3.Text + '=' + g2gNH4NO3.Text + '&';
   if (mMgNO3.Text <> '') then mixlink:=mixlink + mMgNO3.Text + '=' + g2gMgNO3.Text + '&';

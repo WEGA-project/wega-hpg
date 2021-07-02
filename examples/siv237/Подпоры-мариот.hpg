@@ -1,4 +1,4 @@
-version=Hydroponic Profile Generator 0.216 https://github.com/siv237/HPG
+version=Hydroponic Profile Generator 0.218 https://github.com/siv237/HPG
 Comment=Для пассивных подпоров с мариоттом (мандарины,цитрусы и прочее)
 N=167.664
 NH4=27.94
@@ -98,6 +98,7 @@ mMo=
 mCo=
 mSi=
 addrMixer=mixer.local
+nmix=5
 tAml=500
 tBml=500
 cgCaNO3=0.088
