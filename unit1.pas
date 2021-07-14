@@ -4022,6 +4022,7 @@ begin
   if (mKNO3.Text <> '') then mixlink:=mixlink + mKNO3.Text + '=' + g2gKNO3.Text + '&';
   if (mNH4NO3.Text <> '') then mixlink:=mixlink + mNH4NO3.Text + '=' + g2gNH4NO3.Text + '&';
   if (mMgNO3.Text <> '') then mixlink:=mixlink + mMgNO3.Text + '=' + g2gMgNO3.Text + '&';
+  if (mCaCl2.Text <> '') then mixlink:=mixlink + mCaCl2.Text + '=' + g2gCaCl2.Text + '&';
 
   if (mMgSO4.Text <> '') then mixlink:=mixlink + mMgSO4.Text + '=' + g2gMgSO4.Text + '&';
   if (mKH2PO4.Text <> '') then mixlink:=mixlink + mKH2PO4.Text + '=' + g2gKH2PO4.Text + '&';

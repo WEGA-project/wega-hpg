@@ -1,7 +1,7 @@
 object Kf: TKf
-  Left = 418
+  Left = 768
   Height = 816
-  Top = 117
+  Top = 127
   Width = 763
   HorzScrollBar.Page = 761
   VertScrollBar.Page = 807
@@ -21,11 +21,11 @@ object Kf: TKf
     Height = 709
     Top = -1
     Width = 761
-    ActivePage = TabSheet4
+    ActivePage = TabSheet3
     Font.Height = -15
     Font.Name = 'Arial'
     ParentFont = False
-    TabIndex = 4
+    TabIndex = 2
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'Макро'
@@ -4636,8 +4636,8 @@ object Kf: TKf
             Left = 181
             Height = 16
             Top = 146
-            Width = 246
-            Caption = 'Магний азотнокислый 6-водный (ч.)'
+            Width = 208
+            Caption = 'Кальция хлорид 6-водный (ч.)'
             Font.Height = -15
             Font.Name = 'Arial'
             ParentColor = False

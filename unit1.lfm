@@ -1,7 +1,7 @@
 object Kf: TKf
-  Left = 418
+  Left = 768
   Height = 816
-  Top = 117
+  Top = 127
   Width = 763
   HorzScrollBar.Page = 761
   VertScrollBar.Page = 807
@@ -4636,8 +4636,8 @@ object Kf: TKf
             Left = 181
             Height = 16
             Top = 146
-            Width = 246
-            Caption = 'Магний азотнокислый 6-водный (ч.)'
+            Width = 208
+            Caption = 'Кальция хлорид 6-водный (ч.)'
             Font.Height = -15
             Font.Name = 'Arial'
             ParentColor = False
@@ -7378,7 +7378,7 @@ object Kf: TKf
     Height = 13
     Top = 738
     Width = 218
-    Caption = 'Hydroponic Profile Generator 0.218'
+    Caption = 'Hydroponic Profile Generator 0.219'
     Font.Color = clActiveCaption
     Font.Height = -13
     Font.Name = 'Arial'

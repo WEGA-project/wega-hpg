@@ -19,8 +19,8 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="2304"/>
-        <CursorPos X="12" Y="2332"/>
+        <TopLine Value="4014"/>
+        <CursorPos X="78" Y="4025"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -305,11 +305,11 @@
       </Position28>
       <Position29>
         <Filename Value="unit1.pas"/>
-        <Caret Line="2076" Column="11" TopLine="2085"/>
+        <Caret Line="4063" Column="21" TopLine="4056"/>
       </Position29>
       <Position30>
         <Filename Value="unit1.pas"/>
-        <Caret Line="4063" Column="21" TopLine="4056"/>
+        <Caret Line="2332" Column="12" TopLine="2304"/>
       </Position30>
     </JumpHistory>
     <RunParams>
@@ -324,7 +324,7 @@
         <WatchScope Value="wpsLocal"/>
         <WatchKind Value="wpkWrite"/>
         <Source Value="unit1.pas"/>
-        <Line Value="4865"/>
+        <Line Value="4866"/>
       </Item1>
     </BreakPoints>
   </Debugging>
