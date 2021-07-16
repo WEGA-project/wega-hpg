@@ -2318,6 +2318,8 @@ begin
            if (IsWordPresent('mNH4NO3', str, ['=']) = true) then Kf.mNH4NO3.text:=ExtractWord(2,str,['=']);
            if (IsWordPresent('mMgNO3', str, ['=']) = true) then Kf.mMgNO3.text:=ExtractWord(2,str,['=']);
            if (IsWordPresent('mMgSO4', str, ['=']) = true) then Kf.mMgSO4.text:=ExtractWord(2,str,['=']);
+           if (IsWordPresent('mKH2PO4', str, ['=']) = true) then Kf.mKH2PO4.text:=ExtractWord(2,str,['=']);
+           if (IsWordPresent('mK2SO4', str, ['=']) = true) then Kf.mK2SO4.text:=ExtractWord(2,str,['=']);
            if (IsWordPresent('mCaCl2', str, ['=']) = true) then Kf.mCaCl2.text:=ExtractWord(2,str,['=']);
            if (IsWordPresent('mCmplx', str, ['=']) = true) then Kf.mCmplx.text:=ExtractWord(2,str,['=']);
            if (IsWordPresent('mFe', str, ['=']) = true) then Kf.mFe.text:=ExtractWord(2,str,['=']);

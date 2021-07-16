@@ -1,7 +1,7 @@
 object Kf: TKf
-  Left = 768
+  Left = 1004
   Height = 816
-  Top = 127
+  Top = 136
   Width = 763
   HorzScrollBar.Page = 761
   VertScrollBar.Page = 807
@@ -21,11 +21,11 @@ object Kf: TKf
     Height = 709
     Top = -1
     Width = 761
-    ActivePage = TabSheet3
+    ActivePage = TabSheet4
     Font.Height = -15
     Font.Name = 'Arial'
     ParentFont = False
-    TabIndex = 2
+    TabIndex = 4
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'Макро'
@@ -7378,7 +7378,7 @@ object Kf: TKf
     Height = 13
     Top = 738
     Width = 218
-    Caption = 'Hydroponic Profile Generator 0.218'
+    Caption = 'Hydroponic Profile Generator 0.219'
     Font.Color = clActiveCaption
     Font.Height = -13
     Font.Name = 'Arial'
