@@ -3652,7 +3652,7 @@ if (lb1.SelCount > 0 ) then
               //Kf.lb1.Items.Add(StrDate + ' ' + StrCmnt);
               de1.Text:=ExtractWord(2,str,[';','=']);
               m1.Text:=ExtractWord(2,str,[';']);
-              pr2.Caption:=ExtractWord(3,str,[';']);
+             if (ExtractWord(3,str,[';']) <> '' ) then pr2.Caption:=ExtractWord(3,str,[';']);
               end;
 
 
@@ -3706,14 +3706,14 @@ if (lb1.SelCount > 0 ) then
     end;
 
 
-    rN.Caption:='N:('+FloatToStr(round((vN-vrN)/vrN*100))+'%)';
-    rNO3.Caption:='NO3:('+FloatToStr(round((vNO3-vrNO3)/vrNO3*100))+'%)';
-    rNH4.Caption:='NH4:('+FloatToStr(round((vNH4-vrNH4)/vrNH4*100))+'%)';
-    rP.Caption:='P:('+FloatToStr(round((vP-vrP)/vrP*100))+'%)';
-    rK.Caption:='K:('+FloatToStr(round((vK-vrK)/vrK*100))+'%)';
-    rCa.Caption:='Ca:('+FloatToStr(round((vCa-vrCa)/vrCa*100))+'%)';
-    rMg.Caption:='Mg:('+FloatToStr(round((vMg-vrMg)/vrMg*100))+'%)';
-    rS.Caption:='S:('+FloatToStr(round((vS-vrS)/vrS*100))+'%)';
+    if(vrN>0) then rN.Caption:='N:('+FloatToStr(round((vN-vrN)/vrN*100))+'%)';
+    if(vrNO3>0) then rNO3.Caption:='NO3:('+FloatToStr(round((vNO3-vrNO3)/vrNO3*100))+'%)';
+    if(vrNH4>0) then rNH4.Caption:='NH4:('+FloatToStr(round((vNH4-vrNH4)/vrNH4*100))+'%)';
+    if(vrP>0) then rP.Caption:='P:('+FloatToStr(round((vP-vrP)/vrP*100))+'%)';
+    if(vrK>0) then rK.Caption:='K:('+FloatToStr(round((vK-vrK)/vrK*100))+'%)';
+    if(vrCa>0) then rCa.Caption:='Ca:('+FloatToStr(round((vCa-vrCa)/vrCa*100))+'%)';
+    if(vrMg>0) then rMg.Caption:='Mg:('+FloatToStr(round((vMg-vrMg)/vrMg*100))+'%)';
+    if(vrS>0) then rS.Caption:='S:('+FloatToStr(round((vS-vrS)/vrS*100))+'%)';
     if (vrCl = 0) then rCl.Caption:='-' else rCl.Caption:='Cl:('+FloatToStr(round((vCl-vrCl)/vrCl*100))+'%)';
 
     if(vrFe >0) then rFe.Caption:='Fe:('+FloatToStr(round((vFe/1000-vrFe)/vrFe*100))+'%)' else rFe.Caption:='Fe: -';

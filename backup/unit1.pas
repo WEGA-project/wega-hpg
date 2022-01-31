@@ -21,7 +21,7 @@ type
     bload: TButton;
     bloadpf: TButton;
     bdst: TButton;
-    bRasch1: TButton;
+    bKorrect: TButton;
     bsend: TButton;
     bsend1: TButton;
     bsend2: TButton;
@@ -37,6 +37,7 @@ type
     Label113: TLabel;
     Label115: TLabel;
     mkorr: TMemo;
+    nmix: TSpinEdit;
     tojrnl: TButton;
     Button11: TButton;
     Button2: TButton;
@@ -570,6 +571,7 @@ type
     procedure bdstClick(Sender: TObject);
     procedure bfileClick(Sender: TObject);
     procedure bIzgClick(Sender: TObject);
+    procedure bKorrectClick(Sender: TObject);
     procedure bloadClick(Sender: TObject);
     procedure bloadpfClick(Sender: TObject);
     procedure bMacroClick(Sender: TObject);
@@ -2261,7 +2263,7 @@ begin
            agZn:=kf.dZn.value;
            agCu:=kf.dCu.value;
            agMo:=kf.dMo.value;
-           agCo:=kf.dMo.value;
+           agCo:=kf.dCo.value;
            agSi:=kf.dSi.value;
            agB:=kf.dB.value;
 
@@ -2316,6 +2318,8 @@ begin
            if (IsWordPresent('mNH4NO3', str, ['=']) = true) then Kf.mNH4NO3.text:=ExtractWord(2,str,['=']);
            if (IsWordPresent('mMgNO3', str, ['=']) = true) then Kf.mMgNO3.text:=ExtractWord(2,str,['=']);
            if (IsWordPresent('mMgSO4', str, ['=']) = true) then Kf.mMgSO4.text:=ExtractWord(2,str,['=']);
+           if (IsWordPresent('mKH2PO4', str, ['=']) = true) then Kf.mKH2PO4.text:=ExtractWord(2,str,['=']);
+           if (IsWordPresent('mK2SO4', str, ['=']) = true) then Kf.mK2SO4.text:=ExtractWord(2,str,['=']);
            if (IsWordPresent('mCaCl2', str, ['=']) = true) then Kf.mCaCl2.text:=ExtractWord(2,str,['=']);
            if (IsWordPresent('mCmplx', str, ['=']) = true) then Kf.mCmplx.text:=ExtractWord(2,str,['=']);
            if (IsWordPresent('mFe', str, ['=']) = true) then Kf.mFe.text:=ExtractWord(2,str,['=']);
@@ -2326,6 +2330,7 @@ begin
            if (IsWordPresent('mCo', str, ['=']) = true) then Kf.mCo.text:=ExtractWord(2,str,['=']);
            if (IsWordPresent('mSi', str, ['=']) = true) then Kf.mSi.text:=ExtractWord(2,str,['=']);
            if (IsWordPresent('addrMixer', str, ['=']) = true) then Kf.addrMixer.text:=ExtractWord(2,str,['=']);
+           if (IsWordPresent('nmix', str, ['=']) = true) then Kf.nmix.text:=ExtractWord(2,str,['=']);
 
            // Цены
            if (IsWordPresent('cgCaNO3', str, ['=']) = true) then Kf.cgCaNO3.value:=StrToFloat(ExtractWord(2,str,['=']),MyFormatSettings);
@@ -2498,6 +2503,7 @@ begin
      writeln(tfOut,'mCo=',Kf.mCo.Text);
      writeln(tfOut,'mSi=',Kf.mSi.Text);
      writeln(tfOut,'addrMixer=',Kf.addrMixer.Text);
+     writeln(tfOut,'nmix=',Kf.nmix.Text);
 
      writeln(tfOut,'tAml=',FloatToStr(Kf.tAml.Value,MyFormatSettings));
      writeln(tfOut,'tBml=',FloatToStr(Kf.tBml.Value,MyFormatSettings));
@@ -3646,7 +3652,7 @@ if (lb1.SelCount > 0 ) then
               //Kf.lb1.Items.Add(StrDate + ' ' + StrCmnt);
               de1.Text:=ExtractWord(2,str,[';','=']);
               m1.Text:=ExtractWord(2,str,[';']);
-              pr2.Caption:=ExtractWord(3,str,[';']);
+             if (ExtractWord(3,str,[';']) <> '' ) then pr2.Caption:=ExtractWord(3,str,[';']);
               end;
 
 
@@ -3700,14 +3706,14 @@ if (lb1.SelCount > 0 ) then
     end;
 
 
-    rN.Caption:='N:('+FloatToStr(round((vN-vrN)/vrN*100))+'%)';
-    rNO3.Caption:='NO3:('+FloatToStr(round((vNO3-vrNO3)/vrNO3*100))+'%)';
-    rNH4.Caption:='NH4:('+FloatToStr(round((vNH4-vrNH4)/vrNH4*100))+'%)';
-    rP.Caption:='P:('+FloatToStr(round((vP-vrP)/vrP*100))+'%)';
-    rK.Caption:='K:('+FloatToStr(round((vK-vrK)/vrK*100))+'%)';
-    rCa.Caption:='Ca:('+FloatToStr(round((vCa-vrCa)/vrCa*100))+'%)';
-    rMg.Caption:='Mg:('+FloatToStr(round((vMg-vrMg)/vrMg*100))+'%)';
-    rS.Caption:='S:('+FloatToStr(round((vS-vrS)/vrS*100))+'%)';
+    if(vrN>0) then rN.Caption:='N:('+FloatToStr(round((vN-vrN)/vrN*100))+'%)';
+    if(vrNO3>0) then rNO3.Caption:='NO3:('+FloatToStr(round((vNO3-vrNO3)/vrNO3*100))+'%)';
+    if(vrNH4>0) then rNH4.Caption:='NH4:('+FloatToStr(round((vNH4-vrNH4)/vrNH4*100))+'%)';
+    if(vrP>0) then rP.Caption:='P:('+FloatToStr(round((vP-vrP)/vrP*100))+'%)';
+    if(vrK>0) then rK.Caption:='K:('+FloatToStr(round((vK-vrK)/vrK*100))+'%)';
+    if(vrCa>0) then rCa.Caption:='Ca:('+FloatToStr(round((vCa-vrCa)/vrCa*100))+'%)';
+    if(vrMg>0) then rMg.Caption:='Mg:('+FloatToStr(round((vMg-vrMg)/vrMg*100))+'%)';
+    if(vrS>0) then rS.Caption:='S:('+FloatToStr(round((vS-vrS)/vrS*100))+'%)';
     if (vrCl = 0) then rCl.Caption:='-' else rCl.Caption:='Cl:('+FloatToStr(round((vCl-vrCl)/vrCl*100))+'%)';
 
     if(vrFe >0) then rFe.Caption:='Fe:('+FloatToStr(round((vFe/1000-vrFe)/vrFe*100))+'%)' else rFe.Caption:='Fe: -';
@@ -4013,11 +4019,12 @@ var
     mixlink:string;
 begin
   mixlink:='http://' + addrMixer.text + '/?';
-
-    if (mCaNO3.Text <> '') then mixlink:=mixlink + mCaNO3.Text + '=' + g2gCaNO3.Text + '&';
+  mixlink:=mixlink + 's' + '=' + nmix.Text + '&';
+  if (mCaNO3.Text <> '') then mixlink:=mixlink + mCaNO3.Text + '=' + g2gCaNO3.Text + '&';
   if (mKNO3.Text <> '') then mixlink:=mixlink + mKNO3.Text + '=' + g2gKNO3.Text + '&';
   if (mNH4NO3.Text <> '') then mixlink:=mixlink + mNH4NO3.Text + '=' + g2gNH4NO3.Text + '&';
   if (mMgNO3.Text <> '') then mixlink:=mixlink + mMgNO3.Text + '=' + g2gMgNO3.Text + '&';
+  if (mCaCl2.Text <> '') then mixlink:=mixlink + mCaCl2.Text + '=' + g2gCaCl2.Text + '&';
 
   if (mMgSO4.Text <> '') then mixlink:=mixlink + mMgSO4.Text + '=' + g2gMgSO4.Text + '&';
   if (mKH2PO4.Text <> '') then mixlink:=mixlink + mKH2PO4.Text + '=' + g2gKH2PO4.Text + '&';
@@ -4341,6 +4348,11 @@ end;
 procedure TKf.bIzgClick(Sender: TObject);
 begin
   OpenURL('https://github.com/siv237/HPG/wiki/izgotovlenie');
+end;
+
+procedure TKf.bKorrectClick(Sender: TObject);
+begin
+  OpenURL('https://github.com/siv237/HPG/wiki/correction');
 end;
 
 procedure TKf.CaChange(Sender: TObject);
