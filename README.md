@@ -6,6 +6,8 @@
 <a href="images/calc.png"><img src="images/calc.png" width="300"></a> &emsp; <a href="images/micro.png"><img src="images/micro.png" width="300"></a>&emsp; <a href="images/mono_solutions.png"><img src="images/mono_solutions.png" width="300"></a>
 </div>
 
+[**СКАЧАТЬ**](https://github.com/WEGA-project/WEGA-HPG/archive/refs/heads/master.zip)
+
 Содержание
 =================
 <!--ts-->
@@ -14,19 +16,19 @@
 * [Актуальные версии](#versions)
 * [Как собрать калькулятор под свою систему](#how_to_build)
 <!--te-->
-<a name="overview"></a>
-### Описание
+---
+### Описание <a name="overview"></a>
 Данная программа является графическим приложением созданым для анализа, коррекции и генерации профилей минерального питания растений при гидропонном методе выращивания.
 
 Она позволяет рассчитать навески 7 основных минеральных солей содержащих макроэлементы и 8 дополнительных компонентов содержащих микроэлементы.
 
-Более подробно можно и нужно почитать на [wiki](https://github.com/WEGA-project/HPG/wiki)
+Более подробно можно и нужно почитать на [wiki](https://github.com/WEGA-project/WEGA-HPG/wiki)
 
-<a name="main_funtions"></a>
-### Основные возможности
-* Создание профиля питания через NPKCaMgSCl
+---
+### Основные возможности <a name="main_funtions"></a>
+* Создание профиля питания через `NPKCaMgSCl`
 * Калькулятор покажет когда профиль не собирается и подскажет как это исправить
-* Получение расчетного ЕС
+* Получение расчетного `ЕС`
 * Коррекция профиля питания через коэффициенты
 * Составление микрокомплекса
 * Коррекция раствора
@@ -37,19 +39,20 @@
 * Ведение журнала
 * Загрузка и обмен профилями
 * Загрузка удобрений из профилей
+* Корректировка раствора
 
-и многое многое другое.
+и многое, многое другое.
 
-<a name="versions"></a>
-### Актуальные версии
+---
+### Актуальные версии <a name="versions"></a>
 
-[Liniux x86_64](https://github.com/siv237/HPG/raw/master/hpg)
+[Liniux x86_64](https://github.com/WEGA-project/WEGA-HPG/raw/master/hpg)
 
-[Windows](https://github.com/siv237/HPG/raw/master/hpg.exe)
+[Windows](https://github.com/WEGA-project/WEGA-HPG/raw/master/hpg.exe)
 
-<a name="how_to_build"></a>
-### Как собрать калькулятор под свою систему
-1. Качаем свежие исходники ([тут всегда последняя версия](https://github.com/siv237/HPG/archive/master.zip)) распаковываем папку с проектом в удобное место.
+---
+### Как собрать калькулятор под свою систему <a name="how_to_build"></a>
+1. Качаем свежие исходники ([тут всегда последняя версия](https://github.com/WEGA-project/WEGA-HPG/archive/master.zip)) распаковываем папку с проектом в удобное место.
 
 2. Качаем [lazarus](https://www.lazarus-ide.org/index.php?page=downloads) для своей системы и устанавливаем (все три компоненты).
 
