@@ -6,7 +6,9 @@
 <a href="images/calc.png"><img src="images/calc.png" width="300"></a> &emsp; <a href="images/micro.png"><img src="images/micro.png" width="300"></a>&emsp; <a href="images/mono_solutions.png"><img src="images/mono_solutions.png" width="300"></a>
 </div>
 
-[**СКАЧАТЬ**](https://github.com/WEGA-project/WEGA-HPG/archive/refs/heads/master.zip)
+[**СКАЧАТЬ весь репозиторий**](https://github.com/WEGA-project/WEGA-HPG/archive/refs/heads/master.zip)
+
+[Примеры профилей питания](https://github.com/WEGA-project/wega-hpg/blob/master/examples.zip)
 
 Содержание
 =================
@@ -26,6 +28,7 @@
 
 ---
 ### Основные возможности <a name="main_funtions"></a>
+* Этот калькулятор основан на ионнном балансе
 * Создание профиля питания через `NPKCaMgSCl`
 * Калькулятор покажет когда профиль не собирается и подскажет как это исправить
 * Получение расчетного `ЕС`
@@ -49,6 +52,8 @@
 [Liniux x86_64](https://github.com/WEGA-project/WEGA-HPG/raw/master/hpg)
 
 [Windows](https://github.com/WEGA-project/WEGA-HPG/raw/master/hpg.exe)
+
+[Примеры профилей питания](https://github.com/WEGA-project/wega-hpg/blob/master/examples.zip)
 
 ---
 ### Как собрать калькулятор под свою систему <a name="how_to_build"></a>
