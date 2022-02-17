@@ -16,7 +16,6 @@ jobs:
           files: examples/
           dest: examples.zip
 
-      - uses: actions/upload-artifact@v2
+      - uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          name: examples
-          path: ${{ github.workspace }}/examples.zip
+          commit_message: Archive examples.
