@@ -1,6 +1,7 @@
 name: Zip examples folder
 
 on:
+  workflow_dispatch:
   push:
     paths:
     - 'examples/**'
