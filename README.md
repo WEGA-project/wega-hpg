@@ -6,6 +6,7 @@
 <a href="images/calc.png"><img src="images/calc.png" width="300"></a> &emsp; <a href="images/micro.png"><img src="images/micro.png" width="300"></a>&emsp; <a href="images/mono_solutions.png"><img src="images/mono_solutions.png" width="300"></a>
 </div>
 
+
 [**СКАЧАТЬ весь репозиторий**](https://github.com/WEGA-project/WEGA-HPG/archive/refs/heads/master.zip)
 
 [Примеры профилей питания](https://github.com/WEGA-project/wega-hpg/blob/master/examples.zip)
