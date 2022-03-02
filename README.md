@@ -1,5 +1,4 @@
 # Калькулятор HPG
-
 Расшифровывается как `Hydroponic Profile Generator`, что означает генератор профиля для гидропоники.
 
 <div align="center">
