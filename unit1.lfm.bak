@@ -1,14 +1,14 @@
 object Kf: TKf
-  Left = 1004
-  Height = 816
-  Top = 136
-  Width = 763
+  Left = 351
+  Height = 810
+  Top = 157
+  Width = 764
   HorzScrollBar.Page = 761
   VertScrollBar.Page = 807
   AutoScroll = True
   Caption = 'Hydroponic Profile Generator (HPG)'
-  ClientHeight = 816
-  ClientWidth = 763
+  ClientHeight = 810
+  ClientWidth = 764
   DesignTimePPI = 100
   Font.Color = clMaroon
   Font.Height = -15
@@ -21,11 +21,11 @@ object Kf: TKf
     Height = 709
     Top = -1
     Width = 761
-    ActivePage = TabSheet4
+    ActivePage = TabSheet1
     Font.Height = -15
     Font.Name = 'Arial'
     ParentFont = False
-    TabIndex = 4
+    TabIndex = 0
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'Макро'
@@ -2545,16 +2545,16 @@ object Kf: TKf
         Height = 616
         Top = 0
         Width = 752
-        ActivePage = TabSheet6
+        ActivePage = TabSheet5
         Font.Height = -15
         Font.Name = 'Arial'
         ParentFont = False
-        TabIndex = 1
+        TabIndex = 0
         TabOrder = 0
         object TabSheet5: TTabSheet
           Caption = 'Расчет'
-          ClientHeight = 580
-          ClientWidth = 746
+          ClientHeight = 612
+          ClientWidth = 748
           Font.Height = -15
           Font.Name = 'Arial'
           OnContextPopup = TabSheet5ContextPopup
@@ -3865,8 +3865,8 @@ object Kf: TKf
         end
         object TabSheet6: TTabSheet
           Caption = 'Изготовление'
-          ClientHeight = 580
-          ClientWidth = 746
+          ClientHeight = 612
+          ClientWidth = 748
           Font.Height = -15
           Font.Name = 'Arial'
           ParentFont = False
@@ -4684,8 +4684,8 @@ object Kf: TKf
         end
         object TabSheet7: TTabSheet
           Caption = 'Цена'
-          ClientHeight = 580
-          ClientWidth = 746
+          ClientHeight = 612
+          ClientWidth = 748
           object cnCaNO3: TLabel
             Left = 98
             Height = 18
@@ -6142,7 +6142,7 @@ object Kf: TKf
       ParentFont = False
       object eComment: TEdit
         Left = 126
-        Height = 27
+        Height = 25
         Top = 64
         Width = 608
         Font.Height = -15
@@ -6153,7 +6153,7 @@ object Kf: TKf
       end
       object eFileName: TEdit
         Left = 126
-        Height = 27
+        Height = 25
         Top = 32
         Width = 608
         Color = clNone
@@ -6214,7 +6214,7 @@ object Kf: TKf
       end
       object Label80: TLabel
         Left = 20
-        Height = 16
+        Height = 17
         Top = 37
         Width = 82
         Caption = 'Имя файла:'
@@ -6225,7 +6225,7 @@ object Kf: TKf
       end
       object Label81: TLabel
         Left = 20
-        Height = 16
+        Height = 17
         Top = 69
         Width = 72
         Caption = 'Описание:'
@@ -6263,7 +6263,7 @@ object Kf: TKf
       end
       object pr2: TEdit
         Left = 8
-        Height = 15
+        Height = 13
         Top = 486
         Width = 723
         BorderStyle = bsNone
@@ -6303,9 +6303,9 @@ object Kf: TKf
       end
       object Label82: TLabel
         Left = 8
-        Height = 16
+        Height = 17
         Top = 467
-        Width = 142
+        Width = 143
         Caption = 'Профиль в журнале:'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -6314,7 +6314,7 @@ object Kf: TKf
       end
       object Label84: TLabel
         Left = 8
-        Height = 16
+        Height = 18
         Top = 3
         Width = 174
         Caption = 'Параметры сохранения'
@@ -6326,7 +6326,7 @@ object Kf: TKf
       end
       object Label85: TLabel
         Left = 8
-        Height = 16
+        Height = 18
         Top = 152
         Width = 131
         Caption = 'Журнал действий'
@@ -6338,7 +6338,7 @@ object Kf: TKf
       end
       object Label83: TLabel
         Left = 201
-        Height = 16
+        Height = 17
         Top = 320
         Width = 37
         Caption = 'Дата:'
@@ -6349,7 +6349,7 @@ object Kf: TKf
       end
       object Label86: TLabel
         Left = 8
-        Height = 16
+        Height = 17
         Top = 320
         Width = 72
         Caption = 'Описание:'
@@ -6360,7 +6360,7 @@ object Kf: TKf
       end
       object rN: TLabel
         Left = 8
-        Height = 16
+        Height = 17
         Top = 544
         Width = 4
         Caption = ' '
@@ -6368,7 +6368,7 @@ object Kf: TKf
       end
       object rNO3: TLabel
         Left = 88
-        Height = 16
+        Height = 17
         Top = 544
         Width = 4
         Caption = ' '
@@ -6376,7 +6376,7 @@ object Kf: TKf
       end
       object rNH4: TLabel
         Left = 176
-        Height = 16
+        Height = 17
         Top = 544
         Width = 4
         Caption = ' '
@@ -6384,7 +6384,7 @@ object Kf: TKf
       end
       object rP: TLabel
         Left = 8
-        Height = 16
+        Height = 17
         Top = 564
         Width = 4
         Caption = ' '
@@ -6392,7 +6392,7 @@ object Kf: TKf
       end
       object rK: TLabel
         Left = 8
-        Height = 16
+        Height = 17
         Top = 584
         Width = 4
         Caption = ' '
@@ -6400,7 +6400,7 @@ object Kf: TKf
       end
       object rCa: TLabel
         Left = 8
-        Height = 16
+        Height = 17
         Top = 604
         Width = 4
         Caption = ' '
@@ -6408,7 +6408,7 @@ object Kf: TKf
       end
       object rMg: TLabel
         Left = 8
-        Height = 16
+        Height = 17
         Top = 624
         Width = 4
         Caption = ' '
@@ -6416,7 +6416,7 @@ object Kf: TKf
       end
       object rS: TLabel
         Left = 8
-        Height = 16
+        Height = 17
         Top = 644
         Width = 4
         Caption = ' '
@@ -6424,7 +6424,7 @@ object Kf: TKf
       end
       object rFe: TLabel
         Left = 283
-        Height = 16
+        Height = 17
         Top = 544
         Width = 4
         Caption = ' '
@@ -6432,7 +6432,7 @@ object Kf: TKf
       end
       object rMn: TLabel
         Left = 283
-        Height = 16
+        Height = 17
         Top = 564
         Width = 4
         Caption = ' '
@@ -6440,7 +6440,7 @@ object Kf: TKf
       end
       object rB: TLabel
         Left = 283
-        Height = 16
+        Height = 17
         Top = 584
         Width = 4
         Caption = ' '
@@ -6448,7 +6448,7 @@ object Kf: TKf
       end
       object rZn: TLabel
         Left = 283
-        Height = 16
+        Height = 17
         Top = 604
         Width = 4
         Caption = ' '
@@ -6456,7 +6456,7 @@ object Kf: TKf
       end
       object rCu: TLabel
         Left = 283
-        Height = 16
+        Height = 17
         Top = 621
         Width = 4
         Caption = ' '
@@ -6464,7 +6464,7 @@ object Kf: TKf
       end
       object rMo: TLabel
         Left = 283
-        Height = 16
+        Height = 17
         Top = 639
         Width = 4
         Caption = ' '
@@ -6472,7 +6472,7 @@ object Kf: TKf
       end
       object rCo: TLabel
         Left = 392
-        Height = 16
+        Height = 17
         Top = 547
         Width = 4
         Caption = ' '
@@ -6480,7 +6480,7 @@ object Kf: TKf
       end
       object rSi: TLabel
         Left = 392
-        Height = 16
+        Height = 17
         Top = 564
         Width = 4
         Caption = ' '
@@ -6497,7 +6497,7 @@ object Kf: TKf
       end
       object de1: TDateEdit
         Left = 254
-        Height = 27
+        Height = 25
         Top = 315
         Width = 123
         CalendarDisplaySettings = [dsShowHeadings, dsShowDayNames]
@@ -6520,7 +6520,7 @@ object Kf: TKf
       end
       object rCl: TLabel
         Left = 88
-        Height = 16
+        Height = 17
         Top = 573
         Width = 4
         Caption = ' '
@@ -7378,7 +7378,7 @@ object Kf: TKf
     Height = 13
     Top = 738
     Width = 218
-    Caption = 'Hydroponic Profile Generator 0.219'
+    Caption = 'Hydroponic Profile Generator 0.221'
     Font.Color = clActiveCaption
     Font.Height = -13
     Font.Name = 'Arial'
