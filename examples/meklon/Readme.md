@@ -30,3 +30,5 @@
 
 </a><a href="img/p_2.jpg"><img src="img/p_2.jpg" width="250"></a><a href="img/p_4.jpg"><img src="img/p_4.jpg" width="250"></a>
 
+### Видео
+[![Trinidad Scorpion CARDI](https://img.youtube.com/vi/AOksTldICkg/0.jpg)](https://www.youtube.com/watch?v=AOksTldICkg "Trinidad Scorpion CARDI")
