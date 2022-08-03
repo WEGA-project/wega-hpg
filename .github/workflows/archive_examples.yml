@@ -11,10 +11,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: papeloto/action-zip@v1
+      - name: Archive Release
+        uses: thedoctor0/zip-release@main
         with:
-          files: examples/
-          dest: examples.zip
+          type: 'zip'
+          path: 'examples/'
+          filename: 'examples.zip'
+#       - uses: papeloto/action-zip@v1
+#         with:
+#           files: examples/
+#           dest: examples.zip
 
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
