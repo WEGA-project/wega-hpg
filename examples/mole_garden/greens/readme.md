@@ -31,6 +31,7 @@
 После 5 настоящего листа, можно переводить на полноценное питание
 
 
+
 ## Фото
 <a href="img/g_all.jpg"><img src="img/g_all.jpg" width="250"><a href="img/g_bock_1.jpg"><img src="img/g_bock_1.jpg" width="250"></a>
 
