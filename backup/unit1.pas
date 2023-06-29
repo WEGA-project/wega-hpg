@@ -4362,7 +4362,7 @@ begin
   CalcKoef;
   CalcWeight ;
   CalcEC;
-  //CalcAll;
+  CalcAll;
    end
 
 end;
@@ -5295,6 +5295,7 @@ begin
    CalcEC;
     CalcKoef;
     CalcWeight ;
+    CalcAll;
    end
 end;
 
