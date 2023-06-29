@@ -2445,9 +2445,9 @@ object Kf: TKf
       end
       object chkComplex: TCheckBox
         Left = 8
-        Height = 21
+        Height = 22
         Top = 400
-        Width = 148
+        Width = 141
         Caption = 'Комплекс по бору'
         Font.Height = -15
         Font.Name = 'Arial'
@@ -2580,11 +2580,11 @@ object Kf: TKf
         Height = 616
         Top = 0
         Width = 752
-        ActivePage = TabSheet7
+        ActivePage = TabSheet5
         Font.Height = -15
         Font.Name = 'Arial'
         ParentFont = False
-        TabIndex = 2
+        TabIndex = 0
         TabOrder = 0
         object TabSheet5: TTabSheet
           Caption = 'Расчет'
@@ -3072,6 +3072,7 @@ object Kf: TKf
             MinValue = 0.001
             OnChange = CalcConcChange
             ParentFont = False
+            ReadOnly = True
             TabOrder = 6
             Value = 1
           end
@@ -3088,6 +3089,7 @@ object Kf: TKf
             MinValue = 0.001
             OnChange = CalcConcChange
             ParentFont = False
+            ReadOnly = True
             TabOrder = 10
             Value = 1
           end
@@ -3104,6 +3106,7 @@ object Kf: TKf
             MinValue = 0.001
             OnChange = CalcConcChange
             ParentFont = False
+            ReadOnly = True
             TabOrder = 14
             Value = 1
           end
@@ -3120,6 +3123,7 @@ object Kf: TKf
             MinValue = 0.001
             OnChange = gmlMgNO3Change
             ParentFont = False
+            ReadOnly = True
             TabOrder = 18
             Value = 1
           end
@@ -3136,6 +3140,7 @@ object Kf: TKf
             MinValue = 0.001
             OnChange = CalcConcChange
             ParentFont = False
+            ReadOnly = True
             TabOrder = 26
             Value = 1
           end
@@ -3152,6 +3157,7 @@ object Kf: TKf
             MinValue = 0.001
             OnChange = CalcConcChange
             ParentFont = False
+            ReadOnly = True
             TabOrder = 30
             Value = 1
           end
@@ -3168,6 +3174,7 @@ object Kf: TKf
             MinValue = 0.001
             OnChange = CalcConcChange
             ParentFont = False
+            ReadOnly = True
             TabOrder = 34
             Value = 1
           end
@@ -3184,6 +3191,7 @@ object Kf: TKf
             MinValue = 0.001
             OnChange = CalcConcChange
             ParentFont = False
+            ReadOnly = True
             TabOrder = 38
             Value = 1
             Visible = False
@@ -3201,6 +3209,7 @@ object Kf: TKf
             MinValue = 0.001
             OnChange = CalcConcChange
             ParentFont = False
+            ReadOnly = True
             TabOrder = 42
             Value = 1
           end
@@ -3217,6 +3226,7 @@ object Kf: TKf
             MinValue = 0.001
             OnChange = CalcConcChange
             ParentFont = False
+            ReadOnly = True
             TabOrder = 46
             Value = 1
           end
@@ -3233,6 +3243,7 @@ object Kf: TKf
             MinValue = 0.001
             OnChange = CalcConcChange
             ParentFont = False
+            ReadOnly = True
             TabOrder = 50
             Value = 1
           end
@@ -3249,6 +3260,7 @@ object Kf: TKf
             MinValue = 0.001
             OnChange = CalcConcChange
             ParentFont = False
+            ReadOnly = True
             TabOrder = 54
             Value = 1
           end
@@ -3265,6 +3277,7 @@ object Kf: TKf
             MinValue = 0.001
             OnChange = CalcConcChange
             ParentFont = False
+            ReadOnly = True
             TabOrder = 58
             Value = 1
           end
@@ -3281,6 +3294,7 @@ object Kf: TKf
             MinValue = 0.001
             OnChange = CalcConcChange
             ParentFont = False
+            ReadOnly = True
             TabOrder = 62
             Value = 1
           end
@@ -3297,6 +3311,7 @@ object Kf: TKf
             MinValue = 0.001
             OnChange = CalcConcChange
             ParentFont = False
+            ReadOnly = True
             TabOrder = 66
             Value = 1
           end
@@ -3313,6 +3328,7 @@ object Kf: TKf
             MinValue = 0.001
             OnChange = CalcConcChange
             ParentFont = False
+            ReadOnly = True
             TabOrder = 70
             Value = 1
           end
@@ -3892,6 +3908,7 @@ object Kf: TKf
             MinValue = 0.001
             OnChange = gmlMgNO3Change
             ParentFont = False
+            ReadOnly = True
             TabOrder = 22
             Value = 1
           end
