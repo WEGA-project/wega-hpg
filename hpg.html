@@ -8726,11 +8726,182 @@ cgSi=0.2700`;
             };
         }
         
+        // Собрать полное содержимое файла HPG (как в fileSaveAs)
+        function buildFullHPGContent() {
+            try {
+                getValues();
+                const comment = document.getElementById('file_comment').value;
+            
+            let content = '';
+            content += 'version=Hydroponic Profile Generator HTML5 https://github.com/siv237/HPG\n';
+            content += 'Comment=' + (comment || '') + '\n';
+            
+            // Макроэлементы профиля
+            content += 'N=' + currentProfile.N + '\n';
+            content += 'NH4=' + currentProfile.NH4 + '\n';
+            content += 'NO3=' + currentProfile.NO3 + '\n';
+            content += 'P=' + currentProfile.P + '\n';
+            content += 'K=' + currentProfile.K + '\n';
+            content += 'Ca=' + currentProfile.Ca + '\n';
+            content += 'Mg=' + currentProfile.Mg + '\n';
+            content += 'S=' + currentProfile.S + '\n';
+            content += 'Cl=' + currentProfile.Cl + '\n';
+            
+            // Составы солей - проценты макроэлементов
+            content += 'CaNO3_Ca=' + getSaltPercent('CaNO3', 'Ca') + '\n';
+            content += 'CaNO3_NO3=' + getSaltPercent('CaNO3', 'NO3') + '\n';
+            content += 'CaNO3_NH4=' + getSaltPercent('CaNO3', 'NH4') + '\n';
+            content += 'KNO3_K=' + getSaltPercent('KNO3', 'K') + '\n';
+            content += 'KNO3_NO3=' + getSaltPercent('KNO3', 'NO3') + '\n';
+            content += 'NH4NO3_NH4=' + getSaltPercent('NH4NO3', 'NH4') + '\n';
+            content += 'NH4NO3_NO3=' + getSaltPercent('NH4NO3', 'NO3') + '\n';
+            content += 'MgSO4_Mg=' + getSaltPercent('MgSO4', 'Mg') + '\n';
+            content += 'MgSO4_S=' + getSaltPercent('MgSO4', 'S') + '\n';
+            content += 'KH2PO4_K=' + getSaltPercent('KH2PO4', 'K') + '\n';
+            content += 'KH2PO4_P=' + getSaltPercent('KH2PO4', 'P') + '\n';
+            content += 'K2SO4_K=' + getSaltPercent('K2SO4', 'K') + '\n';
+            content += 'K2SO4_S=' + getSaltPercent('K2SO4', 'S') + '\n';
+            content += 'MgNO3_Mg=' + getSaltPercent('MgNO3', 'Mg') + '\n';
+            content += 'MgNO3_NO3=' + getSaltPercent('MgNO3', 'NO3') + '\n';
+            content += 'CaCl2_Ca=' + getSaltPercent('CaCl2', 'Ca') + '\n';
+            content += 'CaCl2_Cl=' + getSaltPercent('CaCl2', 'Cl') + '\n';
+            
+            // Микроэлементы профиля
+            content += 'Fe=' + currentProfile.Fe + '\n';
+            content += 'Mn=' + currentProfile.Mn + '\n';
+            content += 'B=' + currentProfile.B + '\n';
+            content += 'Zn=' + currentProfile.Zn + '\n';
+            content += 'Cu=' + currentProfile.Cu + '\n';
+            content += 'Mo=' + currentProfile.Mo + '\n';
+            content += 'Co=' + currentProfile.Co + '\n';
+            content += 'Si=' + currentProfile.Si + '\n';
+            
+            // Доли микроэлементов в солях
+            content += 'dFe=' + getMicroPercent('Fe') + '\n';
+            content += 'dMn=' + getMicroPercent('Mn') + '\n';
+            content += 'dB=' + getMicroPercent('B') + '\n';
+            content += 'dZn=' + getMicroPercent('Zn') + '\n';
+            content += 'dCu=' + getMicroPercent('Cu') + '\n';
+            content += 'dMo=' + getMicroPercent('Mo') + '\n';
+            content += 'dCo=' + getMicroPercent('Co') + '\n';
+            content += 'dSi=' + getMicroPercent('Si') + '\n';
+            
+            // Концентрации растворов
+            content += 'glCaNO3=' + getConcentration('CaNO3') + '\n';
+            content += 'glKNO3=' + getConcentration('KNO3') + '\n';
+            content += 'glNH4NO3=' + getConcentration('NH4NO3') + '\n';
+            content += 'glMgNO3=' + getConcentration('MgNO3') + '\n';
+            content += 'glMgSO4=' + getConcentration('MgSO4') + '\n';
+            content += 'glK2SO4=' + getConcentration('K2SO4') + '\n';
+            content += 'glKH2PO4=' + getConcentration('KH2PO4') + '\n';
+            content += 'glCaCl2=' + getConcentration('CaCl2') + '\n';
+            content += 'glCmplx=' + getConcentration('Cmplx') + '\n';
+            content += 'glFe=' + getConcentration('Fe') + '\n';
+            content += 'glMn=' + getConcentration('Mn') + '\n';
+            content += 'glB=' + getConcentration('B') + '\n';
+            content += 'glZn=' + getConcentration('Zn') + '\n';
+            content += 'glCu=' + getConcentration('Cu') + '\n';
+            content += 'glMo=' + getConcentration('Mo') + '\n';
+            content += 'glCo=' + getConcentration('Co') + '\n';
+            content += 'glSi=' + getConcentration('Si') + '\n';
+            
+            // Плотности растворов
+            content += 'gmlCaNO3=' + getDensity('CaNO3') + '\n';
+            content += 'gmlKNO3=' + getDensity('KNO3') + '\n';
+            content += 'gmlNH4NO3=' + getDensity('NH4NO3') + '\n';
+            content += 'gmlMgNO3=' + getDensity('MgNO3') + '\n';
+            content += 'gmlMgSO4=' + getDensity('MgSO4') + '\n';
+            content += 'gmlK2SO4=' + getDensity('K2SO4') + '\n';
+            content += 'gmlKH2PO4=' + getDensity('KH2PO4') + '\n';
+            content += 'gmlCaCl2=' + getDensity('CaCl2') + '\n';
+            content += 'gmlCmplx=' + getDensity('Cmplx') + '\n';
+            content += 'gmlFe=' + getDensity('Fe') + '\n';
+            content += 'gmlMn=' + getDensity('Mn') + '\n';
+            content += 'gmlB=' + getDensity('B') + '\n';
+            content += 'gmlZn=' + getDensity('Zn') + '\n';
+            content += 'gmlCu=' + getDensity('Cu') + '\n';
+            content += 'gmlMo=' + getDensity('Mo') + '\n';
+            content += 'gmlCo=' + getDensity('Co') + '\n';
+            content += 'gmlSi=' + getDensity('Si') + '\n';
+            
+            // Чекбоксы
+            content += 'chkComplex=' + (document.getElementById('use_complex')?.checked ? 'True' : 'False') + '\n';
+            content += 'chK2SO4=' + (document.getElementById('use_K2SO4')?.checked ? 'True' : 'False') + '\n';
+            content += 'chMgNO3=' + (document.getElementById('use_MgNO3')?.checked ? 'True' : 'False') + '\n';
+            
+            // Объем
+            content += 'V=' + (currentProfile.volume || 10) + '\n';
+            
+            // Названия солей
+            content += 'mCaNO3=' + getSaltName('CaNO3') + '\n';
+            content += 'mKNO3=' + getSaltName('KNO3') + '\n';
+            content += 'mNH4NO3=' + getSaltName('NH4NO3') + '\n';
+            content += 'mMgNO3=' + getSaltName('MgNO3') + '\n';
+            content += 'mMgSO4=' + getSaltName('MgSO4') + '\n';
+            content += 'mKH2PO4=' + getSaltName('KH2PO4') + '\n';
+            content += 'mK2SO4=' + getSaltName('K2SO4') + '\n';
+            content += 'mCaCl2=' + getSaltName('CaCl2') + '\n';
+            content += 'mCmplx=' + getSaltName('Cmplx') + '\n';
+            content += 'mFe=' + getSaltName('Fe') + '\n';
+            content += 'mMn=' + getSaltName('Mn') + '\n';
+            content += 'mB=' + getSaltName('B') + '\n';
+            content += 'mZn=' + getSaltName('Zn') + '\n';
+            content += 'mCu=' + getSaltName('Cu') + '\n';
+            content += 'mMo=' + getSaltName('Mo') + '\n';
+            content += 'mCo=' + getSaltName('Co') + '\n';
+            content += 'mSi=' + getSaltName('Si') + '\n';
+            content += 'addrMixer=' + (document.getElementById('addrMixer')?.value || '') + '\n';
+            content += 'nmix=' + (document.getElementById('nmix')?.value || '') + '\n';
+            
+            // Объемы баков
+            content += 'tAml=' + getTankVolume('A') + '\n';
+            content += 'tBml=' + getTankVolume('B') + '\n';
+            
+            // Цены
+            content += 'cgCaNO3=' + getPrice('CaNO3') + '\n';
+            content += 'cgKNO3=' + getPrice('KNO3') + '\n';
+            content += 'cgNH4NO3=' + getPrice('NH4NO3') + '\n';
+            content += 'cgMgNO3=' + getPrice('MgNO3') + '\n';
+            content += 'cgMgSO4=' + getPrice('MgSO4') + '\n';
+            content += 'cgK2SO4=' + getPrice('K2SO4') + '\n';
+            content += 'cgKH2PO4=' + getPrice('KH2PO4') + '\n';
+            content += 'cgCaCl2=' + getPrice('CaCl2') + '\n';
+            content += 'cgCmplx=' + getPrice('Cmplx') + '\n';
+            content += 'cgFe=' + getPrice('Fe') + '\n';
+            content += 'cgMn=' + getPrice('Mn') + '\n';
+            content += 'cgB=' + getPrice('B') + '\n';
+            content += 'cgZn=' + getPrice('Zn') + '\n';
+            content += 'cgCu=' + getPrice('Cu') + '\n';
+            content += 'cgMo=' + getPrice('Mo') + '\n';
+            content += 'cgCo=' + getPrice('Co') + '\n';
+            content += 'cgSi=' + getPrice('Si') + '\n';
+            
+            // Журнал (в конце файла)
+            console.log('📝 Добавляем журнал в HPG файл. Записей:', journalEntries.length);
+            journalEntries.forEach(entry => {
+                // Формат: date=2024-10-10;Описание;N=220 NO3=200...
+                const journalLine = 'date=' + entry.date + ';' + entry.desc + ';' + entry.profile + '\n';
+                console.log('  Запись журнала:', journalLine.substring(0, 100) + '...');
+                content += journalLine;
+            });
+            
+            console.log('✅ Итоговый размер HPG файла:', content.length, 'символов');
+            return content;
+            } catch (error) {
+                console.error('Ошибка сборки HPG контента:', error);
+                alert('❌ Ошибка при сборке данных профиля: ' + error.message);
+                return '';
+            }
+        }
+        
         // Фактическое сохранение профиля
         async function doSaveProfileToCloud(name, description, tags, isPublic) {
             const user = auth.currentUser;
             
             try {
+                // Собираем ПОЛНОЕ содержимое файла HPG
+                const fullHPGContent = buildFullHPGContent();
+                
                 // Собираем данные профиля
                 const profileData = {
                     // Владелец
@@ -8746,8 +8917,10 @@ cgSi=0.2700`;
                     description: description,
                     tags: tags,
                     
-                    // Данные профиля
-                    profile: document.getElementById('profile-string').value,
+                    // Данные профиля - ПОЛНЫЙ файл HPG
+                    profile: fullHPGContent,
+                    // Дополнительно сохраняем краткую строку для быстрого просмотра
+                    profileString: document.getElementById('profile-string').value,
                     
                     // Журнал
                     journal: journalEntries.map(entry => ({
@@ -8933,8 +9106,14 @@ cgSi=0.2700`;
                                 <button onclick="loadCloudProfile('${doc.id}')" style="flex: 1; padding: 8px; background: #4285f4; color: white; border: none; border-radius: 3px; cursor: pointer; font-size: 13px;">
                                     📥 Загрузить
                                 </button>
+                                <button onclick="downloadCloudProfile('${doc.id}')" style="flex: 1; padding: 8px; background: #ff9800; color: white; border: none; border-radius: 3px; cursor: pointer; font-size: 13px;">
+                                    💾 Скачать
+                                </button>
                                 <button onclick="updateCloudProfile('${doc.id}')" style="flex: 1; padding: 8px; background: #34a853; color: white; border: none; border-radius: 3px; cursor: pointer; font-size: 13px;">
-                                    💾 Обновить
+                                    🔄 Обновить
+                                </button>
+                                <button onclick="editCloudProfile('${doc.id}')" style="padding: 8px 12px; background: #9c27b0; color: white; border: none; border-radius: 3px; cursor: pointer; font-size: 13px;">
+                                    ✏️
                                 </button>
                                 <button onclick="deleteCloudProfile('${doc.id}')" style="padding: 8px 12px; background: #f44336; color: white; border: none; border-radius: 3px; cursor: pointer; font-size: 13px;">
                                     🗑️
@@ -8968,44 +9147,33 @@ cgSi=0.2700`;
                 
                 const profile = doc.data();
                 
-                // Загружаем профиль
-                document.getElementById('profile-string').value = profile.profile;
-                parseProfile();
-                
-                // Принудительно обновляем все расчеты
-                calcAll();
-                
-                // Обновляем мобильное отображение если есть
-                if (typeof updateMobileDisplay === 'function') {
-                    updateMobileDisplay();
-                }
-                if (typeof updateMobileResults === 'function') {
-                    updateMobileResults();
-                }
-                
-                // Загружаем журнал
-                if (profile.journal && profile.journal.length > 0) {
-                    journalEntries = profile.journal.map(entry => ({
-                        date: entry.date,
-                        desc: entry.desc,
-                        memo: entry.desc,
-                        profile: entry.profile
-                    }));
-                    updateJournalList();
-                    if (typeof updateMobileJournal === 'function') {
-                        updateMobileJournal();
+                // Загружаем ПОЛНЫЙ профиль (как из файла .hpg)
+                if (profile.profile) {
+                    // Очищаем localStorage и журнал перед загрузкой
+                    localStorage.removeItem('hpg_profile');
+                    localStorage.removeItem('hpg_journal');
+                    
+                    // Парсим полный файл HPG (включая журнал!)
+                    // parseFullFile уже вызывает все нужные функции:
+                    // - applyProfile()
+                    // - updateJournalList()
+                    // - updateMobileDisplay()
+                    // - updateMobileResults()
+                    // - updateMobileSaltsValues()
+                    parseFullFile(profile.profile);
+                    
+                    // Обновляем имя файла и описание
+                    if (profile.name) {
+                        document.getElementById('file_filename').value = profile.name + '.hpg';
                     }
-                }
-                
-                // Обновляем имя файла и описание
-                if (profile.name) {
-                    document.getElementById('file_filename').value = profile.name + '.hpg';
-                }
-                if (profile.description) {
-                    document.getElementById('file_comment').value = profile.description;
-                }
-                if (typeof updateMobileFileInfo === 'function') {
-                    updateMobileFileInfo();
+                    if (profile.description) {
+                        document.getElementById('file_comment').value = profile.description;
+                    }
+                    
+                    // Обновляем мобильное отображение файла
+                    if (typeof updateMobileFileInfo === 'function') {
+                        updateMobileFileInfo();
+                    }
                 }
                 
                 // Закрываем модальное окно
@@ -9019,13 +9187,163 @@ cgSi=0.2700`;
             }
         }
         
+        // Скачать профиль из облака как .hpg файл
+        async function downloadCloudProfile(profileId) {
+            try {
+                const doc = await db.collection('profiles').doc(profileId).get();
+                
+                if (!doc.exists) {
+                    alert('❌ Профиль не найден');
+                    return;
+                }
+                
+                const profile = doc.data();
+                
+                // Получаем полное содержимое файла HPG
+                const content = profile.profile;
+                
+                if (!content) {
+                    alert('❌ Профиль пустой');
+                    return;
+                }
+                
+                // Создаем Blob и скачиваем файл
+                const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = (profile.name || 'profile') + '.hpg';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                console.log('✅ Профиль скачан:', profile.name);
+                
+            } catch (error) {
+                console.error('Ошибка скачивания профиля:', error);
+                alert('❌ Ошибка скачивания: ' + error.message);
+            }
+        }
+        
+        // Редактировать метаданные профиля (имя, описание, теги, публичность)
+        async function editCloudProfile(profileId) {
+            try {
+                const doc = await db.collection('profiles').doc(profileId).get();
+                
+                if (!doc.exists) {
+                    alert('❌ Профиль не найден');
+                    return;
+                }
+                
+                const profile = doc.data();
+                
+                // Создаем модальное окно
+                const modal = document.createElement('div');
+                modal.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 10000;';
+                
+                modal.innerHTML = `
+                    <div style="background: white; padding: 20px; border-radius: 8px; max-width: 500px; width: 90%;">
+                        <h3 style="margin: 0 0 15px 0;">✏️ Редактировать профиль</h3>
+                        
+                        <div style="margin-bottom: 10px;">
+                            <label style="display: block; margin-bottom: 5px; font-weight: bold;">Название:</label>
+                            <input type="text" id="edit-name" value="${profile.name || ''}" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 3px; box-sizing: border-box;">
+                        </div>
+                        
+                        <div style="margin-bottom: 10px;">
+                            <label style="display: block; margin-bottom: 5px; font-weight: bold;">Описание:</label>
+                            <textarea id="edit-description" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 3px; box-sizing: border-box; min-height: 60px;">${profile.description || ''}</textarea>
+                        </div>
+                        
+                        <div style="margin-bottom: 10px;">
+                            <label style="display: block; margin-bottom: 5px; font-weight: bold;">Теги (через запятую):</label>
+                            <input type="text" id="edit-tags" value="${profile.tags ? profile.tags.join(', ') : ''}" placeholder="томаты, огурцы, зелень" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 3px; box-sizing: border-box;">
+                        </div>
+                        
+                        <div style="margin-bottom: 15px;">
+                            <label style="display: flex; align-items: center; cursor: pointer;">
+                                <input type="checkbox" id="edit-public" ${profile.public ? 'checked' : ''} style="margin-right: 8px;">
+                                <span>🌐 Сделать профиль публичным (доступен всем в каталоге)</span>
+                            </label>
+                        </div>
+                        
+                        <div style="display: flex; gap: 10px;">
+                            <button id="save-edit-btn" style="flex: 1; padding: 10px; background: #4285f4; color: white; border: none; border-radius: 3px; cursor: pointer; font-size: 14px;">
+                                💾 Сохранить
+                            </button>
+                            <button id="cancel-edit-btn" style="flex: 1; padding: 10px; background: #999; color: white; border: none; border-radius: 3px; cursor: pointer; font-size: 14px;">
+                                ❌ Отмена
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                document.body.appendChild(modal);
+                
+                // Обработчик сохранения
+                document.getElementById('save-edit-btn').onclick = async () => {
+                    const name = document.getElementById('edit-name').value.trim();
+                    const description = document.getElementById('edit-description').value.trim();
+                    const tagsInput = document.getElementById('edit-tags').value.trim();
+                    const isPublic = document.getElementById('edit-public').checked;
+                    
+                    if (!name) {
+                        alert('❌ Введите название профиля');
+                        return;
+                    }
+                    
+                    // Парсим теги
+                    const tags = tagsInput ? tagsInput.split(',').map(t => t.trim()).filter(t => t) : [];
+                    
+                    try {
+                        await db.collection('profiles').doc(profileId).update({
+                            name: name,
+                            description: description,
+                            tags: tags,
+                            public: isPublic,
+                            modified: firebase.firestore.FieldValue.serverTimestamp()
+                        });
+                        
+                        modal.remove();
+                        alert('✅ Профиль обновлен!');
+                        loadCloudProfiles(); // Перезагружаем список
+                        
+                    } catch (error) {
+                        console.error('Ошибка обновления профиля:', error);
+                        alert('❌ Ошибка: ' + error.message);
+                    }
+                };
+                
+                // Обработчик отмены
+                document.getElementById('cancel-edit-btn').onclick = () => {
+                    modal.remove();
+                };
+                
+                // Закрытие по клику вне окна
+                modal.onclick = (e) => {
+                    if (e.target === modal) {
+                        modal.remove();
+                    }
+                };
+                
+            } catch (error) {
+                console.error('Ошибка редактирования профиля:', error);
+                alert('❌ Ошибка: ' + error.message);
+            }
+        }
+        
         // Обновить профиль в облаке текущими данными
         async function updateCloudProfile(profileId) {
             if (!confirm('Обновить этот профиль текущими данными?')) return;
             
             try {
+                // Собираем ПОЛНОЕ содержимое файла HPG
+                const fullHPGContent = buildFullHPGContent();
+                
                 await db.collection('profiles').doc(profileId).update({
-                    profile: document.getElementById('profile-string').value,
+                    profile: fullHPGContent,
+                    profileString: document.getElementById('profile-string').value,
                     journal: journalEntries.map(entry => ({
                         date: entry.date,
                         desc: entry.desc || entry.memo,
@@ -9226,9 +9544,14 @@ cgSi=0.2700`;
                                     </div>
                                 </div>
                             </div>
-                            <button onclick="loadPublicProfile('${profile.id}')" style="width: 100%; padding: 8px; background: #4285f4; color: white; border: none; border-radius: 3px; cursor: pointer; font-size: 13px;">
-                                📥 Загрузить этот профиль
-                            </button>
+                            <div style="display: flex; gap: 5px;">
+                                <button onclick="loadPublicProfile('${profile.id}')" style="flex: 1; padding: 8px; background: #4285f4; color: white; border: none; border-radius: 3px; cursor: pointer; font-size: 13px;">
+                                    📥 Загрузить
+                                </button>
+                                <button onclick="downloadCloudProfile('${profile.id}')" style="flex: 1; padding: 8px; background: #ff9800; color: white; border: none; border-radius: 3px; cursor: pointer; font-size: 13px;">
+                                    💾 Скачать
+                                </button>
+                            </div>
                         </div>
                     `;
                 });
@@ -9340,55 +9663,55 @@ cgSi=0.2700`;
                     return;
                 }
                 
-                // Загружаем профиль
-                document.getElementById('profile-string').value = profile.profile;
-                parseProfile();
-                
-                // Принудительно обновляем все расчеты
-                calcAll();
-                
-                // Обновляем мобильное отображение если есть
-                if (typeof updateMobileDisplay === 'function') {
-                    updateMobileDisplay();
-                }
-                if (typeof updateMobileResults === 'function') {
-                    updateMobileResults();
-                }
-                
-                // Загружаем журнал
-                if (profile.journal && profile.journal.length > 0) {
-                    journalEntries = profile.journal.map(entry => ({
-                        date: entry.date,
-                        desc: entry.desc,
-                        memo: entry.desc,
-                        profile: entry.profile
-                    }));
-                    updateJournalList();
-                    if (typeof updateMobileJournal === 'function') {
-                        updateMobileJournal();
+                // Загружаем ПОЛНЫЙ профиль (как из файла .hpg)
+                if (profile.profile) {
+                    // Очищаем localStorage и журнал перед загрузкой
+                    localStorage.removeItem('hpg_profile');
+                    localStorage.removeItem('hpg_journal');
+                    
+                    // Парсим полный файл HPG (включая журнал!)
+                    // parseFullFile уже вызывает все нужные функции:
+                    // - applyProfile()
+                    // - updateJournalList()
+                    // - updateMobileDisplay()
+                    // - updateMobileResults()
+                    // - updateMobileSaltsValues()
+                    parseFullFile(profile.profile);
+                    
+                    // Обновляем имя файла и описание
+                    if (profile.name) {
+                        document.getElementById('file_filename').value = profile.name + '.hpg';
+                    }
+                    if (profile.description) {
+                        document.getElementById('file_comment').value = profile.description;
+                    }
+                    
+                    // Обновляем мобильное отображение файла
+                    if (typeof updateMobileFileInfo === 'function') {
+                        updateMobileFileInfo();
                     }
                 }
-                
-                // Обновляем имя файла и описание
-                if (profile.name) {
-                    document.getElementById('file_filename').value = profile.name + '.hpg';
-                }
-                if (profile.description) {
-                    document.getElementById('file_comment').value = profile.description;
-                }
-                if (typeof updateMobileFileInfo === 'function') {
-                    updateMobileFileInfo();
-                }
-                
-                // Увеличиваем счетчик просмотров
-                await db.collection('profiles').doc(profileId).update({
-                    views: firebase.firestore.FieldValue.increment(1)
-                });
                 
                 // Закрываем модальное окно
                 document.querySelector('[style*="position: fixed"]')?.remove();
                 
-                alert(`✅ Профиль "${profile.name}" от ${profile.userName} загружен!`);
+                // Предупреждаем что профиль чужой
+                const currentUser = auth.currentUser;
+                if (currentUser && profile.userId !== currentUser.uid) {
+                    alert(`✅ Профиль "${profile.name}" от ${profile.userName} загружен!\n\n⚠️ Это чужой профиль. Вы можете его использовать, но не можете перезаписать в облаке.\nЧтобы сохранить изменения, сохраните его под новым именем.`);
+                } else {
+                    alert(`✅ Профиль "${profile.name}" загружен!`);
+                }
+                
+                // Пытаемся увеличить счетчик просмотров (может не сработать из-за прав, но это не критично)
+                try {
+                    await db.collection('profiles').doc(profileId).update({
+                        views: firebase.firestore.FieldValue.increment(1)
+                    });
+                } catch (error) {
+                    // Игнорируем ошибку прав доступа - счетчик не критичен
+                    console.log('Не удалось обновить счетчик просмотров (нет прав)');
+                }
                 
             } catch (error) {
                 console.error('Ошибка загрузки публичного профиля:', error);
