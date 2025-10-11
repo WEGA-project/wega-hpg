@@ -7699,9 +7699,11 @@ cgSi=0.2700`;
                 let startX = 0;
                 let lastX = 0;
                 let isDragging = false;
+                let isSwipeMode = false; // Режим свайпа активирован или нет
                 let initialValue = 0;
                 let wrapper = input.parentElement;
                 let lastUpdateTime = 0;
+                let tapTimeout = null;
                 
                 // Создаем индикаторы свайпа
                 if (!wrapper.querySelector('.swipe-indicator')) {
@@ -7716,39 +7718,86 @@ cgSi=0.2700`;
                     wrapper.appendChild(rightIndicator);
                 }
                 
+                const leftInd = wrapper.querySelector('.swipe-indicator.left');
+                const rightInd = wrapper.querySelector('.swipe-indicator.right');
+                
+                let allowFocus = false; // Флаг разрешения фокуса
+                
+                // Блокируем фокус если это не тап по числу
+                input.addEventListener('focus', (e) => {
+                    if (!allowFocus) {
+                        e.preventDefault();
+                        input.blur();
+                    }
+                    allowFocus = false; // Сбрасываем флаг
+                });
+                
                 input.addEventListener('touchstart', (e) => {
                     startX = e.touches[0].clientX;
                     lastX = startX;
                     initialValue = parseFloat(input.value) || 0;
+                    
+                    // Проверяем позицию тапа
+                    const rect = input.getBoundingClientRect();
+                    const tapX = e.touches[0].clientX - rect.left;
+                    const fieldWidth = rect.width;
+                    
+                    // Тап по числу справа (последние 30% ширины) - открываем клавиатуру
+                    if (tapX > fieldWidth * 0.7) {
+                        allowFocus = true; // Разрешаем фокус
+                        return; // Разрешаем стандартное поведение
+                    }
+                    
+                    // Тап по центральной/левой части - активация свайпа
+                    allowFocus = false; // Запрещаем фокус
+                    
+                    // Если режим свайпа НЕ активен - активируем его
+                    if (!isSwipeMode) {
+                        // Активируем режим свайпа
+                        isSwipeMode = true;
+                        
+                        // Показываем индикаторы сразу
+                        leftInd.classList.add('active');
+                        rightInd.classList.add('active');
+                        input.classList.add('swipe-mode');
+                        
+                        // Автоматически деактивируем через 3 секунды если нет движения
+                        tapTimeout = setTimeout(() => {
+                            isSwipeMode = false;
+                            leftInd.classList.remove('active');
+                            rightInd.classList.remove('active');
+                            input.classList.remove('swipe-mode', 'swipe-left', 'swipe-right');
+                        }, 3000);
+                        return; // Не начинаем драг при первом тапе активации
+                    }
+                    
+                    // Режим свайпа активен - можем начинать драг
                     isDragging = true;
                     lastUpdateTime = Date.now();
+                    
+                    // Сбрасываем таймер деактивации
+                    if (tapTimeout) {
+                        clearTimeout(tapTimeout);
+                        tapTimeout = null;
+                    }
                 }, { passive: true });
                 
                 input.addEventListener('touchmove', (e) => {
-                    if (!isDragging) return;
+                    if (!isDragging || !isSwipeMode) return;
                     
                     const currentX = e.touches[0].clientX;
                     const totalDiff = currentX - startX;
                     const step = parseFloat(input.step) || 1;
                     
-                    const leftInd = wrapper.querySelector('.swipe-indicator.left');
-                    const rightInd = wrapper.querySelector('.swipe-indicator.right');
-                    
-                    // Визуальная индикация
+                    // Визуальная индикация направления
                     if (totalDiff < -5) {
                         input.classList.add('swipe-left');
                         input.classList.remove('swipe-right');
-                        leftInd.classList.add('active');
-                        rightInd.classList.remove('active');
                     } else if (totalDiff > 5) {
                         input.classList.add('swipe-right');
                         input.classList.remove('swipe-left');
-                        rightInd.classList.add('active');
-                        leftInd.classList.remove('active');
                     } else {
                         input.classList.remove('swipe-left', 'swipe-right');
-                        leftInd.classList.remove('active');
-                        rightInd.classList.remove('active');
                     }
                     
                     // Плавное изменение значения в реальном времени
@@ -7785,16 +7834,20 @@ cgSi=0.2700`;
                     // Финальное обновление
                     input.dispatchEvent(new Event('input'));
                     
-                    // Убираем индикаторы и классы
-                    const leftInd = wrapper.querySelector('.swipe-indicator.left');
-                    const rightInd = wrapper.querySelector('.swipe-indicator.right');
-                    leftInd.classList.remove('active');
-                    rightInd.classList.remove('active');
+                    // Убираем классы направления
                     input.classList.remove('swipe-left', 'swipe-right');
                     
                     isDragging = false;
                     startX = 0;
                     lastX = 0;
+                    
+                    // Деактивируем режим свайпа через 2 секунды после окончания
+                    tapTimeout = setTimeout(() => {
+                        isSwipeMode = false;
+                        leftInd.classList.remove('active');
+                        rightInd.classList.remove('active');
+                        input.classList.remove('swipe-mode');
+                    }, 2000);
                 }, { passive: true });
             });
         }
@@ -8139,13 +8192,17 @@ cgSi=0.2700`;
             
             inputs.forEach(input => {
                 let startX = 0;
+                let lastX = 0;
                 let isDragging = false;
+                let isSwipeMode = false; // Режим свайпа активирован или нет
                 let initialValue = 0;
                 let wrapper = input.parentElement;
                 let lastUpdateTime = 0;
+                let tapTimeout = null;
                 
                 // Создаем индикаторы свайпа
                 if (!wrapper.querySelector('.swipe-indicator')) {
+                    wrapper.style.position = 'relative';
                     const leftIndicator = document.createElement('div');
                     leftIndicator.className = 'swipe-indicator left';
                     leftIndicator.textContent = '−';
@@ -8156,38 +8213,86 @@ cgSi=0.2700`;
                     wrapper.appendChild(rightIndicator);
                 }
                 
+                const leftInd = wrapper.querySelector('.swipe-indicator.left');
+                const rightInd = wrapper.querySelector('.swipe-indicator.right');
+                
+                let allowFocus = false; // Флаг разрешения фокуса
+                
+                // Блокируем фокус если это не тап по числу
+                input.addEventListener('focus', (e) => {
+                    if (!allowFocus) {
+                        e.preventDefault();
+                        input.blur();
+                    }
+                    allowFocus = false; // Сбрасываем флаг
+                });
+                
                 input.addEventListener('touchstart', (e) => {
                     startX = e.touches[0].clientX;
+                    lastX = startX;
                     initialValue = parseFloat(input.value) || 0;
+                    
+                    // Проверяем позицию тапа
+                    const rect = input.getBoundingClientRect();
+                    const tapX = e.touches[0].clientX - rect.left;
+                    const fieldWidth = rect.width;
+                    
+                    // Тап по числу справа (последние 30% ширины) - открываем клавиатуру
+                    if (tapX > fieldWidth * 0.7) {
+                        allowFocus = true; // Разрешаем фокус
+                        return; // Разрешаем стандартное поведение
+                    }
+                    
+                    // Тап по центральной/левой части - активация свайпа
+                    allowFocus = false; // Запрещаем фокус
+                    
+                    // Если режим свайпа НЕ активен - активируем его
+                    if (!isSwipeMode) {
+                        // Активируем режим свайпа
+                        isSwipeMode = true;
+                        
+                        // Показываем индикаторы сразу
+                        leftInd.classList.add('active');
+                        rightInd.classList.add('active');
+                        input.classList.add('swipe-mode');
+                        
+                        // Автоматически деактивируем через 3 секунды если нет движения
+                        tapTimeout = setTimeout(() => {
+                            isSwipeMode = false;
+                            leftInd.classList.remove('active');
+                            rightInd.classList.remove('active');
+                            input.classList.remove('swipe-mode', 'swipe-left', 'swipe-right');
+                        }, 3000);
+                        return; // Не начинаем драг при первом тапе активации
+                    }
+                    
+                    // Режим свайпа активен - можем начинать драг
                     isDragging = true;
                     lastUpdateTime = Date.now();
+                    
+                    // Сбрасываем таймер деактивации
+                    if (tapTimeout) {
+                        clearTimeout(tapTimeout);
+                        tapTimeout = null;
+                    }
                 }, { passive: true });
                 
                 input.addEventListener('touchmove', (e) => {
-                    if (!isDragging) return;
+                    if (!isDragging || !isSwipeMode) return;
                     
                     const currentX = e.touches[0].clientX;
                     const totalDiff = currentX - startX;
                     const step = parseFloat(input.step) || 0.01;
                     
-                    const leftInd = wrapper.querySelector('.swipe-indicator.left');
-                    const rightInd = wrapper.querySelector('.swipe-indicator.right');
-                    
-                    // Визуальная индикация
+                    // Визуальная индикация направления
                     if (totalDiff < -5) {
                         input.classList.add('swipe-left');
                         input.classList.remove('swipe-right');
-                        leftInd.classList.add('active');
-                        rightInd.classList.remove('active');
                     } else if (totalDiff > 5) {
                         input.classList.add('swipe-right');
                         input.classList.remove('swipe-left');
-                        rightInd.classList.add('active');
-                        leftInd.classList.remove('active');
                     } else {
                         input.classList.remove('swipe-left', 'swipe-right');
-                        leftInd.classList.remove('active');
-                        rightInd.classList.remove('active');
                     }
                     
                     // Плавное изменение значения
@@ -8213,6 +8318,8 @@ cgSi=0.2700`;
                             lastUpdateTime = now;
                         }
                     }
+                    
+                    lastX = currentX;
                 }, { passive: true });
                 
                 input.addEventListener('touchend', (e) => {
@@ -8221,14 +8328,20 @@ cgSi=0.2700`;
                     // Финальное обновление
                     input.dispatchEvent(new Event('input'));
                     
-                    // Убираем индикаторы
-                    const leftInd = wrapper.querySelector('.swipe-indicator.left');
-                    const rightInd = wrapper.querySelector('.swipe-indicator.right');
-                    leftInd.classList.remove('active');
-                    rightInd.classList.remove('active');
+                    // Убираем классы направления
                     input.classList.remove('swipe-left', 'swipe-right');
                     
                     isDragging = false;
+                    startX = 0;
+                    lastX = 0;
+                    
+                    // Деактивируем режим свайпа через 2 секунды после окончания
+                    tapTimeout = setTimeout(() => {
+                        isSwipeMode = false;
+                        leftInd.classList.remove('active');
+                        rightInd.classList.remove('active');
+                        input.classList.remove('swipe-mode');
+                    }, 2000);
                 }, { passive: true });
             });
         }
