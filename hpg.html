@@ -1125,8 +1125,6 @@
                 background: white;
                 border: 1px solid #ccc;
                 border-radius: 5px;
-                max-height: 400px;
-                overflow-y: auto;
             }
             
             .mobile-journal-item {
@@ -7252,25 +7250,189 @@ cgSi=0.2700`;
                 return;
             }
             
-            journalEntries.forEach((entry, index) => {
+            // Сортируем записи по дате (старые сверху, новые внизу)
+            const sortedEntries = [...journalEntries].sort((a, b) => {
+                return new Date(a.date) - new Date(b.date);
+            });
+            
+            sortedEntries.forEach((entry, sortedIndex) => {
                 const item = document.createElement('div');
                 item.className = 'mobile-journal-item';
-                item.onclick = () => showJournalDetails(index);
+                // Находим оригинальный индекс для showJournalDetails
+                const originalIndex = journalEntries.indexOf(entry);
+                item.onclick = () => showJournalDetails(originalIndex);
+                
+                // Форматируем дату с названием месяца и днем недели
+                const dateObj = new Date(entry.date);
+                const months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+                const weekdays = ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'];
+                const day = dateObj.getDate();
+                const month = months[dateObj.getMonth()];
+                const year = dateObj.getFullYear();
+                const weekday = weekdays[dateObj.getDay()];
+                
+                // Рассчитываем количество дней с предыдущей записи
+                let daysSinceText = '';
+                if (sortedIndex > 0) {
+                    const prevEntry = sortedEntries[sortedIndex - 1];
+                    if (prevEntry) {
+                        const prevDateObj = new Date(prevEntry.date);
+                        const diffTime = dateObj - prevDateObj;
+                        const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
+                        if (diffDays > 0) {
+                            daysSinceText = ` +${diffDays} ${diffDays === 1 ? 'сутки' : diffDays < 5 ? 'суток' : 'суток'}`;
+                        }
+                    }
+                }
+                
+                const formattedDate = `${day} ${month} ${year} (${weekday})${daysSinceText}`;
                 
                 const date = document.createElement('div');
                 date.className = 'mobile-journal-date';
-                date.textContent = entry.date;
+                date.textContent = formattedDate;
                 
                 const desc = document.createElement('div');
                 desc.className = 'mobile-journal-desc';
                 desc.textContent = entry.desc;
                 
+                // Добавляем информацию о профиле
+                if (entry.fullProfile) {
+                    const profile = entry.fullProfile;
+                    
+                    // Рассчитываем EC если его нет
+                    let ec = parseFloat(profile.EC) || 0;
+                    if (ec === 0 && profile.NH4 && profile.Ca && profile.Mg && profile.K && profile.N) {
+                        const vNH4 = parseFloat(profile.NH4);
+                        const vCa = parseFloat(profile.Ca);
+                        const vMg = parseFloat(profile.Mg);
+                        const vK = parseFloat(profile.K);
+                        const vN = parseFloat(profile.N);
+                        ec = 0.095 * (vNH4 * molCa * molMg * molK + 2 * vCa * molN * molMg * molK + 
+                                    2 * vMg * molN * molCa * molK + vK * molN * molCa * molMg + 
+                                    2 * molN * molCa * molMg * molK) / (molN * molCa * molMg * molK);
+                    }
+                    
+                    // Рассчитываем соотношения
+                    const n = parseFloat(profile.N) || 0;
+                    const k = parseFloat(profile.K) || 0;
+                    const ca = parseFloat(profile.Ca) || 0;
+                    const mg = parseFloat(profile.Mg) || 0;
+                    const nh4 = parseFloat(profile.NH4) || 0;
+                    const no3 = parseFloat(profile.NO3) || 0;
+                    
+                    const kn = n !== 0 ? (k / n) : 0;
+                    const kca = ca !== 0 ? (k / ca) : 0;
+                    const kmg = mg !== 0 ? (k / mg) : 0;
+                    const nh4no3 = no3 !== 0 ? (nh4 / no3) : 0;
+                    const no3nh4 = nh4 !== 0 ? Math.round(no3 / nh4) : 0;
+                    
+                    // Рассчитываем изменение EC по сравнению с предыдущей записью
+                    let ecChangeText = '';
+                    if (sortedIndex > 0) {
+                        const prevEntry = sortedEntries[sortedIndex - 1];
+                        if (prevEntry && prevEntry.fullProfile) {
+                            let prevEc = parseFloat(prevEntry.fullProfile.EC) || 0;
+                            if (prevEc === 0 && prevEntry.fullProfile.NH4 && prevEntry.fullProfile.Ca && prevEntry.fullProfile.Mg && prevEntry.fullProfile.K && prevEntry.fullProfile.N) {
+                                const vNH4 = parseFloat(prevEntry.fullProfile.NH4);
+                                const vCa = parseFloat(prevEntry.fullProfile.Ca);
+                                const vMg = parseFloat(prevEntry.fullProfile.Mg);
+                                const vK = parseFloat(prevEntry.fullProfile.K);
+                                const vN = parseFloat(prevEntry.fullProfile.N);
+                                prevEc = 0.095 * (vNH4 * molCa * molMg * molK + 2 * vCa * molN * molMg * molK + 
+                                            2 * vMg * molN * molCa * molK + vK * molN * molCa * molMg + 
+                                            2 * molN * molCa * molMg * molK) / (molN * molCa * molMg * molK);
+                            }
+                            if (prevEc !== 0 && ec !== prevEc) {
+                                const ecPercentChange = ((ec - prevEc) / prevEc * 100);
+                                if (Math.abs(ecPercentChange) >= 1) {
+                                    const sign = ecPercentChange > 0 ? '+' : '';
+                                    ecChangeText = ` <span style="font-size: 10px;">(${sign}${ecPercentChange.toFixed(0)}%)</span>`;
+                                }
+                            }
+                        }
+                    }
+                    
+                    // Строка с EC и соотношениями (как в шапке)
+                    const ratiosInfo = document.createElement('div');
+                    ratiosInfo.className = 'mobile-journal-ratios';
+                    ratiosInfo.style.cssText = 'margin-top: 6px; padding: 6px; background: #e8f4ff; border-radius: 4px; font-size: 11px; color: #333; font-weight: bold; display: flex; justify-content: space-between; align-items: center;';
+                    ratiosInfo.innerHTML = `<span><strong>NH4/NO3=</strong>${nh4no3.toFixed(2)} (1:${no3nh4}) <strong>K/N=</strong>${kn.toFixed(2)} <strong>K/Ca=</strong>${kca.toFixed(2)} <strong>K/Mg=</strong>${kmg.toFixed(2)}</span><span style="color: #4a90e2; font-size: 13px;"><strong>EC:</strong>${ec.toFixed(2)}${ecChangeText}</span>`;
+                    
+                    // Строка с полным профилем
+                    const p = profile.P || '0';
+                    const s = profile.S || '0';
+                    
+                    // Микроэлементы
+                    const fe = profile.Fe || '0';
+                    const mn = profile.Mn || '0';
+                    const b = profile.B || '0';
+                    const zn = profile.Zn || '0';
+                    const cu = profile.Cu || '0';
+                    const mo = profile.Mo || '0';
+                    
+                    const profileInfo = document.createElement('div');
+                    profileInfo.className = 'mobile-journal-profile';
+                    profileInfo.style.cssText = 'margin-top: 4px; padding: 6px; background: #f5f5f5; border-radius: 4px; font-size: 11px; color: #555; line-height: 1.6;';
+                    profileInfo.innerHTML = `<strong>N:</strong>${n.toFixed(0)} <strong>P:</strong>${parseFloat(p).toFixed(0)} <strong>K:</strong>${k.toFixed(0)} <strong>Ca:</strong>${ca.toFixed(0)} <strong>Mg:</strong>${mg.toFixed(0)} <strong>S:</strong>${s.toFixed(0)} <strong>Fe:</strong>${parseFloat(fe).toFixed(0)} <strong>Mn:</strong>${parseFloat(mn).toFixed(0)} <strong>B:</strong>${parseFloat(b).toFixed(0)} <strong>Zn:</strong>${parseFloat(zn).toFixed(0)} <strong>Cu:</strong>${parseFloat(cu).toFixed(0)} <strong>Mo:</strong>${parseFloat(mo).toFixed(0)}`;
+                    
+                    item.appendChild(date);
+                    item.appendChild(desc);
+                    item.appendChild(ratiosInfo);
+                    item.appendChild(profileInfo);
+                    
+                    // Добавляем строку с изменениями (кроме первой записи)
+                    if (sortedIndex > 0) {
+                        const prevEntry = sortedEntries[sortedIndex - 1];
+                        if (prevEntry && prevEntry.fullProfile) {
+                            const prevProfile = prevEntry.fullProfile;
+                            const changes = [];
+                            
+                            // Список элементов для сравнения
+                            const elements = [
+                                {key: 'N', label: 'N'},
+                                {key: 'P', label: 'P'},
+                                {key: 'K', label: 'K'},
+                                {key: 'Ca', label: 'Ca'},
+                                {key: 'Mg', label: 'Mg'},
+                                {key: 'S', label: 'S'},
+                                {key: 'Fe', label: 'Fe'},
+                                {key: 'Mn', label: 'Mn'},
+                                {key: 'B', label: 'B'},
+                                {key: 'Zn', label: 'Zn'},
+                                {key: 'Cu', label: 'Cu'},
+                                {key: 'Mo', label: 'Mo'}
+                            ];
+                            
+                            elements.forEach(el => {
+                                const curr = parseFloat(profile[el.key]) || 0;
+                                const prev = parseFloat(prevProfile[el.key]) || 0;
+                                
+                                if (prev !== 0 && curr !== prev) {
+                                    const percentChange = ((curr - prev) / prev * 100);
+                                    if (Math.abs(percentChange) >= 1) { // Показываем только изменения >= 1%
+                                        const sign = percentChange > 0 ? '+' : '';
+                                        changes.push(`${el.label}${sign}${percentChange.toFixed(0)}%`);
+                                    }
+                                }
+                            });
+                            
+                            if (changes.length > 0) {
+                                const changesInfo = document.createElement('div');
+                                changesInfo.className = 'mobile-journal-changes';
+                                changesInfo.style.cssText = 'margin-top: 4px; padding: 6px; background: #fff8e1; border-radius: 4px; font-size: 10px; color: #666; line-height: 1.4;';
+                                changesInfo.innerHTML = `<strong>Изменения:</strong> ${changes.join(' ')}`;
+                                item.appendChild(changesInfo);
+                            }
+                        }
+                    }
+                } else {
+                    item.appendChild(date);
+                    item.appendChild(desc);
+                }
+                
                 const memo = document.createElement('div');
                 memo.className = 'mobile-journal-memo';
                 memo.textContent = entry.memo || '';
-                
-                item.appendChild(date);
-                item.appendChild(desc);
                 if (entry.memo) item.appendChild(memo);
                 
                 list.appendChild(item);
@@ -7282,26 +7444,244 @@ cgSi=0.2700`;
             const entry = journalEntries[index];
             if (!entry) return;
             
-            const details = `Дата: ${entry.date}\nОписание: ${entry.desc}\n\nЗаметки:\n${entry.memo || 'Нет'}\n\nПрофиль:\n${entry.profile || 'Нет данных'}`;
-            
-            if (confirm(details + '\n\nПрименить этот профиль?')) {
-                // Применяем профиль из журнала
-                if (entry.fullProfile) {
-                    // Восстанавливаем все поля из сохраненного профиля
-                    Object.keys(entry.fullProfile).forEach(key => {
-                        const field = document.getElementById(key);
-                        if (field) {
-                            field.value = entry.fullProfile[key];
-                        }
-                    });
-                    
-                    // Пересчитываем
-                    recalculate();
-                    
-                    // Переключаемся на основную вкладку
-                    switchMobileTab('main');
-                }
+            if (!entry.fullProfile) {
+                alert('Нет данных профиля для этой записи');
+                return;
             }
+            
+            // Получаем текущий профиль
+            const currentProfile = getValues();
+            const journalProfile = entry.fullProfile;
+            
+            // Рассчитываем EC для обоих профилей
+            let currentEC = parseFloat(currentProfile.EC) || 0;
+            if (currentEC === 0 && currentProfile.NH4 && currentProfile.Ca && currentProfile.Mg && currentProfile.K && currentProfile.N) {
+                const vNH4 = parseFloat(currentProfile.NH4);
+                const vCa = parseFloat(currentProfile.Ca);
+                const vMg = parseFloat(currentProfile.Mg);
+                const vK = parseFloat(currentProfile.K);
+                const vN = parseFloat(currentProfile.N);
+                currentEC = 0.095 * (vNH4 * molCa * molMg * molK + 2 * vCa * molN * molMg * molK + 
+                            2 * vMg * molN * molCa * molK + vK * molN * molCa * molMg + 
+                            2 * molN * molCa * molMg * molK) / (molN * molCa * molMg * molK);
+            }
+            
+            let journalEC = parseFloat(journalProfile.EC) || 0;
+            if (journalEC === 0 && journalProfile.NH4 && journalProfile.Ca && journalProfile.Mg && journalProfile.K && journalProfile.N) {
+                const vNH4 = parseFloat(journalProfile.NH4);
+                const vCa = parseFloat(journalProfile.Ca);
+                const vMg = parseFloat(journalProfile.Mg);
+                const vK = parseFloat(journalProfile.K);
+                const vN = parseFloat(journalProfile.N);
+                journalEC = 0.095 * (vNH4 * molCa * molMg * molK + 2 * vCa * molN * molMg * molK + 
+                            2 * vMg * molN * molCa * molK + vK * molN * molCa * molMg + 
+                            2 * molN * molCa * molMg * molK) / (molN * molCa * molMg * molK);
+            }
+            
+            // Рассчитываем соотношения для текущего профиля
+            const currN = parseFloat(currentProfile.N) || 0;
+            const currK = parseFloat(currentProfile.K) || 0;
+            const currCa = parseFloat(currentProfile.Ca) || 0;
+            const currMg = parseFloat(currentProfile.Mg) || 0;
+            const currNH4 = parseFloat(currentProfile.NH4) || 0;
+            const currNO3 = parseFloat(currentProfile.NO3) || 0;
+            
+            const currKN = currN !== 0 ? (currK / currN) : 0;
+            const currKCa = currCa !== 0 ? (currK / currCa) : 0;
+            const currKMg = currMg !== 0 ? (currK / currMg) : 0;
+            const currNH4NO3 = currNO3 !== 0 ? (currNH4 / currNO3) : 0;
+            
+            // Рассчитываем соотношения для журнального профиля
+            const jourN = parseFloat(journalProfile.N) || 0;
+            const jourK = parseFloat(journalProfile.K) || 0;
+            const jourCa = parseFloat(journalProfile.Ca) || 0;
+            const jourMg = parseFloat(journalProfile.Mg) || 0;
+            const jourNH4 = parseFloat(journalProfile.NH4) || 0;
+            const jourNO3 = parseFloat(journalProfile.NO3) || 0;
+            
+            const jourKN = jourN !== 0 ? (jourK / jourN) : 0;
+            const jourKCa = jourCa !== 0 ? (jourK / jourCa) : 0;
+            const jourKMg = jourMg !== 0 ? (jourK / jourMg) : 0;
+            const jourNH4NO3 = jourNO3 !== 0 ? (jourNH4 / jourNO3) : 0;
+            
+            // Сравниваем профили и находим различия (сначала макро, потом микро)
+            const elements = ['N', 'P', 'K', 'Ca', 'Mg', 'S', 'Fe', 'Mn', 'B', 'Zn', 'Cu', 'Mo', 'NH4', 'NO3', 'Cl'];
+            const microElements = ['Fe', 'Mn', 'B', 'Zn', 'Cu', 'Mo'];
+            const differences = [];
+            
+            elements.forEach(el => {
+                let curr = parseFloat(currentProfile[el]) || 0;
+                let jour = parseFloat(journalProfile[el]) || 0;
+                
+                // Для микроэлементов: текущие в мкг, журнальные в мг - приводим к мг
+                if (microElements.includes(el)) {
+                    curr = curr / 1000; // мкг -> мг
+                }
+                
+                if (Math.abs(curr - jour) > 0.01) {
+                    const diff = jour - curr;
+                    const percent = curr !== 0 ? ((diff / curr) * 100) : 0;
+                    
+                    if (Math.abs(percent) >= 1) { // Показываем только если изменение >= 1%
+                        const percentSign = percent > 0 ? '+' : '';
+                        differences.push({
+                            element: el,
+                            current: curr.toFixed(2),
+                            journal: jour.toFixed(2),
+                            diff: `${percentSign}${percent.toFixed(0)}%`
+                        });
+                    }
+                }
+            });
+            
+            // Создаем модальное окно
+            const modal = document.createElement('div');
+            modal.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 10000; display: flex; align-items: center; justify-content: center; padding: 20px;';
+            
+            const modalContent = document.createElement('div');
+            modalContent.style.cssText = 'background: white; border-radius: 10px; padding: 20px; max-width: 500px; width: 100%; max-height: 80vh; overflow-y: auto;';
+            
+            // Формируем таблицу с EC и соотношениями
+            const ecRatiosDiffs = [];
+            
+            // EC
+            const ecDiff = journalEC - currentEC;
+            const ecPercent = currentEC !== 0 ? ((ecDiff / currentEC) * 100) : 0;
+            if (Math.abs(ecPercent) >= 1) {
+                const ecPercentSign = ecPercent > 0 ? '+' : '';
+                const ecColor = ecDiff > 0 ? '#4CAF50' : '#f44336';
+                ecRatiosDiffs.push({
+                    param: 'EC',
+                    current: currentEC.toFixed(2),
+                    journal: journalEC.toFixed(2),
+                    diff: `${ecPercentSign}${ecPercent.toFixed(0)}%`,
+                    color: ecColor
+                });
+            }
+            
+            // NH4/NO3
+            const nh4no3Diff = jourNH4NO3 - currNH4NO3;
+            const nh4no3Percent = currNH4NO3 !== 0 ? ((nh4no3Diff / currNH4NO3) * 100) : 0;
+            if (Math.abs(nh4no3Percent) >= 1) {
+                const nh4no3PercentSign = nh4no3Percent > 0 ? '+' : '';
+                const nh4no3Color = nh4no3Diff > 0 ? '#4CAF50' : '#f44336';
+                ecRatiosDiffs.push({
+                    param: 'NH4/NO3',
+                    current: currNH4NO3.toFixed(2),
+                    journal: jourNH4NO3.toFixed(2),
+                    diff: `${nh4no3PercentSign}${nh4no3Percent.toFixed(0)}%`,
+                    color: nh4no3Color
+                });
+            }
+            
+            // K/N
+            const knDiff = jourKN - currKN;
+            const knPercent = currKN !== 0 ? ((knDiff / currKN) * 100) : 0;
+            if (Math.abs(knPercent) >= 1) {
+                const knPercentSign = knPercent > 0 ? '+' : '';
+                const knColor = knDiff > 0 ? '#4CAF50' : '#f44336';
+                ecRatiosDiffs.push({
+                    param: 'K/N',
+                    current: currKN.toFixed(2),
+                    journal: jourKN.toFixed(2),
+                    diff: `${knPercentSign}${knPercent.toFixed(0)}%`,
+                    color: knColor
+                });
+            }
+            
+            // K/Ca
+            const kcaDiff = jourKCa - currKCa;
+            const kcaPercent = currKCa !== 0 ? ((kcaDiff / currKCa) * 100) : 0;
+            if (Math.abs(kcaPercent) >= 1) {
+                const kcaPercentSign = kcaPercent > 0 ? '+' : '';
+                const kcaColor = kcaDiff > 0 ? '#4CAF50' : '#f44336';
+                ecRatiosDiffs.push({
+                    param: 'K/Ca',
+                    current: currKCa.toFixed(2),
+                    journal: jourKCa.toFixed(2),
+                    diff: `${kcaPercentSign}${kcaPercent.toFixed(0)}%`,
+                    color: kcaColor
+                });
+            }
+            
+            // K/Mg
+            const kmgDiff = jourKMg - currKMg;
+            const kmgPercent = currKMg !== 0 ? ((kmgDiff / currKMg) * 100) : 0;
+            if (Math.abs(kmgPercent) >= 1) {
+                const kmgPercentSign = kmgPercent > 0 ? '+' : '';
+                const kmgColor = kmgDiff > 0 ? '#4CAF50' : '#f44336';
+                ecRatiosDiffs.push({
+                    param: 'K/Mg',
+                    current: currKMg.toFixed(2),
+                    journal: jourKMg.toFixed(2),
+                    diff: `${kmgPercentSign}${kmgPercent.toFixed(0)}%`,
+                    color: kmgColor
+                });
+            }
+            
+            let ecRatiosTable = '';
+            if (ecRatiosDiffs.length > 0) {
+                ecRatiosTable = '<div style="margin: 15px 0;"><strong>EC и соотношения:</strong><table style="width: 100%; margin-top: 10px; border-collapse: collapse; font-size: 12px;"><tr style="background: #e8f4ff; font-weight: bold;"><td style="padding: 5px; border: 1px solid #ddd;">Параметр</td><td style="padding: 5px; border: 1px solid #ddd;">Текущий</td><td style="padding: 5px; border: 1px solid #ddd;">Из журнала</td><td style="padding: 5px; border: 1px solid #ddd;">Разница</td></tr>';
+                ecRatiosDiffs.forEach(r => {
+                    ecRatiosTable += `<tr><td style="padding: 5px; border: 1px solid #ddd;"><strong>${r.param}</strong></td><td style="padding: 5px; border: 1px solid #ddd;">${r.current}</td><td style="padding: 5px; border: 1px solid #ddd;">${r.journal}</td><td style="padding: 5px; border: 1px solid #ddd; color: ${r.color}; font-weight: bold;">${r.diff}</td></tr>`;
+                });
+                ecRatiosTable += '</table></div>';
+            }
+            
+            let diffTable = '';
+            if (differences.length > 0) {
+                diffTable = '<div style="margin: 15px 0;"><strong>Изменения элементов:</strong><table style="width: 100%; margin-top: 10px; border-collapse: collapse; font-size: 12px;"><tr style="background: #f0f0f0; font-weight: bold;"><td style="padding: 5px; border: 1px solid #ddd;">Элемент</td><td style="padding: 5px; border: 1px solid #ddd;">Текущий</td><td style="padding: 5px; border: 1px solid #ddd;">Из журнала</td><td style="padding: 5px; border: 1px solid #ddd;">Разница</td></tr>';
+                differences.forEach(d => {
+                    const color = d.diff.startsWith('+') ? '#4CAF50' : '#f44336';
+                    diffTable += `<tr><td style="padding: 5px; border: 1px solid #ddd;"><strong>${d.element}</strong></td><td style="padding: 5px; border: 1px solid #ddd;">${d.current}</td><td style="padding: 5px; border: 1px solid #ddd;">${d.journal}</td><td style="padding: 5px; border: 1px solid #ddd; color: ${color}; font-weight: bold;">${d.diff}</td></tr>`;
+                });
+                diffTable += '</table></div>';
+            } else {
+                diffTable = '<div style="margin: 15px 0; color: #4CAF50;"><strong>✓ Элементы совпадают с текущими</strong></div>';
+            }
+            
+            modalContent.innerHTML = `
+                <h3 style="margin: 0 0 15px 0; color: #333;">Применить профиль из журнала?</h3>
+                <div style="margin-bottom: 10px;"><strong>Дата:</strong> ${entry.date}</div>
+                <div style="margin-bottom: 10px;"><strong>Описание:</strong> ${entry.desc}</div>
+                ${entry.memo ? `<div style="margin-bottom: 10px;"><strong>Заметки:</strong> ${entry.memo}</div>` : ''}
+                ${ecRatiosTable}
+                ${diffTable}
+                <div style="display: flex; gap: 10px; margin-top: 20px;">
+                    <button id="modal-apply" style="flex: 1; padding: 12px; background: #4CAF50; color: white; border: none; border-radius: 5px; font-size: 14px; font-weight: bold; cursor: pointer;">Применить</button>
+                    <button id="modal-cancel" style="flex: 1; padding: 12px; background: #f44336; color: white; border: none; border-radius: 5px; font-size: 14px; font-weight: bold; cursor: pointer;">Отмена</button>
+                </div>
+            `;
+            
+            modal.appendChild(modalContent);
+            document.body.appendChild(modal);
+            
+            // Обработчики кнопок
+            document.getElementById('modal-apply').onclick = () => {
+                // Применяем профиль из журнала (как в десктопной версии acceptProfileFromJournal)
+                // Копируем строку профиля в profile-string и вызываем парсер
+                const profileString = entry.profile;
+                if (profileString) {
+                    document.getElementById('profile-string').value = profileString;
+                    parseProfile(); // Парсит строку профиля и заполняет все поля
+                }
+                
+                // Закрываем модальное окно
+                document.body.removeChild(modal);
+                
+                // НЕ переключаемся на другую вкладку - остаемся на текущей
+            };
+            
+            document.getElementById('modal-cancel').onclick = () => {
+                document.body.removeChild(modal);
+            };
+            
+            // Закрытие по клику на фон
+            modal.onclick = (e) => {
+                if (e.target === modal) {
+                    document.body.removeChild(modal);
+                }
+            };
         }
 
         function checkMobileBanner() {
