@@ -2464,11 +2464,14 @@ K:Mg до 3,6 после 3,6</textarea>
                         <button onclick="logout()" style="width: 70px; height: 22px; font-size: 12px;">Выйти</button>
                     </div>
                     <div style="display: flex; gap: 5px; margin-bottom: 3px;">
-                        <button onclick="saveProfileToCloud()" style="flex: 1; height: 26px; font-size: 13px; background: #34a853; color: white; border: none; border-radius: 3px; cursor: pointer; font-weight: bold;">
+                        <button onclick="saveProfileToCloud()" style="flex: 1; height: 26px; font-size: 12px; background: #34a853; color: white; border: none; border-radius: 3px; cursor: pointer; font-weight: bold;">
                             💾 Сохранить
                         </button>
-                        <button onclick="showCloudProfilesModal()" style="flex: 1; height: 26px; font-size: 13px; background: #4285f4; color: white; border: none; border-radius: 3px; cursor: pointer; font-weight: bold;">
-                            📥 Загрузить
+                        <button onclick="showCloudProfilesModal()" style="flex: 1; height: 26px; font-size: 12px; background: #4285f4; color: white; border: none; border-radius: 3px; cursor: pointer; font-weight: bold;">
+                            📥 Мои
+                        </button>
+                        <button onclick="showPublicProfilesModal()" style="flex: 1; height: 26px; font-size: 12px; background: #ff9800; color: white; border: none; border-radius: 3px; cursor: pointer; font-weight: bold;">
+                            🌍 Каталог
                         </button>
                     </div>
                     <div style="font-size: 11px; color: #666; text-align: center;">Профили синхронизируются автоматически</div>
@@ -9069,6 +9072,246 @@ cgSi=0.2700`;
             } catch (error) {
                 console.error('Ошибка удаления:', error);
                 alert('❌ Ошибка удаления: ' + error.message);
+            }
+        }
+        
+        // Показать каталог публичных профилей
+        async function showPublicProfilesModal() {
+            const user = auth.currentUser;
+            if (!user) {
+                alert('Сначала войдите через Google');
+                loginWithGoogle();
+                return;
+            }
+            
+            // Создаем модальное окно
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 10000;
+            `;
+            
+            const modalContent = document.createElement('div');
+            modalContent.style.cssText = `
+                background: white;
+                border-radius: 8px;
+                padding: 20px;
+                max-width: 700px;
+                width: 90%;
+                max-height: 80vh;
+                overflow-y: auto;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            `;
+            
+            modalContent.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <h3 style="margin: 0; font-size: 18px;">🌍 Каталог публичных профилей</h3>
+                    <button onclick="this.closest('[style*=fixed]').remove()" style="width: 30px; height: 30px; border: none; background: #f44336; color: white; border-radius: 50%; cursor: pointer; font-size: 18px; line-height: 1;">×</button>
+                </div>
+                
+                <div style="margin-bottom: 15px;">
+                    <input type="text" id="public-search" placeholder="🔍 Поиск по названию или тегам..." style="width: 100%; padding: 10px; font-size: 14px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box;">
+                </div>
+                
+                <div id="public-profiles-list" style="min-height: 100px;">
+                    <div style="text-align: center; padding: 20px; color: #666;">⏳ Загрузка публичных профилей...</div>
+                </div>
+            `;
+            
+            modal.appendChild(modalContent);
+            document.body.appendChild(modal);
+            
+            // Закрытие по клику на фон
+            modal.onclick = (e) => {
+                if (e.target === modal) {
+                    modal.remove();
+                }
+            };
+            
+            // Загружаем публичные профили
+            loadPublicProfiles();
+            
+            // Поиск
+            document.getElementById('public-search').oninput = (e) => {
+                loadPublicProfiles(e.target.value.toLowerCase());
+            };
+        }
+        
+        // Загрузить публичные профили
+        async function loadPublicProfiles(searchQuery = '') {
+            const listDiv = document.getElementById('public-profiles-list');
+            
+            try {
+                // Получаем публичные профили
+                let query = db.collection('profiles')
+                    .where('public', '==', true)
+                    .where('appKey', '==', 'wega-hpg-profile')
+                    .orderBy('created', 'desc')
+                    .limit(50);
+                
+                const snapshot = await query.get();
+                
+                if (snapshot.empty) {
+                    listDiv.innerHTML = `
+                        <div style="text-align: center; padding: 40px; color: #666;">
+                            <div style="font-size: 48px; margin-bottom: 10px;">🌍</div>
+                            <div style="font-size: 16px;">Пока нет публичных профилей</div>
+                            <div style="font-size: 13px; margin-top: 5px;">Будьте первым! Сохраните профиль как публичный</div>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                // Фильтруем по поисковому запросу
+                let profiles = [];
+                snapshot.forEach(doc => {
+                    const profile = doc.data();
+                    profile.id = doc.id;
+                    
+                    if (searchQuery) {
+                        const name = (profile.name || '').toLowerCase();
+                        const desc = (profile.description || '').toLowerCase();
+                        const tags = (profile.tags || []).join(' ').toLowerCase();
+                        const author = (profile.userName || '').toLowerCase();
+                        
+                        if (name.includes(searchQuery) || desc.includes(searchQuery) || 
+                            tags.includes(searchQuery) || author.includes(searchQuery)) {
+                            profiles.push(profile);
+                        }
+                    } else {
+                        profiles.push(profile);
+                    }
+                });
+                
+                if (profiles.length === 0) {
+                    listDiv.innerHTML = `
+                        <div style="text-align: center; padding: 40px; color: #666;">
+                            <div style="font-size: 48px; margin-bottom: 10px;">🔍</div>
+                            <div style="font-size: 16px;">Ничего не найдено</div>
+                            <div style="font-size: 13px; margin-top: 5px;">Попробуйте другой запрос</div>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                // Отображаем профили
+                let html = '';
+                profiles.forEach(profile => {
+                    const date = profile.created?.toDate().toLocaleDateString('ru-RU') || '';
+                    const author = profile.userName || 'Аноним';
+                    
+                    html += `
+                        <div style="border: 1px solid #ddd; border-radius: 5px; padding: 12px; margin-bottom: 10px; background: #f9f9f9;">
+                            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 8px;">
+                                <div style="flex: 1;">
+                                    <div style="font-weight: bold; font-size: 15px; margin-bottom: 3px;">
+                                        🌐 ${profile.name}
+                                    </div>
+                                    ${profile.description ? `<div style="font-size: 12px; color: #666; margin-bottom: 3px;">${profile.description}</div>` : ''}
+                                    <div style="font-size: 11px; color: #999;">
+                                        👤 ${author} • 📅 ${date}
+                                        ${profile.tags && profile.tags.length > 0 ? ` • 🏷️ ${profile.tags.join(', ')}` : ''}
+                                    </div>
+                                </div>
+                            </div>
+                            <button onclick="loadPublicProfile('${profile.id}')" style="width: 100%; padding: 8px; background: #4285f4; color: white; border: none; border-radius: 3px; cursor: pointer; font-size: 13px;">
+                                📥 Загрузить этот профиль
+                            </button>
+                        </div>
+                    `;
+                });
+                
+                listDiv.innerHTML = html;
+                
+            } catch (error) {
+                console.error('Ошибка загрузки публичных профилей:', error);
+                listDiv.innerHTML = `
+                    <div style="text-align: center; padding: 20px; color: #f44336;">
+                        ❌ Ошибка загрузки: ${error.message}
+                    </div>
+                `;
+            }
+        }
+        
+        // Загрузить публичный профиль
+        async function loadPublicProfile(profileId) {
+            try {
+                const doc = await db.collection('profiles').doc(profileId).get();
+                
+                if (!doc.exists) {
+                    alert('❌ Профиль не найден');
+                    return;
+                }
+                
+                const profile = doc.data();
+                
+                // Проверяем что профиль публичный
+                if (!profile.public) {
+                    alert('❌ Этот профиль больше не публичный');
+                    return;
+                }
+                
+                // Загружаем профиль
+                document.getElementById('profile-string').value = profile.profile;
+                parseProfile();
+                
+                // Принудительно обновляем все расчеты
+                calcAll();
+                
+                // Обновляем мобильное отображение если есть
+                if (typeof updateMobileDisplay === 'function') {
+                    updateMobileDisplay();
+                }
+                if (typeof updateMobileResults === 'function') {
+                    updateMobileResults();
+                }
+                
+                // Загружаем журнал
+                if (profile.journal && profile.journal.length > 0) {
+                    journalEntries = profile.journal.map(entry => ({
+                        date: entry.date,
+                        desc: entry.desc,
+                        memo: entry.desc,
+                        profile: entry.profile
+                    }));
+                    updateJournalList();
+                    if (typeof updateMobileJournal === 'function') {
+                        updateMobileJournal();
+                    }
+                }
+                
+                // Обновляем имя файла и описание
+                if (profile.name) {
+                    document.getElementById('file_filename').value = profile.name + '.hpg';
+                }
+                if (profile.description) {
+                    document.getElementById('file_comment').value = profile.description;
+                }
+                if (typeof updateMobileFileInfo === 'function') {
+                    updateMobileFileInfo();
+                }
+                
+                // Увеличиваем счетчик просмотров
+                await db.collection('profiles').doc(profileId).update({
+                    views: firebase.firestore.FieldValue.increment(1)
+                });
+                
+                // Закрываем модальное окно
+                document.querySelector('[style*="position: fixed"]')?.remove();
+                
+                alert(`✅ Профиль "${profile.name}" от ${profile.userName} загружен!`);
+                
+            } catch (error) {
+                console.error('Ошибка загрузки публичного профиля:', error);
+                alert('❌ Ошибка загрузки: ' + error.message);
             }
         }
     </script>
