@@ -1365,6 +1365,11 @@
             }
         }
     </style>
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 </head>
 <body>
     <div class="container">
@@ -2435,22 +2440,57 @@ K:Mg до 3,6 после 3,6</textarea>
             <button onclick="fileLoadFertilizers()" style="position: absolute; left: 267px; top: 95px; width: 208px; height: 30px; font-size: 15px;">Подгрузить удобрения</button>
             <button onclick="fileLoadProfile()" style="position: absolute; left: 481px; top: 95px; width: 208px; height: 30px; font-size: 15px;">Подгрузить профиль</button>
             
-            <!-- Журнал действий -->
-            <div style="position: absolute; left: 8px; top: 145px; font-weight: bold; font-size: 15px;">Журнал действий</div>
+            <!-- Облачное хранилище -->
+            <div style="position: absolute; left: 8px; top: 130px; width: 691px; border: 1px solid #999; background: #f0f0f0; padding: 5px; border-radius: 3px;">
+                <!-- Если не авторизован -->
+                <div id="cloud-login-section" style="display: none;">
+                    <div style="font-weight: bold; font-size: 14px; margin-bottom: 5px;">☁️ Облачное хранилище</div>
+                    <div style="font-size: 12px; margin-bottom: 5px;">Сохраняйте профили в облаке и получайте доступ с любого устройства</div>
+                    <button id="btn-google-login" onclick="loginWithGoogle()" style="width: 200px; height: 28px; font-size: 14px; background: #4285f4; color: white; border: none; border-radius: 3px; cursor: pointer; font-weight: bold;">
+                        🔵 Войти через Google
+                    </button>
+                </div>
+                
+                <!-- Если авторизован -->
+                <div id="cloud-logged-in-section" style="display: none;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <img id="user-avatar" src="" alt="" style="width: 24px; height: 24px; border-radius: 50%; display: none;">
+                            <div>
+                                <div id="user-name" style="font-weight: bold; font-size: 13px;"></div>
+                                <div id="user-email" style="font-size: 11px; color: #666;"></div>
+                            </div>
+                        </div>
+                        <button onclick="logout()" style="width: 70px; height: 22px; font-size: 12px;">Выйти</button>
+                    </div>
+                    <div style="display: flex; gap: 5px; margin-bottom: 3px;">
+                        <button onclick="saveProfileToCloud()" style="flex: 1; height: 26px; font-size: 13px; background: #34a853; color: white; border: none; border-radius: 3px; cursor: pointer; font-weight: bold;">
+                            💾 Сохранить
+                        </button>
+                        <button onclick="showCloudProfilesModal()" style="flex: 1; height: 26px; font-size: 13px; background: #4285f4; color: white; border: none; border-radius: 3px; cursor: pointer; font-weight: bold;">
+                            📥 Загрузить
+                        </button>
+                    </div>
+                    <div style="font-size: 11px; color: #666; text-align: center;">Профили синхронизируются автоматически</div>
+                </div>
+            </div>
             
-            <select id="file_journal_list" size="6" style="position: absolute; left: 8px; top: 171px; width: 691px; height: 127px; font-family: Arial; font-size: 15px;">
+            <!-- Журнал действий -->
+            <div style="position: absolute; left: 8px; top: 225px; font-weight: bold; font-size: 15px;">Журнал действий</div>
+            
+            <select id="file_journal_list" size="4" style="position: absolute; left: 8px; top: 251px; width: 691px; height: 85px; font-family: Arial; font-size: 15px;">
             </select>
             
-            <label style="position: absolute; left: 8px; top: 306px; font-size: 15px;">Описание:</label>
-            <label style="position: absolute; left: 134px; top: 306px; font-size: 15px;">Дата:</label>
+            <label style="position: absolute; left: 8px; top: 344px; font-size: 15px;">Описание:</label>
+            <label style="position: absolute; left: 134px; top: 344px; font-size: 15px;">Дата:</label>
             
-            <input type="date" id="file_journal_date" value="" style="position: absolute; left: 169px; top: 301px; width: 138px; height: 24px; font-family: Arial; font-size: 15px;">
+            <input type="date" id="file_journal_date" value="" style="position: absolute; left: 169px; top: 339px; width: 138px; height: 24px; font-family: Arial; font-size: 15px;">
             
-            <button onclick="journalAdd()" style="position: absolute; left: 315px; top: 301px; width: 101px; height: 24px; font-size: 15px;">Добавить</button>
-            <button onclick="journalUpdate()" style="position: absolute; left: 423px; top: 301px; width: 66px; height: 24px; font-size: 15px;">Обнов.</button>
-            <button onclick="journalDelete()" style="position: absolute; left: 494px; top: 301px; width: 80px; height: 24px; font-size: 15px;">Удалить</button>
+            <button onclick="journalAdd()" style="position: absolute; left: 315px; top: 339px; width: 101px; height: 24px; font-size: 15px;">Добавить</button>
+            <button onclick="journalUpdate()" style="position: absolute; left: 423px; top: 339px; width: 66px; height: 24px; font-size: 15px;">Обнов.</button>
+            <button onclick="journalDelete()" style="position: absolute; left: 494px; top: 339px; width: 80px; height: 24px; font-size: 15px;">Удалить</button>
             
-            <textarea id="file_journal_memo" style="position: absolute; left: 8px; top: 329px; width: 691px; height: 105px; font-family: Arial; font-size: 15px; resize: none;"></textarea>
+            <textarea id="file_journal_memo" style="position: absolute; left: 8px; top: 367px; width: 691px; height: 70px; font-family: Arial; font-size: 15px; resize: none;"></textarea>
             
             <!-- Профиль в журнале -->
             <div style="position: absolute; left: 8px; top: 446px; font-size: 15px;">Профиль в журнале:</div>
@@ -8430,6 +8470,605 @@ cgSi=0.2700`;
             const totalDiv = document.querySelector('#mobile-results-content > div > div:last-child strong');
             if (totalDiv) {
                 totalDiv.textContent = `Всего солей: ${totalSalts.toFixed(2)} г`;
+            }
+        }
+        
+        // ===== FIREBASE CLOUD STORAGE =====
+        
+        // Инициализация Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyAR5qXMGP8Erapla69wJ7cUbbF4MNlbkcY",
+            authDomain: "wega-hpg.firebaseapp.com",
+            projectId: "wega-hpg",
+            storageBucket: "wega-hpg.firebasestorage.app",
+            messagingSenderId: "652081809935",
+            appId: "1:652081809935:web:84a407f1a6bfc719aa717a",
+            measurementId: "G-W6EDZTWP3F"
+        };
+        
+        // Инициализируем Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+        
+        // Отслеживание состояния авторизации
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                console.log('Пользователь вошел:', user.email);
+                onUserLoggedIn(user);
+            } else {
+                console.log('Пользователь не авторизован');
+                onUserLoggedOut();
+            }
+        });
+        
+        // Пользователь вошел
+        function onUserLoggedIn(user) {
+            // Показываем секцию авторизованного пользователя
+            document.getElementById('cloud-login-section').style.display = 'none';
+            document.getElementById('cloud-logged-in-section').style.display = 'block';
+            
+            // Заполняем данные пользователя
+            document.getElementById('user-name').textContent = user.displayName || 'Пользователь';
+            document.getElementById('user-email').textContent = user.email;
+            
+            if (user.photoURL) {
+                const avatar = document.getElementById('user-avatar');
+                avatar.src = user.photoURL;
+                avatar.style.display = 'block';
+            }
+            
+            // Создаем/обновляем запись пользователя в базе
+            createOrUpdateUser(user);
+        }
+        
+        // Пользователь вышел
+        function onUserLoggedOut() {
+            // Показываем секцию входа
+            document.getElementById('cloud-login-section').style.display = 'block';
+            document.getElementById('cloud-logged-in-section').style.display = 'none';
+        }
+        
+        // Вход через Google
+        async function loginWithGoogle() {
+            try {
+                const provider = new firebase.auth.GoogleAuthProvider();
+                const result = await auth.signInWithPopup(provider);
+                alert('✅ Вы успешно вошли!');
+            } catch (error) {
+                console.error('Ошибка входа:', error);
+                if (error.code === 'auth/popup-closed-by-user') {
+                    // Пользователь закрыл окно - ничего не делаем
+                } else {
+                    alert('❌ Ошибка входа: ' + error.message);
+                }
+            }
+        }
+        
+        // Выход
+        async function logout() {
+            if (confirm('Выйти из аккаунта?')) {
+                try {
+                    await auth.signOut();
+                    alert('✅ Вы вышли из аккаунта');
+                } catch (error) {
+                    console.error('Ошибка выхода:', error);
+                    alert('❌ Ошибка выхода: ' + error.message);
+                }
+            }
+        }
+        
+        // Создать/обновить пользователя в базе
+        async function createOrUpdateUser(user) {
+            try {
+                const userRef = db.collection('users').doc(user.uid);
+                const userDoc = await userRef.get();
+                
+                if (!userDoc.exists) {
+                    // Новый пользователь
+                    await userRef.set({
+                        email: user.email,
+                        displayName: user.displayName,
+                        photoURL: user.photoURL,
+                        settings: {
+                            autoSave: false,
+                            autoSaveInterval: 300,
+                            theme: 'light',
+                            language: 'ru'
+                        },
+                        profilesCount: 0,
+                        publicProfilesCount: 0,
+                        created: firebase.firestore.FieldValue.serverTimestamp(),
+                        lastLogin: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                } else {
+                    // Обновляем lastLogin
+                    await userRef.update({
+                        lastLogin: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                }
+            } catch (error) {
+                console.error('Ошибка создания/обновления пользователя:', error);
+            }
+        }
+        
+        // Сохранить текущий профиль в облако
+        async function saveProfileToCloud() {
+            const user = auth.currentUser;
+            if (!user) {
+                alert('Сначала войдите через Google');
+                loginWithGoogle();
+                return;
+            }
+            
+            // Получаем текущие значения из полей
+            const currentFilename = document.getElementById('file_filename').value || 'default.hpg';
+            const currentDescription = document.getElementById('file_comment').value || '';
+            const defaultName = currentFilename.replace(/\.hpg$/i, '');
+            
+            // Создаем модальное окно с формой
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 10000;
+            `;
+            
+            const modalContent = document.createElement('div');
+            modalContent.style.cssText = `
+                background: white;
+                border-radius: 8px;
+                padding: 20px;
+                max-width: 500px;
+                width: 90%;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            `;
+            
+            modalContent.innerHTML = `
+                <h3 style="margin: 0 0 15px 0; font-size: 18px;">💾 Сохранить профиль в облако</h3>
+                
+                <div style="margin-bottom: 12px;">
+                    <label style="display: block; margin-bottom: 5px; font-weight: bold; font-size: 14px;">Название профиля:</label>
+                    <input type="text" id="save-name" value="${defaultName}" style="width: 100%; padding: 8px; font-size: 14px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box;">
+                </div>
+                
+                <div style="margin-bottom: 12px;">
+                    <label style="display: block; margin-bottom: 5px; font-weight: bold; font-size: 14px;">Описание:</label>
+                    <textarea id="save-description" rows="3" style="width: 100%; padding: 8px; font-size: 14px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; resize: vertical;">${currentDescription}</textarea>
+                </div>
+                
+                <div style="margin-bottom: 12px;">
+                    <label style="display: block; margin-bottom: 5px; font-weight: bold; font-size: 14px;">Теги (через запятую):</label>
+                    <input type="text" id="save-tags" placeholder="томаты, вегетация, гидропоника" style="width: 100%; padding: 8px; font-size: 14px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box;">
+                    <div style="font-size: 11px; color: #666; margin-top: 3px;">Помогут найти профиль в каталоге</div>
+                </div>
+                
+                <div style="margin-bottom: 15px; padding: 10px; background: #f0f0f0; border-radius: 4px;">
+                    <label style="display: flex; align-items: center; cursor: pointer;">
+                        <input type="checkbox" id="save-public" style="width: 18px; height: 18px; margin-right: 8px; cursor: pointer;">
+                        <div>
+                            <div style="font-weight: bold; font-size: 14px;">🌐 Сделать профиль публичным</div>
+                            <div style="font-size: 12px; color: #666;">Другие пользователи смогут найти и использовать этот профиль</div>
+                        </div>
+                    </label>
+                </div>
+                
+                <div style="display: flex; gap: 10px;">
+                    <button id="save-btn" style="flex: 1; padding: 10px; background: #34a853; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; font-weight: bold;">
+                        💾 Сохранить
+                    </button>
+                    <button id="cancel-btn" style="flex: 1; padding: 10px; background: #666; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; font-weight: bold;">
+                        Отмена
+                    </button>
+                </div>
+            `;
+            
+            modal.appendChild(modalContent);
+            document.body.appendChild(modal);
+            
+            // Фокус на поле названия
+            setTimeout(() => {
+                document.getElementById('save-name').focus();
+                document.getElementById('save-name').select();
+            }, 100);
+            
+            // Обработчик кнопки "Сохранить"
+            document.getElementById('save-btn').onclick = async () => {
+                const name = document.getElementById('save-name').value.trim();
+                if (!name) {
+                    alert('Введите название профиля');
+                    return;
+                }
+                
+                const description = document.getElementById('save-description').value.trim();
+                const tagsInput = document.getElementById('save-tags').value.trim();
+                const tags = tagsInput ? tagsInput.split(',').map(t => t.trim()).filter(t => t) : [];
+                const isPublic = document.getElementById('save-public').checked;
+                
+                // Закрываем модальное окно
+                modal.remove();
+                
+                // Сохраняем профиль
+                await doSaveProfileToCloud(name, description, tags, isPublic);
+            };
+            
+            // Обработчик кнопки "Отмена"
+            document.getElementById('cancel-btn').onclick = () => {
+                modal.remove();
+            };
+            
+            // Закрытие по клику на фон
+            modal.onclick = (e) => {
+                if (e.target === modal) {
+                    modal.remove();
+                }
+            };
+            
+            // Закрытие по Enter в поле названия
+            document.getElementById('save-name').onkeypress = (e) => {
+                if (e.key === 'Enter') {
+                    document.getElementById('save-btn').click();
+                }
+            };
+        }
+        
+        // Фактическое сохранение профиля
+        async function doSaveProfileToCloud(name, description, tags, isPublic) {
+            const user = auth.currentUser;
+            
+            try {
+                // Собираем данные профиля
+                const profileData = {
+                    // Владелец
+                    userId: user.uid,
+                    userEmail: user.email,
+                    userName: user.displayName,
+                    
+                    // Уникальный ключ
+                    appKey: 'wega-hpg-profile',
+                    
+                    // Основная информация
+                    name: name,
+                    description: description,
+                    tags: tags,
+                    
+                    // Данные профиля
+                    profile: document.getElementById('profile-string').value,
+                    
+                    // Журнал
+                    journal: journalEntries.map(entry => ({
+                        date: entry.date,
+                        desc: entry.desc || entry.memo,
+                        profile: entry.profile
+                    })),
+                    
+                    // Метаданные
+                    created: firebase.firestore.FieldValue.serverTimestamp(),
+                    modified: firebase.firestore.FieldValue.serverTimestamp(),
+                    version: '1.0',
+                    
+                    // Публичность
+                    public: isPublic,
+                    
+                    // Статистика
+                    views: 0,
+                    likes: 0,
+                    downloads: 0
+                };
+                
+                // Сохраняем в Firestore
+                const docRef = await db.collection('profiles').add(profileData);
+                
+                // Если публичный - добавляем в индекс
+                if (isPublic) {
+                    await db.collection('public_profiles').doc(docRef.id).set({
+                        profileId: docRef.id,
+                        name: name,
+                        userName: user.displayName,
+                        tags: tags,
+                        views: 0,
+                        likes: 0,
+                        created: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                }
+                
+                // Обновляем счетчик профилей пользователя
+                const userRef = db.collection('users').doc(user.uid);
+                const userDoc = await userRef.get();
+                
+                if (userDoc.exists) {
+                    // Документ существует - обновляем
+                    await userRef.update({
+                        profilesCount: firebase.firestore.FieldValue.increment(1),
+                        publicProfilesCount: isPublic ? firebase.firestore.FieldValue.increment(1) : 0
+                    });
+                } else {
+                    // Документ не существует - создаем с начальными значениями
+                    await userRef.set({
+                        email: user.email,
+                        displayName: user.displayName,
+                        photoURL: user.photoURL,
+                        settings: {
+                            autoSave: false,
+                            autoSaveInterval: 300,
+                            theme: 'light',
+                            language: 'ru'
+                        },
+                        profilesCount: 1,
+                        publicProfilesCount: isPublic ? 1 : 0,
+                        created: firebase.firestore.FieldValue.serverTimestamp(),
+                        lastLogin: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                }
+                
+                alert('✅ Профиль сохранен в облаке!\n\nВы можете получить к нему доступ с любого устройства, просто войдя в свой Google аккаунт.');
+                
+            } catch (error) {
+                console.error('Ошибка сохранения:', error);
+                alert('❌ Ошибка сохранения: ' + error.message);
+            }
+        }
+        
+        // Показать модальное окно с облачными профилями
+        async function showCloudProfilesModal() {
+            const user = auth.currentUser;
+            if (!user) {
+                alert('Сначала войдите через Google');
+                return;
+            }
+            
+            // Создаем модальное окно
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 10000;
+            `;
+            
+            const modalContent = document.createElement('div');
+            modalContent.style.cssText = `
+                background: white;
+                border-radius: 8px;
+                padding: 20px;
+                max-width: 600px;
+                width: 90%;
+                max-height: 80vh;
+                overflow-y: auto;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            `;
+            
+            modalContent.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <h3 style="margin: 0; font-size: 18px;">☁️ Мои профили в облаке</h3>
+                    <button onclick="this.closest('[style*=fixed]').remove()" style="width: 30px; height: 30px; border: none; background: #f44336; color: white; border-radius: 50%; cursor: pointer; font-size: 18px; line-height: 1;">×</button>
+                </div>
+                <div id="cloud-profiles-list" style="min-height: 100px;">
+                    <div style="text-align: center; padding: 20px; color: #666;">⏳ Загрузка профилей...</div>
+                </div>
+            `;
+            
+            modal.appendChild(modalContent);
+            document.body.appendChild(modal);
+            
+            // Закрытие по клику на фон
+            modal.onclick = (e) => {
+                if (e.target === modal) {
+                    modal.remove();
+                }
+            };
+            
+            // Загружаем профили
+            loadCloudProfiles();
+        }
+        
+        // Загрузить облачные профили
+        async function loadCloudProfiles() {
+            const user = auth.currentUser;
+            if (!user) return;
+            
+            const listDiv = document.getElementById('cloud-profiles-list');
+            
+            try {
+                // Получаем профили пользователя
+                const snapshot = await db.collection('profiles')
+                    .where('userId', '==', user.uid)
+                    .where('appKey', '==', 'wega-hpg-profile')
+                    .orderBy('modified', 'desc')
+                    .get();
+                
+                if (snapshot.empty) {
+                    listDiv.innerHTML = `
+                        <div style="text-align: center; padding: 40px; color: #666;">
+                            <div style="font-size: 48px; margin-bottom: 10px;">📭</div>
+                            <div style="font-size: 16px;">Нет сохраненных профилей</div>
+                            <div style="font-size: 13px; margin-top: 5px;">Сохраните текущий профиль чтобы он появился здесь</div>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                // Отображаем профили
+                let html = '';
+                snapshot.forEach(doc => {
+                    const profile = doc.data();
+                    const date = profile.modified?.toDate().toLocaleDateString('ru-RU') || '';
+                    const icon = profile.public ? '🌐' : '🔒';
+                    
+                    html += `
+                        <div style="border: 1px solid #ddd; border-radius: 5px; padding: 12px; margin-bottom: 10px; background: #f9f9f9;">
+                            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 8px;">
+                                <div style="flex: 1;">
+                                    <div style="font-weight: bold; font-size: 15px; margin-bottom: 3px;">
+                                        ${icon} ${profile.name}
+                                    </div>
+                                    ${profile.description ? `<div style="font-size: 12px; color: #666; margin-bottom: 3px;">${profile.description}</div>` : ''}
+                                    <div style="font-size: 11px; color: #999;">
+                                        📅 ${date}
+                                        ${profile.tags && profile.tags.length > 0 ? ` • 🏷️ ${profile.tags.join(', ')}` : ''}
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 5px;">
+                                <button onclick="loadCloudProfile('${doc.id}')" style="flex: 1; padding: 8px; background: #4285f4; color: white; border: none; border-radius: 3px; cursor: pointer; font-size: 13px;">
+                                    📥 Загрузить
+                                </button>
+                                <button onclick="updateCloudProfile('${doc.id}')" style="flex: 1; padding: 8px; background: #34a853; color: white; border: none; border-radius: 3px; cursor: pointer; font-size: 13px;">
+                                    💾 Обновить
+                                </button>
+                                <button onclick="deleteCloudProfile('${doc.id}')" style="padding: 8px 12px; background: #f44336; color: white; border: none; border-radius: 3px; cursor: pointer; font-size: 13px;">
+                                    🗑️
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                listDiv.innerHTML = html;
+                
+            } catch (error) {
+                console.error('Ошибка загрузки профилей:', error);
+                listDiv.innerHTML = `
+                    <div style="text-align: center; padding: 20px; color: #f44336;">
+                        ❌ Ошибка загрузки профилей: ${error.message}
+                    </div>
+                `;
+            }
+        }
+        
+        // Загрузить профиль из облака
+        async function loadCloudProfile(profileId) {
+            try {
+                const doc = await db.collection('profiles').doc(profileId).get();
+                
+                if (!doc.exists) {
+                    alert('❌ Профиль не найден');
+                    return;
+                }
+                
+                const profile = doc.data();
+                
+                // Загружаем профиль
+                document.getElementById('profile-string').value = profile.profile;
+                parseProfile();
+                
+                // Принудительно обновляем все расчеты
+                calcAll();
+                
+                // Обновляем мобильное отображение если есть
+                if (typeof updateMobileDisplay === 'function') {
+                    updateMobileDisplay();
+                }
+                if (typeof updateMobileResults === 'function') {
+                    updateMobileResults();
+                }
+                
+                // Загружаем журнал
+                if (profile.journal && profile.journal.length > 0) {
+                    journalEntries = profile.journal.map(entry => ({
+                        date: entry.date,
+                        desc: entry.desc,
+                        memo: entry.desc,
+                        profile: entry.profile
+                    }));
+                    updateJournalList();
+                    if (typeof updateMobileJournal === 'function') {
+                        updateMobileJournal();
+                    }
+                }
+                
+                // Обновляем имя файла и описание
+                if (profile.name) {
+                    document.getElementById('file_filename').value = profile.name + '.hpg';
+                }
+                if (profile.description) {
+                    document.getElementById('file_comment').value = profile.description;
+                }
+                if (typeof updateMobileFileInfo === 'function') {
+                    updateMobileFileInfo();
+                }
+                
+                // Закрываем модальное окно
+                document.querySelector('[style*="position: fixed"]')?.remove();
+                
+                alert(`✅ Профиль "${profile.name}" загружен!`);
+                
+            } catch (error) {
+                console.error('Ошибка загрузки профиля:', error);
+                alert('❌ Ошибка загрузки: ' + error.message);
+            }
+        }
+        
+        // Обновить профиль в облаке текущими данными
+        async function updateCloudProfile(profileId) {
+            if (!confirm('Обновить этот профиль текущими данными?')) return;
+            
+            try {
+                await db.collection('profiles').doc(profileId).update({
+                    profile: document.getElementById('profile-string').value,
+                    journal: journalEntries.map(entry => ({
+                        date: entry.date,
+                        desc: entry.desc || entry.memo,
+                        profile: entry.profile
+                    })),
+                    modified: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                
+                alert('✅ Профиль обновлен!');
+                loadCloudProfiles(); // Перезагружаем список
+                
+            } catch (error) {
+                console.error('Ошибка обновления:', error);
+                alert('❌ Ошибка обновления: ' + error.message);
+            }
+        }
+        
+        // Удалить профиль из облака
+        async function deleteCloudProfile(profileId) {
+            if (!confirm('Удалить этот профиль из облака?\n\nЭто действие нельзя отменить!')) return;
+            
+            try {
+                const doc = await db.collection('profiles').doc(profileId).get();
+                const profile = doc.data();
+                
+                // Удаляем профиль
+                await db.collection('profiles').doc(profileId).delete();
+                
+                // Если был публичный - удаляем из индекса
+                if (profile.public) {
+                    await db.collection('public_profiles').doc(profileId).delete();
+                }
+                
+                // Обновляем счетчики пользователя
+                const userRef = db.collection('users').doc(profile.userId);
+                const userDoc = await userRef.get();
+                
+                if (userDoc.exists) {
+                    await userRef.update({
+                        profilesCount: firebase.firestore.FieldValue.increment(-1),
+                        publicProfilesCount: profile.public ? firebase.firestore.FieldValue.increment(-1) : 0
+                    });
+                }
+                
+                alert('✅ Профиль удален');
+                loadCloudProfiles(); // Перезагружаем список
+                
+            } catch (error) {
+                console.error('Ошибка удаления:', error);
+                alert('❌ Ошибка удаления: ' + error.message);
             }
         }
     </script>
