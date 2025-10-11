@@ -2446,9 +2446,14 @@ K:Mg до 3,6 после 3,6</textarea>
                 <div id="cloud-login-section" style="display: none;">
                     <div style="font-weight: bold; font-size: 14px; margin-bottom: 5px;">☁️ Облачное хранилище</div>
                     <div style="font-size: 12px; margin-bottom: 5px;">Сохраняйте профили в облаке и получайте доступ с любого устройства</div>
-                    <button id="btn-google-login" onclick="loginWithGoogle()" style="width: 200px; height: 28px; font-size: 14px; background: #4285f4; color: white; border: none; border-radius: 3px; cursor: pointer; font-weight: bold;">
-                        🔵 Войти через Google
-                    </button>
+                    <div style="display: flex; gap: 5px; align-items: center;">
+                        <button id="btn-google-login" onclick="loginWithGoogle()" style="flex: 1; height: 28px; font-size: 14px; background: #4285f4; color: white; border: none; border-radius: 3px; cursor: pointer; font-weight: bold;">
+                            🔵 Войти через Google
+                        </button>
+                        <button onclick="showSecurityInfo()" style="width: 28px; height: 28px; background: #ffc107; color: #000; border: none; border-radius: 3px; cursor: pointer; font-size: 16px; font-weight: bold;" title="Безопасность">
+                            ⚠️
+                        </button>
+                    </div>
                 </div>
                 
                 <!-- Если авторизован -->
@@ -2463,7 +2468,7 @@ K:Mg до 3,6 после 3,6</textarea>
                         </div>
                         <button onclick="logout()" style="width: 70px; height: 22px; font-size: 12px;">Выйти</button>
                     </div>
-                    <div style="display: flex; gap: 5px; margin-bottom: 3px;">
+                    <div style="display: flex; gap: 5px;">
                         <button onclick="saveProfileToCloud()" style="flex: 1; height: 26px; font-size: 12px; background: #34a853; color: white; border: none; border-radius: 3px; cursor: pointer; font-weight: bold;">
                             💾 Сохранить
                         </button>
@@ -2474,7 +2479,6 @@ K:Mg до 3,6 после 3,6</textarea>
                             🌍 Каталог
                         </button>
                     </div>
-                    <div style="font-size: 11px; color: #666; text-align: center;">Профили синхронизируются автоматически</div>
                 </div>
             </div>
             
@@ -9239,6 +9243,83 @@ cgSi=0.2700`;
                     </div>
                 `;
             }
+        }
+        
+        // Показать информацию о безопасности
+        function showSecurityInfo() {
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 10000;
+            `;
+            
+            const modalContent = document.createElement('div');
+            modalContent.style.cssText = `
+                background: white;
+                border-radius: 8px;
+                padding: 20px;
+                max-width: 500px;
+                width: 90%;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            `;
+            
+            modalContent.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                    <div style="font-size: 32px;">🔒</div>
+                    <h3 style="margin: 0; font-size: 18px;">Безопасность входа через Google</h3>
+                </div>
+                
+                <div style="font-size: 14px; line-height: 1.6; color: #333;">
+                    <p style="margin: 0 0 10px 0;"><strong>✅ Это безопасно, потому что:</strong></p>
+                    
+                    <ul style="margin: 0 0 15px 0; padding-left: 20px;">
+                        <li style="margin-bottom: 8px;">
+                            <strong>Мы не видим ваш пароль</strong> — авторизация проходит напрямую через Google
+                        </li>
+                        <li style="margin-bottom: 8px;">
+                            <strong>Используется официальный Firebase</strong> — сервис Google для безопасного хранения данных
+                        </li>
+                        <li style="margin-bottom: 8px;">
+                            <strong>Мы храним только профили растений</strong> — никаких личных данных, кроме email и имени
+                        </li>
+                        <li style="margin-bottom: 8px;">
+                            <strong>Вы можете выйти в любой момент</strong> — и удалить все свои профили
+                        </li>
+                        <li style="margin-bottom: 8px;">
+                            <strong>Открытый исходный код</strong> — вы можете проверить код на GitHub
+                        </li>
+                    </ul>
+                    
+                    <div style="background: #e3f2fd; padding: 10px; border-radius: 5px; border-left: 4px solid #2196f3;">
+                        <strong>💡 Что мы храним:</strong><br>
+                        • Ваши профили питательных растворов<br>
+                        • Журналы действий<br>
+                        • Настройки приложения
+                    </div>
+                </div>
+                
+                <button onclick="this.closest('[style*=fixed]').remove()" style="width: 100%; padding: 10px; margin-top: 15px; background: #4285f4; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; font-weight: bold;">
+                    Понятно, спасибо!
+                </button>
+            `;
+            
+            modal.appendChild(modalContent);
+            document.body.appendChild(modal);
+            
+            // Закрытие по клику на фон
+            modal.onclick = (e) => {
+                if (e.target === modal) {
+                    modal.remove();
+                }
+            };
         }
         
         // Загрузить публичный профиль
