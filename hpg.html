@@ -8979,6 +8979,121 @@ cgSi=0.2700`;
             }
         }
         
+        // Мобильное модальное окно выбора источника файла
+        function openMobileFileOptionsModal() {
+            // Создаем модальный фон
+            const overlay = document.createElement('div');
+            overlay.id = 'mobile-file-options-overlay';
+            overlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.55);
+                display: flex;
+                justify-content: center;
+                align-items: flex-end;
+                z-index: 10000;
+                animation: fadeIn 0.2s ease;
+            `;
+
+            // Контейнер листа
+            const sheet = document.createElement('div');
+            sheet.style.cssText = `
+                width: 100%;
+                max-width: 420px;
+                background: #ffffff;
+                border-top-left-radius: 18px;
+                border-top-right-radius: 18px;
+                padding: 18px;
+                box-shadow: 0 -4px 20px rgba(0,0,0,0.2);
+                animation: slideUp 0.2s ease;
+                box-sizing: border-box;
+            `;
+
+            sheet.innerHTML = `
+                <div style="display: flex; justify-content: center; margin-bottom: 12px;">
+                    <div style="width: 40px; height: 4px; background: #d0d0d0; border-radius: 2px;"></div>
+                </div>
+                <h3 style="margin: 0 0 12px 0; font-size: 18px; text-align: center;">📂 Открыть профиль</h3>
+                <p style="margin: 0 0 18px 0; font-size: 13px; color: #666; text-align: center;">Выберите откуда загрузить файл</p>
+
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                    <button id="mobile-open-local" style="width: 100%; padding: 14px; border-radius: 10px; border: 1px solid #e0e0e0; background: #f7f7f7; font-size: 15px; display: flex; align-items: center; gap: 10px; font-weight: 600;">
+                        <span style="font-size: 20px;">📁</span>
+                        <span style="flex: 1; text-align: left;">Открыть с устройства</span>
+                    </button>
+
+                    <div id="mobile-cloud-login" style="display: none;">
+                        <button id="mobile-cloud-login-btn" style="width: 100%; padding: 14px; border-radius: 10px; border: none; background: #4285f4; color: #fff; font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 10px; justify-content: center;">
+                            <span style="font-size: 20px;">🔐</span>
+                            <span>Войти через Google</span>
+                        </button>
+                        <p style="margin: 8px 0 0 0; font-size: 12px; color: #777; text-align: center;">Авторизуйтесь, чтобы открыть профили из облака</p>
+                    </div>
+
+                    <div id="mobile-cloud-actions" style="display: none;">
+                        <button id="mobile-open-cloud-my" style="width: 100%; padding: 14px; border-radius: 10px; border: 1px solid #e0e0e0; background: #eef4ff; font-size: 15px; display: flex; align-items: center; gap: 10px; font-weight: 600;">
+                            <span style="font-size: 20px;">📥</span>
+                            <span style="flex: 1; text-align: left;">Мои профили</span>
+                        </button>
+                        <button id="mobile-open-cloud-public" style="margin-top: 10px; width: 100%; padding: 14px; border-radius: 10px; border: 1px solid #e0e0e0; background: #fff7ec; font-size: 15px; display: flex; align-items: center; gap: 10px; font-weight: 600;">
+                            <span style="font-size: 20px;">🌍</span>
+                            <span style="flex: 1; text-align: left;">Общий каталог</span>
+                        </button>
+                    </div>
+                </div>
+
+                <button id="mobile-close-modal" style="margin-top: 18px; width: 100%; padding: 12px; border: none; border-radius: 10px; background: #f0f0f0; font-size: 14px; font-weight: 600; color: #444;">Отмена</button>
+            `;
+
+            overlay.appendChild(sheet);
+            document.body.appendChild(overlay);
+
+            const isLoggedIn = !!auth.currentUser;
+            const loginBlock = sheet.querySelector('#mobile-cloud-login');
+            const cloudActions = sheet.querySelector('#mobile-cloud-actions');
+
+            if (isLoggedIn) {
+                cloudActions.style.display = 'block';
+                loginBlock.style.display = 'none';
+            } else {
+                loginBlock.style.display = 'block';
+                cloudActions.style.display = 'none';
+            }
+
+            sheet.querySelector('#mobile-open-local').onclick = () => {
+                overlay.remove();
+                fileOpen();
+            };
+
+            sheet.querySelector('#mobile-close-modal').onclick = () => overlay.remove();
+
+            overlay.addEventListener('click', (event) => {
+                if (event.target === overlay) {
+                    overlay.remove();
+                }
+            });
+
+            if (!isLoggedIn) {
+                sheet.querySelector('#mobile-cloud-login-btn').onclick = async () => {
+                    overlay.remove();
+                    await loginWithGoogle();
+                };
+            } else {
+                sheet.querySelector('#mobile-open-cloud-my').onclick = async () => {
+                    overlay.remove();
+                    await showCloudProfilesModal();
+                };
+
+                sheet.querySelector('#mobile-open-cloud-public').onclick = async () => {
+                    overlay.remove();
+                    await showPublicProfilesModal();
+                };
+            }
+        }
+
         // Сохранить текущий профиль в облако
         async function saveProfileToCloud() {
             const user = auth.currentUser;
@@ -10287,12 +10402,12 @@ cgSi=0.2700`;
             </div>
         </div>
 
-        <!-- Кнопка загрузки файла -->
+        <!-- Кнопка открытия профиля -->
         <div style="background: white; padding: 15px; border-radius: 8px; margin: 10px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-            <button onclick="fileOpen()" style="width: 100%; padding: 12px; background: #6c757d; color: white; border: none; border-radius: 5px; font-size: 15px; font-weight: bold;">
-                📂 Открыть файл профиля
+            <button onclick="openMobileFileOptionsModal()" style="width: 100%; padding: 12px; background: #6c757d; color: white; border: none; border-radius: 5px; font-size: 15px; font-weight: bold;">
+                📂 Открыть профиль
             </button>
-            <p style="margin: 8px 0 0 0; font-size: 12px; color: #666;">Поддерживаются файлы .hpg и .txt</p>
+            <p style="margin: 8px 0 0 0; font-size: 12px; color: #666;">Выберите файл с устройства или из облака</p>
         </div>
         
         </div>
