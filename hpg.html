@@ -4,6 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hydroponic Profile Generator (HPG)</title>
+    
+    <script>
+        // ============================================
+        // ВЕРСИЯ И ДАТА (изменяй только здесь!)
+        // ============================================
+        const APP_VERSION = '0.221+';
+        const APP_DATE = '12.10.2025';
+        const APP_VERSION_FULL = `${APP_VERSION} (HTML5 порт - ${APP_DATE})`;
+    </script>
+    
     <style>
         * {
             padding: 0;
@@ -1654,7 +1664,7 @@
             <div id="salts-table" style="position: relative;">
                 <!-- Железо -->
                 <div style="position: relative; height: 28px;">
-                    <label id="micro_Fe_label" style="position: absolute; left: 8px; top: 5px; font-size: 14px;">Железо (%)</label>
+                    <label id="micro_Fe_label" style="position: absolute; left: 8px; top: 5px; font-size: 14px;">Железо</label>
                     <input type="number" id="micro_Fe_percent" value="20.1000" step="0.001" oninput="onMicroCompositionChange()"
                            style="position: absolute; left: 120px; top: 2px; width: 80px; height: 23px;">
                     <input type="number" id="g_Fe" value="0.09950" step="0.00001" readonly
@@ -1663,7 +1673,7 @@
                 
                 <!-- Марганец -->
                 <div style="position: relative; height: 28px;">
-                    <label id="micro_Mn_label" style="position: absolute; left: 8px; top: 5px; font-size: 14px;">Марганец (%)</label>
+                    <label id="micro_Mn_label" style="position: absolute; left: 8px; top: 5px; font-size: 14px;">Марганец</label>
                     <input type="number" id="micro_Mn_percent" value="36.4000" step="0.001" oninput="onMicroCompositionChange()"
                            style="position: absolute; left: 120px; top: 2px; width: 80px; height: 23px;">
                     <input type="number" id="g_Mn" value="0.01511" step="0.00001" readonly
@@ -1672,7 +1682,7 @@
                 
                 <!-- Бор -->
                 <div style="position: relative; height: 28px;">
-                    <label id="micro_B_label" style="position: absolute; left: 8px; top: 5px; font-size: 14px;">Бор (%)</label>
+                    <label id="micro_B_label" style="position: absolute; left: 8px; top: 5px; font-size: 14px;">Бор</label>
                     <input type="number" id="micro_B_percent" value="17.5000" step="0.001" oninput="onMicroCompositionChange()"
                            style="position: absolute; left: 120px; top: 2px; width: 80px; height: 23px;">
                     <input type="number" id="g_B" value="0.02857" step="0.00001" readonly
@@ -1681,7 +1691,7 @@
                 
                 <!-- Цинк -->
                 <div style="position: relative; height: 28px;">
-                    <label id="micro_Zn_label" style="position: absolute; left: 8px; top: 5px; font-size: 14px;">Цинк (%)</label>
+                    <label id="micro_Zn_label" style="position: absolute; left: 8px; top: 5px; font-size: 14px;">Цинк</label>
                     <input type="number" id="micro_Zn_percent" value="22.7000" step="0.001" oninput="onMicroCompositionChange()"
                            style="position: absolute; left: 120px; top: 2px; width: 80px; height: 23px;">
                     <input type="number" id="g_Zn" value="0.01454" step="0.00001" readonly
@@ -1690,7 +1700,7 @@
                 
                 <!-- Медь -->
                 <div style="position: relative; height: 28px;">
-                    <label id="micro_Cu_label" style="position: absolute; left: 8px; top: 5px; font-size: 14px;">Медь (%)</label>
+                    <label id="micro_Cu_label" style="position: absolute; left: 8px; top: 5px; font-size: 14px;">Медь</label>
                     <input type="number" id="micro_Cu_percent" value="25.5000" step="0.001" oninput="onMicroCompositionChange()"
                            style="position: absolute; left: 120px; top: 2px; width: 80px; height: 23px;">
                     <input type="number" id="g_Cu" value="0.00247" step="0.00001" readonly
@@ -1699,7 +1709,7 @@
                 
                 <!-- Молибден -->
                 <div style="position: relative; height: 28px;">
-                    <label id="micro_Mo_label" style="position: absolute; left: 8px; top: 5px; font-size: 14px;">Молибден (%)</label>
+                    <label id="micro_Mo_label" style="position: absolute; left: 8px; top: 5px; font-size: 14px;">Молибден</label>
                     <input type="number" id="micro_Mo_percent" value="54.3000" step="0.001" oninput="onMicroCompositionChange()"
                            style="position: absolute; left: 120px; top: 2px; width: 80px; height: 23px;">
                     <input type="number" id="g_Mo" value="0.00116" step="0.00001" readonly
@@ -1708,7 +1718,7 @@
                 
                 <!-- Кобальт -->
                 <div style="position: relative; height: 28px;">
-                    <label id="micro_Co_label" style="position: absolute; left: 8px; top: 5px; font-size: 14px;">Кобальт (%)</label>
+                    <label id="micro_Co_label" style="position: absolute; left: 8px; top: 5px; font-size: 14px;">Кобальт</label>
                     <input type="number" id="micro_Co_percent" value="13.0000" step="0.001" oninput="onMicroCompositionChange()"
                            style="position: absolute; left: 120px; top: 2px; width: 80px; height: 23px;">
                     <input type="number" id="g_Co" value="0.00000" step="0.00001" readonly
@@ -1717,7 +1727,7 @@
                 
                 <!-- Кремний -->
                 <div style="position: relative; height: 28px;">
-                    <label id="micro_Si_label" style="position: absolute; left: 8px; top: 5px; font-size: 14px;">Кремний (%)</label>
+                    <label id="micro_Si_label" style="position: absolute; left: 8px; top: 5px; font-size: 14px;">Кремний</label>
                     <input type="number" id="micro_Si_percent" value="7.0000" step="0.001" oninput="onMicroCompositionChange()"
                            style="position: absolute; left: 120px; top: 2px; width: 80px; height: 23px;">
                     <input type="number" id="g_Si" value="0.00000" step="0.00001" readonly
@@ -2555,7 +2565,7 @@ K:Mg до 3,6 после 3,6</textarea>
         <div id="help" class="tab-content">
             <h3>Справка - Hydroponic Profile Generator</h3>
             <div style="line-height: 1.6; padding: 10px;">
-                <p><strong>Версия:</strong> 0.221 (HTML5 порт - 11.10.2025)</p>
+                <p><strong>Версия:</strong> <span id="help-version"></span></p>
                 <p><strong>Описание:</strong> Калькулятор для расчета профилей минерального питания растений при гидропонном методе выращивания.</p>
                 
                 <div style="background: #fff3cd; border: 1px solid #ffc107; border-radius: 4px; padding: 12px; margin: 15px 0;">
@@ -2629,7 +2639,7 @@ K:Mg до 3,6 после 3,6</textarea>
                 <div class="cost-info">Стоимость: <span id="bottom_total_price">0.00</span> за 1 литр: <span id="bottom_price_per_liter">0.00</span></div>
             </div>
             <div class="bottom-right">
-                <div class="version-text">Hydroponic Profile Generator 0.221</div>
+                <div class="version-text">Hydroponic Profile Generator <span id="desktop-version"></span></div>
             </div>
         </div>
     </div>
@@ -6505,37 +6515,63 @@ K:Mg до 3,6 после 3,6</textarea>
         
         // Обновление названий микроэлементов во всех местах (аналог legacy строки 1623-1630)
         function updateMicroNames() {
-            // В легаси подписи НЕ меняются! Они всегда статичные: "Железо (%)", "Марганец (%)" и т.д.
-            // НЕ нужно включать текущие проценты в подпись!
+            // Получаем текущие проценты элементов в солях (аналог legacy строки 1623-1630)
+            const dFe = parseFloat(document.getElementById('micro_Fe_percent').value) || 0;
+            const dMn = parseFloat(document.getElementById('micro_Mn_percent').value) || 0;
+            const dB = parseFloat(document.getElementById('micro_B_percent').value) || 0;
+            const dZn = parseFloat(document.getElementById('micro_Zn_percent').value) || 0;
+            const dCu = parseFloat(document.getElementById('micro_Cu_percent').value) || 0;
+            const dMo = parseFloat(document.getElementById('micro_Mo_percent').value) || 0;
+            const dCo = parseFloat(document.getElementById('micro_Co_percent').value) || 0;
+            const dSi = parseFloat(document.getElementById('micro_Si_percent').value) || 0;
             
-            // Статичные названия как в легаси (unit1.lfm строки 2670, 2681, 2692 и т.д.)
-            const nFe = 'Железо (%)';
-            const nMn = 'Марганец (%)';
-            const nB = 'Бор (%)';
-            const nZn = 'Цинк (%)';
-            const nCu = 'Медь (%)';
-            const nMo = 'Молибден (%)';
-            const nCo = 'Кобальт (%)';
-            const nSi = 'Кремний (%)';
+            // Формируем названия с процентами для таблицы концентратов: "Железо Fe=20.1%"
+            const nFe = 'Железо Fe=' + dFe + '%';
+            const nMn = 'Марганец Mn=' + dMn + '%';
+            const nB = 'Бор B=' + dB + '%';
+            const nZn = 'Цинк Zn=' + dZn + '%';
+            const nCu = 'Медь Cu=' + dCu + '%';
+            const nMo = 'Молибден Mo=' + dMo + '%';
+            const nCo = 'Кобальт Co=' + dCo + '%';
+            const nSi = 'Кремний Si=' + dSi + '%';
             
-            // Устанавливаем статичные метки на вкладке "Микро"
-            const labelFe = document.getElementById('micro_Fe_label');
-            const labelMn = document.getElementById('micro_Mn_label');
-            const labelB = document.getElementById('micro_B_label');
-            const labelZn = document.getElementById('micro_Zn_label');
-            const labelCu = document.getElementById('micro_Cu_label');
-            const labelMo = document.getElementById('micro_Mo_label');
-            const labelCo = document.getElementById('micro_Co_label');
-            const labelSi = document.getElementById('micro_Si_label');
+            // Обновляем метки в таблице "Расчет монорастворов и концентратов" (с процентами)
+            const concLabelFe = document.getElementById('conc-label-Fe');
+            const concLabelMn = document.getElementById('conc-label-Mn');
+            const concLabelB = document.getElementById('conc-label-B');
+            const concLabelZn = document.getElementById('conc-label-Zn');
+            const concLabelCu = document.getElementById('conc-label-Cu');
+            const concLabelMo = document.getElementById('conc-label-Mo');
+            const concLabelCo = document.getElementById('conc-label-Co');
+            const concLabelSi = document.getElementById('conc-label-Si');
             
-            if (labelFe) labelFe.textContent = nFe;
-            if (labelMn) labelMn.textContent = nMn;
-            if (labelB) labelB.textContent = nB;
-            if (labelZn) labelZn.textContent = nZn;
-            if (labelCu) labelCu.textContent = nCu;
-            if (labelMo) labelMo.textContent = nMo;
-            if (labelCo) labelCo.textContent = nCo;
-            if (labelSi) labelSi.textContent = nSi;
+            if (concLabelFe) concLabelFe.textContent = nFe;
+            if (concLabelMn) concLabelMn.textContent = nMn;
+            if (concLabelB) concLabelB.textContent = nB;
+            if (concLabelZn) concLabelZn.textContent = nZn;
+            if (concLabelCu) concLabelCu.textContent = nCu;
+            if (concLabelMo) concLabelMo.textContent = nMo;
+            if (concLabelCo) concLabelCo.textContent = nCo;
+            if (concLabelSi) concLabelSi.textContent = nSi;
+            
+            // Обновляем метки на вкладке "Микро" в разделе "Составы солей" (без процентов, просто название)
+            const microLabelFe = document.getElementById('micro_Fe_label');
+            const microLabelMn = document.getElementById('micro_Mn_label');
+            const microLabelB = document.getElementById('micro_B_label');
+            const microLabelZn = document.getElementById('micro_Zn_label');
+            const microLabelCu = document.getElementById('micro_Cu_label');
+            const microLabelMo = document.getElementById('micro_Mo_label');
+            const microLabelCo = document.getElementById('micro_Co_label');
+            const microLabelSi = document.getElementById('micro_Si_label');
+            
+            if (microLabelFe) microLabelFe.textContent = 'Железо';
+            if (microLabelMn) microLabelMn.textContent = 'Марганец';
+            if (microLabelB) microLabelB.textContent = 'Бор';
+            if (microLabelZn) microLabelZn.textContent = 'Цинк';
+            if (microLabelCu) microLabelCu.textContent = 'Медь';
+            if (microLabelMo) microLabelMo.textContent = 'Молибден';
+            if (microLabelCo) microLabelCo.textContent = 'Кобальт';
+            if (microLabelSi) microLabelSi.textContent = 'Кремний';
             
             // Возвращаем названия для использования в других функциях (изготовление, цены)
             return {
@@ -7600,34 +7636,29 @@ cgSi=0.2700`;
                 }
             }
             
+            // Инициализируем версии во всех местах
+            document.getElementById('help-version').textContent = APP_VERSION_FULL;
+            document.getElementById('desktop-version').textContent = APP_VERSION;
+            document.getElementById('mobile-version').textContent = APP_VERSION_FULL;
+            
             // Вычисляем и добавляем контрольную сумму к версии
             const checksum = await calculateChecksum();
             
-            // Обновляем версию на вкладке Справка (добавляем после даты)
-            const helpTab = document.getElementById('help');
-            if (helpTab) {
-                const paragraphs = helpTab.querySelectorAll('p');
-                paragraphs.forEach(p => {
-                    if (p.innerHTML && p.innerHTML.includes('Версия:')) {
-                        // Добавляем контрольную сумму после даты: "11.10.2025)" -> "11.10.2025-XXXXXX)"
-                        p.innerHTML = p.innerHTML.replace('11.10.2025)', `11.10.2025-${checksum})`);
-                    }
-                });
+            // Добавляем контрольную сумму к версиям
+            const helpVersionSpan = document.getElementById('help-version');
+            if (helpVersionSpan) {
+                helpVersionSpan.textContent = `${APP_VERSION} (HTML5 порт - ${APP_DATE}-${checksum})`;
             }
             
-            // Обновляем версию внизу страницы (десктоп)
-            const versionText = document.querySelector('.version-text');
-            if (versionText) {
-                versionText.textContent = versionText.textContent.replace('0.221', `0.221-${checksum}`);
+            const desktopVersionSpan = document.getElementById('desktop-version');
+            if (desktopVersionSpan) {
+                desktopVersionSpan.textContent = `${APP_VERSION}-${checksum}`;
             }
             
-            // Обновляем версию в мобильной версии
-            const mobileVersionElements = document.querySelectorAll('.mobile-version p');
-            mobileVersionElements.forEach(p => {
-                if (p.textContent.includes('Версия:')) {
-                    p.textContent = `Версия: 0.221 (HTML5 порт - 11.10.2025-${checksum})`;
-                }
-            });
+            const mobileVersionSpan = document.getElementById('mobile-version');
+            if (mobileVersionSpan) {
+                mobileVersionSpan.textContent = `${APP_VERSION} (HTML5 порт - ${APP_DATE}-${checksum})`;
+            }
         };
 
         // ========== МОБИЛЬНАЯ ВЕРСИЯ - СИНХРОНИЗАЦИЯ ДАННЫХ ==========
@@ -8516,7 +8547,7 @@ cgSi=0.2700`;
             ];
 
             let html = '<div style="font-size: 14px;">';
-            html += '<h4 style="margin: 10px 0; color: #2e7d32;">Макросоли:</h4>';
+            html += '<div style="position: relative; margin: 10px 0;"><h4 style="margin: 0; color: #2e7d32; display: inline;">Макросоли:</h4><span style="position: absolute; right: 0; top: 2px; font-size: 12px; color: #999; font-weight: normal;">грамм</span></div>';
             
             // Макросоли с интерактивными полями
             salts.forEach(salt => {
@@ -8538,7 +8569,7 @@ cgSi=0.2700`;
                 }
             });
 
-            html += '<h4 style="margin: 15px 0 10px 0; color: #2e7d32;">Микроэлементы:</h4>';
+            html += '<div style="position: relative; margin: 15px 0 10px 0;"><h4 style="margin: 0; color: #2e7d32; display: inline;">Микроэлементы:</h4><span style="position: absolute; right: 0; top: 2px; font-size: 12px; color: #999; font-weight: normal;">грамм</span></div>';
             
             // Проверяем режим комплекса
             const isComplexMode = document.getElementById('use_complex')?.checked || false;
@@ -8581,18 +8612,44 @@ cgSi=0.2700`;
                 }
             } else {
                 // Обычный режим - показываем отдельные микроэлементы
+                // Получаем проценты для формирования названий с процентами
+                const microPercents = {
+                    Fe: parseFloat(document.getElementById('micro_Fe_percent')?.value) || 0,
+                    Mn: parseFloat(document.getElementById('micro_Mn_percent')?.value) || 0,
+                    B: parseFloat(document.getElementById('micro_B_percent')?.value) || 0,
+                    Zn: parseFloat(document.getElementById('micro_Zn_percent')?.value) || 0,
+                    Cu: parseFloat(document.getElementById('micro_Cu_percent')?.value) || 0,
+                    Mo: parseFloat(document.getElementById('micro_Mo_percent')?.value) || 0,
+                    Co: parseFloat(document.getElementById('micro_Co_percent')?.value) || 0,
+                    Si: parseFloat(document.getElementById('micro_Si_percent')?.value) || 0
+                };
+                
+                const microNames = {
+                    Fe: 'Железо',
+                    Mn: 'Марганец',
+                    B: 'Бор',
+                    Zn: 'Цинк',
+                    Cu: 'Медь',
+                    Mo: 'Молибден',
+                    Co: 'Кобальт',
+                    Si: 'Кремний'
+                };
+                
                 micros.forEach(micro => {
                     const weight = parseFloat(document.getElementById('g_' + micro.id)?.value) || 0;
                     if (weight > 0) {
-                        const labelEl = document.getElementById(micro.label);
-                        const name = labelEl ? labelEl.textContent : micro.id;
+                        // Формируем название с процентом: "Железо (Fe) 8.143%"
+                        const baseName = microNames[micro.id] || micro.id;
+                        const percent = microPercents[micro.id] || 0;
+                        const name = `${baseName} (${micro.id}) ${percent}%`;
+                        
                         html += `<div style="margin-bottom: 8px;">
                             <div style="position: relative;">
                                 <div style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 13px; font-weight: bold; color: #333; pointer-events: none; z-index: 1;">${name}:</div>
                                 <input type="number" 
                                        id="mobile-micro-${micro.id}" 
-                                       value="${weight.toFixed(3)}" 
-                                       step="0.001" 
+                                       value="${weight.toFixed(2)}" 
+                                       step="0.01" 
                                        oninput="syncMicroSaltToDesktop('${micro.id}', this.value)"
                                        style="width: 100%; padding: 10px 10px 10px 30px; font-size: 16px; border: 2px solid #ddd; border-radius: 5px; text-align: right; font-weight: bold;">
                             </div>
@@ -8905,6 +8962,40 @@ cgSi=0.2700`;
                 avatar.style.display = 'block';
             }
             
+            // Показываем карточку профиля в мобильном интерфейсе
+            const mobileLogoutBtn = document.getElementById('mobile-logout-button');
+            const mobileUserEmail = document.getElementById('mobile-user-email');
+            const mobileUserName = document.getElementById('mobile-user-name');
+            const mobileUserAvatar = document.getElementById('mobile-user-avatar');
+            const mobileUserAvatarPlaceholder = document.getElementById('mobile-user-avatar-placeholder');
+            
+            if (mobileLogoutBtn) {
+                mobileLogoutBtn.style.display = 'block';
+                
+                // Заполняем email
+                if (mobileUserEmail) {
+                    mobileUserEmail.textContent = user.email;
+                }
+                
+                // Заполняем имя
+                if (mobileUserName) {
+                    mobileUserName.textContent = user.displayName || user.email.split('@')[0];
+                }
+                
+                // Показываем аватарку если есть
+                if (user.photoURL && mobileUserAvatar && mobileUserAvatarPlaceholder) {
+                    mobileUserAvatar.src = user.photoURL;
+                    mobileUserAvatar.style.display = 'block';
+                    mobileUserAvatarPlaceholder.style.display = 'none';
+                } else if (mobileUserAvatarPlaceholder) {
+                    // Показываем placeholder с первой буквой имени
+                    const firstLetter = (user.displayName || user.email)[0].toUpperCase();
+                    mobileUserAvatarPlaceholder.textContent = firstLetter;
+                    mobileUserAvatarPlaceholder.style.display = 'flex';
+                    if (mobileUserAvatar) mobileUserAvatar.style.display = 'none';
+                }
+            }
+            
             // Создаем/обновляем запись пользователя в базе
             createOrUpdateUser(user);
         }
@@ -8914,6 +9005,12 @@ cgSi=0.2700`;
             // Показываем секцию входа
             document.getElementById('cloud-login-section').style.display = 'block';
             document.getElementById('cloud-logged-in-section').style.display = 'none';
+            
+            // Скрываем кнопку выхода в мобильном интерфейсе
+            const mobileLogoutBtn = document.getElementById('mobile-logout-button');
+            if (mobileLogoutBtn) {
+                mobileLogoutBtn.style.display = 'none';
+            }
         }
         
         // Вход через Google
@@ -10410,6 +10507,24 @@ cgSi=0.2700`;
             <p style="margin: 8px 0 0 0; font-size: 12px; color: #666;">Выберите файл с устройства или из облака</p>
         </div>
         
+        <!-- Карточка профиля (показывается только для авторизованных) -->
+        <div id="mobile-logout-button" style="display: none; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px; border-radius: 12px; margin: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+            <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                <div style="position: relative;">
+                    <img id="mobile-user-avatar" src="" alt="Avatar" style="width: 60px; height: 60px; border-radius: 50%; border: 3px solid white; box-shadow: 0 2px 8px rgba(0,0,0,0.2); display: none; object-fit: cover;">
+                    <div id="mobile-user-avatar-placeholder" style="width: 60px; height: 60px; border-radius: 50%; background: white; display: flex; align-items: center; justify-content: center; font-size: 28px; border: 3px solid white; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">👤</div>
+                </div>
+                <div style="flex: 1; margin-left: 15px; color: white;">
+                    <div style="font-size: 11px; opacity: 0.9; margin-bottom: 2px;">Добро пожаловать!</div>
+                    <div id="mobile-user-name" style="font-size: 16px; font-weight: bold; margin-bottom: 3px;">Пользователь</div>
+                    <div id="mobile-user-email" style="font-size: 11px; opacity: 0.85;"></div>
+                </div>
+            </div>
+            <button onclick="logout()" style="width: 100%; padding: 12px; background: rgba(255,255,255,0.25); color: white; border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; font-size: 14px; font-weight: bold; backdrop-filter: blur(10px); transition: all 0.3s;">
+                🚪 Выйти из аккаунта
+            </button>
+        </div>
+        
         </div>
         
         <!-- Контейнер журнала (скрыт по умолчанию) -->
@@ -10444,7 +10559,7 @@ cgSi=0.2700`;
         </div>
 
         <div style="text-align: center; margin-top: 20px; color: #666; font-size: 12px;">
-            <p>Версия: 0.221 (HTML5 порт - 11.10.2025)</p>
+            <p class="mobile-version">Версия: <span id="mobile-version"></span></p>
             <p>© <a href="https://github.com/WEGA-project" target="_blank" style="color: #666; text-decoration: none;">WEGA-PROJECT</a></p>
         </div>
     </div>
