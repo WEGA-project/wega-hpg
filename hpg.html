@@ -5002,6 +5002,9 @@ K:Mg до 3,6 после 3,6</textarea>
         // Массив для хранения записей журнала
         let journalEntries = [];
         
+        // Текущий режим группировки каталога
+        let catalogGrouping = 'users'; // 'users', 'tags', 'none'
+        
         function fileOpen() {
             const input = document.createElement('input');
             input.type = 'file';
@@ -8947,7 +8950,19 @@ cgSi=0.2700`;
         });
         
         // Пользователь вошел
-        function onUserLoggedIn(user) {
+        async function onUserLoggedIn(user) {
+            // Сохраняем/обновляем данные пользователя в Firestore
+            try {
+                await db.collection('users').doc(user.uid).set({
+                    email: user.email,
+                    displayName: user.displayName || 'Аноним',
+                    photoURL: user.photoURL || null,
+                    lastLogin: firebase.firestore.FieldValue.serverTimestamp()
+                }, { merge: true });
+            } catch (error) {
+                console.error('Ошибка сохранения данных пользователя:', error);
+            }
+            
             // Показываем секцию авторизованного пользователя
             document.getElementById('cloud-login-section').style.display = 'none';
             document.getElementById('cloud-logged-in-section').style.display = 'block';
@@ -9500,6 +9515,7 @@ cgSi=0.2700`;
                     userId: user.uid,
                     userEmail: user.email,
                     userName: user.displayName,
+                    userPhotoURL: user.photoURL || null,
                     
                     // Уникальный ключ
                     appKey: 'wega-hpg-profile',
@@ -9532,7 +9548,9 @@ cgSi=0.2700`;
                     // Статистика
                     views: 0,
                     likes: 0,
-                    downloads: 0
+                    dislikes: 0,
+                    downloads: 0,
+                    commentsCount: 0
                 };
                 
                 // Сохраняем в Firestore
@@ -10032,6 +10050,17 @@ cgSi=0.2700`;
                 </div>
                 
                 <div style="margin-bottom: 15px;">
+                    <div style="display: flex; gap: 5px; margin-bottom: 10px;">
+                        <button id="group-by-users" onclick="switchCatalogGrouping('users')" style="flex: 1; padding: 8px; background: #4285f4; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: bold;">
+                            👥 По пользователям
+                        </button>
+                        <button id="group-by-tags" onclick="switchCatalogGrouping('tags')" style="flex: 1; padding: 8px; background: #e0e0e0; color: #666; border: none; border-radius: 4px; cursor: pointer; font-size: 13px;">
+                            🏷️ По тегам
+                        </button>
+                        <button id="group-by-none" onclick="switchCatalogGrouping('none')" style="flex: 1; padding: 8px; background: #e0e0e0; color: #666; border: none; border-radius: 4px; cursor: pointer; font-size: 13px;">
+                            📋 Все
+                        </button>
+                    </div>
                     <input type="text" id="public-search" placeholder="🔍 Поиск по названию или тегам..." style="width: 100%; padding: 10px; font-size: 14px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box;">
                 </div>
                 
@@ -10059,6 +10088,34 @@ cgSi=0.2700`;
             };
         }
         
+        // Переключение режима группировки каталога
+        function switchCatalogGrouping(mode) {
+            catalogGrouping = mode;
+            
+            // Обновляем стили кнопок
+            const buttons = {
+                'users': document.getElementById('group-by-users'),
+                'tags': document.getElementById('group-by-tags'),
+                'none': document.getElementById('group-by-none')
+            };
+            
+            Object.keys(buttons).forEach(key => {
+                if (key === mode) {
+                    buttons[key].style.background = '#4285f4';
+                    buttons[key].style.color = 'white';
+                    buttons[key].style.fontWeight = 'bold';
+                } else {
+                    buttons[key].style.background = '#e0e0e0';
+                    buttons[key].style.color = '#666';
+                    buttons[key].style.fontWeight = 'normal';
+                }
+            });
+            
+            // Перезагружаем профили
+            const searchQuery = document.getElementById('public-search').value.toLowerCase();
+            loadPublicProfiles(searchQuery);
+        }
+        
         // Загрузить публичные профили
         async function loadPublicProfiles(searchQuery = '') {
             const listDiv = document.getElementById('public-profiles-list');
@@ -10069,7 +10126,7 @@ cgSi=0.2700`;
                     .where('public', '==', true)
                     .where('appKey', '==', 'wega-hpg-profile')
                     .orderBy('created', 'desc')
-                    .limit(50);
+                    .limit(100);
                 
                 const snapshot = await query.get();
                 
@@ -10116,37 +10173,145 @@ cgSi=0.2700`;
                     return;
                 }
                 
-                // Отображаем профили
+                // Получаем лайки/дизлайки текущего пользователя
+                const currentUser = auth.currentUser;
+                let userLikes = {};
+                if (currentUser) {
+                    try {
+                        const likesSnapshot = await db.collection('likes')
+                            .where('userId', '==', currentUser.uid)
+                            .get();
+                        likesSnapshot.forEach(doc => {
+                            const data = doc.data();
+                            userLikes[data.profileId] = data.type; // 'like' или 'dislike'
+                        });
+                    } catch (error) {
+                        console.log('Не удалось загрузить лайки пользователя');
+                    }
+                }
+                
+                // Отображаем профили в зависимости от режима группировки
                 let html = '';
-                profiles.forEach(profile => {
-                    const date = profile.created?.toDate().toLocaleDateString('ru-RU') || '';
-                    const author = profile.userName || 'Аноним';
+                
+                if (catalogGrouping === 'users') {
+                    // Группировка по пользователям
+                    const userGroups = {};
+                    profiles.forEach(profile => {
+                        const userId = profile.userId || 'anonymous';
+                        if (!userGroups[userId]) {
+                            userGroups[userId] = {
+                                userName: profile.userName || 'Аноним',
+                                userEmail: profile.userEmail || '',
+                                profiles: []
+                            };
+                        }
+                        userGroups[userId].profiles.push(profile);
+                    });
                     
-                    html += `
-                        <div style="border: 1px solid #ddd; border-radius: 5px; padding: 12px; margin-bottom: 10px; background: #f9f9f9;">
-                            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 8px;">
-                                <div style="flex: 1;">
-                                    <div style="font-weight: bold; font-size: 15px; margin-bottom: 3px;">
-                                        🌐 ${profile.name}
+                    // Загружаем фото пользователей из коллекции users
+                    const userPhotos = {};
+                    const userIds = Object.keys(userGroups).filter(id => id !== 'anonymous');
+                    
+                    if (userIds.length > 0) {
+                        try {
+                            // Загружаем данные пользователей пачками (Firestore поддерживает до 10 в in)
+                            for (let i = 0; i < userIds.length; i += 10) {
+                                const batch = userIds.slice(i, i + 10);
+                                const usersSnapshot = await db.collection('users')
+                                    .where(firebase.firestore.FieldPath.documentId(), 'in', batch)
+                                    .get();
+                                
+                                usersSnapshot.forEach(doc => {
+                                    const userData = doc.data();
+                                    if (userData.photoURL) {
+                                        userPhotos[doc.id] = userData.photoURL;
+                                    }
+                                });
+                            }
+                        } catch (error) {
+                            console.log('Не удалось загрузить фото пользователей:', error);
+                        }
+                    }
+                    
+                    // Отображаем каждую группу пользователей
+                    Object.keys(userGroups).forEach(userId => {
+                        const group = userGroups[userId];
+                        // Используем фото из коллекции users или генерируем по инициалам
+                        const avatarUrl = userPhotos[userId] || `https://ui-avatars.com/api/?name=${encodeURIComponent(group.userName)}&size=40&background=4285f4&color=fff`;
+                        const isExpanded = Object.keys(userGroups).length === 1; // Автоматически раскрываем если один пользователь
+                        
+                        html += `
+                            <div style="border: 1px solid #ddd; border-radius: 5px; margin-bottom: 10px; background: #fff;">
+                                <div onclick="toggleUserGroup('${userId}')" style="display: flex; align-items: center; gap: 10px; padding: 12px; cursor: pointer; background: #f5f5f5; border-radius: 5px 5px 0 0;">
+                                    <img src="${avatarUrl}" style="width: 40px; height: 40px; border-radius: 50%;" alt="${group.userName}">
+                                    <div style="flex: 1;">
+                                        <div style="font-weight: bold; font-size: 14px;">${group.userName}</div>
+                                        <div style="font-size: 11px; color: #666;">${group.profiles.length} ${group.profiles.length === 1 ? 'профиль' : group.profiles.length < 5 ? 'профиля' : 'профилей'}</div>
                                     </div>
-                                    ${profile.description ? `<div style="font-size: 12px; color: #666; margin-bottom: 3px;">${profile.description}</div>` : ''}
-                                    <div style="font-size: 11px; color: #999;">
-                                        👤 ${author} • 📅 ${date}
-                                        ${profile.tags && profile.tags.length > 0 ? ` • 🏷️ ${profile.tags.join(', ')}` : ''}
-                                    </div>
+                                    <span id="user-group-icon-${userId}" style="font-size: 16px;">${isExpanded ? '▼' : '▶'}</span>
+                                </div>
+                                <div id="user-group-${userId}" style="display: ${isExpanded ? 'block' : 'none'}; padding: 10px;">
+                        `;
+                        
+                        group.profiles.forEach(profile => {
+                            html += renderProfileCard(profile, userLikes);
+                        });
+                        
+                        html += `
                                 </div>
                             </div>
-                            <div style="display: flex; gap: 5px;">
-                                <button onclick="loadPublicProfile('${profile.id}')" style="flex: 1; padding: 8px; background: #4285f4; color: white; border: none; border-radius: 3px; cursor: pointer; font-size: 13px;">
-                                    📥 Загрузить
-                                </button>
-                                <button onclick="downloadCloudProfile('${profile.id}')" style="flex: 1; padding: 8px; background: #ff9800; color: white; border: none; border-radius: 3px; cursor: pointer; font-size: 13px;">
-                                    💾 Скачать
-                                </button>
+                        `;
+                    });
+                    
+                } else if (catalogGrouping === 'tags') {
+                    // Группировка по тегам
+                    const tagGroups = {};
+                    profiles.forEach(profile => {
+                        const tags = profile.tags && profile.tags.length > 0 ? profile.tags : ['Без тегов'];
+                        tags.forEach(tag => {
+                            if (!tagGroups[tag]) {
+                                tagGroups[tag] = [];
+                            }
+                            tagGroups[tag].push(profile);
+                        });
+                    });
+                    
+                    // Сортируем теги по количеству профилей
+                    const sortedTags = Object.keys(tagGroups).sort((a, b) => tagGroups[b].length - tagGroups[a].length);
+                    
+                    sortedTags.forEach(tag => {
+                        const tagProfiles = tagGroups[tag];
+                        const isExpanded = sortedTags.length === 1;
+                        
+                        html += `
+                            <div style="border: 1px solid #ddd; border-radius: 5px; margin-bottom: 10px; background: #fff;">
+                                <div onclick="toggleTagGroup('${tag}')" style="display: flex; align-items: center; gap: 10px; padding: 12px; cursor: pointer; background: #f5f5f5; border-radius: 5px 5px 0 0;">
+                                    <div style="font-size: 24px;">🏷️</div>
+                                    <div style="flex: 1;">
+                                        <div style="font-weight: bold; font-size: 14px;">${tag}</div>
+                                        <div style="font-size: 11px; color: #666;">${tagProfiles.length} ${tagProfiles.length === 1 ? 'профиль' : tagProfiles.length < 5 ? 'профиля' : 'профилей'}</div>
+                                    </div>
+                                    <span id="tag-group-icon-${tag}" style="font-size: 16px;">${isExpanded ? '▼' : '▶'}</span>
+                                </div>
+                                <div id="tag-group-${tag}" style="display: ${isExpanded ? 'block' : 'none'}; padding: 10px;">
+                        `;
+                        
+                        tagProfiles.forEach(profile => {
+                            html += renderProfileCard(profile, userLikes);
+                        });
+                        
+                        html += `
+                                </div>
                             </div>
-                        </div>
-                    `;
-                });
+                        `;
+                    });
+                    
+                } else {
+                    // Без группировки - просто список
+                    profiles.forEach(profile => {
+                        html += renderProfileCard(profile, userLikes);
+                    });
+                }
                 
                 listDiv.innerHTML = html;
                 
@@ -10157,6 +10322,374 @@ cgSi=0.2700`;
                         ❌ Ошибка загрузки: ${error.message}
                     </div>
                 `;
+            }
+        }
+        
+        // Отрисовка карточки профиля
+        function renderProfileCard(profile, userLikes) {
+            const date = profile.created?.toDate().toLocaleDateString('ru-RU') || '';
+            const author = profile.userName || 'Аноним';
+            const likes = profile.likes || 0;
+            const dislikes = profile.dislikes || 0;
+            const views = profile.views || 0;
+            const commentsCount = profile.commentsCount || 0;
+            
+            const userLikeType = userLikes[profile.id] || null;
+            const likeActive = userLikeType === 'like' ? 'background: #4caf50; color: white;' : 'background: #f0f0f0; color: #666;';
+            const dislikeActive = userLikeType === 'dislike' ? 'background: #f44336; color: white;' : 'background: #f0f0f0; color: #666;';
+            
+            return `
+                <div style="border: 1px solid #ddd; border-radius: 5px; padding: 12px; margin-bottom: 10px; background: #f9f9f9;">
+                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 8px;">
+                        <div style="flex: 1;">
+                            <div style="font-weight: bold; font-size: 15px; margin-bottom: 3px;">
+                                🌐 ${profile.name}
+                            </div>
+                            ${profile.description ? `<div style="font-size: 12px; color: #666; margin-bottom: 3px;">${profile.description}</div>` : ''}
+                            <div style="font-size: 11px; color: #999;">
+                                👤 ${author} • 📅 ${date}
+                                ${profile.tags && profile.tags.length > 0 ? ` • 🏷️ ${profile.tags.join(', ')}` : ''}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Статистика и реакции -->
+                    <div style="display: flex; gap: 8px; margin-bottom: 8px; font-size: 12px; color: #666;">
+                        <span title="Просмотры">👁️ ${views}</span>
+                        <button onclick="toggleLike('${profile.id}', 'like')" style="border: none; padding: 4px 8px; border-radius: 3px; cursor: pointer; font-size: 12px; ${likeActive}" title="Нравится">
+                            👍 ${likes}
+                        </button>
+                        <button onclick="toggleLike('${profile.id}', 'dislike')" style="border: none; padding: 4px 8px; border-radius: 3px; cursor: pointer; font-size: 12px; ${dislikeActive}" title="Не нравится">
+                            👎 ${dislikes}
+                        </button>
+                        <button onclick="showComments('${profile.id}')" style="border: none; padding: 4px 8px; border-radius: 3px; cursor: pointer; font-size: 12px; background: #f0f0f0; color: #666;" title="Комментарии">
+                            💬 ${commentsCount}
+                        </button>
+                    </div>
+                    
+                    <div style="display: flex; gap: 5px;">
+                        <button onclick="loadPublicProfile('${profile.id}')" style="flex: 1; padding: 8px; background: #4285f4; color: white; border: none; border-radius: 3px; cursor: pointer; font-size: 13px;">
+                            📥 Загрузить
+                        </button>
+                        <button onclick="downloadCloudProfile('${profile.id}')" style="flex: 1; padding: 8px; background: #ff9800; color: white; border: none; border-radius: 3px; cursor: pointer; font-size: 13px;">
+                            💾 Скачать
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // Переключение группы пользователя
+        function toggleUserGroup(userId) {
+            const content = document.getElementById(`user-group-${userId}`);
+            const icon = document.getElementById(`user-group-icon-${userId}`);
+            
+            if (content.style.display === 'none') {
+                content.style.display = 'block';
+                icon.textContent = '▼';
+            } else {
+                content.style.display = 'none';
+                icon.textContent = '▶';
+            }
+        }
+        
+        // Переключение группы тега
+        function toggleTagGroup(tag) {
+            const content = document.getElementById(`tag-group-${tag}`);
+            const icon = document.getElementById(`tag-group-icon-${tag}`);
+            
+            if (content.style.display === 'none') {
+                content.style.display = 'block';
+                icon.textContent = '▼';
+            } else {
+                content.style.display = 'none';
+                icon.textContent = '▶';
+            }
+        }
+        
+        // Переключение лайка/дизлайка
+        async function toggleLike(profileId, type) {
+            const user = auth.currentUser;
+            if (!user) {
+                alert('Войдите через Google, чтобы ставить лайки');
+                return;
+            }
+            
+            try {
+                // Проверяем существующий лайк
+                const likeQuery = await db.collection('likes')
+                    .where('userId', '==', user.uid)
+                    .where('profileId', '==', profileId)
+                    .get();
+                
+                if (!likeQuery.empty) {
+                    // Лайк уже существует
+                    const likeDoc = likeQuery.docs[0];
+                    const existingType = likeDoc.data().type;
+                    
+                    if (existingType === type) {
+                        // Убираем лайк/дизлайк
+                        await likeDoc.ref.delete();
+                        
+                        // Уменьшаем счетчик
+                        const field = type === 'like' ? 'likes' : 'dislikes';
+                        await db.collection('profiles').doc(profileId).update({
+                            [field]: firebase.firestore.FieldValue.increment(-1)
+                        });
+                    } else {
+                        // Меняем тип лайка
+                        await likeDoc.ref.update({ type: type });
+                        
+                        // Обновляем счетчики
+                        const oldField = existingType === 'like' ? 'likes' : 'dislikes';
+                        const newField = type === 'like' ? 'likes' : 'dislikes';
+                        await db.collection('profiles').doc(profileId).update({
+                            [oldField]: firebase.firestore.FieldValue.increment(-1),
+                            [newField]: firebase.firestore.FieldValue.increment(1)
+                        });
+                    }
+                } else {
+                    // Создаем новый лайк
+                    await db.collection('likes').add({
+                        userId: user.uid,
+                        profileId: profileId,
+                        type: type,
+                        created: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                    
+                    // Увеличиваем счетчик
+                    const field = type === 'like' ? 'likes' : 'dislikes';
+                    await db.collection('profiles').doc(profileId).update({
+                        [field]: firebase.firestore.FieldValue.increment(1)
+                    });
+                }
+                
+                // Перезагружаем профили
+                const searchQuery = document.getElementById('public-search').value.toLowerCase();
+                loadPublicProfiles(searchQuery);
+                
+            } catch (error) {
+                console.error('Ошибка при обработке лайка:', error);
+                alert('❌ Ошибка: ' + error.message);
+            }
+        }
+        
+        // Показать комментарии к профилю
+        async function showComments(profileId) {
+            const user = auth.currentUser;
+            
+            // Создаем модальное окно для комментариев
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 10001;
+            `;
+            
+            const modalContent = document.createElement('div');
+            modalContent.style.cssText = `
+                background: white;
+                border-radius: 8px;
+                padding: 20px;
+                max-width: 600px;
+                width: 90%;
+                max-height: 80vh;
+                overflow-y: auto;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            `;
+            
+            // Получаем информацию о профиле
+            let profileName = 'Профиль';
+            try {
+                const profileDoc = await db.collection('profiles').doc(profileId).get();
+                if (profileDoc.exists) {
+                    profileName = profileDoc.data().name || 'Профиль';
+                }
+            } catch (error) {
+                console.error('Ошибка загрузки профиля:', error);
+            }
+            
+            modalContent.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <h3 style="margin: 0; font-size: 16px;">💬 Комментарии: ${profileName}</h3>
+                    <button onclick="this.closest('[style*=fixed]').remove()" style="width: 30px; height: 30px; border: none; background: #f44336; color: white; border-radius: 50%; cursor: pointer; font-size: 18px; line-height: 1;">×</button>
+                </div>
+                
+                ${user ? `
+                    <div style="margin-bottom: 15px;">
+                        <textarea id="comment-text" placeholder="Напишите комментарий..." style="width: 100%; min-height: 60px; padding: 10px; font-size: 14px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; resize: vertical;"></textarea>
+                        <button onclick="addComment('${profileId}')" style="width: 100%; padding: 10px; margin-top: 5px; background: #4285f4; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; font-weight: bold;">
+                            Отправить
+                        </button>
+                    </div>
+                ` : `
+                    <div style="background: #fff3cd; padding: 10px; border-radius: 4px; margin-bottom: 15px; font-size: 13px; text-align: center;">
+                        Войдите через Google, чтобы оставлять комментарии
+                    </div>
+                `}
+                
+                <div id="comments-list" style="min-height: 100px;">
+                    <div style="text-align: center; padding: 20px; color: #666;">⏳ Загрузка комментариев...</div>
+                </div>
+            `;
+            
+            modal.appendChild(modalContent);
+            document.body.appendChild(modal);
+            
+            // Закрытие по клику на фон
+            modal.onclick = (e) => {
+                if (e.target === modal) {
+                    modal.remove();
+                }
+            };
+            
+            // Загружаем комментарии
+            loadComments(profileId);
+        }
+        
+        // Загрузить комментарии
+        async function loadComments(profileId) {
+            const listDiv = document.getElementById('comments-list');
+            
+            try {
+                const snapshot = await db.collection('comments')
+                    .where('profileId', '==', profileId)
+                    .orderBy('created', 'desc')
+                    .limit(50)
+                    .get();
+                
+                if (snapshot.empty) {
+                    listDiv.innerHTML = `
+                        <div style="text-align: center; padding: 20px; color: #666;">
+                            <div style="font-size: 32px; margin-bottom: 5px;">💬</div>
+                            <div style="font-size: 14px;">Пока нет комментариев</div>
+                            <div style="font-size: 12px; margin-top: 3px;">Будьте первым!</div>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                // Собираем уникальные userId для загрузки фото
+                const userIds = new Set();
+                snapshot.forEach(doc => {
+                    const comment = doc.data();
+                    if (comment.userId) {
+                        userIds.add(comment.userId);
+                    }
+                });
+                
+                // Загружаем фото пользователей из коллекции users
+                const userPhotos = {};
+                if (userIds.size > 0) {
+                    try {
+                        const userIdsArray = Array.from(userIds);
+                        for (let i = 0; i < userIdsArray.length; i += 10) {
+                            const batch = userIdsArray.slice(i, i + 10);
+                            const usersSnapshot = await db.collection('users')
+                                .where(firebase.firestore.FieldPath.documentId(), 'in', batch)
+                                .get();
+                            
+                            usersSnapshot.forEach(doc => {
+                                const userData = doc.data();
+                                if (userData.photoURL) {
+                                    userPhotos[doc.id] = userData.photoURL;
+                                }
+                            });
+                        }
+                    } catch (error) {
+                        console.log('Не удалось загрузить фото пользователей:', error);
+                    }
+                }
+                
+                let html = '';
+                snapshot.forEach(doc => {
+                    const comment = doc.data();
+                    const date = comment.created?.toDate().toLocaleString('ru-RU') || '';
+                    const userName = comment.userName || 'Аноним';
+                    
+                    // Используем фото из коллекции users или генерируем по инициалам
+                    const avatarUrl = userPhotos[comment.userId] || `https://ui-avatars.com/api/?name=${encodeURIComponent(userName)}&size=32&background=random`;
+                    
+                    html += `
+                        <div style="border-bottom: 1px solid #eee; padding: 10px 0;">
+                            <div style="display: flex; gap: 10px;">
+                                <img src="${avatarUrl}" style="width: 32px; height: 32px; border-radius: 50%;" alt="${userName}">
+                                <div style="flex: 1;">
+                                    <div style="font-weight: bold; font-size: 13px; margin-bottom: 2px;">${userName}</div>
+                                    <div style="font-size: 11px; color: #999; margin-bottom: 5px;">${date}</div>
+                                    <div style="font-size: 13px; color: #333;">${comment.text}</div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                listDiv.innerHTML = html;
+                
+            } catch (error) {
+                console.error('Ошибка загрузки комментариев:', error);
+                listDiv.innerHTML = `
+                    <div style="text-align: center; padding: 20px; color: #f44336;">
+                        ❌ Ошибка загрузки: ${error.message}
+                    </div>
+                `;
+            }
+        }
+        
+        // Добавить комментарий
+        async function addComment(profileId) {
+            const user = auth.currentUser;
+            if (!user) {
+                alert('Войдите через Google, чтобы оставлять комментарии');
+                return;
+            }
+            
+            const textarea = document.getElementById('comment-text');
+            const text = textarea.value.trim();
+            
+            if (!text) {
+                alert('Введите текст комментария');
+                return;
+            }
+            
+            try {
+                // Добавляем комментарий
+                await db.collection('comments').add({
+                    profileId: profileId,
+                    userId: user.uid,
+                    userName: user.displayName || 'Аноним',
+                    userEmail: user.email,
+                    text: text,
+                    created: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                
+                // Увеличиваем счетчик комментариев
+                await db.collection('profiles').doc(profileId).update({
+                    commentsCount: firebase.firestore.FieldValue.increment(1)
+                });
+                
+                // Очищаем поле ввода
+                textarea.value = '';
+                
+                // Перезагружаем комментарии
+                loadComments(profileId);
+                
+                // Перезагружаем профили в каталоге
+                const searchQuery = document.getElementById('public-search')?.value.toLowerCase() || '';
+                if (document.getElementById('public-profiles-list')) {
+                    loadPublicProfiles(searchQuery);
+                }
+                
+            } catch (error) {
+                console.error('Ошибка добавления комментария:', error);
+                alert('❌ Ошибка: ' + error.message);
             }
         }
         
