@@ -1731,7 +1731,7 @@
                        style="position: absolute; left: 8px; top: 6px;">
                 <label for="use_complex" style="position: absolute; left: 28px; top: 5px; font-size: 14px;">Комплекс по бору</label>
                 <span id="total_micro_text" style="position: absolute; left: 205px; top: 5px; font-size: 14px; width: 80px; text-align: right;">0.16135</span>
-                <input type="number" id="total_micro_grams" value="0.16135" step="0.00001" oninput="onTotalMicroGramsChange()"
+                <input type="number" id="total_micro_grams" value="0.16135" step="0.001" oninput="onTotalMicroGramsChange()"
                        style="position: absolute; left: 205px; top: 2px; width: 80px; height: 23px; display: none;">
                 <!-- Скрытое поле для совместимости с calcConcentrates (аналог gCmplx из легаси) -->
                 <input type="hidden" id="g_Cmplx" value="0.16135">
@@ -2806,6 +2806,9 @@ K:Mg до 3,6 после 3,6</textarea>
 
             Object.assign(currentProfile, data);
             
+            // Автосохранение после каждого изменения
+            autoSaveState();
+            
             // Синхронизация с мобильным
             if (typeof updateMobileDisplay === 'function') updateMobileDisplay();
 
@@ -3695,6 +3698,7 @@ K:Mg до 3,6 после 3,6</textarea>
                 calcWeight(getValues());
                 applyWeightsToProfile({ sync: false });
                 calcConcentrates(); // Обновляем концентраты и изготовление (как CalcConc в легаси)
+                autoSaveState();
             } finally {
                 isUpdating = false;
             }
@@ -3770,6 +3774,7 @@ K:Mg до 3,6 после 3,6</textarea>
             try {
                 applyWeightsToProfile({ sync: true });
                 calcConcentrates(); // Обновляем концентраты и изготовление (как CalcConc в легаси)
+                autoSaveState();
             } finally {
                 isUpdating = false;
             }
@@ -3811,6 +3816,7 @@ K:Mg до 3,6 после 3,6</textarea>
             updateMicroNames(); // Обновляем названия микроэлементов
             calcConcentrates();
             if (typeof updateMobileDisplay === 'function') updateMobileDisplay(); // Синхронизация с мобильным
+            autoSaveState();
         }
 
         function onMicroCompositionChange() {
@@ -3818,6 +3824,7 @@ K:Mg до 3,6 после 3,6</textarea>
             updateProfileString(); // Обновляем строку профиля (как в легаси после microToWeght)
             updateMicroNames(); // Обновляем названия микроэлементов
             calcConcentrates();
+            autoSaveState();
         }
 
         function toMicrocomplex() {
@@ -3853,10 +3860,56 @@ K:Mg до 3,6 после 3,6</textarea>
                 agCo = (Co * V) / (gmSUM * 10000);
                 agSi = (Si * V) / (gmSUM * 10000);
             }
+
+            const totalStr = gmSUM.toFixed(5);
+            const totalInput = document.getElementById('total_micro_grams');
+            if (totalInput && !document.getElementById('use_complex')?.checked) totalInput.value = totalStr;
+            const hiddenTotal = document.getElementById('g_Cmplx');
+            if (hiddenTotal && !document.getElementById('use_complex')?.checked) hiddenTotal.value = totalStr;
+            const totalLabel = document.getElementById('total_micro_text');
+            if (totalLabel) totalLabel.textContent = totalStr;
+
+            updateMicroDilutionInfo();
+        }
+
+        function updateMicroDilutionInfo() {
+            const infoEl = document.getElementById('micro-dilution-info');
+            if (!infoEl) return;
+
+            const V = parseFloat(document.getElementById('volume').value) || 0;
+            const microVol = parseFloat(document.getElementById('micro_volume').value) || 0;
+
+            let total = gmSUM;
+
+            if (!Number.isFinite(total) || total <= 0) {
+                if (document.getElementById('use_complex')?.checked) {
+                    const totalInput = parseFloat(document.getElementById('total_micro_grams')?.value);
+                    if (Number.isFinite(totalInput)) total = totalInput;
+                } else {
+                    const gIds = ['g_Fe', 'g_Mn', 'g_B', 'g_Zn', 'g_Cu', 'g_Mo', 'g_Co', 'g_Si'];
+                    total = gIds.reduce((acc, id) => acc + (parseFloat(document.getElementById(id)?.value) || 0), 0);
+                }
+            }
+
+            if (microVol <= 0 || total <= 0 || V <= 0) {
+                infoEl.textContent = 'Концентрация: 0,00 г/л, Кратность: 0:1, Расход: 0,0 мл/л раствора';
+                return;
+            }
+
+            const concentration = Math.round((total * 1000 / microVol) * 100) / 100;
+            const dilution = Math.round((V / microVol) * 1000);
+            const usage = Math.round((microVol / V) * 10) / 10;
+
+            const format = (value, decimals) => value.toFixed(decimals).replace('.', ',');
+
+            infoEl.textContent = `Концентрация: ${format(concentration, 2)} г/л, Кратность: ${dilution}:1, Расход: ${format(usage, 1)} мл/л раствора`;
         }
         
         function onComplexChange(skipRecalcPercents = false) {
             const checkbox = document.getElementById('use_complex');
+            if (!skipRecalcPercents) {
+                autoSaveState();
+            }
             const complexField = document.getElementById('complex_value');
             
             // Элементы таблицы солей
@@ -4063,26 +4116,28 @@ K:Mg до 3,6 после 3,6</textarea>
         }
         
         function onTotalMicroGramsChange() {
-            // При изменении общих граммов в режиме комплекса пересчитываем B
-            if (document.getElementById('use_complex').checked) {
-                const totalGrams = parseFloat(document.getElementById('total_micro_grams').value) || 0;
-                document.getElementById('g_Cmplx').value = totalGrams.toFixed(5); // Синхронизация
-                
-                const V = parseFloat(document.getElementById('volume').value) || 10;
-                const pB = parseFloat(document.getElementById('micro_B_percent').value) || 1;
-                
-                if (totalGrams > 0 && V > 0 && pB > 0) {
-                    // Пересчитываем B из общих граммов: B = gCmplx * dB * 10000 / V
-                    const B = (totalGrams * pB * 10000) / V;
-                    document.getElementById('B').value = Math.round(B);
-                    
-                    // Обновляем остальные расчеты
-                    microToWeght();
-                    updateProfileString();
-                    updateMicroNames(); // Обновляем названия микроэлементов
-                    calcConcentrates(); // Обновляем концентраты и изготовление
-                }
+            const totalInput = document.getElementById('total_micro_grams');
+            if (!totalInput) return;
+
+            const totalGrams = parseFloat(totalInput.value);
+            if (!Number.isFinite(totalGrams)) return;
+
+            const normalized = totalGrams.toFixed(5);
+            totalInput.value = normalized;
+
+            const gCmplxInput = document.getElementById('g_Cmplx');
+            if (gCmplxInput) gCmplxInput.value = normalized;
+
+            gmSUM = totalGrams;
+
+            if (document.getElementById('use_complex')?.checked) {
+                applyComplexGrams(totalGrams);
+            } else {
+                toMicrocomplex();
+                updateMicroDilutionInfo();
             }
+
+            autoSaveState();
         }
 
         function microToWeght() {
@@ -4132,24 +4187,34 @@ K:Mg до 3,6 после 3,6</textarea>
                 
                 // Пересчитываем микроэлементы из комплекса
                 // Kf.Fe.value:=10000*Kf.gCmplx.value* (Kf.dFe.value/Kf.V.value)
-                if (complexValue > 0) {
-                    document.getElementById('Fe').value = Math.round(10000 * complexValue * (pFe / V));
-                    document.getElementById('Mn').value = Math.round(10000 * complexValue * (pMn / V));
-                    // B остается как есть
-                    document.getElementById('Zn').value = Math.round(10000 * complexValue * (pZn / V));
-                    document.getElementById('Cu').value = Math.round(10000 * complexValue * (pCu / V));
-                    document.getElementById('Mo').value = Math.round(10000 * complexValue * (pMo / V));
-                    document.getElementById('Co').value = Math.round(10000 * complexValue * (pCo / V));
-                    document.getElementById('Si').value = Math.round(10000 * complexValue * (pSi / V));
-                }
+                const updateMicroFromComplex = (id, percent) => {
+                    const input = document.getElementById(id);
+                    if (!input) return;
+                    if (complexValue > 0 && percent > 0 && V > 0) {
+                        input.value = Math.round(10000 * complexValue * (percent / V));
+                    } else {
+                        input.value = '0';
+                    }
+                };
+
+                updateMicroFromComplex('Fe', pFe);
+                updateMicroFromComplex('Mn', pMn);
+                // Бор оставляем исходным значением (как в легаси)
+                updateMicroFromComplex('Zn', pZn);
+                updateMicroFromComplex('Cu', pCu);
+                updateMicroFromComplex('Mo', pMo);
+                updateMicroFromComplex('Co', pCo);
+                updateMicroFromComplex('Si', pSi);
             }
             
-            // Всегда обновляем отображение общих граммов
-            if (isComplexMode) {
-                document.getElementById('total_micro_grams').value = gmSUM.toFixed(5);
-            } else {
-                document.getElementById('total_micro_text').textContent = gmSUM.toFixed(5);
+            const totalGramsStr = gmSUM.toFixed(5);
+            document.getElementById('total_micro_grams').value = totalGramsStr;
+            document.getElementById('g_Cmplx').value = totalGramsStr;
+            if (!isComplexMode) {
+                document.getElementById('total_micro_text').textContent = totalGramsStr;
             }
+
+            updateMicroDilutionInfo();
 
             // Обновление состава - используем глобальные agXX значения как в легаси
             // Формула из легаси: round(agFe*1000)/1000 - округление до 3 знаков
@@ -4201,6 +4266,14 @@ K:Mg до 3,6 после 3,6</textarea>
                 document.getElementById('Mo').value = Math.round(10000 * gMo * (dMo / V));
                 document.getElementById('Co').value = Math.round(10000 * gCo * (dCo / V));
                 document.getElementById('Si').value = Math.round(10000 * gSi * (dSi / V));
+                gmSUM = gFe + gMn + gB + gZn + gCu + gMo + gCo + gSi;
+                const totalStr = gmSUM.toFixed(5);
+                const totalLabel = document.getElementById('total_micro_text');
+                if (totalLabel) totalLabel.textContent = totalStr;
+                const totalInput = document.getElementById('total_micro_grams');
+                if (totalInput) totalInput.value = totalStr;
+                const hiddenTotal = document.getElementById('g_Cmplx');
+                if (hiddenTotal) hiddenTotal.value = totalStr;
             } else {
                 // Режим комплекса: используем gCmplx
                 const gCmplx = parseFloat(document.getElementById('total_micro_grams').value) || 0;
@@ -4212,10 +4285,35 @@ K:Mg до 3,6 после 3,6</textarea>
                 document.getElementById('Mo').value = Math.round(10000 * gCmplx * (dMo / V));
                 document.getElementById('Co').value = Math.round(10000 * gCmplx * (dCo / V));
                 document.getElementById('Si').value = Math.round(10000 * gCmplx * (dSi / V));
+                gmSUM = gCmplx;
             }
             
             // Вызываем genProfile для обновления строки профиля (как в легаси строка 1986)
             updateProfileString();
+            autoSaveState();
+            updateMicroDilutionInfo();
+        }
+        
+        function applyComplexGrams(total) {
+            const normalized = total.toFixed(5);
+            const gCmplxInput = document.getElementById('g_Cmplx');
+            const totalInput = document.getElementById('total_micro_grams');
+            if (gCmplxInput) gCmplxInput.value = normalized;
+            if (totalInput) totalInput.value = normalized;
+
+            gmSUM = total;
+            weightToMicro();
+        }
+
+        function onComplexGramsChange() {
+            const totalInput = document.getElementById('total_micro_grams');
+            if (!totalInput) return;
+
+            const total = parseFloat(totalInput.value);
+            if (!Number.isFinite(total)) return;
+
+            applyComplexGrams(total);
+            autoSaveState();
         }
 
         // Работа с профилями
@@ -4241,6 +4339,186 @@ K:Mg до 3,6 после 3,6</textarea>
                 }
             } else {
                 alert('Сохраненный профиль не найден');
+            }
+        }
+        
+        // ========== АВТОСОХРАНЕНИЕ (восстановление при F5) ==========
+        
+        // Автосохранение текущего состояния (вызывается после каждого изменения)
+        function autoSaveState() {
+            try {
+                const getMacro = (salt, ions) => ions.reduce((acc, ion) => {
+                    acc[ion] = getSaltPercent(salt, ion);
+                    return acc;
+                }, {});
+
+                const readMicro = (id) => {
+                    const value = parseFloat(document.getElementById(id)?.value);
+                    return Number.isFinite(value) ? value : 0;
+                };
+
+                const readProfileValue = (id, fallback = 0) => parseInput(id, fallback);
+
+                const profileSnapshot = {
+                    N: readProfileValue('N'),
+                    NO3: readProfileValue('NO3'),
+                    NH4: readProfileValue('NH4'),
+                    P: readProfileValue('P'),
+                    K: readProfileValue('K'),
+                    Ca: readProfileValue('Ca'),
+                    Mg: readProfileValue('Mg'),
+                    S: readProfileValue('S'),
+                    Cl: readProfileValue('Cl'),
+                    EC: readProfileValue('EC'),
+                    Fe: readProfileValue('Fe'),
+                    Mn: readProfileValue('Mn'),
+                    B: readProfileValue('B'),
+                    Zn: readProfileValue('Zn'),
+                    Cu: readProfileValue('Cu'),
+                    Mo: readProfileValue('Mo'),
+                    Co: readProfileValue('Co'),
+                    Si: readProfileValue('Si'),
+                    volume: readProfileValue('volume', 10)
+                };
+
+                currentProfile = { ...currentProfile, ...profileSnapshot };
+
+                const state = {
+                    profile: profileSnapshot,
+                    volume: profileSnapshot.volume,
+                    useK2SO4: document.getElementById('use_K2SO4')?.checked || false,
+                    useMgNO3: document.getElementById('use_MgNO3')?.checked || false,
+                    useComplex: document.getElementById('use_complex')?.checked || false,
+                    macroPercents: {
+                        CaNO3: getMacro('CaNO3', ['Ca', 'NO3', 'NH4']),
+                        KNO3: getMacro('KNO3', ['K', 'NO3']),
+                        NH4NO3: getMacro('NH4NO3', ['NH4', 'NO3']),
+                        MgSO4: getMacro('MgSO4', ['Mg', 'S']),
+                        KH2PO4: getMacro('KH2PO4', ['K', 'P']),
+                        K2SO4: getMacro('K2SO4', ['K', 'S']),
+                        MgNO3: getMacro('MgNO3', ['Mg', 'NO3']),
+                        CaCl2: getMacro('CaCl2', ['Ca', 'Cl'])
+                    },
+                    microPercents: {
+                        Fe: readMicro('micro_Fe_percent'),
+                        Mn: readMicro('micro_Mn_percent'),
+                        B: readMicro('micro_B_percent'),
+                        Zn: readMicro('micro_Zn_percent'),
+                        Cu: readMicro('micro_Cu_percent'),
+                        Mo: readMicro('micro_Mo_percent'),
+                        Co: readMicro('micro_Co_percent'),
+                        Si: readMicro('micro_Si_percent')
+                    },
+                    timestamp: Date.now()
+                };
+                localStorage.setItem('hpg_autosave', JSON.stringify(state));
+            } catch (e) {
+                console.error('Ошибка автосохранения:', e);
+            }
+        }
+        
+        // Восстановление автосохраненного состояния при загрузке страницы
+        function restoreAutoSave() {
+            try {
+                const saved = localStorage.getItem('hpg_autosave');
+                if (!saved) return false;
+
+                const state = JSON.parse(saved);
+
+                const age = Date.now() - (state.timestamp || 0);
+                if (age > 24 * 60 * 60 * 1000) {
+                    localStorage.removeItem('hpg_autosave');
+                    return false;
+                }
+
+                const setCheckbox = (id, value) => {
+                    if (value === undefined) return;
+                    const el = document.getElementById(id);
+                    if (el) el.checked = value;
+                };
+
+                setCheckbox('use_K2SO4', state.useK2SO4);
+                setCheckbox('use_MgNO3', state.useMgNO3);
+                setCheckbox('use_complex', state.useComplex);
+
+                useK2SO4 = !!document.getElementById('use_K2SO4')?.checked;
+                useMgNO3 = !!document.getElementById('use_MgNO3')?.checked;
+
+                const useComplexFlag = !!document.getElementById('use_complex')?.checked;
+                toggleMicroElements(useComplexFlag);
+
+                if (state.macroPercents) {
+                    const mp = state.macroPercents;
+                    const restoreMacro = (salt, ion, obj) => {
+                        if (!obj) return;
+                        const value = obj[ion];
+                        if (!Number.isFinite(value)) return;
+                        setSaltPercent(salt, ion, value);
+                    };
+
+                    restoreMacro('CaNO3', 'Ca', mp.CaNO3);
+                    restoreMacro('CaNO3', 'NO3', mp.CaNO3);
+                    restoreMacro('CaNO3', 'NH4', mp.CaNO3);
+                    restoreMacro('KNO3', 'K', mp.KNO3);
+                    restoreMacro('KNO3', 'NO3', mp.KNO3);
+                    restoreMacro('NH4NO3', 'NH4', mp.NH4NO3);
+                    restoreMacro('NH4NO3', 'NO3', mp.NH4NO3);
+                    restoreMacro('MgSO4', 'Mg', mp.MgSO4);
+                    restoreMacro('MgSO4', 'S', mp.MgSO4);
+                    restoreMacro('KH2PO4', 'K', mp.KH2PO4);
+                    restoreMacro('KH2PO4', 'P', mp.KH2PO4);
+                    restoreMacro('K2SO4', 'K', mp.K2SO4);
+                    restoreMacro('K2SO4', 'S', mp.K2SO4);
+                    restoreMacro('MgNO3', 'Mg', mp.MgNO3);
+                    restoreMacro('MgNO3', 'NO3', mp.MgNO3);
+                    restoreMacro('CaCl2', 'Ca', mp.CaCl2);
+                    restoreMacro('CaCl2', 'Cl', mp.CaCl2);
+                }
+
+                if (state.microPercents) {
+                    const restoreMicro = (id, value) => {
+                        if (!Number.isFinite(value)) return;
+                        setInputValue(id, value, 4, { force: true });
+                    };
+
+                    restoreMicro('micro_Fe_percent', state.microPercents.Fe);
+                    restoreMicro('micro_Mn_percent', state.microPercents.Mn);
+                    restoreMicro('micro_B_percent', state.microPercents.B);
+                    restoreMicro('micro_Zn_percent', state.microPercents.Zn);
+                    restoreMicro('micro_Cu_percent', state.microPercents.Cu);
+                    restoreMicro('micro_Mo_percent', state.microPercents.Mo);
+                    restoreMicro('micro_Co_percent', state.microPercents.Co);
+                    restoreMicro('micro_Si_percent', state.microPercents.Si);
+
+                    if (Number.isFinite(state.microPercents.Fe)) vdFe = state.microPercents.Fe;
+                    if (Number.isFinite(state.microPercents.Mn)) vdMn = state.microPercents.Mn;
+                    if (Number.isFinite(state.microPercents.B)) vdB = state.microPercents.B;
+                    if (Number.isFinite(state.microPercents.Zn)) vdZn = state.microPercents.Zn;
+                    if (Number.isFinite(state.microPercents.Cu)) vdCu = state.microPercents.Cu;
+                    if (Number.isFinite(state.microPercents.Mo)) vdMo = state.microPercents.Mo;
+                    if (Number.isFinite(state.microPercents.Co)) vdCo = state.microPercents.Co;
+                    if (Number.isFinite(state.microPercents.Si)) vdSi = state.microPercents.Si;
+                }
+
+                syncSaltCompositions();
+                updateSaltLabels();
+                updateSaltNames();
+
+                if (state.profile) {
+                    Object.assign(currentProfile, state.profile);
+                    applyProfile();
+                } else {
+                    const restoredVolume = parseFloat(state.volume);
+                    if (Number.isFinite(restoredVolume)) {
+                        document.getElementById('volume').value = restoredVolume;
+                    }
+                }
+
+                console.log('Автосохранение восстановлено');
+                return true;
+            } catch (e) {
+                console.error('Ошибка восстановления:', e);
+                return false;
             }
         }
 
@@ -7287,19 +7565,26 @@ cgSi=0.2700`;
             updateSaltLabels();
             updateSaltNames(); // Обновляем названия солей при загрузке
             updateMicroNames(); // Обновляем названия микроэлементов при загрузке
-            calcAll();
+            
+            // Восстановление автосохраненного состояния (если есть)
+            const restored = restoreAutoSave();
+            
+            if (!restored) {
+                calcAll();
+            }
             onMicroChange();
             
             // Инициализация микро вкладки
-            onComplexChange();
+            onComplexChange(restored);
             
             // Инициализация концентратов
             calcConcentrates();
             addPriceEventListeners();
             initPriceSpinners(); // Инициализация кастомных крутилок
             
-            // Инициализация подвкладки Изготовление (по умолчанию отдельные микроэлементы)
-            toggleMicroElements(false);
+            // Инициализация подвкладки Изготовление с учетом состояния чекбокса
+            const useComplexCheckbox = document.getElementById('use_complex');
+            toggleMicroElements(!!useComplexCheckbox?.checked);
             
             // Восстановить активную вкладку из localStorage
             const savedTab = localStorage.getItem('activeTab');
