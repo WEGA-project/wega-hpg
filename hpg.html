@@ -5001,6 +5001,11 @@ K:Mg до 3,6 после 3,6</textarea>
         
         // Массив для хранения записей журнала
         let journalEntries = [];
+
+        // Кэш облачных профилей пользователя (ключ — имя без .hpg, в нижнем регистре)
+        let userCloudProfilesMap = new Map();
+        let currentMatchedCloudProfile = null;
+        let isCloudProfilesLoaded = false;
         
         // Текущий режим группировки каталога
         let catalogGrouping = 'users'; // 'users', 'tags', 'none'
@@ -7679,6 +7684,88 @@ cgSi=0.2700`;
             
             document.getElementById('mobile-file-name').textContent = filename;
             document.getElementById('mobile-file-desc').textContent = comment;
+
+            // Обновляем состояние облачной кнопки при изменении имени файла
+            updateCloudSaveButton();
+        }
+
+        function normalizeProfileName(name) {
+            return (name || '').trim().replace(/\.hpg$/i, '').toLowerCase();
+        }
+
+        function setCloudSaveButtonState(isUpdate) {
+            const saveBtn = document.querySelector('#cloud-logged-in-section button[onclick="saveProfileToCloud()"]');
+            const mobileBtn = document.getElementById('mobile-save-cloud-button');
+
+            if (saveBtn) {
+                saveBtn.innerHTML = isUpdate ? '🔄 Обновить' : '💾 Сохранить';
+                saveBtn.style.background = isUpdate ? '#0b8043' : '#34a853';
+                saveBtn.dataset.mode = isUpdate ? 'update' : 'save';
+            }
+
+            if (mobileBtn) {
+                mobileBtn.textContent = isUpdate ? '🔄 Обновить профиль' : '💾 Сохранить профиль';
+                mobileBtn.dataset.mode = isUpdate ? 'update' : 'save';
+            }
+        }
+
+        function updateCloudSaveButton() {
+            const filenameInput = document.getElementById('file_filename');
+            if (!filenameInput) return;
+
+            const normalizedName = normalizeProfileName(filenameInput.value);
+            const matched = userCloudProfilesMap.get(normalizedName) || null;
+
+            currentMatchedCloudProfile = matched;
+            setCloudSaveButtonState(!!matched);
+        }
+
+        function updateUserCloudProfilesMapFromSnapshot(snapshot) {
+            const newMap = new Map();
+            snapshot?.forEach?.(doc => {
+                const data = doc.data();
+                const normalizedName = normalizeProfileName(data?.name);
+                if (!normalizedName) return;
+                newMap.set(normalizedName, {
+                    id: doc.id,
+                    name: data.name,
+                    description: data.description || '',
+                    public: !!data.public,
+                    modified: data.modified || null
+                });
+            });
+
+            userCloudProfilesMap = newMap;
+            isCloudProfilesLoaded = true;
+            currentMatchedCloudProfile = null;
+            updateCloudSaveButton();
+        }
+
+        async function refreshUserCloudProfiles(force = false) {
+            const user = auth.currentUser;
+            if (!user) {
+                userCloudProfilesMap = new Map();
+                currentMatchedCloudProfile = null;
+                isCloudProfilesLoaded = false;
+                setCloudSaveButtonState(false);
+                return;
+            }
+
+            if (isCloudProfilesLoaded && !force) {
+                updateCloudSaveButton();
+                return;
+            }
+
+            try {
+                const snapshot = await db.collection('profiles')
+                    .where('userId', '==', user.uid)
+                    .where('appKey', '==', 'wega-hpg-profile')
+                    .get();
+
+                updateUserCloudProfilesMapFromSnapshot(snapshot);
+            } catch (error) {
+                console.error('Ошибка получения облачных профилей:', error);
+            }
         }
         
         // Переключение вкладок
@@ -9013,6 +9100,7 @@ cgSi=0.2700`;
             
             // Создаем/обновляем запись пользователя в базе
             createOrUpdateUser(user);
+            await refreshUserCloudProfiles(true);
         }
         
         // Пользователь вышел
@@ -9026,6 +9114,11 @@ cgSi=0.2700`;
             if (mobileLogoutBtn) {
                 mobileLogoutBtn.style.display = 'none';
             }
+
+            userCloudProfilesMap = new Map();
+            currentMatchedCloudProfile = null;
+            isCloudProfilesLoaded = false;
+            setCloudSaveButtonState(false);
         }
         
         // Вход через Google
@@ -9212,6 +9305,18 @@ cgSi=0.2700`;
             if (!user) {
                 alert('Сначала войдите через Google');
                 loginWithGoogle();
+                return;
+            }
+
+            await refreshUserCloudProfiles();
+
+            const filenameInput = document.getElementById('file_filename');
+            const filenameValue = filenameInput?.value || 'default.hpg';
+            const normalizedName = normalizeProfileName(filenameValue);
+            const existingProfile = userCloudProfilesMap.get(normalizedName);
+
+            if (existingProfile) {
+                await updateCloudProfile(existingProfile.id);
                 return;
             }
             
@@ -9597,7 +9702,8 @@ cgSi=0.2700`;
                         lastLogin: firebase.firestore.FieldValue.serverTimestamp()
                     });
                 }
-                
+
+                await refreshUserCloudProfiles(true);
                 alert('✅ Профиль сохранен в облаке!\n\nВы можете получить к нему доступ с любого устройства, просто войдя в свой Google аккаунт.');
                 
             } catch (error) {
@@ -9679,6 +9785,8 @@ cgSi=0.2700`;
                     .where('appKey', '==', 'wega-hpg-profile')
                     .orderBy('modified', 'desc')
                     .get();
+
+                updateUserCloudProfilesMapFromSnapshot(snapshot);
                 
                 if (snapshot.empty) {
                     listDiv.innerHTML = `
@@ -9944,8 +10052,10 @@ cgSi=0.2700`;
         }
         
         // Обновить профиль в облаке текущими данными
-        async function updateCloudProfile(profileId) {
-            if (!confirm('Обновить этот профиль текущими данными?')) return;
+        async function updateCloudProfile(profileId, options = {}) {
+            const { silent = false } = options;
+
+            if (!silent && !confirm('Обновить этот профиль текущими данными?')) return;
             
             try {
                 // Собираем ПОЛНОЕ содержимое файла HPG
@@ -9961,9 +10071,18 @@ cgSi=0.2700`;
                     })),
                     modified: firebase.firestore.FieldValue.serverTimestamp()
                 });
-                
-                alert('✅ Профиль обновлен!');
-                loadCloudProfiles(); // Перезагружаем список
+
+                if (!silent) {
+                    alert('✅ Профиль обновлен!');
+                }
+
+                await refreshUserCloudProfiles(true);
+
+                if (document.getElementById('cloud-profiles-list')) {
+                    loadCloudProfiles();
+                } else {
+                    updateCloudSaveButton();
+                }
                 
             } catch (error) {
                 console.error('Ошибка обновления:', error);
