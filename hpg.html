@@ -10299,6 +10299,11 @@ cgSi=0.2700`;
                         document.getElementById('file_comment').value = profile.description;
                     }
                     
+                    // Обновляем список журнала в десктопном интерфейсе
+                    if (typeof updateJournalList === 'function') {
+                        updateJournalList();
+                    }
+                    
                     // Обновляем мобильное отображение файла
                     if (typeof updateMobileFileInfo === 'function') {
                         updateMobileFileInfo();
