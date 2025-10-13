@@ -5477,7 +5477,7 @@ K:Mg до 3,6 после 3,6</textarea>
             updateMobileResults();
             updateMobileSaltsValues();
             
-            alert('Файл загружен. Профиль и журнал (' + tempJournal.length + ' записей) импортированы.');
+            showCustomAlert('Файл загружен. Профиль и журнал (' + tempJournal.length + ' записей) импортированы.');
         }
         
         // Вспомогательные функции для сохранения файла (дополнительные)
@@ -7789,6 +7789,99 @@ cgSi=0.2700`;
             }
         }
         
+        // Универсальная функция для показа кастомных alert-окон
+        function showCustomAlert(message, title = 'localhost:7890') {
+            return new Promise((resolve) => {
+                const modal = document.createElement('div');
+                modal.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background: rgba(0, 0, 0, 0.5);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 10002;
+                    animation: fadeIn 0.2s ease-in;
+                `;
+                
+                // Определяем иконку и цвет в зависимости от типа сообщения
+                let icon = '🌐';
+                let iconColor = '#4285f4';
+                if (message.includes('✅') || message.includes('успешно') || message.includes('загружен')) {
+                    icon = '✅';
+                    iconColor = '#34a853';
+                } else if (message.includes('❌') || message.includes('Ошибка')) {
+                    icon = '❌';
+                    iconColor = '#f44336';
+                } else if (message.includes('⚠️') || message.includes('Внимание')) {
+                    icon = '⚠️';
+                    iconColor = '#ff9800';
+                }
+                
+                modal.innerHTML = `
+                    <div style="background: white; padding: 20px; border-radius: 10px; max-width: 450px; width: 90%; box-shadow: 0 4px 20px rgba(0,0,0,0.3); animation: slideIn 0.3s ease-out;">
+                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px; padding-bottom: 12px; border-bottom: 1px solid #e0e0e0;">
+                            <div style="font-size: 20px;">${icon}</div>
+                            <h3 style="margin: 0; font-size: 16px; color: #202020; font-weight: 500;">${title}</h3>
+                        </div>
+                        
+                        <div style="margin-bottom: 20px; font-size: 14px; color: #333; line-height: 1.5; white-space: pre-wrap;">
+                            ${message.replace(/✅|❌|⚠️|ℹ️/g, '').trim()}
+                        </div>
+                        
+                        <div style="display: flex; justify-content: flex-end;">
+                            <button id="custom-alert-ok" style="padding: 10px 24px; background: #4285f4; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 14px; font-weight: 500; transition: background 0.2s; min-width: 80px;">
+                                OK
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <style>
+                        @keyframes fadeIn {
+                            from { opacity: 0; }
+                            to { opacity: 1; }
+                        }
+                        @keyframes slideIn {
+                            from { transform: translateY(-20px); opacity: 0; }
+                            to { transform: translateY(0); opacity: 1; }
+                        }
+                    </style>
+                `;
+                
+                document.body.appendChild(modal);
+                
+                const okBtn = modal.querySelector('#custom-alert-ok');
+                okBtn.onmouseover = () => okBtn.style.background = '#3367d6';
+                okBtn.onmouseout = () => okBtn.style.background = '#4285f4';
+                
+                okBtn.onclick = () => {
+                    modal.remove();
+                    resolve();
+                };
+                
+                // Закрытие по клику на фон
+                modal.onclick = (e) => {
+                    if (e.target === modal) {
+                        modal.remove();
+                        resolve();
+                    }
+                };
+                
+                // Закрытие по Enter или Escape
+                const keyHandler = (e) => {
+                    if (e.key === 'Enter' || e.key === 'Escape') {
+                        modal.remove();
+                        document.removeEventListener('keydown', keyHandler);
+                        resolve();
+                    }
+                };
+                document.addEventListener('keydown', keyHandler);
+            });
+        }
+        
         // Показать модальное окно с предложением загрузить default профиль
         function showDefaultProfileModal(profileId, dateStr, description) {
             return new Promise((resolve) => {
@@ -9342,13 +9435,13 @@ cgSi=0.2700`;
             try {
                 const provider = new firebase.auth.GoogleAuthProvider();
                 const result = await auth.signInWithPopup(provider);
-                alert('✅ Вы успешно вошли!');
+                await showCustomAlert('✅ Вы успешно вошли!');
             } catch (error) {
                 console.error('Ошибка входа:', error);
                 if (error.code === 'auth/popup-closed-by-user') {
                     // Пользователь закрыл окно - ничего не делаем
                 } else {
-                    alert('❌ Ошибка входа: ' + error.message);
+                    await showCustomAlert('❌ Ошибка входа: ' + error.message);
                 }
             }
         }
@@ -9358,10 +9451,10 @@ cgSi=0.2700`;
             if (confirm('Выйти из аккаунта?')) {
                 try {
                     await auth.signOut();
-                    alert('✅ Вы вышли из аккаунта');
+                    await showCustomAlert('✅ Вы вышли из аккаунта');
                 } catch (error) {
                     console.error('Ошибка выхода:', error);
-                    alert('❌ Ошибка выхода: ' + error.message);
+                    await showCustomAlert('❌ Ошибка выхода: ' + error.message);
                 }
             }
         }
@@ -9524,7 +9617,7 @@ cgSi=0.2700`;
         async function saveProfileToCloud() {
             const user = auth.currentUser;
             if (!user) {
-                alert('Сначала войдите через Google');
+                await showCustomAlert('Сначала войдите через Google');
                 loginWithGoogle();
                 return;
             }
@@ -9623,7 +9716,7 @@ cgSi=0.2700`;
             document.getElementById('save-btn').onclick = async () => {
                 const name = document.getElementById('save-name').value.trim();
                 if (!name) {
-                    alert('Введите название профиля');
+                    await showCustomAlert('Введите название профиля');
                     return;
                 }
                 
@@ -9925,11 +10018,11 @@ cgSi=0.2700`;
                 }
 
                 await refreshUserCloudProfiles(true);
-                alert('✅ Профиль сохранен в облаке!\n\nВы можете получить к нему доступ с любого устройства, просто войдя в свой Google аккаунт.');
+                await showCustomAlert('✅ Профиль сохранен в облаке!\n\nВы можете получить к нему доступ с любого устройства, просто войдя в свой Google аккаунт.');
                 
             } catch (error) {
                 console.error('Ошибка сохранения:', error);
-                alert('❌ Ошибка сохранения: ' + error.message);
+                await showCustomAlert('❌ Ошибка сохранения: ' + error.message);
             }
         }
         
@@ -9937,7 +10030,7 @@ cgSi=0.2700`;
         async function showCloudProfilesModal() {
             const user = auth.currentUser;
             if (!user) {
-                alert('Сначала войдите через Google');
+                await showCustomAlert('Сначала войдите через Google');
                 return;
             }
             
@@ -10135,11 +10228,11 @@ cgSi=0.2700`;
                 // Закрываем модальное окно
                 document.querySelector('[style*="position: fixed"]')?.remove();
                 
-                alert(`✅ Профиль "${profile.name}" загружен!`);
+                await showCustomAlert(`✅ Профиль "${profile.name}" загружен!`);
                 
             } catch (error) {
                 console.error('Ошибка загрузки профиля:', error);
-                alert('❌ Ошибка загрузки: ' + error.message);
+                await showCustomAlert('❌ Ошибка загрузки: ' + error.message);
             }
         }
         
@@ -10149,7 +10242,7 @@ cgSi=0.2700`;
                 const doc = await db.collection('profiles').doc(profileId).get();
                 
                 if (!doc.exists) {
-                    alert('❌ Профиль не найден');
+                    await showCustomAlert('❌ Профиль не найден');
                     return;
                 }
                 
@@ -10262,12 +10355,12 @@ cgSi=0.2700`;
                         });
                         
                         modal.remove();
-                        alert('✅ Профиль обновлен!');
+                        await showCustomAlert('✅ Профиль обновлен!');
                         loadCloudProfiles(); // Перезагружаем список
                         
                     } catch (error) {
                         console.error('Ошибка обновления профиля:', error);
-                        alert('❌ Ошибка: ' + error.message);
+                        await showCustomAlert('❌ Ошибка: ' + error.message);
                     }
                 };
                 
@@ -10285,7 +10378,7 @@ cgSi=0.2700`;
                 
             } catch (error) {
                 console.error('Ошибка редактирования профиля:', error);
-                alert('❌ Ошибка: ' + error.message);
+                await showCustomAlert('❌ Ошибка: ' + error.message);
             }
         }
         
@@ -10311,7 +10404,7 @@ cgSi=0.2700`;
                 });
 
                 if (!silent) {
-                    alert('✅ Профиль обновлен!');
+                    await showCustomAlert('✅ Профиль обновлен!');
                 }
 
                 await refreshUserCloudProfiles(true);
@@ -10324,7 +10417,7 @@ cgSi=0.2700`;
                 
             } catch (error) {
                 console.error('Ошибка обновления:', error);
-                alert('❌ Ошибка обновления: ' + error.message);
+                await showCustomAlert('❌ Ошибка обновления: ' + error.message);
             }
         }
         
@@ -10355,12 +10448,12 @@ cgSi=0.2700`;
                     });
                 }
                 
-                alert('✅ Профиль удален');
+                await showCustomAlert('✅ Профиль удален');
                 loadCloudProfiles(); // Перезагружаем список
                 
             } catch (error) {
                 console.error('Ошибка удаления:', error);
-                alert('❌ Ошибка удаления: ' + error.message);
+                await showCustomAlert('❌ Ошибка удаления: ' + error.message);
             }
         }
         
@@ -10397,7 +10490,7 @@ cgSi=0.2700`;
                 
             } catch (error) {
                 console.error('Ошибка копирования:', error);
-                alert('❌ Не удалось скопировать ссылку. Попробуйте еще раз.');
+                await showCustomAlert('❌ Не удалось скопировать ссылку. Попробуйте еще раз.');
             }
         }
         
@@ -10552,7 +10645,7 @@ cgSi=0.2700`;
         async function showPublicProfilesModal() {
             const user = auth.currentUser;
             if (!user) {
-                alert('Сначала войдите через Google');
+                await showCustomAlert('Сначала войдите через Google');
                 loginWithGoogle();
                 return;
             }
@@ -10952,7 +11045,7 @@ cgSi=0.2700`;
         async function toggleLike(profileId, type) {
             const user = auth.currentUser;
             if (!user) {
-                alert('Войдите через Google, чтобы ставить лайки');
+                await showCustomAlert('Войдите через Google, чтобы ставить лайки');
                 return;
             }
             
@@ -11188,7 +11281,7 @@ cgSi=0.2700`;
         async function addComment(profileId) {
             const user = auth.currentUser;
             if (!user) {
-                alert('Войдите через Google, чтобы оставлять комментарии');
+                await showCustomAlert('Войдите через Google, чтобы оставлять комментарии');
                 return;
             }
             
@@ -11196,7 +11289,7 @@ cgSi=0.2700`;
             const text = textarea.value.trim();
             
             if (!text) {
-                alert('Введите текст комментария');
+                await showCustomAlert('Введите текст комментария');
                 return;
             }
             
