@@ -7789,6 +7789,158 @@ cgSi=0.2700`;
             }
         }
         
+        // Показать модальное окно с предложением загрузить default профиль
+        function showDefaultProfileModal(profileId, dateStr, description) {
+            return new Promise((resolve) => {
+                const modal = document.createElement('div');
+                modal.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background: rgba(0, 0, 0, 0.7);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 10002;
+                    animation: fadeIn 0.2s ease-in;
+                `;
+                
+                modal.innerHTML = `
+                    <div style="background: white; padding: 25px; border-radius: 12px; max-width: 480px; width: 90%; box-shadow: 0 4px 20px rgba(0,0,0,0.3); animation: slideIn 0.3s ease-out;">
+                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+                            <div style="font-size: 32px;">🔍</div>
+                            <h3 style="margin: 0; font-size: 20px; color: #202020;">Найден профиль "default" в облаке</h3>
+                        </div>
+                        
+                        <div style="background: #f5f5f5; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                            <div style="margin-bottom: 10px;">
+                                <strong style="color: #666; font-size: 13px;">Дата изменения:</strong><br>
+                                <span style="font-size: 15px; color: #202020;">${dateStr}</span>
+                            </div>
+                            <div>
+                                <strong style="color: #666; font-size: 13px;">Описание:</strong><br>
+                                <span style="font-size: 15px; color: #202020;">${description || 'нет'}</span>
+                            </div>
+                        </div>
+                        
+                        <div style="background: #e3f2fd; padding: 12px; border-radius: 8px; margin-bottom: 20px; font-size: 14px; color: #1565c0;">
+                            ℹ️ Загрузить этот профиль?
+                        </div>
+                        
+                        <div style="display: flex; gap: 10px;">
+                            <button id="default-modal-cancel" style="flex: 1; padding: 12px; background: #757575; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 15px; font-weight: 500; transition: background 0.2s;">
+                                Отмена
+                            </button>
+                            <button id="default-modal-ok" style="flex: 1; padding: 12px; background: #4285f4; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 15px; font-weight: 500; transition: background 0.2s;">
+                                OK
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <style>
+                        @keyframes fadeIn {
+                            from { opacity: 0; }
+                            to { opacity: 1; }
+                        }
+                        @keyframes slideIn {
+                            from { transform: translateY(-20px); opacity: 0; }
+                            to { transform: translateY(0); opacity: 1; }
+                        }
+                    </style>
+                `;
+                
+                document.body.appendChild(modal);
+                
+                // Обработчики кнопок
+                const cancelBtn = modal.querySelector('#default-modal-cancel');
+                const okBtn = modal.querySelector('#default-modal-ok');
+                
+                cancelBtn.onmouseover = () => cancelBtn.style.background = '#616161';
+                cancelBtn.onmouseout = () => cancelBtn.style.background = '#757575';
+                
+                okBtn.onmouseover = () => okBtn.style.background = '#3367d6';
+                okBtn.onmouseout = () => okBtn.style.background = '#4285f4';
+                
+                cancelBtn.onclick = () => {
+                    modal.remove();
+                    resolve(false);
+                };
+                
+                okBtn.onclick = () => {
+                    modal.remove();
+                    resolve(true);
+                };
+                
+                // Закрытие по клику на фон
+                modal.onclick = (e) => {
+                    if (e.target === modal) {
+                        modal.remove();
+                        resolve(false);
+                    }
+                };
+                
+                // Закрытие по Escape
+                const escapeHandler = (e) => {
+                    if (e.key === 'Escape') {
+                        modal.remove();
+                        document.removeEventListener('keydown', escapeHandler);
+                        resolve(false);
+                    }
+                };
+                document.addEventListener('keydown', escapeHandler);
+            });
+        }
+        
+        // Проверить и предложить загрузить default.hpg из облака
+        async function checkAndOfferDefaultProfile() {
+            try {
+                // Проверяем текущее имя файла
+                const currentFilename = document.getElementById('file_filename')?.value || '';
+                const normalizedCurrent = normalizeProfileName(currentFilename);
+                
+                // Если текущий файл не default - ничего не делаем
+                if (normalizedCurrent !== 'default') {
+                    return;
+                }
+                
+                // Проверяем есть ли default в облаке
+                const cloudDefault = userCloudProfilesMap.get('default');
+                if (!cloudDefault) {
+                    return;
+                }
+                
+                // Получаем дату модификации
+                const user = auth.currentUser;
+                if (!user) return;
+                
+                const doc = await db.collection('profiles').doc(cloudDefault.id).get();
+                if (!doc.exists) return;
+                
+                const profile = doc.data();
+                const modifiedDate = profile.modified?.toDate();
+                const dateStr = modifiedDate ? modifiedDate.toLocaleString('ru-RU', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                }) : 'неизвестно';
+                
+                // Показываем кастомное модальное окно
+                const shouldLoad = await showDefaultProfileModal(cloudDefault.id, dateStr, profile.description);
+                
+                if (shouldLoad) {
+                    await loadCloudProfile(cloudDefault.id);
+                }
+                
+            } catch (error) {
+                // Тихо игнорируем ошибки - это не критично
+                console.log('Не удалось проверить default профиль:', error);
+            }
+        }
+        
         // Переключение вкладок
         function switchMobileTab(tab) {
             const buttons = document.querySelectorAll('.mobile-tab-button');
@@ -9162,6 +9314,9 @@ cgSi=0.2700`;
             // Создаем/обновляем запись пользователя в базе (только один раз)
             await createOrUpdateUser(user);
             await refreshUserCloudProfiles(true);
+            
+            // Проверяем, нужно ли предложить загрузить default.hpg из облака
+            await checkAndOfferDefaultProfile();
         }
         
         // Пользователь вышел
