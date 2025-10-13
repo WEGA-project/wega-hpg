@@ -265,27 +265,7 @@
             display: flex;
             flex-wrap: wrap;
             gap: 12px;
-            margin-bottom: 15px;
-            font-size: 13px;
-            color: #666;
-        }
-
-        .meta-item {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .profile-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 15px;
-        }
-
-        .tag {
-            padding: 5px 12px;
-            background: #f0f0f0;
+            padding: 12px;
             border-radius: 15px;
             font-size: 12px;
             color: #555;
@@ -812,6 +792,13 @@
                             ${profile.tags.map(tag => `<span class="tag">🏷️ ${escapeHtml(tag)}</span>`).join('')}
                         </div>
                     ` : ''}
+                    ${profile.profileString ? `
+                        <div class="profile-string-block">
+                            <button class="btn btn-secondary btn-small" onclick="showProfileString('${profile.id}', '${escapeHtml(profile.name)}')">
+                                ⚗️ Профиль
+                            </button>
+                        </div>
+                    ` : ''}
                     <div class="profile-stats">
                         <div class="stat-item">
                             👁️ ${views}
@@ -857,6 +844,91 @@
                 alert(`✅ Ссылка на профиль "${profileName}" скопирована!`);
             } catch (error) {
                 prompt('Скопируйте ссылку:', shareUrl);
+            }
+        }
+
+        // Получить профиль по ID
+        function getProfileById(profileId) {
+            return allProfiles.find(profile => profile.id === profileId) ||
+                   filteredProfiles.find(profile => profile.id === profileId) ||
+                   null;
+        }
+
+        // Показать модалку со строкой профиля
+        function showProfileString(profileId, profileName) {
+            const profile = getProfileById(profileId);
+            if (!profile || !profile.profileString) {
+                alert('Строка профиля недоступна');
+                return;
+            }
+
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>⚗️ Профиль: ${escapeHtml(profileName)}</h2>
+                        <button class="modal-close" onclick="this.closest('.modal').remove()">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <p style="margin-bottom: 12px; color: #666;">Скопируйте строку и вставьте в поле профиля в калькуляторе.</p>
+                        <div class="profile-string-view" id="modal-profile-string">
+                            ${escapeHtml(profile.profileString)}
+                        </div>
+                        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px;">
+                            <button class="btn btn-primary" onclick="copyProfileString('${profile.id}', event)">
+                                📋 Скопировать строку
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.remove();
+                }
+            });
+
+            document.body.appendChild(modal);
+        }
+
+        // Копировать строку профиля
+        async function copyProfileString(profileId, event, profileStringOverride) {
+            event?.stopPropagation?.();
+
+            let profileString = profileStringOverride || '';
+            if (!profileString) {
+                const profile = getProfileById(profileId);
+                profileString = profile?.profileString || '';
+            }
+
+            if (!profileString) {
+                alert('Строка профиля недоступна');
+                return;
+            }
+
+            try {
+                await navigator.clipboard.writeText(profileString.trim());
+
+                const button = event?.currentTarget || event?.target;
+                if (button) {
+                    const originalText = button.textContent;
+                    button.textContent = '✅ Скопировано!';
+                    button.disabled = true;
+                    button.style.opacity = '0.8';
+                    
+                    setTimeout(() => {
+                        button.textContent = originalText;
+                        button.disabled = false;
+                        button.style.opacity = '1';
+                    }, 2000);
+                } else {
+                    showNotification('✅ Строка профиля скопирована');
+                }
+
+            } catch (error) {
+                prompt('Скопируйте профиль:', profileString);
             }
         }
 
@@ -1205,6 +1277,7 @@
             const lines = content.split('\n');
             let name = filename.replace(/\.hpg$/i, '');
             let description = '';
+            const profile = {};
 
             for (const line of lines) {
                 const trimmed = line.trim();
@@ -1213,9 +1286,33 @@
                 if (trimmed.startsWith('Comment=')) {
                     description = trimmed.substring(8);
                 }
+                // Парсим значения элементов
+                else if (trimmed.includes('=') && !trimmed.startsWith('#')) {
+                    const [key, value] = trimmed.split('=');
+                    const numValue = parseFloat(value);
+                    if (!isNaN(numValue)) {
+                        profile[key] = numValue;
+                    }
+                }
             }
 
-            return { name, description };
+            // Формируем строку профиля
+            const profileString = buildProfileString(profile);
+
+            return { name, description, profileString };
+        }
+
+        // Построение строки профиля из объекта
+        function buildProfileString(profile) {
+            const elements = ['N', 'NO3', 'NH4', 'P', 'K', 'Ca', 'Mg', 'S', 'Cl', 'Fe', 'Mn', 'B', 'Zn', 'Cu', 'Mo', 'Co', 'Si'];
+            const parts = [];
+            
+            for (const el of elements) {
+                const value = profile[el] || 0;
+                parts.push(`${el}=${value}`);
+            }
+            
+            return parts.join(' ');
         }
 
         // Валидация HPG файла
@@ -1280,6 +1377,9 @@
             submitBtn.textContent = '⏳ Сохранение...';
 
             try {
+                // Парсим строку профиля из загруженного файла
+                const parsedData = parseHPGMetadata(window.uploadedHPGContent, window.uploadedHPGFilename);
+                
                 // Сохраняем профиль в Firestore
                 await db.collection('profiles').add({
                     // Владелец
@@ -1298,7 +1398,7 @@
                     
                     // Данные профиля - ПОЛНЫЙ файл HPG
                     profile: window.uploadedHPGContent,
-                    profileString: '', // Можно добавить краткую строку если нужно
+                    profileString: parsedData.profileString, // Строка профиля для быстрого копирования
                     
                     // Журнал (пустой для загруженных файлов)
                     journal: [],
