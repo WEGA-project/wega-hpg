@@ -7588,10 +7588,6 @@ cgSi=0.2700`;
 
         // Инициализация при загрузке
         window.onload = async function() {
-            // Проверяем URL параметры для загрузки расшаренного профиля
-            const urlParams = new URLSearchParams(window.location.search);
-            const sharedProfileId = urlParams.get('profile');
-            
             // Определяем тип устройства
             const device = detectDevice();
             
@@ -7670,11 +7666,6 @@ cgSi=0.2700`;
             const mobileVersionSpan = document.getElementById('mobile-version');
             if (mobileVersionSpan) {
                 mobileVersionSpan.textContent = `${APP_VERSION} (HTML5 порт - ${APP_DATE}-${checksum})`;
-            }
-            
-            // Загружаем расшаренный профиль если есть в URL
-            if (sharedProfileId) {
-                await loadSharedProfile(sharedProfileId);
             }
         };
 
@@ -9082,6 +9073,13 @@ cgSi=0.2700`;
         // Флаг для предотвращения множественных вызовов onUserLoggedIn
         let isAuthInitialized = false;
         
+        // Флаг готовности Firebase
+        let isFirebaseReady = false;
+        
+        // Проверяем URL параметры для загрузки расшаренного профиля
+        const urlParams = new URLSearchParams(window.location.search);
+        const sharedProfileId = urlParams.get('profile');
+        
         // Отслеживание состояния авторизации
         auth.onAuthStateChanged(user => {
             if (user) {
@@ -9095,6 +9093,19 @@ cgSi=0.2700`;
                 console.log('Пользователь не авторизован');
                 isAuthInitialized = false;
                 onUserLoggedOut();
+            }
+            
+            // Помечаем Firebase как готовый после первого auth callback
+            if (!isFirebaseReady) {
+                isFirebaseReady = true;
+                
+                // Если есть расшаренный профиль в URL - загружаем его
+                if (sharedProfileId) {
+                    console.log('Загружаем расшаренный профиль:', sharedProfileId);
+                    loadSharedProfile(sharedProfileId).catch(err => {
+                        console.error('Ошибка загрузки расшаренного профиля:', err);
+                    });
+                }
             }
         });
         
