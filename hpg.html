@@ -7685,8 +7685,8 @@ cgSi=0.2700`;
             document.getElementById('mobile-file-name').textContent = filename;
             document.getElementById('mobile-file-desc').textContent = comment;
 
-            // Обновляем состояние облачной кнопки при изменении имени файла
-            updateCloudSaveButton();
+            // Обновляем состояние облачной кнопки при изменении имени файла (с debounce)
+            updateCloudSaveButtonDebounced();
         }
 
         function normalizeProfileName(name) {
@@ -7709,6 +7709,19 @@ cgSi=0.2700`;
             }
         }
 
+        // Debounce функция для оптимизации частых вызовов
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
         function updateCloudSaveButton() {
             const filenameInput = document.getElementById('file_filename');
             if (!filenameInput) return;
@@ -7719,6 +7732,9 @@ cgSi=0.2700`;
             currentMatchedCloudProfile = matched;
             setCloudSaveButtonState(!!matched);
         }
+
+        // Debounced версия для частых вызовов (например, при вводе текста)
+        const updateCloudSaveButtonDebounced = debounce(updateCloudSaveButton, 500);
 
         function updateUserCloudProfilesMapFromSnapshot(snapshot) {
             const newMap = new Map();
@@ -7764,7 +7780,12 @@ cgSi=0.2700`;
 
                 updateUserCloudProfilesMapFromSnapshot(snapshot);
             } catch (error) {
-                console.error('Ошибка получения облачных профилей:', error);
+                // Игнорируем ошибки offline режима - используем кешированные данные
+                if (error.code === 'unavailable' || error.message.includes('offline')) {
+                    console.log('Работа в offline режиме - используются кешированные профили');
+                } else {
+                    console.error('Ошибка получения облачных профилей:', error);
+                }
             }
         }
         
@@ -9025,31 +9046,51 @@ cgSi=0.2700`;
         const auth = firebase.auth();
         const db = firebase.firestore();
         
+        // Настройки Firestore для оптимальной работы
+        const settings = {
+            cacheSizeBytes: firebase.firestore.CACHE_SIZE_UNLIMITED,
+            // Отключаем экспериментальные функции для стабильности
+            experimentalForceLongPolling: false,
+            experimentalAutoDetectLongPolling: true
+        };
+        db.settings(settings);
+        
+        // Включаем offline persistence для работы без интернета
+        db.enablePersistence({ synchronizeTabs: true })
+            .then(() => {
+                console.log('✅ Offline persistence включен');
+            })
+            .catch((err) => {
+                if (err.code === 'failed-precondition') {
+                    console.warn('⚠️ Persistence не может быть включен (несколько вкладок открыто)');
+                } else if (err.code === 'unimplemented') {
+                    console.warn('⚠️ Браузер не поддерживает persistence');
+                } else {
+                    console.error('❌ Ошибка включения persistence:', err);
+                }
+            });
+        
+        // Флаг для предотвращения множественных вызовов onUserLoggedIn
+        let isAuthInitialized = false;
+        
         // Отслеживание состояния авторизации
         auth.onAuthStateChanged(user => {
             if (user) {
                 console.log('Пользователь вошел:', user.email);
-                onUserLoggedIn(user);
+                // Вызываем только если еще не инициализировано или пользователь изменился
+                if (!isAuthInitialized) {
+                    isAuthInitialized = true;
+                    onUserLoggedIn(user);
+                }
             } else {
                 console.log('Пользователь не авторизован');
+                isAuthInitialized = false;
                 onUserLoggedOut();
             }
         });
         
         // Пользователь вошел
         async function onUserLoggedIn(user) {
-            // Сохраняем/обновляем данные пользователя в Firestore
-            try {
-                await db.collection('users').doc(user.uid).set({
-                    email: user.email,
-                    displayName: user.displayName || 'Аноним',
-                    photoURL: user.photoURL || null,
-                    lastLogin: firebase.firestore.FieldValue.serverTimestamp()
-                }, { merge: true });
-            } catch (error) {
-                console.error('Ошибка сохранения данных пользователя:', error);
-            }
-            
             // Показываем секцию авторизованного пользователя
             document.getElementById('cloud-login-section').style.display = 'none';
             document.getElementById('cloud-logged-in-section').style.display = 'block';
@@ -9098,8 +9139,8 @@ cgSi=0.2700`;
                 }
             }
             
-            // Создаем/обновляем запись пользователя в базе
-            createOrUpdateUser(user);
+            // Создаем/обновляем запись пользователя в базе (только один раз)
+            await createOrUpdateUser(user);
             await refreshUserCloudProfiles(true);
         }
         
@@ -9180,7 +9221,12 @@ cgSi=0.2700`;
                     });
                 }
             } catch (error) {
-                console.error('Ошибка создания/обновления пользователя:', error);
+                // Игнорируем ошибки offline режима - данные синхронизируются автоматически
+                if (error.code === 'unavailable' || error.message.includes('offline')) {
+                    console.log('Работа в offline режиме - данные синхронизируются при подключении');
+                } else {
+                    console.error('Ошибка создания/обновления пользователя:', error);
+                }
             }
         }
         
@@ -9845,11 +9891,22 @@ cgSi=0.2700`;
                 
             } catch (error) {
                 console.error('Ошибка загрузки профилей:', error);
-                listDiv.innerHTML = `
-                    <div style="text-align: center; padding: 20px; color: #f44336;">
-                        ❌ Ошибка загрузки профилей: ${error.message}
-                    </div>
-                `;
+                
+                // Для offline режима показываем более дружелюбное сообщение
+                if (error.code === 'unavailable' || error.message.includes('offline')) {
+                    listDiv.innerHTML = `
+                        <div style="text-align: center; padding: 20px; color: #ff9800;">
+                            📡 Нет подключения к интернету<br>
+                            <small style="color: #666;">Профили будут загружены при восстановлении связи</small>
+                        </div>
+                    `;
+                } else {
+                    listDiv.innerHTML = `
+                        <div style="text-align: center; padding: 20px; color: #f44336;">
+                            ❌ Ошибка загрузки профилей: ${error.message}
+                        </div>
+                    `;
+                }
             }
         }
         
