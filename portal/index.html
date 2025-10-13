@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HPG Community - Библиотека профилей гидропоники</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .logo-icon {
+            font-size: 32px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .btn-secondary:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .hero {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero p {
+            font-size: 20px;
+            opacity: 0.95;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .filters {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .filters-row {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 40px 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: all 0.3s;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 18px;
+            color: #999;
+        }
+
+        .filter-select {
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            background: white;
+            transition: all 0.3s;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .stats {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .profiles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .profile-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .profile-header {
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            position: relative;
+        }
+
+        .profile-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .author-avatar {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            text-transform: uppercase;
+            overflow: hidden;
+        }
+
+        .author-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-description {
+            font-size: 14px;
+            opacity: 0.95;
+            line-height: 1.4;
+        }
+
+        .profile-body {
+            padding: 20px;
+        }
+
+        .profile-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 15px;
+            font-size: 13px;
+            color: #666;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .profile-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .tag {
+            padding: 5px 12px;
+            background: #f0f0f0;
+            border-radius: 15px;
+            font-size: 12px;
+            color: #555;
+        }
+
+        .profile-stats {
+            display: flex;
+            gap: 15px;
+            padding: 12px 0;
+            border-top: 1px solid #f0f0f0;
+            font-size: 13px;
+            color: #999;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .stat-item[style*="cursor: pointer"]:hover {
+            color: #667eea;
+            transform: scale(1.1);
+        }
+
+        .profile-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .btn-small {
+            flex: 1;
+            padding: 10px;
+            font-size: 13px;
+            justify-content: center;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+            color: white;
+            font-size: 18px;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 15px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: white;
+        }
+
+        .empty-state-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+            opacity: 0.7;
+        }
+
+        .empty-state h2 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .empty-state p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 20px;
+            color: #333;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #999;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.2s;
+        }
+
+        .modal-close:hover {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .modal-body {
+            padding: 20px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .comment {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .comment:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .comment-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .comment-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #667eea;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+            overflow: hidden;
+        }
+
+        .comment-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .comment-author {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .comment-date {
+            color: #999;
+            font-size: 12px;
+        }
+
+        .comment-text {
+            color: #555;
+            line-height: 1.5;
+            white-space: pre-wrap;
+        }
+
+        .no-comments {
+            text-align: center;
+            padding: 40px 20px;
+            color: #999;
+        }
+
+        .no-comments-icon {
+            font-size: 48px;
+            margin-bottom: 10px;
+            opacity: 0.5;
+        }
+
+        .comment-form {
+            padding: 20px;
+            border-top: 2px solid #f0f0f0;
+            background: #f9f9f9;
+        }
+
+        .comment-form textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 80px;
+            margin-bottom: 10px;
+        }
+
+        .comment-form textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .comment-form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .profiles-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filters-row {
+                flex-direction: column;
+            }
+
+            .search-box {
+                width: 100%;
+            }
+
+            .modal-content {
+                max-height: 90vh;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Шапка -->
+    <div class="header">
+        <div class="header-content">
+            <div class="logo">
+                <span class="logo-icon">🌱</span>
+                <span>HPG Community</span>
+            </div>
+            <div class="header-actions">
+                <a href="../hpg.html" class="btn btn-secondary">
+                    🧪 Открыть калькулятор
+                </a>
+                <div id="auth-section">
+                    <!-- Кнопка входа (показывается когда не авторизован) -->
+                    <button id="login-btn" class="btn btn-primary" onclick="loginWithGoogle()" style="display: none;">
+                        🔐 Войти через Google
+                    </button>
+                    <!-- Информация о пользователе (показывается когда авторизован) -->
+                    <div id="user-info" style="display: none; align-items: center; gap: 10px;">
+                        <img id="user-avatar" style="width: 36px; height: 36px; border-radius: 50%;" alt="">
+                        <span id="user-name" style="font-size: 14px; font-weight: 500;"></span>
+                        <button class="btn btn-secondary" onclick="logout()" style="padding: 8px 15px; font-size: 13px;">
+                            Выйти
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Контейнер -->
+    <div class="container">
+        <!-- Герой -->
+        <div class="hero">
+            <h1>📚 Библиотека профилей</h1>
+            <p>Готовые рецепты питательных растворов от сообщества гидропонщиков</p>
+        </div>
+
+        <!-- Фильтры -->
+        <div class="filters">
+            <div class="filters-row">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Поиск по названию или описанию...">
+                    <span class="search-icon">🔍</span>
+                </div>
+                
+                <select id="tagFilter" class="filter-select">
+                    <option value="">Все культуры</option>
+                </select>
+                
+                <select id="sortSelect" class="filter-select">
+                    <option value="date">По дате ↓</option>
+                    <option value="views">По популярности ↓</option>
+                    <option value="name">По названию ↑</option>
+                    <option value="author">По автору ↑</option>
+                </select>
+                
+                <div class="stats">
+                    <span id="profileCount">Загрузка...</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Сетка профилей -->
+        <div id="profilesContainer">
+            <div class="loading">
+                <div class="loading-spinner"></div>
+                <div>Загружаем профили...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+    <script>
+        // Конфигурация Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyAR5qXMGP8Erapla69wJ7cUbbF4MNlbkcY",
+            authDomain: "wega-hpg.firebaseapp.com",
+            projectId: "wega-hpg",
+            storageBucket: "wega-hpg.firebasestorage.app",
+            messagingSenderId: "652081809935",
+            appId: "1:652081809935:web:84a407f1a6bfc719aa717a",
+            measurementId: "G-W6EDZTWP3F"
+        };
+
+        // Инициализация Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+        
+        // Текущий пользователь
+        let currentUser = null;
+        let authReady = false;
+
+        // Глобальные переменные
+        let allProfiles = [];
+        let filteredProfiles = [];
+
+        // Авторизация через Google
+        async function loginWithGoogle() {
+            try {
+                const provider = new firebase.auth.GoogleAuthProvider();
+                await auth.signInWithPopup(provider);
+            } catch (error) {
+                console.error('Ошибка входа:', error);
+                alert('❌ Ошибка входа: ' + error.message);
+            }
+        }
+
+        // Выход
+        async function logout() {
+            try {
+                await auth.signOut();
+            } catch (error) {
+                console.error('Ошибка выхода:', error);
+                alert('❌ Ошибка выхода: ' + error.message);
+            }
+        }
+
+        // Отслеживание состояния авторизации
+        auth.onAuthStateChanged(user => {
+            currentUser = user;
+            authReady = true;
+            
+            if (user) {
+                // Пользователь авторизован
+                console.log('Пользователь авторизован:', user.email);
+                document.getElementById('login-btn').style.display = 'none';
+                document.getElementById('user-info').style.display = 'flex';
+                document.getElementById('user-avatar').src = user.photoURL || '';
+                document.getElementById('user-name').textContent = user.displayName || user.email;
+            } else {
+                // Пользователь не авторизован
+                console.log('Пользователь не авторизован');
+                document.getElementById('login-btn').style.display = 'block';
+                document.getElementById('user-info').style.display = 'none';
+            }
+        });
+
+        // Загрузка профилей
+        async function loadProfiles() {
+            try {
+                const snapshot = await db.collection('profiles')
+                    .where('public', '==', true)
+                    .get();
+
+                allProfiles = snapshot.docs.map(doc => ({
+                    id: doc.id,
+                    ...doc.data()
+                }));
+
+                // Сортируем на клиенте по дате (по умолчанию)
+                allProfiles.sort((a, b) => {
+                    return (b.modified?.toMillis() || 0) - (a.modified?.toMillis() || 0);
+                });
+
+                // Извлекаем уникальные теги
+                const allTags = new Set();
+                allProfiles.forEach(profile => {
+                    if (profile.tags && Array.isArray(profile.tags)) {
+                        profile.tags.forEach(tag => allTags.add(tag));
+                    }
+                });
+
+                // Заполняем фильтр тегов
+                const tagFilter = document.getElementById('tagFilter');
+                Array.from(allTags).sort().forEach(tag => {
+                    const option = document.createElement('option');
+                    option.value = tag;
+                    option.textContent = tag;
+                    tagFilter.appendChild(option);
+                });
+
+                filteredProfiles = [...allProfiles];
+                renderProfiles();
+
+            } catch (error) {
+                console.error('Ошибка загрузки профилей:', error);
+                showError('Не удалось загрузить профили. Проверьте подключение к интернету.');
+            }
+        }
+
+        // Отрисовка профилей
+        function renderProfiles() {
+            const container = document.getElementById('profilesContainer');
+            const profileCount = document.getElementById('profileCount');
+
+            if (filteredProfiles.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">🔍</div>
+                        <h2>Профили не найдены</h2>
+                        <p>Попробуйте изменить параметры поиска</p>
+                    </div>
+                `;
+                profileCount.textContent = '0 профилей';
+                return;
+            }
+
+            profileCount.textContent = `${filteredProfiles.length} ${getProfileWord(filteredProfiles.length)}`;
+
+            const grid = document.createElement('div');
+            grid.className = 'profiles-grid';
+
+            filteredProfiles.forEach(profile => {
+                const card = createProfileCard(profile);
+                grid.appendChild(card);
+            });
+
+            container.innerHTML = '';
+            container.appendChild(grid);
+        }
+
+        // Создание карточки профиля
+        function createProfileCard(profile) {
+            const card = document.createElement('div');
+            card.className = 'profile-card';
+
+            const date = profile.modified?.toDate().toLocaleDateString('ru-RU') || '';
+            const views = profile.views || 0;
+            const author = profile.userName || profile.userEmail || 'Аноним';
+            const authorInitial = author.charAt(0).toUpperCase();
+            const authorPhoto = profile.userPhotoURL;
+
+            card.innerHTML = `
+                <div class="profile-header">
+                    <div class="author-avatar" title="${escapeHtml(author)}">
+                        ${authorPhoto ? `<img src="${escapeHtml(authorPhoto)}" alt="${escapeHtml(author)}">` : authorInitial}
+                    </div>
+                    <div class="profile-title">
+                        🌐 ${escapeHtml(profile.name)}
+                    </div>
+                    ${profile.description ? `<div class="profile-description">${escapeHtml(profile.description)}</div>` : ''}
+                </div>
+                <div class="profile-body">
+                    <div class="profile-meta">
+                        <div class="meta-item">
+                            📅 ${date}
+                        </div>
+                        <div class="meta-item">👤 ${escapeHtml(author)}</div>
+                    </div>
+                    ${profile.tags && profile.tags.length > 0 ? `
+                        <div class="profile-tags">
+                            ${profile.tags.map(tag => `<span class="tag">🏷️ ${escapeHtml(tag)}</span>`).join('')}
+                        </div>
+                    ` : ''}
+                    <div class="profile-stats">
+                        <div class="stat-item">
+                            👁️ ${views}
+                        </div>
+                        <div class="stat-item" style="cursor: pointer;" onclick="likeProfile('${profile.id}')" title="Нравится">
+                            👍 <span id="likes-${profile.id}">${profile.likes || 0}</span>
+                        </div>
+                        <div class="stat-item" style="cursor: pointer;" onclick="dislikeProfile('${profile.id}')" title="Не нравится">
+                            👎 <span id="dislikes-${profile.id}">${profile.dislikes || 0}</span>
+                        </div>
+                        <div class="stat-item">
+                            💬 ${profile.commentsCount || 0}
+                        </div>
+                    </div>
+                    <div class="profile-actions">
+                        <button class="btn btn-primary btn-small" onclick="openInCalculator('${profile.id}')">
+                            🧪 Открыть в калькуляторе
+                        </button>
+                        <button class="btn btn-secondary btn-small" onclick="showComments('${profile.id}', '${escapeHtml(profile.name)}')">
+                            💬 Комментарии
+                        </button>
+                        <button class="btn btn-secondary btn-small" onclick="copyShareLink('${profile.id}', '${escapeHtml(profile.name)}')">
+                            🔗
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            return card;
+        }
+
+        // Открыть профиль в калькуляторе
+        function openInCalculator(profileId) {
+            window.location.href = `../hpg.html?profile=${profileId}`;
+        }
+
+        // Копировать ссылку
+        async function copyShareLink(profileId, profileName) {
+            const shareUrl = `${window.location.origin}/hpg.html?profile=${profileId}`;
+            
+            try {
+                await navigator.clipboard.writeText(shareUrl);
+                alert(`✅ Ссылка на профиль "${profileName}" скопирована!`);
+            } catch (error) {
+                prompt('Скопируйте ссылку:', shareUrl);
+            }
+        }
+
+        // Показать комментарии
+        async function showComments(profileId, profileName) {
+            // Ждем инициализации авторизации
+            if (!authReady) {
+                console.log('Ожидание инициализации авторизации...');
+                await new Promise(resolve => {
+                    const unsubscribe = auth.onAuthStateChanged(() => {
+                        unsubscribe();
+                        resolve();
+                    });
+                });
+            }
+            
+            // Проверяем авторизацию
+            if (!currentUser) {
+                // Показываем сообщение о необходимости авторизации
+                const modal = document.createElement('div');
+                modal.className = 'modal';
+                modal.innerHTML = `
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2>💬 Комментарии: ${escapeHtml(profileName)}</h2>
+                            <button class="modal-close" onclick="this.closest('.modal').remove()">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="no-comments">
+                                <div class="no-comments-icon">🔐</div>
+                                <h3 style="margin-bottom: 10px;">Требуется авторизация</h3>
+                                <p style="margin-bottom: 20px;">Войдите через Google чтобы просматривать комментарии</p>
+                                <button class="btn btn-primary" onclick="loginWithGoogle(); this.closest('.modal').remove();">
+                                    🔐 Войти через Google
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(modal);
+                
+                // Закрытие по клику на фон
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        modal.remove();
+                    }
+                });
+                return;
+            }
+
+            // Создаем модальное окно
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>💬 Комментарии: ${escapeHtml(profileName)}</h2>
+                        <button class="modal-close" onclick="this.closest('.modal').remove()">×</button>
+                    </div>
+                    <div class="modal-body" id="comments-body">
+                        <div style="text-align: center; padding: 40px; color: #999;">
+                            <div style="font-size: 24px; margin-bottom: 10px;">⏳</div>
+                            Загрузка комментариев...
+                        </div>
+                    </div>
+                    <div class="comment-form">
+                        <textarea id="comment-text" placeholder="Напишите комментарий..."></textarea>
+                        <div class="comment-form-actions">
+                            <button class="btn btn-primary" onclick="submitComment('${profileId}', '${escapeHtml(profileName)}')">
+                                💬 Отправить
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+
+            // Закрытие по клику на фон
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.remove();
+                }
+            });
+
+            try {
+                // Загружаем комментарии из Firestore (из отдельной коллекции, не подколлекции)
+                const commentsSnapshot = await db.collection('comments')
+                    .where('profileId', '==', profileId)
+                    .get();
+
+                const modalBody = modal.querySelector('#comments-body');
+
+                if (commentsSnapshot.empty) {
+                    modalBody.innerHTML = `
+                        <div class="no-comments">
+                            <div class="no-comments-icon">💬</div>
+                            <p>Пока нет комментариев</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                // Собираем комментарии и сортируем на клиенте
+                const comments = [];
+                commentsSnapshot.forEach(doc => {
+                    comments.push({
+                        id: doc.id,
+                        ...doc.data()
+                    });
+                });
+
+                // Сортируем по дате (новые сверху)
+                comments.sort((a, b) => {
+                    return (b.created?.toMillis() || 0) - (a.created?.toMillis() || 0);
+                });
+
+                // Отображаем комментарии
+                let commentsHTML = '';
+                comments.forEach(comment => {
+                    const author = comment.userName || comment.userEmail || 'Аноним';
+                    const authorInitial = author.charAt(0).toUpperCase();
+                    const date = comment.created?.toDate().toLocaleString('ru-RU') || '';
+                    const photo = comment.userPhotoURL;
+
+                    commentsHTML += `
+                        <div class="comment">
+                            <div class="comment-header">
+                                <div class="comment-avatar">
+                                    ${photo ? `<img src="${escapeHtml(photo)}" alt="${escapeHtml(author)}">` : authorInitial}
+                                </div>
+                                <div style="flex: 1;">
+                                    <div class="comment-author">${escapeHtml(author)}</div>
+                                    <div class="comment-date">${date}</div>
+                                </div>
+                            </div>
+                            <div class="comment-text">${escapeHtml(comment.text)}</div>
+                        </div>
+                    `;
+                });
+
+                modalBody.innerHTML = commentsHTML;
+
+            } catch (error) {
+                console.error('Ошибка загрузки комментариев:', error);
+                const modalBody = modal.querySelector('#comments-body');
+                modalBody.innerHTML = `
+                    <div class="no-comments">
+                        <div class="no-comments-icon">❌</div>
+                        <p>Ошибка загрузки комментариев</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Лайк профиля
+        async function likeProfile(profileId) {
+            if (!currentUser) {
+                if (confirm('Для оценки профилей необходимо войти. Войти сейчас?')) {
+                    loginWithGoogle();
+                }
+                return;
+            }
+
+            try {
+                // Обновляем счетчик лайков
+                await db.collection('profiles').doc(profileId).update({
+                    likes: firebase.firestore.FieldValue.increment(1)
+                });
+
+                // Обновляем отображение
+                const likesSpan = document.getElementById(`likes-${profileId}`);
+                if (likesSpan) {
+                    likesSpan.textContent = parseInt(likesSpan.textContent) + 1;
+                }
+
+                // Показываем уведомление
+                showNotification('👍 Спасибо за оценку!');
+
+            } catch (error) {
+                console.error('Ошибка лайка:', error);
+                alert('❌ Ошибка: ' + error.message);
+            }
+        }
+
+        // Дизлайк профиля
+        async function dislikeProfile(profileId) {
+            if (!currentUser) {
+                if (confirm('Для оценки профилей необходимо войти. Войти сейчас?')) {
+                    loginWithGoogle();
+                }
+                return;
+            }
+
+            try {
+                // Обновляем счетчик дизлайков
+                await db.collection('profiles').doc(profileId).update({
+                    dislikes: firebase.firestore.FieldValue.increment(1)
+                });
+
+                // Обновляем отображение
+                const dislikesSpan = document.getElementById(`dislikes-${profileId}`);
+                if (dislikesSpan) {
+                    dislikesSpan.textContent = parseInt(dislikesSpan.textContent) + 1;
+                }
+
+                // Показываем уведомление
+                showNotification('👎 Спасибо за отзыв!');
+
+            } catch (error) {
+                console.error('Ошибка дизлайка:', error);
+                alert('❌ Ошибка: ' + error.message);
+            }
+        }
+
+        // Показать уведомление
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 80px;
+                right: 20px;
+                background: #667eea;
+                color: white;
+                padding: 12px 20px;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+                z-index: 10000;
+                animation: slideIn 0.3s ease;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 2000);
+        }
+
+        // Отправить комментарий
+        async function submitComment(profileId, profileName) {
+            const textarea = document.getElementById('comment-text');
+            const text = textarea.value.trim();
+            
+            if (!text) {
+                alert('Введите текст комментария');
+                return;
+            }
+            
+            if (!currentUser) {
+                alert('Необходима авторизация');
+                return;
+            }
+            
+            try {
+                // Добавляем комментарий в Firestore
+                await db.collection('comments').add({
+                    profileId: profileId,
+                    userId: currentUser.uid,
+                    userName: currentUser.displayName || 'Аноним',
+                    userEmail: currentUser.email,
+                    userPhotoURL: currentUser.photoURL || null,
+                    text: text,
+                    created: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                
+                // Обновляем счетчик комментариев в профиле
+                await db.collection('profiles').doc(profileId).update({
+                    commentsCount: firebase.firestore.FieldValue.increment(1)
+                }).catch(err => console.log('Не удалось обновить счетчик:', err));
+                
+                // Очищаем поле ввода
+                textarea.value = '';
+                
+                // Перезагружаем комментарии
+                const modal = document.querySelector('.modal');
+                modal.remove();
+                showComments(profileId, profileName);
+                
+            } catch (error) {
+                console.error('Ошибка отправки комментария:', error);
+                alert('❌ Ошибка отправки: ' + error.message);
+            }
+        }
+
+        // Фильтрация и поиск
+        function applyFilters() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const selectedTag = document.getElementById('tagFilter').value;
+            const sortBy = document.getElementById('sortSelect').value;
+
+            // Фильтрация
+            filteredProfiles = allProfiles.filter(profile => {
+                const matchesSearch = !searchTerm || 
+                    profile.name.toLowerCase().includes(searchTerm) ||
+                    (profile.description && profile.description.toLowerCase().includes(searchTerm));
+
+                const matchesTag = !selectedTag || 
+                    (profile.tags && profile.tags.includes(selectedTag));
+
+                return matchesSearch && matchesTag;
+            });
+
+            // Сортировка
+            filteredProfiles.sort((a, b) => {
+                if (sortBy === 'date') {
+                    return (b.modified?.toMillis() || 0) - (a.modified?.toMillis() || 0);
+                } else if (sortBy === 'views') {
+                    return (b.views || 0) - (a.views || 0);
+                } else if (sortBy === 'name') {
+                    return a.name.localeCompare(b.name, 'ru');
+                } else if (sortBy === 'author') {
+                    const authorA = a.userName || a.userEmail || 'Аноним';
+                    const authorB = b.userName || b.userEmail || 'Аноним';
+                    return authorA.localeCompare(authorB, 'ru');
+                }
+                return 0;
+            });
+
+            renderProfiles();
+        }
+
+        // Вспомогательные функции
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function getProfileWord(count) {
+            if (count % 10 === 1 && count % 100 !== 11) return 'профиль';
+            if ([2, 3, 4].includes(count % 10) && ![12, 13, 14].includes(count % 100)) return 'профиля';
+            return 'профилей';
+        }
+
+        function getViewWord(count) {
+            if (count % 10 === 1 && count % 100 !== 11) return 'просмотр';
+            if ([2, 3, 4].includes(count % 10) && ![12, 13, 14].includes(count % 100)) return 'просмотра';
+            return 'просмотров';
+        }
+
+        function showError(message) {
+            const container = document.getElementById('profilesContainer');
+            container.innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-state-icon">❌</div>
+                    <h2>Ошибка</h2>
+                    <p>${message}</p>
+                </div>
+            `;
+        }
+
+        // События
+        document.getElementById('searchInput').addEventListener('input', applyFilters);
+        document.getElementById('tagFilter').addEventListener('change', applyFilters);
+        document.getElementById('sortSelect').addEventListener('change', applyFilters);
+
+        // Загрузка при старте
+        loadProfiles();
+    </script>
+</body>
+</html>
