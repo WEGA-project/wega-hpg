@@ -10270,8 +10270,29 @@ cgSi=0.2700`;
                     throw new Error('Этот профиль не является публичным');
                 }
                 
-                // Применяем профиль к калькулятору
-                applyProfileData(profile);
+                // Используем стандартную функцию загрузки профиля
+                // Она уже правильно обрабатывает все: parseFullFile, updateMobileDisplay и т.д.
+                if (profile.profile) {
+                    // Очищаем localStorage и журнал перед загрузкой
+                    localStorage.removeItem('hpg_profile');
+                    localStorage.removeItem('hpg_journal');
+                    
+                    // Парсим полный файл HPG (включая журнал!)
+                    parseFullFile(profile.profile);
+                    
+                    // Обновляем имя файла и описание
+                    if (profile.name) {
+                        document.getElementById('file_filename').value = profile.name + '.hpg';
+                    }
+                    if (profile.description) {
+                        document.getElementById('file_comment').value = profile.description;
+                    }
+                    
+                    // Обновляем мобильное отображение файла
+                    if (typeof updateMobileFileInfo === 'function') {
+                        updateMobileFileInfo();
+                    }
+                }
                 
                 // Обновляем счетчик просмотров (если пользователь авторизован)
                 if (auth.currentUser) {
@@ -10305,44 +10326,6 @@ cgSi=0.2700`;
                         loadingDiv.remove();
                     }, 5000);
                 }
-            }
-        }
-        
-        // Применить данные профиля к калькулятору
-        function applyProfileData(profile) {
-            // Применяем данные из профиля
-            const data = profile.data;
-            
-            // Устанавливаем имя и описание файла
-            const filenameInput = document.getElementById('file_filename');
-            const commentInput = document.getElementById('file_comment');
-            
-            if (filenameInput) filenameInput.value = profile.name;
-            if (commentInput) commentInput.value = profile.description || '';
-            
-            // Применяем все поля из data
-            if (data && typeof data === 'object') {
-                Object.entries(data).forEach(([key, value]) => {
-                    const element = document.getElementById(key);
-                    if (element) {
-                        if (element.type === 'checkbox') {
-                            element.checked = value;
-                        } else {
-                            element.value = value;
-                        }
-                    }
-                });
-            }
-            
-            // Пересчитываем все
-            calcAll();
-            onMicroChange();
-            calcConcentrates();
-            updateMobileDisplay();
-            
-            // Обновляем мобильную информацию
-            if (typeof updateMobileFileInfo === 'function') {
-                updateMobileFileInfo();
             }
         }
         
