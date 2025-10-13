@@ -249,6 +249,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            display: block;
         }
 
         .profile-description {
@@ -265,10 +266,116 @@
             display: flex;
             flex-wrap: wrap;
             gap: 12px;
-            padding: 12px;
+            margin-bottom: 15px;
+            font-size: 13px;
+            color: #666;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .profile-tools {
+            margin: 12px 0;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .profile-tools .btn-small {
+            flex: none;
+        }
+
+        .profile-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .tag {
+            padding: 5px 12px;
+            background: #f0f0f0;
             border-radius: 15px;
             font-size: 12px;
             color: #555;
+        }
+
+        .profile-string-view {
+            background: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 12px;
+            margin: 15px 0;
+            font-family: "Fira Code", "Courier New", monospace;
+            font-size: 13px;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .journal-entry {
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 12px;
+            background: #fdfdfd;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.08);
+        }
+
+        .journal-entry:last-child {
+            margin-bottom: 0;
+        }
+
+        .journal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .journal-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .journal-meta strong {
+            font-size: 14px;
+            color: #333;
+        }
+
+        .journal-meta span {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .journal-description {
+            font-size: 13px;
+            color: #444;
+            margin-top: 6px;
+            line-height: 1.4;
+        }
+
+        .journal-profile {
+            font-family: "Fira Code", "Courier New", monospace;
+            font-size: 12px;
+            background: #f4f7ff;
+            border-radius: 8px;
+            padding: 10px;
+            border: 1px solid #dde4ff;
+            white-space: pre-wrap;
+            word-break: break-word;
+            line-height: 1.5;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
         .profile-stats {
@@ -278,17 +385,6 @@
             border-top: 1px solid #f0f0f0;
             font-size: 13px;
             color: #999;
-        }
-
-        .stat-item {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .stat-item[style*="cursor: pointer"]:hover {
-            color: #667eea;
-            transform: scale(1.1);
         }
 
         .profile-actions {
@@ -304,20 +400,7 @@
             justify-content: center;
         }
 
-        .loading {
-            text-align: center;
-            padding: 60px 20px;
-            color: white;
-            font-size: 18px;
-        }
-
         .loading-spinner {
-            display: inline-block;
-            width: 40px;
-            height: 40px;
-            border: 4px solid rgba(255, 255, 255, 0.3);
-            border-top-color: white;
-            border-radius: 50%;
             animation: spin 1s linear infinite;
             margin-bottom: 15px;
         }
@@ -792,11 +875,10 @@
                             ${profile.tags.map(tag => `<span class="tag">🏷️ ${escapeHtml(tag)}</span>`).join('')}
                         </div>
                     ` : ''}
-                    ${profile.profileString ? `
-                        <div class="profile-string-block">
-                            <button class="btn btn-secondary btn-small" onclick="showProfileString('${profile.id}', '${escapeHtml(profile.name)}')">
-                                ⚗️ Профиль
-                            </button>
+                    ${(profile.profileString || (profile.journal && profile.journal.length)) ? `
+                        <div class="profile-tools">
+                            ${profile.profileString ? `<button class="btn btn-secondary btn-small" onclick="showProfileString('${profile.id}', '${escapeHtml(profile.name)}')">⚗️ Профиль</button>` : ''}
+                            ${profile.journal && profile.journal.length ? `<button class="btn btn-secondary btn-small" onclick="showJournal('${profile.id}', '${escapeHtml(profile.name)}')">📓 Журнал (${profile.journal.length})</button>` : ''}
                         </div>
                     ` : ''}
                     <div class="profile-stats">
@@ -857,7 +939,9 @@
         // Показать модалку со строкой профиля
         function showProfileString(profileId, profileName) {
             const profile = getProfileById(profileId);
-            if (!profile || !profile.profileString) {
+            const profileString = (profile?.profileString || '').trim();
+
+            if (!profileString) {
                 alert('Строка профиля недоступна');
                 return;
             }
@@ -872,9 +956,7 @@
                     </div>
                     <div class="modal-body">
                         <p style="margin-bottom: 12px; color: #666;">Скопируйте строку и вставьте в поле профиля в калькуляторе.</p>
-                        <div class="profile-string-view" id="modal-profile-string">
-                            ${escapeHtml(profile.profileString)}
-                        </div>
+                        <div class="profile-string-view" id="modal-profile-string">${escapeHtml(profileString)}</div>
                         <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px;">
                             <button class="btn btn-primary" onclick="copyProfileString('${profile.id}', event)">
                                 📋 Скопировать строку
@@ -893,14 +975,100 @@
             document.body.appendChild(modal);
         }
 
+        function formatJournalDate(value) {
+            if (!value) {
+                return 'Без даты';
+            }
+
+            // Если timestamp Firestore
+            if (value.seconds) {
+                const date = new Date(value.seconds * 1000);
+                return date.toLocaleDateString('ru-RU', { year: 'numeric', month: 'short', day: 'numeric' });
+            }
+
+            // Попробуем распарсить строку
+            const date = new Date(value);
+            if (!isNaN(date.getTime())) {
+                return date.toLocaleDateString('ru-RU', { year: 'numeric', month: 'short', day: 'numeric' });
+            }
+
+            return value;
+        }
+
+        function showJournal(profileId, profileName) {
+            const profile = getProfileById(profileId);
+            if (!profile || !Array.isArray(profile.journal) || profile.journal.length === 0) {
+                alert('Журнал пуст или недоступен');
+                return;
+            }
+
+            const entriesHtml = profile.journal.map((entry, index) => {
+                const dateLabel = formatJournalDate(entry.date);
+                const descriptionHtml = entry.desc ? `<div class="journal-description">${escapeHtml(entry.desc)}</div>` : '';
+                const profileString = (entry.profile || '').trim();
+                const profileHtml = profileString ? `<div class="journal-profile">${escapeHtml(profileString)}</div>` : '<div class="journal-profile" style="opacity:0.6;">Строка профиля отсутствует</div>';
+                const disabledAttr = profileString ? '' : 'disabled';
+                const disabledClass = profileString ? '' : ' journal-copy-btn--disabled';
+
+                return `
+                    <div class="journal-entry">
+                        <div class="journal-header">
+                            <div class="journal-meta">
+                                <strong>Этап ${index + 1}</strong>
+                                <span>${escapeHtml(dateLabel)}</span>
+                            </div>
+                            <button class="btn btn-secondary btn-small journal-copy-btn${disabledClass}" data-profile-string="${encodeURIComponent(profileString)}" ${disabledAttr}>
+                                📋 Копировать
+                            </button>
+                        </div>
+                        ${descriptionHtml}
+                        ${profileHtml}
+                    </div>
+                `;
+            }).join('');
+
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>📓 Журнал профиля: ${escapeHtml(profileName)}</h2>
+                        <button class="modal-close" onclick="this.closest('.modal').remove()">×</button>
+                    </div>
+                    <div class="modal-body">
+                        ${entriesHtml}
+                    </div>
+                </div>
+            `;
+
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.remove();
+                }
+            });
+
+            document.body.appendChild(modal);
+
+            modal.querySelectorAll('.journal-copy-btn').forEach(button => {
+                const profileString = decodeURIComponent(button.dataset.profileString || '');
+                button.addEventListener('click', (event) => {
+                    if (!profileString) {
+                        event.preventDefault();
+                        return;
+                    }
+                    copyProfileString(profileId, event, profileString);
+                });
+            });
+        }
+
         // Копировать строку профиля
         async function copyProfileString(profileId, event, profileStringOverride) {
             event?.stopPropagation?.();
 
-            let profileString = profileStringOverride || '';
+            let profileString = (profileStringOverride || '').trim();
             if (!profileString) {
                 const profile = getProfileById(profileId);
-                profileString = profile?.profileString || '';
+                profileString = (profile?.profileString || '').trim();
             }
 
             if (!profileString) {
