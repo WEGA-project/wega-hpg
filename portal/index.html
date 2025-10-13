@@ -566,6 +566,9 @@
                 <span>HPG Community</span>
             </div>
             <div class="header-actions">
+                <button id="upload-btn" class="btn btn-primary" onclick="showUploadForm()" style="display: none;">
+                    📤 Загрузить профиль
+                </button>
                 <a href="../hpg.html" class="btn btn-secondary">
                     🧪 Открыть калькулятор
                 </a>
@@ -689,6 +692,7 @@
                 // Пользователь авторизован
                 console.log('Пользователь авторизован:', user.email);
                 document.getElementById('login-btn').style.display = 'none';
+                document.getElementById('upload-btn').style.display = 'block';
                 document.getElementById('user-info').style.display = 'flex';
                 document.getElementById('user-avatar').src = user.photoURL || '';
                 document.getElementById('user-name').textContent = user.displayName || user.email;
@@ -696,6 +700,7 @@
                 // Пользователь не авторизован
                 console.log('Пользователь не авторизован');
                 document.getElementById('login-btn').style.display = 'block';
+                document.getElementById('upload-btn').style.display = 'none';
                 document.getElementById('user-info').style.display = 'none';
             }
         });
@@ -1063,6 +1068,272 @@
             } catch (error) {
                 console.error('Ошибка дизлайка:', error);
                 alert('❌ Ошибка: ' + error.message);
+            }
+        }
+
+        // Показать форму загрузки профиля
+        function showUploadForm() {
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>📤 Загрузить профиль HPG</h2>
+                        <button class="modal-close" onclick="this.closest('.modal').remove()">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <div style="margin-bottom: 15px;">
+                            <label style="display: block; margin-bottom: 8px; font-weight: bold;">Выберите файл .hpg:</label>
+                            <input type="file" id="hpg-file-input" accept=".hpg" style="width: 100%; padding: 10px; border: 2px solid #e0e0e0; border-radius: 8px; cursor: pointer;">
+                        </div>
+                        <div id="upload-status" style="padding: 15px; border-radius: 8px; margin-bottom: 15px; display: none;"></div>
+                        <div id="upload-form" style="display: none;"></div>
+                        <div id="upload-preview" style="display: none;">
+                            <details>
+                                <summary style="cursor: pointer; font-weight: bold; padding: 10px; background: #f0f0f0; border-radius: 4px; margin-bottom: 10px;">Содержимое файла (клик для просмотра)</summary>
+                                <div id="preview-content" style="background: #f9f9f9; padding: 15px; border-radius: 8px; max-height: 300px; overflow-y: auto; font-family: monospace; font-size: 12px; white-space: pre-wrap;"></div>
+                            </details>
+                        </div>
+                    </div>
+                    <div class="comment-form">
+                        <button id="upload-submit-btn" class="btn btn-primary" style="width: 100%; display: none;" onclick="uploadHPGProfile()">
+                            💾 Сохранить в облако
+                        </button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+
+            // Закрытие по клику на фон
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.remove();
+                }
+            });
+
+            // Обработчик выбора файла
+            document.getElementById('hpg-file-input').addEventListener('change', handleFileSelect);
+        }
+
+        // Обработка выбора файла
+        async function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const statusDiv = document.getElementById('upload-status');
+            const previewDiv = document.getElementById('upload-preview');
+            const previewContent = document.getElementById('preview-content');
+            const submitBtn = document.getElementById('upload-submit-btn');
+
+            statusDiv.style.display = 'block';
+            statusDiv.style.background = '#e3f2fd';
+            statusDiv.style.color = '#1976d2';
+            statusDiv.innerHTML = '⏳ Проверка файла...';
+
+            try {
+                // Читаем файл
+                const content = await file.text();
+                
+                // Валидация HPG файла
+                const validation = validateHPGFile(content);
+                
+                if (!validation.valid) {
+                    statusDiv.style.background = '#ffebee';
+                    statusDiv.style.color = '#c62828';
+                    statusDiv.innerHTML = `❌ Ошибка: ${validation.error}`;
+                    previewDiv.style.display = 'none';
+                    submitBtn.style.display = 'none';
+                    return;
+                }
+
+                // Парсим название и описание из файла
+                const parsedData = parseHPGMetadata(content, file.name);
+
+                // Показываем успех
+                statusDiv.style.background = '#e8f5e9';
+                statusDiv.style.color = '#2e7d32';
+                statusDiv.innerHTML = `✅ Файл корректен! Найдено элементов: ${validation.elementsCount}`;
+
+                // Показываем форму редактирования
+                const uploadForm = document.getElementById('upload-form');
+                uploadForm.style.display = 'block';
+                uploadForm.innerHTML = `
+                    <div style="margin-bottom: 12px;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: bold; font-size: 14px;">Название профиля:</label>
+                        <input type="text" id="upload-name" value="${escapeHtml(parsedData.name)}" style="width: 100%; padding: 8px; font-size: 14px; border: 2px solid #e0e0e0; border-radius: 8px; box-sizing: border-box; font-family: Arial, sans-serif;">
+                    </div>
+                    
+                    <div style="margin-bottom: 12px;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: bold; font-size: 14px;">Описание:</label>
+                        <textarea id="upload-description" rows="3" style="width: 100%; padding: 8px; font-size: 14px; border: 2px solid #e0e0e0; border-radius: 8px; box-sizing: border-box; resize: vertical; font-family: Arial, sans-serif;">${escapeHtml(parsedData.description)}</textarea>
+                    </div>
+                    
+                    <div style="margin-bottom: 12px;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: bold; font-size: 14px;">Теги (через запятую):</label>
+                        <input type="text" id="upload-tags" placeholder="томаты, вегетация, гидропоника" style="width: 100%; padding: 8px; font-size: 14px; border: 2px solid #e0e0e0; border-radius: 8px; box-sizing: border-box; font-family: Arial, sans-serif;">
+                        <div style="font-size: 11px; color: #666; margin-top: 3px;">Помогут найти профиль в каталоге</div>
+                    </div>
+                    
+                    <div style="padding: 12px; background: #e8f5e9; border-radius: 8px; border-left: 4px solid #4caf50; margin-bottom: 15px;">
+                        <div style="font-weight: bold; font-size: 14px; color: #2e7d32; margin-bottom: 5px;">🌐 Профиль будет публичным</div>
+                        <div style="font-size: 12px; color: #555;">Другие пользователи смогут найти и использовать этот профиль в библиотеке</div>
+                    </div>
+                `;
+                
+                // Показываем предпросмотр файла
+                previewDiv.style.display = 'block';
+                previewContent.textContent = content.substring(0, 1000) + (content.length > 1000 ? '\n...' : '');
+
+                // Сохраняем содержимое для загрузки
+                window.uploadedHPGContent = content;
+                window.uploadedHPGFilename = file.name;
+
+                // Показываем кнопку загрузки
+                submitBtn.style.display = 'block';
+
+            } catch (error) {
+                statusDiv.style.background = '#ffebee';
+                statusDiv.style.color = '#c62828';
+                statusDiv.innerHTML = `❌ Ошибка чтения файла: ${error.message}`;
+                previewDiv.style.display = 'none';
+                submitBtn.style.display = 'none';
+            }
+        }
+
+        // Парсинг метаданных из HPG файла
+        function parseHPGMetadata(content, filename) {
+            const lines = content.split('\n');
+            let name = filename.replace(/\.hpg$/i, '');
+            let description = '';
+
+            for (const line of lines) {
+                const trimmed = line.trim();
+                
+                // Парсим комментарий как описание
+                if (trimmed.startsWith('Comment=')) {
+                    description = trimmed.substring(8);
+                }
+            }
+
+            return { name, description };
+        }
+
+        // Валидация HPG файла
+        function validateHPGFile(content) {
+            const lines = content.split('\n');
+            let hasVersion = false;
+            let elementsCount = 0;
+            const requiredElements = ['N', 'P', 'K', 'Ca', 'Mg', 'S'];
+            const foundElements = new Set();
+
+            for (const line of lines) {
+                const trimmed = line.trim();
+                if (!trimmed) continue;
+
+                // Проверка версии
+                if (trimmed.startsWith('version=')) {
+                    hasVersion = true;
+                }
+
+                // Проверка элементов
+                if (trimmed.includes('=')) {
+                    const [key] = trimmed.split('=');
+                    if (requiredElements.includes(key)) {
+                        foundElements.add(key);
+                        elementsCount++;
+                    }
+                }
+            }
+
+            // Проверки
+            if (!hasVersion) {
+                return { valid: false, error: 'Файл не содержит строку version=' };
+            }
+
+            const missingElements = requiredElements.filter(el => !foundElements.has(el));
+            if (missingElements.length > 0) {
+                return { valid: false, error: `Отсутствуют обязательные элементы: ${missingElements.join(', ')}` };
+            }
+
+            return { valid: true, elementsCount: foundElements.size };
+        }
+
+        // Загрузка HPG профиля в облако
+        async function uploadHPGProfile() {
+            if (!window.uploadedHPGContent || !currentUser) {
+                alert('Ошибка: нет данных для загрузки');
+                return;
+            }
+
+            const name = document.getElementById('upload-name').value.trim();
+            const description = document.getElementById('upload-description').value.trim();
+            const tagsInput = document.getElementById('upload-tags').value.trim();
+            const tags = tagsInput ? tagsInput.split(',').map(t => t.trim()).filter(t => t) : [];
+
+            if (!name) {
+                alert('Введите название профиля');
+                return;
+            }
+
+            const submitBtn = document.getElementById('upload-submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = '⏳ Сохранение...';
+
+            try {
+                // Сохраняем профиль в Firestore
+                await db.collection('profiles').add({
+                    // Владелец
+                    userId: currentUser.uid,
+                    userEmail: currentUser.email,
+                    userName: currentUser.displayName,
+                    userPhotoURL: currentUser.photoURL || null,
+                    
+                    // Уникальный ключ
+                    appKey: 'wega-hpg-profile',
+                    
+                    // Основная информация
+                    name: name,
+                    description: description,
+                    tags: tags,
+                    
+                    // Данные профиля - ПОЛНЫЙ файл HPG
+                    profile: window.uploadedHPGContent,
+                    profileString: '', // Можно добавить краткую строку если нужно
+                    
+                    // Журнал (пустой для загруженных файлов)
+                    journal: [],
+                    
+                    // Метаданные
+                    created: firebase.firestore.FieldValue.serverTimestamp(),
+                    modified: firebase.firestore.FieldValue.serverTimestamp(),
+                    version: '1.0',
+                    
+                    // Публичность - всегда true для загруженных через портал
+                    public: true,
+                    
+                    // Статистика
+                    views: 0,
+                    likes: 0,
+                    dislikes: 0,
+                    downloads: 0,
+                    commentsCount: 0
+                });
+
+                // Показываем успех
+                showNotification('✅ Профиль успешно загружен!');
+                
+                // Закрываем модальное окно
+                document.querySelector('.modal').remove();
+                
+                // Перезагружаем список профилей
+                await loadProfiles();
+                renderProfiles();
+
+            } catch (error) {
+                console.error('Ошибка загрузки профиля:', error);
+                alert('❌ Ошибка загрузки: ' + error.message);
+                submitBtn.disabled = false;
+                submitBtn.textContent = '💾 Сохранить в облако';
             }
         }
 
