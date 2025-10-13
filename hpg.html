@@ -9875,26 +9875,27 @@ cgSi=0.2700`;
                                     </div>
                                 </div>
                             </div>
-                            <div style="display: flex; gap: 6px; flex-wrap: wrap; align-items: center;">
-                                <button onclick="loadCloudProfile('${doc.id}')" style="flex: 1; min-width: 110px; padding: 10px 12px; background: #4285f4; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 13px; font-weight: 500; transition: all 0.2s;" onmouseover="this.style.background='#3367d6'" onmouseout="this.style.background='#4285f4'">
+                            <div style="display: flex; gap: 6px; flex-wrap: wrap; align-items: stretch;">
+                                <button onclick="loadCloudProfile('${doc.id}')" style="flex: 1; min-width: 110px; padding: 10px 12px; background: #4285f4; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 500; transition: all 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.2);" onmouseover="this.style.background='#3367d6'; this.style.transform='translateY(-1px)'; this.style.boxShadow='0 2px 5px rgba(0,0,0,0.25)'" onmouseout="this.style.background='#4285f4'; this.style.transform='translateY(0)'; this.style.boxShadow='0 1px 3px rgba(0,0,0,0.2)'">
                                     📥 Загрузить
                                 </button>
-                                <button onclick="downloadCloudProfile('${doc.id}')" title="Скачать" style="padding: 10px 14px; background: #ff9800; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; transition: all 0.2s;" onmouseover="this.style.background='#f57c00'" onmouseout="this.style.background='#ff9800'">
-                                    💾
-                                </button>
-                                <button onclick="updateCloudProfile('${doc.id}')" title="Обновить" style="padding: 10px 14px; background: #34a853; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; transition: all 0.2s;" onmouseover="this.style.background='#2d8e47'" onmouseout="this.style.background='#34a853'">
-                                    🔄
+                                <button onclick="downloadCloudProfile('${doc.id}')" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 8px 12px; background: #ff9800; color: white; border: none; border-radius: 6px; cursor: pointer; transition: all 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.2);" onmouseover="this.style.background='#f57c00'; this.style.transform='translateY(-1px)'; this.style.boxShadow='0 2px 5px rgba(0,0,0,0.25)'" onmouseout="this.style.background='#ff9800'; this.style.transform='translateY(0)'; this.style.boxShadow='0 1px 3px rgba(0,0,0,0.2)'">
+                                    <span style="font-size: 18px;">💾</span>
+                                    <span style="font-size: 9px; opacity: 0.9;">Скачать</span>
                                 </button>
                                 ${profile.public ? `
-                                <button onclick="shareCloudProfile('${doc.id}', '${profile.name.replace(/'/g, "\\'")}', event)" title="Поделиться" style="padding: 10px 14px; background: #00bcd4; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; transition: all 0.2s;" onmouseover="this.style.background='#0097a7'" onmouseout="this.style.background='#00bcd4'">
-                                    🔗
+                                <button onclick="shareCloudProfile('${doc.id}', '${profile.name.replace(/'/g, "\\'")}', event)" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 8px 12px; background: #0288d1; color: white; border: none; border-radius: 6px; cursor: pointer; transition: all 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.2);" onmouseover="this.style.background='#0277bd'; this.style.transform='translateY(-1px)'; this.style.boxShadow='0 2px 5px rgba(0,0,0,0.25)'" onmouseout="this.style.background='#0288d1'; this.style.transform='translateY(0)'; this.style.boxShadow='0 1px 3px rgba(0,0,0,0.2)'">
+                                    <span style="font-size: 18px;">🔗</span>
+                                    <span style="font-size: 9px; opacity: 0.9;">Ссылка</span>
                                 </button>
                                 ` : ''}
-                                <button onclick="editCloudProfile('${doc.id}')" title="Редактировать" style="padding: 10px 14px; background: #9c27b0; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; transition: all 0.2s;" onmouseover="this.style.background='#7b1fa2'" onmouseout="this.style.background='#9c27b0'">
-                                    ✏️
+                                <button onclick="editCloudProfile('${doc.id}')" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 8px 12px; background: #9c27b0; color: white; border: none; border-radius: 6px; cursor: pointer; transition: all 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.2);" onmouseover="this.style.background='#7b1fa2'; this.style.transform='translateY(-1px)'; this.style.boxShadow='0 2px 5px rgba(0,0,0,0.25)'" onmouseout="this.style.background='#9c27b0'; this.style.transform='translateY(0)'; this.style.boxShadow='0 1px 3px rgba(0,0,0,0.2)'">
+                                    <span style="font-size: 18px;">✏️</span>
+                                    <span style="font-size: 9px; opacity: 0.9;">Изменить</span>
                                 </button>
-                                <button onclick="deleteCloudProfile('${doc.id}')" title="Удалить" style="padding: 10px 14px; background: #f44336; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; transition: all 0.2s;" onmouseover="this.style.background='#d32f2f'" onmouseout="this.style.background='#f44336'">
-                                    🗑️
+                                <button onclick="deleteCloudProfile('${doc.id}')" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 8px 12px; background: #f44336; color: white; border: none; border-radius: 6px; cursor: pointer; transition: all 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.2);" onmouseover="this.style.background='#d32f2f'; this.style.transform='translateY(-1px)'; this.style.boxShadow='0 2px 5px rgba(0,0,0,0.25)'" onmouseout="this.style.background='#f44336'; this.style.transform='translateY(0)'; this.style.boxShadow='0 1px 3px rgba(0,0,0,0.2)'">
+                                    <span style="font-size: 18px;">🗑️</span>
+                                    <span style="font-size: 9px; opacity: 0.9;">Удалить</span>
                                 </button>
                             </div>
                         </div>
