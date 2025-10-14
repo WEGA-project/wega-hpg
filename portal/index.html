@@ -559,7 +559,6 @@
         .profile-body {
             padding: 20px;
         }
-{{ ... }}
 
         .profile-meta {
             display: flex;
@@ -928,7 +927,7 @@
         
         .profile-detail-stats {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(2, 1fr);
             gap: 15px;
             margin-bottom: 20px;
         }
@@ -939,6 +938,13 @@
             background: white;
             border-radius: 8px;
             border: 1px solid #e0e0e0;
+            transition: all 0.2s ease;
+        }
+        
+        .profile-detail-stat[onclick]:hover {
+            background: #f0f9f9;
+            border-color: #4a9d9d;
+            transform: translateY(-2px);
         }
         
         .profile-detail-stat-value {
@@ -1094,6 +1100,29 @@
                 top: 0;
                 max-height: 400px;
                 order: -1;
+            }
+        }
+        
+        /* Анимации для уведомлений */
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(400px);
+                opacity: 0;
             }
         }
     </style>
@@ -1267,6 +1296,9 @@
         }
 
         // Отслеживание состояния авторизации
+        // Глобальная переменная для хранения ID открытого профиля
+        let currentOpenProfileId = null;
+
         auth.onAuthStateChanged(user => {
             currentUser = user;
             authReady = true;
@@ -1283,6 +1315,15 @@
                 // Показываем переключатели "Только мои / Все"
                 document.getElementById('userFilterContainer').style.display = 'block';
                 document.getElementById('activityFilterContainer').style.display = 'block';
+                
+                // Если открыто детальное окно профиля, обновляем его
+                if (currentOpenProfileId) {
+                    const modal = document.querySelector('.modal');
+                    if (modal) {
+                        modal.remove();
+                        showProfileDetail(currentOpenProfileId);
+                    }
+                }
             } else {
                 // Пользователь не авторизован
                 console.log('Пользователь не авторизован');
@@ -1321,7 +1362,8 @@
                 // Фильтруем только те userId, которых нет в кеше
                 const uncachedUserIds = userIds.filter(id => !userPhotosCache[id]);
                 
-                if (uncachedUserIds.length > 0) {
+                // Загружаем фото только для авторизованных пользователей
+                if (uncachedUserIds.length > 0 && currentUser) {
                     try {
                         // Загружаем данные пользователей пачками (Firestore поддерживает до 10 в in)
                         for (let i = 0; i < uncachedUserIds.length; i += 10) {
@@ -1607,6 +1649,18 @@
             return ratios;
         }
         
+        // Умное округление процента
+        function smartRoundPercent(percent) {
+            const absPercent = Math.abs(percent);
+            if (absPercent >= 10) {
+                return percent.toFixed(0);
+            } else if (absPercent >= 1) {
+                return percent.toFixed(1);
+            } else {
+                return percent.toFixed(2);
+            }
+        }
+        
         // Сравнение двух профилей
         function compareProfiles(prev, curr) {
             const changes = [];
@@ -1618,8 +1672,19 @@
                 const diff = currVal - prevVal;
                 
                 if (Math.abs(diff) > 0.01) {
-                    const sign = diff > 0 ? '+' : '';
-                    changes.push(`${elem}: ${prevVal.toFixed(2)} → ${currVal.toFixed(2)} (${sign}${diff.toFixed(2)})`);
+                    // Вычисляем процент изменения
+                    let changeStr = '';
+                    if (prevVal > 0.01) {
+                        const percent = (diff / prevVal) * 100;
+                        const roundedPercent = smartRoundPercent(percent);
+                        const percentSign = percent > 0 ? '+' : '';
+                        changeStr = ` (${percentSign}${roundedPercent}%)`;
+                    } else {
+                        const sign = diff > 0 ? '+' : '';
+                        changeStr = ` (${sign}${diff.toFixed(2)})`;
+                    }
+                    
+                    changes.push(`${elem}: ${prevVal.toFixed(2)} → ${currVal.toFixed(2)}${changeStr}`);
                 }
             });
             
@@ -1628,6 +1693,9 @@
         
         // Показать детальный просмотр профиля
         async function showProfileDetail(profileId) {
+            // Сохраняем ID открытого профиля
+            currentOpenProfileId = profileId;
+            
             const profile = allProfiles.find(p => p.id === profileId);
             if (!profile) return;
             
@@ -1638,40 +1706,53 @@
                 profile.tags.map(tag => `<span class="profile-detail-tag">🏷️ ${escapeHtml(tag)}</span>`).join('') :
                 '<span style="color: #999;">Теги не указаны</span>';
             
-            // Загружаем комментарии
-            let commentsHtml = '<div style="color: #999; text-align: center; padding: 20px;">Загрузка комментариев...</div>';
-            try {
-                const commentsSnapshot = await db.collection('comments')
-                    .where('profileId', '==', profileId)
-                    .orderBy('created', 'desc')
-                    .get();
-                
-                if (commentsSnapshot.empty) {
-                    commentsHtml = '<div style="color: #999; text-align: center; padding: 20px;">Комментариев пока нет</div>';
-                } else {
-                    commentsHtml = '';
-                    commentsSnapshot.forEach(doc => {
-                        const comment = doc.data();
-                        const commentAvatar = comment.userPhotoURL || 
-                            `https://ui-avatars.com/api/?name=${encodeURIComponent(comment.userName || 'Аноним')}&size=40&background=4a9d9d&color=fff`;
-                        const commentDate = comment.created?.toDate().toLocaleDateString('ru-RU') || '';
-                        
-                        commentsHtml += `
-                            <div class="comment" style="margin-bottom: 15px; padding: 12px; background: #f8f9ff; border-radius: 8px;">
-                                <div style="display: flex; gap: 10px; margin-bottom: 8px;">
-                                    <img src="${commentAvatar}" style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid #4a9d9d;">
-                                    <div style="flex: 1;">
-                                        <div style="font-weight: 600; color: #333;">${escapeHtml(comment.userName || 'Аноним')}</div>
-                                        <div style="font-size: 12px; color: #999;">${commentDate}</div>
+            // Загружаем комментарии (только для авторизованных)
+            let commentsHtml = `
+                <div style="text-align: center; padding: 40px;">
+                    <div style="color: #999; margin-bottom: 20px; font-size: 16px;">
+                        🔒 Войдите, чтобы видеть комментарии
+                    </div>
+                    <button class="btn btn-primary" onclick="loginWithGoogle()" style="display: inline-flex; align-items: center; gap: 8px;">
+                        <img src="https://www.google.com/favicon.ico" width="16" height="16" style="filter: brightness(0) invert(1);">
+                        Войти через Google
+                    </button>
+                </div>
+            `;
+            if (currentUser) {
+                commentsHtml = '<div style="color: #999; text-align: center; padding: 20px;">Загрузка комментариев...</div>';
+                try {
+                    const commentsSnapshot = await db.collection('comments')
+                        .where('profileId', '==', profileId)
+                        .orderBy('created', 'desc')
+                        .get();
+                    
+                    if (commentsSnapshot.empty) {
+                        commentsHtml = '<div style="color: #999; text-align: center; padding: 20px;">Комментариев пока нет</div>';
+                    } else {
+                        commentsHtml = '';
+                        commentsSnapshot.forEach(doc => {
+                            const comment = doc.data();
+                            const commentAvatar = comment.userPhotoURL || 
+                                `https://ui-avatars.com/api/?name=${encodeURIComponent(comment.userName || 'Аноним')}&size=40&background=4a9d9d&color=fff`;
+                            const commentDate = comment.created?.toDate().toLocaleDateString('ru-RU') || '';
+                            
+                            commentsHtml += `
+                                <div class="comment" style="margin-bottom: 15px; padding: 12px; background: #f8f9ff; border-radius: 8px;">
+                                    <div style="display: flex; gap: 10px; margin-bottom: 8px;">
+                                        <img src="${commentAvatar}" style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid #4a9d9d;">
+                                        <div style="flex: 1;">
+                                            <div style="font-weight: 600; color: #333;">${escapeHtml(comment.userName || 'Аноним')}</div>
+                                            <div style="font-size: 12px; color: #999;">${commentDate}</div>
+                                        </div>
                                     </div>
+                                    <div style="color: #555; line-height: 1.5;">${escapeHtml(comment.text)}</div>
                                 </div>
-                                <div style="color: #555; line-height: 1.5;">${escapeHtml(comment.text)}</div>
-                            </div>
-                        `;
-                    });
+                            `;
+                        });
+                    }
+                } catch (error) {
+                    commentsHtml = '<div style="color: #f44336; text-align: center; padding: 20px;">Ошибка загрузки комментариев</div>';
                 }
-            } catch (error) {
-                commentsHtml = '<div style="color: #f44336; text-align: center; padding: 20px;">Ошибка загрузки комментариев</div>';
             }
             
             // Формируем строку профиля
@@ -1738,8 +1819,11 @@
             if (profile.journal && profile.journal.length > 0) {
                 journalHtml = `
                     <div class="profile-detail-section">
-                        <h3>📓 Журнал (${profile.journal.length})</h3>
-                        <div style="max-height: 500px; overflow-y: auto; padding-right: 10px;">
+                        <h3 onclick="toggleJournal('${profile.id}')" style="cursor: pointer; user-select: none; display: flex; align-items: center; gap: 8px;">
+                            <span id="journal-arrow-${profile.id}" style="transition: transform 0.2s; display: inline-flex; align-items: center; line-height: 1;">▼</span>
+                            📓 Журнал (${profile.journal.length})
+                        </h3>
+                        <div id="journal-content-${profile.id}" style="max-height: 500px; overflow-y: auto; padding-right: 10px;">
                             <div style="display: flex; flex-direction: column; gap: 15px;">
                                 ${profile.journal.map((entry, index) => {
                                     const dateLabel = formatJournalDate(entry.date);
@@ -1789,8 +1873,19 @@
                                             // EC
                                             const ecDiff = currEC - prevEC;
                                             if (Math.abs(ecDiff) > 0.001) {
-                                                const sign = ecDiff > 0 ? '+' : '';
-                                                paramChanges.push(`EC: ${prevEC.toFixed(3)} → ${currEC.toFixed(3)} (${sign}${ecDiff.toFixed(3)})`);
+                                                // Процент изменения EC
+                                                let changeStr = '';
+                                                if (prevEC > 0.001) {
+                                                    const percent = (ecDiff / prevEC) * 100;
+                                                    const roundedPercent = smartRoundPercent(percent);
+                                                    const percentSign = percent > 0 ? '+' : '';
+                                                    changeStr = ` (${percentSign}${roundedPercent}%)`;
+                                                } else {
+                                                    const sign = ecDiff > 0 ? '+' : '';
+                                                    changeStr = ` (${sign}${ecDiff.toFixed(3)})`;
+                                                }
+                                                
+                                                paramChanges.push(`EC: ${prevEC.toFixed(3)} → ${currEC.toFixed(3)}${changeStr}`);
                                             }
                                             
                                             // Соотношения
@@ -1799,9 +1894,21 @@
                                                 if (prevRatios[key] !== undefined && currRatios[key] !== undefined) {
                                                     const diff = currRatios[key] - prevRatios[key];
                                                     if (Math.abs(diff) > 0.01) {
-                                                        const sign = diff > 0 ? '+' : '';
                                                         const label = key.replace('_', ':');
-                                                        paramChanges.push(`${label}: ${prevRatios[key].toFixed(2)} → ${currRatios[key].toFixed(2)} (${sign}${diff.toFixed(2)})`);
+                                                        
+                                                        // Процент изменения соотношения
+                                                        let changeStr = '';
+                                                        if (prevRatios[key] > 0.01) {
+                                                            const percent = (diff / prevRatios[key]) * 100;
+                                                            const roundedPercent = smartRoundPercent(percent);
+                                                            const percentSign = percent > 0 ? '+' : '';
+                                                            changeStr = ` (${percentSign}${roundedPercent}%)`;
+                                                        } else {
+                                                            const sign = diff > 0 ? '+' : '';
+                                                            changeStr = ` (${sign}${diff.toFixed(2)})`;
+                                                        }
+                                                        
+                                                        paramChanges.push(`${label}: ${prevRatios[key].toFixed(2)} → ${currRatios[key].toFixed(2)}${changeStr}`);
                                                     }
                                                 }
                                             });
@@ -1886,13 +1993,17 @@
                                         <div class="profile-detail-stat-value">${profile.views || 0}</div>
                                         <div class="profile-detail-stat-label">👁️ Просмотров</div>
                                     </div>
-                                    <div class="profile-detail-stat">
-                                        <div class="profile-detail-stat-value">${profile.likes || 0}</div>
-                                        <div class="profile-detail-stat-label">👍 Лайков</div>
-                                    </div>
-                                    <div class="profile-detail-stat">
+                                    <div class="profile-detail-stat" style="cursor: pointer;" onclick="document.getElementById('comments-section-${profile.id}').scrollIntoView({behavior: 'smooth', block: 'start'})" title="Перейти к комментариям">
                                         <div class="profile-detail-stat-value">${profile.commentsCount || 0}</div>
                                         <div class="profile-detail-stat-label">💬 Комментариев</div>
+                                    </div>
+                                    <div class="profile-detail-stat" style="cursor: pointer;" onclick="likeProfile('${profile.id}')" title="Нравится">
+                                        <div class="profile-detail-stat-value">👍 <span id="detail-likes-${profile.id}">${profile.likes || 0}</span></div>
+                                        <div class="profile-detail-stat-label">Лайков</div>
+                                    </div>
+                                    <div class="profile-detail-stat" style="cursor: pointer;" onclick="dislikeProfile('${profile.id}')" title="Не нравится">
+                                        <div class="profile-detail-stat-value">👎 <span id="detail-dislikes-${profile.id}">${profile.dislikes || 0}</span></div>
+                                        <div class="profile-detail-stat-label">Дизлайков</div>
                                     </div>
                                 </div>
                                 
@@ -1929,8 +2040,18 @@
                                 ${journalHtml}
                                 
                                 <!-- Комментарии -->
-                                <div class="profile-detail-section">
+                                <div class="profile-detail-section" id="comments-section-${profile.id}">
                                     <h3>💬 Комментарии (${profile.commentsCount || 0})</h3>
+                                    ${currentUser ? `
+                                        <div class="comment-form" style="margin-bottom: 20px;">
+                                            <textarea id="detail-comment-text" placeholder="Напишите комментарий..." style="width: 100%; min-height: 80px; padding: 12px; border: 1px solid #e0e0e0; border-radius: 8px; font-family: inherit; font-size: 14px; resize: vertical;"></textarea>
+                                            <div class="comment-form-actions" style="margin-top: 10px;">
+                                                <button class="btn btn-primary" onclick="submitDetailComment('${profile.id}', '${escapeHtml(profile.name).replace(/'/g, "\\'")}')">
+                                                    💬 Отправить
+                                                </button>
+                                            </div>
+                                        </div>
+                                    ` : ''}
                                     <div id="detailComments" style="max-height: 500px; overflow-y: auto; padding-right: 10px;">
                                         ${commentsHtml}
                                     </div>
@@ -1946,20 +2067,60 @@
             // Закрытие по клику на фон
             modal.addEventListener('click', (e) => {
                 if (e.target === modal) {
+                    currentOpenProfileId = null;
                     modal.remove();
                 }
             });
+            
+            // Также очищаем ID при закрытии через кнопку
+            const closeButton = modal.querySelector('.modal-close');
+            if (closeButton) {
+                closeButton.addEventListener('click', () => {
+                    currentOpenProfileId = null;
+                });
+            }
         }
 
         // Копировать ссылку
         async function copyShareLink(profileId, profileName) {
-            const shareUrl = `${window.location.origin}/hpg.html?profile=${profileId}`;
+            const shareUrl = `${window.location.origin}/portal/#profile-${profileId}`;
             
             try {
                 await navigator.clipboard.writeText(shareUrl);
-                alert(`✅ Ссылка на профиль "${profileName}" скопирована!`);
+                showNotification(`✅ Ссылка на профиль "${profileName}" скопирована!`);
             } catch (error) {
-                prompt('Скопируйте ссылку:', shareUrl);
+                // Если не удалось скопировать автоматически, показываем модальное окно
+                const modal = document.createElement('div');
+                modal.className = 'modal';
+                modal.innerHTML = `
+                    <div style="background: white; padding: 25px; border-radius: 10px; max-width: 500px; width: 90%;">
+                        <h3 style="margin: 0 0 15px 0; font-size: 18px;">🔗 Скопируйте ссылку</h3>
+                        <div style="margin-bottom: 15px;">
+                            <strong>${profileName}</strong>
+                        </div>
+                        <input type="text" value="${shareUrl}" readonly 
+                            style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px; margin-bottom: 15px;"
+                            onclick="this.select()">
+                        <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                            <button class="btn btn-light" onclick="this.closest('.modal').remove()">Закрыть</button>
+                            <button class="btn btn-primary" onclick="
+                                const input = this.parentElement.previousElementSibling;
+                                input.select();
+                                document.execCommand('copy');
+                                showNotification('✅ Ссылка скопирована!');
+                                this.closest('.modal').remove();
+                            ">Копировать</button>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(modal);
+                
+                // Закрытие по клику на фон
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        modal.remove();
+                    }
+                });
             }
         }
 
@@ -2253,7 +2414,8 @@
                 // Фильтруем только те userId, которых нет в кеше
                 const uncachedUserIds = userIds.filter(id => !userPhotosCache[id]);
                 
-                if (uncachedUserIds.length > 0) {
+                // Загружаем фото только для авторизованных пользователей
+                if (uncachedUserIds.length > 0 && currentUser) {
                     try {
                         // Загружаем данные пользователей пачками (Firestore поддерживает до 10 в in)
                         for (let i = 0; i < uncachedUserIds.length; i += 10) {
@@ -2323,9 +2485,26 @@
         // Лайк профиля
         async function likeProfile(profileId) {
             if (!currentUser) {
-                if (confirm('Для оценки профилей необходимо войти. Войти сейчас?')) {
-                    loginWithGoogle();
-                }
+                // Показываем модальное окно вместо confirm
+                const modal = document.createElement('div');
+                modal.className = 'modal';
+                modal.innerHTML = `
+                    <div style="background: white; padding: 25px; border-radius: 10px; max-width: 400px; width: 90%;">
+                        <h3 style="margin: 0 0 15px 0; font-size: 18px;">🔒 Требуется авторизация</h3>
+                        <p style="margin-bottom: 20px; color: #666;">Для оценки профилей необходимо войти. Войти сейчас?</p>
+                        <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                            <button class="btn btn-light" onclick="this.closest('.modal').remove()">Отмена</button>
+                            <button class="btn btn-primary" onclick="loginWithGoogle(); this.closest('.modal').remove();">
+                                <img src="https://www.google.com/favicon.ico" width="16" height="16" style="filter: brightness(0) invert(1); margin-right: 5px;">
+                                Войти
+                            </button>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(modal);
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) modal.remove();
+                });
                 return;
             }
 
@@ -2348,8 +2527,12 @@
                         });
                         
                         const likesSpan = document.getElementById(`likes-${profileId}`);
+                        const detailLikesSpan = document.getElementById(`detail-likes-${profileId}`);
                         if (likesSpan) {
                             likesSpan.textContent = Math.max(0, parseInt(likesSpan.textContent) - 1);
+                        }
+                        if (detailLikesSpan) {
+                            detailLikesSpan.textContent = Math.max(0, parseInt(detailLikesSpan.textContent) - 1);
                         }
                         
                         showNotification('Лайк убран');
@@ -2364,8 +2547,12 @@
                         
                         const likesSpan = document.getElementById(`likes-${profileId}`);
                         const dislikesSpan = document.getElementById(`dislikes-${profileId}`);
+                        const detailLikesSpan = document.getElementById(`detail-likes-${profileId}`);
+                        const detailDislikesSpan = document.getElementById(`detail-dislikes-${profileId}`);
                         if (likesSpan) likesSpan.textContent = parseInt(likesSpan.textContent) + 1;
                         if (dislikesSpan) dislikesSpan.textContent = Math.max(0, parseInt(dislikesSpan.textContent) - 1);
+                        if (detailLikesSpan) detailLikesSpan.textContent = parseInt(detailLikesSpan.textContent) + 1;
+                        if (detailDislikesSpan) detailDislikesSpan.textContent = Math.max(0, parseInt(detailDislikesSpan.textContent) - 1);
                         
                         showNotification('👍 Спасибо за оценку!');
                         return;
@@ -2385,24 +2572,45 @@
                 });
 
                 const likesSpan = document.getElementById(`likes-${profileId}`);
+                const detailLikesSpan = document.getElementById(`detail-likes-${profileId}`);
                 if (likesSpan) {
                     likesSpan.textContent = parseInt(likesSpan.textContent) + 1;
+                }
+                if (detailLikesSpan) {
+                    detailLikesSpan.textContent = parseInt(detailLikesSpan.textContent) + 1;
                 }
 
                 showNotification('👍 Спасибо за оценку!');
 
             } catch (error) {
                 console.error('Ошибка лайка:', error);
-                alert('❌ Ошибка: ' + error.message);
+                showNotification('❌ Ошибка: ' + error.message);
             }
         }
 
         // Дизлайк профиля
         async function dislikeProfile(profileId) {
             if (!currentUser) {
-                if (confirm('Для оценки профилей необходимо войти. Войти сейчас?')) {
-                    loginWithGoogle();
-                }
+                // Показываем модальное окно вместо confirm
+                const modal = document.createElement('div');
+                modal.className = 'modal';
+                modal.innerHTML = `
+                    <div style="background: white; padding: 25px; border-radius: 10px; max-width: 400px; width: 90%;">
+                        <h3 style="margin: 0 0 15px 0; font-size: 18px;">🔒 Требуется авторизация</h3>
+                        <p style="margin-bottom: 20px; color: #666;">Для оценки профилей необходимо войти. Войти сейчас?</p>
+                        <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                            <button class="btn btn-light" onclick="this.closest('.modal').remove()">Отмена</button>
+                            <button class="btn btn-primary" onclick="loginWithGoogle(); this.closest('.modal').remove();">
+                                <img src="https://www.google.com/favicon.ico" width="16" height="16" style="filter: brightness(0) invert(1); margin-right: 5px;">
+                                Войти
+                            </button>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(modal);
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) modal.remove();
+                });
                 return;
             }
 
@@ -2425,8 +2633,12 @@
                         });
                         
                         const dislikesSpan = document.getElementById(`dislikes-${profileId}`);
+                        const detailDislikesSpan = document.getElementById(`detail-dislikes-${profileId}`);
                         if (dislikesSpan) {
                             dislikesSpan.textContent = Math.max(0, parseInt(dislikesSpan.textContent) - 1);
+                        }
+                        if (detailDislikesSpan) {
+                            detailDislikesSpan.textContent = Math.max(0, parseInt(detailDislikesSpan.textContent) - 1);
                         }
                         
                         showNotification('Дизлайк убран');
@@ -2441,8 +2653,12 @@
                         
                         const likesSpan = document.getElementById(`likes-${profileId}`);
                         const dislikesSpan = document.getElementById(`dislikes-${profileId}`);
+                        const detailLikesSpan = document.getElementById(`detail-likes-${profileId}`);
+                        const detailDislikesSpan = document.getElementById(`detail-dislikes-${profileId}`);
                         if (likesSpan) likesSpan.textContent = Math.max(0, parseInt(likesSpan.textContent) - 1);
                         if (dislikesSpan) dislikesSpan.textContent = parseInt(dislikesSpan.textContent) + 1;
+                        if (detailLikesSpan) detailLikesSpan.textContent = Math.max(0, parseInt(detailLikesSpan.textContent) - 1);
+                        if (detailDislikesSpan) detailDislikesSpan.textContent = parseInt(detailDislikesSpan.textContent) + 1;
                         
                         showNotification('👎 Спасибо за отзыв!');
                         return;
@@ -2462,15 +2678,19 @@
                 });
 
                 const dislikesSpan = document.getElementById(`dislikes-${profileId}`);
+                const detailDislikesSpan = document.getElementById(`detail-dislikes-${profileId}`);
                 if (dislikesSpan) {
                     dislikesSpan.textContent = parseInt(dislikesSpan.textContent) + 1;
+                }
+                if (detailDislikesSpan) {
+                    detailDislikesSpan.textContent = parseInt(detailDislikesSpan.textContent) + 1;
                 }
 
                 showNotification('👎 Спасибо за отзыв!');
 
             } catch (error) {
                 console.error('Ошибка дизлайка:', error);
-                alert('❌ Ошибка: ' + error.message);
+                showNotification('❌ Ошибка: ' + error.message);
             }
         }
 
@@ -2839,6 +3059,73 @@
             }
         }
 
+        // Сворачивание/разворачивание журнала
+        function toggleJournal(profileId) {
+            const content = document.getElementById(`journal-content-${profileId}`);
+            const arrow = document.getElementById(`journal-arrow-${profileId}`);
+            
+            if (content.style.display === 'none') {
+                content.style.display = 'block';
+                arrow.style.transform = 'rotate(0deg)';
+            } else {
+                content.style.display = 'none';
+                arrow.style.transform = 'rotate(-90deg)';
+            }
+        }
+
+        // Отправить комментарий из детального просмотра
+        async function submitDetailComment(profileId, profileName) {
+            const textarea = document.getElementById('detail-comment-text');
+            const text = textarea.value.trim();
+            
+            if (!text) {
+                alert('Введите текст комментария');
+                return;
+            }
+            
+            if (!currentUser) {
+                alert('Необходима авторизация');
+                return;
+            }
+            
+            try {
+                // Добавляем комментарий в Firestore
+                await db.collection('comments').add({
+                    profileId: profileId,
+                    userId: currentUser.uid,
+                    userName: currentUser.displayName || 'Аноним',
+                    userEmail: currentUser.email,
+                    userPhotoURL: currentUser.photoURL || null,
+                    text: text,
+                    created: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                
+                // Обновляем счетчик комментариев в профиле
+                await db.collection('profiles').doc(profileId).update({
+                    commentsCount: firebase.firestore.FieldValue.increment(1)
+                }).catch(err => console.log('Не удалось обновить счетчик:', err));
+                
+                // Обновляем данные профиля в локальном массиве
+                const profile = allProfiles.find(p => p.id === profileId);
+                if (profile) {
+                    profile.commentsCount = (profile.commentsCount || 0) + 1;
+                }
+                
+                // Очищаем поле ввода
+                textarea.value = '';
+                
+                // Перезагружаем детальный просмотр и ленту активности
+                const modal = document.querySelector('.modal');
+                modal.remove();
+                showProfileDetail(profileId);
+                loadActivityFeed();
+                
+            } catch (error) {
+                console.error('Ошибка отправки комментария:', error);
+                alert('❌ Ошибка отправки: ' + error.message);
+            }
+        }
+
         // Debounce функция
         function debounce(func, wait) {
             let timeout;
@@ -2952,27 +3239,29 @@
                     });
                 });
                 
-                // 2. Загружаем последние комментарии
-                try {
-                    const commentsSnapshot = await db.collection('comments')
-                        .orderBy('created', 'desc')
-                        .limit(10)
-                        .get();
-                    
-                    commentsSnapshot.forEach(doc => {
-                        const data = doc.data();
-                        activities.push({
-                            type: 'comment',
-                            timestamp: data.created,
-                            userId: data.userId,
-                            userName: data.userName || 'Аноним',
-                            userPhotoURL: data.userPhotoURL,
-                            profileId: data.profileId,
-                            text: data.text
+                // 2. Загружаем последние комментарии (только для авторизованных)
+                if (currentUser) {
+                    try {
+                        const commentsSnapshot = await db.collection('comments')
+                            .orderBy('created', 'desc')
+                            .limit(10)
+                            .get();
+                        
+                        commentsSnapshot.forEach(doc => {
+                            const data = doc.data();
+                            activities.push({
+                                type: 'comment',
+                                timestamp: data.created,
+                                userId: data.userId,
+                                userName: data.userName || 'Аноним',
+                                userPhotoURL: data.userPhotoURL,
+                                profileId: data.profileId,
+                                text: data.text
+                            });
                         });
-                    });
-                } catch (error) {
-                    console.log('Не удалось загрузить комментарии для ленты:', error);
+                    } catch (error) {
+                        console.log('Не удалось загрузить комментарии для ленты:', error);
+                    }
                 }
                 
                 // Сортируем по времени
@@ -3222,10 +3511,29 @@
         document.getElementById('tagFilter').addEventListener('change', applyFilters);
         document.getElementById('sortSelect').addEventListener('change', applyFilters);
 
+        // Обработка хэша для открытия профиля по прямой ссылке
+        function handleProfileHash() {
+            const hash = window.location.hash;
+            if (hash.startsWith('#profile-')) {
+                const profileId = hash.replace('#profile-', '');
+                if (profileId) {
+                    // Небольшая задержка, чтобы профили успели загрузиться
+                    setTimeout(() => {
+                        showProfileDetail(profileId);
+                    }, 100);
+                }
+            }
+        }
+
+        // Отслеживание изменения хэша
+        window.addEventListener('hashchange', handleProfileHash);
+
         // Загрузка при старте
         loadProfiles().then(() => {
             // Загружаем ленту активности после загрузки профилей
             loadActivityFeed();
+            // Проверяем хэш для автоматического открытия профиля
+            handleProfileHash();
         });
     </script>
 </body>
