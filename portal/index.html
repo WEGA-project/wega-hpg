@@ -679,16 +679,54 @@
         }
 
         .journal-entry {
-            border: 1px solid #e0e0e0;
-            border-radius: 10px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            background: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
             padding: 15px;
-            margin-bottom: 12px;
-            background: #fdfdfd;
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.08);
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+            border-left: 4px solid #667eea;
+        }
+        
+        .journal-entry:hover {
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
         }
 
         .journal-entry:last-child {
             margin-bottom: 0;
+        }
+        
+        .journal-entry-indicator {
+            flex-shrink: 0;
+            width: 120px;
+            height: 120px;
+            border-radius: 6px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+        }
+        
+        .journal-entry-indicator-number {
+            font-size: 32px;
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+        
+        .journal-entry-indicator-label {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+        
+        .journal-entry-content {
+            flex: 1;
+            min-width: 0;
         }
 
         .journal-header {
@@ -721,6 +759,13 @@
             margin-top: 6px;
             line-height: 1.4;
         }
+        
+        .journal-entry-date {
+            font-size: 12px;
+            color: #999;
+            text-align: right;
+            margin-bottom: 10px;
+        }
 
         .journal-profile {
             font-family: "Fira Code", "Courier New", monospace;
@@ -732,6 +777,63 @@
             white-space: pre-wrap;
             word-break: break-word;
             line-height: 1.5;
+        }
+        
+        .journal-photo {
+            margin-bottom: 15px;
+            border-radius: 8px;
+            background: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            padding: 15px;
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+            border-left: 4px solid #4a9d9d;
+        }
+        
+        .journal-photo:hover {
+            box-shadow: 0 4px 12px rgba(74, 157, 157, 0.2);
+        }
+        
+        .journal-photo-preview {
+            flex-shrink: 0;
+            width: 120px;
+            height: 120px;
+            border-radius: 6px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            background: #f5f5f5;
+        }
+        
+        .journal-photo-preview:hover {
+            transform: scale(1.05);
+        }
+        
+        .journal-photo-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .journal-photo-info {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .journal-photo-date {
+            font-size: 12px;
+            color: #999;
+            text-align: right;
+            margin-bottom: 10px;
+        }
+        
+        .journal-photo-description {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
         }
 
         .stat-item {
@@ -1784,6 +1886,79 @@
             return changes;
         }
         
+        // Создание временной шкалы с записями журнала и фотографиями
+        function createTimeline(journal, gallery) {
+            const timeline = [];
+            
+            // Добавляем записи журнала
+            if (journal && journal.length > 0) {
+                journal.forEach((entry, index) => {
+                    timeline.push({
+                        type: 'journal',
+                        date: entry.date,
+                        index: index,
+                        data: entry
+                    });
+                });
+            }
+            
+            // Добавляем фотографии
+            if (gallery && gallery.length > 0) {
+                gallery.forEach((photo) => {
+                    if (photo.date) { // Добавляем только если есть дата
+                        timeline.push({
+                            type: 'photo',
+                            date: photo.date,
+                            data: photo
+                        });
+                    }
+                });
+            }
+            
+            // Сортируем по дате (от старых к новым)
+            timeline.sort((a, b) => {
+                const dateA = parseTimelineDate(a.date);
+                const dateB = parseTimelineDate(b.date);
+                return dateA - dateB;
+            });
+            
+            return timeline;
+        }
+        
+        // Парсинг даты для временной шкалы
+        function parseTimelineDate(value) {
+            if (!value) return new Date(0);
+            
+            // Если timestamp Firestore
+            if (value.seconds) {
+                return new Date(value.seconds * 1000);
+            }
+            
+            // Если строка или другой формат
+            const date = new Date(value);
+            return isNaN(date.getTime()) ? new Date(0) : date;
+        }
+        
+        // Расчет разницы в днях между двумя датами
+        function getDaysDifference(date1, date2) {
+            const diffTime = Math.abs(date2 - date1);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            return diffDays;
+        }
+        
+        // Форматирование дней
+        function formatDays(days) {
+            if (days === 0) return 'сегодня';
+            if (days === 1) return '1 день';
+            if (days >= 2 && days <= 4) return `${days} дня`;
+            if (days >= 5 && days <= 20) return `${days} дней`;
+            const lastDigit = days % 10;
+            const lastTwoDigits = days % 100;
+            if (lastDigit === 1 && lastTwoDigits !== 11) return `${days} день`;
+            if (lastDigit >= 2 && lastDigit <= 4 && (lastTwoDigits < 10 || lastTwoDigits >= 20)) return `${days} дня`;
+            return `${days} дней`;
+        }
+        
         // Показать детальный просмотр профиля
         async function showProfileDetail(profileId) {
             // Сохраняем ID открытого профиля
@@ -1907,19 +2082,89 @@
                 `;
             }
             
-            // Формируем журнал
+            // Формируем журнал с фотографиями
             let journalHtml = '';
-            if (profile.journal && profile.journal.length > 0) {
+            const hasJournalOrPhotos = (profile.journal && profile.journal.length > 0) || (profile.gallery && profile.gallery.length > 0);
+            
+            if (hasJournalOrPhotos) {
+                // Создаём временную шкалу
+                const timeline = createTimeline(profile.journal, profile.gallery);
+                const journalEntriesCount = (profile.journal && profile.journal.length) || 0;
+                const photosCount = timeline.filter(item => item.type === 'photo').length;
+                
                 journalHtml = `
                     <div class="profile-detail-section">
                         <h3 onclick="toggleJournal('${profile.id}')" style="cursor: pointer; user-select: none; display: flex; align-items: center; gap: 8px;">
                             <span id="journal-arrow-${profile.id}" style="transition: transform 0.2s; display: inline-flex; align-items: center; line-height: 1;">▼</span>
-                            📓 Журнал (${profile.journal.length})
+                            📓 Журнал (${journalEntriesCount} ${journalEntriesCount === 1 ? 'запись' : 'записей'}${photosCount > 0 ? `, ${photosCount} ${photosCount === 1 ? 'фото' : 'фото'}` : ''})
                         </h3>
                         <div id="journal-content-${profile.id}" style="max-height: 500px; overflow-y: auto; padding-right: 10px;">
                             <div style="display: flex; flex-direction: column; gap: 15px;">
-                                ${profile.journal.map((entry, index) => {
+                                ${timeline.map((item, timelineIndex) => {
+                                    // Вычисляем даты для подсчета дней
+                                    const currentDate = parseTimelineDate(item.date);
+                                    const startDate = timeline.length > 0 ? parseTimelineDate(timeline[0].date) : currentDate;
+                                    const prevDate = timelineIndex > 0 ? parseTimelineDate(timeline[timelineIndex - 1].date) : null;
+                                    
+                                    const daysFromStart = getDaysDifference(startDate, currentDate);
+                                    const daysFromPrev = prevDate ? getDaysDifference(prevDate, currentDate) : 0;
+                                    
+                                    // Если это фотография
+                                    if (item.type === 'photo') {
+                                        const photo = item.data;
+                                        const photoDate = parseTimelineDate(photo.date);
+                                        const dateLabel = photoDate.toLocaleDateString('ru-RU', { 
+                                            year: 'numeric', 
+                                            month: 'short', 
+                                            day: 'numeric' 
+                                        });
+                                        
+                                        let timeInfo = `📸 ${escapeHtml(dateLabel)}`;
+                                        if (daysFromStart > 0) {
+                                            timeInfo += ` (${formatDays(daysFromStart)} от начала`;
+                                            if (daysFromPrev > 0) {
+                                                timeInfo += ` • +${formatDays(daysFromPrev)})`;
+                                            } else {
+                                                timeInfo += `)`;
+                                            }
+                                        }
+                                        
+                                        return `
+                                            <div class="journal-photo">
+                                                <div class="journal-photo-preview" onclick="window.open('${escapeJs(photo.url)}', '_blank')">
+                                                    <img src="${escapeHtml(photo.url)}" alt="${escapeHtml(photo.description || 'Фото')}"
+                                                         onerror="this.parentElement.innerHTML='<div style=\\'display: flex; align-items: center; justify-content: center; height: 100%; background: #f5f5f5; color: #999; font-size: 24px;\\'>📸</div>';">
+                                                </div>
+                                                <div class="journal-photo-info">
+                                                    <div class="journal-photo-date">
+                                                        ${timeInfo}
+                                                    </div>
+                                                    ${photo.description ? `
+                                                        <div class="journal-photo-description">
+                                                            ${escapeHtml(photo.description)}
+                                                        </div>
+                                                    ` : '<div class="journal-photo-description" style="color: #999; font-style: italic;">Без описания</div>'}
+                                                </div>
+                                            </div>
+                                        `;
+                                    }
+                                    
+                                    // Если это запись журнала
+                                    const entry = item.data;
+                                    const index = item.index;
                                     const dateLabel = formatJournalDate(entry.date);
+                                    
+                                    // Формируем информацию о времени
+                                    let timeInfo = `📅 ${escapeHtml(dateLabel)}`;
+                                    if (daysFromStart > 0) {
+                                        timeInfo += ` (${formatDays(daysFromStart)} от начала`;
+                                        if (daysFromPrev > 0) {
+                                            timeInfo += ` • +${formatDays(daysFromPrev)})`;
+                                        } else {
+                                            timeInfo += `)`;
+                                        }
+                                    }
+                                    
                                     const descriptionHtml = entry.desc ? `<div style="color: #666; font-size: 14px; line-height: 1.6; margin-bottom: 10px;">${escapeHtml(entry.desc)}</div>` : '';
                                     const profileString = (entry.profile || '').trim();
                                     
@@ -2039,15 +2284,18 @@
                                         '<div style="color: #999; font-style: italic; font-size: 13px;">Строка профиля отсутствует</div>';
                                     
                                     return `
-                                        <div style="background: #fff; padding: 15px; border-radius: 8px; border-left: 4px solid #4a9d9d; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
-                                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                                                <div style="font-weight: 700; color: #2d7a7a; font-size: 15px;">Этап ${index + 1}</div>
-                                                <div style="font-size: 12px; color: #999;">📅 ${escapeHtml(dateLabel)}</div>
+                                        <div class="journal-entry">
+                                            <div class="journal-entry-indicator">
+                                                <div class="journal-entry-indicator-number">${index + 1}</div>
+                                                <div class="journal-entry-indicator-label">ЭТАП</div>
                                             </div>
-                                            ${descriptionHtml}
-                                            ${statsHtml}
-                                            ${changesHtml}
-                                            ${profileHtml}
+                                            <div class="journal-entry-content">
+                                                <div class="journal-entry-date">${timeInfo}</div>
+                                                ${descriptionHtml}
+                                                ${statsHtml}
+                                                ${changesHtml}
+                                                ${profileHtml}
+                                            </div>
                                         </div>
                                     `;
                                 }).join('')}
@@ -2301,25 +2549,46 @@
 
             const entriesHtml = profile.journal.map((entry, index) => {
                 const dateLabel = formatJournalDate(entry.date);
-                const descriptionHtml = entry.desc ? `<div class="journal-description">${escapeHtml(entry.desc)}</div>` : '';
+                const descriptionHtml = entry.desc ? `<div style="color: #666; font-size: 14px; line-height: 1.6; margin-bottom: 10px;">${escapeHtml(entry.desc)}</div>` : '';
                 const profileString = (entry.profile || '').trim();
                 const profileHtml = profileString ? `<div class="journal-profile">${escapeHtml(profileString)}</div>` : '<div class="journal-profile" style="opacity:0.6;">Строка профиля отсутствует</div>';
                 const disabledAttr = profileString ? '' : 'disabled';
                 const disabledClass = profileString ? '' : ' journal-copy-btn--disabled';
+                
+                // Вычисляем дни
+                const currentDate = parseTimelineDate(entry.date);
+                const startDate = index === 0 ? currentDate : parseTimelineDate(profile.journal[0].date);
+                const prevDate = index > 0 ? parseTimelineDate(profile.journal[index - 1].date) : null;
+                
+                const daysFromStart = getDaysDifference(startDate, currentDate);
+                const daysFromPrev = prevDate ? getDaysDifference(prevDate, currentDate) : 0;
+                
+                let timeInfo = `📅 ${escapeHtml(dateLabel)}`;
+                if (daysFromStart > 0) {
+                    timeInfo += ` (${formatDays(daysFromStart)} от начала`;
+                    if (daysFromPrev > 0) {
+                        timeInfo += ` • +${formatDays(daysFromPrev)})`;
+                    } else {
+                        timeInfo += `)`;
+                    }
+                }
 
                 return `
                     <div class="journal-entry">
-                        <div class="journal-header">
-                            <div class="journal-meta">
-                                <strong>Этап ${index + 1}</strong>
-                                <span>${escapeHtml(dateLabel)}</span>
-                            </div>
-                            <button class="btn btn-secondary btn-small journal-copy-btn${disabledClass}" data-profile-string="${encodeURIComponent(profileString)}" ${disabledAttr}>
-                                📋 Копировать
-                            </button>
+                        <div class="journal-entry-indicator">
+                            <div class="journal-entry-indicator-number">${index + 1}</div>
+                            <div class="journal-entry-indicator-label">ЭТАП</div>
                         </div>
-                        ${descriptionHtml}
-                        ${profileHtml}
+                        <div class="journal-entry-content">
+                            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;">
+                                <div class="journal-entry-date" style="margin-bottom: 0;">${timeInfo}</div>
+                                <button class="btn btn-secondary btn-small journal-copy-btn${disabledClass}" data-profile-string="${encodeURIComponent(profileString)}" ${disabledAttr}>
+                                    📋 Копировать
+                                </button>
+                            </div>
+                            ${descriptionHtml}
+                            ${profileHtml}
+                        </div>
                     </div>
                 `;
             }).join('');
@@ -3292,6 +3561,11 @@
             const div = document.createElement('div');
             div.textContent = text;
             return div.innerHTML;
+        }
+        
+        function escapeJs(text) {
+            if (!text) return '';
+            return String(text).replace(/'/g, "\\'").replace(/"/g, '\\"').replace(/\n/g, '\\n').replace(/\r/g, '\\r');
         }
 
         function getProfileWord(count) {
