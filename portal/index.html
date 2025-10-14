@@ -464,15 +464,79 @@
         .profile-card {
             background: white;
             border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s;
+            overflow: visible;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
             cursor: pointer;
+            position: relative;
         }
 
         .profile-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .profile-photos-collage {
+            position: relative;
+            height: 180px;
+            margin: 15px;
+            perspective: 1000px;
+        }
+        
+        .collage-photo {
+            position: absolute;
+            width: 140px;
+            height: 140px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            object-fit: cover;
+            border: 3px solid white;
+            transition: all 0.3s ease;
+        }
+        
+        .collage-photo:nth-child(1) {
+            top: 20px;
+            left: 20px;
+            transform: rotate(-8deg);
+            z-index: 3;
+        }
+        
+        .collage-photo:nth-child(2) {
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%) rotate(5deg);
+            z-index: 2;
+        }
+        
+        .collage-photo:nth-child(3) {
+            top: 20px;
+            right: 20px;
+            transform: rotate(8deg);
+            z-index: 1;
+        }
+        
+        .profile-card:hover .collage-photo:nth-child(1) {
+            transform: rotate(-12deg) translateY(-5px);
+        }
+        
+        .profile-card:hover .collage-photo:nth-child(2) {
+            transform: translateX(-50%) rotate(0deg) translateY(-8px);
+        }
+        
+        .profile-card:hover .collage-photo:nth-child(3) {
+            transform: rotate(12deg) translateY(-5px);
+        }
+        
+        .collage-empty {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 180px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            margin: 15px;
+            border-radius: 12px;
+            font-size: 48px;
+            opacity: 0.3;
         }
 
         .profile-header {
@@ -1531,6 +1595,18 @@
             // Используем фото из профиля или генерируем через ui-avatars.com
             const avatarUrl = profile.userPhotoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(author)}&size=45&background=667eea&color=fff`;
 
+            // Создаём коллаж из галереи (берём первые 3 фото)
+            const gallery = profile.gallery || [];
+            let photosCollageHtml = '';
+            if (gallery.length > 0) {
+                const photosToShow = gallery.slice(0, 3);
+                photosCollageHtml = `
+                    <div class="profile-photos-collage" onclick="window.location.href='gallery.html?profile=${profile.id}'">
+                        ${photosToShow.map(photo => `<img src="${escapeHtml(photo.url)}" class="collage-photo" alt="Фото">`).join('')}
+                    </div>
+                `;
+            }
+
             card.innerHTML = `
                 <div class="profile-header" onclick="showProfileDetail('${profile.id}')">
                     <div class="profile-expand-icon">⛶</div>
@@ -1542,6 +1618,7 @@
                     </div>
                     ${profile.description ? `<div class="profile-description">${escapeHtml(profile.description)}</div>` : ''}
                 </div>
+                ${photosCollageHtml}
                 <div class="profile-body">
                     <div class="profile-meta">
                         <div class="meta-item">
