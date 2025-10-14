@@ -7790,7 +7790,7 @@ cgSi=0.2700`;
         }
         
         // Универсальная функция для показа кастомных alert-окон
-        function showCustomAlert(message, title = 'localhost:7890') {
+        function showCustomAlert(message, title = 'HPG Calculator') {
             return new Promise((resolve) => {
                 const modal = document.createElement('div');
                 modal.style.cssText = `
@@ -7822,21 +7822,22 @@ cgSi=0.2700`;
                 }
                 
                 modal.innerHTML = `
-                    <div style="background: white; padding: 20px; border-radius: 10px; max-width: 450px; width: 90%; box-shadow: 0 4px 20px rgba(0,0,0,0.3); animation: slideIn 0.3s ease-out;">
-                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px; padding-bottom: 12px; border-bottom: 1px solid #e0e0e0;">
-                            <div style="font-size: 20px;">${icon}</div>
-                            <h3 style="margin: 0; font-size: 16px; color: #202020; font-weight: 500;">${title}</h3>
+                    <div style="background: white; padding: 35px 30px; border-radius: 12px; max-width: 420px; width: 90%; box-shadow: 0 8px 32px rgba(0,0,0,0.12); animation: slideIn 0.3s ease-out; text-align: center;">
+                        <div style="font-size: 48px; margin-bottom: 20px;">
+                            ${icon}
                         </div>
                         
-                        <div style="margin-bottom: 20px; font-size: 14px; color: #333; line-height: 1.5; white-space: pre-wrap;">
+                        <h3 style="margin: 0 0 15px 0; font-size: 18px; color: #202020; font-weight: 600;">
+                            ${title}
+                        </h3>
+                        
+                        <div style="margin-bottom: 30px; font-size: 15px; color: #666; line-height: 1.6;">
                             ${message.replace(/✅|❌|⚠️|ℹ️/g, '').trim()}
                         </div>
                         
-                        <div style="display: flex; justify-content: flex-end;">
-                            <button id="custom-alert-ok" style="padding: 10px 24px; background: #4285f4; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 14px; font-weight: 500; transition: background 0.2s; min-width: 80px;">
-                                OK
-                            </button>
-                        </div>
+                        <button id="custom-alert-ok" style="padding: 12px 32px; background: #4285f4; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 15px; font-weight: 500; transition: all 0.2s; min-width: 100px; box-shadow: 0 2px 8px rgba(66,133,244,0.3);">
+                            OK
+                        </button>
                     </div>
                     
                     <style>
@@ -7854,8 +7855,16 @@ cgSi=0.2700`;
                 document.body.appendChild(modal);
                 
                 const okBtn = modal.querySelector('#custom-alert-ok');
-                okBtn.onmouseover = () => okBtn.style.background = '#3367d6';
-                okBtn.onmouseout = () => okBtn.style.background = '#4285f4';
+                okBtn.onmouseover = () => {
+                    okBtn.style.background = '#3367d6';
+                    okBtn.style.transform = 'translateY(-2px)';
+                    okBtn.style.boxShadow = '0 4px 12px rgba(66,133,244,0.4)';
+                };
+                okBtn.onmouseout = () => {
+                    okBtn.style.background = '#4285f4';
+                    okBtn.style.transform = 'translateY(0)';
+                    okBtn.style.boxShadow = '0 2px 8px rgba(66,133,244,0.3)';
+                };
                 
                 okBtn.onclick = () => {
                     modal.remove();
