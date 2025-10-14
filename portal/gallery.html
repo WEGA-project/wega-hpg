@@ -222,6 +222,12 @@
             border-radius: 50%;
             cursor: pointer;
             font-size: 24px;
+            z-index: 1002;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+        
+        .lightbox-close:hover {
+            background: #f0f0f0;
         }
 
         .empty-state {
@@ -505,18 +511,30 @@
         </div>
     </div>
 
-    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
-        <button class="lightbox-close">✕</button>
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" onclick="closeLightbox()">✕</button>
         <div class="lightbox-controls">
             <button onclick="event.stopPropagation(); zoomIn()" title="Увеличить (колёсико вверх)" style="background: white; border: none; padding: 10px 15px; border-radius: 6px; cursor: pointer; font-size: 18px; margin-right: 5px;">🔍+</button>
             <button onclick="event.stopPropagation(); zoomOut()" title="Уменьшить (колёсико вниз)" style="background: white; border: none; padding: 10px 15px; border-radius: 6px; cursor: pointer; font-size: 18px; margin-right: 5px;">🔍−</button>
             <button onclick="event.stopPropagation(); resetZoom()" title="Сбросить (двойной клик)" style="background: white; border: none; padding: 10px 15px; border-radius: 6px; cursor: pointer; font-size: 16px; margin-right: 5px;">↺</button>
             <button onclick="event.stopPropagation(); toggleFullscreen()" title="Полный экран (F11)" style="background: white; border: none; padding: 10px 15px; border-radius: 6px; cursor: pointer; font-size: 16px;">⛶</button>
         </div>
-        <div class="lightbox-image-container" id="lightboxContainer" onclick="event.stopPropagation()">
-            <img class="lightbox-image" id="lightboxImage" src="" alt="" ondblclick="resetZoom()">
+        <div class="lightbox-image-container" id="lightboxContainer">
+            <img class="lightbox-image" id="lightboxImage" src="" alt="" ondblclick="resetZoom()" draggable="false">
         </div>
     </div>
+    
+    <script>
+        // Закрытие лайтбокса по клику вне изображения
+        document.addEventListener('DOMContentLoaded', () => {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) {
+                    closeLightbox();
+                }
+            });
+        });
+    </script>
 
     <!-- Модальное окно с инструкциями -->
     <div id="helpModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 10000; align-items: center; justify-content: center;" onclick="closeHelp()">
@@ -1022,6 +1040,12 @@
             document.getElementById('lightbox').classList.add('active');
             resetZoom();
             
+            // Запрещаем браузерное перетаскивание изображения
+            img.ondragstart = (e) => {
+                e.preventDefault();
+                return false;
+            };
+            
             // Добавляем обработчики событий для зума и перетаскивания
             const container = document.getElementById('lightboxContainer');
             
@@ -1033,9 +1057,25 @@
             container.addEventListener('mousemove', drag);
             container.addEventListener('mouseup', endDrag);
             container.addEventListener('mouseleave', endDrag);
+            
+            // Запрещаем контекстное меню при перетаскивании
+            container.addEventListener('contextmenu', (e) => {
+                if (isDragging) e.preventDefault();
+            });
         }
 
         function closeLightbox() {
+            // Выходим из полноэкранного режима, если он активен
+            if (document.fullscreenElement) {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
+            }
+            
             const lightbox = document.getElementById('lightbox');
             lightbox.classList.remove('active');
             
@@ -1083,6 +1123,8 @@
 
         function startDrag(e) {
             if (currentZoom <= 1) return;
+            e.preventDefault();
+            e.stopPropagation();
             isDragging = true;
             startX = e.clientX - currentX;
             startY = e.clientY - currentY;
@@ -1092,6 +1134,7 @@
         function drag(e) {
             if (!isDragging || currentZoom <= 1) return;
             e.preventDefault();
+            e.stopPropagation();
             currentX = e.clientX - startX;
             currentY = e.clientY - startY;
             applyZoom();
