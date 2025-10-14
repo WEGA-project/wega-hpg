@@ -476,27 +476,69 @@
         }
 
         .profile-header {
-            padding: 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px 60px 22px 20px;
+            background: linear-gradient(135deg, #5f8de0 0%, #6a48a5 100%);
             color: white;
             position: relative;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .profile-header:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+        }
+
+        .profile-header:hover .profile-expand-icon {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.36);
+        }
+
+        .profile-expand-icon {
+            position: absolute;
+            right: 22px;
+            top: 22px;
+            width: 24px;
+            height: 24px;
+            background: rgba(255, 255, 255, 0.24);
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 12px rgba(30, 40, 90, 0.2);
         }
 
         .profile-title {
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 8px;
+            font-size: 19px;
+            font-weight: 700;
+            margin: 0;
             display: flex;
             align-items: center;
             gap: 8px;
+            padding-left: 60px;
+        }
+
+        .profile-description {
+            margin: 0;
+            line-height: 1.45;
+            font-size: 13px;
+            opacity: 0.85;
+            padding-left: 60px;
         }
 
         .author-avatar {
             position: absolute;
-            top: 15px;
-            right: 15px;
-            width: 45px;
-            height: 45px;
+            top: 16px;
+            left: 16px;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(10px);
@@ -504,10 +546,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
-            font-weight: bold;
-            color: white;
-            text-transform: uppercase;
             overflow: hidden;
         }
 
@@ -518,15 +556,10 @@
             display: block;
         }
 
-        .profile-description {
-            font-size: 14px;
-            opacity: 0.95;
-            line-height: 1.4;
-        }
-
         .profile-body {
             padding: 20px;
         }
+{{ ... }}
 
         .profile-meta {
             display: flex;
@@ -696,19 +729,25 @@
             font-size: 16px;
             opacity: 0.9;
         }
-
         .modal {
             position: fixed;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
+            width: 100%;
+            height: 100%;
             background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 1000;
             padding: 20px;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .modal-content {
@@ -720,6 +759,24 @@
             display: flex;
             flex-direction: column;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.3s ease;
+        }
+        
+        .modal-content-large {
+            max-width: 90vw;
+            max-height: 90vh;
+            width: 100%;
+        }
+        
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .modal-header {
@@ -761,6 +818,161 @@
             padding: 20px;
             overflow-y: auto;
             flex: 1;
+        }
+        
+        .profile-detail {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 30px;
+            height: 100%;
+        }
+        
+        .profile-detail-sidebar {
+            border-right: 1px solid #e0e0e0;
+            padding-right: 30px;
+        }
+        
+        .profile-detail-main {
+            overflow-y: auto;
+        }
+        
+        .profile-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px 12px 0 0;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .profile-header:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            margin-bottom: 10px;
+        }
+        
+        .profile-detail-description {
+            font-size: 16px;
+            opacity: 0.95;
+            line-height: 1.6;
+        }
+        
+        .profile-detail-meta {
+            display: flex;
+            gap: 20px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .profile-detail-section {
+            margin-bottom: 30px;
+        }
+        
+        .profile-detail-section h3 {
+            font-size: 18px;
+            color: #2d7a7a;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .profile-detail-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .profile-detail-tag {
+            background: rgba(74, 157, 157, 0.1);
+            color: #2d7a7a;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            border: 1px solid rgba(74, 157, 157, 0.3);
+        }
+        
+        .profile-detail-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px;
+            background: #f8f9ff;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .profile-detail-author-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 2px solid #4a9d9d;
+        }
+        
+        .profile-detail-author-info {
+            flex: 1;
+        }
+        
+        .profile-detail-author-name {
+            font-weight: 600;
+            color: #333;
+            font-size: 15px;
+        }
+        
+        .profile-detail-author-date {
+            font-size: 12px;
+            color: #999;
+        }
+        
+        .profile-detail-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .profile-detail-stat {
+            text-align: center;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .profile-detail-stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #4a9d9d;
+            margin-bottom: 5px;
+        }
+        
+        .profile-detail-stat-label {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .profile-gallery-placeholder {
+            background: #f5f5f5;
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            color: #999;
+        }
+        
+        @media (max-width: 968px) {
+            .profile-detail {
+                grid-template-columns: 1fr;
+            }
+            
+            .profile-detail-sidebar {
+                border-right: none;
+                border-bottom: 1px solid #e0e0e0;
+                padding-right: 0;
+                padding-bottom: 20px;
+            }
         }
 
         .comment {
@@ -1263,7 +1475,8 @@
             const avatarUrl = profile.userPhotoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(author)}&size=45&background=667eea&color=fff`;
 
             card.innerHTML = `
-                <div class="profile-header">
+                <div class="profile-header" onclick="showProfileDetail('${profile.id}')">
+                    <div class="profile-expand-icon">⛶</div>
                     <div class="author-avatar" title="${escapeHtml(author)}">
                         <img src="${avatarUrl}" alt="${escapeHtml(author)}">
                     </div>
@@ -1324,6 +1537,192 @@
         // Открыть профиль в калькуляторе
         function openInCalculator(profileId) {
             window.location.href = `../hpg.html?profile=${profileId}`;
+        }
+        
+        // Показать детальный просмотр профиля
+        async function showProfileDetail(profileId) {
+            const profile = allProfiles.find(p => p.id === profileId);
+            if (!profile) return;
+            
+            const authorAvatar = profile.userPhotoURL || 
+                `https://ui-avatars.com/api/?name=${encodeURIComponent(profile.userName || 'Аноним')}&size=48&background=4a9d9d&color=fff`;
+            
+            const tagsHtml = profile.tags && profile.tags.length > 0 ?
+                profile.tags.map(tag => `<span class="profile-detail-tag">🏷️ ${escapeHtml(tag)}</span>`).join('') :
+                '<span style="color: #999;">Теги не указаны</span>';
+            
+            // Загружаем комментарии
+            let commentsHtml = '<div style="color: #999; text-align: center; padding: 20px;">Загрузка комментариев...</div>';
+            try {
+                const commentsSnapshot = await db.collection('comments')
+                    .where('profileId', '==', profileId)
+                    .orderBy('created', 'desc')
+                    .get();
+                
+                if (commentsSnapshot.empty) {
+                    commentsHtml = '<div style="color: #999; text-align: center; padding: 20px;">Комментариев пока нет</div>';
+                } else {
+                    commentsHtml = '';
+                    commentsSnapshot.forEach(doc => {
+                        const comment = doc.data();
+                        const commentAvatar = comment.userPhotoURL || 
+                            `https://ui-avatars.com/api/?name=${encodeURIComponent(comment.userName || 'Аноним')}&size=40&background=4a9d9d&color=fff`;
+                        const commentDate = comment.created?.toDate().toLocaleDateString('ru-RU') || '';
+                        
+                        commentsHtml += `
+                            <div class="comment" style="margin-bottom: 15px; padding: 12px; background: #f8f9ff; border-radius: 8px;">
+                                <div style="display: flex; gap: 10px; margin-bottom: 8px;">
+                                    <img src="${commentAvatar}" style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid #4a9d9d;">
+                                    <div style="flex: 1;">
+                                        <div style="font-weight: 600; color: #333;">${escapeHtml(comment.userName || 'Аноним')}</div>
+                                        <div style="font-size: 12px; color: #999;">${commentDate}</div>
+                                    </div>
+                                </div>
+                                <div style="color: #555; line-height: 1.5;">${escapeHtml(comment.text)}</div>
+                            </div>
+                        `;
+                    });
+                }
+            } catch (error) {
+                commentsHtml = '<div style="color: #f44336; text-align: center; padding: 20px;">Ошибка загрузки комментариев</div>';
+            }
+            
+            // Формируем строку профиля
+            let profileStringHtml = '';
+            if (profile.profileString) {
+                profileStringHtml = `
+                    <div class="profile-detail-section">
+                        <h3>⚗️ Профиль раствора</h3>
+                        <pre style="background: #f5f5f5; padding: 15px; border-radius: 8px; overflow-x: auto; font-size: 13px; line-height: 1.6;">${escapeHtml(profile.profileString)}</pre>
+                    </div>
+                `;
+            }
+            
+            // Формируем журнал
+            let journalHtml = '';
+            if (profile.journal && profile.journal.length > 0) {
+                journalHtml = `
+                    <div class="profile-detail-section">
+                        <h3>📓 Журнал (${profile.journal.length})</h3>
+                        <div style="max-height: 500px; overflow-y: auto; padding-right: 10px;">
+                            <div style="display: flex; flex-direction: column; gap: 15px;">
+                                ${profile.journal.map((entry, index) => {
+                                    const dateLabel = formatJournalDate(entry.date);
+                                    const descriptionHtml = entry.desc ? `<div style="color: #666; font-size: 14px; line-height: 1.6; margin-bottom: 10px;">${escapeHtml(entry.desc)}</div>` : '';
+                                    const profileString = (entry.profile || '').trim();
+                                    const profileHtml = profileString ? 
+                                        `<pre style="background: #f5f5f5; padding: 12px; border-radius: 6px; overflow-x: auto; font-size: 12px; line-height: 1.5; margin: 0;">${escapeHtml(profileString)}</pre>` : 
+                                        '<div style="color: #999; font-style: italic; font-size: 13px;">Строка профиля отсутствует</div>';
+                                    
+                                    return `
+                                        <div style="background: #fff; padding: 15px; border-radius: 8px; border-left: 4px solid #4a9d9d; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                                                <div style="font-weight: 700; color: #2d7a7a; font-size: 15px;">Этап ${index + 1}</div>
+                                                <div style="font-size: 12px; color: #999;">📅 ${escapeHtml(dateLabel)}</div>
+                                            </div>
+                                            ${descriptionHtml}
+                                            ${profileHtml}
+                                        </div>
+                                    `;
+                                }).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.innerHTML = `
+                <div class="modal-content modal-content-large">
+                    <div class="modal-header">
+                        <h2>📋 ${escapeHtml(profile.name)}</h2>
+                        <button class="modal-close" onclick="this.closest('.modal').remove()">✕</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="profile-detail">
+                            <!-- Боковая панель -->
+                            <div class="profile-detail-sidebar">
+                                <!-- Автор -->
+                                <div class="profile-detail-author">
+                                    <img src="${authorAvatar}" alt="${escapeHtml(profile.userName || 'Аноним')}" class="profile-detail-author-avatar">
+                                    <div class="profile-detail-author-info">
+                                        <div class="profile-detail-author-name">${escapeHtml(profile.userName || 'Аноним')}</div>
+                                        <div class="profile-detail-author-date">
+                                            📅 ${profile.created?.toDate().toLocaleDateString('ru-RU') || 'Неизвестно'}
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Статистика -->
+                                <div class="profile-detail-stats">
+                                    <div class="profile-detail-stat">
+                                        <div class="profile-detail-stat-value">${profile.views || 0}</div>
+                                        <div class="profile-detail-stat-label">👁️ Просмотров</div>
+                                    </div>
+                                    <div class="profile-detail-stat">
+                                        <div class="profile-detail-stat-value">${profile.likes || 0}</div>
+                                        <div class="profile-detail-stat-label">👍 Лайков</div>
+                                    </div>
+                                    <div class="profile-detail-stat">
+                                        <div class="profile-detail-stat-value">${profile.commentsCount || 0}</div>
+                                        <div class="profile-detail-stat-label">💬 Комментариев</div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Описание -->
+                                ${profile.description ? `
+                                    <div class="profile-detail-section">
+                                        <h3>📝 Описание</h3>
+                                        <div style="color: #666; line-height: 1.6; font-size: 14px;">${escapeHtml(profile.description)}</div>
+                                    </div>
+                                ` : ''}
+                                
+                                <!-- Теги -->
+                                <div class="profile-detail-section">
+                                    <h3>🏷️ Теги</h3>
+                                    <div class="profile-detail-tags">
+                                        ${tagsHtml}
+                                    </div>
+                                </div>
+                                
+                                <!-- Действия -->
+                                <div class="profile-detail-section">
+                                    <button class="btn btn-primary" style="width: 100%; margin-bottom: 10px;" onclick="openInCalculator('${profile.id}')">
+                                        🧪 Открыть в калькуляторе
+                                    </button>
+                                    <button class="btn btn-light" style="width: 100%;" onclick="copyShareLink('${profile.id}', '${escapeHtml(profile.name).replace(/'/g, "\\'")}')">
+                                        🔗 Поделиться
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Основной контент -->
+                            <div class="profile-detail-main">
+                                ${profileStringHtml}
+                                ${journalHtml}
+                                
+                                <!-- Комментарии -->
+                                <div class="profile-detail-section">
+                                    <h3>💬 Комментарии (${profile.commentsCount || 0})</h3>
+                                    <div id="detailComments" style="max-height: 500px; overflow-y: auto; padding-right: 10px;">
+                                        ${commentsHtml}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            // Закрытие по клику на фон
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.remove();
+                }
+            });
         }
 
         // Копировать ссылку
