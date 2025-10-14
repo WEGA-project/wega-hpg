@@ -724,6 +724,14 @@
         // Глобальные переменные
         let allProfiles = [];
         let filteredProfiles = [];
+        
+        // Кеш фото пользователей (глобальный)
+        const userPhotosCache = {};
+        
+        // Пагинация
+        const PROFILES_PER_PAGE = 24;
+        let currentPage = 1;
+        let totalPages = 1;
 
         // Авторизация через Google
         async function loginWithGoogle() {
@@ -785,14 +793,17 @@
                     return (b.modified?.toMillis() || 0) - (a.modified?.toMillis() || 0);
                 });
 
-                // Загружаем фото пользователей из коллекции users
+                // Загружаем фото пользователей из коллекции users (с кешированием)
                 const userIds = [...new Set(allProfiles.map(p => p.userId).filter(id => id))];
                 
-                if (userIds.length > 0) {
+                // Фильтруем только те userId, которых нет в кеше
+                const uncachedUserIds = userIds.filter(id => !userPhotosCache[id]);
+                
+                if (uncachedUserIds.length > 0) {
                     try {
                         // Загружаем данные пользователей пачками (Firestore поддерживает до 10 в in)
-                        for (let i = 0; i < userIds.length; i += 10) {
-                            const batch = userIds.slice(i, i + 10);
+                        for (let i = 0; i < uncachedUserIds.length; i += 10) {
+                            const batch = uncachedUserIds.slice(i, i + 10);
                             const usersSnapshot = await db.collection('users')
                                 .where(firebase.firestore.FieldPath.documentId(), 'in', batch)
                                 .get();
@@ -800,12 +811,8 @@
                             usersSnapshot.forEach(doc => {
                                 const userData = doc.data();
                                 if (userData.photoURL) {
-                                    // Обновляем userPhotoURL в профилях этого пользователя
-                                    allProfiles.forEach(profile => {
-                                        if (profile.userId === doc.id) {
-                                            profile.userPhotoURL = userData.photoURL;
-                                        }
-                                    });
+                                    // Сохраняем в глобальный кеш
+                                    userPhotosCache[doc.id] = userData.photoURL;
                                 }
                             });
                         }
@@ -813,6 +820,13 @@
                         console.log('Не удалось загрузить фото пользователей:', error);
                     }
                 }
+                
+                // Применяем фото из кеша ко всем профилям
+                allProfiles.forEach(profile => {
+                    if (profile.userId && userPhotosCache[profile.userId]) {
+                        profile.userPhotoURL = userPhotosCache[profile.userId];
+                    }
+                });
 
                 // Извлекаем уникальные теги
                 const allTags = new Set();
@@ -857,18 +871,74 @@
                 return;
             }
 
+            // Вычисляем пагинацию
+            totalPages = Math.ceil(filteredProfiles.length / PROFILES_PER_PAGE);
+            if (currentPage > totalPages) currentPage = 1;
+            
+            const startIndex = (currentPage - 1) * PROFILES_PER_PAGE;
+            const endIndex = startIndex + PROFILES_PER_PAGE;
+            const profilesToShow = filteredProfiles.slice(startIndex, endIndex);
+
             profileCount.textContent = `${filteredProfiles.length} ${getProfileWord(filteredProfiles.length)}`;
 
             const grid = document.createElement('div');
             grid.className = 'profiles-grid';
 
-            filteredProfiles.forEach(profile => {
+            profilesToShow.forEach(profile => {
                 const card = createProfileCard(profile);
                 grid.appendChild(card);
             });
 
             container.innerHTML = '';
             container.appendChild(grid);
+            
+            // Добавляем пагинацию если нужно
+            if (totalPages > 1) {
+                const pagination = createPagination();
+                container.appendChild(pagination);
+            }
+        }
+        
+        // Создание элементов пагинации
+        function createPagination() {
+            const paginationDiv = document.createElement('div');
+            paginationDiv.style.cssText = 'display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 30px; flex-wrap: wrap;';
+            
+            // Кнопка "Предыдущая"
+            const prevBtn = document.createElement('button');
+            prevBtn.className = 'btn btn-secondary';
+            prevBtn.textContent = '← Назад';
+            prevBtn.disabled = currentPage === 1;
+            prevBtn.onclick = () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderProfiles();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            };
+            paginationDiv.appendChild(prevBtn);
+            
+            // Номера страниц
+            const pageInfo = document.createElement('span');
+            pageInfo.style.cssText = 'color: white; font-size: 14px; font-weight: 500; padding: 0 10px;';
+            pageInfo.textContent = `Страница ${currentPage} из ${totalPages}`;
+            paginationDiv.appendChild(pageInfo);
+            
+            // Кнопка "Следующая"
+            const nextBtn = document.createElement('button');
+            nextBtn.className = 'btn btn-secondary';
+            nextBtn.textContent = 'Вперёд →';
+            nextBtn.disabled = currentPage === totalPages;
+            nextBtn.onclick = () => {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderProfiles();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            };
+            paginationDiv.appendChild(nextBtn);
+            
+            return paginationDiv;
         }
 
         // Создание карточки профиля
@@ -1242,14 +1312,17 @@
                     return (b.created?.toMillis() || 0) - (a.created?.toMillis() || 0);
                 });
 
-                // Загружаем фото пользователей из коллекции users
+                // Загружаем фото пользователей из коллекции users (с использованием кеша)
                 const userIds = [...new Set(comments.map(c => c.userId).filter(id => id))];
                 
-                if (userIds.length > 0) {
+                // Фильтруем только те userId, которых нет в кеше
+                const uncachedUserIds = userIds.filter(id => !userPhotosCache[id]);
+                
+                if (uncachedUserIds.length > 0) {
                     try {
                         // Загружаем данные пользователей пачками (Firestore поддерживает до 10 в in)
-                        for (let i = 0; i < userIds.length; i += 10) {
-                            const batch = userIds.slice(i, i + 10);
+                        for (let i = 0; i < uncachedUserIds.length; i += 10) {
+                            const batch = uncachedUserIds.slice(i, i + 10);
                             const usersSnapshot = await db.collection('users')
                                 .where(firebase.firestore.FieldPath.documentId(), 'in', batch)
                                 .get();
@@ -1257,12 +1330,8 @@
                             usersSnapshot.forEach(doc => {
                                 const userData = doc.data();
                                 if (userData.photoURL) {
-                                    // Обновляем userPhotoURL в комментариях этого пользователя
-                                    comments.forEach(comment => {
-                                        if (comment.userId === doc.id) {
-                                            comment.userPhotoURL = userData.photoURL;
-                                        }
-                                    });
+                                    // Сохраняем в глобальный кеш
+                                    userPhotosCache[doc.id] = userData.photoURL;
                                 }
                             });
                         }
@@ -1270,6 +1339,13 @@
                         console.log('Не удалось загрузить фото пользователей для комментариев:', error);
                     }
                 }
+                
+                // Применяем фото из кеша ко всем комментариям
+                comments.forEach(comment => {
+                    if (comment.userId && userPhotosCache[comment.userId]) {
+                        comment.userPhotoURL = userPhotosCache[comment.userId];
+                    }
+                });
 
                 // Отображаем комментарии
                 let commentsHTML = '';
@@ -1319,18 +1395,65 @@
             }
 
             try {
-                // Обновляем счетчик лайков
+                // Проверяем существующую оценку
+                const likeQuery = await db.collection('likes')
+                    .where('userId', '==', currentUser.uid)
+                    .where('profileId', '==', profileId)
+                    .get();
+
+                if (!likeQuery.empty) {
+                    const existingLike = likeQuery.docs[0];
+                    const existingType = existingLike.data().type;
+                    
+                    if (existingType === 'like') {
+                        // Уже лайкнуто - убираем лайк
+                        await existingLike.ref.delete();
+                        await db.collection('profiles').doc(profileId).update({
+                            likes: firebase.firestore.FieldValue.increment(-1)
+                        });
+                        
+                        const likesSpan = document.getElementById(`likes-${profileId}`);
+                        if (likesSpan) {
+                            likesSpan.textContent = Math.max(0, parseInt(likesSpan.textContent) - 1);
+                        }
+                        
+                        showNotification('Лайк убран');
+                        return;
+                    } else {
+                        // Был дизлайк - меняем на лайк
+                        await existingLike.ref.update({ type: 'like' });
+                        await db.collection('profiles').doc(profileId).update({
+                            likes: firebase.firestore.FieldValue.increment(1),
+                            dislikes: firebase.firestore.FieldValue.increment(-1)
+                        });
+                        
+                        const likesSpan = document.getElementById(`likes-${profileId}`);
+                        const dislikesSpan = document.getElementById(`dislikes-${profileId}`);
+                        if (likesSpan) likesSpan.textContent = parseInt(likesSpan.textContent) + 1;
+                        if (dislikesSpan) dislikesSpan.textContent = Math.max(0, parseInt(dislikesSpan.textContent) - 1);
+                        
+                        showNotification('👍 Спасибо за оценку!');
+                        return;
+                    }
+                }
+
+                // Новый лайк
+                await db.collection('likes').add({
+                    userId: currentUser.uid,
+                    profileId: profileId,
+                    type: 'like',
+                    created: firebase.firestore.FieldValue.serverTimestamp()
+                });
+
                 await db.collection('profiles').doc(profileId).update({
                     likes: firebase.firestore.FieldValue.increment(1)
                 });
 
-                // Обновляем отображение
                 const likesSpan = document.getElementById(`likes-${profileId}`);
                 if (likesSpan) {
                     likesSpan.textContent = parseInt(likesSpan.textContent) + 1;
                 }
 
-                // Показываем уведомление
                 showNotification('👍 Спасибо за оценку!');
 
             } catch (error) {
@@ -1349,18 +1472,65 @@
             }
 
             try {
-                // Обновляем счетчик дизлайков
+                // Проверяем существующую оценку
+                const likeQuery = await db.collection('likes')
+                    .where('userId', '==', currentUser.uid)
+                    .where('profileId', '==', profileId)
+                    .get();
+
+                if (!likeQuery.empty) {
+                    const existingLike = likeQuery.docs[0];
+                    const existingType = existingLike.data().type;
+                    
+                    if (existingType === 'dislike') {
+                        // Уже дизлайкнуто - убираем дизлайк
+                        await existingLike.ref.delete();
+                        await db.collection('profiles').doc(profileId).update({
+                            dislikes: firebase.firestore.FieldValue.increment(-1)
+                        });
+                        
+                        const dislikesSpan = document.getElementById(`dislikes-${profileId}`);
+                        if (dislikesSpan) {
+                            dislikesSpan.textContent = Math.max(0, parseInt(dislikesSpan.textContent) - 1);
+                        }
+                        
+                        showNotification('Дизлайк убран');
+                        return;
+                    } else {
+                        // Был лайк - меняем на дизлайк
+                        await existingLike.ref.update({ type: 'dislike' });
+                        await db.collection('profiles').doc(profileId).update({
+                            likes: firebase.firestore.FieldValue.increment(-1),
+                            dislikes: firebase.firestore.FieldValue.increment(1)
+                        });
+                        
+                        const likesSpan = document.getElementById(`likes-${profileId}`);
+                        const dislikesSpan = document.getElementById(`dislikes-${profileId}`);
+                        if (likesSpan) likesSpan.textContent = Math.max(0, parseInt(likesSpan.textContent) - 1);
+                        if (dislikesSpan) dislikesSpan.textContent = parseInt(dislikesSpan.textContent) + 1;
+                        
+                        showNotification('👎 Спасибо за отзыв!');
+                        return;
+                    }
+                }
+
+                // Новый дизлайк
+                await db.collection('likes').add({
+                    userId: currentUser.uid,
+                    profileId: profileId,
+                    type: 'dislike',
+                    created: firebase.firestore.FieldValue.serverTimestamp()
+                });
+
                 await db.collection('profiles').doc(profileId).update({
                     dislikes: firebase.firestore.FieldValue.increment(1)
                 });
 
-                // Обновляем отображение
                 const dislikesSpan = document.getElementById(`dislikes-${profileId}`);
                 if (dislikesSpan) {
                     dislikesSpan.textContent = parseInt(dislikesSpan.textContent) + 1;
                 }
 
-                // Показываем уведомление
                 showNotification('👎 Спасибо за отзыв!');
 
             } catch (error) {
@@ -1733,6 +1903,19 @@
             }
         }
 
+        // Debounce функция
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
         // Фильтрация и поиск
         function applyFilters() {
             const searchTerm = document.getElementById('searchInput').value.toLowerCase();
@@ -1767,8 +1950,13 @@
                 return 0;
             });
 
+            // Сбрасываем на первую страницу при изменении фильтров
+            currentPage = 1;
             renderProfiles();
         }
+        
+        // Debounced версия для поиска
+        const debouncedApplyFilters = debounce(applyFilters, 300);
 
         // Вспомогательные функции
         function escapeHtml(text) {
@@ -1801,7 +1989,7 @@
         }
 
         // События
-        document.getElementById('searchInput').addEventListener('input', applyFilters);
+        document.getElementById('searchInput').addEventListener('input', debouncedApplyFilters);
         document.getElementById('tagFilter').addEventListener('change', applyFilters);
         document.getElementById('sortSelect').addEventListener('change', applyFilters);
 
