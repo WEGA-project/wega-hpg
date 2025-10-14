@@ -1539,6 +1539,93 @@
             window.location.href = `../hpg.html?profile=${profileId}`;
         }
         
+        // Парсинг строки профиля в объект
+        function parseProfile(profileString) {
+            const profile = {};
+            if (!profileString) return profile;
+            
+            const parts = profileString.trim().split(/\s+/);
+            parts.forEach(part => {
+                const [key, value] = part.split('=');
+                const numValue = parseFloat(value);
+                if (!isNaN(numValue)) {
+                    profile[key] = numValue;
+                }
+            });
+            return profile;
+        }
+        
+        // Расчет EC из профиля
+        function calculateEC(profile) {
+            const molN = 14.0067;
+            const molCa = 40.078;
+            const molMg = 24.305;
+            const molK = 39.0983;
+            
+            const vNH4 = profile.NH4 || 0;
+            const vCa = profile.Ca || 0;
+            const vMg = profile.Mg || 0;
+            const vK = profile.K || 0;
+            
+            const vEC = 0.095 * (vNH4 * molCa * molMg * molK + 2 * vCa * molN * molMg * molK + 
+                        2 * vMg * molN * molCa * molK + vK * molN * molCa * molMg + 
+                        2 * molN * molCa * molMg * molK) / (molN * molCa * molMg * molK);
+            
+            return vEC;
+        }
+        
+        // Расчет соотношений
+        function calculateRatios(profile) {
+            const ratios = {};
+            const NO3 = profile.NO3 || 0;
+            const NH4 = profile.NH4 || 0;
+            const N = profile.N || 0;
+            const K = profile.K || 0;
+            const Ca = profile.Ca || 0;
+            const Mg = profile.Mg || 0;
+            
+            // NH4:NO3
+            if (NO3 > 0) {
+                ratios.NH4_NO3 = NH4 / NO3;
+            }
+            
+            // K:N
+            if (N > 0) {
+                ratios.K_N = K / N;
+            }
+            
+            // K:Ca
+            if (Ca > 0) {
+                ratios.K_Ca = K / Ca;
+            }
+            
+            // K:Mg
+            if (Mg > 0) {
+                ratios.K_Mg = K / Mg;
+            }
+            
+            return ratios;
+        }
+        
+        // Сравнение двух профилей
+        function compareProfiles(prev, curr) {
+            const changes = [];
+            const elements = ['N', 'NO3', 'NH4', 'P', 'K', 'Ca', 'Mg', 'S', 'Cl', 'Fe', 'Mn', 'B', 'Zn', 'Cu', 'Mo'];
+            
+            elements.forEach(elem => {
+                const prevVal = prev[elem] || 0;
+                const currVal = curr[elem] || 0;
+                const diff = currVal - prevVal;
+                
+                if (Math.abs(diff) > 0.01) {
+                    const sign = diff > 0 ? '+' : '';
+                    changes.push(`${elem}: ${prevVal.toFixed(2)} → ${currVal.toFixed(2)} (${sign}${diff.toFixed(2)})`);
+                }
+            });
+            
+            return changes;
+        }
+        
         // Показать детальный просмотр профиля
         async function showProfileDetail(profileId) {
             const profile = allProfiles.find(p => p.id === profileId);
@@ -1590,10 +1677,58 @@
             // Формируем строку профиля
             let profileStringHtml = '';
             if (profile.profileString) {
+                const mainParsed = parseProfile(profile.profileString);
+                const mainEC = calculateEC(mainParsed);
+                const mainRatios = calculateRatios(mainParsed);
+                
                 profileStringHtml = `
                     <div class="profile-detail-section">
                         <h3>⚗️ Профиль раствора</h3>
-                        <pre style="background: #f5f5f5; padding: 15px; border-radius: 8px; overflow-x: auto; font-size: 13px; line-height: 1.6;">${escapeHtml(profile.profileString)}</pre>
+                        
+                        <!-- Параметры профиля -->
+                        <div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); padding: 20px; border-radius: 12px; margin-bottom: 15px; border: 2px solid #4a9d9d;">
+                            <div style="font-weight: 700; color: #2d7a7a; margin-bottom: 15px; font-size: 16px; display: flex; align-items: center; gap: 8px;">
+                                <span>📊</span> Параметры раствора
+                            </div>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px;">
+                                <div style="background: white; padding: 12px; border-radius: 8px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                                    <div style="font-size: 24px; font-weight: 700; color: #2d7a7a;">${mainEC.toFixed(3)}</div>
+                                    <div style="font-size: 12px; color: #666; margin-top: 4px;">EC (мСм/см)</div>
+                                </div>
+                                ${mainRatios.NH4_NO3 !== undefined ? `
+                                    <div style="background: white; padding: 12px; border-radius: 8px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                                        <div style="font-size: 24px; font-weight: 700; color: #2d7a7a;">${mainRatios.NH4_NO3.toFixed(2)}</div>
+                                        <div style="font-size: 12px; color: #666; margin-top: 4px;">NH4:NO3</div>
+                                    </div>
+                                ` : ''}
+                                ${mainRatios.K_N ? `
+                                    <div style="background: white; padding: 12px; border-radius: 8px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                                        <div style="font-size: 24px; font-weight: 700; color: #2d7a7a;">${mainRatios.K_N.toFixed(2)}</div>
+                                        <div style="font-size: 12px; color: #666; margin-top: 4px;">K:N</div>
+                                    </div>
+                                ` : ''}
+                                ${mainRatios.K_Ca ? `
+                                    <div style="background: white; padding: 12px; border-radius: 8px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                                        <div style="font-size: 24px; font-weight: 700; color: #2d7a7a;">${mainRatios.K_Ca.toFixed(2)}</div>
+                                        <div style="font-size: 12px; color: #666; margin-top: 4px;">K:Ca</div>
+                                    </div>
+                                ` : ''}
+                                ${mainRatios.K_Mg ? `
+                                    <div style="background: white; padding: 12px; border-radius: 8px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                                        <div style="font-size: 24px; font-weight: 700; color: #2d7a7a;">${mainRatios.K_Mg.toFixed(2)}</div>
+                                        <div style="font-size: 12px; color: #666; margin-top: 4px;">K:Mg</div>
+                                    </div>
+                                ` : ''}
+                            </div>
+                        </div>
+                        
+                        <!-- Строка профиля -->
+                        <div style="background: white; padding: 15px; border-radius: 8px; border: 1px solid #e0e0e0;">
+                            <div style="font-weight: 600; color: #666; margin-bottom: 8px; font-size: 13px;">Строка профиля:</div>
+                            <div style="background: #f8f9fa; padding: 12px; border-radius: 6px; font-family: 'Courier New', monospace; font-size: 13px; line-height: 1.6; overflow-x: auto; color: #333;">
+                                ${escapeHtml(profile.profileString)}
+                            </div>
+                        </div>
                     </div>
                 `;
             }
@@ -1610,6 +1745,95 @@
                                     const dateLabel = formatJournalDate(entry.date);
                                     const descriptionHtml = entry.desc ? `<div style="color: #666; font-size: 14px; line-height: 1.6; margin-bottom: 10px;">${escapeHtml(entry.desc)}</div>` : '';
                                     const profileString = (entry.profile || '').trim();
+                                    
+                                    // Парсим текущий профиль
+                                    const currentParsed = parseProfile(profileString);
+                                    
+                                    // Вычисляем EC и соотношения
+                                    let statsHtml = '';
+                                    if (profileString) {
+                                        const ec = calculateEC(currentParsed);
+                                        const ratios = calculateRatios(currentParsed);
+                                        
+                                        statsHtml = `
+                                            <div style="background: #e8f5e9; padding: 10px; border-radius: 6px; margin-bottom: 10px;">
+                                                <div style="font-weight: 600; color: #2d7a7a; margin-bottom: 5px; font-size: 13px;">📊 Параметры:</div>
+                                                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 8px; font-size: 12px; color: #555;">
+                                                    <div><strong>EC:</strong> ${ec.toFixed(3)}</div>
+                                                    ${ratios.NH4_NO3 !== undefined ? `<div><strong>NH4:NO3:</strong> ${ratios.NH4_NO3.toFixed(2)}</div>` : ''}
+                                                    ${ratios.K_N ? `<div><strong>K:N:</strong> ${ratios.K_N.toFixed(2)}</div>` : ''}
+                                                    ${ratios.K_Ca ? `<div><strong>K:Ca:</strong> ${ratios.K_Ca.toFixed(2)}</div>` : ''}
+                                                    ${ratios.K_Mg ? `<div><strong>K:Mg:</strong> ${ratios.K_Mg.toFixed(2)}</div>` : ''}
+                                                </div>
+                                            </div>
+                                        `;
+                                    }
+                                    
+                                    // Сравниваем с предыдущим этапом
+                                    let changesHtml = '';
+                                    if (index > 0 && profileString) {
+                                        const prevEntry = profile.journal[index - 1];
+                                        const prevProfileString = (prevEntry.profile || '').trim();
+                                        if (prevProfileString) {
+                                            const prevParsed = parseProfile(prevProfileString);
+                                            const changes = compareProfiles(prevParsed, currentParsed);
+                                            
+                                            // Вычисляем изменения EC и соотношений
+                                            const prevEC = calculateEC(prevParsed);
+                                            const currEC = calculateEC(currentParsed);
+                                            const prevRatios = calculateRatios(prevParsed);
+                                            const currRatios = calculateRatios(currentParsed);
+                                            
+                                            const paramChanges = [];
+                                            
+                                            // EC
+                                            const ecDiff = currEC - prevEC;
+                                            if (Math.abs(ecDiff) > 0.001) {
+                                                const sign = ecDiff > 0 ? '+' : '';
+                                                paramChanges.push(`EC: ${prevEC.toFixed(3)} → ${currEC.toFixed(3)} (${sign}${ecDiff.toFixed(3)})`);
+                                            }
+                                            
+                                            // Соотношения
+                                            const ratioKeys = ['NH4_NO3', 'K_N', 'K_Ca', 'K_Mg'];
+                                            ratioKeys.forEach(key => {
+                                                if (prevRatios[key] !== undefined && currRatios[key] !== undefined) {
+                                                    const diff = currRatios[key] - prevRatios[key];
+                                                    if (Math.abs(diff) > 0.01) {
+                                                        const sign = diff > 0 ? '+' : '';
+                                                        const label = key.replace('_', ':');
+                                                        paramChanges.push(`${label}: ${prevRatios[key].toFixed(2)} → ${currRatios[key].toFixed(2)} (${sign}${diff.toFixed(2)})`);
+                                                    }
+                                                }
+                                            });
+                                            
+                                            if (changes.length > 0 || paramChanges.length > 0) {
+                                                changesHtml = `
+                                                    <div style="background: #fff3e0; padding: 12px; border-radius: 6px; margin-bottom: 10px;">
+                                                        <div style="font-weight: 600; color: #e65100; margin-bottom: 8px; font-size: 13px;">🔄 Изменения от предыдущего этапа:</div>
+                                                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                                                            ${changes.length > 0 ? `
+                                                                <div>
+                                                                    <div style="font-weight: 600; color: #666; margin-bottom: 5px; font-size: 12px;">Элементы:</div>
+                                                                    <div style="font-size: 12px; color: #555; line-height: 1.6;">
+                                                                        ${changes.map(ch => `<div>• ${ch}</div>`).join('')}
+                                                                    </div>
+                                                                </div>
+                                                            ` : ''}
+                                                            ${paramChanges.length > 0 ? `
+                                                                <div>
+                                                                    <div style="font-weight: 600; color: #666; margin-bottom: 5px; font-size: 12px;">Параметры:</div>
+                                                                    <div style="font-size: 12px; color: #555; line-height: 1.6;">
+                                                                        ${paramChanges.map(ch => `<div>• ${ch}</div>`).join('')}
+                                                                    </div>
+                                                                </div>
+                                                            ` : ''}
+                                                        </div>
+                                                    </div>
+                                                `;
+                                            }
+                                        }
+                                    }
+                                    
                                     const profileHtml = profileString ? 
                                         `<pre style="background: #f5f5f5; padding: 12px; border-radius: 6px; overflow-x: auto; font-size: 12px; line-height: 1.5; margin: 0;">${escapeHtml(profileString)}</pre>` : 
                                         '<div style="color: #999; font-style: italic; font-size: 13px;">Строка профиля отсутствует</div>';
@@ -1621,6 +1845,8 @@
                                                 <div style="font-size: 12px; color: #999;">📅 ${escapeHtml(dateLabel)}</div>
                                             </div>
                                             ${descriptionHtml}
+                                            ${statsHtml}
+                                            ${changesHtml}
                                             ${profileHtml}
                                         </div>
                                     `;
