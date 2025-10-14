@@ -785,6 +785,35 @@
                     return (b.modified?.toMillis() || 0) - (a.modified?.toMillis() || 0);
                 });
 
+                // Загружаем фото пользователей из коллекции users
+                const userIds = [...new Set(allProfiles.map(p => p.userId).filter(id => id))];
+                
+                if (userIds.length > 0) {
+                    try {
+                        // Загружаем данные пользователей пачками (Firestore поддерживает до 10 в in)
+                        for (let i = 0; i < userIds.length; i += 10) {
+                            const batch = userIds.slice(i, i + 10);
+                            const usersSnapshot = await db.collection('users')
+                                .where(firebase.firestore.FieldPath.documentId(), 'in', batch)
+                                .get();
+                            
+                            usersSnapshot.forEach(doc => {
+                                const userData = doc.data();
+                                if (userData.photoURL) {
+                                    // Обновляем userPhotoURL в профилях этого пользователя
+                                    allProfiles.forEach(profile => {
+                                        if (profile.userId === doc.id) {
+                                            profile.userPhotoURL = userData.photoURL;
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    } catch (error) {
+                        console.log('Не удалось загрузить фото пользователей:', error);
+                    }
+                }
+
                 // Извлекаем уникальные теги
                 const allTags = new Set();
                 allProfiles.forEach(profile => {
@@ -850,13 +879,13 @@
             const date = profile.modified?.toDate().toLocaleDateString('ru-RU') || '';
             const views = profile.views || 0;
             const author = profile.userName || profile.userEmail || 'Аноним';
-            const authorInitial = author.charAt(0).toUpperCase();
-            const authorPhoto = profile.userPhotoURL;
+            // Используем фото из профиля или генерируем через ui-avatars.com
+            const avatarUrl = profile.userPhotoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(author)}&size=45&background=667eea&color=fff`;
 
             card.innerHTML = `
                 <div class="profile-header">
                     <div class="author-avatar" title="${escapeHtml(author)}">
-                        ${authorPhoto ? `<img src="${escapeHtml(authorPhoto)}" alt="${escapeHtml(author)}">` : authorInitial}
+                        <img src="${avatarUrl}" alt="${escapeHtml(author)}">
                     </div>
                     <div class="profile-title">
                         🌐 ${escapeHtml(profile.name)}
@@ -1213,19 +1242,48 @@
                     return (b.created?.toMillis() || 0) - (a.created?.toMillis() || 0);
                 });
 
+                // Загружаем фото пользователей из коллекции users
+                const userIds = [...new Set(comments.map(c => c.userId).filter(id => id))];
+                
+                if (userIds.length > 0) {
+                    try {
+                        // Загружаем данные пользователей пачками (Firestore поддерживает до 10 в in)
+                        for (let i = 0; i < userIds.length; i += 10) {
+                            const batch = userIds.slice(i, i + 10);
+                            const usersSnapshot = await db.collection('users')
+                                .where(firebase.firestore.FieldPath.documentId(), 'in', batch)
+                                .get();
+                            
+                            usersSnapshot.forEach(doc => {
+                                const userData = doc.data();
+                                if (userData.photoURL) {
+                                    // Обновляем userPhotoURL в комментариях этого пользователя
+                                    comments.forEach(comment => {
+                                        if (comment.userId === doc.id) {
+                                            comment.userPhotoURL = userData.photoURL;
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    } catch (error) {
+                        console.log('Не удалось загрузить фото пользователей для комментариев:', error);
+                    }
+                }
+
                 // Отображаем комментарии
                 let commentsHTML = '';
                 comments.forEach(comment => {
                     const author = comment.userName || comment.userEmail || 'Аноним';
-                    const authorInitial = author.charAt(0).toUpperCase();
                     const date = comment.created?.toDate().toLocaleString('ru-RU') || '';
-                    const photo = comment.userPhotoURL;
+                    // Используем фото из комментария или генерируем через ui-avatars.com
+                    const avatarUrl = comment.userPhotoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(author)}&size=36&background=667eea&color=fff`;
 
                     commentsHTML += `
                         <div class="comment">
                             <div class="comment-header">
                                 <div class="comment-avatar">
-                                    ${photo ? `<img src="${escapeHtml(photo)}" alt="${escapeHtml(author)}">` : authorInitial}
+                                    <img src="${avatarUrl}" alt="${escapeHtml(author)}">
                                 </div>
                                 <div style="flex: 1;">
                                     <div class="comment-author">${escapeHtml(author)}</div>
