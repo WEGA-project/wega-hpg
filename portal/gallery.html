@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Галерея фотографий - HPG Community</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📸</text></svg>">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .profile-name {
+            font-size: 20px;
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 4px;
+        }
+
+        .profile-meta {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #4a9d9d 0%, #2d7a7a 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(74, 157, 157, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .btn-secondary:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .gallery-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .gallery-header {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .gallery-header h2 {
+            font-size: 20px;
+            color: #333;
+        }
+
+        .photo-count {
+            font-size: 14px;
+            color: #999;
+            font-weight: normal;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .gallery-item-info {
+            padding: 12px;
+            background: white;
+        }
+
+        .gallery-item-date {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 6px;
+        }
+
+        .gallery-item-description {
+            font-size: 14px;
+            color: #333;
+            line-height: 1.4;
+        }
+
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .lightbox.active {
+            display: flex;
+        }
+        
+        .lightbox-image-container {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+            cursor: grab;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .lightbox-image-container.dragging {
+            cursor: grabbing;
+        }
+
+        .lightbox-image {
+            max-width: 90vw;
+            max-height: 90vh;
+            object-fit: contain;
+            transition: transform 0.2s ease;
+            user-select: none;
+            -webkit-user-drag: none;
+            transform-origin: center center;
+        }
+        
+        .lightbox-controls {
+            position: absolute;
+            top: 70px;
+            left: 20px;
+            z-index: 1001;
+            display: flex;
+            gap: 5px;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 24px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .add-photo-form {
+            background: #f8f9ff;
+            border: 2px dashed #667eea;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            display: none;
+        }
+
+        .add-photo-form.active {
+            display: block;
+        }
+
+        .add-photo-form h3 {
+            margin: 0 0 20px 0;
+            color: #667eea;
+            font-size: 18px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-hint {
+            font-size: 12px;
+            color: #999;
+            margin-top: 4px;
+        }
+
+        .gallery-item-delete {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(244, 67, 54, 0.9);
+            color: white;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gallery-item:hover .gallery-item-delete {
+            display: flex;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-title">
+                <span style="font-size: 32px;">📸</span>
+                <div>
+                    <div class="profile-name" id="profileName">Загрузка...</div>
+                    <div class="profile-meta" id="profileMeta"></div>
+                </div>
+            </div>
+            <div style="display: flex; gap: 10px;">
+                <button id="backToListBtn" class="btn btn-secondary" onclick="window.location.href='gallery.html'" style="display: none;">
+                    ← К списку профилей
+                </button>
+                <a href="index.html" class="btn btn-secondary">← В каталог</a>
+            </div>
+        </div>
+
+        <div class="gallery-container">
+            <!-- Форма добавления фото (только для владельца) -->
+            <div id="addPhotoForm" class="add-photo-form">
+                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 25px; border-radius: 12px 12px 0 0; margin: -20px -20px 20px -20px;">
+                    <h3 style="margin: 0 0 10px 0; font-size: 22px; font-weight: 600;">📸 Добавление фотографий</h3>
+                    <p style="margin: 0; opacity: 0.9; font-size: 14px; line-height: 1.6;">
+                        Размещайте фото на любом сервисе и добавляйте ссылки в галерею.<br>
+                        <strong>Важно:</strong> Мы храним только ссылки, файлы остаются у вас на выбранном сервисе.
+                    </p>
+                </div>
+                
+                <!-- Вкладки -->
+                <div style="display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 2px solid #e0e0e0; overflow-x: auto;">
+                    <button id="tabSingle" class="btn" onclick="switchTab('single')" 
+                            style="border: none; border-bottom: 3px solid #667eea; background: transparent; color: #667eea; font-weight: 600; padding: 10px 20px; border-radius: 0; white-space: nowrap;">
+                        Одно фото
+                    </button>
+                    <button id="tabBulk" class="btn" onclick="switchTab('bulk')" 
+                            style="border: none; border-bottom: 3px solid transparent; background: transparent; color: #999; font-weight: 500; padding: 10px 20px; border-radius: 0; white-space: nowrap;">
+                        Массовый импорт
+                    </button>
+                </div>
+
+                <!-- Форма одного фото -->
+                <div id="singlePhotoForm">
+                    <div style="background: #f5f5f5; border-radius: 8px; padding: 20px; margin-bottom: 20px;">
+                        <div style="font-weight: 600; color: #333; margin-bottom: 15px; font-size: 15px;">📸 Выберите сервис для размещения фото:</div>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px;">
+                            <!-- Google Photos -->
+                            <div style="text-align: center;">
+                                <a href="https://photos.google.com" target="_blank" style="display: block; padding: 12px; background: #4285f4; color: white; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 13px;">
+                                    📷 Google Photos
+                                </a>
+                                <button onclick="showHelp('google')" style="margin-top: 5px; border: none; background: transparent; color: #666; cursor: pointer; font-size: 18px;" title="Как использовать">❓</button>
+                            </div>
+                            
+                            <!-- Imgur -->
+                            <div style="text-align: center;">
+                                <a href="https://imgur.com/upload" target="_blank" style="display: block; padding: 12px; background: #1bb76e; color: white; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 13px;">
+                                    🖼️ Imgur
+                                </a>
+                                <button onclick="showHelp('imgur')" style="margin-top: 5px; border: none; background: transparent; color: #666; cursor: pointer; font-size: 18px;" title="Как использовать">❓</button>
+                            </div>
+                            
+                            <!-- ImgBB -->
+                            <div style="text-align: center;">
+                                <a href="https://imgbb.com/" target="_blank" style="display: block; padding: 12px; background: #3b7dd6; color: white; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 13px;">
+                                    🌄 ImgBB
+                                </a>
+                                <button onclick="showHelp('imgbb')" style="margin-top: 5px; border: none; background: transparent; color: #666; cursor: pointer; font-size: 18px;" title="Как использовать">❓</button>
+                            </div>
+                            
+                            <!-- PostImages -->
+                            <div style="text-align: center;">
+                                <a href="https://postimages.org/" target="_blank" style="display: block; padding: 12px; background: #ff6b35; color: white; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 13px;">
+                                    🎨 PostImages
+                                </a>
+                                <button onclick="showHelp('postimg')" style="margin-top: 5px; border: none; background: transparent; color: #666; cursor: pointer; font-size: 18px;" title="Как использовать">❓</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label style="font-size: 15px; font-weight: 600; color: #333;">🔗 Прямая ссылка на изображение *</label>
+                        <input type="url" id="photoUrl" placeholder="https://i.imgur.com/... или https://lh3.googleusercontent.com/...">
+                        <div style="margin-top: 8px; padding: 10px; background: #e8f4fd; border-left: 3px solid #2196f3; border-radius: 4px; font-size: 13px; color: #1565c0;">
+                            💡 <strong>Подсказка:</strong> Ссылка должна заканчиваться на .jpg, .png или .webp и вести прямо на изображение, а не на страницу просмотра
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Дата съёмки</label>
+                        <input type="date" id="photoDate">
+                    </div>
+                    <div class="form-group">
+                        <label>Описание (стадия роста, наблюдения)</label>
+                        <textarea id="photoDescription" placeholder="Например: 3 недели от посадки, активный рост..."></textarea>
+                    </div>
+                    <div style="display: flex; gap: 10px; margin-top: 20px;">
+                        <button class="btn btn-primary" onclick="addPhoto()">➕ Добавить фото</button>
+                        <button class="btn btn-secondary" onclick="toggleAddForm()">Отмена</button>
+                    </div>
+                </div>
+
+                <!-- Форма массового импорта -->
+                <div id="bulkPhotoForm" style="display: none;">
+                    <div style="background: #f5f5f5; border-radius: 8px; padding: 20px; margin-bottom: 20px;">
+                        <div style="font-weight: 600; color: #333; margin-bottom: 15px; font-size: 15px;">📸 Выберите сервис для размещения фото:</div>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px;">
+                            <!-- Google Photos -->
+                            <div style="text-align: center;">
+                                <a href="https://photos.google.com" target="_blank" style="display: block; padding: 12px; background: #4285f4; color: white; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 13px;">
+                                    📷 Google Photos
+                                </a>
+                                <button onclick="showHelp('google')" style="margin-top: 5px; border: none; background: transparent; color: #666; cursor: pointer; font-size: 18px;" title="Как использовать">❓</button>
+                            </div>
+                            
+                            <!-- Imgur -->
+                            <div style="text-align: center;">
+                                <a href="https://imgur.com/upload" target="_blank" style="display: block; padding: 12px; background: #1bb76e; color: white; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 13px;">
+                                    🖼️ Imgur
+                                </a>
+                                <button onclick="showHelp('imgur')" style="margin-top: 5px; border: none; background: transparent; color: #666; cursor: pointer; font-size: 18px;" title="Как использовать">❓</button>
+                            </div>
+                            
+                            <!-- ImgBB -->
+                            <div style="text-align: center;">
+                                <a href="https://imgbb.com/" target="_blank" style="display: block; padding: 12px; background: #3b7dd6; color: white; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 13px;">
+                                    🌄 ImgBB
+                                </a>
+                                <button onclick="showHelp('imgbb')" style="margin-top: 5px; border: none; background: transparent; color: #666; cursor: pointer; font-size: 18px;" title="Как использовать">❓</button>
+                            </div>
+                            
+                            <!-- PostImages -->
+                            <div style="text-align: center;">
+                                <a href="https://postimages.org/" target="_blank" style="display: block; padding: 12px; background: #ff6b35; color: white; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 13px;">
+                                    🎨 PostImages
+                                </a>
+                                <button onclick="showHelp('postimg')" style="margin-top: 5px; border: none; background: transparent; color: #666; cursor: pointer; font-size: 18px;" title="Как использовать">❓</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label style="font-size: 15px; font-weight: 600; color: #333;">🔗 Прямые ссылки на изображения (по одной на строку) *</label>
+                        <textarea id="bulkUrls" rows="8" placeholder="https://i.imgur.com/abc123.jpg&#10;https://lh3.googleusercontent.com/xyz789.png&#10;https://i.ibb.co/def456.webp"></textarea>
+                        <div style="margin-top: 8px; padding: 10px; background: #fff3e0; border-left: 3px solid #ff9800; border-radius: 4px; font-size: 13px; color: #e65100;">
+                            ⚡ <strong>Совет:</strong> Можно загрузить все фото сразу на один сервис, скопировать все ссылки и вставить здесь
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Общее описание (необязательно)</label>
+                        <textarea id="bulkDescription" rows="3" placeholder="Например: Прогресс роста за март 2025"></textarea>
+                        <div class="form-hint">Это описание будет добавлено ко всем фотографиям</div>
+                    </div>
+                    <div style="display: flex; gap: 10px; margin-top: 20px;">
+                        <button class="btn btn-primary" onclick="addPhotoBulk()">➕ Импортировать фотографии</button>
+                        <button class="btn btn-secondary" onclick="toggleAddForm()">Отмена</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Кнопка добавления (для владельца) -->
+            <button id="showAddFormBtn" class="btn btn-primary" style="display: none; margin-bottom: 20px;" onclick="toggleAddForm()">
+                ➕ Добавить фотографию
+            </button>
+
+            <div style="background: white; border-radius: 12px; padding: 20px; margin-bottom: 20px; border: 1px solid #e0e0e0;">
+                <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px;">
+                    <div>
+                        <h2 style="margin: 0 0 5px 0; font-size: 24px; font-weight: 600; color: #333;">🖼️ Галерея фотографий</h2>
+                        <p style="margin: 0; color: #666; font-size: 14px;">
+                            <span class="photo-count" id="photoCount"></span>
+                        </p>
+                    </div>
+                    <div style="text-align: right;">
+                        <div style="display: inline-block; padding: 8px 16px; background: #f5f5f5; border-radius: 6px; font-size: 12px; color: #666;">
+                            ℹ️ Фото хранятся на внешних сервисах
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="galleryGrid">
+                <div class="loading">Загрузка...</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <button class="lightbox-close">✕</button>
+        <div class="lightbox-controls">
+            <button onclick="event.stopPropagation(); zoomIn()" title="Увеличить (колёсико вверх)" style="background: white; border: none; padding: 10px 15px; border-radius: 6px; cursor: pointer; font-size: 18px; margin-right: 5px;">🔍+</button>
+            <button onclick="event.stopPropagation(); zoomOut()" title="Уменьшить (колёсико вниз)" style="background: white; border: none; padding: 10px 15px; border-radius: 6px; cursor: pointer; font-size: 18px; margin-right: 5px;">🔍−</button>
+            <button onclick="event.stopPropagation(); resetZoom()" title="Сбросить (двойной клик)" style="background: white; border: none; padding: 10px 15px; border-radius: 6px; cursor: pointer; font-size: 16px; margin-right: 5px;">↺</button>
+            <button onclick="event.stopPropagation(); toggleFullscreen()" title="Полный экран (F11)" style="background: white; border: none; padding: 10px 15px; border-radius: 6px; cursor: pointer; font-size: 16px;">⛶</button>
+        </div>
+        <div class="lightbox-image-container" id="lightboxContainer" onclick="event.stopPropagation()">
+            <img class="lightbox-image" id="lightboxImage" src="" alt="" ondblclick="resetZoom()">
+        </div>
+    </div>
+
+    <!-- Модальное окно с инструкциями -->
+    <div id="helpModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 10000; align-items: center; justify-content: center;" onclick="closeHelp()">
+        <div style="background: white; border-radius: 12px; max-width: 500px; width: 90%; padding: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.3); position: relative;" onclick="event.stopPropagation()">
+            <button onclick="closeHelp()" style="position: absolute; top: 15px; right: 15px; border: none; background: transparent; font-size: 24px; cursor: pointer; color: #999; line-height: 1;">✕</button>
+            <div id="helpContent"></div>
+        </div>
+    </div>
+
+    <!-- Кастомное модальное окно для alert/confirm -->
+    <div id="customModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 20000; align-items: center; justify-content: center;">
+        <div style="background: white; border-radius: 12px; max-width: 450px; width: 90%; padding: 0; box-shadow: 0 8px 32px rgba(0,0,0,0.4); overflow: hidden;" onclick="event.stopPropagation()">
+            <div id="customModalHeader" style="padding: 20px 25px; border-bottom: 1px solid #e0e0e0; background: #f8f9fa;">
+                <h3 id="customModalTitle" style="margin: 0; font-size: 18px; font-weight: 600; color: #333;"></h3>
+            </div>
+            <div id="customModalBody" style="padding: 25px; font-size: 15px; line-height: 1.6; color: #555; white-space: pre-wrap;"></div>
+            <div id="customModalFooter" style="padding: 15px 25px; border-top: 1px solid #e0e0e0; display: flex; gap: 10px; justify-content: flex-end; background: #f8f9fa;"></div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyAR5qXMGP8Erapla69wJ7cUbbF4MNlbkcY",
+            authDomain: "wega-hpg.firebaseapp.com",
+            projectId: "wega-hpg",
+            storageBucket: "wega-hpg.firebasestorage.app",
+            messagingSenderId: "652081809935",
+            appId: "1:652081809935:web:84a407f1a6bfc719aa717a"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        let currentUser = null;
+        let profileData = null;
+        let photos = [];
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const profileId = urlParams.get('profile');
+
+        // Авторизация
+        auth.onAuthStateChanged(user => {
+            currentUser = user;
+            
+            if (!currentUser) {
+                showAuthRequired();
+            } else if (!profileId) {
+                // Показываем список профилей пользователя
+                loadUserProfiles();
+            } else {
+                // Загружаем конкретную галерею
+                loadGallery();
+            }
+        });
+
+        function showAuthRequired() {
+            document.getElementById('galleryGrid').innerHTML = `
+                <div class="empty-state">
+                    <div style="font-size: 64px; margin-bottom: 20px;">🔒</div>
+                    <h3>Требуется авторизация</h3>
+                    <p>Войдите, чтобы управлять галереями своих профилей</p>
+                    <button class="btn btn-primary" style="margin-top: 20px;" onclick="window.location.href='index.html'">
+                        Перейти в каталог
+                    </button>
+                </div>
+            `;
+        }
+
+        async function loadUserProfiles() {
+            document.getElementById('profileName').textContent = 'Мои профили';
+            document.getElementById('profileMeta').textContent = 'Выберите профиль для управления галереей';
+
+            try {
+                // Загружаем профили без сортировки (чтобы не требовать составной индекс)
+                const snapshot = await db.collection('profiles')
+                    .where('userId', '==', currentUser.uid)
+                    .get();
+
+                if (snapshot.empty) {
+                    document.getElementById('galleryGrid').innerHTML = `
+                        <div class="empty-state">
+                            <div style="font-size: 64px; margin-bottom: 20px;">📝</div>
+                            <h3>У вас пока нет профилей</h3>
+                            <p>Создайте профиль в каталоге, чтобы добавлять к нему фотографии</p>
+                            <button class="btn btn-primary" style="margin-top: 20px;" onclick="window.location.href='index.html'">
+                                Перейти в каталог
+                            </button>
+                        </div>
+                    `;
+                    return;
+                }
+
+                // Собираем профили и сортируем на клиенте
+                const profiles = [];
+                snapshot.forEach(doc => {
+                    profiles.push({
+                        id: doc.id,
+                        ...doc.data()
+                    });
+                });
+
+                // Сортируем по дате изменения (новые сверху)
+                profiles.sort((a, b) => {
+                    const timeA = a.modified?.toMillis() || 0;
+                    const timeB = b.modified?.toMillis() || 0;
+                    return timeB - timeA;
+                });
+
+                let html = '<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px;">';
+                
+                profiles.forEach(profile => {
+                    const galleryCount = (profile.gallery && profile.gallery.length) || 0;
+                    const date = profile.modified?.toDate().toLocaleDateString('ru-RU') || '';
+                    
+                    html += `
+                        <div onclick="window.location.href='gallery.html?profile=${profile.id}'" 
+                             style="background: white; border-radius: 12px; padding: 20px; cursor: pointer; 
+                                    transition: all 0.3s; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                                    border: 2px solid transparent;">
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                                <div style="font-size: 32px;">🌱</div>
+                                <div style="flex: 1; min-width: 0;">
+                                    <div style="font-weight: 600; font-size: 16px; color: #333; 
+                                                overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                        ${escapeHtml(profile.name)}
+                                    </div>
+                                    <div style="font-size: 12px; color: #999; margin-top: 4px;">
+                                        Изменено: ${date}
+                                    </div>
+                                </div>
+                            </div>
+                            ${profile.description ? `
+                                <div style="color: #666; font-size: 14px; line-height: 1.4; 
+                                            margin-bottom: 12px; overflow: hidden; 
+                                            text-overflow: ellipsis; display: -webkit-box;
+                                            -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
+                                    ${escapeHtml(profile.description)}
+                                </div>
+                            ` : ''}
+                            <div style="display: flex; gap: 15px; padding-top: 12px; 
+                                        border-top: 1px solid #f0f0f0; font-size: 13px; color: #666;">
+                                <div style="display: flex; align-items: center; gap: 5px;">
+                                    <span>📸</span>
+                                    <strong>${galleryCount}</strong> фото
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 5px;">
+                                    <span>👁️</span>
+                                    ${profile.views || 0}
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 5px;">
+                                    <span>💬</span>
+                                    ${profile.commentsCount || 0}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                html += '</div>';
+                document.getElementById('galleryGrid').innerHTML = html;
+
+                // Добавляем hover эффект через CSS
+                const style = document.createElement('style');
+                style.textContent = `
+                    .gallery-container > div > div:hover {
+                        transform: translateY(-5px);
+                        box-shadow: 0 8px 20px rgba(0,0,0,0.15) !important;
+                        border-color: #667eea !important;
+                    }
+                `;
+                document.head.appendChild(style);
+
+            } catch (error) {
+                console.error('Ошибка загрузки профилей:', error);
+                showError('Не удалось загрузить профили');
+            }
+        }
+
+        async function loadGallery() {
+            try {
+                const doc = await db.collection('profiles').doc(profileId).get();
+                
+                if (!doc.exists) {
+                    showError('Профиль не найден');
+                    return;
+                }
+
+                profileData = doc.data();
+                
+                // Проверяем права владельца
+                if (currentUser.uid !== profileData.userId) {
+                    document.getElementById('galleryGrid').innerHTML = `
+                        <div class="empty-state">
+                            <div style="font-size: 64px; margin-bottom: 20px;">🔒</div>
+                            <h3>Доступ запрещён</h3>
+                            <p>Вы можете управлять галереями только своих профилей</p>
+                            <button class="btn btn-primary" style="margin-top: 20px;" onclick="window.location.href='gallery.html'">
+                                К списку моих профилей
+                            </button>
+                        </div>
+                    `;
+                    return;
+                }
+
+                document.getElementById('profileName').textContent = profileData.name;
+                document.getElementById('profileMeta').textContent = `Автор: ${profileData.userName || 'Аноним'}`;
+
+                // Показываем кнопки управления
+                document.getElementById('showAddFormBtn').style.display = 'inline-flex';
+                document.getElementById('backToListBtn').style.display = 'inline-flex';
+
+                photos = profileData.gallery || [];
+                renderGallery();
+
+            } catch (error) {
+                console.error('Ошибка:', error);
+                showError('Ошибка загрузки галереи');
+            }
+        }
+
+        function renderGallery() {
+            document.getElementById('photoCount').textContent = `(${photos.length})`;
+
+            if (photos.length === 0) {
+                const isOwner = currentUser && profileData && currentUser.uid === profileData.userId;
+                document.getElementById('galleryGrid').innerHTML = `
+                    <div class="empty-state">
+                        <div style="font-size: 64px; margin-bottom: 20px;">📸</div>
+                        <h3>Галерея пуста</h3>
+                        <p style="color: #666; margin-bottom: 20px;">
+                            ${isOwner ? 'Добавьте фотографии, разместив их на любом хостинге изображений' : 'Автор профиля ещё не добавил фотографии'}
+                        </p>
+                        ${isOwner ? `
+                            <div style="max-width: 400px; margin: 0 auto; padding: 20px; background: #f5f5f5; border-radius: 8px; text-align: left;">
+                                <div style="font-weight: 600; margin-bottom: 10px; color: #333;">📌 Как это работает:</div>
+                                <ol style="margin: 0; padding-left: 20px; color: #666; font-size: 14px; line-height: 1.8;">
+                                    <li>Разместите фото на любом сервисе</li>
+                                    <li>Скопируйте прямую ссылку</li>
+                                    <li>Добавьте ссылку в галерею</li>
+                                </ol>
+                                <div style="margin-top: 15px; padding: 10px; background: white; border-radius: 6px; font-size: 12px; color: #999;">
+                                    💡 Файлы хранятся на выбранном сервисе, мы сохраняем только ссылки
+                                </div>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+                return;
+            }
+
+            // Сортируем по дате (новые сверху)
+            const sortedPhotos = [...photos].sort((a, b) => {
+                const dateA = a.date ? new Date(a.date) : new Date(0);
+                const dateB = b.date ? new Date(b.date) : new Date(0);
+                return dateB - dateA;
+            });
+
+            let html = '<div class="gallery-grid">';
+            sortedPhotos.forEach((photo) => {
+                const index = photos.indexOf(photo);
+                const date = photo.date ? new Date(photo.date).toLocaleDateString('ru-RU') : 'Без даты';
+                const isOwner = currentUser && profileData && currentUser.uid === profileData.userId;
+                
+                html += `
+                    <div class="gallery-item" onclick="openLightbox('${escapeJs(photo.url)}')">
+                        <img src="${photo.url}" alt="${escapeHtml(photo.description || '')}" 
+                             onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'250\\' height=\\'250\\'%3E%3Crect fill=\\'%23f0f0f0\\' width=\\'250\\' height=\\'250\\'/%3E%3Ctext x=\\'50%25\\' y=\\'50%25\\' text-anchor=\\'middle\\' dy=\\'.3em\\' fill=\\'%23999\\' font-size=\\'14\\'%3EФото недоступно%3C/text%3E%3C/svg%3E'">
+                        ${isOwner ? `<button class="gallery-item-delete" onclick="event.stopPropagation(); deletePhoto(${index})">🗑️</button>` : ''}
+                        <div class="gallery-item-info">
+                            <div class="gallery-item-date">📅 ${date}</div>
+                            <div class="gallery-item-description">${escapeHtml(photo.description || 'Без описания')}</div>
+                        </div>
+                    </div>
+                `;
+            });
+            html += '</div>';
+            document.getElementById('galleryGrid').innerHTML = html;
+        }
+
+        function switchTab(tab) {
+            const tabs = {
+                single: document.getElementById('tabSingle'),
+                bulk: document.getElementById('tabBulk')
+            };
+            const forms = {
+                single: document.getElementById('singlePhotoForm'),
+                bulk: document.getElementById('bulkPhotoForm')
+            };
+
+            // Сбрасываем все вкладки
+            Object.values(tabs).forEach(t => {
+                t.style.borderBottomColor = 'transparent';
+                t.style.color = '#999';
+                t.style.fontWeight = '500';
+            });
+            Object.values(forms).forEach(f => f.style.display = 'none');
+
+            // Активируем выбранную вкладку
+            tabs[tab].style.borderBottomColor = '#667eea';
+            tabs[tab].style.color = '#667eea';
+            tabs[tab].style.fontWeight = '600';
+            forms[tab].style.display = 'block';
+        }
+
+        function toggleAddForm() {
+            const form = document.getElementById('addPhotoForm');
+            const btn = document.getElementById('showAddFormBtn');
+            
+            if (form.classList.contains('active')) {
+                form.classList.remove('active');
+                btn.style.display = 'inline-flex';
+                // Очищаем формы
+                document.getElementById('photoUrl').value = '';
+                document.getElementById('photoDate').value = '';
+                document.getElementById('photoDescription').value = '';
+                document.getElementById('bulkUrls').value = '';
+                document.getElementById('bulkDescription').value = '';
+                // Возвращаемся на первую вкладку
+                switchTab('single');
+            } else {
+                form.classList.add('active');
+                btn.style.display = 'none';
+                // Устанавливаем сегодняшнюю дату
+                document.getElementById('photoDate').valueAsDate = new Date();
+            }
+        }
+
+        // Конвертация короткой ссылки Google Photos в прямую
+        async function convertGooglePhotosUrl(url) {
+            // Если это короткая ссылка photos.app.goo.gl или photos.google.com/share
+            if (url.includes('photos.app.goo.gl') || url.includes('photos.google.com/share')) {
+                // Показываем инструкцию пользователю
+                const instruction = `
+Для использования этой ссылки:
+
+1. Откройте её в новой вкладке
+2. Дождитесь загрузки фото
+3. Нажмите ПРАВУЮ кнопку мыши по изображению
+4. Выберите "Копировать адрес изображения"
+5. Вставьте скопированную ссылку сюда
+
+Или нажмите ОК, чтобы открыть фото в новой вкладке прямо сейчас.
+                `.trim();
+                
+                if (await customConfirm(instruction, 'Инструкция')) {
+                    window.open(url, '_blank');
+                }
+                
+                throw new Error('Вставьте прямую ссылку на изображение (начинается с https://lh3.googleusercontent.com)');
+            }
+            return url;
+        }
+
+        async function addPhoto() {
+            if (!currentUser || !profileData || currentUser.uid !== profileData.userId) {
+                await customAlert('Только владелец профиля может добавлять фотографии');
+                return;
+            }
+
+            let url = document.getElementById('photoUrl').value.trim();
+            
+            // Конвертируем короткую ссылку в прямую
+            try {
+                url = await convertGooglePhotosUrl(url);
+            } catch (error) {
+                await customAlert(error.message, 'Ошибка');
+                return;
+            }
+            const date = document.getElementById('photoDate').value;
+            const description = document.getElementById('photoDescription').value.trim();
+
+            if (!url) {
+                await customAlert('Введите ссылку на фотографию');
+                return;
+            }
+
+            try {
+                const newPhoto = {
+                    url: url,
+                    date: date || new Date().toISOString().split('T')[0],
+                    description: description || '',
+                    addedAt: new Date().toISOString(),
+                    addedBy: currentUser.uid
+                };
+
+                photos.push(newPhoto);
+
+                await db.collection('profiles').doc(profileId).update({
+                    gallery: photos,
+                    modified: firebase.firestore.FieldValue.serverTimestamp()
+                });
+
+                renderGallery();
+                toggleAddForm();
+                showNotification('✅ Фотография добавлена!');
+
+            } catch (error) {
+                console.error('Ошибка:', error);
+                await customAlert('❌ Ошибка: ' + error.message, 'Ошибка');
+            }
+        }
+
+        async function addPhotoBulk() {
+            if (!currentUser || !profileData || currentUser.uid !== profileData.userId) {
+                await customAlert('Только владелец профиля может добавлять фотографии');
+                return;
+            }
+
+            const urlsText = document.getElementById('bulkUrls').value.trim();
+            const bulkDescription = document.getElementById('bulkDescription').value.trim();
+
+            if (!urlsText) {
+                await customAlert('Введите хотя бы одну ссылку');
+                return;
+            }
+
+            let urls = urlsText.split('\n').map(u => u.trim()).filter(u => u);
+            
+            // Конвертируем все короткие ссылки в прямые
+            try {
+                showNotification('⏳ Обработка ссылок...');
+                const convertedUrls = [];
+                for (const url of urls) {
+                    const converted = await convertGooglePhotosUrl(url);
+                    convertedUrls.push(converted);
+                }
+                urls = convertedUrls;
+            } catch (error) {
+                await customAlert(error.message, 'Ошибка');
+                return;
+            }
+
+            try {
+                const today = new Date().toISOString().split('T')[0];
+                const newPhotos = urls.map(url => ({
+                    url: url,
+                    date: today,
+                    description: bulkDescription || '',
+                    addedAt: new Date().toISOString(),
+                    addedBy: currentUser.uid
+                }));
+
+                // Добавляем все фото
+                photos.push(...newPhotos);
+
+                await db.collection('profiles').doc(profileId).update({
+                    gallery: photos,
+                    modified: firebase.firestore.FieldValue.serverTimestamp()
+                });
+
+                renderGallery();
+                toggleAddForm();
+                showNotification(`✅ Импортировано ${newPhotos.length} фотографий!`);
+
+            } catch (error) {
+                console.error('Ошибка:', error);
+                await customAlert('❌ Ошибка: ' + error.message, 'Ошибка');
+            }
+        }
+
+        async function deletePhoto(index) {
+            if (!currentUser || !profileData || currentUser.uid !== profileData.userId) {
+                await customAlert('Только владелец профиля может удалять фотографии');
+                return;
+            }
+
+            if (!await customConfirm('Удалить эту фотографию?')) {
+                return;
+            }
+
+            try {
+                photos.splice(index, 1);
+
+                await db.collection('profiles').doc(profileId).update({
+                    gallery: photos,
+                    modified: firebase.firestore.FieldValue.serverTimestamp()
+                });
+
+                renderGallery();
+                showNotification('✅ Фотография удалена');
+
+            } catch (error) {
+                console.error('Ошибка:', error);
+                await customAlert('❌ Ошибка: ' + error.message, 'Ошибка');
+            }
+        }
+
+        let currentZoom = 1;
+        let currentX = 0;
+        let currentY = 0;
+        let isDragging = false;
+        let startX = 0;
+        let startY = 0;
+
+        function openLightbox(url) {
+            const img = document.getElementById('lightboxImage');
+            img.src = url;
+            document.getElementById('lightbox').classList.add('active');
+            resetZoom();
+            
+            // Добавляем обработчики событий для зума и перетаскивания
+            const container = document.getElementById('lightboxContainer');
+            
+            // Зум колесиком мыши
+            container.addEventListener('wheel', handleWheel, { passive: false });
+            
+            // Перетаскивание
+            container.addEventListener('mousedown', startDrag);
+            container.addEventListener('mousemove', drag);
+            container.addEventListener('mouseup', endDrag);
+            container.addEventListener('mouseleave', endDrag);
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.remove('active');
+            
+            // Удаляем обработчики событий
+            const container = document.getElementById('lightboxContainer');
+            container.removeEventListener('wheel', handleWheel);
+            container.removeEventListener('mousedown', startDrag);
+            container.removeEventListener('mousemove', drag);
+            container.removeEventListener('mouseup', endDrag);
+            container.removeEventListener('mouseleave', endDrag);
+        }
+
+        function handleWheel(e) {
+            e.preventDefault();
+            const delta = e.deltaY > 0 ? -0.1 : 0.1;
+            currentZoom = Math.min(Math.max(1, currentZoom + delta), 5);
+            applyZoom();
+        }
+
+        function zoomIn() {
+            currentZoom = Math.min(5, currentZoom + 0.2);
+            applyZoom();
+        }
+
+        function zoomOut() {
+            currentZoom = Math.max(1, currentZoom - 0.2);
+            if (currentZoom === 1) {
+                currentX = 0;
+                currentY = 0;
+            }
+            applyZoom();
+        }
+
+        function resetZoom() {
+            currentZoom = 1;
+            currentX = 0;
+            currentY = 0;
+            applyZoom();
+        }
+
+        function applyZoom() {
+            const img = document.getElementById('lightboxImage');
+            img.style.transform = `scale(${currentZoom}) translate(${currentX}px, ${currentY}px)`;
+        }
+
+        function startDrag(e) {
+            if (currentZoom <= 1) return;
+            isDragging = true;
+            startX = e.clientX - currentX;
+            startY = e.clientY - currentY;
+            document.getElementById('lightboxContainer').classList.add('dragging');
+        }
+
+        function drag(e) {
+            if (!isDragging || currentZoom <= 1) return;
+            e.preventDefault();
+            currentX = e.clientX - startX;
+            currentY = e.clientY - startY;
+            applyZoom();
+        }
+
+        function endDrag() {
+            isDragging = false;
+            document.getElementById('lightboxContainer').classList.remove('dragging');
+        }
+
+        // Полноэкранный режим
+        function toggleFullscreen() {
+            const lightbox = document.getElementById('lightbox');
+            
+            if (!document.fullscreenElement) {
+                // Вход в полноэкранный режим
+                if (lightbox.requestFullscreen) {
+                    lightbox.requestFullscreen();
+                } else if (lightbox.webkitRequestFullscreen) {
+                    lightbox.webkitRequestFullscreen();
+                } else if (lightbox.msRequestFullscreen) {
+                    lightbox.msRequestFullscreen();
+                }
+            } else {
+                // Выход из полноэкранного режима
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
+            }
+        }
+
+        // Обработка нажатия ESC для выхода из лайтбокса
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && document.getElementById('lightbox').classList.contains('active')) {
+                if (!document.fullscreenElement) {
+                    closeLightbox();
+                }
+            }
+        });
+
+        // Показать инструкцию для сервиса
+        function showHelp(service) {
+            const instructions = {
+                google: {
+                    title: '📷 Google Photos',
+                    steps: [
+                        'Откройте <a href="https://photos.google.com" target="_blank">Google Photos</a> в новой вкладке',
+                        'Найдите нужное фото и кликните по нему',
+                        'Нажмите <strong>правую кнопку мыши</strong> по изображению',
+                        'Выберите <strong>"Копировать адрес изображения"</strong>',
+                        'Вернитесь сюда и вставьте ссылку в форму'
+                    ]
+                },
+                imgur: {
+                    title: '🖼️ Imgur',
+                    steps: [
+                        'Откройте <a href="https://imgur.com/upload" target="_blank">Imgur</a> в новой вкладке',
+                        '<strong>Перетащите</strong> фото на страницу или нажмите "Browse"',
+                        'Дождитесь загрузки фото',
+                        'Нажмите <strong>правую кнопку мыши</strong> по загруженному фото',
+                        'Выберите <strong>"Copy image address"</strong>',
+                        'Вставьте ссылку в форму'
+                    ]
+                },
+                imgbb: {
+                    title: '🌄 ImgBB',
+                    steps: [
+                        'Откройте <a href="https://imgbb.com/" target="_blank">ImgBB</a> в новой вкладке',
+                        'Нажмите <strong>"Start uploading"</strong> и выберите фото',
+                        'Дождитесь загрузки',
+                        'Нажмите на кнопку <strong>"Direct link"</strong>',
+                        'Скопируйте появившуюся ссылку',
+                        'Вставьте её в форму'
+                    ]
+                },
+                postimg: {
+                    title: '🎨 PostImages',
+                    steps: [
+                        'Откройте <a href="https://postimages.org/" target="_blank">PostImages</a> в новой вкладке',
+                        'Нажмите <strong>"Choose images"</strong> и выберите фото',
+                        'Дождитесь загрузки',
+                        'Найдите поле <strong>"Direct link"</strong>',
+                        'Скопируйте ссылку из этого поля',
+                        'Вставьте её в форму'
+                    ]
+                }
+            };
+
+            const content = instructions[service];
+            const stepsHtml = content.steps.map((step, i) => `
+                <li style="margin-bottom: 10px; line-height: 1.6;">${step}</li>
+            `).join('');
+
+            document.getElementById('helpContent').innerHTML = `
+                <h3 style="margin: 0 0 20px 0; color: #333; font-size: 20px;">${content.title}</h3>
+                <ol style="margin: 0; padding-left: 20px; color: #555;">
+                    ${stepsHtml}
+                </ol>
+                <div style="margin-top: 20px; padding: 15px; background: #f0f0f0; border-radius: 6px; text-align: center;">
+                    <button onclick="closeHelp()" class="btn btn-primary">Понятно</button>
+                </div>
+            `;
+
+            document.getElementById('helpModal').style.display = 'flex';
+        }
+
+        function closeHelp() {
+            document.getElementById('helpModal').style.display = 'none';
+        }
+
+        // Кастомные модальные окна вместо alert/confirm
+        function customAlert(message, title = 'Внимание') {
+            return new Promise((resolve) => {
+                const modal = document.getElementById('customModal');
+                document.getElementById('customModalTitle').textContent = title;
+                document.getElementById('customModalBody').textContent = message;
+                document.getElementById('customModalFooter').innerHTML = `
+                    <button onclick="closeCustomModal(); customModalResolve(true);" class="btn btn-primary" style="min-width: 100px;">OK</button>
+                `;
+                modal.style.display = 'flex';
+                
+                window.customModalResolve = resolve;
+            });
+        }
+
+        function customConfirm(message, title = 'Подтверждение') {
+            return new Promise((resolve) => {
+                const modal = document.getElementById('customModal');
+                document.getElementById('customModalTitle').textContent = title;
+                document.getElementById('customModalBody').textContent = message;
+                document.getElementById('customModalFooter').innerHTML = `
+                    <button onclick="closeCustomModal(); customModalResolve(false);" class="btn btn-secondary" style="min-width: 100px;">Отмена</button>
+                    <button onclick="closeCustomModal(); customModalResolve(true);" class="btn btn-primary" style="min-width: 100px;">OK</button>
+                `;
+                modal.style.display = 'flex';
+                
+                window.customModalResolve = resolve;
+            });
+        }
+
+        function closeCustomModal() {
+            document.getElementById('customModal').style.display = 'none';
+        }
+
+        function showError(msg) {
+            document.getElementById('galleryGrid').innerHTML = `
+                <div class="empty-state">
+                    <div style="font-size: 64px;">❌</div>
+                    <h3>${escapeHtml(msg)}</h3>
+                </div>
+            `;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function escapeJs(text) {
+            return text.replace(/'/g, "\\'").replace(/"/g, '\\"');
+        }
+
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: #4caf50;
+                color: white;
+                padding: 15px 20px;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+                z-index: 10000;
+                font-size: 14px;
+                animation: slideInRight 0.3s ease;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.style.animation = 'slideOutRight 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

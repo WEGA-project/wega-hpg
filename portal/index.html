@@ -927,8 +927,8 @@
         
         .profile-detail-stats {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
             margin-bottom: 20px;
         }
         
@@ -978,6 +978,16 @@
                 border-bottom: 1px solid #e0e0e0;
                 padding-right: 0;
                 padding-bottom: 20px;
+            }
+            
+            .profile-detail-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .profile-detail-stats {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -1136,6 +1146,9 @@
                 <span>HPG Community</span>
             </div>
             <div class="header-actions">
+                <button id="gallery-btn" class="btn btn-secondary" onclick="window.location.href='gallery.html'" style="display: none;">
+                    📸 Галерея
+                </button>
                 <button id="upload-btn" class="btn btn-primary" onclick="showUploadForm()" style="display: none;">
                     📤 Загрузить профиль
                 </button>
@@ -1307,6 +1320,7 @@
                 // Пользователь авторизован
                 console.log('Пользователь авторизован:', user.email);
                 document.getElementById('login-btn').style.display = 'none';
+                document.getElementById('gallery-btn').style.display = 'inline-block';
                 document.getElementById('upload-btn').style.display = 'block';
                 document.getElementById('user-info').style.display = 'flex';
                 document.getElementById('user-avatar').src = user.photoURL || '';
@@ -1328,6 +1342,7 @@
                 // Пользователь не авторизован
                 console.log('Пользователь не авторизован');
                 document.getElementById('login-btn').style.display = 'block';
+                document.getElementById('gallery-btn').style.display = 'none';
                 document.getElementById('upload-btn').style.display = 'none';
                 document.getElementById('user-info').style.display = 'none';
                 
@@ -1994,6 +2009,10 @@
                                         <div class="profile-detail-stat-value">${profile.views || 0}</div>
                                         <div class="profile-detail-stat-label">👁️ Просмотров</div>
                                     </div>
+                                    <div class="profile-detail-stat" style="cursor: pointer;" onclick="window.location.href='gallery.html?profile=${profile.id}'" title="Открыть галерею">
+                                        <div class="profile-detail-stat-value">📸 ${(profile.gallery && profile.gallery.length) || 0}</div>
+                                        <div class="profile-detail-stat-label">Фотографий</div>
+                                    </div>
                                     <div class="profile-detail-stat" style="cursor: pointer;" onclick="document.getElementById('comments-section-${profile.id}').scrollIntoView({behavior: 'smooth', block: 'start'})" title="Перейти к комментариям">
                                         <div class="profile-detail-stat-value">${profile.commentsCount || 0}</div>
                                         <div class="profile-detail-stat-label">💬 Комментариев</div>
@@ -2028,6 +2047,9 @@
                                 <div class="profile-detail-section">
                                     <button class="btn btn-primary" style="width: 100%; margin-bottom: 10px;" onclick="openInCalculator('${profile.id}')">
                                         🧪 Открыть в калькуляторе
+                                    </button>
+                                    <button class="btn btn-secondary" style="width: 100%; margin-bottom: 10px;" onclick="window.location.href='gallery.html?profile=${profile.id}'">
+                                        📸 Галерея фотографий ${(profile.gallery && profile.gallery.length) ? `(${profile.gallery.length})` : ''}
                                     </button>
                                     <button class="btn btn-light" style="width: 100%;" onclick="copyShareLink('${profile.id}', '${escapeHtml(profile.name).replace(/'/g, "\\'")}')">
                                         🔗 Поделиться
