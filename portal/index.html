@@ -2084,7 +2084,9 @@
 
         // Копировать ссылку
         async function copyShareLink(profileId, profileName) {
-            const shareUrl = `${window.location.origin}/portal/#profile-${profileId}`;
+            // Используем текущий URL без хеша и добавляем нужный хеш
+            const baseUrl = window.location.href.split('#')[0];
+            const shareUrl = `${baseUrl}#profile-${profileId}`;
             
             try {
                 await navigator.clipboard.writeText(shareUrl);
