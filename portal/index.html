@@ -1671,7 +1671,8 @@
                 const currVal = curr[elem] || 0;
                 const diff = currVal - prevVal;
                 
-                if (Math.abs(diff) > 0.01) {
+                // Показываем любые изменения больше 0.001 для отсечения погрешностей
+                if (Math.abs(diff) > 0.001) {
                     // Вычисляем процент изменения
                     let changeStr = '';
                     if (prevVal > 0.01) {
@@ -1870,9 +1871,9 @@
                                             
                                             const paramChanges = [];
                                             
-                                            // EC
+                                            // EC - показываем любые изменения
                                             const ecDiff = currEC - prevEC;
-                                            if (Math.abs(ecDiff) > 0.001) {
+                                            if (Math.abs(ecDiff) > 0.0001) { // Очень низкий порог для отсечения погрешностей округления
                                                 // Процент изменения EC
                                                 let changeStr = '';
                                                 if (prevEC > 0.001) {
@@ -1888,12 +1889,12 @@
                                                 paramChanges.push(`EC: ${prevEC.toFixed(3)} → ${currEC.toFixed(3)}${changeStr}`);
                                             }
                                             
-                                            // Соотношения
+                                            // Соотношения - показываем любые изменения
                                             const ratioKeys = ['NH4_NO3', 'K_N', 'K_Ca', 'K_Mg'];
                                             ratioKeys.forEach(key => {
                                                 if (prevRatios[key] !== undefined && currRatios[key] !== undefined) {
                                                     const diff = currRatios[key] - prevRatios[key];
-                                                    if (Math.abs(diff) > 0.01) {
+                                                    if (Math.abs(diff) > 0.001) { // Очень низкий порог для отсечения погрешностей округления
                                                         const label = key.replace('_', ':');
                                                         
                                                         // Процент изменения соотношения
