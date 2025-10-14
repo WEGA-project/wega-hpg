@@ -3367,7 +3367,10 @@
                             ${tagsHtml}
                         </div>
                         <div class="activity-actions">
-                            <button class="activity-btn activity-btn-primary" onclick="openInCalculator('${profile.id}')">
+                            <button class="activity-btn activity-btn-primary" onclick="showProfileDetail('${profile.id}')">
+                                👁️ Посмотреть
+                            </button>
+                            <button class="activity-btn activity-btn-secondary" onclick="openInCalculator('${profile.id}')">
                                 🧪 Открыть в калькуляторе
                             </button>
                             <button class="activity-btn activity-btn-secondary" onclick="showComments('${profile.id}', '${escapeHtml(profile.name).replace(/'/g, "\\'")}')">
@@ -3428,8 +3431,11 @@
                         </div>
                         <div class="activity-actions">
                             ${commentedProfile ? `
-                                <button class="activity-btn activity-btn-primary" onclick="openInCalculator('${activity.profileId}')">
-                                    🧪 Открыть профиль
+                                <button class="activity-btn activity-btn-primary" onclick="showProfileDetail('${activity.profileId}')">
+                                    👁️ Посмотреть
+                                </button>
+                                <button class="activity-btn activity-btn-secondary" onclick="openInCalculator('${activity.profileId}')">
+                                    🧪 Открыть в калькуляторе
                                 </button>
                                 <button class="activity-btn activity-btn-secondary" onclick="showComments('${activity.profileId}', '${escapeHtml(profileName).replace(/'/g, "\\'")}')">
                                     💬 Все комментарии
