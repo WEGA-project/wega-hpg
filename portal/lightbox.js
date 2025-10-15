@@ -471,8 +471,24 @@ function openLightbox(photos, index = 0) {
         currentPhotoIndex = 0;
         currentProfileId = null;
     } else if (Array.isArray(photos)) {
-        currentPhotos = photos;
-        currentPhotoIndex = index;
+        // Запоминаем URL текущего фото для восстановления индекса после сортировки
+        const targetPhotoUrl = photos[index]?.url;
+        
+        // Сортируем фотографии по дате (от самой ранней к самой поздней)
+        currentPhotos = [...photos].sort((a, b) => {
+            const dateA = a.date ? new Date(a.date).getTime() : 0;
+            const dateB = b.date ? new Date(b.date).getTime() : 0;
+            return dateA - dateB;
+        });
+        
+        // Находим новый индекс после сортировки
+        if (targetPhotoUrl) {
+            const newIndex = currentPhotos.findIndex(p => p.url === targetPhotoUrl);
+            currentPhotoIndex = newIndex >= 0 ? newIndex : 0;
+        } else {
+            currentPhotoIndex = 0;
+        }
+        
         if (currentPhotos.length > 0) {
             currentProfileId = currentPhotos[0].profileId || currentProfileId;
         }
