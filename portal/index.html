@@ -786,9 +786,6 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
             transition: all 0.3s ease;
             padding: 15px;
-            display: flex;
-            gap: 15px;
-            align-items: flex-start;
             border-left: 4px solid #4a9d9d;
         }
         
@@ -818,9 +815,60 @@
             display: block;
         }
         
+        .journal-photo-train {
+            display: flex;
+            gap: 10px;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            padding: 5px 0;
+            margin-bottom: 15px;
+        }
+        
+        .journal-photo-train::-webkit-scrollbar {
+            height: 8px;
+        }
+        
+        .journal-photo-train::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+        
+        .journal-photo-train::-webkit-scrollbar-thumb {
+            background: #4a9d9d;
+            border-radius: 4px;
+        }
+        
+        .journal-photo-train::-webkit-scrollbar-thumb:hover {
+            background: #3a8d8d;
+        }
+        
+        .journal-photo-train-item {
+            flex-shrink: 0;
+            width: 120px;
+            height: 120px;
+            border-radius: 6px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            background: #f5f5f5;
+            border: 2px solid #e0e0e0;
+        }
+        
+        .journal-photo-train-item:hover {
+            transform: scale(1.05);
+            border-color: #4a9d9d;
+        }
+        
+        .journal-photo-train-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        
         .journal-photo-info {
-            flex: 1;
-            min-width: 0;
+            display: flex;
+            flex-direction: column;
         }
         
         .journal-photo-date {
@@ -834,6 +882,76 @@
             font-size: 14px;
             color: #666;
             line-height: 1.6;
+        }
+        
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .lightbox.active {
+            display: flex;
+        }
+        
+        .lightbox-image-container {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+            cursor: grab;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .lightbox-image-container.dragging {
+            cursor: grabbing;
+        }
+
+        .lightbox-image {
+            max-width: 90vw;
+            max-height: 90vh;
+            object-fit: contain;
+            transition: transform 0.2s ease;
+            user-select: none;
+            -webkit-user-drag: none;
+            transform-origin: center center;
+        }
+        
+        .lightbox-controls {
+            position: absolute;
+            top: 70px;
+            left: 20px;
+            z-index: 1001;
+            display: flex;
+            gap: 5px;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 24px;
+            z-index: 1002;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+        
+        .lightbox-close:hover {
+            background: #f0f0f0;
         }
 
         .stat-item {
@@ -1302,6 +1420,7 @@
             }
         }
     </style>
+    <script src="lightbox.js"></script>
 </head>
 <body>
     <!-- Шапка -->
@@ -1902,16 +2021,18 @@
                 });
             }
             
-            // Добавляем фотографии
+            // Группируем фотографии по дате
             if (gallery && gallery.length > 0) {
-                gallery.forEach((photo) => {
-                    if (photo.date) { // Добавляем только если есть дата
-                        timeline.push({
-                            type: 'photo',
-                            date: photo.date,
-                            data: photo
-                        });
-                    }
+                const photosWithDates = gallery.filter(photo => photo.date);
+                const photoGroups = groupPhotosByDate(photosWithDates);
+                
+                // Добавляем группы фотографий как один элемент
+                Object.entries(photoGroups).forEach(([dateKey, photos]) => {
+                    timeline.push({
+                        type: 'photoGroup',
+                        date: photos[0].date, // Используем дату первого фото
+                        data: photos // Массив фотографий за этот день
+                    });
                 });
             }
             
@@ -1957,6 +2078,20 @@
             if (lastDigit === 1 && lastTwoDigits !== 11) return `${days} день`;
             if (lastDigit >= 2 && lastDigit <= 4 && (lastTwoDigits < 10 || lastTwoDigits >= 20)) return `${days} дня`;
             return `${days} дней`;
+        }
+        
+        // Группировка фотографий по дате
+        function groupPhotosByDate(photos) {
+            const groups = {};
+            photos.forEach(photo => {
+                const photoDate = parseTimelineDate(photo.date);
+                const dateKey = photoDate.toISOString().split('T')[0]; // YYYY-MM-DD
+                if (!groups[dateKey]) {
+                    groups[dateKey] = [];
+                }
+                groups[dateKey].push(photo);
+            });
+            return groups;
         }
         
         // Показать детальный просмотр профиля
@@ -2090,7 +2225,7 @@
                 // Создаём временную шкалу
                 const timeline = createTimeline(profile.journal, profile.gallery);
                 const journalEntriesCount = (profile.journal && profile.journal.length) || 0;
-                const photosCount = timeline.filter(item => item.type === 'photo').length;
+                const photosCount = (profile.gallery && profile.gallery.filter(p => p.date).length) || 0;
                 
                 journalHtml = `
                     <div class="profile-detail-section">
@@ -2109,10 +2244,10 @@
                                     const daysFromStart = getDaysDifference(startDate, currentDate);
                                     const daysFromPrev = prevDate ? getDaysDifference(prevDate, currentDate) : 0;
                                     
-                                    // Если это фотография
-                                    if (item.type === 'photo') {
-                                        const photo = item.data;
-                                        const photoDate = parseTimelineDate(photo.date);
+                                    // Если это группа фотографий
+                                    if (item.type === 'photoGroup') {
+                                        const photos = item.data;
+                                        const photoDate = parseTimelineDate(photos[0].date);
                                         const dateLabel = photoDate.toLocaleDateString('ru-RU', { 
                                             year: 'numeric', 
                                             month: 'short', 
@@ -2129,21 +2264,36 @@
                                             }
                                         }
                                         
+                                        // Собираем уникальные описания
+                                        const descriptions = photos
+                                            .map(p => (p.description || '').trim())
+                                            .filter(d => d)
+                                            .filter((d, i, arr) => arr.indexOf(d) === i); // уникальные
+                                        
+                                        const descriptionText = descriptions.length > 0 
+                                            ? descriptions.join('; ') 
+                                            : 'Без описания';
+                                        
+                                        // Генерируем превью-вагончики
+                                        const previewsHtml = photos.map(photo => `
+                                            <div class="journal-photo-train-item" onclick="openLightbox('${escapeJs(photo.url)}')" title="${escapeHtml(photo.description || 'Фото')}">
+                                                <img src="${escapeHtml(photo.url)}" alt="${escapeHtml(photo.description || 'Фото')}"
+                                                     onerror="this.parentElement.innerHTML='<div style=\\'display: flex; align-items: center; justify-content: center; height: 100%; background: #f5f5f5; color: #999; font-size: 24px;\\'>📸</div>';">
+                                            </div>
+                                        `).join('');
+                                        
                                         return `
                                             <div class="journal-photo">
-                                                <div class="journal-photo-preview" onclick="window.open('${escapeJs(photo.url)}', '_blank')">
-                                                    <img src="${escapeHtml(photo.url)}" alt="${escapeHtml(photo.description || 'Фото')}"
-                                                         onerror="this.parentElement.innerHTML='<div style=\\'display: flex; align-items: center; justify-content: center; height: 100%; background: #f5f5f5; color: #999; font-size: 24px;\\'>📸</div>';">
+                                                <div class="journal-photo-train">
+                                                    ${previewsHtml}
                                                 </div>
                                                 <div class="journal-photo-info">
                                                     <div class="journal-photo-date">
-                                                        ${timeInfo}
+                                                        ${timeInfo} ${photos.length > 1 ? `<span style="color: #999; font-size: 11px;">(${photos.length} фото)</span>` : ''}
                                                     </div>
-                                                    ${photo.description ? `
-                                                        <div class="journal-photo-description">
-                                                            ${escapeHtml(photo.description)}
-                                                        </div>
-                                                    ` : '<div class="journal-photo-description" style="color: #999; font-style: italic;">Без описания</div>'}
+                                                    <div class="journal-photo-description" style="${descriptions.length === 0 ? 'color: #999; font-style: italic;' : ''}">
+                                                        ${escapeHtml(descriptionText)}
+                                                    </div>
                                                 </div>
                                             </div>
                                         `;
