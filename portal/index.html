@@ -2006,7 +2006,7 @@
         }
         
         // Создание временной шкалы с записями журнала и фотографиями
-        function createTimeline(journal, gallery) {
+        function createTimeline(journal, gallery, milestones) {
             const timeline = [];
             
             // Добавляем записи журнала
@@ -2032,6 +2032,17 @@
                         type: 'photoGroup',
                         date: photos[0].date, // Используем дату первого фото
                         data: photos // Массив фотографий за этот день
+                    });
+                });
+            }
+            
+            // Добавляем ключевые события
+            if (milestones && milestones.length > 0) {
+                milestones.forEach(milestone => {
+                    timeline.push({
+                        type: 'milestone',
+                        date: milestone.date,
+                        data: milestone
                     });
                 });
             }
@@ -2223,7 +2234,7 @@
             
             if (hasJournalOrPhotos) {
                 // Создаём временную шкалу
-                const timeline = createTimeline(profile.journal, profile.gallery);
+                const timeline = createTimeline(profile.journal, profile.gallery, profile.milestones);
                 const journalEntriesCount = (profile.journal && profile.journal.length) || 0;
                 const photosCount = (profile.gallery && profile.gallery.filter(p => p.date).length) || 0;
                 
@@ -2309,6 +2320,17 @@
                                             }
                                         }
                                         
+                                        // Добавляем информацию о ключевых событиях
+                                        const milestoneInfo = getMilestoneDistances(photos[0].date, profile.milestones);
+                                        if (milestoneInfo) {
+                                            if (milestoneInfo.prev) {
+                                                timeInfo += `<br><span style="color: #4caf50;">⭐ ${escapeHtml(milestoneInfo.prev.title)}: +${formatDays(milestoneInfo.prev.days)}</span>`;
+                                            }
+                                            if (milestoneInfo.next) {
+                                                timeInfo += `<br><span style="color: #ff9800;">⏳ До "${escapeHtml(milestoneInfo.next.title)}": ${formatDays(milestoneInfo.next.days)}</span>`;
+                                            }
+                                        }
+                                        
                                         // Собираем уникальные описания
                                         const descriptions = photos
                                             .map(p => (p.description || '').trim())
@@ -2347,6 +2369,43 @@
                                         `;
                                     }
                                     
+                                    // Если это ключевое событие
+                                    if (item.type === 'milestone') {
+                                        const milestone = item.data;
+                                        const milestoneDate = parseTimelineDate(milestone.date);
+                                        const dateLabel = milestoneDate.toLocaleDateString('ru-RU', { 
+                                            year: 'numeric', 
+                                            month: 'short', 
+                                            day: 'numeric' 
+                                        });
+                                        
+                                        let timeInfo = `⭐ ${escapeHtml(dateLabel)}`;
+                                        if (daysFromStart > 0) {
+                                            timeInfo += ` (${formatDays(daysFromStart)} от начала`;
+                                            if (daysFromPrev > 0) {
+                                                timeInfo += ` • +${formatDays(daysFromPrev)})`;
+                                            } else {
+                                                timeInfo += `)`;
+                                            }
+                                        }
+                                        
+                                        return `
+                                            <div style="margin-bottom: 15px; border-radius: 8px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3); padding: 20px; color: white;">
+                                                <div style="display: flex; align-items: center; gap: 15px;">
+                                                    <div style="font-size: 48px; line-height: 1;">⭐</div>
+                                                    <div style="flex: 1;">
+                                                        <div style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">
+                                                            ${escapeHtml(milestone.title)}
+                                                        </div>
+                                                        <div style="font-size: 14px; opacity: 0.9;">
+                                                            ${timeInfo}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        `;
+                                    }
+                                    
                                     // Если это запись журнала
                                     const entry = item.data;
                                     const index = item.index;
@@ -2360,6 +2419,17 @@
                                             timeInfo += ` • +${formatDays(daysFromPrev)})`;
                                         } else {
                                             timeInfo += `)`;
+                                        }
+                                    }
+                                    
+                                    // Добавляем информацию о ключевых событиях
+                                    const milestoneInfoEntry = getMilestoneDistances(entry.date, profile.milestones);
+                                    if (milestoneInfoEntry) {
+                                        if (milestoneInfoEntry.prev) {
+                                            timeInfo += `<br><span style="color: #4caf50;">⭐ ${escapeHtml(milestoneInfoEntry.prev.title)}: +${formatDays(milestoneInfoEntry.prev.days)}</span>`;
+                                        }
+                                        if (milestoneInfoEntry.next) {
+                                            timeInfo += `<br><span style="color: #ff9800;">⏳ До "${escapeHtml(milestoneInfoEntry.next.title)}": ${formatDays(milestoneInfoEntry.next.days)}</span>`;
                                         }
                                     }
                                     
@@ -2574,6 +2644,11 @@
                                     <button class="btn btn-secondary" style="width: 100%; margin-bottom: 10px;" onclick="window.location.href='gallery.html?profile=${profile.id}'">
                                         📸 Галерея фотографий ${(profile.gallery && profile.gallery.length) ? `(${profile.gallery.length})` : ''}
                                     </button>
+                                    ${currentUser && currentUser.uid === profile.userId ? `
+                                        <button class="btn btn-secondary" style="width: 100%; margin-bottom: 10px;" onclick="manageMilestones('${profile.id}')">
+                                            ⭐ Ключевые события
+                                        </button>
+                                    ` : ''}
                                     <button class="btn btn-light" style="width: 100%;" onclick="copyShareLink('${profile.id}', '${escapeHtml(profile.name).replace(/'/g, "\\'")}')">
                                         🔗 Поделиться
                                     </button>
@@ -4115,6 +4190,318 @@
             // Проверяем хэш для автоматического открытия профиля
             handleProfileHash();
         });
+
+        // ========== УПРАВЛЕНИЕ КЛЮЧЕВЫМИ СОБЫТИЯМИ ==========
+        
+        // Функция для показа кастомного модального окна
+        function showCustomModal(title, body, buttons) {
+            const modal = document.createElement('div');
+            modal.id = 'customModal';
+            modal.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 10000; display: flex; align-items: center; justify-content: center;';
+            
+            const buttonsHtml = buttons.map((btn, index) => 
+                `<button class="btn ${btn.class}" data-btn-index="${index}">${btn.text}</button>`
+            ).join('');
+            
+            modal.innerHTML = `
+                <div id="customModalContent" style="background: white; border-radius: 12px; max-width: 700px; width: 90%; max-height: 90vh; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+                    <div style="padding: 20px; border-bottom: 1px solid #e0e0e0; display: flex; justify-content: space-between; align-items: center;">
+                        <h2 style="margin: 0; font-size: 20px; color: #333;">${title}</h2>
+                        <button id="customModalClose" style="border: none; background: transparent; font-size: 24px; cursor: pointer; color: #999; line-height: 1;">✕</button>
+                    </div>
+                    <div style="padding: 25px; max-height: calc(90vh - 140px); overflow-y: auto;">
+                        ${body}
+                    </div>
+                    <div style="padding: 15px 25px; border-top: 1px solid #e0e0e0; display: flex; gap: 10px; justify-content: flex-end; background: #f8f9fa;">
+                        ${buttonsHtml}
+                    </div>
+                </div>
+            `;
+            
+            // Закрытие по клику на overlay (фон)
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeCustomModal();
+                }
+            });
+            
+            document.body.appendChild(modal);
+            
+            // Привязываем закрытие к крестику
+            const closeBtn = document.getElementById('customModalClose');
+            if (closeBtn) {
+                closeBtn.addEventListener('click', closeCustomModal);
+            }
+            
+            // Привязываем callback'и к кнопкам
+            buttons.forEach((btn, index) => {
+                const btnElement = modal.querySelector(`[data-btn-index="${index}"]`);
+                if (btnElement) {
+                    btnElement.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        btn.callback();
+                    });
+                }
+            });
+        }
+        
+        function closeCustomModal() {
+            const modal = document.getElementById('customModal');
+            if (modal) {
+                modal.remove();
+            }
+        }
+        
+        function manageMilestones(profileId) {
+            const profile = getProfileById(profileId);
+            if (!profile) return;
+            
+            showMilestonesModal(profileId);
+        }
+        
+        function showMilestonesModal(profileId) {
+            const profile = getProfileById(profileId);
+            const milestones = profile.milestones || [];
+            
+            const milestonesListHtml = milestones.length > 0 
+                ? milestones.map((m, index) => `
+                    <div style="display: flex; align-items: center; gap: 10px; padding: 12px; background: #f8f9fa; border-radius: 6px; margin-bottom: 8px;">
+                        <div style="flex: 1;">
+                            <div style="font-weight: 600; color: #333; margin-bottom: 4px;">${escapeHtml(m.title)}</div>
+                            <div style="font-size: 13px; color: #666;">📅 ${formatJournalDate(m.date)}</div>
+                        </div>
+                        <button class="btn btn-secondary btn-small" onclick="showEditMilestoneForm('${profileId}', ${index})" style="flex-shrink: 0;">
+                            ✏️
+                        </button>
+                        <button class="btn btn-secondary btn-small" onclick="deleteMilestone('${profileId}', ${index})" style="flex-shrink: 0; color: #d32f2f;">
+                            🗑️
+                        </button>
+                    </div>
+                `).join('')
+                : '<div style="text-align: center; padding: 40px; color: #999;">Ключевые события не добавлены</div>';
+            
+            showCustomModal(
+                'Ключевые события',
+                `
+                <div style="max-width: 600px;">
+                    <div style="margin-bottom: 20px; padding: 12px; background: #e3f2fd; border-radius: 6px; font-size: 13px; color: #1565c0;">
+                        💡 Ключевые события помогают ориентироваться во времени. Например: "Запуск системы", "Первые всходы", "Сбор урожая"
+                    </div>
+                    <div id="milestones-list" style="margin-bottom: 20px; max-height: 400px; overflow-y: auto;">
+                        ${milestonesListHtml}
+                    </div>
+                </div>
+                `,
+                [
+                    { text: '➕ Добавить событие', class: 'btn-primary', callback: () => showAddMilestoneForm(profileId) },
+                    { text: 'Закрыть', class: 'btn-secondary', callback: () => closeCustomModal() }
+                ]
+            );
+        }
+        
+        function showAddMilestoneForm(profileId) {
+            showCustomModal(
+                'Добавить ключевое событие',
+                `
+                <div style="max-width: 500px;">
+                    <div style="margin-bottom: 15px;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: 600; color: #333;">Название события:</label>
+                        <input type="text" id="milestone-title" placeholder="Например: Запуск системы" 
+                               style="width: 100%; padding: 10px; border: 1px solid #e0e0e0; border-radius: 6px; font-size: 14px;">
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: 600; color: #333;">Дата события:</label>
+                        <input type="date" id="milestone-date"
+                               style="width: 100%; padding: 10px; border: 1px solid #e0e0e0; border-radius: 6px; font-size: 14px;">
+                    </div>
+                </div>
+                `,
+                [
+                    { text: '✅ Сохранить', class: 'btn-primary', callback: () => saveMilestone(profileId) },
+                    { text: 'Отмена', class: 'btn-secondary', callback: () => showMilestonesModal(profileId) }
+                ]
+            );
+            
+            // Устанавливаем фокус на поле названия
+            setTimeout(() => document.getElementById('milestone-title')?.focus(), 100);
+        }
+        
+        function showEditMilestoneForm(profileId, index) {
+            const profile = getProfileById(profileId);
+            const milestone = profile.milestones[index];
+            
+            showCustomModal(
+                'Изменить ключевое событие',
+                `
+                <div style="max-width: 500px;">
+                    <div style="margin-bottom: 15px;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: 600; color: #333;">Название события:</label>
+                        <input type="text" id="milestone-title" value="${escapeHtml(milestone.title)}"
+                               style="width: 100%; padding: 10px; border: 1px solid #e0e0e0; border-radius: 6px; font-size: 14px;">
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: 600; color: #333;">Дата события:</label>
+                        <input type="date" id="milestone-date" value="${milestone.date}"
+                               style="width: 100%; padding: 10px; border: 1px solid #e0e0e0; border-radius: 6px; font-size: 14px;">
+                    </div>
+                </div>
+                `,
+                [
+                    { text: '✅ Сохранить', class: 'btn-primary', callback: () => updateMilestone(profileId, index) },
+                    { text: 'Отмена', class: 'btn-secondary', callback: () => showMilestonesModal(profileId) }
+                ]
+            );
+        }
+        
+        async function saveMilestone(profileId) {
+            const title = document.getElementById('milestone-title')?.value.trim();
+            const date = document.getElementById('milestone-date')?.value.trim();
+            
+            if (!title) {
+                alert('❌ Введите название события');
+                return;
+            }
+            
+            if (!date) {
+                alert('❌ Выберите дату события');
+                return;
+            }
+            
+            try {
+                const profile = getProfileById(profileId);
+                const milestones = profile.milestones || [];
+                
+                milestones.push({ title, date });
+                
+                // Сортируем по дате
+                milestones.sort((a, b) => new Date(a.date) - new Date(b.date));
+                
+                await db.collection('profiles').doc(profileId).update({
+                    milestones: milestones
+                });
+                
+                showNotification('✅ Ключевое событие добавлено');
+                
+                // Закрываем текущее модальное окно
+                closeCustomModal();
+                
+                // Перезагружаем профили
+                await loadProfiles();
+                await showProfileDetail(profileId);
+                
+                // Открываем обновленный список событий
+                setTimeout(() => showMilestonesModal(profileId), 100);
+                
+            } catch (error) {
+                console.error('Ошибка:', error);
+                alert('❌ Ошибка при сохранении: ' + error.message);
+            }
+        }
+        
+        async function updateMilestone(profileId, index) {
+            const title = document.getElementById('milestone-title')?.value.trim();
+            const date = document.getElementById('milestone-date')?.value.trim();
+            
+            if (!title) {
+                alert('❌ Введите название события');
+                return;
+            }
+            
+            if (!date) {
+                alert('❌ Выберите дату события');
+                return;
+            }
+            
+            try {
+                const profile = getProfileById(profileId);
+                const milestones = profile.milestones || [];
+                
+                milestones[index] = { title, date };
+                
+                // Сортируем по дате
+                milestones.sort((a, b) => new Date(a.date) - new Date(b.date));
+                
+                await db.collection('profiles').doc(profileId).update({
+                    milestones: milestones
+                });
+                
+                showNotification('✅ Ключевое событие обновлено');
+                
+                // Закрываем текущее модальное окно
+                closeCustomModal();
+                
+                await loadProfiles();
+                await showProfileDetail(profileId);
+                
+                // Открываем обновленный список событий
+                setTimeout(() => showMilestonesModal(profileId), 100);
+                
+            } catch (error) {
+                console.error('Ошибка:', error);
+                alert('❌ Ошибка при сохранении: ' + error.message);
+            }
+        }
+        
+        async function deleteMilestone(profileId, index) {
+            if (!confirm('Удалить это ключевое событие?')) return;
+            
+            try {
+                const profile = getProfileById(profileId);
+                const milestones = profile.milestones || [];
+                
+                milestones.splice(index, 1);
+                
+                await db.collection('profiles').doc(profileId).update({
+                    milestones: milestones
+                });
+                
+                showNotification('✅ Ключевое событие удалено');
+                
+                // Закрываем текущее модальное окно
+                closeCustomModal();
+                
+                await loadProfiles();
+                await showProfileDetail(profileId);
+                
+                // Открываем обновленный список событий
+                setTimeout(() => showMilestonesModal(profileId), 100);
+                
+            } catch (error) {
+                console.error('Ошибка:', error);
+                alert('❌ Ошибка при удалении: ' + error.message);
+            }
+        }
+        
+        // Функция для вычисления расстояния до ближайших ключевых событий
+        function getMilestoneDistances(currentDate, milestones) {
+            if (!milestones || milestones.length === 0) return null;
+            
+            const current = parseTimelineDate(currentDate);
+            let prevMilestone = null;
+            let nextMilestone = null;
+            
+            for (const milestone of milestones) {
+                const milestoneDate = parseTimelineDate(milestone.date);
+                
+                if (milestoneDate <= current) {
+                    prevMilestone = { ...milestone, date: milestoneDate };
+                } else if (!nextMilestone && milestoneDate > current) {
+                    nextMilestone = { ...milestone, date: milestoneDate };
+                    break;
+                }
+            }
+            
+            return {
+                prev: prevMilestone ? {
+                    title: prevMilestone.title,
+                    days: getDaysDifference(prevMilestone.date, current)
+                } : null,
+                next: nextMilestone ? {
+                    title: nextMilestone.title,
+                    days: getDaysDifference(current, nextMilestone.date)
+                } : null
+            };
+        }
     </script>
 </body>
 </html>
