@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HPG Mobile Test - Тест автомасштабирования</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #5a9e9e;
+            padding: 20px;
+        }
+        
+        .test-container {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .test-header {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .test-info {
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        .profile-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        
+        .profile-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            position: relative;
+        }
+        
+        .profile-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .profile-description {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .profile-body {
+            padding: 20px;
+        }
+        
+        .profile-meta {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+        
+        .profile-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .tag {
+            background: #e8f5f5;
+            color: #4a9d9d;
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .mobile-social-bar {
+            display: flex;
+            justify-content: space-around;
+            padding: 15px;
+            background: #f9f9f9;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .mobile-social-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 15px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 20px;
+            font-size: 14px;
+            color: #666;
+            cursor: pointer;
+        }
+        
+        .mobile-social-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .test-status {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+        
+        .test-status.pass {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .test-status.fail {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #4a9d9d;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .btn:active {
+            transform: scale(0.98);
+        }
+        
+        code {
+            background: #f0f0f0;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <div class="test-header">🧪 Тест автомасштабирования HPG Mobile</div>
+        
+        <div class="test-info">
+            <strong>Инструкция:</strong><br>
+            1. Откройте эту страницу на мобильном устройстве или в режиме эмуляции (DevTools)<br>
+            2. Проверьте, что карточка ниже НЕ выходит за границы экрана<br>
+            3. Попробуйте повернуть устройство (portrait ↔ landscape)<br>
+            4. Все элементы должны помещаться в ширину экрана
+        </div>
+        
+        <div id="testStatus" class="test-status fail">
+            ⏳ Проверка размеров...
+        </div>
+    </div>
+    
+    <div class="profile-card">
+        <div class="profile-header">
+            <div class="profile-title">🍅 Томат, вегетация</div>
+            <div class="profile-description">Активный набор зеленой массы, подготовка к цветению</div>
+        </div>
+        
+        <div class="profile-body">
+            <div class="profile-meta">
+                <span>📅 15.10.2025</span>
+                <span>👤 Konstantin Kirpichnikov</span>
+                <span>👁️ 150</span>
+            </div>
+            
+            <div class="profile-tags">
+                <span class="tag">👍 томат</span>
+                <span class="tag">🍅 помидор</span>
+                <span class="tag">🌱 вегетация</span>
+                <span class="tag">💧 гидропоника</span>
+            </div>
+        </div>
+        
+        <div class="mobile-social-bar">
+            <button class="mobile-social-btn">
+                <span>❤️</span>
+                <span>15</span>
+            </button>
+            <button class="mobile-social-btn">
+                <span>💬</span>
+                <span>2</span>
+            </button>
+            <button class="mobile-social-btn">
+                <span>📤</span>
+            </button>
+        </div>
+    </div>
+    
+    <div class="test-container">
+        <div class="test-header">📊 Результаты проверки</div>
+        
+        <div id="results">
+            <p><strong>Ширина экрана:</strong> <code id="screenWidth">-</code></p>
+            <p><strong>Ширина body:</strong> <code id="bodyWidth">-</code></p>
+            <p><strong>Ширина карточки:</strong> <code id="cardWidth">-</code></p>
+            <p><strong>Горизонтальный скролл:</strong> <code id="hasScroll">-</code></p>
+            <p><strong>Overflow-X на body:</strong> <code id="overflowX">-</code></p>
+        </div>
+        
+        <div style="margin-top: 20px;">
+            <a href="index.html" class="btn">🏠 Главная страница</a>
+            <a href="gallery.html" class="btn">📸 Галерея</a>
+            <button class="btn" onclick="location.reload()">🔄 Обновить тест</button>
+        </div>
+    </div>
+    
+    <script>
+        // Проверка размеров и автомасштабирования
+        function checkScaling() {
+            const screenWidth = window.innerWidth;
+            const bodyWidth = document.body.scrollWidth;
+            const card = document.querySelector('.profile-card');
+            const cardWidth = card ? card.offsetWidth : 0;
+            const hasHorizontalScroll = document.body.scrollWidth > window.innerWidth;
+            const overflowX = getComputedStyle(document.body).overflowX;
+            
+            // Обновляем результаты
+            document.getElementById('screenWidth').textContent = screenWidth + 'px';
+            document.getElementById('bodyWidth').textContent = bodyWidth + 'px';
+            document.getElementById('cardWidth').textContent = cardWidth + 'px';
+            document.getElementById('hasScroll').textContent = hasHorizontalScroll ? '❌ ДА (плохо)' : '✅ НЕТ (хорошо)';
+            document.getElementById('overflowX').textContent = overflowX;
+            
+            // Определяем статус теста
+            const testStatus = document.getElementById('testStatus');
+            const isPassed = !hasHorizontalScroll && bodyWidth <= screenWidth + 5; // +5px допуск
+            
+            if (isPassed) {
+                testStatus.className = 'test-status pass';
+                testStatus.innerHTML = '✅ ТЕСТ ПРОЙДЕН: Все элементы масштабируются правильно!';
+            } else {
+                testStatus.className = 'test-status fail';
+                testStatus.innerHTML = `❌ ТЕСТ НЕ ПРОЙДЕН: Обнаружен горизонтальный скролл (body: ${bodyWidth}px > screen: ${screenWidth}px)`;
+            }
+            
+            console.log('📊 Scaling Check:', {
+                screenWidth,
+                bodyWidth,
+                cardWidth,
+                hasHorizontalScroll,
+                overflowX,
+                passed: isPassed
+            });
+        }
+        
+        // Запускаем проверку при загрузке и изменении размера
+        window.addEventListener('load', () => {
+            setTimeout(checkScaling, 100);
+        });
+        
+        window.addEventListener('resize', () => {
+            setTimeout(checkScaling, 100);
+        });
+        
+        window.addEventListener('orientationchange', () => {
+            setTimeout(checkScaling, 300);
+        });
+    </script>
+    
+    <!-- Mobile Detector - автоматически загружает мобильные модули -->
+    <script src="js/mobile-detector.js"></script>
+</body>
+</html>

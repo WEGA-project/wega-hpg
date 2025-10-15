@@ -1,0 +1,1436 @@
+/* HPG Community Mobile Styles */
+/* Оптимизация для мобильных устройств с фокусом на социальные функции */
+
+/* ==================== БАЗОВЫЕ НАСТРОЙКИ ==================== */
+
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+}
+
+.mobile-mode {
+    -webkit-tap-highlight-color: rgba(74, 157, 157, 0.2);
+    -webkit-touch-callout: none;
+    touch-action: pan-y;
+    overflow-x: hidden !important;
+    max-width: 100vw !important;
+}
+
+.mobile-mode * {
+    -webkit-overflow-scrolling: touch;
+    max-width: 100%;
+}
+
+.mobile-mode *:not(.lightbox):not(.lightbox *) {
+    box-sizing: border-box;
+}
+
+/* Глобальное предотвращение переполнения */
+.mobile-mode input,
+.mobile-mode textarea,
+.mobile-mode select,
+.mobile-mode button {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.mobile-mode img:not(.lightbox img) {
+    max-width: 100% !important;
+    height: auto;
+}
+
+.mobile-mode > *,
+.mobile-mode .container > *,
+.mobile-mode .main-layout > * {
+    max-width: 100% !important;
+}
+
+/* Скрываем ненужные элементы на мобильном */
+.mobile-mode .activity-feed {
+    display: none; /* Лента активности слишком большая для мобильного */
+}
+
+/* ==================== HEADER ==================== */
+
+.mobile-mode .header {
+    padding: 12px 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.mobile-mode .header-content {
+    padding: 0 15px;
+    gap: 10px;
+    max-width: 100vw !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.mobile-mode .logo {
+    font-size: 18px;
+}
+
+.mobile-mode .logo-icon {
+    font-size: 24px;
+}
+
+.mobile-mode .header-actions {
+    gap: 6px;
+}
+
+/* Компактные кнопки header - только иконки на мобильном */
+.mobile-mode .header-actions .btn {
+    padding: 0;
+    min-height: 44px;
+    min-width: 44px;
+    width: 44px;
+    height: 44px;
+    font-size: 22px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%; /* Круглые кнопки */
+}
+
+/* User info компактно */
+.mobile-mode #user-info {
+    gap: 4px !important;
+}
+
+.mobile-mode #user-avatar {
+    width: 36px !important;
+    height: 36px !important;
+}
+
+.mobile-mode #user-name {
+    display: none; /* Скрываем имя пользователя */
+}
+
+.mobile-mode #user-info .btn {
+    font-size: 20px;
+}
+
+/* ==================== CONTAINER & LAYOUT ==================== */
+
+.mobile-mode .container {
+    padding: 60px 10px 90px; /* Отступ снизу для floating кнопки */
+    max-width: 100vw !important;
+    width: 100% !important;
+    overflow-x: hidden !important;
+    box-sizing: border-box !important;
+}
+
+.mobile-mode .main-layout {
+    grid-template-columns: 1fr; /* Одна колонка */
+    gap: 15px;
+    max-width: 100% !important;
+    width: 100% !important;
+}
+
+.mobile-mode .hero {
+    display: none; /* Скрыто на мобильном - экономим место */
+}
+
+/* ==================== FILTERS ==================== */
+
+/* Скрываем фильтры на мобильном - они будут в модальном окне */
+.mobile-mode .filters {
+    display: none;
+}
+
+/* Floating кнопка фильтра (внизу справа) */
+.mobile-filter-btn {
+    display: none;
+    position: fixed;
+    bottom: 24px;
+    right: 20px;
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, #4a9d9d 0%, #3d8a8a 100%);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 26px;
+    cursor: pointer;
+    z-index: 999;
+    box-shadow: 0 4px 16px rgba(74, 157, 157, 0.4);
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    transform: scale(0);
+}
+
+.mobile-mode .mobile-filter-btn {
+    display: flex;
+    animation: fadeInScale 0.3s ease forwards;
+    animation-delay: 0.3s;
+}
+
+@keyframes fadeInScale {
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.mobile-filter-btn:active {
+    transform: scale(0.85);
+    box-shadow: 0 2px 8px rgba(74, 157, 157, 0.3);
+}
+
+/* Пульсирующая анимация при первом появлении */
+.mobile-filter-btn.pulse {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 4px 16px rgba(74, 157, 157, 0.4);
+    }
+    50% {
+        box-shadow: 0 4px 24px rgba(74, 157, 157, 0.6);
+        transform: scale(1.05);
+    }
+}
+
+/* Модальное окно с фильтрами */
+.mobile-filters-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 2000;
+    align-items: flex-end;
+}
+
+.mobile-filters-modal.active {
+    display: flex;
+}
+
+.mobile-filters-content {
+    background: white;
+    width: 100%;
+    max-height: 80vh;
+    border-radius: 20px 20px 0 0;
+    overflow-y: auto;
+    animation: slideUpMobile 0.3s ease;
+}
+
+.mobile-filters-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
+    border-bottom: 1px solid #e0e0e0;
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 10;
+}
+
+.mobile-filters-header h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+}
+
+.mobile-filters-close {
+    background: #f0f0f0;
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mobile-filters-body {
+    padding: 20px;
+}
+
+.mobile-filters-body .filters-row {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.mobile-filters-body .search-box,
+.mobile-filters-body .filter-select,
+.mobile-filters-body .user-filter {
+    width: 100%;
+}
+
+.mobile-filters-body .search-box input,
+.mobile-filters-body .filter-select {
+    font-size: 16px;
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.mobile-filters-body .user-filter {
+    display: flex;
+    gap: 10px;
+}
+
+.mobile-filters-body .user-filter-btn {
+    flex: 1;
+    padding: 12px;
+    background: #f0f0f0;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.mobile-filters-body .user-filter-btn.active {
+    background: #4a9d9d;
+    color: white;
+    border-color: #4a9d9d;
+}
+
+.mobile-filters-body .user-filter-btn:active {
+    transform: scale(0.98);
+}
+
+.mobile-filters-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
+    border-top: 1px solid #e0e0e0;
+    background: #f9f9f9;
+    position: sticky;
+    bottom: 0;
+}
+
+.mobile-filters-count {
+    font-size: 14px;
+    color: #666;
+    font-weight: 500;
+}
+
+.mobile-filters-count span {
+    font-size: 18px;
+    font-weight: 700;
+    color: #4a9d9d;
+}
+
+.mobile-filters-apply {
+    padding: 10px 24px;
+    font-size: 15px;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    min-height: 44px;
+}
+
+.mobile-mode .filters-row {
+    flex-direction: column;
+    gap: 10px;
+    max-width: 100% !important;
+    width: 100% !important;
+}
+
+.mobile-mode .search-box {
+    min-width: 100%;
+    max-width: 100% !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.mobile-mode .search-box input {
+    padding: 12px 40px 12px 15px;
+    font-size: 16px; /* Предотвращает zoom на iOS */
+    max-width: 100% !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.mobile-mode .filter-select {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.mobile-mode .user-filter {
+    width: 100%;
+    justify-content: stretch;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    flex-wrap: wrap;
+}
+
+.mobile-mode .user-filter-btn {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    font-size: 13px;
+}
+
+/* ==================== PROFILES GRID ==================== */
+
+.mobile-mode .profiles-grid {
+    grid-template-columns: 1fr; /* Одна карточка на экран для слайдинга */
+    gap: 15px;
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* Карточка профиля - оптимизирована для свайпа */
+.mobile-mode .profile-card {
+    border-radius: 16px;
+    position: relative;
+    touch-action: pan-y;
+    max-width: 100% !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+}
+
+.mobile-mode .profile-photos-collage {
+    height: 200px;
+    margin: 0;
+    border-radius: 16px 16px 0 0;
+    max-width: 100% !important;
+    width: 100% !important;
+    overflow: hidden;
+}
+
+.mobile-mode .collage-photo {
+    width: 160px;
+    height: 160px;
+}
+
+.mobile-mode .profile-header {
+    padding: 15px 50px 18px 15px;
+    border-radius: 16px 16px 0 0;
+    max-width: 100% !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    overflow: hidden;
+    word-wrap: break-word;
+}
+
+.mobile-mode .profile-title {
+    font-size: 18px;
+    padding-left: 55px;
+    max-width: 100% !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.mobile-mode .profile-description {
+    font-size: 13px;
+    padding-left: 55px;
+    max-width: 100% !important;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.mobile-mode .profile-body {
+    padding: 15px;
+    max-width: 100% !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    overflow: hidden;
+}
+
+.mobile-mode .profile-meta {
+    font-size: 12px;
+    gap: 10px;
+    max-width: 100% !important;
+    flex-wrap: wrap;
+}
+
+.mobile-mode .profile-tags {
+    gap: 6px;
+    max-width: 100% !important;
+    flex-wrap: wrap;
+}
+
+.mobile-mode .tag {
+    font-size: 11px;
+    padding: 4px 10px;
+    white-space: nowrap;
+}
+
+/* Фиксим изображения и дочерние элементы карточек */
+.mobile-mode .profile-card * {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.mobile-mode .profile-card img {
+    max-width: 100% !important;
+    height: auto !important;
+    object-fit: cover;
+}
+
+.mobile-mode .profile-avatar,
+.mobile-mode .profile-badge {
+    flex-shrink: 0;
+}
+
+/* ==================== СОЦИАЛЬНЫЕ ДЕЙСТВИЯ ==================== */
+
+/* Панель социальных действий на карточке */
+.mobile-social-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 12px 15px;
+    background: rgba(255, 255, 255, 0.98);
+    border-top: 1px solid #f0f0f0;
+    gap: 8px;
+    max-width: 100% !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.mobile-social-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    border-radius: 20px;
+    background: transparent;
+    border: none;
+    font-size: 14px;
+    font-weight: 500;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.2s;
+    min-height: 44px;
+    flex: 1;
+    justify-content: center;
+}
+
+.mobile-social-btn:active {
+    transform: scale(0.95);
+}
+
+.mobile-social-btn.liked {
+    color: #e74c3c;
+}
+
+.mobile-social-btn.liked .icon {
+    animation: likeAnimation 0.4s ease;
+}
+
+@keyframes likeAnimation {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+}
+
+.mobile-social-btn .icon {
+    font-size: 20px;
+}
+
+.mobile-social-btn .count {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* ==================== JOURNAL & PHOTOS ==================== */
+
+.mobile-mode .journal-day {
+    padding: 12px;
+    margin-bottom: 12px;
+    border-radius: 12px;
+    max-width: 100% !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.mobile-mode .journal-day-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    max-width: 100% !important;
+}
+
+.mobile-mode .journal-day-date {
+    font-size: 18px;
+}
+
+.mobile-mode .journal-entry {
+    flex-direction: column;
+    padding: 12px;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.mobile-mode .journal-entry-indicator {
+    width: 100%;
+    height: 80px;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 0 15px;
+    gap: 12px;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.mobile-mode .journal-entry-indicator-number {
+    font-size: 28px;
+}
+
+.mobile-mode .journal-photo-train {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    max-width: 100% !important;
+}
+
+.mobile-mode .journal-photo-train-item {
+    scroll-snap-align: center;
+    width: 150px;
+    height: 150px;
+    flex-shrink: 0;
+}
+
+/* ==================== GALLERY ==================== */
+
+.mobile-mode .gallery-container {
+    padding: 15px;
+    border-radius: 12px;
+    max-width: 100% !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.mobile-mode .gallery-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    max-width: 100% !important;
+    width: 100% !important;
+}
+
+.mobile-mode .gallery-item {
+    border-radius: 12px;
+    max-width: 100% !important;
+    width: 100% !important;
+    overflow: hidden;
+}
+
+.mobile-mode .gallery-item img {
+    height: 300px;
+    max-width: 100% !important;
+    width: 100% !important;
+    object-fit: cover;
+}
+
+/* ==================== LIGHTBOX - MOBILE OPTIMIZED ==================== */
+
+.mobile-mode .lightbox-controls {
+    top: 10px;
+    left: 10px;
+    gap: 6px;
+}
+
+.mobile-mode .lightbox-controls button {
+    width: 38px;
+    height: 38px;
+}
+
+.mobile-mode .lightbox-close {
+    top: 10px;
+    right: 10px;
+    width: 38px;
+    height: 38px;
+}
+
+.mobile-mode .lightbox-profile-header {
+    top: 60px;
+    left: 10px;
+    right: 10px;
+    max-width: calc(100% - 20px);
+    padding: 10px 12px;
+}
+
+.mobile-mode .lightbox-solution {
+    top: auto;
+    bottom: 180px;
+    left: 10px;
+    right: 10px;
+    max-width: calc(100% - 20px);
+}
+
+.mobile-mode .lightbox-solution-params {
+    gap: 6px;
+}
+
+.mobile-mode .lightbox-solution-param {
+    padding: 6px 10px;
+    min-width: 50px;
+}
+
+.mobile-mode .lightbox-solution-param-value {
+    font-size: 14px;
+}
+
+.mobile-mode .lightbox-solution-param-label {
+    font-size: 10px;
+}
+
+.mobile-mode .lightbox-info {
+    bottom: 90px;
+    left: 10px;
+    right: 10px;
+    max-width: calc(100% - 20px);
+    padding: 12px 15px;
+}
+
+.mobile-mode .lightbox-thumbnails {
+    bottom: 10px;
+    padding: 8px;
+    max-width: calc(100% - 20px);
+}
+
+.mobile-mode .lightbox-thumbnail {
+    width: 50px;
+    height: 50px;
+}
+
+/* Убираем навигационные кнопки prev/next - используем свайпы */
+.mobile-mode .lightbox-nav {
+    display: none;
+}
+
+/* ==================== BOTTOM NAVIGATION ==================== */
+/* ОТКЛЮЧЕНО - нижняя навигация не используется */
+
+/*
+.mobile-bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-around;
+    padding: 8px 0 calc(8px + env(safe-area-inset-bottom));
+    z-index: 1000;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+    max-width: 100vw !important;
+    width: 100vw !important;
+    box-sizing: border-box !important;
+}
+
+.mobile-bottom-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 6px 12px;
+    color: #999;
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 500;
+    gap: 4px;
+    min-width: 60px;
+    border-radius: 12px;
+    transition: all 0.2s;
+}
+
+.mobile-bottom-nav-item:active {
+    transform: scale(0.95);
+}
+
+.mobile-bottom-nav-item.active {
+    color: #4a9d9d;
+    background: rgba(74, 157, 157, 0.1);
+}
+
+.mobile-bottom-nav-item .icon {
+    font-size: 24px;
+}
+
+.mobile-bottom-nav-item .badge {
+    position: absolute;
+    top: 2px;
+    right: 8px;
+    background: #e74c3c;
+    color: white;
+    font-size: 10px;
+    padding: 2px 5px;
+    border-radius: 10px;
+    font-weight: 600;
+    min-width: 18px;
+    text-align: center;
+}
+*/
+
+/* ==================== PROFILE DETAIL MODAL - ПОЛНАЯ ПЕРЕРАБОТКА ==================== */
+
+/* Базовый сброс для мобильного режима */
+.mobile-mode *,
+.mobile-mode *::before,
+.mobile-mode *::after {
+    box-sizing: border-box !important;
+}
+
+/* Модальное окно - фиксированное на весь экран */
+.mobile-mode .modal {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    z-index: 10000 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Контент модального окна */
+.mobile-mode .modal-content-large {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: white !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+}
+
+/* Заголовок модального окна */
+.mobile-mode .modal-header {
+    position: relative !important;
+    padding: 10px !important;
+    background: white !important;
+    border-bottom: 1px solid #e0e0e0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    flex-shrink: 0 !important;
+}
+
+.mobile-mode .modal-header h2 {
+    font-size: 16px !important;
+    margin: 0 !important;
+    padding-right: 10px !important;
+}
+
+.mobile-mode .modal-close {
+    width: 32px !important;
+    height: 32px !important;
+    font-size: 20px !important;
+    padding: 0 !important;
+    border: none !important;
+    background: transparent !important;
+    cursor: pointer !important;
+}
+
+/* Тело модального окна - прокручивается */
+.mobile-mode .modal-body {
+    flex: 1 !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    padding: 0 !important;
+    -webkit-overflow-scrolling: touch !important;
+}
+
+/* Контейнер профиля */
+.mobile-mode .profile-detail {
+    display: block !important;
+    width: 100% !important;
+}
+
+/* Боковая панель и основной контент */
+.mobile-mode .profile-detail-sidebar,
+.mobile-mode .profile-detail-main {
+    width: 100% !important;
+    padding: 12px !important;
+    border: none !important;
+}
+
+/* ========== СТАТИСТИКА ========== */
+.mobile-mode .profile-detail-stats {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+    margin-bottom: 12px !important;
+}
+
+.mobile-mode .profile-detail-stat {
+    flex: 1 1 calc(33.33% - 6px) !important;
+    min-width: 80px !important;
+    padding: 8px 4px !important;
+    border-radius: 8px !important;
+    text-align: center !important;
+}
+
+.mobile-mode .profile-detail-stat-value {
+    font-size: 15px !important;
+    font-weight: 600 !important;
+}
+
+.mobile-mode .profile-detail-stat-label {
+    font-size: 9px !important;
+    margin-top: 2px !important;
+}
+
+/* ========== АВТОР ========== */
+.mobile-mode .profile-detail-author {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    padding: 10px !important;
+    background: #f5f5f5 !important;
+    border-radius: 8px !important;
+    margin-bottom: 12px !important;
+}
+
+.mobile-mode .profile-detail-author-avatar {
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 50% !important;
+}
+
+.mobile-mode .profile-detail-author-name {
+    font-size: 14px !important;
+    font-weight: 500 !important;
+}
+
+.mobile-mode .profile-detail-author-date {
+    font-size: 11px !important;
+    color: #666 !important;
+}
+
+/* ========== СЕКЦИИ ========== */
+.mobile-mode .profile-detail-section {
+    margin-bottom: 16px !important;
+    width: 100% !important;
+}
+
+.mobile-mode .profile-detail-section h3 {
+    font-size: 15px !important;
+    margin: 0 0 8px 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+}
+
+/* ========== ПРОФИЛЬ РАСТВОРА ========== */
+
+/* Контейнер профиля раствора */
+.mobile-mode div[id*="solution-content"] {
+    display: block !important;
+    width: 100% !important;
+}
+
+/* Блок параметров раствора */
+.mobile-mode div[id*="solution-content"] > div:first-child {
+    width: 100% !important;
+    margin-bottom: 10px !important;
+}
+
+/* Параметры раствора (EC, NH4:NO3, K:N и т.д.) */
+.mobile-mode div[id*="solution-content"] > div:first-child > div[style*="display: flex"] {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    gap: 5px !important;
+    padding-bottom: 5px !important;
+}
+
+/* Каждый параметр раствора */
+.mobile-mode div[id*="solution-content"] div[style*="background: white"][style*="box-shadow"] {
+    flex: 0 0 auto !important;
+    min-width: 60px !important;
+    padding: 6px 4px !important;
+}
+
+.mobile-mode div[id*="solution-content"] div[style*="background: white"] > div:first-child {
+    font-size: 13px !important;
+    font-weight: 600 !important;
+}
+
+.mobile-mode div[id*="solution-content"] div[style*="background: white"] > div:last-child {
+    font-size: 8px !important;
+    margin-top: 2px !important;
+}
+
+/* ========== ПРОФИЛЬ ПИТАНИЯ ========== */
+
+/* Блок профиля питания */
+.mobile-mode div[id*="solution-content"] > div:last-child {
+    width: 100% !important;
+}
+
+/* Контейнер элементов питания */
+.mobile-mode div[style*="linear-gradient(135deg"][style*="display: inline-block"]:first-of-type {
+    margin-left: 0 !important;
+}
+
+/* Переопределяем inline стили элементов питания - ВАЖНО: 4 колонки */
+.mobile-mode div[style*="linear-gradient(135deg"][style*="display: inline-block"] {
+    display: inline-block !important;
+    width: 23% !important;
+    min-width: 0 !important;
+    padding: 6px 2px !important;
+    margin: 1% !important;
+    box-sizing: border-box !important;
+    vertical-align: top !important;
+    text-align: center !important;
+}
+
+/* Значения элементов питания */
+.mobile-mode div[style*="linear-gradient(135deg"] > div[style*="font-size: 14px"] {
+    font-size: 12px !important;
+    line-height: 1 !important;
+}
+
+/* Названия элементов питания */
+.mobile-mode div[style*="linear-gradient(135deg"] > div[style*="font-size: 10px"] {
+    font-size: 8px !important;
+    line-height: 1 !important;
+    margin-top: 2px !important;
+}
+
+/* ========== КНОПКИ ========== */
+.mobile-mode .profile-detail-section .btn {
+    width: 100% !important;
+    padding: 10px !important;
+    margin-bottom: 6px !important;
+    font-size: 14px !important;
+    border-radius: 8px !important;
+}
+
+/* ========== ТЕГИ ========== */
+.mobile-mode .profile-detail-tags {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+}
+
+.mobile-mode .profile-detail-tag {
+    padding: 4px 8px !important;
+    font-size: 11px !important;
+    border-radius: 6px !important;
+}
+
+/* ========== КОММЕНТАРИИ ========== */
+.mobile-mode .comment-form textarea {
+    width: 100% !important;
+    min-height: 60px !important;
+    font-size: 14px !important;
+    padding: 8px !important;
+    border: 1px solid #e0e0e0 !important;
+    border-radius: 8px !important;
+}
+
+.mobile-mode .comment {
+    padding: 10px 0 !important;
+    border-bottom: 1px solid #f0f0f0 !important;
+}
+
+.mobile-mode .comment-header {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    margin-bottom: 8px !important;
+}
+
+.mobile-mode .comment-avatar {
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 50% !important;
+    flex-shrink: 0 !important;
+}
+
+.mobile-mode .comment-author {
+    font-size: 13px !important;
+    font-weight: 500 !important;
+}
+
+.mobile-mode .comment-date {
+    font-size: 11px !important;
+    color: #666 !important;
+}
+
+.mobile-mode .comment-text {
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+    margin-left: 40px !important;
+}
+
+/* ========== ЖУРНАЛ ========== */
+.mobile-mode .journal-day {
+    padding: 10px !important;
+    margin-bottom: 10px !important;
+    background: #f9f9f9 !important;
+    border-radius: 8px !important;
+}
+
+.mobile-mode .journal-day-header {
+    margin-bottom: 10px !important;
+}
+
+.mobile-mode .journal-day-date {
+    font-size: 14px !important;
+    font-weight: 600 !important;
+}
+
+.mobile-mode .journal-day-weekday {
+    font-size: 11px !important;
+    color: #666 !important;
+}
+
+.mobile-mode .journal-entry {
+    padding: 8px !important;
+    background: white !important;
+    border-radius: 6px !important;
+    margin-bottom: 8px !important;
+}
+
+/* ========== ФОТОГРАФИИ В ЖУРНАЛЕ ========== */
+.mobile-mode .journal-photo {
+    margin-bottom: 12px !important;
+}
+
+.mobile-mode .journal-photo-train {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 6px !important;
+    margin-bottom: 8px !important;
+}
+
+.mobile-mode .journal-photo-train-item {
+    width: 100% !important;
+    height: 120px !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+    cursor: pointer !important;
+}
+
+.mobile-mode .journal-photo-train-item img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+}
+
+/* 1 фото - на всю ширину */
+.mobile-mode .journal-photo-train:has(:only-child) {
+    grid-template-columns: 1fr !important;
+}
+
+.mobile-mode .journal-photo-train:has(:only-child) .journal-photo-train-item {
+    height: 200px !important;
+}
+
+/* 3+ фото - сетка 2x2 */
+.mobile-mode .journal-photo-train:has(:nth-child(3)) {
+    grid-template-columns: repeat(2, 1fr) !important;
+}
+
+.mobile-mode .journal-photo-date {
+    font-size: 11px !important;
+    color: #666 !important;
+    margin-bottom: 4px !important;
+}
+
+.mobile-mode .journal-photo-description {
+    font-size: 12px !important;
+    line-height: 1.4 !important;
+}
+
+/* ========== УБИРАЕМ ОГРАНИЧЕНИЯ ВЫСОТЫ ========== */
+.mobile-mode [id^="journal-content-"],
+.mobile-mode #detailComments,
+.mobile-mode [id^="solution-content-"] {
+    max-height: none !important;
+    overflow: visible !important;
+}
+
+/* ========== ЗАЩИТА ОТ ПЕРЕПОЛНЕНИЯ ========== */
+
+/* Все inline стили с фиксированной шириной убираем */
+.mobile-mode [style*="width:"][style*="px"] {
+    width: auto !important;
+    max-width: 100% !important;
+}
+
+/* Все flex элементы с процентами переделываем */
+.mobile-mode [style*="flex: 0 0"] {
+    flex: 1 1 auto !important;
+    max-width: 100% !important;
+}
+
+/* Горизонтальный скролл для таблиц если нужно */
+.mobile-mode table {
+    display: block !important;
+    overflow-x: auto !important;
+    max-width: 100% !important;
+}
+
+/* Все изображения адаптивные */
+.mobile-mode img {
+    max-width: 100% !important;
+    height: auto !important;
+}
+
+/* Длинный текст переносится */
+.mobile-mode * {
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+}
+
+/* Убираем абсолютное позиционирование которое может вылезти */
+.mobile-mode .profile-detail [style*="position: absolute"] {
+    position: relative !important;
+}
+
+/* Скрываем горизонтальную прокрутку на всех уровнях */
+.mobile-mode .modal,
+.mobile-mode .modal-content-large,
+.mobile-mode .modal-body,
+.mobile-mode .profile-detail {
+    overflow-x: hidden !important;
+}
+
+/* Фиксим ширину основных контейнеров */
+.mobile-mode .profile-detail-sidebar {
+    border-bottom: 1px solid #e0e0e0 !important;
+}
+
+.mobile-mode .profile-detail-main {
+    border-top: none !important;
+}
+
+/* ==================== SWIPE INDICATORS ==================== */
+
+.swipe-indicator {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 48px;
+    opacity: 0;
+    transition: opacity 0.2s;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.swipe-indicator.left {
+    left: 20px;
+}
+
+.swipe-indicator.right {
+    right: 20px;
+}
+
+.swipe-indicator.visible {
+    opacity: 0.6;
+}
+
+/* ==================== MODAL OPTIMIZATIONS ==================== */
+
+.mobile-mode .modal {
+    padding: 0;
+    align-items: flex-end;
+    max-width: 100vw !important;
+    width: 100vw !important;
+}
+
+.mobile-mode .modal-content {
+    max-width: 100vw !important;
+    width: 100vw !important;
+    max-height: 85vh;
+    border-radius: 20px 20px 0 0;
+    animation: slideUpMobile 0.3s ease;
+    box-sizing: border-box !important;
+}
+
+@keyframes slideUpMobile {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+.mobile-mode .modal-header {
+    padding: 15px;
+    max-width: 100% !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.mobile-mode .modal-body {
+    padding: 15px;
+    max-width: 100% !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+}
+
+/* Добавляем "ручку" для свайпа вниз */
+.modal-handle {
+    width: 40px;
+    height: 4px;
+    background: #ccc;
+    border-radius: 2px;
+    margin: 8px auto;
+}
+
+/* ==================== FORM OPTIMIZATIONS ==================== */
+
+.mobile-mode input,
+.mobile-mode textarea,
+.mobile-mode select {
+    font-size: 16px !important; /* Предотвращает zoom на iOS */
+}
+
+.mobile-mode .form-group {
+    margin-bottom: 12px;
+}
+
+/* ==================== LOADING & EMPTY STATES ==================== */
+
+.mobile-mode .loading,
+.mobile-mode .empty-state {
+    padding: 40px 15px;
+}
+
+.mobile-mode .empty-state-icon {
+    font-size: 48px;
+}
+
+.mobile-mode .empty-state h2 {
+    font-size: 22px;
+}
+
+.mobile-mode .empty-state p {
+    font-size: 14px;
+}
+
+/* ==================== TOUCH FEEDBACK ==================== */
+
+.touch-feedback {
+    position: relative;
+    overflow: hidden;
+}
+
+.touch-feedback::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    background: rgba(74, 157, 157, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.touch-feedback:active::after {
+    transform: translate(-50%, -50%) scale(2);
+    opacity: 1;
+}
+
+/* ==================== PULL TO REFRESH ==================== */
+
+.pull-to-refresh {
+    position: fixed;
+    top: -60px;
+    left: 0;
+    right: 0;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.95);
+    transition: top 0.2s;
+    z-index: 999;
+}
+
+.pull-to-refresh.active {
+    top: 0;
+}
+
+.pull-to-refresh .spinner {
+    width: 24px;
+    height: 24px;
+    border: 3px solid #f0f0f0;
+    border-top-color: #4a9d9d;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ==================== TABLET ADJUSTMENTS ==================== */
+
+.tablet-mode .profiles-grid {
+    grid-template-columns: repeat(2, 1fr); /* Две колонки на планшете */
+}
+
+.tablet-mode .container {
+    padding: 80px 20px 20px;
+}
+
+/* ==================== LANDSCAPE MODE ==================== */
+
+@media (orientation: landscape) {
+    .mobile-mode .hero {
+        display: none; /* Экономим место в landscape */
+    }
+    
+    .mobile-mode .container {
+        padding: 60px 10px 20px;
+    }
+}
+
+/* ==================== SAFE AREA SUPPORT (iPhone X+) ==================== */
+
+@supports (padding: max(0px)) {
+    .mobile-mode .container {
+        padding-left: max(10px, env(safe-area-inset-left));
+        padding-right: max(10px, env(safe-area-inset-right));
+    }
+    
+    .mobile-mode .header-content {
+        padding-left: max(15px, env(safe-area-inset-left));
+        padding-right: max(15px, env(safe-area-inset-right));
+    }
+    
+    .mobile-mode .profile-card {
+        margin-left: max(0px, env(safe-area-inset-left));
+        margin-right: max(0px, env(safe-area-inset-right));
+    }
+}
