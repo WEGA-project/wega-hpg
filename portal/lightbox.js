@@ -78,6 +78,8 @@ function initLightbox() {
                 <div class="lightbox-info-date" id="lightboxDate"></div>
             </div>
             
+            <div class="lightbox-solution" id="lightboxSolution"></div>
+            
             <div class="lightbox-thumbnails" id="lightboxThumbnails"></div>
         </div>
     `;
@@ -282,6 +284,77 @@ function initLightbox() {
             .lightbox-info-date {
                 font-size: 12px;
                 color: rgba(255, 255, 255, 0.6);
+            }
+            
+            .lightbox-solution {
+                position: absolute;
+                top: 140px;
+                left: 20px;
+                max-width: 500px;
+                background: rgba(0, 0, 0, 0.7);
+                backdrop-filter: blur(10px);
+                border-radius: 10px;
+                padding: 12px 14px;
+                color: white;
+                z-index: 1001;
+            }
+            
+            .lightbox-solution-header {
+                font-size: 13px;
+                font-weight: 600;
+                color: rgba(255, 255, 255, 0.9);
+                margin-bottom: 10px;
+                display: flex;
+                align-items: center;
+                gap: 6px;
+            }
+            
+            .lightbox-solution-params {
+                display: flex;
+                gap: 10px;
+                margin-bottom: 8px;
+                flex-wrap: wrap;
+            }
+            
+            .lightbox-solution-param {
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 5px;
+                padding: 4px 8px;
+                text-align: center;
+                min-width: 55px;
+            }
+            
+            .lightbox-solution-param-value {
+                font-size: 14px;
+                font-weight: 600;
+                color: white;
+                margin-bottom: 1px;
+            }
+            
+            .lightbox-solution-param-label {
+                font-size: 10px;
+                color: rgba(255, 255, 255, 0.7);
+            }
+            
+            .lightbox-solution-profile {
+                font-size: 10px;
+                color: rgba(255, 255, 255, 0.7);
+                font-family: 'Courier New', monospace;
+                background: rgba(255, 255, 255, 0.05);
+                padding: 6px 8px;
+                border-radius: 4px;
+                margin-top: 6px;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+            
+            .lightbox-solution-comment {
+                font-size: 10px;
+                color: rgba(255, 255, 255, 0.7);
+                font-style: italic;
+                margin-top: 6px;
+                padding-top: 6px;
+                border-top: 1px solid rgba(255, 255, 255, 0.2);
             }
             
             .lightbox-thumbnails {
@@ -502,6 +575,59 @@ function updatePhoto() {
         infoPanel.style.display = 'none';
     } else {
         infoPanel.style.display = 'block';
+    }
+    
+    // Отображаем профиль раствора
+    console.log('Photo solutionProfile:', photo.solutionProfile);
+    const solutionPanel = document.getElementById('lightboxSolution');
+    if (photo.solutionProfile && photo.solutionProfile.ec) {
+        console.log('Displaying solution profile:', photo.solutionProfile);
+        console.log('Ratios keys:', Object.keys(photo.solutionProfile.ratios));
+        const sp = photo.solutionProfile;
+        const daysAgoText = sp.daysAgo === 0 ? 'Основной профиль' : `Залит ${sp.daysAgo} ${getDaysWord(sp.daysAgo)} назад`;
+        const commentHtml = sp.comment ? `<div class="lightbox-solution-comment">${escapeHtmlLocal(sp.comment)}</div>` : '';
+        
+        // Получаем значения с проверкой существования
+        const kn = sp.ratios['K/N'] || sp.ratios['K:N'] || 0;
+        const kca = sp.ratios['K/Ca'] || sp.ratios['K:Ca'] || 0;
+        const kmg = sp.ratios['K/Mg'] || sp.ratios['K:Mg'] || 0;
+        const nh4no3 = sp.nh4no3 || 0;
+        
+        const profileHtml = sp.profileString ? `<div class="lightbox-solution-profile">${escapeHtmlLocal(sp.profileString)}</div>` : '';
+        
+        solutionPanel.innerHTML = `
+            <div class="lightbox-solution-header">
+                🧪 Параметры раствора
+                <span style="font-size: 10px; font-weight: 400; opacity: 0.7;">(${daysAgoText})</span>
+            </div>
+            <div class="lightbox-solution-params">
+                <div class="lightbox-solution-param">
+                    <div class="lightbox-solution-param-value">${sp.ec.toFixed(2)}</div>
+                    <div class="lightbox-solution-param-label">EC</div>
+                </div>
+                <div class="lightbox-solution-param">
+                    <div class="lightbox-solution-param-value">${nh4no3.toFixed(2)}</div>
+                    <div class="lightbox-solution-param-label">NH4:NO3</div>
+                </div>
+                <div class="lightbox-solution-param">
+                    <div class="lightbox-solution-param-value">${kn.toFixed(2)}</div>
+                    <div class="lightbox-solution-param-label">K:N</div>
+                </div>
+                <div class="lightbox-solution-param">
+                    <div class="lightbox-solution-param-value">${kca.toFixed(2)}</div>
+                    <div class="lightbox-solution-param-label">K:Ca</div>
+                </div>
+                <div class="lightbox-solution-param">
+                    <div class="lightbox-solution-param-value">${kmg.toFixed(2)}</div>
+                    <div class="lightbox-solution-param-label">K:Mg</div>
+                </div>
+            </div>
+            ${profileHtml}
+            ${commentHtml}
+        `;
+        solutionPanel.style.display = 'block';
+    } else {
+        solutionPanel.style.display = 'none';
     }
 }
 

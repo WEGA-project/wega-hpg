@@ -2369,6 +2369,52 @@
                                 });
                             }
                             
+                            // Ищем актуальный профиль раствора для этой даты
+                            let solutionProfile = null;
+                            const photoDate = parseTimelineDate(photo.date);
+                            
+                            if (profile.journal && profile.journal.length > 0) {
+                                // Ищем ближайшую прошлую запись с профилем
+                                let closestEntry = null;
+                                let closestDays = Infinity;
+                                
+                                profile.journal.forEach(entry => {
+                                    const entryDate = parseTimelineDate(entry.date);
+                                    if (entryDate <= photoDate && entry.profile && entry.profile.trim()) {
+                                        const days = getDaysDifference(entryDate, photoDate);
+                                        if (days < closestDays) {
+                                            closestDays = days;
+                                            closestEntry = entry;
+                                        }
+                                    }
+                                });
+                                
+                                if (closestEntry) {
+                                    const parsed = parseProfile(closestEntry.profile);
+                                    solutionProfile = {
+                                        ec: calculateEC(parsed),
+                                        nh4no3: parsed.NH4 && parsed.NO3 ? parsed.NH4 / parsed.NO3 : 0,
+                                        ratios: calculateRatios(parsed),
+                                        daysAgo: closestDays,
+                                        comment: closestEntry.desc || '',
+                                        profileString: closestEntry.profile
+                                    };
+                                }
+                            }
+                            
+                            // Если не нашли в журнале - берем основной профиль
+                            if (!solutionProfile && profile.profileString) {
+                                const parsed = parseProfile(profile.profileString);
+                                solutionProfile = {
+                                    ec: calculateEC(parsed),
+                                    nh4no3: parsed.NH4 && parsed.NO3 ? parsed.NH4 / parsed.NO3 : 0,
+                                    ratios: calculateRatios(parsed),
+                                    daysAgo: 0,
+                                    comment: '',
+                                    profileString: profile.profileString
+                                };
+                            }
+                            
                             allPhotosData.push({
                                 url: photo.url,
                                 description: photo.description || '',
@@ -2377,7 +2423,8 @@
                                 author: profile.userName || 'Аноним',
                                 profileName: profile.name,
                                 profileDescription: profile.description || '',
-                                allMilestones: allMilestones
+                                allMilestones: allMilestones,
+                                solutionProfile: solutionProfile
                             });
                         });
                     }
