@@ -9686,10 +9686,11 @@ cgSi=0.2700`;
                     <textarea id="save-description" rows="3" style="width: 100%; padding: 8px; font-size: 14px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; resize: vertical;">${currentDescription}</textarea>
                 </div>
                 
-                <div style="margin-bottom: 12px;">
+                <div style="margin-bottom: 12px; position: relative;">
                     <label style="display: block; margin-bottom: 5px; font-weight: bold; font-size: 14px;">Теги (через запятую):</label>
-                    <input type="text" id="save-tags" placeholder="томаты, вегетация, гидропоника" style="width: 100%; padding: 8px; font-size: 14px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box;">
-                    <div style="font-size: 11px; color: #666; margin-top: 3px;">Помогут найти профиль в каталоге</div>
+                    <input type="text" id="save-tags" placeholder="Начните вводить тег..." autocomplete="off" style="width: 100%; padding: 8px; font-size: 14px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box;">
+                    <div id="save-tags-autocomplete" style="position: absolute; top: 100%; left: 0; right: 0; background: white; border: 1px solid #ddd; border-radius: 4px; margin-top: 2px; max-height: 200px; overflow-y: auto; display: none; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.15);"></div>
+                    <div style="font-size: 11px; color: #666; margin-top: 3px;">💡 Начните вводить - появятся подсказки из существующих тегов</div>
                 </div>
                 
                 <div style="margin-bottom: 15px; padding: 10px; background: #f0f0f0; border-radius: 4px;">
@@ -9719,6 +9720,13 @@ cgSi=0.2700`;
             setTimeout(() => {
                 document.getElementById('save-name').focus();
                 document.getElementById('save-name').select();
+                
+                // Инициализируем автокомплит для тегов
+                const saveTagsInput = document.getElementById('save-tags');
+                if (saveTagsInput) {
+                    saveTagsInput.addEventListener('input', (e) => updateHPGTagsAutocomplete(e, 'save-tags'));
+                    saveTagsInput.addEventListener('keydown', (e) => handleHPGTagsKeydown(e, 'save-tags'));
+                }
             }, 100);
             
             // Обработчик кнопки "Сохранить"
@@ -10314,9 +10322,11 @@ cgSi=0.2700`;
                             <textarea id="edit-description" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 3px; box-sizing: border-box; min-height: 60px;">${profile.description || ''}</textarea>
                         </div>
                         
-                        <div style="margin-bottom: 10px;">
+                        <div style="margin-bottom: 10px; position: relative;">
                             <label style="display: block; margin-bottom: 5px; font-weight: bold;">Теги (через запятую):</label>
-                            <input type="text" id="edit-tags" value="${profile.tags ? profile.tags.join(', ') : ''}" placeholder="томаты, огурцы, зелень" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 3px; box-sizing: border-box;">
+                            <input type="text" id="edit-tags" value="${profile.tags ? profile.tags.join(', ') : ''}" placeholder="Начните вводить тег..." autocomplete="off" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 3px; box-sizing: border-box;">
+                            <div id="edit-tags-autocomplete" style="position: absolute; top: 100%; left: 0; right: 0; background: white; border: 1px solid #ddd; border-radius: 4px; margin-top: 2px; max-height: 200px; overflow-y: auto; display: none; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.15);"></div>
+                            <div style="font-size: 11px; color: #666; margin-top: 3px;">💡 Начните вводить - появятся подсказки из существующих тегов</div>
                         </div>
                         
                         <div style="margin-bottom: 15px;">
@@ -10338,6 +10348,15 @@ cgSi=0.2700`;
                 `;
                 
                 document.body.appendChild(modal);
+                
+                // Инициализируем автокомплит для тегов
+                setTimeout(() => {
+                    const editTagsInput = document.getElementById('edit-tags');
+                    if (editTagsInput) {
+                        editTagsInput.addEventListener('input', (e) => updateHPGTagsAutocomplete(e, 'edit-tags'));
+                        editTagsInput.addEventListener('keydown', (e) => handleHPGTagsKeydown(e, 'edit-tags'));
+                    }
+                }, 100);
                 
                 // Обработчик сохранения
                 document.getElementById('save-edit-btn').onclick = async () => {
@@ -11485,6 +11504,172 @@ cgSi=0.2700`;
                 console.error('Ошибка загрузки публичного профиля:', error);
                 alert('❌ Ошибка загрузки: ' + error.message);
             }
+        }
+        
+        // ========== АВТОКОМПЛИТ ТЕГОВ ДЛЯ ФОРМ ==========
+        
+        let cachedTags = null;
+        let selectedHPGAutocompleteIndex = {};
+        
+        // Получить все уникальные теги из Firebase
+        async function getAllHPGExistingTags() {
+            if (cachedTags) return cachedTags;
+            
+            try {
+                const snapshot = await db.collection('profiles')
+                    .where('public', '==', true)
+                    .limit(500)
+                    .get();
+                
+                const tagsSet = new Set();
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    if (data.tags && Array.isArray(data.tags)) {
+                        data.tags.forEach(tag => {
+                            if (tag && tag.trim()) {
+                                tagsSet.add(tag.trim().toLowerCase());
+                            }
+                        });
+                    }
+                });
+                
+                cachedTags = Array.from(tagsSet).sort();
+                return cachedTags;
+            } catch (error) {
+                console.error('Ошибка загрузки тегов:', error);
+                return [];
+            }
+        }
+        
+        async function updateHPGTagsAutocomplete(e, inputId) {
+            const input = e.target;
+            const autocompleteDiv = document.getElementById(`${inputId}-autocomplete`);
+            
+            if (!input || !autocompleteDiv) return;
+            
+            const fullText = input.value;
+            const cursorPos = input.selectionStart;
+            const textBeforeCursor = fullText.substring(0, cursorPos);
+            const lastCommaIndex = textBeforeCursor.lastIndexOf(',');
+            const currentTag = textBeforeCursor.substring(lastCommaIndex + 1).trim().toLowerCase();
+            
+            if (!currentTag || currentTag.length < 1) {
+                autocompleteDiv.style.display = 'none';
+                selectedHPGAutocompleteIndex[inputId] = -1;
+                return;
+            }
+            
+            const existingTags = await getAllHPGExistingTags();
+            
+            const enteredTags = fullText.split(',')
+                .map(t => t.trim().toLowerCase())
+                .filter(t => t && t !== currentTag);
+            
+            const matchingTags = existingTags.filter(tag => 
+                tag.startsWith(currentTag) && !enteredTags.includes(tag)
+            );
+            
+            if (matchingTags.length === 0) {
+                autocompleteDiv.style.display = 'none';
+                selectedHPGAutocompleteIndex[inputId] = -1;
+                return;
+            }
+            
+            autocompleteDiv.innerHTML = matchingTags.map((tag, index) => `
+                <div class="autocomplete-item" data-tag="${escapeHtml(tag)}" data-index="${index}"
+                     style="padding: 10px 12px; cursor: pointer; font-size: 14px; border-bottom: 1px solid #f0f0f0; transition: background 0.2s;"
+                     onmouseover="this.style.background='#f0f9f9'" 
+                     onmouseout="this.style.background='white'"
+                     onclick="selectHPGTagFromAutocomplete('${escapeHtml(tag)}', '${inputId}')">
+                    🏷️ ${escapeHtml(tag)}
+                </div>
+            `).join('');
+            
+            autocompleteDiv.style.display = 'block';
+            selectedHPGAutocompleteIndex[inputId] = -1;
+        }
+        
+        function handleHPGTagsKeydown(e, inputId) {
+            const autocompleteDiv = document.getElementById(`${inputId}-autocomplete`);
+            if (!autocompleteDiv || autocompleteDiv.style.display === 'none') return;
+            
+            const items = autocompleteDiv.querySelectorAll('.autocomplete-item');
+            if (items.length === 0) return;
+            
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                selectedHPGAutocompleteIndex[inputId] = Math.min((selectedHPGAutocompleteIndex[inputId] || -1) + 1, items.length - 1);
+                updateHPGAutocompleteSelection(items, inputId);
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                selectedHPGAutocompleteIndex[inputId] = Math.max((selectedHPGAutocompleteIndex[inputId] || 0) - 1, -1);
+                updateHPGAutocompleteSelection(items, inputId);
+            } else if (e.key === 'Enter' && (selectedHPGAutocompleteIndex[inputId] || -1) >= 0) {
+                e.preventDefault();
+                const selectedTag = items[selectedHPGAutocompleteIndex[inputId]].getAttribute('data-tag');
+                selectHPGTagFromAutocomplete(selectedTag, inputId);
+            } else if (e.key === 'Escape') {
+                autocompleteDiv.style.display = 'none';
+                selectedHPGAutocompleteIndex[inputId] = -1;
+            }
+        }
+        
+        function updateHPGAutocompleteSelection(items, inputId) {
+            items.forEach((item, index) => {
+                if (index === selectedHPGAutocompleteIndex[inputId]) {
+                    item.style.background = '#e3f2fd';
+                    item.style.fontWeight = '600';
+                    item.scrollIntoView({ block: 'nearest' });
+                } else {
+                    item.style.background = 'white';
+                    item.style.fontWeight = 'normal';
+                }
+            });
+        }
+        
+        function selectHPGTagFromAutocomplete(tag, inputId) {
+            const input = document.getElementById(inputId);
+            const autocompleteDiv = document.getElementById(`${inputId}-autocomplete`);
+            
+            if (!input) return;
+            
+            const fullText = input.value;
+            const cursorPos = input.selectionStart;
+            const textBeforeCursor = fullText.substring(0, cursorPos);
+            const textAfterCursor = fullText.substring(cursorPos);
+            
+            const lastCommaIndex = textBeforeCursor.lastIndexOf(',');
+            
+            let newText;
+            if (lastCommaIndex >= 0) {
+                newText = textBeforeCursor.substring(0, lastCommaIndex + 1) + ' ' + tag;
+                if (textAfterCursor.trim()) {
+                    newText += ', ' + textAfterCursor.trim();
+                }
+            } else {
+                newText = tag;
+                if (textAfterCursor.trim()) {
+                    newText += ', ' + textAfterCursor.trim();
+                }
+            }
+            
+            input.value = newText;
+            
+            const newCursorPos = newText.indexOf(tag) + tag.length;
+            input.setSelectionRange(newCursorPos, newCursorPos);
+            
+            if (autocompleteDiv) {
+                autocompleteDiv.style.display = 'none';
+            }
+            selectedHPGAutocompleteIndex[inputId] = -1;
+            
+            input.focus();
+        }
+        
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
         }
     </script>
 

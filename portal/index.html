@@ -1545,7 +1545,7 @@
                         </div>
                         
                         <select id="tagFilter" class="filter-select">
-                            <option value="">Все культуры</option>
+                            <option value="">Все теги</option>
                         </select>
                         
                         <select id="sortSelect" class="filter-select">
@@ -2935,8 +2935,15 @@
                                 
                                 <!-- Теги -->
                                 <div class="profile-detail-section">
-                                    <h3>🏷️ Теги</h3>
-                                    <div class="profile-detail-tags">
+                                    <h3 style="display: flex; align-items: center; justify-content: space-between;">
+                                        <span>🏷️ Теги</span>
+                                        ${currentUser && currentUser.uid === profile.userId ? `
+                                            <button class="btn-small" style="padding: 6px 12px; font-size: 12px; background: #667eea; color: white; border: none; border-radius: 6px; cursor: pointer;" onclick="editProfileTags('${profile.id}')">
+                                                ✏️ Редактировать
+                                            </button>
+                                        ` : ''}
+                                    </h3>
+                                    <div class="profile-detail-tags" id="profile-detail-tags-${profile.id}">
                                         ${tagsHtml}
                                     </div>
                                 </div>
@@ -3740,10 +3747,11 @@
                         <textarea id="upload-description" rows="3" style="width: 100%; padding: 8px; font-size: 14px; border: 2px solid #e0e0e0; border-radius: 8px; box-sizing: border-box; resize: vertical; font-family: Arial, sans-serif;">${escapeHtml(parsedData.description)}</textarea>
                     </div>
                     
-                    <div style="margin-bottom: 12px;">
+                    <div style="margin-bottom: 12px; position: relative;">
                         <label style="display: block; margin-bottom: 5px; font-weight: bold; font-size: 14px;">Теги (через запятую):</label>
-                        <input type="text" id="upload-tags" placeholder="томаты, вегетация, гидропоника" style="width: 100%; padding: 8px; font-size: 14px; border: 2px solid #e0e0e0; border-radius: 8px; box-sizing: border-box; font-family: Arial, sans-serif;">
-                        <div style="font-size: 11px; color: #666; margin-top: 3px;">Помогут найти профиль в каталоге</div>
+                        <input type="text" id="upload-tags" placeholder="Начните вводить тег..." autocomplete="off" style="width: 100%; padding: 8px; font-size: 14px; border: 2px solid #e0e0e0; border-radius: 8px; box-sizing: border-box; font-family: Arial, sans-serif;">
+                        <div id="upload-tags-autocomplete" style="position: absolute; top: 100%; left: 0; right: 0; background: white; border: 1px solid #e0e0e0; border-radius: 6px; margin-top: 2px; max-height: 200px; overflow-y: auto; display: none; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.15);"></div>
+                        <div style="font-size: 11px; color: #666; margin-top: 3px;">💡 Начните вводить - появятся подсказки из существующих тегов</div>
                     </div>
                     
                     <div style="padding: 12px; background: #e8f5e9; border-radius: 8px; border-left: 4px solid #4caf50; margin-bottom: 15px;">
@@ -3751,6 +3759,15 @@
                         <div style="font-size: 12px; color: #555;">Другие пользователи смогут найти и использовать этот профиль в библиотеке</div>
                     </div>
                 `;
+                
+                // Добавляем обработчики для автокомплита тегов в форме загрузки
+                setTimeout(() => {
+                    const uploadTagsInput = document.getElementById('upload-tags');
+                    if (uploadTagsInput) {
+                        uploadTagsInput.addEventListener('input', updateUploadTagsAutocomplete);
+                        uploadTagsInput.addEventListener('keydown', handleUploadTagsKeydown);
+                    }
+                }, 100);
                 
                 // Показываем предпросмотр файла
                 previewDiv.style.display = 'block';
@@ -4848,6 +4865,455 @@
             } catch (error) {
                 console.error('Ошибка:', error);
                 alert('❌ Ошибка при удалении: ' + error.message);
+            }
+        }
+        
+        // Функция для получения всех уникальных тегов из существующих профилей
+        function getAllExistingTags() {
+            const tagsSet = new Set();
+            allProfiles.forEach(profile => {
+                if (profile.tags && Array.isArray(profile.tags)) {
+                    profile.tags.forEach(tag => {
+                        if (tag && tag.trim()) {
+                            tagsSet.add(tag.trim().toLowerCase());
+                        }
+                    });
+                }
+            });
+            return Array.from(tagsSet).sort();
+        }
+        
+        // Функция для редактирования тегов профиля
+        function editProfileTags(profileId) {
+            const profile = getProfileById(profileId);
+            if (!profile) return;
+            
+            // Проверяем что пользователь - владелец профиля
+            if (!currentUser || currentUser.uid !== profile.userId) {
+                showNotification('❌ Только владелец может редактировать теги');
+                return;
+            }
+            
+            const currentTags = profile.tags || [];
+            const tagsInput = currentTags.join(', ');
+            
+            showCustomModal(
+                'Редактировать теги',
+                `
+                <div style="max-width: 500px;">
+                    <div style="margin-bottom: 15px; padding: 12px; background: #e3f2fd; border-radius: 6px; font-size: 13px; color: #1565c0;">
+                        💡 Теги помогают другим пользователям находить ваш профиль. Используйте простые и понятные слова через запятую.
+                    </div>
+                    <div style="margin-bottom: 15px; position: relative;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: 600; color: #333;">Теги (через запятую):</label>
+                        <input type="text" id="tags-input" value="${escapeHtml(tagsInput)}" 
+                               placeholder="Начните вводить тег..."
+                               autocomplete="off"
+                               style="width: 100%; padding: 10px; border: 1px solid #e0e0e0; border-radius: 6px; font-size: 14px;">
+                        <div id="tags-autocomplete" style="position: absolute; top: 100%; left: 0; right: 0; background: white; border: 1px solid #e0e0e0; border-radius: 6px; margin-top: 2px; max-height: 200px; overflow-y: auto; display: none; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.15);"></div>
+                        <div style="margin-top: 8px; font-size: 12px; color: #666;">
+                            💡 Начните вводить - появятся подсказки из существующих тегов
+                        </div>
+                    </div>
+                    <div id="tags-preview" style="margin-top: 15px; padding: 12px; background: #f5f5f5; border-radius: 6px; display: none;">
+                        <div style="font-weight: 600; margin-bottom: 8px; color: #333; font-size: 13px;">Предпросмотр тегов:</div>
+                        <div id="tags-preview-list" style="display: flex; flex-wrap: wrap; gap: 6px;"></div>
+                    </div>
+                </div>
+                `,
+                [
+                    { text: '✅ Сохранить', class: 'btn-primary', callback: () => saveProfileTags(profileId) },
+                    { text: 'Отмена', class: 'btn-secondary', callback: () => closeCustomModal() }
+                ]
+            );
+            
+            // Устанавливаем фокус на поле ввода
+            setTimeout(() => {
+                const input = document.getElementById('tags-input');
+                if (input) {
+                    input.focus();
+                    // Добавляем обработчики
+                    input.addEventListener('input', updateTagsAutocomplete);
+                    input.addEventListener('keydown', handleTagsKeydown);
+                    // Обработчик клика вне автокомплита для его закрытия
+                    document.addEventListener('click', closeTagsAutocomplete);
+                    // Показываем начальный предпросмотр
+                    updateTagsPreview();
+                }
+            }, 100);
+        }
+        
+        let selectedAutocompleteIndex = -1;
+        
+        function updateTagsAutocomplete(e) {
+            const input = e.target;
+            const autocompleteDiv = document.getElementById('tags-autocomplete');
+            
+            if (!input || !autocompleteDiv) return;
+            
+            // Обновляем предпросмотр
+            updateTagsPreview();
+            
+            // Получаем текущий набираемый тег (последний после запятой)
+            const fullText = input.value;
+            const cursorPos = input.selectionStart;
+            const textBeforeCursor = fullText.substring(0, cursorPos);
+            const lastCommaIndex = textBeforeCursor.lastIndexOf(',');
+            const currentTag = textBeforeCursor.substring(lastCommaIndex + 1).trim().toLowerCase();
+            
+            // Если текущий тег пустой или слишком короткий, скрываем автокомплит
+            if (!currentTag || currentTag.length < 1) {
+                autocompleteDiv.style.display = 'none';
+                selectedAutocompleteIndex = -1;
+                return;
+            }
+            
+            // Получаем все существующие теги
+            const existingTags = getAllExistingTags();
+            
+            // Получаем уже введенные теги
+            const enteredTags = fullText.split(',')
+                .map(t => t.trim().toLowerCase())
+                .filter(t => t && t !== currentTag);
+            
+            // Фильтруем подходящие теги
+            const matchingTags = existingTags.filter(tag => 
+                tag.startsWith(currentTag) && !enteredTags.includes(tag)
+            );
+            
+            if (matchingTags.length === 0) {
+                autocompleteDiv.style.display = 'none';
+                selectedAutocompleteIndex = -1;
+                return;
+            }
+            
+            // Отображаем подходящие теги
+            autocompleteDiv.innerHTML = matchingTags.map((tag, index) => `
+                <div class="autocomplete-item" data-tag="${escapeHtml(tag)}" data-index="${index}"
+                     style="padding: 10px 12px; cursor: pointer; font-size: 14px; border-bottom: 1px solid #f0f0f0; transition: background 0.2s;"
+                     onmouseover="this.style.background='#f0f9f9'" 
+                     onmouseout="this.style.background='white'"
+                     onclick="selectTagFromAutocomplete('${escapeHtml(tag)}')">
+                    🏷️ ${escapeHtml(tag)}
+                </div>
+            `).join('');
+            
+            autocompleteDiv.style.display = 'block';
+            selectedAutocompleteIndex = -1;
+        }
+        
+        function handleTagsKeydown(e) {
+            const autocompleteDiv = document.getElementById('tags-autocomplete');
+            if (!autocompleteDiv || autocompleteDiv.style.display === 'none') return;
+            
+            const items = autocompleteDiv.querySelectorAll('.autocomplete-item');
+            if (items.length === 0) return;
+            
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                selectedAutocompleteIndex = Math.min(selectedAutocompleteIndex + 1, items.length - 1);
+                updateAutocompleteSelection(items);
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                selectedAutocompleteIndex = Math.max(selectedAutocompleteIndex - 1, -1);
+                updateAutocompleteSelection(items);
+            } else if (e.key === 'Enter' && selectedAutocompleteIndex >= 0) {
+                e.preventDefault();
+                const selectedTag = items[selectedAutocompleteIndex].getAttribute('data-tag');
+                selectTagFromAutocomplete(selectedTag);
+            } else if (e.key === 'Escape') {
+                autocompleteDiv.style.display = 'none';
+                selectedAutocompleteIndex = -1;
+            }
+        }
+        
+        function updateAutocompleteSelection(items) {
+            items.forEach((item, index) => {
+                if (index === selectedAutocompleteIndex) {
+                    item.style.background = '#e3f2fd';
+                    item.style.fontWeight = '600';
+                    item.scrollIntoView({ block: 'nearest' });
+                } else {
+                    item.style.background = 'white';
+                    item.style.fontWeight = 'normal';
+                }
+            });
+        }
+        
+        function selectTagFromAutocomplete(tag) {
+            const input = document.getElementById('tags-input');
+            const autocompleteDiv = document.getElementById('tags-autocomplete');
+            
+            if (!input) return;
+            
+            // Получаем текст до курсора
+            const fullText = input.value;
+            const cursorPos = input.selectionStart;
+            const textBeforeCursor = fullText.substring(0, cursorPos);
+            const textAfterCursor = fullText.substring(cursorPos);
+            
+            // Находим последнюю запятую перед курсором
+            const lastCommaIndex = textBeforeCursor.lastIndexOf(',');
+            
+            // Формируем новый текст
+            let newText;
+            if (lastCommaIndex >= 0) {
+                // Есть другие теги - заменяем текущий
+                newText = textBeforeCursor.substring(0, lastCommaIndex + 1) + ' ' + tag;
+                // Добавляем запятую и пробел если после курсора есть текст
+                if (textAfterCursor.trim()) {
+                    newText += ', ' + textAfterCursor.trim();
+                }
+            } else {
+                // Это первый тег
+                newText = tag;
+                if (textAfterCursor.trim()) {
+                    newText += ', ' + textAfterCursor.trim();
+                }
+            }
+            
+            input.value = newText;
+            
+            // Устанавливаем курсор после вставленного тега
+            const newCursorPos = newText.indexOf(tag) + tag.length;
+            input.setSelectionRange(newCursorPos, newCursorPos);
+            
+            // Скрываем автокомплит
+            if (autocompleteDiv) {
+                autocompleteDiv.style.display = 'none';
+            }
+            selectedAutocompleteIndex = -1;
+            
+            // Обновляем предпросмотр
+            updateTagsPreview();
+            
+            // Возвращаем фокус на поле ввода
+            input.focus();
+        }
+        
+        function closeTagsAutocomplete(e) {
+            const autocompleteDiv = document.getElementById('tags-autocomplete');
+            const input = document.getElementById('tags-input');
+            
+            if (autocompleteDiv && input && e.target !== input && !autocompleteDiv.contains(e.target)) {
+                autocompleteDiv.style.display = 'none';
+                selectedAutocompleteIndex = -1;
+            }
+        }
+        
+        // ========== АВТОКОМПЛИТ ДЛЯ ФОРМЫ ЗАГРУЗКИ HPG ==========
+        
+        let selectedUploadAutocompleteIndex = -1;
+        
+        function updateUploadTagsAutocomplete(e) {
+            const input = e.target;
+            const autocompleteDiv = document.getElementById('upload-tags-autocomplete');
+            
+            if (!input || !autocompleteDiv) return;
+            
+            // Получаем текущий набираемый тег (последний после запятой)
+            const fullText = input.value;
+            const cursorPos = input.selectionStart;
+            const textBeforeCursor = fullText.substring(0, cursorPos);
+            const lastCommaIndex = textBeforeCursor.lastIndexOf(',');
+            const currentTag = textBeforeCursor.substring(lastCommaIndex + 1).trim().toLowerCase();
+            
+            // Если текущий тег пустой или слишком короткий, скрываем автокомплит
+            if (!currentTag || currentTag.length < 1) {
+                autocompleteDiv.style.display = 'none';
+                selectedUploadAutocompleteIndex = -1;
+                return;
+            }
+            
+            // Получаем все существующие теги
+            const existingTags = getAllExistingTags();
+            
+            // Получаем уже введенные теги
+            const enteredTags = fullText.split(',')
+                .map(t => t.trim().toLowerCase())
+                .filter(t => t && t !== currentTag);
+            
+            // Фильтруем подходящие теги
+            const matchingTags = existingTags.filter(tag => 
+                tag.startsWith(currentTag) && !enteredTags.includes(tag)
+            );
+            
+            if (matchingTags.length === 0) {
+                autocompleteDiv.style.display = 'none';
+                selectedUploadAutocompleteIndex = -1;
+                return;
+            }
+            
+            // Отображаем подходящие теги
+            autocompleteDiv.innerHTML = matchingTags.map((tag, index) => `
+                <div class="autocomplete-item" data-tag="${escapeHtml(tag)}" data-index="${index}"
+                     style="padding: 10px 12px; cursor: pointer; font-size: 14px; border-bottom: 1px solid #f0f0f0; transition: background 0.2s;"
+                     onmouseover="this.style.background='#f0f9f9'" 
+                     onmouseout="this.style.background='white'"
+                     onclick="selectUploadTagFromAutocomplete('${escapeHtml(tag)}')">
+                    🏷️ ${escapeHtml(tag)}
+                </div>
+            `).join('');
+            
+            autocompleteDiv.style.display = 'block';
+            selectedUploadAutocompleteIndex = -1;
+        }
+        
+        function handleUploadTagsKeydown(e) {
+            const autocompleteDiv = document.getElementById('upload-tags-autocomplete');
+            if (!autocompleteDiv || autocompleteDiv.style.display === 'none') return;
+            
+            const items = autocompleteDiv.querySelectorAll('.autocomplete-item');
+            if (items.length === 0) return;
+            
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                selectedUploadAutocompleteIndex = Math.min(selectedUploadAutocompleteIndex + 1, items.length - 1);
+                updateUploadAutocompleteSelection(items);
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                selectedUploadAutocompleteIndex = Math.max(selectedUploadAutocompleteIndex - 1, -1);
+                updateUploadAutocompleteSelection(items);
+            } else if (e.key === 'Enter' && selectedUploadAutocompleteIndex >= 0) {
+                e.preventDefault();
+                const selectedTag = items[selectedUploadAutocompleteIndex].getAttribute('data-tag');
+                selectUploadTagFromAutocomplete(selectedTag);
+            } else if (e.key === 'Escape') {
+                autocompleteDiv.style.display = 'none';
+                selectedUploadAutocompleteIndex = -1;
+            }
+        }
+        
+        function updateUploadAutocompleteSelection(items) {
+            items.forEach((item, index) => {
+                if (index === selectedUploadAutocompleteIndex) {
+                    item.style.background = '#e3f2fd';
+                    item.style.fontWeight = '600';
+                    item.scrollIntoView({ block: 'nearest' });
+                } else {
+                    item.style.background = 'white';
+                    item.style.fontWeight = 'normal';
+                }
+            });
+        }
+        
+        function selectUploadTagFromAutocomplete(tag) {
+            const input = document.getElementById('upload-tags');
+            const autocompleteDiv = document.getElementById('upload-tags-autocomplete');
+            
+            if (!input) return;
+            
+            // Получаем текст до курсора
+            const fullText = input.value;
+            const cursorPos = input.selectionStart;
+            const textBeforeCursor = fullText.substring(0, cursorPos);
+            const textAfterCursor = fullText.substring(cursorPos);
+            
+            // Находим последнюю запятую перед курсором
+            const lastCommaIndex = textBeforeCursor.lastIndexOf(',');
+            
+            // Формируем новый текст
+            let newText;
+            if (lastCommaIndex >= 0) {
+                // Есть другие теги - заменяем текущий
+                newText = textBeforeCursor.substring(0, lastCommaIndex + 1) + ' ' + tag;
+                // Добавляем запятую и пробел если после курсора есть текст
+                if (textAfterCursor.trim()) {
+                    newText += ', ' + textAfterCursor.trim();
+                }
+            } else {
+                // Это первый тег
+                newText = tag;
+                if (textAfterCursor.trim()) {
+                    newText += ', ' + textAfterCursor.trim();
+                }
+            }
+            
+            input.value = newText;
+            
+            // Устанавливаем курсор после вставленного тега
+            const newCursorPos = newText.indexOf(tag) + tag.length;
+            input.setSelectionRange(newCursorPos, newCursorPos);
+            
+            // Скрываем автокомплит
+            if (autocompleteDiv) {
+                autocompleteDiv.style.display = 'none';
+            }
+            selectedUploadAutocompleteIndex = -1;
+            
+            // Возвращаем фокус на поле ввода
+            input.focus();
+        }
+        
+        function updateTagsPreview() {
+            const input = document.getElementById('tags-input');
+            const preview = document.getElementById('tags-preview');
+            const previewList = document.getElementById('tags-preview-list');
+            
+            if (!input || !preview || !previewList) return;
+            
+            const tagsText = input.value.trim();
+            if (!tagsText) {
+                preview.style.display = 'none';
+                return;
+            }
+            
+            const tags = tagsText.split(',')
+                .map(tag => tag.trim())
+                .filter(tag => tag.length > 0);
+            
+            if (tags.length === 0) {
+                preview.style.display = 'none';
+                return;
+            }
+            
+            previewList.innerHTML = tags.map(tag => 
+                `<span style="background: #4a9d9d; color: white; padding: 4px 10px; border-radius: 12px; font-size: 12px;">🏷️ ${escapeHtml(tag)}</span>`
+            ).join('');
+            
+            preview.style.display = 'block';
+        }
+        
+        async function saveProfileTags(profileId) {
+            const input = document.getElementById('tags-input');
+            if (!input) return;
+            
+            const tagsText = input.value.trim();
+            const tags = tagsText ? tagsText.split(',')
+                .map(tag => tag.trim())
+                .filter(tag => tag.length > 0)
+                .filter((tag, index, arr) => arr.indexOf(tag) === index) // уникальные
+                : [];
+            
+            try {
+                await db.collection('profiles').doc(profileId).update({
+                    tags: tags,
+                    modified: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                
+                showNotification('✅ Теги обновлены');
+                
+                // Закрываем модальное окно
+                closeCustomModal();
+                
+                // Обновляем отображение тегов в детальном просмотре
+                const tagsContainer = document.getElementById(`profile-detail-tags-${profileId}`);
+                if (tagsContainer) {
+                    if (tags.length > 0) {
+                        tagsContainer.innerHTML = tags.map(tag => 
+                            `<span class="profile-detail-tag">🏷️ ${escapeHtml(tag)}</span>`
+                        ).join('');
+                    } else {
+                        tagsContainer.innerHTML = '<span style="color: #999;">Теги не указаны</span>';
+                    }
+                }
+                
+                // Перезагружаем профили чтобы обновить кэш и фильтры
+                await loadProfiles();
+                
+            } catch (error) {
+                console.error('Ошибка:', error);
+                alert('❌ Ошибка при сохранении тегов: ' + error.message);
             }
         }
         
