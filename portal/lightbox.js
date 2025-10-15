@@ -645,7 +645,31 @@ function updatePhoto() {
     
     // Отображаем профиль раствора
     const solutionPanel = document.getElementById('lightboxSolution');
-    if (photo.solutionProfile && photo.solutionProfile.ec) {
+    if (photo.solutionProfile && photo.solutionProfile.daysUntilFirst) {
+        // Фото до первой записи в журнале - раствора еще нет
+        const sp = photo.solutionProfile;
+        const daysText = `${sp.daysUntilFirst} ${getDaysWord(sp.daysUntilFirst)}`;
+        const commentHtml = sp.comment ? escapeHtmlLocal(sp.comment) : 'заливки раствора';
+        
+        // Форматируем дату первой записи
+        let dateHtml = '';
+        if (sp.firstEntryDate) {
+            const date = new Date(sp.firstEntryDate);
+            const dateStr = date.toLocaleDateString('ru-RU', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+            dateHtml = ` (${dateStr})`;
+        }
+        
+        solutionPanel.innerHTML = `
+            <div style="background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px); border-radius: 8px; padding: 10px 14px; font-size: 12px; color: rgba(255, 255, 255, 0.9); display: inline-block; max-width: 400px;">
+                ⏳ До ${commentHtml} осталось ${daysText}${dateHtml}
+            </div>
+        `;
+        solutionPanel.style.display = 'flex';
+    } else if (photo.solutionProfile && photo.solutionProfile.ec) {
         const sp = photo.solutionProfile;
         const daysAgoText = sp.daysAgo === 0 ? 'Основной профиль' : `Залит ${sp.daysAgo} ${getDaysWord(sp.daysAgo)} назад`;
         const commentHtml = sp.comment ? `<div class="lightbox-solution-comment">💬 ${escapeHtmlLocal(sp.comment)}</div>` : '';

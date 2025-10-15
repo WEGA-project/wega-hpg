@@ -1767,6 +1767,78 @@
             }
         }
 
+        // Поиск актуального профиля раствора для фото
+        function findSolutionProfileForPhoto(profile, photoDate) {
+            let solutionProfile = null;
+            
+            if (profile.journal && profile.journal.length > 0) {
+                // Ищем ближайшую прошлую запись с профилем
+                let closestEntry = null;
+                let closestDays = Infinity;
+                
+                profile.journal.forEach(entry => {
+                    const entryDate = parseTimelineDate(entry.date);
+                    if (entryDate <= photoDate && entry.profile && entry.profile.trim()) {
+                        const days = getDaysDifference(entryDate, photoDate);
+                        if (days < closestDays) {
+                            closestDays = days;
+                            closestEntry = entry;
+                        }
+                    }
+                });
+                
+                if (closestEntry) {
+                    const parsed = parseProfile(closestEntry.profile);
+                    solutionProfile = {
+                        ec: calculateEC(parsed),
+                        nh4no3: parsed.NH4 && parsed.NO3 ? parsed.NH4 / parsed.NO3 : 0,
+                        ratios: calculateRatios(parsed),
+                        daysAgo: closestDays,
+                        comment: closestEntry.desc || '',
+                        profileString: closestEntry.profile,
+                        isStringFormat: true  // Журнал хранит строки профиля, не HPG файлы
+                    };
+                } else {
+                    // Фото до первой записи - ищем первую запись с профилем
+                    let firstEntry = null;
+                    let minDate = null;
+                    
+                    profile.journal.forEach(entry => {
+                        if (entry.profile && entry.profile.trim()) {
+                            const entryDate = parseTimelineDate(entry.date);
+                            if (!minDate || entryDate < minDate) {
+                                minDate = entryDate;
+                                firstEntry = entry;
+                            }
+                        }
+                    });
+                    
+                    if (firstEntry && minDate > photoDate) {
+                        const daysUntil = getDaysDifference(photoDate, minDate);
+                        solutionProfile = {
+                            daysUntilFirst: daysUntil,
+                            comment: firstEntry.desc || 'Заливка раствора',
+                            firstEntryDate: minDate.toISOString()
+                        };
+                    }
+                }
+            } else if (profile.profileString) {
+                // Если журнала нет вообще - используем основной профиль
+                const parsed = parseProfile(profile.profileString);
+                solutionProfile = {
+                    ec: calculateEC(parsed),
+                    nh4no3: parsed.NH4 && parsed.NO3 ? parsed.NH4 / parsed.NO3 : 0,
+                    ratios: calculateRatios(parsed),
+                    daysAgo: 0,
+                    comment: '',
+                    profileString: profile.profileString,
+                    hpgContent: profile.profile
+                };
+            }
+            
+            return solutionProfile;
+        }
+
         // Открытие галереи профиля через lightbox
         async function openProfileGallery(profileId) {
             try {
@@ -1795,52 +1867,8 @@
                     }
                     
                     // Ищем актуальный профиль раствора для этой даты
-                    let solutionProfile = null;
                     const photoDate = parseTimelineDate(photo.date);
-                    
-                    if (profile.journal && profile.journal.length > 0) {
-                        // Ищем ближайшую прошлую запись с профилем
-                        let closestEntry = null;
-                        let closestDays = Infinity;
-                        
-                        profile.journal.forEach(entry => {
-                            const entryDate = parseTimelineDate(entry.date);
-                            if (entryDate <= photoDate && entry.profile && entry.profile.trim()) {
-                                const days = getDaysDifference(entryDate, photoDate);
-                                if (days < closestDays) {
-                                    closestDays = days;
-                                    closestEntry = entry;
-                                }
-                            }
-                        });
-                        
-                        if (closestEntry) {
-                            const parsed = parseProfile(closestEntry.profile);
-                            solutionProfile = {
-                                ec: calculateEC(parsed),
-                                nh4no3: parsed.NH4 && parsed.NO3 ? parsed.NH4 / parsed.NO3 : 0,
-                                ratios: calculateRatios(parsed),
-                                daysAgo: closestDays,
-                                comment: closestEntry.desc || '',
-                                profileString: closestEntry.profile,
-                                isStringFormat: true  // Журнал хранит строки профиля, не HPG файлы
-                            };
-                        }
-                    }
-                    
-                    // Если не нашли в журнале - берем основной профиль
-                    if (!solutionProfile && profile.profileString) {
-                        const parsed = parseProfile(profile.profileString);
-                        solutionProfile = {
-                            ec: calculateEC(parsed),
-                            nh4no3: parsed.NH4 && parsed.NO3 ? parsed.NH4 / parsed.NO3 : 0,
-                            ratios: calculateRatios(parsed),
-                            daysAgo: 0,
-                            comment: '',
-                            profileString: profile.profileString,
-                            hpgContent: profile.profile
-                        };
-                    }
+                    const solutionProfile = findSolutionProfileForPhoto(profile, photoDate);
                     
                     return {
                         url: photo.url,
@@ -2552,52 +2580,8 @@
                             }
                             
                             // Ищем актуальный профиль раствора для этой даты
-                            let solutionProfile = null;
                             const photoDate = parseTimelineDate(photo.date);
-                            
-                            if (profile.journal && profile.journal.length > 0) {
-                                // Ищем ближайшую прошлую запись с профилем
-                                let closestEntry = null;
-                                let closestDays = Infinity;
-                                
-                                profile.journal.forEach(entry => {
-                                    const entryDate = parseTimelineDate(entry.date);
-                                    if (entryDate <= photoDate && entry.profile && entry.profile.trim()) {
-                                        const days = getDaysDifference(entryDate, photoDate);
-                                        if (days < closestDays) {
-                                            closestDays = days;
-                                            closestEntry = entry;
-                                        }
-                                    }
-                                });
-                                
-                                if (closestEntry) {
-                                    const parsed = parseProfile(closestEntry.profile);
-                                    solutionProfile = {
-                                        ec: calculateEC(parsed),
-                                        nh4no3: parsed.NH4 && parsed.NO3 ? parsed.NH4 / parsed.NO3 : 0,
-                                        ratios: calculateRatios(parsed),
-                                        daysAgo: closestDays,
-                                        comment: closestEntry.desc || '',
-                                        profileString: closestEntry.profile,
-                                        isStringFormat: true  // Журнал хранит строки профиля, не HPG файлы
-                                    };
-                                }
-                            }
-                            
-                            // Если не нашли в журнале - берем основной профиль
-                            if (!solutionProfile && profile.profileString) {
-                                const parsed = parseProfile(profile.profileString);
-                                solutionProfile = {
-                                    ec: calculateEC(parsed),
-                                    nh4no3: parsed.NH4 && parsed.NO3 ? parsed.NH4 / parsed.NO3 : 0,
-                                    ratios: calculateRatios(parsed),
-                                    daysAgo: 0,
-                                    comment: '',
-                                    profileString: profile.profileString,
-                                    hpgContent: profile.profile
-                                };
-                            }
+                            const solutionProfile = findSolutionProfileForPhoto(profile, photoDate);
                             
                             allPhotosData.push({
                                 url: photo.url,
@@ -4553,52 +4537,8 @@
                         }
                         
                         // Ищем актуальный профиль раствора для этой даты
-                        let solutionProfile = null;
                         const photoDate = parseTimelineDate(photo.date);
-                        
-                        if (profile.journal && profile.journal.length > 0) {
-                            // Ищем ближайшую прошлую запись с профилем
-                            let closestEntry = null;
-                            let closestDays = Infinity;
-                            
-                            profile.journal.forEach(entry => {
-                                const entryDate = parseTimelineDate(entry.date);
-                                if (entryDate <= photoDate && entry.profile && entry.profile.trim()) {
-                                    const days = getDaysDifference(entryDate, photoDate);
-                                    if (days < closestDays) {
-                                        closestDays = days;
-                                        closestEntry = entry;
-                                    }
-                                }
-                            });
-                            
-                            if (closestEntry) {
-                                const parsed = parseProfile(closestEntry.profile);
-                                solutionProfile = {
-                                    ec: calculateEC(parsed),
-                                    nh4no3: parsed.NH4 && parsed.NO3 ? parsed.NH4 / parsed.NO3 : 0,
-                                    ratios: calculateRatios(parsed),
-                                    daysAgo: closestDays,
-                                    comment: closestEntry.desc || '',
-                                    profileString: closestEntry.profile,
-                                    isStringFormat: true  // Журнал хранит строки профиля, не HPG файлы
-                                };
-                            }
-                        }
-                        
-                        // Если не нашли в журнале - берем основной профиль
-                        if (!solutionProfile && profile.profileString) {
-                            const parsed = parseProfile(profile.profileString);
-                            solutionProfile = {
-                                ec: calculateEC(parsed),
-                                nh4no3: parsed.NH4 && parsed.NO3 ? parsed.NH4 / parsed.NO3 : 0,
-                                ratios: calculateRatios(parsed),
-                                daysAgo: 0,
-                                comment: '',
-                                profileString: profile.profileString,
-                                hpgContent: profile.profile
-                            };
-                        }
+                        const solutionProfile = findSolutionProfileForPhoto(profile, photoDate);
                         
                         return {
                             url: photo.url,
