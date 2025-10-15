@@ -1607,6 +1607,7 @@
 
         // Глобальные переменные
         let allProfiles = [];
+        window.allProfiles = allProfiles; // Делаем доступным для lightbox
         let filteredProfiles = [];
         let userFilter = 'all'; // 'all' или 'my' для профилей
         let activityFilter = 'all'; // 'all' или 'my' для ленты активности
@@ -1697,6 +1698,7 @@
                     id: doc.id,
                     ...doc.data()
                 }));
+                window.allProfiles = allProfiles; // Обновляем глобальную ссылку
 
                 // Сортируем на клиенте по дате (по умолчанию)
                 allProfiles.sort((a, b) => {
@@ -1775,6 +1777,23 @@
                 
                 // Подготавливаем массив фотографий с данными для lightbox
                 const photosData = profile.gallery.map(photo => {
+                    // Вычисляем все ключевые события относительно даты фото
+                    const allMilestones = [];
+                    if (profile.milestones && profile.milestones.length > 0) {
+                        const currentDate = parseTimelineDate(photo.date);
+                        profile.milestones.forEach(milestone => {
+                            const milestoneDate = parseTimelineDate(milestone.date);
+                            const days = Math.abs(getDaysDifference(currentDate, milestoneDate));
+                            
+                            allMilestones.push({
+                                title: milestone.title,
+                                days: days,
+                                isPast: milestoneDate <= currentDate,
+                                isFuture: milestoneDate > currentDate
+                            });
+                        });
+                    }
+                    
                     // Определяем профиль раствора (основной)
                     let solutionProfile = null;
                     if (profile.profileString) {
@@ -1797,6 +1816,8 @@
                         author: profile.userName || 'Аноним',
                         profileName: profile.name,
                         profileDescription: profile.description || '',
+                        profileId: profile.id,
+                        allMilestones: allMilestones,
                         solutionProfile: solutionProfile
                     };
                 });
@@ -1808,6 +1829,9 @@
                 console.error('Ошибка открытия галереи:', error);
             }
         }
+        
+        // Делаем функцию глобально доступной
+        window.openProfileGallery = openProfileGallery;
         
         // Отрисовка профилей
         function renderProfiles() {
@@ -2546,6 +2570,7 @@
                                 author: profile.userName || 'Аноним',
                                 profileName: profile.name,
                                 profileDescription: profile.description || '',
+                                profileId: profile.id,
                                 allMilestones: allMilestones,
                                 solutionProfile: solutionProfile
                             });

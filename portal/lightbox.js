@@ -8,6 +8,7 @@ let startX = 0;
 let startY = 0;
 let currentPhotos = [];
 let currentPhotoIndex = 0;
+let currentProfileId = null;
 
 // Инициализация lightbox
 function initLightbox() {
@@ -47,6 +48,15 @@ function initLightbox() {
                 <button onclick="event.stopPropagation(); toggleFullscreen()" title="Полный экран">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+                    </svg>
+                </button>
+                <button onclick="event.stopPropagation(); sharePhoto()" title="Поделиться ссылкой">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="18" cy="5" r="3"></circle>
+                        <circle cx="6" cy="12" r="3"></circle>
+                        <circle cx="18" cy="19" r="3"></circle>
+                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
                     </svg>
                 </button>
             </div>
@@ -459,12 +469,17 @@ function openLightbox(photos, index = 0) {
     if (typeof photos === 'string') {
         currentPhotos = [{ url: photos }];
         currentPhotoIndex = 0;
+        currentProfileId = null;
     } else if (Array.isArray(photos)) {
         currentPhotos = photos;
         currentPhotoIndex = index;
+        if (currentPhotos.length > 0) {
+            currentProfileId = currentPhotos[0].profileId || currentProfileId;
+        }
     } else {
         currentPhotos = [photos];
         currentPhotoIndex = 0;
+        currentProfileId = currentPhotos[0]?.profileId || currentProfileId;
     }
     
     // Показываем lightbox
@@ -935,6 +950,55 @@ function toggleFullscreen() {
     }
 }
 
+function sharePhoto() {
+    if (!currentPhotos || currentPhotoIndex < 0) return;
+    
+    const photo = currentPhotos[currentPhotoIndex];
+    if (!photo) return;
+    
+    const profileId = photo.profileId || currentProfileId;
+    if (!profileId) {
+        alert('Не удалось определить профиль для ссылки. Попробуйте открыть фото из карточки профиля.');
+        return;
+    }
+    
+    // Формируем URL с параметрами для открытия конкретной фотографии
+    const url = new URL(window.location.origin + window.location.pathname);
+    url.searchParams.set('profile', profileId);
+    url.searchParams.set('photo', currentPhotoIndex);
+    
+    // Копируем в буфер обмена
+    navigator.clipboard.writeText(url.toString()).then(() => {
+        // Показываем уведомление
+        const notification = document.createElement('div');
+        notification.style.cssText = `
+            position: fixed;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(76, 175, 80, 0.95);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            z-index: 100000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            animation: slideDown 0.3s ease;
+        `;
+        notification.textContent = '✓ Ссылка скопирована!';
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.style.animation = 'slideUp 0.3s ease';
+            setTimeout(() => notification.remove(), 300);
+        }, 2000);
+    }).catch(err => {
+        console.error('Ошибка копирования:', err);
+        alert('Не удалось скопировать ссылку');
+    });
+}
+
 // Обработка нажатия клавиш
 document.addEventListener('keydown', (e) => {
     const lightbox = document.getElementById('lightbox');
@@ -957,3 +1021,51 @@ if (document.readyState === 'loading') {
 } else {
     initLightbox();
 }
+
+// Проверка URL параметров для автоматического открытия фото
+window.addEventListener('load', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const profileId = urlParams.get('profile');
+    const photoIndexParam = urlParams.get('photo');
+
+    if (!profileId || photoIndexParam === null) {
+        return;
+    }
+
+    const targetIndex = parseInt(photoIndexParam, 10);
+    if (isNaN(targetIndex) || targetIndex < 0) {
+        return;
+    }
+
+    let attempts = 0;
+    const maxAttempts = 50; // Пытаемся ~12 секунд
+    const pollInterval = setInterval(() => {
+        attempts += 1;
+
+        // Проверяем доступность функции openProfileGallery и массива профилей
+        if (typeof openProfileGallery === 'function' && window.allProfiles) {
+            const profile = window.allProfiles.find(p => p.id === profileId);
+            if (profile && profile.gallery && profile.gallery.length > targetIndex) {
+                clearInterval(pollInterval);
+                if (!window.lightboxOpenedFromUrl) {
+                    window.lightboxOpenedFromUrl = true;
+                    // Используем openProfileGallery для подготовки данных
+                    openProfileGallery(profileId).then(() => {
+                        // После того как галерея открыта, переключаемся на нужное фото
+                        if (currentPhotos && currentPhotos.length > targetIndex) {
+                            currentPhotoIndex = targetIndex;
+                            updatePhoto();
+                            updateNavigation();
+                            updateThumbnails();
+                        }
+                    });
+                }
+                return;
+            }
+        }
+
+        if (attempts >= maxAttempts) {
+            clearInterval(pollInterval);
+        }
+    }, 250);
+});
