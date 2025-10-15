@@ -288,73 +288,101 @@ function initLightbox() {
             
             .lightbox-solution {
                 position: absolute;
-                top: 140px;
+                top: 180px;
                 left: 20px;
-                max-width: 500px;
-                background: rgba(0, 0, 0, 0.7);
-                backdrop-filter: blur(10px);
-                border-radius: 10px;
-                padding: 12px 14px;
+                max-width: 600px;
                 color: white;
                 z-index: 1001;
-            }
-            
-            .lightbox-solution-header {
-                font-size: 13px;
-                font-weight: 600;
-                color: rgba(255, 255, 255, 0.9);
-                margin-bottom: 10px;
                 display: flex;
-                align-items: center;
-                gap: 6px;
+                flex-direction: column;
+                gap: 8px;
             }
             
             .lightbox-solution-params {
                 display: flex;
-                gap: 10px;
-                margin-bottom: 8px;
+                gap: 8px;
                 flex-wrap: wrap;
             }
             
             .lightbox-solution-param {
-                background: rgba(255, 255, 255, 0.1);
-                border-radius: 5px;
-                padding: 4px 8px;
+                background: rgba(255, 255, 255, 0.15);
+                backdrop-filter: blur(10px);
+                border-radius: 8px;
+                padding: 8px 12px;
                 text-align: center;
-                min-width: 55px;
+                min-width: 60px;
             }
             
             .lightbox-solution-param-value {
-                font-size: 14px;
+                font-size: 16px;
                 font-weight: 600;
                 color: white;
-                margin-bottom: 1px;
+                margin-bottom: 2px;
             }
             
             .lightbox-solution-param-label {
-                font-size: 10px;
+                font-size: 11px;
                 color: rgba(255, 255, 255, 0.7);
             }
             
             .lightbox-solution-profile {
-                font-size: 10px;
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+            }
+            
+            .lightbox-solution-profile-row {
+                display: flex;
+                gap: 4px;
+                flex-wrap: wrap;
+                align-items: center;
+            }
+            
+            .lightbox-solution-profile-item {
+                background: rgba(255, 255, 255, 0.15);
+                backdrop-filter: blur(10px);
+                border-radius: 5px;
+                padding: 4px 6px;
+                text-align: center;
+            }
+            
+            .lightbox-solution-profile-value {
+                font-size: 11px;
+                font-weight: 600;
+                color: rgba(255, 255, 255, 0.95);
+                margin-bottom: 1px;
+                line-height: 1;
+            }
+            
+            .lightbox-solution-profile-label {
+                font-size: 8px;
                 color: rgba(255, 255, 255, 0.7);
-                font-family: 'Courier New', monospace;
-                background: rgba(255, 255, 255, 0.05);
-                padding: 6px 8px;
-                border-radius: 4px;
-                margin-top: 6px;
-                overflow-x: auto;
-                white-space: nowrap;
+                line-height: 1;
+            }
+            
+            .lightbox-solution-unit {
+                background: rgba(255, 255, 255, 0.15);
+                backdrop-filter: blur(10px);
+                border-radius: 5px;
+                padding: 4px 6px;
+                font-size: 10px;
+                color: rgba(255, 255, 255, 0.8);
+                font-weight: 500;
+                text-align: center;
             }
             
             .lightbox-solution-comment {
-                font-size: 10px;
-                color: rgba(255, 255, 255, 0.7);
+                background: rgba(255, 255, 255, 0.15);
+                backdrop-filter: blur(10px);
+                border-radius: 8px;
+                padding: 8px 12px;
+                font-size: 11px;
+                color: rgba(255, 255, 255, 0.9);
                 font-style: italic;
-                margin-top: 6px;
-                padding-top: 6px;
-                border-top: 1px solid rgba(255, 255, 255, 0.2);
+                max-width: 400px;
+                word-wrap: break-word;
+                white-space: normal;
+                line-height: 1.4;
             }
             
             .lightbox-thumbnails {
@@ -578,30 +606,127 @@ function updatePhoto() {
     }
     
     // Отображаем профиль раствора
-    console.log('Photo solutionProfile:', photo.solutionProfile);
     const solutionPanel = document.getElementById('lightboxSolution');
     if (photo.solutionProfile && photo.solutionProfile.ec) {
-        console.log('Displaying solution profile:', photo.solutionProfile);
-        console.log('Ratios keys:', Object.keys(photo.solutionProfile.ratios));
         const sp = photo.solutionProfile;
         const daysAgoText = sp.daysAgo === 0 ? 'Основной профиль' : `Залит ${sp.daysAgo} ${getDaysWord(sp.daysAgo)} назад`;
-        const commentHtml = sp.comment ? `<div class="lightbox-solution-comment">${escapeHtmlLocal(sp.comment)}</div>` : '';
+        const commentHtml = sp.comment ? `<div class="lightbox-solution-comment">💬 ${escapeHtmlLocal(sp.comment)}</div>` : '';
         
-        // Получаем значения с проверкой существования
-        const kn = sp.ratios['K/N'] || sp.ratios['K:N'] || 0;
-        const kca = sp.ratios['K/Ca'] || sp.ratios['K:Ca'] || 0;
-        const kmg = sp.ratios['K/Mg'] || sp.ratios['K:Mg'] || 0;
-        const nh4no3 = sp.nh4no3 || 0;
+        // Получаем значения из правильных ключей
+        const kn = sp.ratios && sp.ratios.K_N ? sp.ratios.K_N : 0;
+        const kca = sp.ratios && sp.ratios.K_Ca ? sp.ratios.K_Ca : 0;
+        const kmg = sp.ratios && sp.ratios.K_Mg ? sp.ratios.K_Mg : 0;
+        const nh4no3 = sp.ratios && sp.ratios.NH4_NO3 ? sp.ratios.NH4_NO3 : 0;
         
-        const profileHtml = sp.profileString ? `<div class="lightbox-solution-profile">${escapeHtmlLocal(sp.profileString)}</div>` : '';
+        // Парсим элементы с учетом формата (HPG файл или строка профиля)
+        const elements = {};
+        
+        if (sp.isStringFormat && sp.profileString) {
+            // Профиль из журнала - строка где микроэлементы УЖЕ в мг/л
+            const parts = sp.profileString.trim().split(/\s+/);
+            parts.forEach(part => {
+                const match = part.match(/^([A-Za-z]+[0-9]*)=(.+)$/);
+                if (match) {
+                    const element = match[1];
+                    const value = parseFloat(match[2]);
+                    if (!isNaN(value)) {
+                        elements[element] = value;
+                    }
+                }
+            });
+        } else if (sp.hpgContent) {
+            // Основной профиль - полный HPG файл где микроэлементы в мкг/л
+            const lines = sp.hpgContent.split('\n');
+            lines.forEach(line => {
+                const trimmed = line.trim();
+                const match = trimmed.match(/^([A-Za-z]+[0-9]*)=(.+)$/);
+                if (match && !trimmed.startsWith('#')) {
+                    const element = match[1];
+                    const value = parseFloat(match[2]);
+                    if (!isNaN(value)) {
+                        elements[element] = value;
+                    }
+                }
+            });
+        }
+        
+        // Разбиваем профиль на отдельные элементы
+        let profileHtml = '';
+        if (Object.keys(elements).length > 0) {
+            const macroElements = ['N', 'NO3', 'NH4', 'P', 'K', 'Ca', 'Mg', 'S', 'Cl'];
+            const microElements = ['Fe', 'Mn', 'B', 'Zn', 'Cu', 'Mo', 'Co', 'Si'];
+            const allElements = [...macroElements, ...microElements];
+            
+            const macroItems = [];
+            const microItems = [];
+            
+            allElements.forEach(element => {
+                const value = elements[element];
+                if (value === undefined || isNaN(value)) return;
+                
+                let displayValue, roundedValue;
+                
+                if (macroElements.includes(element)) {
+                    // Макроэлементы в мг/л - округляем до целых
+                    roundedValue = Math.round(value);
+                    displayValue = roundedValue;
+                } else if (microElements.includes(element)) {
+                    if (sp.isStringFormat) {
+                        // Из строки профиля - микроэлементы УЖЕ в мг/л
+                        displayValue = value.toFixed(2);
+                        roundedValue = parseFloat(displayValue);
+                    } else {
+                        // Из HPG файла - микроэлементы в мкг/л, конвертируем в мг/л
+                        displayValue = (value / 1000).toFixed(2);
+                        roundedValue = parseFloat(displayValue);
+                    }
+                }
+                
+                if (displayValue !== undefined) {
+                    const itemHtml = `
+                        <div class="lightbox-solution-profile-item">
+                            <div class="lightbox-solution-profile-value">${displayValue}</div>
+                            <div class="lightbox-solution-profile-label">${element}</div>
+                        </div>
+                    `;
+                    
+                    if (macroElements.includes(element)) {
+                        macroItems.push(itemHtml);
+                    } else if (microElements.includes(element) && roundedValue !== 0) {
+                        microItems.push(itemHtml);
+                    }
+                }
+            });
+            
+            let profileContent = '';
+            if (macroItems.length > 0) {
+                profileContent += '<div class="lightbox-solution-profile-row">';
+                profileContent += macroItems.join('');
+                profileContent += '<div class="lightbox-solution-unit">мг/л</div>';
+                profileContent += '</div>';
+            }
+            if (microItems.length > 0) {
+                profileContent += '<div class="lightbox-solution-profile-row">';
+                profileContent += microItems.join('');
+                profileContent += '<div class="lightbox-solution-unit">мг/л</div>';
+                profileContent += '</div>';
+            }
+            
+            if (profileContent) {
+                profileHtml = `<div class="lightbox-solution-profile">${profileContent}</div>`;
+            }
+        }
+        
+        const daysAgoHtml = `
+            <div style="background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px); border-radius: 8px; padding: 6px 12px; font-size: 11px; color: rgba(255, 255, 255, 0.9); display: inline-block;">
+                ${daysAgoText}
+            </div>
+        `;
         
         solutionPanel.innerHTML = `
-            <div class="lightbox-solution-header">
-                🧪 Параметры раствора
-                <span style="font-size: 10px; font-weight: 400; opacity: 0.7;">(${daysAgoText})</span>
-            </div>
+            ${daysAgoHtml}
             <div class="lightbox-solution-params">
-                <div class="lightbox-solution-param">
+                <div class="lightbox-solution-param" style="background: rgba(74, 157, 157, 0.85);">
                     <div class="lightbox-solution-param-value">${sp.ec.toFixed(2)}</div>
                     <div class="lightbox-solution-param-label">EC</div>
                 </div>
@@ -625,7 +750,7 @@ function updatePhoto() {
             ${profileHtml}
             ${commentHtml}
         `;
-        solutionPanel.style.display = 'block';
+        solutionPanel.style.display = 'flex';
     } else {
         solutionPanel.style.display = 'none';
     }

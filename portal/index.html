@@ -2021,6 +2021,85 @@
             }
         }
         
+        // Парсинг HPG файла для извлечения элементов в правильной размерности
+        function parseHPGFileElements(hpgContent) {
+            if (!hpgContent) return {};
+            
+            const lines = hpgContent.split('\n');
+            const elements = {};
+            
+            lines.forEach(line => {
+                const trimmed = line.trim();
+                // Парсим строки вида "Fe=4000" или "N=220"
+                const match = trimmed.match(/^([A-Za-z]+[0-9]*)=(.+)$/);
+                if (match && !trimmed.startsWith('#')) {
+                    const element = match[1];
+                    const value = parseFloat(match[2]);
+                    if (!isNaN(value)) {
+                        elements[element] = value;
+                    }
+                }
+            });
+            
+            return elements;
+        }
+        
+        // Форматирование элементов профиля в плиточки
+        function formatProfileElements(profileString, hpgContent) {
+            // Парсим полный HPG файл для получения значений в правильной размерности
+            const hpgElements = parseHPGFileElements(hpgContent);
+            
+            if (Object.keys(hpgElements).length === 0) {
+                // Если нет HPG файла, используем profileString
+                if (!profileString) {
+                    return '<div style="color: #999; font-style: italic;">Профиль не указан</div>';
+                }
+            }
+            
+            const macroElements = ['N', 'NO3', 'NH4', 'P', 'K', 'Ca', 'Mg', 'S', 'Cl'];
+            const microElements = ['Fe', 'Mn', 'B', 'Zn', 'Cu', 'Mo', 'Co', 'Si'];
+            const allElements = [...macroElements, ...microElements];
+            const allItems = [];
+            
+            allElements.forEach(element => {
+                const value = hpgElements[element];
+                if (value === undefined || isNaN(value)) return;
+                
+                let displayValue, roundedValue;
+                
+                if (macroElements.includes(element)) {
+                    // Макроэлементы в мг/л - округляем до целых
+                    roundedValue = Math.round(value);
+                    displayValue = roundedValue;
+                } else if (microElements.includes(element)) {
+                    // Микроэлементы в мкг/л в HPG - конвертируем в мг/л
+                    displayValue = (value / 1000).toFixed(3);
+                    roundedValue = parseFloat(displayValue);
+                }
+                
+                if (displayValue !== undefined && (macroElements.includes(element) || (microElements.includes(element) && roundedValue !== 0))) {
+                    const isMacro = macroElements.includes(element);
+                    const bgGradient = isMacro ? 
+                        'linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%)' : 
+                        'linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%)';
+                    const borderColor = isMacro ? '#4a9d9d' : '#ff9800';
+                    const textColor = isMacro ? '#2d7a7a' : '#e65100';
+                    
+                    const itemHtml = `
+                        <div style="background: ${bgGradient}; padding: 6px 10px; border-radius: 6px; text-align: center; display: inline-block; margin: 3px; border: 1px solid ${borderColor};">
+                            <div style="font-size: 14px; font-weight: 700; color: ${textColor};">${displayValue}</div>
+                            <div style="font-size: 10px; color: #666;">${element}</div>
+                        </div>
+                    `;
+                    allItems.push(itemHtml);
+                }
+            });
+            
+            return allItems.length > 0 ? 
+                '<div>' + allItems.join('') + '</div>' : 
+                '<div style="color: #999; font-style: italic;">Элементы не найдены</div>';
+        }
+        
         // Сравнение двух профилей
         function compareProfiles(prev, curr) {
             const changes = [];
@@ -2302,12 +2381,10 @@
                             </div>
                         </div>
                         
-                        <!-- Строка профиля -->
+                        <!-- Профиль питания -->
                         <div style="background: white; padding: 15px; border-radius: 8px; border: 1px solid #e0e0e0;">
-                            <div style="font-weight: 600; color: #666; margin-bottom: 8px; font-size: 13px;">Строка профиля:</div>
-                            <div style="background: #f8f9fa; padding: 12px; border-radius: 6px; font-family: 'Courier New', monospace; font-size: 13px; line-height: 1.6; overflow-x: auto; color: #333;">
-                                ${escapeHtml(profile.profileString)}
-                            </div>
+                            <div style="font-weight: 600; color: #666; margin-bottom: 12px; font-size: 13px;">Профиль питания:</div>
+                            ${formatProfileElements(profile.profileString, profile.profile)}
                         </div>
                     </div>
                 `;
@@ -2397,7 +2474,8 @@
                                         ratios: calculateRatios(parsed),
                                         daysAgo: closestDays,
                                         comment: closestEntry.desc || '',
-                                        profileString: closestEntry.profile
+                                        profileString: closestEntry.profile,
+                                        isStringFormat: true  // Журнал хранит строки профиля, не HPG файлы
                                     };
                                 }
                             }
@@ -2411,7 +2489,8 @@
                                     ratios: calculateRatios(parsed),
                                     daysAgo: 0,
                                     comment: '',
-                                    profileString: profile.profileString
+                                    profileString: profile.profileString,
+                                    hpgContent: profile.profile
                                 };
                             }
                             
