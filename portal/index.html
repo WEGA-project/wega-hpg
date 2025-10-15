@@ -1765,6 +1765,50 @@
             }
         }
 
+        // Открытие галереи профиля через lightbox
+        async function openProfileGallery(profileId) {
+            try {
+                const profile = allProfiles.find(p => p.id === profileId);
+                if (!profile || !profile.gallery || profile.gallery.length === 0) {
+                    return;
+                }
+                
+                // Подготавливаем массив фотографий с данными для lightbox
+                const photosData = profile.gallery.map(photo => {
+                    // Определяем профиль раствора (основной)
+                    let solutionProfile = null;
+                    if (profile.profileString) {
+                        const parsed = parseProfile(profile.profileString);
+                        solutionProfile = {
+                            ec: calculateEC(parsed),
+                            nh4no3: parsed.NH4 && parsed.NO3 ? parsed.NH4 / parsed.NO3 : 0,
+                            ratios: calculateRatios(parsed),
+                            daysAgo: 0,
+                            comment: '',
+                            profileString: profile.profileString,
+                            hpgContent: profile.profile
+                        };
+                    }
+                    
+                    return {
+                        url: photo.url,
+                        description: photo.description || '',
+                        date: photo.date,
+                        author: profile.userName || 'Аноним',
+                        profileName: profile.name,
+                        profileDescription: profile.description || '',
+                        solutionProfile: solutionProfile
+                    };
+                });
+                
+                // Открываем lightbox
+                openLightbox(photosData, 0);
+                
+            } catch (error) {
+                console.error('Ошибка открытия галереи:', error);
+            }
+        }
+        
         // Отрисовка профилей
         function renderProfiles() {
             const container = document.getElementById('profilesContainer');
@@ -1869,7 +1913,7 @@
             if (gallery.length > 0) {
                 const photosToShow = gallery.slice(0, 3);
                 photosCollageHtml = `
-                    <div class="profile-photos-collage" onclick="window.location.href='gallery.html?profile=${profile.id}'">
+                    <div class="profile-photos-collage" onclick="event.stopPropagation(); openProfileGallery('${profile.id}')">
                         ${photosToShow.map(photo => `<img src="${escapeHtml(photo.url)}" class="collage-photo" alt="Фото">`).join('')}
                     </div>
                 `;
