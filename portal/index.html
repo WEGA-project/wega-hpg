@@ -678,8 +678,55 @@
             word-break: break-word;
         }
 
-        .journal-entry {
+        .journal-day {
+            background: #fafbff;
+            border: 1px solid #e6e9ff;
+            border-radius: 12px;
+            padding: 18px;
             margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.08);
+        }
+        
+        .journal-day-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 2px solid rgba(102, 126, 234, 0.2);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            gap: 15px;
+        }
+        
+        .journal-day-date {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2c3e91;
+        }
+        
+        .journal-day-weekday {
+            font-size: 15px;
+            color: rgba(44, 62, 145, 0.6);
+            text-transform: capitalize;
+            font-weight: 400;
+        }
+        
+        .journal-day-milestones {
+            font-size: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+            text-align: right;
+        }
+        
+        .journal-day-content {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .journal-entry {
+            margin-bottom: 0;
             border-radius: 8px;
             background: #fff;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
@@ -2054,7 +2101,45 @@
                 return dateA - dateB;
             });
             
+            // Запоминаем порядок элементов во временной шкале
+            timeline.forEach((item, index) => {
+                item.timelineIndex = index;
+            });
+            
             return timeline;
+        }
+        
+        // Группировка элементов временной шкалы по дням
+        function groupTimelineByDate(timeline) {
+            const groups = [];
+            
+            timeline.forEach(item => {
+                const dateObj = parseTimelineDate(item.date);
+                const key = dateObj.toISOString().split('T')[0]; // YYYY-MM-DD
+                
+                let group = groups.find(g => g.key === key);
+                if (!group) {
+                    group = {
+                        key,
+                        date: dateObj,
+                        items: []
+                    };
+                    groups.push(group);
+                }
+                
+                group.items.push(item);
+            });
+            
+            // Сортируем элементы внутри каждого дня: сначала ключевые события, потом остальное
+            groups.forEach(group => {
+                group.items.sort((a, b) => {
+                    if (a.type === 'milestone' && b.type !== 'milestone') return -1;
+                    if (a.type !== 'milestone' && b.type === 'milestone') return 1;
+                    return 0;
+                });
+            });
+            
+            return groups;
         }
         
         // Парсинг даты для временной шкалы
@@ -2235,6 +2320,7 @@
             if (hasJournalOrPhotos) {
                 // Создаём временную шкалу
                 const timeline = createTimeline(profile.journal, profile.gallery, profile.milestones);
+                const groupedTimeline = groupTimelineByDate(timeline);
                 const journalEntriesCount = (profile.journal && profile.journal.length) || 0;
                 const photosCount = (profile.gallery && profile.gallery.filter(p => p.date).length) || 0;
                 
@@ -2266,6 +2352,23 @@
                         }
                         
                         photos.forEach(photo => {
+                            // Вычисляем все ключевые события относительно даты фото
+                            const allMilestones = [];
+                            if (profile.milestones && profile.milestones.length > 0) {
+                                const currentDate = parseTimelineDate(photo.date);
+                                profile.milestones.forEach(milestone => {
+                                    const milestoneDate = parseTimelineDate(milestone.date);
+                                    const days = Math.abs(getDaysDifference(currentDate, milestoneDate));
+                                    
+                                    allMilestones.push({
+                                        title: milestone.title,
+                                        days: days,
+                                        isPast: milestoneDate <= currentDate,
+                                        isFuture: milestoneDate > currentDate
+                                    });
+                                });
+                            }
+                            
                             allPhotosData.push({
                                 url: photo.url,
                                 description: photo.description || '',
@@ -2273,7 +2376,8 @@
                                 dateFormatted: timeInfo,
                                 author: profile.userName || 'Аноним',
                                 profileName: profile.name,
-                                profileDescription: profile.description || ''
+                                profileDescription: profile.description || '',
+                                allMilestones: allMilestones
                             });
                         });
                     }
@@ -2290,45 +2394,57 @@
                             📓 Журнал (${journalEntriesCount} ${journalEntriesCount === 1 ? 'запись' : 'записей'}${photosCount > 0 ? `, ${photosCount} ${photosCount === 1 ? 'фото' : 'фото'}` : ''})
                         </h3>
                         <div id="journal-content-${profile.id}" style="max-height: 500px; overflow-y: auto; padding-right: 10px;">
-                            <div style="display: flex; flex-direction: column; gap: 15px;">
-                                ${timeline.map((item, timelineIndex) => {
-                                    // Вычисляем даты для подсчета дней
-                                    const currentDate = parseTimelineDate(item.date);
-                                    const startDate = timeline.length > 0 ? parseTimelineDate(timeline[0].date) : currentDate;
-                                    const prevDate = timelineIndex > 0 ? parseTimelineDate(timeline[timelineIndex - 1].date) : null;
-                                    
-                                    const daysFromStart = getDaysDifference(startDate, currentDate);
-                                    const daysFromPrev = prevDate ? getDaysDifference(prevDate, currentDate) : 0;
+                            ${groupedTimeline.map((dayGroup) => {
+                                const dateLabel = dayGroup.date.toLocaleDateString('ru-RU', { 
+                                    year: 'numeric', 
+                                    month: 'long', 
+                                    day: 'numeric' 
+                                });
+                                const weekday = dayGroup.date.toLocaleDateString('ru-RU', { weekday: 'long' });
+                                
+                                // Вычисляем информацию о ключевых событиях для этого дня
+                                const dayMilestoneInfo = getMilestoneDistances(dayGroup.date.toISOString(), profile.milestones);
+                                let milestoneInfoHtml = '';
+                                if (dayMilestoneInfo) {
+                                    const parts = [];
+                                    if (dayMilestoneInfo.prev) {
+                                        parts.push(`<span style="color: #4caf50;">⭐ ${escapeHtml(dayMilestoneInfo.prev.title)}: +${formatDays(dayMilestoneInfo.prev.days)}</span>`);
+                                    }
+                                    if (dayMilestoneInfo.next) {
+                                        parts.push(`<span style="color: #ff9800;">⏳ До "${escapeHtml(dayMilestoneInfo.next.title)}": ${formatDays(dayMilestoneInfo.next.days)}</span>`);
+                                    }
+                                    if (parts.length > 0) {
+                                        milestoneInfoHtml = `<div class="journal-day-milestones">${parts.join(' • ')}</div>`;
+                                    }
+                                }
+                                
+                                return `
+                                    <div class="journal-day">
+                                        <div class="journal-day-header">
+                                            <div style="display: flex; align-items: baseline; gap: 10px;">
+                                                <div class="journal-day-date">${escapeHtml(dateLabel)}</div>
+                                                <div class="journal-day-weekday">${escapeHtml(weekday)}</div>
+                                            </div>
+                                            ${milestoneInfoHtml}
+                                        </div>
+                                        <div class="journal-day-content">
+                                            ${dayGroup.items.map((item) => {
+                                                const timelineIndex = item.timelineIndex;
+                                                // Вычисляем даты для подсчета дней
+                                                const currentDate = parseTimelineDate(item.date);
+                                                const startDate = timeline.length > 0 ? parseTimelineDate(timeline[0].date) : currentDate;
+                                                const prevDate = timelineIndex > 0 ? parseTimelineDate(timeline[timelineIndex - 1].date) : null;
+                                                
+                                                const daysFromStart = getDaysDifference(startDate, currentDate);
+                                                const daysFromPrev = prevDate ? getDaysDifference(prevDate, currentDate) : 0;
                                     
                                     // Если это группа фотографий
                                     if (item.type === 'photoGroup') {
                                         const photos = item.data;
-                                        const photoDate = parseTimelineDate(photos[0].date);
-                                        const dateLabel = photoDate.toLocaleDateString('ru-RU', { 
-                                            year: 'numeric', 
-                                            month: 'short', 
-                                            day: 'numeric' 
-                                        });
                                         
-                                        let timeInfo = `📸 ${escapeHtml(dateLabel)}`;
+                                        let timeInfo = `📸 Фотографии`;
                                         if (daysFromStart > 0) {
-                                            timeInfo += ` (${formatDays(daysFromStart)} от начала`;
-                                            if (daysFromPrev > 0) {
-                                                timeInfo += ` • +${formatDays(daysFromPrev)})`;
-                                            } else {
-                                                timeInfo += `)`;
-                                            }
-                                        }
-                                        
-                                        // Добавляем информацию о ключевых событиях
-                                        const milestoneInfo = getMilestoneDistances(photos[0].date, profile.milestones);
-                                        if (milestoneInfo) {
-                                            if (milestoneInfo.prev) {
-                                                timeInfo += `<br><span style="color: #4caf50;">⭐ ${escapeHtml(milestoneInfo.prev.title)}: +${formatDays(milestoneInfo.prev.days)}</span>`;
-                                            }
-                                            if (milestoneInfo.next) {
-                                                timeInfo += `<br><span style="color: #ff9800;">⏳ До "${escapeHtml(milestoneInfo.next.title)}": ${formatDays(milestoneInfo.next.days)}</span>`;
-                                            }
+                                            timeInfo += ` <span style="color: #999; font-size: 13px;">(${formatDays(daysFromStart)} от начала)</span>`;
                                         }
                                         
                                         // Собираем уникальные описания
@@ -2372,34 +2488,21 @@
                                     // Если это ключевое событие
                                     if (item.type === 'milestone') {
                                         const milestone = item.data;
-                                        const milestoneDate = parseTimelineDate(milestone.date);
-                                        const dateLabel = milestoneDate.toLocaleDateString('ru-RU', { 
-                                            year: 'numeric', 
-                                            month: 'short', 
-                                            day: 'numeric' 
-                                        });
                                         
-                                        let timeInfo = `⭐ ${escapeHtml(dateLabel)}`;
+                                        let timeInfo = '';
                                         if (daysFromStart > 0) {
-                                            timeInfo += ` (${formatDays(daysFromStart)} от начала`;
-                                            if (daysFromPrev > 0) {
-                                                timeInfo += ` • +${formatDays(daysFromPrev)})`;
-                                            } else {
-                                                timeInfo += `)`;
-                                            }
+                                            timeInfo = `<span style="font-size: 13px; opacity: 0.85;">${formatDays(daysFromStart)} от начала</span>`;
                                         }
                                         
                                         return `
-                                            <div style="margin-bottom: 15px; border-radius: 8px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3); padding: 20px; color: white;">
+                                            <div style="border-radius: 8px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3); padding: 18px; color: white;">
                                                 <div style="display: flex; align-items: center; gap: 15px;">
-                                                    <div style="font-size: 48px; line-height: 1;">⭐</div>
+                                                    <div style="font-size: 40px; line-height: 1;">⭐</div>
                                                     <div style="flex: 1;">
-                                                        <div style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">
+                                                        <div style="font-size: 17px; font-weight: 600; margin-bottom: 4px;">
                                                             ${escapeHtml(milestone.title)}
                                                         </div>
-                                                        <div style="font-size: 14px; opacity: 0.9;">
-                                                            ${timeInfo}
-                                                        </div>
+                                                        ${timeInfo ? `<div style="font-size: 13px; opacity: 0.9;">${timeInfo}</div>` : ''}
                                                     </div>
                                                 </div>
                                             </div>
@@ -2409,28 +2512,11 @@
                                     // Если это запись журнала
                                     const entry = item.data;
                                     const index = item.index;
-                                    const dateLabel = formatJournalDate(entry.date);
                                     
                                     // Формируем информацию о времени
-                                    let timeInfo = `📅 ${escapeHtml(dateLabel)}`;
+                                    let timeInfo = '';
                                     if (daysFromStart > 0) {
-                                        timeInfo += ` (${formatDays(daysFromStart)} от начала`;
-                                        if (daysFromPrev > 0) {
-                                            timeInfo += ` • +${formatDays(daysFromPrev)})`;
-                                        } else {
-                                            timeInfo += `)`;
-                                        }
-                                    }
-                                    
-                                    // Добавляем информацию о ключевых событиях
-                                    const milestoneInfoEntry = getMilestoneDistances(entry.date, profile.milestones);
-                                    if (milestoneInfoEntry) {
-                                        if (milestoneInfoEntry.prev) {
-                                            timeInfo += `<br><span style="color: #4caf50;">⭐ ${escapeHtml(milestoneInfoEntry.prev.title)}: +${formatDays(milestoneInfoEntry.prev.days)}</span>`;
-                                        }
-                                        if (milestoneInfoEntry.next) {
-                                            timeInfo += `<br><span style="color: #ff9800;">⏳ До "${escapeHtml(milestoneInfoEntry.next.title)}": ${formatDays(milestoneInfoEntry.next.days)}</span>`;
-                                        }
+                                        timeInfo = `<span style="color: #999; font-size: 13px;">${formatDays(daysFromStart)} от начала</span>`;
                                     }
                                     
                                     const descriptionHtml = entry.desc ? `<div style="color: #666; font-size: 14px; line-height: 1.6; margin-bottom: 10px;">${escapeHtml(entry.desc)}</div>` : '';
@@ -2566,8 +2652,11 @@
                                             </div>
                                         </div>
                                     `;
-                                }).join('')}
-                            </div>
+                                                }).join('')}
+                                        </div>
+                                    </div>
+                                `;
+                            }).join('')}
                         </div>
                     </div>
                 `;

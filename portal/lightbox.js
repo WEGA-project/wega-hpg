@@ -464,10 +464,36 @@ function updatePhoto() {
     }
     
     if (photo.date) {
-        date.innerHTML = photo.dateFormatted || `📅 ${photo.date}`;
+        let dateHtml = photo.dateFormatted || `📅 ${photo.date}`;
+        
+        // Добавляем информацию обо всех ключевых событиях
+        if (photo.allMilestones && photo.allMilestones.length > 0) {
+            const milestonesHtml = photo.allMilestones.map(m => {
+                const safeTitle = escapeHtmlLocal(m.title);
+                const daysText = `${m.days} ${getDaysWord(m.days)}`;
+                
+                if (m.isPast) {
+                    // Прошедшее событие - зеленым
+                    return `<div style="color: #4caf50; font-size: 12px; margin-top: 6px;">⭐ "${safeTitle}": прошло ${daysText}</div>`;
+                } else {
+                    // Будущее событие - оранжевым
+                    return `<div style="color: #ff9800; font-size: 12px; margin-top: 6px;">⏳ До "${safeTitle}": осталось ${daysText}</div>`;
+                }
+            }).join('');
+            dateHtml += milestonesHtml;
+        }
+        
+        date.innerHTML = dateHtml;
         date.style.display = 'block';
     } else {
         date.style.display = 'none';
+    }
+    
+    // Локальная функция для экранирования HTML
+    function escapeHtmlLocal(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
     }
     
     // Скрываем панель если нет данных
@@ -477,6 +503,26 @@ function updatePhoto() {
     } else {
         infoPanel.style.display = 'block';
     }
+}
+
+// Склонение слова "день"
+function getDaysWord(days) {
+    const lastDigit = days % 10;
+    const lastTwoDigits = days % 100;
+    
+    if (lastTwoDigits >= 11 && lastTwoDigits <= 14) {
+        return 'дней';
+    }
+    
+    if (lastDigit === 1) {
+        return 'день';
+    }
+    
+    if (lastDigit >= 2 && lastDigit <= 4) {
+        return 'дня';
+    }
+    
+    return 'дней';
 }
 
 // Навигация между фото
