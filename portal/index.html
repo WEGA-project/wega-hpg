@@ -4467,12 +4467,83 @@
         // Отслеживание изменения хэша
         window.addEventListener('hashchange', handleProfileHash);
 
+        // Обработка URL параметров для прямой ссылки на фото
+        function handlePhotoUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const profileId = urlParams.get('profile');
+            const photoUrl = urlParams.get('photo');
+            
+            if (profileId && photoUrl) {
+                // Небольшая задержка, чтобы профили успели загрузиться
+                setTimeout(() => {
+                    const profile = allProfiles.find(p => p.id === profileId);
+                    if (!profile || !profile.gallery || profile.gallery.length === 0) {
+                        console.error('Профиль или галерея не найдены');
+                        return;
+                    }
+                    
+                    // Подготавливаем массив фотографий с данными для lightbox
+                    const photosData = profile.gallery.map(photo => {
+                        // Вычисляем все ключевые события относительно даты фото
+                        const allMilestones = [];
+                        if (profile.milestones && profile.milestones.length > 0) {
+                            const currentDate = parseTimelineDate(photo.date);
+                            profile.milestones.forEach(milestone => {
+                                const milestoneDate = parseTimelineDate(milestone.date);
+                                const days = Math.abs(getDaysDifference(currentDate, milestoneDate));
+                                
+                                allMilestones.push({
+                                    title: milestone.title,
+                                    days: days,
+                                    isPast: milestoneDate <= currentDate,
+                                    isFuture: milestoneDate > currentDate
+                                });
+                            });
+                        }
+                        
+                        // Определяем профиль раствора (основной)
+                        let solutionProfile = null;
+                        if (profile.profileString) {
+                            const parsed = parseProfile(profile.profileString);
+                            solutionProfile = {
+                                ec: calculateEC(parsed),
+                                nh4no3: parsed.NH4 && parsed.NO3 ? parsed.NH4 / parsed.NO3 : 0,
+                                ratios: calculateRatios(parsed),
+                                daysAgo: 0,
+                                comment: '',
+                                profileString: profile.profileString,
+                                hpgContent: profile.profile
+                            };
+                        }
+                        
+                        return {
+                            url: photo.url,
+                            description: photo.description || '',
+                            date: photo.date,
+                            author: profile.userName || 'Аноним',
+                            profileName: profile.name,
+                            profileDescription: profile.description || '',
+                            profileId: profile.id,
+                            allMilestones: allMilestones,
+                            solutionProfile: solutionProfile
+                        };
+                    });
+                    
+                    // Открываем lightbox с указанным URL фото (декодируем URL)
+                    const decodedPhotoUrl = decodeURIComponent(photoUrl);
+                    openLightbox(photosData, decodedPhotoUrl);
+                }, 200);
+            }
+        }
+
         // Загрузка при старте
         loadProfiles().then(() => {
             // Загружаем ленту активности после загрузки профилей
             loadActivityFeed();
             // Проверяем хэш для автоматического открытия профиля
             handleProfileHash();
+            // Проверяем URL параметры для автоматического открытия фото
+            handlePhotoUrl();
         });
 
         // ========== УПРАВЛЕНИЕ КЛЮЧЕВЫМИ СОБЫТИЯМИ ==========

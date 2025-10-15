@@ -637,6 +637,15 @@
 
                 photos = profileData.gallery || [];
                 renderGallery();
+                
+                // Проверяем, есть ли параметр photo в URL для автоматического открытия
+                const photoUrl = urlParams.get('photo');
+                if (photoUrl && photos.length > 0) {
+                    setTimeout(() => {
+                        const decodedPhotoUrl = decodeURIComponent(photoUrl);
+                        openLightbox(decodedPhotoUrl);
+                    }, 300);
+                }
 
             } catch (error) {
                 console.error('Ошибка:', error);

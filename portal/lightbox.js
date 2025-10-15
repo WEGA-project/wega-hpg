@@ -460,8 +460,8 @@ function initLightbox() {
 // Открытие lightbox
 // Параметры:
 // - photos: строка (URL) или массив объектов {url, description, date, author, profileName, profileDescription}
-// - index: индекс фото для открытия (если передан массив)
-function openLightbox(photos, index = 0) {
+// - indexOrUrl: индекс фото для открытия (если передан массив) или URL фотографии
+function openLightbox(photos, indexOrUrl = 0) {
     // Инициализируем lightbox если еще не создан
     initLightbox();
 
@@ -471,9 +471,6 @@ function openLightbox(photos, index = 0) {
         currentPhotoIndex = 0;
         currentProfileId = null;
     } else if (Array.isArray(photos)) {
-        // Запоминаем URL текущего фото для восстановления индекса после сортировки
-        const targetPhotoUrl = photos[index]?.url;
-        
         // Сортируем фотографии по дате (от самой ранней к самой поздней)
         currentPhotos = [...photos].sort((a, b) => {
             const dateA = a.date ? new Date(a.date).getTime() : 0;
@@ -481,10 +478,20 @@ function openLightbox(photos, index = 0) {
             return dateA - dateB;
         });
         
-        // Находим новый индекс после сортировки
-        if (targetPhotoUrl) {
-            const newIndex = currentPhotos.findIndex(p => p.url === targetPhotoUrl);
+        // Определяем какую фотографию открыть
+        if (typeof indexOrUrl === 'string') {
+            // Если передан URL - ищем фото по URL
+            const newIndex = currentPhotos.findIndex(p => p.url === indexOrUrl);
             currentPhotoIndex = newIndex >= 0 ? newIndex : 0;
+        } else if (typeof indexOrUrl === 'number') {
+            // Если передан индекс - используем его для ИСХОДНОГО массива
+            const targetPhotoUrl = photos[indexOrUrl]?.url;
+            if (targetPhotoUrl) {
+                const newIndex = currentPhotos.findIndex(p => p.url === targetPhotoUrl);
+                currentPhotoIndex = newIndex >= 0 ? newIndex : 0;
+            } else {
+                currentPhotoIndex = 0;
+            }
         } else {
             currentPhotoIndex = 0;
         }
@@ -979,9 +986,10 @@ function sharePhoto() {
     }
     
     // Формируем URL с параметрами для открытия конкретной фотографии
+    // Используем URL фотографии как уникальный идентификатор вместо индекса
     const url = new URL(window.location.origin + window.location.pathname);
     url.searchParams.set('profile', profileId);
-    url.searchParams.set('photo', currentPhotoIndex);
+    url.searchParams.set('photo', encodeURIComponent(photo.url));
     
     // Копируем в буфер обмена
     navigator.clipboard.writeText(url.toString()).then(() => {
