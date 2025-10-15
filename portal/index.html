@@ -2410,49 +2410,53 @@
                 
                 profileStringHtml = `
                     <div class="profile-detail-section">
-                        <h3>⚗️ Профиль раствора</h3>
-                        
-                        <!-- Параметры профиля -->
-                        <div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); padding: 20px; border-radius: 12px; margin-bottom: 15px; border: 2px solid #4a9d9d;">
-                            <div style="font-weight: 700; color: #2d7a7a; margin-bottom: 15px; font-size: 16px; display: flex; align-items: center; gap: 8px;">
-                                <span>📊</span> Параметры раствора
-                            </div>
-                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px;">
-                                <div style="background: white; padding: 12px; border-radius: 8px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-                                    <div style="font-size: 24px; font-weight: 700; color: #2d7a7a;">${mainEC.toFixed(3)}</div>
-                                    <div style="font-size: 12px; color: #666; margin-top: 4px;">EC (мСм/см)</div>
+                        <h3 onclick="toggleSolution('${profile.id}')" style="cursor: pointer; user-select: none; display: flex; align-items: center; gap: 8px;">
+                            <span id="solution-arrow-${profile.id}" style="transition: transform 0.2s; display: inline-flex; align-items: center; line-height: 1;">▼</span>
+                            ⚗️ Профиль раствора
+                        </h3>
+                        <div id="solution-content-${profile.id}" style="display: flex; gap: 12px;">
+                            <!-- Параметры профиля -->
+                            <div style="flex: 0 0 28%; background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); padding: 8px; border-radius: 8px; border: 1px solid #4a9d9d;">
+                                <div style="font-weight: 600; color: #2d7a7a; font-size: 11px; text-align: center; margin-bottom: 6px;">
+                                    📊 Параметры раствора
                                 </div>
-                                ${mainRatios.NH4_NO3 !== undefined ? `
-                                    <div style="background: white; padding: 12px; border-radius: 8px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-                                        <div style="font-size: 24px; font-weight: 700; color: #2d7a7a;">${mainRatios.NH4_NO3.toFixed(2)}</div>
-                                        <div style="font-size: 12px; color: #666; margin-top: 4px;">NH4:NO3</div>
+                                <div style="display: flex; gap: 5px;">
+                                    <div style="flex: 1; min-width: 0; background: white; padding: 8px 3px; border-radius: 4px; text-align: center; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">
+                                        <div style="font-size: 16px; font-weight: 700; color: #2d7a7a; line-height: 1.2;">${mainEC.toFixed(3)}</div>
+                                        <div style="font-size: 9px; color: #666; margin-top: 3px;">EC мСм/см</div>
                                     </div>
-                                ` : ''}
-                                ${mainRatios.K_N ? `
-                                    <div style="background: white; padding: 12px; border-radius: 8px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-                                        <div style="font-size: 24px; font-weight: 700; color: #2d7a7a;">${mainRatios.K_N.toFixed(2)}</div>
-                                        <div style="font-size: 12px; color: #666; margin-top: 4px;">K:N</div>
-                                    </div>
-                                ` : ''}
-                                ${mainRatios.K_Ca ? `
-                                    <div style="background: white; padding: 12px; border-radius: 8px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-                                        <div style="font-size: 24px; font-weight: 700; color: #2d7a7a;">${mainRatios.K_Ca.toFixed(2)}</div>
-                                        <div style="font-size: 12px; color: #666; margin-top: 4px;">K:Ca</div>
-                                    </div>
-                                ` : ''}
-                                ${mainRatios.K_Mg ? `
-                                    <div style="background: white; padding: 12px; border-radius: 8px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-                                        <div style="font-size: 24px; font-weight: 700; color: #2d7a7a;">${mainRatios.K_Mg.toFixed(2)}</div>
-                                        <div style="font-size: 12px; color: #666; margin-top: 4px;">K:Mg</div>
-                                    </div>
-                                ` : ''}
+                                    ${mainRatios.NH4_NO3 !== undefined ? `
+                                        <div style="flex: 1; min-width: 0; background: white; padding: 8px 3px; border-radius: 4px; text-align: center; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">
+                                            <div style="font-size: 16px; font-weight: 700; color: #2d7a7a; line-height: 1.2;">${mainRatios.NH4_NO3.toFixed(2)}</div>
+                                            <div style="font-size: 9px; color: #666; margin-top: 3px;">NH4:NO3</div>
+                                        </div>
+                                    ` : ''}
+                                    ${mainRatios.K_N ? `
+                                        <div style="flex: 1; min-width: 0; background: white; padding: 8px 3px; border-radius: 4px; text-align: center; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">
+                                            <div style="font-size: 16px; font-weight: 700; color: #2d7a7a; line-height: 1.2;">${mainRatios.K_N.toFixed(2)}</div>
+                                            <div style="font-size: 9px; color: #666; margin-top: 3px;">K:N</div>
+                                        </div>
+                                    ` : ''}
+                                    ${mainRatios.K_Ca ? `
+                                        <div style="flex: 1; min-width: 0; background: white; padding: 8px 3px; border-radius: 4px; text-align: center; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">
+                                            <div style="font-size: 16px; font-weight: 700; color: #2d7a7a; line-height: 1.2;">${mainRatios.K_Ca.toFixed(2)}</div>
+                                            <div style="font-size: 9px; color: #666; margin-top: 3px;">K:Ca</div>
+                                        </div>
+                                    ` : ''}
+                                    ${mainRatios.K_Mg ? `
+                                        <div style="flex: 1; min-width: 0; background: white; padding: 8px 3px; border-radius: 4px; text-align: center; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">
+                                            <div style="font-size: 16px; font-weight: 700; color: #2d7a7a; line-height: 1.2;">${mainRatios.K_Mg.toFixed(2)}</div>
+                                            <div style="font-size: 9px; color: #666; margin-top: 3px;">K:Mg</div>
+                                        </div>
+                                    ` : ''}
+                                </div>
                             </div>
-                        </div>
-                        
-                        <!-- Профиль питания -->
-                        <div style="background: white; padding: 15px; border-radius: 8px; border: 1px solid #e0e0e0;">
-                            <div style="font-weight: 600; color: #666; margin-bottom: 12px; font-size: 13px;">Профиль питания:</div>
-                            ${formatProfileElements(profile.profileString, profile.profile)}
+                            
+                            <!-- Профиль питания -->
+                            <div style="flex: 1; background: white; padding: 8px; border-radius: 8px; border: 1px solid #e0e0e0;">
+                                <div style="font-weight: 600; color: #666; margin-bottom: 6px; font-size: 11px;">Профиль питания:</div>
+                                ${formatProfileElements(profile.profileString, profile.profile)}
+                            </div>
                         </div>
                     </div>
                 `;
@@ -3994,6 +3998,20 @@
             
             if (content.style.display === 'none') {
                 content.style.display = 'block';
+                arrow.style.transform = 'rotate(0deg)';
+            } else {
+                content.style.display = 'none';
+                arrow.style.transform = 'rotate(-90deg)';
+            }
+        }
+
+        // Сворачивание/разворачивание профиля раствора
+        function toggleSolution(profileId) {
+            const content = document.getElementById(`solution-content-${profileId}`);
+            const arrow = document.getElementById(`solution-arrow-${profileId}`);
+            
+            if (content.style.display === 'none') {
+                content.style.display = 'flex';
                 arrow.style.transform = 'rotate(0deg)';
             } else {
                 content.style.display = 'none';
