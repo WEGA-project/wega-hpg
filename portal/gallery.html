@@ -301,6 +301,29 @@
             margin-top: 4px;
         }
 
+        .gallery-item-edit {
+            position: absolute;
+            top: 10px;
+            right: 50px;
+            background: rgba(102, 126, 234, 0.9);
+            color: white;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        
+        .gallery-item-edit:hover {
+            background: rgba(102, 126, 234, 1);
+            transform: scale(1.1);
+        }
+        
         .gallery-item-delete {
             position: absolute;
             top: 10px;
@@ -316,8 +339,15 @@
             display: none;
             align-items: center;
             justify-content: center;
+            transition: all 0.3s;
+        }
+        
+        .gallery-item-delete:hover {
+            background: rgba(244, 67, 54, 1);
+            transform: scale(1.1);
         }
 
+        .gallery-item:hover .gallery-item-edit,
         .gallery-item:hover .gallery-item-delete {
             display: flex;
         }
@@ -584,14 +614,15 @@
         auth.onAuthStateChanged(user => {
             currentUser = user;
             
-            if (!currentUser) {
-                showAuthRequired();
-            } else if (!profileId) {
-                // Показываем список профилей пользователя
-                loadUserProfiles();
-            } else {
-                // Загружаем конкретную галерею
+            if (profileId) {
+                // Если указан profileId, загружаем галерею (доступно всем)
                 loadGallery();
+            } else if (!currentUser) {
+                // Если нет profileId и не авторизован - требуем авторизацию
+                showAuthRequired();
+            } else {
+                // Если авторизован и нет profileId - показываем список своих профилей
+                loadUserProfiles();
             }
         });
 
@@ -729,27 +760,42 @@
 
                 profileData = doc.data();
                 
-                // Проверяем права владельца
-                if (currentUser.uid !== profileData.userId) {
-                    document.getElementById('galleryGrid').innerHTML = `
-                        <div class="empty-state">
-                            <div style="font-size: 64px; margin-bottom: 20px;">🔒</div>
-                            <h3>Доступ запрещён</h3>
-                            <p>Вы можете управлять галереями только своих профилей</p>
-                            <button class="btn btn-primary" style="margin-top: 20px;" onclick="window.location.href='gallery.html'">
-                                К списку моих профилей
-                            </button>
-                        </div>
-                    `;
-                    return;
-                }
-
+                // Проверяем является ли пользователь владельцем
+                const isOwner = currentUser && currentUser.uid === profileData.userId;
+                
                 document.getElementById('profileName').textContent = profileData.name;
                 document.getElementById('profileMeta').textContent = `Автор: ${profileData.userName || 'Аноним'}`;
 
-                // Показываем кнопки управления
-                document.getElementById('showAddFormBtn').style.display = 'inline-flex';
-                document.getElementById('backToListBtn').style.display = 'inline-flex';
+                // Показываем кнопки управления только владельцу
+                if (isOwner) {
+                    document.getElementById('showAddFormBtn').style.display = 'inline-flex';
+                    document.getElementById('backToListBtn').style.display = 'inline-flex';
+                    // Убираем информационное сообщение если оно было
+                    const viewModeInfo = document.getElementById('viewModeInfo');
+                    if (viewModeInfo) viewModeInfo.remove();
+                } else {
+                    document.getElementById('showAddFormBtn').style.display = 'none';
+                    document.getElementById('backToListBtn').style.display = 'none';
+                    // Скрываем форму добавления если она была открыта
+                    document.getElementById('addPhotoForm').classList.remove('active');
+                    
+                    // Добавляем информационное сообщение о режиме просмотра
+                    const existingInfo = document.getElementById('viewModeInfo');
+                    if (!existingInfo) {
+                        const infoDiv = document.createElement('div');
+                        infoDiv.id = 'viewModeInfo';
+                        infoDiv.style.cssText = 'background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); padding: 15px 20px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #2196f3; display: flex; align-items: center; gap: 12px;';
+                        infoDiv.innerHTML = `
+                            <span style="font-size: 24px;">👁️</span>
+                            <div style="flex: 1;">
+                                <div style="font-weight: 600; color: #1976d2; margin-bottom: 4px;">Режим просмотра</div>
+                                <div style="font-size: 14px; color: #555;">Вы просматриваете галерею другого пользователя. ${currentUser ? 'Редактирование недоступно.' : 'Войдите для управления своими галереями.'}</div>
+                            </div>
+                        `;
+                        const container = document.querySelector('.gallery-container');
+                        container.insertBefore(infoDiv, container.firstChild);
+                    }
+                }
 
                 photos = profileData.gallery || [];
                 renderGallery();
@@ -807,7 +853,10 @@
                     <div class="gallery-item" onclick="openLightbox('${escapeJs(photo.url)}')">
                         <img src="${photo.url}" alt="${escapeHtml(photo.description || '')}" 
                              onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'250\\' height=\\'250\\'%3E%3Crect fill=\\'%23f0f0f0\\' width=\\'250\\' height=\\'250\\'/%3E%3Ctext x=\\'50%25\\' y=\\'50%25\\' text-anchor=\\'middle\\' dy=\\'.3em\\' fill=\\'%23999\\' font-size=\\'14\\'%3EФото недоступно%3C/text%3E%3C/svg%3E'">
-                        ${isOwner ? `<button class="gallery-item-delete" onclick="event.stopPropagation(); deletePhoto(${index})">🗑️</button>` : ''}
+                        ${isOwner ? `
+                            <button class="gallery-item-edit" onclick="event.stopPropagation(); editPhoto(${index})" title="Редактировать">✏️</button>
+                            <button class="gallery-item-delete" onclick="event.stopPropagation(); deletePhoto(${index})" title="Удалить">🗑️</button>
+                        ` : ''}
                         <div class="gallery-item-info">
                             <div class="gallery-item-date">📅 ${date}</div>
                             <div class="gallery-item-description">${escapeHtml(photo.description || 'Без описания')}</div>
@@ -998,6 +1047,95 @@
                 console.error('Ошибка:', error);
                 await customAlert('❌ Ошибка: ' + error.message, 'Ошибка');
             }
+        }
+
+        async function editPhoto(index) {
+            if (!currentUser || !profileData || currentUser.uid !== profileData.userId) {
+                await customAlert('Только владелец профиля может редактировать фотографии');
+                return;
+            }
+
+            const photo = photos[index];
+            if (!photo) return;
+
+            // Создаем модальное окно для редактирования
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.style.cssText = 'display: flex; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 10000; align-items: center; justify-content: center;';
+            
+            const photoDate = photo.date ? new Date(photo.date) : new Date();
+            const dateStr = photoDate.toISOString().split('T')[0];
+            
+            modal.innerHTML = `
+                <div style="background: white; border-radius: 12px; padding: 30px; max-width: 500px; width: 90%; max-height: 90vh; overflow-y: auto;">
+                    <h2 style="margin: 0 0 20px 0; color: #333;">✏️ Редактировать фотографию</h2>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <img src="${photo.url}" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; background: #f5f5f5;">
+                    </div>
+                    
+                    <div style="margin-bottom: 15px;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: 600; color: #333;">Дата:</label>
+                        <input type="date" id="editPhotoDate" value="${dateStr}" 
+                               style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px;">
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: 600; color: #333;">Описание:</label>
+                        <textarea id="editPhotoDescription" rows="4" 
+                                  style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; resize: vertical;">${photo.description || ''}</textarea>
+                    </div>
+                    
+                    <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                        <button id="cancelEditBtn" style="padding: 10px 20px; border: 1px solid #ddd; background: white; border-radius: 6px; cursor: pointer; font-size: 14px;">
+                            Отмена
+                        </button>
+                        <button id="saveEditBtn" style="padding: 10px 20px; border: none; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 6px; cursor: pointer; font-size: 14px; font-weight: 600;">
+                            💾 Сохранить
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            // Обработчики
+            document.getElementById('cancelEditBtn').onclick = () => modal.remove();
+            modal.onclick = (e) => {
+                if (e.target === modal) modal.remove();
+            };
+            
+            document.getElementById('saveEditBtn').onclick = async () => {
+                const newDate = document.getElementById('editPhotoDate').value;
+                const newDescription = document.getElementById('editPhotoDescription').value.trim();
+                
+                if (!newDate) {
+                    await customAlert('Укажите дату фотографии');
+                    return;
+                }
+                
+                try {
+                    // Обновляем фото
+                    photos[index] = {
+                        ...photo,
+                        date: newDate,
+                        description: newDescription
+                    };
+                    
+                    await db.collection('profiles').doc(profileId).update({
+                        gallery: photos,
+                        modified: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                    
+                    modal.remove();
+                    renderGallery();
+                    showNotification('✅ Фотография обновлена');
+                    
+                } catch (error) {
+                    console.error('Ошибка:', error);
+                    await customAlert('❌ Ошибка: ' + error.message, 'Ошибка');
+                }
+            };
         }
 
         async function deletePhoto(index) {
