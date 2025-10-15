@@ -2227,6 +2227,51 @@
                 const journalEntriesCount = (profile.journal && profile.journal.length) || 0;
                 const photosCount = (profile.gallery && profile.gallery.filter(p => p.date).length) || 0;
                 
+                // Создаем глобальный массив всех фотографий профиля в хронологическом порядке
+                const allPhotosData = [];
+                timeline.forEach((item, timelineIndex) => {
+                    if (item.type === 'photoGroup') {
+                        const photos = item.data;
+                        const photoDate = parseTimelineDate(photos[0].date);
+                        const startDate = timeline.length > 0 ? parseTimelineDate(timeline[0].date) : photoDate;
+                        const prevDate = timelineIndex > 0 ? parseTimelineDate(timeline[timelineIndex - 1].date) : null;
+                        const daysFromStart = getDaysDifference(startDate, photoDate);
+                        const daysFromPrev = prevDate ? getDaysDifference(prevDate, photoDate) : 0;
+                        
+                        const dateLabel = photoDate.toLocaleDateString('ru-RU', { 
+                            year: 'numeric', 
+                            month: 'short', 
+                            day: 'numeric' 
+                        });
+                        
+                        let timeInfo = '📸 ' + dateLabel;
+                        if (daysFromStart > 0) {
+                            timeInfo += ' (' + formatDays(daysFromStart) + ' от начала';
+                            if (daysFromPrev > 0) {
+                                timeInfo += ' • +' + formatDays(daysFromPrev) + ')';
+                            } else {
+                                timeInfo += ')';
+                            }
+                        }
+                        
+                        photos.forEach(photo => {
+                            allPhotosData.push({
+                                url: photo.url,
+                                description: photo.description || '',
+                                date: photo.date,
+                                dateFormatted: timeInfo,
+                                author: profile.userName || 'Аноним',
+                                profileName: profile.name,
+                                profileDescription: profile.description || ''
+                            });
+                        });
+                    }
+                });
+                
+                // Сохраняем в глобальный объект
+                if (!window.lightboxPhotoGroups) window.lightboxPhotoGroups = {};
+                window.lightboxPhotoGroups['profile_' + profile.id] = allPhotosData;
+                
                 journalHtml = `
                     <div class="profile-detail-section">
                         <h3 onclick="toggleJournal('${profile.id}')" style="cursor: pointer; user-select: none; display: flex; align-items: center; gap: 8px;">
@@ -2275,12 +2320,15 @@
                                             : 'Без описания';
                                         
                                         // Генерируем превью-вагончики
-                                        const previewsHtml = photos.map(photo => `
-                                            <div class="journal-photo-train-item" onclick="openLightbox('${escapeJs(photo.url)}')" title="${escapeHtml(photo.description || 'Фото')}">
+                                        const previewsHtml = photos.map((photo) => {
+                                            // Находим индекс этого фото в общем массиве
+                                            const globalIndex = allPhotosData.findIndex(p => p.url === photo.url && p.date === photo.date);
+                                            return `
+                                            <div class="journal-photo-train-item" onclick="openLightbox(window.lightboxPhotoGroups['profile_${profile.id}'], ${globalIndex})" title="${escapeHtml(photo.description || 'Фото')}">
                                                 <img src="${escapeHtml(photo.url)}" alt="${escapeHtml(photo.description || 'Фото')}"
                                                      onerror="this.parentElement.innerHTML='<div style=\\'display: flex; align-items: center; justify-content: center; height: 100%; background: #f5f5f5; color: #999; font-size: 24px;\\'>📸</div>';">
                                             </div>
-                                        `).join('');
+                                        `}).join('');
                                         
                                         return `
                                             <div class="journal-photo">
