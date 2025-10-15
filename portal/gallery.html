@@ -312,81 +312,8 @@
                     </p>
                 </div>
                 
-                <!-- Вкладки -->
-                <div style="display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 2px solid #e0e0e0; overflow-x: auto;">
-                    <button id="tabSingle" class="btn" onclick="switchTab('single')" 
-                            style="border: none; border-bottom: 3px solid #667eea; background: transparent; color: #667eea; font-weight: 600; padding: 10px 20px; border-radius: 0; white-space: nowrap;">
-                        Одно фото
-                    </button>
-                    <button id="tabBulk" class="btn" onclick="switchTab('bulk')" 
-                            style="border: none; border-bottom: 3px solid transparent; background: transparent; color: #999; font-weight: 500; padding: 10px 20px; border-radius: 0; white-space: nowrap;">
-                        Массовый импорт
-                    </button>
-                </div>
-
-                <!-- Форма одного фото -->
-                <div id="singlePhotoForm">
-                    <div style="background: #f5f5f5; border-radius: 8px; padding: 20px; margin-bottom: 20px;">
-                        <div style="font-weight: 600; color: #333; margin-bottom: 15px; font-size: 15px;">📸 Выберите сервис для размещения фото:</div>
-                        
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px;">
-                            <!-- Google Photos -->
-                            <div style="text-align: center;">
-                                <a href="https://photos.google.com" target="_blank" style="display: block; padding: 12px; background: #4285f4; color: white; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 13px;">
-                                    📷 Google Photos
-                                </a>
-                                <button onclick="showHelp('google')" style="margin-top: 5px; border: none; background: transparent; color: #666; cursor: pointer; font-size: 18px;" title="Как использовать">❓</button>
-                            </div>
-                            
-                            <!-- Imgur -->
-                            <div style="text-align: center;">
-                                <a href="https://imgur.com/upload" target="_blank" style="display: block; padding: 12px; background: #1bb76e; color: white; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 13px;">
-                                    🖼️ Imgur
-                                </a>
-                                <button onclick="showHelp('imgur')" style="margin-top: 5px; border: none; background: transparent; color: #666; cursor: pointer; font-size: 18px;" title="Как использовать">❓</button>
-                            </div>
-                            
-                            <!-- ImgBB -->
-                            <div style="text-align: center;">
-                                <a href="https://imgbb.com/" target="_blank" style="display: block; padding: 12px; background: #3b7dd6; color: white; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 13px;">
-                                    🌄 ImgBB
-                                </a>
-                                <button onclick="showHelp('imgbb')" style="margin-top: 5px; border: none; background: transparent; color: #666; cursor: pointer; font-size: 18px;" title="Как использовать">❓</button>
-                            </div>
-                            
-                            <!-- PostImages -->
-                            <div style="text-align: center;">
-                                <a href="https://postimages.org/" target="_blank" style="display: block; padding: 12px; background: #ff6b35; color: white; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 13px;">
-                                    🎨 PostImages
-                                </a>
-                                <button onclick="showHelp('postimg')" style="margin-top: 5px; border: none; background: transparent; color: #666; cursor: pointer; font-size: 18px;" title="Как использовать">❓</button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label style="font-size: 15px; font-weight: 600; color: #333;">🔗 Прямая ссылка на изображение *</label>
-                        <input type="url" id="photoUrl" placeholder="https://i.imgur.com/... или https://lh3.googleusercontent.com/...">
-                        <div style="margin-top: 8px; padding: 10px; background: #e8f4fd; border-left: 3px solid #2196f3; border-radius: 4px; font-size: 13px; color: #1565c0;">
-                            💡 <strong>Подсказка:</strong> Ссылка должна заканчиваться на .jpg, .png или .webp и вести прямо на изображение, а не на страницу просмотра
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Дата съёмки</label>
-                        <input type="date" id="photoDate">
-                    </div>
-                    <div class="form-group">
-                        <label>Описание (стадия роста, наблюдения)</label>
-                        <textarea id="photoDescription" placeholder="Например: 3 недели от посадки, активный рост..."></textarea>
-                    </div>
-                    <div style="display: flex; gap: 10px; margin-top: 20px;">
-                        <button class="btn btn-primary" onclick="addPhoto()">➕ Добавить фото</button>
-                        <button class="btn btn-secondary" onclick="toggleAddForm()">Отмена</button>
-                    </div>
-                </div>
-
-                <!-- Форма массового импорта -->
-                <div id="bulkPhotoForm" style="display: none;">
+                <!-- Форма добавления фото -->
+                <div>
                     <div style="background: #f5f5f5; border-radius: 8px; padding: 20px; margin-bottom: 20px;">
                         <div style="font-weight: 600; color: #333; margin-bottom: 15px; font-size: 15px;">📸 Выберите сервис для размещения фото:</div>
                         
@@ -427,18 +354,22 @@
                     
                     <div class="form-group">
                         <label style="font-size: 15px; font-weight: 600; color: #333;">🔗 Прямые ссылки на изображения (по одной на строку) *</label>
-                        <textarea id="bulkUrls" rows="8" placeholder="https://i.imgur.com/abc123.jpg&#10;https://lh3.googleusercontent.com/xyz789.png&#10;https://i.ibb.co/def456.webp"></textarea>
-                        <div style="margin-top: 8px; padding: 10px; background: #fff3e0; border-left: 3px solid #ff9800; border-radius: 4px; font-size: 13px; color: #e65100;">
-                            ⚡ <strong>Совет:</strong> Можно загрузить все фото сразу на один сервис, скопировать все ссылки и вставить здесь
+                        <textarea id="photoUrl" rows="5" placeholder="https://i.imgur.com/abc123.jpg&#10;https://lh3.googleusercontent.com/xyz789.png&#10;https://i.ibb.co/def456.webp"></textarea>
+                        <div style="margin-top: 8px; padding: 10px; background: #e8f4fd; border-left: 3px solid #2196f3; border-radius: 4px; font-size: 13px; color: #1565c0;">
+                            💡 <strong>Подсказка:</strong> Вставьте одну или несколько ссылок (по одной на строку). Для каждой ссылки будет создана отдельная запись с указанной датой и описанием
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>Общее описание (необязательно)</label>
-                        <textarea id="bulkDescription" rows="3" placeholder="Например: Прогресс роста за март 2025"></textarea>
+                        <label>Дата съемки *</label>
+                        <input type="date" id="photoDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Описание (стадия роста, наблюдения)</label>
+                        <textarea id="photoDescription" rows="3" placeholder="Например: 3 недели от посадки, активный рост..."></textarea>
                         <div class="form-hint">Это описание будет добавлено ко всем фотографиям</div>
                     </div>
                     <div style="display: flex; gap: 10px; margin-top: 20px;">
-                        <button class="btn btn-primary" onclick="addPhotoBulk()">➕ Импортировать фотографии</button>
+                        <button class="btn btn-primary" onclick="addPhoto()">➕ Добавить фото</button>
                         <button class="btn btn-secondary" onclick="toggleAddForm()">Отмена</button>
                     </div>
                 </div>
@@ -775,30 +706,6 @@
             document.getElementById('galleryGrid').innerHTML = html;
         }
 
-        function switchTab(tab) {
-            const tabs = {
-                single: document.getElementById('tabSingle'),
-                bulk: document.getElementById('tabBulk')
-            };
-            const forms = {
-                single: document.getElementById('singlePhotoForm'),
-                bulk: document.getElementById('bulkPhotoForm')
-            };
-
-            // Сбрасываем все вкладки
-            Object.values(tabs).forEach(t => {
-                t.style.borderBottomColor = 'transparent';
-                t.style.color = '#999';
-                t.style.fontWeight = '500';
-            });
-            Object.values(forms).forEach(f => f.style.display = 'none');
-
-            // Активируем выбранную вкладку
-            tabs[tab].style.borderBottomColor = '#667eea';
-            tabs[tab].style.color = '#667eea';
-            tabs[tab].style.fontWeight = '600';
-            forms[tab].style.display = 'block';
-        }
 
         function toggleAddForm() {
             const form = document.getElementById('addPhotoForm');
@@ -807,14 +714,10 @@
             if (form.classList.contains('active')) {
                 form.classList.remove('active');
                 btn.style.display = 'inline-flex';
-                // Очищаем формы
+                // Очищаем форму
                 document.getElementById('photoUrl').value = '';
                 document.getElementById('photoDate').value = '';
                 document.getElementById('photoDescription').value = '';
-                document.getElementById('bulkUrls').value = '';
-                document.getElementById('bulkDescription').value = '';
-                // Возвращаемся на первую вкладку
-                switchTab('single');
             } else {
                 form.classList.add('active');
                 btn.style.display = 'none';
@@ -855,68 +758,28 @@
                 return;
             }
 
-            let url = document.getElementById('photoUrl').value.trim();
-            
-            // Конвертируем короткую ссылку в прямую
-            try {
-                url = await convertGooglePhotosUrl(url);
-            } catch (error) {
-                await customAlert(error.message, 'Ошибка');
-                return;
-            }
+            const urlsText = document.getElementById('photoUrl').value.trim();
             const date = document.getElementById('photoDate').value;
             const description = document.getElementById('photoDescription').value.trim();
-
-            if (!url) {
-                await customAlert('Введите ссылку на фотографию');
-                return;
-            }
-
-            try {
-                const newPhoto = {
-                    url: url,
-                    date: date || new Date().toISOString().split('T')[0],
-                    description: description || '',
-                    addedAt: new Date().toISOString(),
-                    addedBy: currentUser.uid
-                };
-
-                photos.push(newPhoto);
-
-                await db.collection('profiles').doc(profileId).update({
-                    gallery: photos,
-                    modified: firebase.firestore.FieldValue.serverTimestamp()
-                });
-
-                renderGallery();
-                toggleAddForm();
-                showNotification('✅ Фотография добавлена!');
-
-            } catch (error) {
-                console.error('Ошибка:', error);
-                await customAlert('❌ Ошибка: ' + error.message, 'Ошибка');
-            }
-        }
-
-        async function addPhotoBulk() {
-            if (!currentUser || !profileData || currentUser.uid !== profileData.userId) {
-                await customAlert('Только владелец профиля может добавлять фотографии');
-                return;
-            }
-
-            const urlsText = document.getElementById('bulkUrls').value.trim();
-            const bulkDescription = document.getElementById('bulkDescription').value.trim();
 
             if (!urlsText) {
                 await customAlert('Введите хотя бы одну ссылку');
                 return;
             }
 
+            if (!date) {
+                await customAlert('Укажите дату съемки');
+                return;
+            }
+
+            // Разбиваем текст на строки и фильтруем пустые
             let urls = urlsText.split('\n').map(u => u.trim()).filter(u => u);
             
             // Конвертируем все короткие ссылки в прямые
             try {
-                showNotification('⏳ Обработка ссылок...');
+                if (urls.length > 1) {
+                    showNotification('⏳ Обработка ссылок...');
+                }
                 const convertedUrls = [];
                 for (const url of urls) {
                     const converted = await convertGooglePhotosUrl(url);
@@ -929,16 +792,14 @@
             }
 
             try {
-                const today = new Date().toISOString().split('T')[0];
                 const newPhotos = urls.map(url => ({
                     url: url,
-                    date: today,
-                    description: bulkDescription || '',
+                    date: date,
+                    description: description || '',
                     addedAt: new Date().toISOString(),
                     addedBy: currentUser.uid
                 }));
 
-                // Добавляем все фото
                 photos.push(...newPhotos);
 
                 await db.collection('profiles').doc(profileId).update({
@@ -948,13 +809,18 @@
 
                 renderGallery();
                 toggleAddForm();
-                showNotification(`✅ Импортировано ${newPhotos.length} фотографий!`);
+                
+                const message = newPhotos.length === 1 ? 
+                    '✅ Фотография добавлена!' : 
+                    `✅ Добавлено ${newPhotos.length} фотографий!`;
+                showNotification(message);
 
             } catch (error) {
                 console.error('Ошибка:', error);
                 await customAlert('❌ Ошибка: ' + error.message, 'Ошибка');
             }
         }
+
 
         async function editPhoto(index) {
             if (!currentUser || !profileData || currentUser.uid !== profileData.userId) {
