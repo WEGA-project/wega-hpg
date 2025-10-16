@@ -42,6 +42,33 @@
             border-bottom: 1px solid #8f8f8f;
             font-weight: bold;
             text-shadow: 0 1px 0 #f4f4f4;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .portal-button {
+            background: linear-gradient(to bottom, #4a90e2, #357abd);
+            color: white;
+            border: 1px solid #2d5f8d;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: bold;
+            text-decoration: none;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+            transition: all 0.2s;
+        }
+
+        .portal-button:hover {
+            background: linear-gradient(to bottom, #5a9ff2, #4585c7);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .portal-button:active {
+            background: linear-gradient(to bottom, #357abd, #2d5f8d);
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.3);
         }
 
         .tab-bar {
@@ -1383,7 +1410,10 @@
 </head>
 <body>
     <div class="container">
-        <div class="header">Hydroponic Profile Generator (HPG)</div>
+        <div class="header">
+            <span>Hydroponic Profile Generator (HPG)</span>
+            <a href="portal/index.html" class="portal-button" target="_blank">📚 Библиотека профилей</a>
+        </div>
         
         <div class="tab-bar">
             <div class="tab active" onclick="switchTab('macro', this)">Макро</div>
