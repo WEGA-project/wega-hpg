@@ -6,10 +6,22 @@
 <a href="images/calc.png"><img src="images/calc.png" width="300"></a> &emsp; <a href="images/micro.png"><img src="images/micro.png" width="300"></a>&emsp; <a href="images/mono_solutions.png"><img src="images/mono_solutions.png" width="300"></a>
 </div>
 
+---
 
-[**СКАЧАТЬ весь репозиторий**](https://github.com/WEGA-project/WEGA-HPG/archive/refs/heads/master.zip)
+### 📥 Скачать калькулятор
 
-[Примеры профилей питания](https://github.com/WEGA-project/wega-hpg/blob/master/examples.zip)
+**Десктопные версии:**
+- 🐧 [Linux x86_64](https://github.com/WEGA-project/WEGA-HPG/raw/master/hpg)
+- 🪟 [Windows](https://github.com/WEGA-project/WEGA-HPG/raw/master/hpg.exe)
+
+**Веб-версия:**
+- 🌐 [Веб-калькулятор (HTML5)](https://wega-project.github.io/wega-hpg/hpg.html) — работает в браузере без установки
+
+**Дополнительно:**
+- 📥 [Скачать весь репозиторий](https://github.com/WEGA-project/WEGA-HPG/archive/refs/heads/master.zip)
+- 📋 [Примеры профилей питания](https://github.com/WEGA-project/wega-hpg/blob/master/examples.zip)
+
+---
 
 Содержание
 =================
@@ -46,15 +58,6 @@
 * Корректировка раствора
 
 и многое, многое другое.
-
----
-### Актуальные версии <a name="versions"></a>
-
-[Liniux x86_64](https://github.com/WEGA-project/WEGA-HPG/raw/master/hpg)
-
-[Windows](https://github.com/WEGA-project/WEGA-HPG/raw/master/hpg.exe)
-
-[Примеры профилей питания](https://github.com/WEGA-project/wega-hpg/blob/master/examples.zip)
 
 ---
 ### Как собрать калькулятор под свою систему <a name="how_to_build"></a>
