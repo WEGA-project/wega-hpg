@@ -31,58 +31,72 @@
         }
 
         .header-content {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 0 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
             gap: 15px;
+        }
+
+        .header-center {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex: 1;
+            justify-content: center;
         }
 
         .logo {
             display: flex;
             align-items: center;
             gap: 12px;
-            font-size: 24px;
+            font-size: 20px;
             font-weight: bold;
             color: #667eea;
+            cursor: pointer;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        .logo:hover {
+            opacity: 0.8;
         }
 
         .logo-icon {
-            font-size: 32px;
+            font-size: 28px;
         }
 
         .header-actions {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             align-items: center;
         }
 
         .btn {
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-size: 14px;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 13px;
             font-weight: 500;
             cursor: pointer;
             transition: all 0.3s;
             text-decoration: none;
             display: inline-block;
             border: none;
+            white-space: nowrap;
         }
 
         .btn-primary {
             background: linear-gradient(135deg, #4a9d9d 0%, #2d7a7a 100%);
             color: white;
             border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-size: 16px;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 13px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(74, 157, 157, 0.3);
+            box-shadow: 0 2px 8px rgba(74, 157, 157, 0.3);
         }
 
         .btn-primary:hover {
@@ -94,7 +108,7 @@
             background: rgba(74, 157, 157, 0.15);
             color: #2d7a7a;
             border: 2px solid rgba(74, 157, 157, 0.4);
-            padding: 10px 20px;
+            padding: 8px 14px;
             box-shadow: 0 2px 8px rgba(45, 122, 122, 0.15);
         }
 
@@ -1473,33 +1487,38 @@
     <!-- Шапка -->
     <div class="header">
         <div class="header-content">
-            <div class="logo">
+            <a href="index.html" class="logo">
                 <span class="logo-icon">🌱</span>
                 <span>HPG Community</span>
-            </div>
-            <div class="header-actions">
-                <button id="gallery-btn" class="btn btn-secondary" onclick="window.location.href='gallery.html'" style="display: none;">
-                    📸 Галерея
-                </button>
-                <button id="upload-btn" class="btn btn-primary" onclick="showUploadForm()" style="display: none;">
-                    📤 Загрузить профиль
-                </button>
-                <a href="../hpg.html" class="btn btn-secondary">
-                    🧪 Открыть калькулятор
-                </a>
-                <div id="auth-section">
-                    <!-- Кнопка входа (показывается когда не авторизован) -->
-                    <button id="login-btn" class="btn btn-primary" onclick="loginWithGoogle()" style="display: none;">
-                        🔐 Войти через Google
+            </a>
+            <div class="header-center">
+                <div class="header-actions">
+                    <button id="gallery-btn" class="btn btn-secondary" onclick="window.location.href='gallery.html'" style="display: none;">
+                        📸 Галерея
                     </button>
-                    <!-- Информация о пользователе (показывается когда авторизован) -->
-                    <div id="user-info" style="display: none; align-items: center; gap: 10px;">
-                        <img id="user-avatar" style="width: 36px; height: 36px; border-radius: 50%;" alt="">
-                        <span id="user-name" style="font-size: 14px; font-weight: 500;"></span>
-                        <button class="btn btn-secondary" onclick="logout()" style="padding: 8px 15px; font-size: 13px;">
-                            🚪 Выйти
-                        </button>
-                    </div>
+                    <button id="upload-btn" class="btn btn-primary" onclick="showUploadForm()" style="display: none;">
+                        📤 Загрузить профиль
+                    </button>
+                    <a href="../hpg.html" class="btn btn-secondary">
+                        🧪 Открыть калькулятор
+                    </a>
+                    <a href="https://github.com/WEGA-project/wega-hpg/wiki" class="btn btn-secondary" target="_blank">
+                        📖 Wiki
+                    </a>
+                </div>
+            </div>
+            <div id="auth-section">
+                <!-- Кнопка входа (показывается когда не авторизован) -->
+                <button id="login-btn" class="btn btn-primary" onclick="loginWithGoogle()" style="display: none;">
+                    🔐 Войти через Google
+                </button>
+                <!-- Информация о пользователе (показывается когда авторизован) -->
+                <div id="user-info" style="display: none; align-items: center; gap: 10px;">
+                    <img id="user-avatar" style="width: 32px; height: 32px; border-radius: 50%;" alt="">
+                    <span id="user-name" style="font-size: 13px; font-weight: 500;"></span>
+                    <button class="btn btn-secondary" onclick="logout()" style="padding: 6px 12px; font-size: 12px;">
+                        🚪 Выйти
+                    </button>
                 </div>
             </div>
         </div>
