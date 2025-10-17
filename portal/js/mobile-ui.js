@@ -765,3 +765,66 @@
     window.addEventListener('mobileReady', init);
     
 })();
+
+
+// Переключатель между библиотекой и активностью
+function initViewToggle() {
+    const isMobile = document.body.classList.contains('mobile-mode');
+    if (!isMobile) return;
+    
+    const mainLayout = document.querySelector('.main-layout');
+    if (!mainLayout) return;
+    
+    const activityFeed = mainLayout.querySelector('.activity-feed');
+    const mainContent = mainLayout.querySelector('.main-content');
+    if (!activityFeed || !mainContent) return;
+    
+    // Создаем кнопки
+    const toggle = document.createElement('div');
+    toggle.className = 'mobile-view-toggle';
+    toggle.innerHTML = `
+        <button class="mobile-view-toggle-btn active" data-view="library">
+            📚 Библиотека
+        </button>
+        <button class="mobile-view-toggle-btn" data-view="activity">
+            📰 Активность
+        </button>
+    `;
+    
+    document.body.appendChild(toggle);
+    
+    // Обработчики
+    toggle.querySelectorAll('.mobile-view-toggle-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const view = btn.dataset.view;
+            
+            // Обновляем кнопки
+            toggle.querySelectorAll('.mobile-view-toggle-btn').forEach(b => {
+                b.classList.toggle('active', b === btn);
+            });
+            
+            // Переключаем видимость
+            if (view === 'activity') {
+                activityFeed.classList.add('mobile-view-active');
+                mainContent.classList.add('mobile-view-hidden');
+            } else {
+                activityFeed.classList.remove('mobile-view-active');
+                mainContent.classList.remove('mobile-view-hidden');
+            }
+        });
+    });
+}
+
+// Добавляем в инициализацию
+window.addEventListener('mobileReady', () => {
+    setTimeout(initViewToggle, 100);
+});
+
+// Также инициализируем при загрузке если мобильный режим уже активен
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        setTimeout(initViewToggle, 500);
+    });
+} else {
+    setTimeout(initViewToggle, 500);
+}

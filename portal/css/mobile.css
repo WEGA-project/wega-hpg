@@ -97,7 +97,19 @@ body {
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    /* Круглые кнопки */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Кнопка входа - компактная */
+.mobile-mode .header-actions .btn-primary {
+    width: auto !important;
+    min-width: 44px;
+    max-width: 120px;
+    padding: 0 12px !important;
+    font-size: 13px !important;
+    border-radius: 22px !important;
 }
 
 /* User info компактно */
@@ -1725,4 +1737,129 @@ body {
     .mobile-mode .lightbox-nav-next:hover {
         transform: scale(1.1) !important;
     }
+}
+
+/* ==================== ПЕРЕКЛЮЧАТЕЛЬ БИБЛИОТЕКА/АКТИВНОСТЬ ==================== */
+
+/* Кнопки переключения */
+.mobile-view-toggle {
+    position: fixed;
+    top: 70px;
+    left: 10px;
+    right: 10px;
+    z-index: 98;
+    display: none;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 6px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-mode .mobile-view-toggle {
+    display: flex;
+}
+
+.mobile-view-toggle-btn {
+    flex: 1;
+    padding: 8px 12px;
+    border: none;
+    background: transparent;
+    color: #666;
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 8px;
+    cursor: pointer;
+    white-space: nowrap;
+    text-align: center;
+}
+
+.mobile-view-toggle-btn.active {
+    background: #4a9d9d;
+    color: white;
+}
+
+/* Скрываем неактивные секции */
+.mobile-mode .activity-feed {
+    display: none;
+    position: relative !important;
+    top: 0 !important;
+    max-height: none !important;
+    height: auto !important;
+    overflow-y: visible !important;
+}
+
+.mobile-mode .activity-feed.mobile-view-active {
+    display: block;
+}
+
+.mobile-mode .main-content {
+    display: block;
+}
+
+.mobile-mode .main-content.mobile-view-hidden {
+    display: none;
+}
+
+/* Отступ для контента под кнопками */
+.mobile-mode .container {
+    padding-top: 120px;
+}
+
+/* Адаптация ленты активности */
+.mobile-mode .activity-feed {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 15px 10px !important;
+    box-sizing: border-box !important;
+}
+
+.mobile-mode .activity-item {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 12px !important;
+    margin-bottom: 12px !important;
+    box-sizing: border-box !important;
+}
+
+.mobile-mode .activity-profile-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 10px !important;
+    box-sizing: border-box !important;
+}
+
+.mobile-mode .activity-actions {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    width: 100% !important;
+}
+
+.mobile-mode .activity-actions .activity-btn {
+    width: 100% !important;
+    flex: none !important;
+    padding: 10px 12px !important;
+    font-size: 13px !important;
+    box-sizing: border-box !important;
+}
+
+.mobile-mode .activity-tags {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+    width: 100% !important;
+}
+
+.mobile-mode .activity-tag {
+    font-size: 11px !important;
+    padding: 4px 8px !important;
+}
+
+.mobile-mode .activity-profile-meta {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+    font-size: 12px !important;
 }
