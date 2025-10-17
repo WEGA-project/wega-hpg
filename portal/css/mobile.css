@@ -665,18 +665,20 @@ html, body {
 .mobile-mode .lightbox-profile-header {
     top: 60px;
     left: 10px;
-    right: 10px;
-    max-width: calc(100% - 20px);
+    right: auto;
+    max-width: min(500px, calc(100% - 20px));
     padding: 10px 12px;
+    z-index: 999 !important;
 }
 
 .mobile-mode .lightbox-solution {
     top: auto;
     bottom: auto;
     left: 10px;
-    right: 10px;
-    max-width: calc(100% - 20px);
+    right: auto;
+    max-width: min(500px, calc(100% - 20px));
     position: fixed;
+    z-index: 999 !important;
 }
 
 .mobile-mode .lightbox-solution-params {
@@ -713,6 +715,8 @@ html, body {
     gap: 8px;
     background: rgba(74, 157, 157, 0.6);
     backdrop-filter: blur(8px);
+    max-width: 300px;
+    width: auto;
 }
 
 .mobile-mode .lightbox-solution-collapsed:hover {
@@ -754,9 +758,10 @@ html, body {
 .mobile-mode .lightbox-info {
     bottom: 90px;
     left: 10px;
-    right: 10px;
-    max-width: calc(100% - 20px);
+    right: auto;
+    max-width: min(450px, calc(100% - 20px));
     padding: 12px 15px;
+    z-index: 999 !important;
 }
 
 .mobile-mode .lightbox-info-toggle {
@@ -770,6 +775,8 @@ html, body {
 .mobile-mode .lightbox-info-collapsed {
     padding: 8px 12px;
     gap: 6px;
+    max-width: 280px;
+    width: auto;
 }
 
 .mobile-mode .lightbox-info-collapsed-date {
@@ -1525,5 +1532,165 @@ html, body {
     .mobile-mode .profile-card {
         margin-left: max(0px, env(safe-area-inset-left));
         margin-right: max(0px, env(safe-area-inset-right));
+    }
+}
+
+
+/* ==================== ОТКЛЮЧЕНИЕ ТЯЖЕЛЫХ АНИМАЦИЙ ==================== */
+
+/* Отключаем все анимации и transitions для производительности на мобильных */
+.mobile-mode * {
+    animation: none !important;
+    transition: none !important;
+}
+
+/* Оставляем только критичные transitions для UX */
+.mobile-mode .lightbox-image {
+    transition: none !important;
+}
+
+.mobile-mode .modal-content,
+.mobile-mode .mobile-filters-content {
+    transition: none !important;
+}
+
+/* Отключаем все transitions в lightbox */
+.mobile-mode .lightbox *,
+.mobile-mode .lightbox-controls button,
+.mobile-mode .lightbox-close,
+.mobile-mode .lightbox-nav,
+.mobile-mode .lightbox-thumbnail {
+    transition: none !important;
+}
+
+/* Отключаем swipe эффекты для карточек профилей */
+.mobile-mode .profile-card {
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+}
+
+/* ==================== АДАПТАЦИЯ КНОПОК В КАРТОЧКАХ ==================== */
+
+.mobile-mode .profile-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+.mobile-mode .profile-actions .btn,
+.mobile-mode .profile-actions .btn-small {
+    width: 100% !important;
+    flex: none !important;
+    padding: 10px 12px !important;
+    font-size: 13px !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    box-sizing: border-box;
+}
+
+.mobile-mode .profile-tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    width: 100%;
+}
+
+.mobile-mode .profile-tools .btn-small {
+    flex: 1 1 calc(50% - 4px);
+    min-width: 0;
+    padding: 8px 10px !important;
+    font-size: 12px !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Убираем все keyframe анимации */
+.mobile-mode .mobile-filter-btn {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: scale(1) !important;
+}
+
+.mobile-mode .mobile-filter-btn.pulse {
+    animation: none !important;
+}
+
+.mobile-mode .mobile-social-btn.liked .icon {
+    animation: none !important;
+}
+
+.mobile-mode .touch-feedback::after {
+    transition: none !important;
+}
+
+
+/* ==================== ЛАНДШАФТНЫЙ РЕЖИМ (ГОРИЗОНТАЛЬНАЯ ОРИЕНТАЦИЯ) ==================== */
+
+@media screen and (orientation: landscape) and (max-width: 1024px) {
+    /* Блок с параметрами профиля справа */
+    .mobile-mode .lightbox-solution {
+        left: auto;
+        right: 10px;
+        z-index: 999 !important;
+    }
+    
+    .mobile-mode .lightbox-solution-collapsed {
+        max-width: 250px;
+    }
+    
+    /* Заголовок профиля слева */
+    .mobile-mode .lightbox-profile-header {
+        left: 10px;
+        right: auto;
+        max-width: min(400px, calc(50% - 20px));
+        z-index: 999 !important;
+    }
+    
+    /* Описание внизу слева */
+    .mobile-mode .lightbox-info {
+        left: 10px;
+        right: auto;
+        bottom: 80px;
+        max-width: min(350px, calc(50% - 20px));
+        z-index: 999 !important;
+    }
+    
+    .mobile-mode .lightbox-info-collapsed {
+        max-width: 220px;
+    }
+    
+    /* Thumbnails по центру внизу */
+    .mobile-mode .lightbox-thumbnails {
+        bottom: 10px;
+        max-width: 70vw;
+    }
+    
+    /* Кнопки навигации поверх всего */
+    .mobile-mode .lightbox-nav {
+        z-index: 1002 !important;
+    }
+    
+    /* Кнопки навигации внизу по углам */
+    .mobile-mode .lightbox-nav-prev {
+        top: auto !important;
+        bottom: 20px !important;
+        left: 20px !important;
+        transform: none !important;
+    }
+    
+    .mobile-mode .lightbox-nav-next {
+        top: auto !important;
+        bottom: 20px !important;
+        right: 20px !important;
+        transform: none !important;
+    }
+    
+    .mobile-mode .lightbox-nav-prev:hover,
+    .mobile-mode .lightbox-nav-next:hover {
+        transform: scale(1.1) !important;
     }
 }
