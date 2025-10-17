@@ -278,6 +278,61 @@ function initLightbox() {
                 z-index: 1001;
             }
             
+            .lightbox-info-toggle {
+                position: absolute;
+                top: 8px;
+                right: 8px;
+                background: rgba(255, 255, 255, 0.2);
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(255, 255, 255, 0.3);
+                width: 28px;
+                height: 28px;
+                border-radius: 50%;
+                cursor: pointer;
+                font-size: 16px;
+                color: white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.2s ease;
+                z-index: 10;
+            }
+            
+            .lightbox-info-toggle:hover {
+                background: rgba(255, 255, 255, 0.3);
+                transform: scale(1.1);
+            }
+            
+            .lightbox-info-collapsed {
+                background: rgba(0, 0, 0, 0.6);
+                backdrop-filter: blur(10px);
+                border-radius: 8px;
+                padding: 8px 14px;
+                cursor: pointer;
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                transition: all 0.2s ease;
+            }
+            
+            .lightbox-info-collapsed:hover {
+                background: rgba(0, 0, 0, 0.75);
+                transform: translateY(-2px);
+            }
+            
+            .lightbox-info-collapsed-date {
+                font-size: 13px;
+                font-weight: 500;
+                color: white;
+                text-shadow: 0 0 4px rgba(0, 0, 0, 0.8), 1px 1px 2px rgba(0, 0, 0, 0.9);
+            }
+            
+            .lightbox-info-collapsed-label {
+                font-size: 11px;
+                color: rgba(255, 255, 255, 0.8);
+                text-shadow: 0 0 3px rgba(0, 0, 0, 0.8), 1px 1px 2px rgba(0, 0, 0, 0.9);
+            }
+            
             .lightbox-info-author {
                 font-size: 13px;
                 color: rgba(255, 255, 255, 0.7);
@@ -709,6 +764,45 @@ function updatePhoto() {
         infoPanel.style.display = 'none';
     } else {
         infoPanel.style.display = 'block';
+
+        // Добавляем кнопку сворачивания и свернутое состояние если их еще нет
+        if (!document.getElementById('infoPanelToggle')) {
+            const toggleBtn = document.createElement('button');
+            toggleBtn.id = 'infoPanelToggle';
+            toggleBtn.className = 'lightbox-info-toggle';
+            toggleBtn.innerHTML = '−';
+            toggleBtn.title = 'Свернуть описание';
+            toggleBtn.onclick = (e) => {
+                e.stopPropagation();
+                toggleInfoPanel();
+            };
+            infoPanel.insertBefore(toggleBtn, infoPanel.firstChild);
+
+            // Создаем контейнер для контента
+            const content = document.createElement('div');
+            content.id = 'infoPanelContent';
+            while (infoPanel.children.length > 1) {
+                content.appendChild(infoPanel.children[1]);
+            }
+            infoPanel.appendChild(content);
+
+            // Создаем свернутое состояние
+            const collapsed = document.createElement('div');
+            collapsed.id = 'infoPanelCollapsed';
+            collapsed.className = 'lightbox-info-collapsed';
+            collapsed.style.display = 'none';
+            collapsed.onclick = (e) => {
+                e.stopPropagation();
+                toggleInfoPanel();
+            };
+
+            const dateText = photo.date || 'Дата не указана';
+            collapsed.innerHTML = `
+                <div class="lightbox-info-collapsed-date">📅 ${dateText}</div>
+                <div class="lightbox-info-collapsed-label">▶ Развернуть описание</div>
+            `;
+            infoPanel.appendChild(collapsed);
+        }
     }
 
     // Отображаем профиль раствора
@@ -1121,6 +1215,32 @@ function toggleSolutionPanel() {
             toggleBtn.style.display = 'flex';
             toggleBtn.innerHTML = '−';
             toggleBtn.title = 'Свернуть профиль';
+        }
+    } else {
+        // Сворачиваем
+        content.style.display = 'none';
+        collapsed.style.display = 'inline-flex';
+        if (toggleBtn) {
+            toggleBtn.style.display = 'none';
+        }
+    }
+}
+
+function toggleInfoPanel() {
+    const content = document.getElementById('infoPanelContent');
+    const collapsed = document.getElementById('infoPanelCollapsed');
+    const toggleBtn = document.getElementById('infoPanelToggle');
+
+    if (!content || !collapsed) return;
+
+    if (content.style.display === 'none') {
+        // Разворачиваем
+        content.style.display = 'block';
+        collapsed.style.display = 'none';
+        if (toggleBtn) {
+            toggleBtn.style.display = 'flex';
+            toggleBtn.innerHTML = '−';
+            toggleBtn.title = 'Свернуть описание';
         }
     } else {
         // Сворачиваем

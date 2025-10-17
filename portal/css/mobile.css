@@ -759,6 +759,43 @@ html, body {
     padding: 12px 15px;
 }
 
+.mobile-mode .lightbox-info-toggle {
+    width: 32px;
+    height: 32px;
+    font-size: 18px;
+    top: 6px;
+    right: 6px;
+}
+
+.mobile-mode .lightbox-info-collapsed {
+    padding: 8px 12px;
+    gap: 6px;
+}
+
+.mobile-mode .lightbox-info-collapsed-date {
+    font-size: 12px;
+}
+
+.mobile-mode .lightbox-info-collapsed-label {
+    font-size: 10px;
+}
+
+/* ==================== LIGHTBOX IMAGE TOUCH SUPPORT ==================== */
+
+.mobile-mode .lightbox-image-container {
+    touch-action: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.mobile-mode .lightbox-image {
+    touch-action: none;
+    -webkit-user-select: none;
+    user-select: none;
+    pointer-events: auto;
+    will-change: transform;
+}
+
 .mobile-mode .lightbox-thumbnails {
     bottom: 10px;
     padding: 8px;

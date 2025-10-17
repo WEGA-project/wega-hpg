@@ -234,9 +234,17 @@
         });
     };
     
-    // Pinch to zoom для изображений в lightbox
+    // Продвинутый Pinch to zoom и Pan для изображений в lightbox
     let initialDistance = 0;
     let currentScale = 1;
+    let currentPosX = 0;
+    let currentPosY = 0;
+    let lastPosX = 0;
+    let lastPosY = 0;
+    let initialPinchCenter = { x: 0, y: 0 };
+    let isPanning = false;
+    let panStartX = 0;
+    let panStartY = 0;
     
     const initPinchZoom = () => {
         const lightboxImage = document.getElementById('lightboxImage');
@@ -246,26 +254,74 @@
         
         container.addEventListener('touchstart', (e) => {
             if (e.touches.length === 2) {
+                // Pinch zoom начало
+                e.preventDefault();
                 initialDistance = getDistance(e.touches[0], e.touches[1]);
+                
+                // Запоминаем центр pinch для zoom относительно точки касания
+                initialPinchCenter = {
+                    x: (e.touches[0].clientX + e.touches[1].clientX) / 2,
+                    y: (e.touches[0].clientY + e.touches[1].clientY) / 2
+                };
+            } else if (e.touches.length === 1 && currentScale > 1) {
+                // Pan начало (только если есть zoom)
+                isPanning = true;
+                panStartX = e.touches[0].clientX - currentPosX;
+                panStartY = e.touches[0].clientY - currentPosY;
             }
-        });
+        }, { passive: false });
         
         container.addEventListener('touchmove', (e) => {
             if (e.touches.length === 2) {
+                // Pinch zoom
                 e.preventDefault();
                 
                 const currentDistance = getDistance(e.touches[0], e.touches[1]);
                 const scale = currentDistance / initialDistance;
-                currentScale *= scale;
-                currentScale = Math.min(Math.max(currentScale, 0.5), 5); // Ограничиваем zoom
                 
-                if (typeof zoomTo === 'function') {
-                    zoomTo(currentScale);
+                // Плавное изменение масштаба
+                const newScale = currentScale * scale;
+                currentScale = Math.min(Math.max(newScale, 1), 5); // От 1x до 5x
+                
+                // Применяем zoom через глобальные функции если они есть
+                if (typeof window.currentZoom !== 'undefined') {
+                    window.currentZoom = currentScale;
+                    window.currentX = currentPosX;
+                    window.currentY = currentPosY;
+                    if (typeof applyZoom === 'function') {
+                        applyZoom();
+                    }
                 } else {
-                    lightboxImage.style.transform = `scale(${currentScale})`;
+                    // Fallback - прямое изменение transform
+                    lightboxImage.style.transform = `scale(${currentScale}) translate(${currentPosX}px, ${currentPosY}px)`;
+                    lightboxImage.style.transformOrigin = 'center center';
                 }
                 
                 initialDistance = currentDistance;
+            } else if (e.touches.length === 1 && isPanning && currentScale > 1) {
+                // Pan (перемещение при зуме)
+                e.preventDefault();
+                
+                currentPosX = e.touches[0].clientX - panStartX;
+                currentPosY = e.touches[0].clientY - panStartY;
+                
+                // Ограничиваем перемещение границами изображения
+                const maxX = (lightboxImage.width * (currentScale - 1)) / 2;
+                const maxY = (lightboxImage.height * (currentScale - 1)) / 2;
+                
+                currentPosX = Math.min(Math.max(currentPosX, -maxX), maxX);
+                currentPosY = Math.min(Math.max(currentPosY, -maxY), maxY);
+                
+                // Применяем позицию
+                if (typeof window.currentX !== 'undefined') {
+                    window.currentX = currentPosX;
+                    window.currentY = currentPosY;
+                    if (typeof applyZoom === 'function') {
+                        applyZoom();
+                    }
+                } else {
+                    lightboxImage.style.transform = `scale(${currentScale}) translate(${currentPosX}px, ${currentPosY}px)`;
+                }
             }
         }, { passive: false });
         
@@ -273,15 +329,85 @@
             if (e.touches.length < 2) {
                 initialDistance = 0;
             }
+            
+            if (e.touches.length === 0) {
+                isPanning = false;
+                
+                // Если zoom сброшен до 1 - сбрасываем позицию
+                if (currentScale <= 1.1) {
+                    currentScale = 1;
+                    currentPosX = 0;
+                    currentPosY = 0;
+                    
+                    if (typeof resetZoom === 'function') {
+                        resetZoom();
+                    } else {
+                        lightboxImage.style.transform = 'scale(1) translate(0, 0)';
+                    }
+                }
+            }
         });
         
-        // Двойной тап для reset zoom
-        handleDoubleTap(container, () => {
-            currentScale = 1;
-            if (typeof resetZoom === 'function') {
-                resetZoom();
-            } else {
-                lightboxImage.style.transform = 'scale(1)';
+        // Двойной тап для zoom in/out
+        let lastTapTime = 0;
+        let lastTapX = 0;
+        let lastTapY = 0;
+        
+        container.addEventListener('touchend', (e) => {
+            const currentTime = Date.now();
+            const tapLength = currentTime - lastTapTime;
+            
+            if (tapLength < 300 && tapLength > 0) {
+                e.preventDefault();
+                
+                if (currentScale > 1) {
+                    // Zoom out - сброс
+                    currentScale = 1;
+                    currentPosX = 0;
+                    currentPosY = 0;
+                    
+                    if (typeof resetZoom === 'function') {
+                        resetZoom();
+                    } else {
+                        lightboxImage.style.transform = 'scale(1) translate(0, 0)';
+                        lightboxImage.style.transition = 'transform 0.3s ease';
+                        setTimeout(() => {
+                            lightboxImage.style.transition = '';
+                        }, 300);
+                    }
+                } else {
+                    // Zoom in на место тапа
+                    currentScale = 2.5;
+                    
+                    // Вычисляем позицию для центрирования на точке тапа
+                    const rect = lightboxImage.getBoundingClientRect();
+                    const tapX = lastTapX - rect.left - rect.width / 2;
+                    const tapY = lastTapY - rect.top - rect.height / 2;
+                    
+                    currentPosX = -tapX * 0.5;
+                    currentPosY = -tapY * 0.5;
+                    
+                    if (typeof window.currentZoom !== 'undefined') {
+                        window.currentZoom = currentScale;
+                        window.currentX = currentPosX;
+                        window.currentY = currentPosY;
+                        if (typeof applyZoom === 'function') {
+                            applyZoom();
+                        }
+                    } else {
+                        lightboxImage.style.transform = `scale(${currentScale}) translate(${currentPosX}px, ${currentPosY}px)`;
+                        lightboxImage.style.transition = 'transform 0.3s ease';
+                        setTimeout(() => {
+                            lightboxImage.style.transition = '';
+                        }, 300);
+                    }
+                }
+            }
+            
+            lastTapTime = currentTime;
+            if (e.changedTouches && e.changedTouches[0]) {
+                lastTapX = e.changedTouches[0].clientX;
+                lastTapY = e.changedTouches[0].clientY;
             }
         });
     };
