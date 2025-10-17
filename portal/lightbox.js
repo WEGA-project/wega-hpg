@@ -308,6 +308,62 @@ function initLightbox() {
                 gap: 8px;
             }
             
+            .lightbox-solution-toggle {
+                position: absolute;
+                top: 8px;
+                right: 8px;
+                background: rgba(255, 255, 255, 0.2);
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(255, 255, 255, 0.3);
+                width: 28px;
+                height: 28px;
+                border-radius: 50%;
+                cursor: pointer;
+                font-size: 16px;
+                color: white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.2s ease;
+                z-index: 10;
+            }
+            
+            .lightbox-solution-toggle:hover {
+                background: rgba(255, 255, 255, 0.3);
+                transform: scale(1.1);
+            }
+            
+            .lightbox-solution-collapsed {
+                background: rgba(74, 157, 157, 0.85);
+                backdrop-filter: blur(10px);
+                border-radius: 8px;
+                padding: 10px 16px;
+                cursor: pointer;
+                display: inline-flex;
+                align-items: center;
+                gap: 12px;
+                transition: all 0.2s ease;
+            }
+            
+            .lightbox-solution-collapsed:hover {
+                background: rgba(74, 157, 157, 0.95);
+                transform: translateY(-2px);
+            }
+            
+            .lightbox-solution-collapsed-ec {
+                font-size: 18px;
+                font-weight: 700;
+                color: white;
+                text-shadow: 0 0 4px rgba(0, 0, 0, 0.8), 0 0 8px rgba(0, 0, 0, 0.6), 1px 1px 2px rgba(0, 0, 0, 0.9);
+            }
+            
+            .lightbox-solution-collapsed-label {
+                font-size: 12px;
+                color: rgba(255, 255, 255, 0.95);
+                font-weight: 500;
+                text-shadow: 0 0 4px rgba(0, 0, 0, 0.8), 0 0 8px rgba(0, 0, 0, 0.6), 1px 1px 2px rgba(0, 0, 0, 0.9);
+            }
+            
             .lightbox-solution-params {
                 display: flex;
                 gap: 8px;
@@ -318,9 +374,14 @@ function initLightbox() {
                 background: rgba(255, 255, 255, 0.15);
                 backdrop-filter: blur(10px);
                 border-radius: 8px;
-                padding: 8px 12px;
+                padding: 10px 12px;
                 text-align: center;
-                min-width: 60px;
+                min-width: 70px;
+                flex: 0 1 auto;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
             }
             
             .lightbox-solution-param-value {
@@ -328,22 +389,25 @@ function initLightbox() {
                 font-weight: 600;
                 color: white;
                 margin-bottom: 2px;
+                text-shadow: 0 0 4px rgba(0, 0, 0, 0.8), 0 0 8px rgba(0, 0, 0, 0.6), 1px 1px 2px rgba(0, 0, 0, 0.9);
             }
             
             .lightbox-solution-param-label {
                 font-size: 11px;
-                color: rgba(255, 255, 255, 0.7);
+                color: rgba(255, 255, 255, 0.9);
+                text-shadow: 0 0 4px rgba(0, 0, 0, 0.8), 0 0 8px rgba(0, 0, 0, 0.6), 1px 1px 2px rgba(0, 0, 0, 0.9);
             }
             
             .lightbox-solution-profile {
                 display: flex;
                 flex-direction: column;
-                gap: 6px;
+                gap: 10px;
             }
             
             .lightbox-solution-profile-row {
                 display: flex;
-                gap: 4px;
+                gap: 6px;
+                row-gap: 8px;
                 flex-wrap: wrap;
                 align-items: center;
             }
@@ -362,12 +426,14 @@ function initLightbox() {
                 color: rgba(255, 255, 255, 0.95);
                 margin-bottom: 1px;
                 line-height: 1;
+                text-shadow: 0 0 3px rgba(0, 0, 0, 0.8), 1px 1px 2px rgba(0, 0, 0, 0.9);
             }
             
             .lightbox-solution-profile-label {
                 font-size: 8px;
-                color: rgba(255, 255, 255, 0.7);
+                color: rgba(255, 255, 255, 0.9);
                 line-height: 1;
+                text-shadow: 0 0 3px rgba(0, 0, 0, 0.8), 1px 1px 2px rgba(0, 0, 0, 0.9);
             }
             
             .lightbox-solution-unit {
@@ -376,9 +442,10 @@ function initLightbox() {
                 border-radius: 5px;
                 padding: 4px 6px;
                 font-size: 10px;
-                color: rgba(255, 255, 255, 0.8);
+                color: rgba(255, 255, 255, 0.9);
                 font-weight: 500;
                 text-align: center;
+                text-shadow: 0 0 3px rgba(0, 0, 0, 0.8), 1px 1px 2px rgba(0, 0, 0, 0.9);
             }
             
             .lightbox-solution-comment {
@@ -387,12 +454,13 @@ function initLightbox() {
                 border-radius: 8px;
                 padding: 8px 12px;
                 font-size: 11px;
-                color: rgba(255, 255, 255, 0.9);
+                color: rgba(255, 255, 255, 0.95);
                 font-style: italic;
                 max-width: 400px;
                 word-wrap: break-word;
                 white-space: normal;
                 line-height: 1.4;
+                text-shadow: 0 0 3px rgba(0, 0, 0, 0.8), 1px 1px 2px rgba(0, 0, 0, 0.9);
             }
             
             .lightbox-thumbnails {
@@ -477,7 +545,7 @@ function openLightbox(photos, indexOrUrl = 0) {
             const dateB = b.date ? new Date(b.date).getTime() : 0;
             return dateA - dateB;
         });
-        
+
         // Определяем какую фотографию открыть
         if (typeof indexOrUrl === 'string') {
             // Если передан URL - ищем фото по URL
@@ -495,7 +563,7 @@ function openLightbox(photos, indexOrUrl = 0) {
         } else {
             currentPhotoIndex = 0;
         }
-        
+
         if (currentPhotos.length > 0) {
             currentProfileId = currentPhotos[0].profileId || currentProfileId;
         }
@@ -504,39 +572,39 @@ function openLightbox(photos, indexOrUrl = 0) {
         currentPhotoIndex = 0;
         currentProfileId = currentPhotos[0]?.profileId || currentProfileId;
     }
-    
+
     // Показываем lightbox
     document.getElementById('lightbox').classList.add('active');
-    
+
     // Отображаем информацию о профиле
     updateProfileHeader();
-    
+
     // Отображаем текущее фото
     updatePhoto();
-    
+
     // Обновляем навигацию и превью
     updateNavigation();
     updateThumbnails();
-    
+
     // Запрещаем браузерное перетаскивание изображения
     const img = document.getElementById('lightboxImage');
     img.ondragstart = (e) => {
         e.preventDefault();
         return false;
     };
-    
+
     // Добавляем обработчики событий для зума и перетаскивания
     const container = document.getElementById('lightboxContainer');
-    
+
     // Зум колесиком мыши
     container.addEventListener('wheel', handleWheel, { passive: false });
-    
+
     // Перетаскивание
     container.addEventListener('mousedown', startDrag);
     container.addEventListener('mousemove', drag);
     container.addEventListener('mouseup', endDrag);
     container.addEventListener('mouseleave', endDrag);
-    
+
     // Запрещаем контекстное меню при перетаскивании
     container.addEventListener('contextmenu', (e) => {
         if (isDragging) e.preventDefault();
@@ -547,25 +615,25 @@ function openLightbox(photos, indexOrUrl = 0) {
 function updateProfileHeader() {
     const photo = currentPhotos[0]; // Берем данные из первого фото
     if (!photo) return;
-    
+
     const profileHeader = document.getElementById('lightboxProfileHeader');
     const profileName = document.getElementById('lightboxProfileName');
     const profileDescription = document.getElementById('lightboxProfileDescription');
-    
+
     if (photo.profileName) {
         profileName.textContent = photo.profileName;
         profileName.style.display = 'block';
     } else {
         profileName.style.display = 'none';
     }
-    
+
     if (photo.profileDescription) {
         profileDescription.textContent = photo.profileDescription;
         profileDescription.style.display = 'block';
     } else {
         profileDescription.style.display = 'none';
     }
-    
+
     // Скрываем весь блок если нет данных
     if (!photo.profileName && !photo.profileDescription) {
         profileHeader.style.display = 'none';
@@ -578,39 +646,39 @@ function updateProfileHeader() {
 function updatePhoto() {
     const photo = currentPhotos[currentPhotoIndex];
     if (!photo) return;
-    
+
     const img = document.getElementById('lightboxImage');
     img.src = photo.url;
     resetZoom();
-    
+
     // Обновляем информацию
     const author = document.getElementById('lightboxAuthor');
     const description = document.getElementById('lightboxDescription');
     const date = document.getElementById('lightboxDate');
-    
+
     if (photo.author) {
         author.textContent = `Автор: ${photo.author}`;
         author.style.display = 'block';
     } else {
         author.style.display = 'none';
     }
-    
+
     if (photo.description) {
         description.textContent = photo.description;
         description.style.display = 'block';
     } else {
         description.style.display = 'none';
     }
-    
+
     if (photo.date) {
         let dateHtml = photo.dateFormatted || `📅 ${photo.date}`;
-        
+
         // Добавляем информацию обо всех ключевых событиях
         if (photo.allMilestones && photo.allMilestones.length > 0) {
             const milestonesHtml = photo.allMilestones.map(m => {
                 const safeTitle = escapeHtmlLocal(m.title);
                 const daysText = `${m.days} ${getDaysWord(m.days)}`;
-                
+
                 if (m.isPast) {
                     // Прошедшее событие - зеленым
                     return `<div style="color: #4caf50; font-size: 12px; margin-top: 6px;">⭐ "${safeTitle}": прошло ${daysText}</div>`;
@@ -621,20 +689,20 @@ function updatePhoto() {
             }).join('');
             dateHtml += milestonesHtml;
         }
-        
+
         date.innerHTML = dateHtml;
         date.style.display = 'block';
     } else {
         date.style.display = 'none';
     }
-    
+
     // Локальная функция для экранирования HTML
     function escapeHtmlLocal(text) {
         const div = document.createElement('div');
         div.textContent = text;
         return div.innerHTML;
     }
-    
+
     // Скрываем панель если нет данных
     const infoPanel = document.getElementById('lightboxInfo');
     if (!photo.author && !photo.description && !photo.date) {
@@ -642,7 +710,7 @@ function updatePhoto() {
     } else {
         infoPanel.style.display = 'block';
     }
-    
+
     // Отображаем профиль раствора
     const solutionPanel = document.getElementById('lightboxSolution');
     if (photo.solutionProfile && photo.solutionProfile.daysUntilFirst) {
@@ -650,19 +718,19 @@ function updatePhoto() {
         const sp = photo.solutionProfile;
         const daysText = `${sp.daysUntilFirst} ${getDaysWord(sp.daysUntilFirst)}`;
         const commentHtml = sp.comment ? escapeHtmlLocal(sp.comment) : 'заливки раствора';
-        
+
         // Форматируем дату первой записи
         let dateHtml = '';
         if (sp.firstEntryDate) {
             const date = new Date(sp.firstEntryDate);
-            const dateStr = date.toLocaleDateString('ru-RU', { 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
+            const dateStr = date.toLocaleDateString('ru-RU', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
             });
             dateHtml = ` (${dateStr})`;
         }
-        
+
         solutionPanel.innerHTML = `
             <div style="background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px); border-radius: 8px; padding: 10px 14px; font-size: 12px; color: rgba(255, 255, 255, 0.9); display: inline-block; max-width: 400px;">
                 ⏳ До ${commentHtml} осталось ${daysText}${dateHtml}
@@ -673,16 +741,16 @@ function updatePhoto() {
         const sp = photo.solutionProfile;
         const daysAgoText = sp.daysAgo === 0 ? 'Основной профиль' : `Залит ${sp.daysAgo} ${getDaysWord(sp.daysAgo)} назад`;
         const commentHtml = sp.comment ? `<div class="lightbox-solution-comment">💬 ${escapeHtmlLocal(sp.comment)}</div>` : '';
-        
+
         // Получаем значения из правильных ключей
         const kn = sp.ratios && sp.ratios.K_N ? sp.ratios.K_N : 0;
         const kca = sp.ratios && sp.ratios.K_Ca ? sp.ratios.K_Ca : 0;
         const kmg = sp.ratios && sp.ratios.K_Mg ? sp.ratios.K_Mg : 0;
         const nh4no3 = sp.ratios && sp.ratios.NH4_NO3 ? sp.ratios.NH4_NO3 : 0;
-        
+
         // Парсим элементы с учетом формата (HPG файл или строка профиля)
         const elements = {};
-        
+
         if (sp.isStringFormat && sp.profileString) {
             // Профиль из журнала - строка где микроэлементы УЖЕ в мг/л
             const parts = sp.profileString.trim().split(/\s+/);
@@ -711,23 +779,23 @@ function updatePhoto() {
                 }
             });
         }
-        
+
         // Разбиваем профиль на отдельные элементы
         let profileHtml = '';
         if (Object.keys(elements).length > 0) {
             const macroElements = ['N', 'NO3', 'NH4', 'P', 'K', 'Ca', 'Mg', 'S', 'Cl'];
             const microElements = ['Fe', 'Mn', 'B', 'Zn', 'Cu', 'Mo', 'Co', 'Si'];
             const allElements = [...macroElements, ...microElements];
-            
+
             const macroItems = [];
             const microItems = [];
-            
+
             allElements.forEach(element => {
                 const value = elements[element];
                 if (value === undefined || isNaN(value)) return;
-                
+
                 let displayValue, roundedValue;
-                
+
                 if (macroElements.includes(element)) {
                     // Макроэлементы в мг/л - округляем до целых
                     roundedValue = Math.round(value);
@@ -743,7 +811,7 @@ function updatePhoto() {
                         roundedValue = parseFloat(displayValue);
                     }
                 }
-                
+
                 if (displayValue !== undefined) {
                     const itemHtml = `
                         <div class="lightbox-solution-profile-item">
@@ -751,7 +819,7 @@ function updatePhoto() {
                             <div class="lightbox-solution-profile-label">${element}</div>
                         </div>
                     `;
-                    
+
                     if (macroElements.includes(element)) {
                         macroItems.push(itemHtml);
                     } else if (microElements.includes(element) && roundedValue !== 0) {
@@ -759,7 +827,7 @@ function updatePhoto() {
                     }
                 }
             });
-            
+
             let profileContent = '';
             if (macroItems.length > 0) {
                 profileContent += '<div class="lightbox-solution-profile-row">';
@@ -773,46 +841,87 @@ function updatePhoto() {
                 profileContent += '<div class="lightbox-solution-unit">мг/л</div>';
                 profileContent += '</div>';
             }
-            
+
             if (profileContent) {
                 profileHtml = `<div class="lightbox-solution-profile">${profileContent}</div>`;
             }
         }
-        
+
         const daysAgoHtml = `
             <div style="background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px); border-radius: 8px; padding: 6px 12px; font-size: 11px; color: rgba(255, 255, 255, 0.9); display: inline-block;">
                 ${daysAgoText}
             </div>
         `;
-        
+
         solutionPanel.innerHTML = `
-            ${daysAgoHtml}
-            <div class="lightbox-solution-params">
-                <div class="lightbox-solution-param" style="background: rgba(74, 157, 157, 0.85);">
-                    <div class="lightbox-solution-param-value">${sp.ec.toFixed(2)}</div>
-                    <div class="lightbox-solution-param-label">EC</div>
+            <button class="lightbox-solution-toggle" onclick="event.stopPropagation(); toggleSolutionPanel();" title="Свернуть профиль">−</button>
+            <div id="solutionPanelContent">
+                ${daysAgoHtml}
+                <div class="lightbox-solution-params">
+                    <div class="lightbox-solution-param" style="background: rgba(74, 157, 157, 0.85);">
+                        <div class="lightbox-solution-param-value">${sp.ec.toFixed(2)}</div>
+                        <div class="lightbox-solution-param-label">EC</div>
+                    </div>
+                    <div class="lightbox-solution-param">
+                        <div class="lightbox-solution-param-value">${nh4no3.toFixed(2)}</div>
+                        <div class="lightbox-solution-param-label">NH4:NO3</div>
+                    </div>
+                    <div class="lightbox-solution-param">
+                        <div class="lightbox-solution-param-value">${kn.toFixed(2)}</div>
+                        <div class="lightbox-solution-param-label">K:N</div>
+                    </div>
+                    <div class="lightbox-solution-param">
+                        <div class="lightbox-solution-param-value">${kca.toFixed(2)}</div>
+                        <div class="lightbox-solution-param-label">K:Ca</div>
+                    </div>
+                    <div class="lightbox-solution-param">
+                        <div class="lightbox-solution-param-value">${kmg.toFixed(2)}</div>
+                        <div class="lightbox-solution-param-label">K:Mg</div>
+                    </div>
                 </div>
-                <div class="lightbox-solution-param">
-                    <div class="lightbox-solution-param-value">${nh4no3.toFixed(2)}</div>
-                    <div class="lightbox-solution-param-label">NH4:NO3</div>
-                </div>
-                <div class="lightbox-solution-param">
-                    <div class="lightbox-solution-param-value">${kn.toFixed(2)}</div>
-                    <div class="lightbox-solution-param-label">K:N</div>
-                </div>
-                <div class="lightbox-solution-param">
-                    <div class="lightbox-solution-param-value">${kca.toFixed(2)}</div>
-                    <div class="lightbox-solution-param-label">K:Ca</div>
-                </div>
-                <div class="lightbox-solution-param">
-                    <div class="lightbox-solution-param-value">${kmg.toFixed(2)}</div>
-                    <div class="lightbox-solution-param-label">K:Mg</div>
-                </div>
+                ${profileHtml}
+                ${commentHtml}
             </div>
-            ${profileHtml}
-            ${commentHtml}
+            <div id="solutionPanelCollapsed" class="lightbox-solution-collapsed" onclick="event.stopPropagation(); toggleSolutionPanel();" style="display: none;">
+                <div class="lightbox-solution-collapsed-ec">EC ${sp.ec.toFixed(2)}</div>
+                <div class="lightbox-solution-collapsed-label">▶ Развернуть профиль</div>
+            </div>
         `;
         solutionPanel.style.display = 'flex';
+
+        // На мобильных устройствах сворачиваем по умолчанию и позиционируем под заголовком
+        const isMobile = document.body.classList.contains('mobile-mode') || window.innerWidth <= 768;
+        if (isMobile) {
+            setTimeout(() => {
+                const content = document.getElementById('solutionPanelContent');
+                const collapsed = document.getElementById('solutionPanelCollapsed');
+                const toggleBtn = document.querySelector('.lightbox-solution-toggle');
+                const profileHeader = document.getElementById('lightboxProfileHeader');
+
+                if (content && collapsed) {
+                    content.style.display = 'none';
+                    collapsed.style.display = 'inline-flex';
+                    if (toggleBtn) {
+                        toggleBtn.style.display = 'none';
+                    }
+                }
+
+                // Позиционируем блок под заголовком профиля
+                if (profileHeader && solutionPanel) {
+                    const headerRect = profileHeader.getBoundingClientRect();
+                    const headerBottom = headerRect.bottom;
+                    const headerDisplay = window.getComputedStyle(profileHeader).display;
+
+                    if (headerDisplay !== 'none' && headerBottom > 0) {
+                        // Если заголовок видим - размещаем под ним с отступом 10px
+                        solutionPanel.style.top = (headerBottom + 10) + 'px';
+                    } else {
+                        // Если заголовка нет - размещаем под кнопками управления
+                        solutionPanel.style.top = '80px';
+                    }
+                }
+            }, 0);
+        }
     } else {
         solutionPanel.style.display = 'none';
     }
@@ -822,33 +931,33 @@ function updatePhoto() {
 function getDaysWord(days) {
     const lastDigit = days % 10;
     const lastTwoDigits = days % 100;
-    
+
     if (lastTwoDigits >= 11 && lastTwoDigits <= 14) {
         return 'дней';
     }
-    
+
     if (lastDigit === 1) {
         return 'день';
     }
-    
+
     if (lastDigit >= 2 && lastDigit <= 4) {
         return 'дня';
     }
-    
+
     return 'дней';
 }
 
 // Навигация между фото
 function navigatePhoto(direction) {
     currentPhotoIndex += direction;
-    
+
     // Зацикливание
     if (currentPhotoIndex < 0) {
         currentPhotoIndex = currentPhotos.length - 1;
     } else if (currentPhotoIndex >= currentPhotos.length) {
         currentPhotoIndex = 0;
     }
-    
+
     updatePhoto();
     updateNavigation();
     updateThumbnails();
@@ -858,7 +967,7 @@ function navigatePhoto(direction) {
 function updateNavigation() {
     const prevBtn = document.getElementById('lightboxPrev');
     const nextBtn = document.getElementById('lightboxNext');
-    
+
     if (currentPhotos.length <= 1) {
         prevBtn.style.display = 'none';
         nextBtn.style.display = 'none';
@@ -871,12 +980,12 @@ function updateNavigation() {
 // Обновление превью
 function updateThumbnails() {
     const container = document.getElementById('lightboxThumbnails');
-    
+
     if (currentPhotos.length <= 1) {
         container.style.display = 'none';
         return;
     }
-    
+
     container.style.display = 'flex';
     container.innerHTML = currentPhotos.map((photo, index) => `
         <div class="lightbox-thumbnail ${index === currentPhotoIndex ? 'active' : ''}" 
@@ -884,7 +993,7 @@ function updateThumbnails() {
             <img src="${photo.url}" alt="">
         </div>
     `).join('');
-    
+
     // Прокручиваем к активному превью
     const activeThumb = container.querySelector('.lightbox-thumbnail.active');
     if (activeThumb) {
@@ -903,10 +1012,10 @@ function closeLightbox() {
             document.msExitFullscreen();
         }
     }
-    
+
     const lightbox = document.getElementById('lightbox');
     lightbox.classList.remove('active');
-    
+
     // Удаляем обработчики событий
     const container = document.getElementById('lightboxContainer');
     container.removeEventListener('wheel', handleWheel);
@@ -977,7 +1086,7 @@ function endDrag() {
 
 function toggleFullscreen() {
     const lightbox = document.getElementById('lightbox');
-    
+
     if (!document.fullscreenElement) {
         if (lightbox.requestFullscreen) {
             lightbox.requestFullscreen();
@@ -997,24 +1106,50 @@ function toggleFullscreen() {
     }
 }
 
+function toggleSolutionPanel() {
+    const content = document.getElementById('solutionPanelContent');
+    const collapsed = document.getElementById('solutionPanelCollapsed');
+    const toggleBtn = document.querySelector('.lightbox-solution-toggle');
+
+    if (!content || !collapsed) return;
+
+    if (content.style.display === 'none') {
+        // Разворачиваем
+        content.style.display = 'block';
+        collapsed.style.display = 'none';
+        if (toggleBtn) {
+            toggleBtn.style.display = 'flex';
+            toggleBtn.innerHTML = '−';
+            toggleBtn.title = 'Свернуть профиль';
+        }
+    } else {
+        // Сворачиваем
+        content.style.display = 'none';
+        collapsed.style.display = 'inline-flex';
+        if (toggleBtn) {
+            toggleBtn.style.display = 'none';
+        }
+    }
+}
+
 function sharePhoto() {
     if (!currentPhotos || currentPhotoIndex < 0) return;
-    
+
     const photo = currentPhotos[currentPhotoIndex];
     if (!photo) return;
-    
+
     const profileId = photo.profileId || currentProfileId;
     if (!profileId) {
         alert('Не удалось определить профиль для ссылки. Попробуйте открыть фото из карточки профиля.');
         return;
     }
-    
+
     // Формируем URL с параметрами для открытия конкретной фотографии
     // Используем URL фотографии как уникальный идентификатор вместо индекса
     const url = new URL(window.location.origin + window.location.pathname);
     url.searchParams.set('profile', profileId);
     url.searchParams.set('photo', encodeURIComponent(photo.url));
-    
+
     // Копируем в буфер обмена
     navigator.clipboard.writeText(url.toString()).then(() => {
         // Показываем уведомление
@@ -1036,7 +1171,7 @@ function sharePhoto() {
         `;
         notification.textContent = '✓ Ссылка скопирована!';
         document.body.appendChild(notification);
-        
+
         setTimeout(() => {
             notification.style.animation = 'slideUp 0.3s ease';
             setTimeout(() => notification.remove(), 300);
@@ -1051,7 +1186,7 @@ function sharePhoto() {
 document.addEventListener('keydown', (e) => {
     const lightbox = document.getElementById('lightbox');
     if (!lightbox || !lightbox.classList.contains('active')) return;
-    
+
     if (e.key === 'Escape') {
         if (!document.fullscreenElement) {
             closeLightbox();

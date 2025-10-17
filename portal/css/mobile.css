@@ -672,10 +672,11 @@ html, body {
 
 .mobile-mode .lightbox-solution {
     top: auto;
-    bottom: 180px;
+    bottom: auto;
     left: 10px;
     right: 10px;
     max-width: calc(100% - 20px);
+    position: fixed;
 }
 
 .mobile-mode .lightbox-solution-params {
@@ -683,8 +684,12 @@ html, body {
 }
 
 .mobile-mode .lightbox-solution-param {
-    padding: 6px 10px;
-    min-width: 50px;
+    padding: 8px 8px;
+    min-width: 60px;
+    flex: 1 1 calc(20% - 6px);
+    max-width: calc(20% - 6px);
+    background: rgba(255, 255, 255, 0.15) !important;
+    backdrop-filter: blur(10px);
 }
 
 .mobile-mode .lightbox-solution-param-value {
@@ -693,6 +698,57 @@ html, body {
 
 .mobile-mode .lightbox-solution-param-label {
     font-size: 10px;
+}
+
+.mobile-mode .lightbox-solution-toggle {
+    width: 32px;
+    height: 32px;
+    font-size: 18px;
+    top: 6px;
+    right: 6px;
+}
+
+.mobile-mode .lightbox-solution-collapsed {
+    padding: 8px 12px;
+    gap: 8px;
+    background: rgba(74, 157, 157, 0.6);
+    backdrop-filter: blur(8px);
+}
+
+.mobile-mode .lightbox-solution-collapsed:hover {
+    background: rgba(74, 157, 157, 0.75);
+}
+
+.mobile-mode .lightbox-solution-collapsed-ec {
+    font-size: 16px;
+}
+
+.mobile-mode .lightbox-solution-collapsed-label {
+    font-size: 11px;
+}
+
+.mobile-mode .lightbox-solution-profile {
+    gap: 8px;
+}
+
+.mobile-mode .lightbox-solution-profile-row {
+    gap: 5px;
+    row-gap: 6px;
+}
+
+.mobile-mode .lightbox-solution-profile-item {
+    background: rgba(255, 255, 255, 0.12) !important;
+    backdrop-filter: blur(8px);
+}
+
+.mobile-mode .lightbox-solution-comment {
+    background: rgba(255, 255, 255, 0.12) !important;
+    backdrop-filter: blur(8px);
+}
+
+.mobile-mode .lightbox-solution-unit {
+    background: rgba(255, 255, 255, 0.12) !important;
+    backdrop-filter: blur(8px);
 }
 
 .mobile-mode .lightbox-info {
