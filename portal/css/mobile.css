@@ -3,7 +3,8 @@
 
 /* ==================== БАЗОВЫЕ НАСТРОЙКИ ==================== */
 
-html, body {
+html,
+body {
     overflow-x: hidden;
     width: 100%;
     max-width: 100vw;
@@ -40,15 +41,16 @@ html, body {
     height: auto;
 }
 
-.mobile-mode > *,
-.mobile-mode .container > *,
-.mobile-mode .main-layout > * {
+.mobile-mode>*,
+.mobile-mode .container>*,
+.mobile-mode .main-layout>* {
     max-width: 100% !important;
 }
 
 /* Скрываем ненужные элементы на мобильном */
 .mobile-mode .activity-feed {
-    display: none; /* Лента активности слишком большая для мобильного */
+    display: none;
+    /* Лента активности слишком большая для мобильного */
 }
 
 /* ==================== HEADER ==================== */
@@ -60,7 +62,7 @@ html, body {
     top: 0;
     left: 0;
     z-index: 1000;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .mobile-mode .header-content {
@@ -94,7 +96,8 @@ html, body {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border-radius: 50%; /* Круглые кнопки */
+    border-radius: 50%;
+    /* Круглые кнопки */
 }
 
 /* User info компактно */
@@ -108,7 +111,8 @@ html, body {
 }
 
 .mobile-mode #user-name {
-    display: none; /* Скрываем имя пользователя */
+    display: none;
+    /* Скрываем имя пользователя */
 }
 
 .mobile-mode #user-info .btn {
@@ -118,7 +122,8 @@ html, body {
 /* ==================== CONTAINER & LAYOUT ==================== */
 
 .mobile-mode .container {
-    padding: 60px 10px 90px; /* Отступ снизу для floating кнопки */
+    padding: 60px 10px 90px;
+    /* Отступ снизу для floating кнопки */
     max-width: 100vw !important;
     width: 100% !important;
     overflow-x: hidden !important;
@@ -126,14 +131,16 @@ html, body {
 }
 
 .mobile-mode .main-layout {
-    grid-template-columns: 1fr; /* Одна колонка */
+    grid-template-columns: 1fr;
+    /* Одна колонка */
     gap: 15px;
     max-width: 100% !important;
     width: 100% !important;
 }
 
 .mobile-mode .hero {
-    display: none; /* Скрыто на мобильном - экономим место */
+    display: none;
+    /* Скрыто на мобильном - экономим место */
 }
 
 /* ==================== FILTERS ==================== */
@@ -190,9 +197,12 @@ html, body {
 }
 
 @keyframes pulse {
-    0%, 100% {
+
+    0%,
+    100% {
         box-shadow: 0 4px 16px rgba(74, 157, 157, 0.4);
     }
+
     50% {
         box-shadow: 0 4px 24px rgba(74, 157, 157, 0.6);
         transform: scale(1.05);
@@ -357,7 +367,8 @@ html, body {
 
 .mobile-mode .search-box input {
     padding: 12px 40px 12px 15px;
-    font-size: 16px; /* Предотвращает zoom на iOS */
+    font-size: 16px;
+    /* Предотвращает zoom на iOS */
     max-width: 100% !important;
     width: 100% !important;
     box-sizing: border-box !important;
@@ -389,7 +400,8 @@ html, body {
 /* ==================== PROFILES GRID ==================== */
 
 .mobile-mode .profiles-grid {
-    grid-template-columns: 1fr; /* Одна карточка на экран для слайдинга */
+    grid-template-columns: 1fr;
+    /* Одна карточка на экран для слайдинга */
     gap: 15px;
     max-width: 100% !important;
     width: 100% !important;
@@ -540,8 +552,15 @@ html, body {
 }
 
 @keyframes likeAnimation {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.3); }
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.3);
+    }
 }
 
 .mobile-social-btn .icon {
@@ -801,6 +820,12 @@ html, body {
     user-select: none;
     pointer-events: auto;
     will-change: transform;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    perspective: 1000px;
+    -webkit-perspective: 1000px;
 }
 
 .mobile-mode .lightbox-thumbnails {
@@ -1049,13 +1074,13 @@ html, body {
 }
 
 /* Блок параметров раствора */
-.mobile-mode div[id*="solution-content"] > div:first-child {
+.mobile-mode div[id*="solution-content"]>div:first-child {
     width: 100% !important;
     margin-bottom: 10px !important;
 }
 
 /* Параметры раствора (EC, NH4:NO3, K:N и т.д.) */
-.mobile-mode div[id*="solution-content"] > div:first-child > div[style*="display: flex"] {
+.mobile-mode div[id*="solution-content"]>div:first-child>div[style*="display: flex"] {
     display: flex !important;
     flex-wrap: nowrap !important;
     overflow-x: auto !important;
@@ -1070,12 +1095,12 @@ html, body {
     padding: 6px 4px !important;
 }
 
-.mobile-mode div[id*="solution-content"] div[style*="background: white"] > div:first-child {
+.mobile-mode div[id*="solution-content"] div[style*="background: white"]>div:first-child {
     font-size: 13px !important;
     font-weight: 600 !important;
 }
 
-.mobile-mode div[id*="solution-content"] div[style*="background: white"] > div:last-child {
+.mobile-mode div[id*="solution-content"] div[style*="background: white"]>div:last-child {
     font-size: 8px !important;
     margin-top: 2px !important;
 }
@@ -1083,7 +1108,7 @@ html, body {
 /* ========== ПРОФИЛЬ ПИТАНИЯ ========== */
 
 /* Блок профиля питания */
-.mobile-mode div[id*="solution-content"] > div:last-child {
+.mobile-mode div[id*="solution-content"]>div:last-child {
     width: 100% !important;
 }
 
@@ -1105,13 +1130,13 @@ html, body {
 }
 
 /* Значения элементов питания */
-.mobile-mode div[style*="linear-gradient(135deg"] > div[style*="font-size: 14px"] {
+.mobile-mode div[style*="linear-gradient(135deg"]>div[style*="font-size: 14px"] {
     font-size: 12px !important;
     line-height: 1 !important;
 }
 
 /* Названия элементов питания */
-.mobile-mode div[style*="linear-gradient(135deg"] > div[style*="font-size: 10px"] {
+.mobile-mode div[style*="linear-gradient(135deg"]>div[style*="font-size: 10px"] {
     font-size: 8px !important;
     line-height: 1 !important;
     margin-top: 2px !important;
@@ -1374,6 +1399,7 @@ html, body {
     from {
         transform: translateY(100%);
     }
+
     to {
         transform: translateY(0);
     }
@@ -1408,7 +1434,8 @@ html, body {
 .mobile-mode input,
 .mobile-mode textarea,
 .mobile-mode select {
-    font-size: 16px !important; /* Предотвращает zoom на iOS */
+    font-size: 16px !important;
+    /* Предотвращает zoom на iOS */
 }
 
 .mobile-mode .form-group {
@@ -1491,13 +1518,16 @@ html, body {
 }
 
 @keyframes spin {
-    to { transform: rotate(360deg); }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 /* ==================== TABLET ADJUSTMENTS ==================== */
 
 .tablet-mode .profiles-grid {
-    grid-template-columns: repeat(2, 1fr); /* Две колонки на планшете */
+    grid-template-columns: repeat(2, 1fr);
+    /* Две колонки на планшете */
 }
 
 .tablet-mode .container {
@@ -1508,9 +1538,10 @@ html, body {
 
 @media (orientation: landscape) {
     .mobile-mode .hero {
-        display: none; /* Экономим место в landscape */
+        display: none;
+        /* Экономим место в landscape */
     }
-    
+
     .mobile-mode .container {
         padding: 60px 10px 20px;
     }
@@ -1523,12 +1554,12 @@ html, body {
         padding-left: max(10px, env(safe-area-inset-left));
         padding-right: max(10px, env(safe-area-inset-right));
     }
-    
+
     .mobile-mode .header-content {
         padding-left: max(15px, env(safe-area-inset-left));
         padding-right: max(15px, env(safe-area-inset-right));
     }
-    
+
     .mobile-mode .profile-card {
         margin-left: max(0px, env(safe-area-inset-left));
         margin-right: max(0px, env(safe-area-inset-right));
@@ -1631,17 +1662,18 @@ html, body {
 /* ==================== ЛАНДШАФТНЫЙ РЕЖИМ (ГОРИЗОНТАЛЬНАЯ ОРИЕНТАЦИЯ) ==================== */
 
 @media screen and (orientation: landscape) and (max-width: 1024px) {
+
     /* Блок с параметрами профиля справа */
     .mobile-mode .lightbox-solution {
         left: auto;
         right: 10px;
         z-index: 999 !important;
     }
-    
+
     .mobile-mode .lightbox-solution-collapsed {
         max-width: 250px;
     }
-    
+
     /* Заголовок профиля слева */
     .mobile-mode .lightbox-profile-header {
         left: 10px;
@@ -1649,7 +1681,7 @@ html, body {
         max-width: min(400px, calc(50% - 20px));
         z-index: 999 !important;
     }
-    
+
     /* Описание внизу слева */
     .mobile-mode .lightbox-info {
         left: 10px;
@@ -1658,22 +1690,22 @@ html, body {
         max-width: min(350px, calc(50% - 20px));
         z-index: 999 !important;
     }
-    
+
     .mobile-mode .lightbox-info-collapsed {
         max-width: 220px;
     }
-    
+
     /* Thumbnails по центру внизу */
     .mobile-mode .lightbox-thumbnails {
         bottom: 10px;
         max-width: 70vw;
     }
-    
+
     /* Кнопки навигации поверх всего */
     .mobile-mode .lightbox-nav {
         z-index: 1002 !important;
     }
-    
+
     /* Кнопки навигации внизу по углам */
     .mobile-mode .lightbox-nav-prev {
         top: auto !important;
@@ -1681,14 +1713,14 @@ html, body {
         left: 20px !important;
         transform: none !important;
     }
-    
+
     .mobile-mode .lightbox-nav-next {
         top: auto !important;
         bottom: 20px !important;
         right: 20px !important;
         transform: none !important;
     }
-    
+
     .mobile-mode .lightbox-nav-prev:hover,
     .mobile-mode .lightbox-nav-next:hover {
         transform: scale(1.1) !important;

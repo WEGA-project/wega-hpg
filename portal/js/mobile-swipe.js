@@ -226,17 +226,15 @@
         });
     };
 
-    // Продвинутый Pinch to zoom и Pan для изображений в lightbox
+    // Оптимизированный Pinch to zoom и Pan для изображений в lightbox
     let initialDistance = 0;
     let currentScale = 1;
-    let currentPosX = 0;
-    let currentPosY = 0;
-    let lastPosX = 0;
-    let lastPosY = 0;
-    let initialPinchCenter = { x: 0, y: 0 };
+    let translateX = 0;
+    let translateY = 0;
+    let lastTouchX = 0;
+    let lastTouchY = 0;
     let isPanning = false;
-    let panStartX = 0;
-    let panStartY = 0;
+    let isZooming = false;
 
     const initPinchZoom = () => {
         const lightboxImage = document.getElementById('lightboxImage');
@@ -248,77 +246,61 @@
             if (e.touches.length === 2) {
                 // Pinch zoom начало
                 e.preventDefault();
+                isZooming = true;
+                isPanning = false;
                 initialDistance = getDistance(e.touches[0], e.touches[1]);
-
-                // Запоминаем центр pinch для zoom относительно точки касания
-                initialPinchCenter = {
-                    x: (e.touches[0].clientX + e.touches[1].clientX) / 2,
-                    y: (e.touches[0].clientY + e.touches[1].clientY) / 2
-                };
             } else if (e.touches.length === 1 && currentScale > 1) {
                 // Pan начало (только если есть zoom)
                 isPanning = true;
-                panStartX = e.touches[0].clientX - currentPosX;
-                panStartY = e.touches[0].clientY - currentPosY;
+                isZooming = false;
+                lastTouchX = e.touches[0].clientX;
+                lastTouchY = e.touches[0].clientY;
             }
         }, { passive: false });
 
         container.addEventListener('touchmove', (e) => {
-            if (e.touches.length === 2) {
+            if (e.touches.length === 2 && isZooming) {
                 // Pinch zoom
                 e.preventDefault();
 
                 const currentDistance = getDistance(e.touches[0], e.touches[1]);
-                const scale = currentDistance / initialDistance;
-
-                // Плавное изменение масштаба
-                const newScale = currentScale * scale;
-                currentScale = Math.min(Math.max(newScale, 1), 5); // От 1x до 5x
-
-                // Применяем zoom через глобальные функции если они есть
-                if (typeof window.currentZoom !== 'undefined') {
-                    window.currentZoom = currentScale;
-                    window.currentX = currentPosX;
-                    window.currentY = currentPosY;
-                    if (typeof applyZoom === 'function') {
-                        applyZoom();
-                    }
-                } else {
-                    // Fallback - прямое изменение transform
-                    lightboxImage.style.transform = `scale(${currentScale}) translate(${currentPosX}px, ${currentPosY}px)`;
-                    lightboxImage.style.transformOrigin = 'center center';
-                }
-
+                const scaleDelta = currentDistance / initialDistance;
+                
+                currentScale = Math.min(Math.max(currentScale * scaleDelta, 1), 5);
                 initialDistance = currentDistance;
+
+                // Применяем только scale без translate для производительности
+                lightboxImage.style.transform = `scale(${currentScale})`;
+                
             } else if (e.touches.length === 1 && isPanning && currentScale > 1) {
                 // Pan (перемещение при зуме)
                 e.preventDefault();
 
-                currentPosX = e.touches[0].clientX - panStartX;
-                currentPosY = e.touches[0].clientY - panStartY;
+                const deltaX = e.touches[0].clientX - lastTouchX;
+                const deltaY = e.touches[0].clientY - lastTouchY;
+                
+                translateX += deltaX;
+                translateY += deltaY;
 
-                // Ограничиваем перемещение границами изображения
-                const maxX = (lightboxImage.width * (currentScale - 1)) / 2;
-                const maxY = (lightboxImage.height * (currentScale - 1)) / 2;
+                // Ограничиваем перемещение
+                const rect = lightboxImage.getBoundingClientRect();
+                const maxX = Math.max(0, (rect.width - window.innerWidth) / 2);
+                const maxY = Math.max(0, (rect.height - window.innerHeight) / 2);
 
-                currentPosX = Math.min(Math.max(currentPosX, -maxX), maxX);
-                currentPosY = Math.min(Math.max(currentPosY, -maxY), maxY);
+                translateX = Math.min(Math.max(translateX, -maxX), maxX);
+                translateY = Math.min(Math.max(translateY, -maxY), maxY);
 
-                // Применяем позицию
-                if (typeof window.currentX !== 'undefined') {
-                    window.currentX = currentPosX;
-                    window.currentY = currentPosY;
-                    if (typeof applyZoom === 'function') {
-                        applyZoom();
-                    }
-                } else {
-                    lightboxImage.style.transform = `scale(${currentScale}) translate(${currentPosX}px, ${currentPosY}px)`;
-                }
+                // Применяем transform с использованием translate3d для GPU ускорения
+                lightboxImage.style.transform = `scale(${currentScale}) translate3d(${translateX}px, ${translateY}px, 0)`;
+                
+                lastTouchX = e.touches[0].clientX;
+                lastTouchY = e.touches[0].clientY;
             }
         }, { passive: false });
 
         container.addEventListener('touchend', (e) => {
             if (e.touches.length < 2) {
+                isZooming = false;
                 initialDistance = 0;
             }
 
@@ -326,16 +308,11 @@
                 isPanning = false;
 
                 // Если zoom сброшен до 1 - сбрасываем позицию
-                if (currentScale <= 1.1) {
+                if (currentScale <= 1.05) {
                     currentScale = 1;
-                    currentPosX = 0;
-                    currentPosY = 0;
-
-                    if (typeof resetZoom === 'function') {
-                        resetZoom();
-                    } else {
-                        lightboxImage.style.transform = 'scale(1) translate(0, 0)';
-                    }
+                    translateX = 0;
+                    translateY = 0;
+                    lightboxImage.style.transform = 'scale(1)';
                 }
             }
         });
@@ -355,36 +332,13 @@
                 if (currentScale > 1) {
                     // Zoom out - сброс
                     currentScale = 1;
-                    currentPosX = 0;
-                    currentPosY = 0;
-
-                    if (typeof resetZoom === 'function') {
-                        resetZoom();
-                    } else {
-                        lightboxImage.style.transform = 'scale(1) translate(0, 0)';
-                    }
+                    translateX = 0;
+                    translateY = 0;
+                    lightboxImage.style.transform = 'scale(1)';
                 } else {
                     // Zoom in на место тапа
                     currentScale = 2.5;
-
-                    // Вычисляем позицию для центрирования на точке тапа
-                    const rect = lightboxImage.getBoundingClientRect();
-                    const tapX = lastTapX - rect.left - rect.width / 2;
-                    const tapY = lastTapY - rect.top - rect.height / 2;
-
-                    currentPosX = -tapX * 0.5;
-                    currentPosY = -tapY * 0.5;
-
-                    if (typeof window.currentZoom !== 'undefined') {
-                        window.currentZoom = currentScale;
-                        window.currentX = currentPosX;
-                        window.currentY = currentPosY;
-                        if (typeof applyZoom === 'function') {
-                            applyZoom();
-                        }
-                    } else {
-                        lightboxImage.style.transform = `scale(${currentScale}) translate(${currentPosX}px, ${currentPosY}px)`;
-                    }
+                    lightboxImage.style.transform = `scale(${currentScale})`;
                 }
             }
 

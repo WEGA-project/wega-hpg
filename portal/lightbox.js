@@ -9,6 +9,8 @@ let startY = 0;
 let currentPhotos = [];
 let currentPhotoIndex = 0;
 let currentProfileId = null;
+let solutionPanelExpanded = true; // Запоминаем состояние блока с параметрами
+let infoPanelExpanded = true; // Запоминаем состояние блока с описанием
 
 // Инициализация lightbox
 function initLightbox() {
@@ -802,6 +804,30 @@ function updatePhoto() {
                 <div class="lightbox-info-collapsed-label">▶ Развернуть описание</div>
             `;
             infoPanel.appendChild(collapsed);
+            
+            // Восстанавливаем сохраненное состояние
+            if (!infoPanelExpanded) {
+                content.style.display = 'none';
+                collapsed.style.display = 'inline-flex';
+                toggleBtn.style.display = 'none';
+            }
+        } else {
+            // Восстанавливаем состояние для существующих элементов
+            const content = document.getElementById('infoPanelContent');
+            const collapsed = document.getElementById('infoPanelCollapsed');
+            const toggleBtn = document.getElementById('infoPanelToggle');
+            
+            if (content && collapsed && toggleBtn) {
+                if (infoPanelExpanded) {
+                    content.style.display = 'block';
+                    collapsed.style.display = 'none';
+                    toggleBtn.style.display = 'flex';
+                } else {
+                    content.style.display = 'none';
+                    collapsed.style.display = 'inline-flex';
+                    toggleBtn.style.display = 'none';
+                }
+            }
         }
     }
 
@@ -983,7 +1009,7 @@ function updatePhoto() {
         `;
         solutionPanel.style.display = 'flex';
 
-        // На мобильных устройствах сворачиваем по умолчанию и позиционируем под заголовком
+        // Позиционируем под заголовком и восстанавливаем сохраненное состояние
         const isMobile = document.body.classList.contains('mobile-mode') || window.innerWidth <= 768;
         if (isMobile) {
             setTimeout(() => {
@@ -992,10 +1018,15 @@ function updatePhoto() {
                 const toggleBtn = document.querySelector('.lightbox-solution-toggle');
                 const profileHeader = document.getElementById('lightboxProfileHeader');
 
-                if (content && collapsed) {
-                    content.style.display = 'none';
-                    collapsed.style.display = 'inline-flex';
-                    if (toggleBtn) {
+                // Восстанавливаем сохраненное состояние
+                if (content && collapsed && toggleBtn) {
+                    if (solutionPanelExpanded) {
+                        content.style.display = 'block';
+                        collapsed.style.display = 'none';
+                        toggleBtn.style.display = 'flex';
+                    } else {
+                        content.style.display = 'none';
+                        collapsed.style.display = 'inline-flex';
                         toggleBtn.style.display = 'none';
                     }
                 }
@@ -1216,6 +1247,7 @@ function toggleSolutionPanel() {
             toggleBtn.innerHTML = '−';
             toggleBtn.title = 'Свернуть профиль';
         }
+        solutionPanelExpanded = true; // Сохраняем состояние
     } else {
         // Сворачиваем
         content.style.display = 'none';
@@ -1223,6 +1255,7 @@ function toggleSolutionPanel() {
         if (toggleBtn) {
             toggleBtn.style.display = 'none';
         }
+        solutionPanelExpanded = false; // Сохраняем состояние
     }
 }
 
@@ -1242,6 +1275,7 @@ function toggleInfoPanel() {
             toggleBtn.innerHTML = '−';
             toggleBtn.title = 'Свернуть описание';
         }
+        infoPanelExpanded = true; // Сохраняем состояние
     } else {
         // Сворачиваем
         content.style.display = 'none';
@@ -1249,6 +1283,7 @@ function toggleInfoPanel() {
         if (toggleBtn) {
             toggleBtn.style.display = 'none';
         }
+        infoPanelExpanded = false; // Сохраняем состояние
     }
 }
 
