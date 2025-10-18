@@ -56,7 +56,7 @@ body {
 /* ==================== HEADER ==================== */
 
 .mobile-mode .header {
-    padding: 12px 0;
+    padding: 8px 0;
     position: fixed;
     width: 100%;
     top: 0;
@@ -66,33 +66,43 @@ body {
 }
 
 .mobile-mode .header-content {
-    padding: 0 15px;
-    gap: 10px;
+    padding: 0 10px;
+    gap: 8px;
     max-width: 100vw !important;
     width: 100% !important;
     box-sizing: border-box !important;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .mobile-mode .logo {
-    font-size: 18px;
+    font-size: 16px;
+    flex-shrink: 0;
 }
 
 .mobile-mode .logo-icon {
-    font-size: 24px;
+    font-size: 20px;
+}
+
+.mobile-mode .header-center {
+    flex: 0 0 auto;
+    justify-content: center;
 }
 
 .mobile-mode .header-actions {
-    gap: 6px;
+    gap: 4px;
+    flex-wrap: nowrap;
 }
 
 /* Компактные кнопки header - только иконки на мобильном */
 .mobile-mode .header-actions .btn {
     padding: 0;
-    min-height: 44px;
-    min-width: 44px;
-    width: 44px;
-    height: 44px;
-    font-size: 22px;
+    min-height: 36px;
+    min-width: 36px;
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -100,26 +110,31 @@ body {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    flex-shrink: 0;
 }
 
 /* Кнопка входа - компактная */
 .mobile-mode .header-actions .btn-primary {
     width: auto !important;
-    min-width: 44px;
-    max-width: 120px;
-    padding: 0 12px !important;
-    font-size: 13px !important;
-    border-radius: 22px !important;
+    min-width: 36px;
+    max-width: 80px;
+    padding: 0 10px !important;
+    font-size: 12px !important;
+    border-radius: 18px !important;
 }
 
 /* User info компактно */
 .mobile-mode #user-info {
     gap: 4px !important;
+    display: flex !important;
+    align-items: center;
+    flex-shrink: 0;
 }
 
 .mobile-mode #user-avatar {
-    width: 36px !important;
-    height: 36px !important;
+    width: 32px !important;
+    height: 32px !important;
+    flex-shrink: 0;
 }
 
 .mobile-mode #user-name {
@@ -128,13 +143,18 @@ body {
 }
 
 .mobile-mode #user-info .btn {
-    font-size: 20px;
+    font-size: 16px;
+    min-height: 32px;
+    min-width: 32px;
+    width: 32px;
+    height: 32px;
+    padding: 0 !important;
 }
 
 /* ==================== CONTAINER & LAYOUT ==================== */
 
 .mobile-mode .container {
-    padding: 60px 10px 90px;
+    padding: 52px 10px 90px;
     /* Отступ снизу для floating кнопки */
     max-width: 100vw !important;
     width: 100% !important;
